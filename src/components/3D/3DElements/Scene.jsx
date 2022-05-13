@@ -35,7 +35,7 @@ export default function Scene() {
           config={{ mass: 2, tension: 500 }}
           snap={{ mass: 4, tension: 1500 }}
         >
-            <Pancake rotation={[Math.PI * X, Math.PI * Y, Math.PI * Z]} position={[0,0,0]} scale={0.075} />
+            <Pancake rotation={[Math.PI * X, Math.PI * Y, Math.PI * Z]} position={[0,0,0]} scale={0.005} />
         </PresentationControls>
         </Bounds>
         <ContactShadows
