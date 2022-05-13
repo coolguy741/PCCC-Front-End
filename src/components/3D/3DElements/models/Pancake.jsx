@@ -5,13 +5,23 @@ created: Wed May 11 14:15:26 2022
 
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 const path = "/assets/glb/pancakes_PanAction.glb"
 
-export default function Model(props) {
-  const group = useRef();
+export default function Model({rotation, ...props}) {
+  const ref = useRef();
   const { nodes, materials } = useGLTF(path);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime()
+    ref.current.rotation.x = rotation[0] + Math.cos(t / 4) / 8
+    ref.current.rotation.y = rotation[1] + Math.sin(t / 4) / 8
+    ref.current.rotation.z = rotation[2] + Math.sin(t / 1.5) / 20
+    ref.current.position.y = rotation[1] + Math.sin(t / 1.5) / 10
+  })
+
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <mesh
         castShadow
         receiveShadow

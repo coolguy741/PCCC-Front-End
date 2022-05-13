@@ -27,15 +27,15 @@ export default function Scene() {
   });
   return (
     <StyledHolder>
-      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 4], fov: 50 }}>
+      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 15], fov: 50 }}>
         <Lights />
-        <Bounds fit clip margin={1.2}>
+        <Bounds fit clip margin={1.2} >
         <PresentationControls
           global
           config={{ mass: 2, tension: 500 }}
           snap={{ mass: 4, tension: 1500 }}
         >
-            <Pancake rotation={[Math.PI * X, Math.PI * Y, Math.PI * Z]} position={[0,0,0]} scale={0.005} />
+            <Pancake rotation={[Math.PI * X, Math.PI * Y, Math.PI * Z]} position={[0,0,0]} scale={0.1} />
         </PresentationControls>
         </Bounds>
         <ContactShadows

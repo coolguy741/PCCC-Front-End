@@ -5,7 +5,7 @@ import './style/App.css';
 function App() {
   return (
     <div className="App">
-      <Leva hidden={true}/>
+     <Leva hidden={true}/> 
       <Scene/>
     </div>
   );
