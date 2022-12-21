@@ -14,8 +14,7 @@ export function Homepage() {
         Power <span> Full </span> Kids<sup>&trade;</sup>
       </h3>
       <h1>Launching</h1>
-      <h1>Fall 2022</h1>
-      <h2>Pancakes in process</h2>
+      <h1>Fall 2023</h1>
     </div>
   );
 
@@ -28,9 +27,8 @@ export function Homepage() {
       <h1>
         l’automne
         <br />
-        2022
+        2023
       </h1>
-      <h2>Crepes en progrès</h2>
     </div>
   );
 
