@@ -6,83 +6,61 @@ created: Wed May 11 14:15:26 2022
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-const path = "/assets/glb/pancakes_PanAction.glb"
+const path = "/assets/glb/pancakes_LP2.glb"
 
 export default function Model({rotation, ...props}) {
-  const ref = useRef();
+  const group = useRef();
   const { nodes, materials } = useGLTF(path);
+
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
-    ref.current.rotation.x = rotation[0] + Math.cos(t / 4) / 8
-    ref.current.rotation.y = rotation[1] + Math.sin(t / 4) / 8
-    ref.current.rotation.z = rotation[2] + Math.sin(t / 1.5) / 20
-    ref.current.position.y = rotation[1] + Math.sin(t / 1.5) / 10
+    group.current.rotation.x = rotation[0] + Math.cos(t / 4) / 8
+    group.current.rotation.y = rotation[1] + Math.sin(t / 4) / 8
+    group.current.rotation.z = rotation[2] + Math.sin(t / 1.5) / 40
+    group.current.position.y = Math.sin(t / 1.5) / 80
+    //group.current.position.y = rotation[1] + Math.sin(t / 1.5) / 80
   })
 
   return (
-    <group ref={ref} {...props} dispose={null}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.butter_1.geometry}
-        material={nodes.butter_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.blueberry_01_1.geometry}
-        material={nodes.blueberry_01_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.blueberry_02_1.geometry}
-        material={nodes.blueberry_02_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.blueberry_03_1.geometry}
-        material={nodes.blueberry_03_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.blueberry_04_1.geometry}
-        material={nodes.blueberry_04_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.blueberry_05_1.geometry}
-        material={nodes.blueberry_05_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.blueberry_06_1.geometry}
-        material={nodes.blueberry_06_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.pancake_01_1.geometry}
-        material={nodes.pancake_01_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.pancake_02_1.geometry}
-        material={nodes.pancake_02_1.material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.pan_1.geometry}
-        material={nodes.pan_1.material}
-      />
-    </group>
+      <group ref={group} {...props} dispose={null}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Berry_01001.geometry}
+          material={nodes.Berry_01001.material}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Berry_01_2001.geometry}
+          material={nodes.Berry_01_2001.material}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Berry_01_3001.geometry}
+          material={nodes.Berry_01_3001.material}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.cake_01_1001.geometry}
+          material={nodes.cake_01_1001.material}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.cake_01001.geometry}
+          material={nodes.cake_01001.material}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.pan001.geometry}
+          material={nodes.pan001.material}
+        />
+      </group>
   );
 }
 
