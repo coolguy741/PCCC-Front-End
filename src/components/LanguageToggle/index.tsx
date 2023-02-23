@@ -6,7 +6,7 @@ interface ToggleProps {
   setValue: (value: boolean) => void;
 }
 
-export const Toggle = ({ value, setValue }: ToggleProps) => {
+export const LanguageToggle = ({ value, setValue }: ToggleProps) => {
   const [isActive, setActive] = useState(value);
   useEffect(() => setValue(isActive), [isActive]);
   return (

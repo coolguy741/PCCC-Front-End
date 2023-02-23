@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Leva } from "leva";
 import styled from "styled-components";
-import { Toggle } from "../../components/LanguageToggle";
+import { LanguageToggle } from "../../components/LanguageToggle";
 import { Logo } from "../../components/Logo";
 import Scene from "../../components/Scene";
 
@@ -36,7 +36,7 @@ export const HomePage = () => {
     <StyledHomepage>
       <header>
         <Logo />
-        <Toggle value={eng} setValue={useEng} />
+        <LanguageToggle value={eng} setValue={useEng} />
       </header>
 
       <main>
