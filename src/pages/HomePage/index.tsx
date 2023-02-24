@@ -65,6 +65,8 @@ const StyledHomepage = styled.div`
   background-image: url("/images/background.svg");
   background-position: center center;
   background-repeat: no-repeat;
+  color: #3d3d3d;
+  font-kerning: normal;
   background-size: cover;
 
   .spline {
@@ -79,22 +81,21 @@ const StyledHomepage = styled.div`
     box-sizing: border-box;
   }
 
-  color: #3d3d3d;
-  font-kerning: normal;
-
   main {
-    display: grid;
     width: 100%;
+    display: flex;
     justify-items: center;
-    align-items: center;
 
     .title {
+      position: absolute;
+      top: 30%;
+      left: 15%;
       z-index: 10;
       pointer-events: none;
     }
 
     span {
-      color: #d41c25;
+      color: var(--red);
     }
     sup {
       font-family: sans-serif;
@@ -114,7 +115,7 @@ const StyledHomepage = styled.div`
       letter-spacing: 1px;
     }
     h1:nth-of-type(1) {
-      color: #e97a3c;
+      color: #fff;
     }
     h1:nth-of-type(2) {
       font-size: 3.45rem;
@@ -179,11 +180,6 @@ const StyledHomepage = styled.div`
     }
 
     main {
-      .title {
-        position: relative;
-        padding-bottom: 230px;
-        padding-right: 15px;
-      }
       h1 {
         font-size: 6.1rem;
         line-height: 5.6rem;
@@ -207,31 +203,8 @@ const StyledHomepage = styled.div`
   }
 
   @media (orientation: portrait) {
-    & main {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 0.5fr 0.25fr 1fr;
-
-      & > div:nth-child(1) {
-        grid-area: 1 / 1 / 3 / 2;
-      }
-      & > div:nth-child(2) {
-        grid-area: 2 / 1 / 4 / 2;
-      }
-    }
   }
 
   @media (orientation: landscape) {
-    & main {
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 1fr;
-
-      & > div:nth-child(1) {
-        grid-area: 1 / 1 / 2 / 3;
-      }
-      & > div:nth-child(2) {
-        grid-area: 1 / 2 / 2 / 4;
-      }
-    }
   }
 `;

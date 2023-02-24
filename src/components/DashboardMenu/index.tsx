@@ -19,7 +19,9 @@ export const DashboardMenu = () => {
 
   return (
     <MenuContainer>
-      <Logo width={120} />
+      <div className="logo-container">
+        <Logo width={120} />
+      </div>
       <div className="item-container">
         <Link to="/dashboard">
           <div className={`item ${isDashboard && "active"}`}>
@@ -91,10 +93,14 @@ const MenuContainer = styled.div`
   height: 100vh;
   background-color: var(--yellow);
   border-radius: 0 35px 35px 0;
-  padding: 30px 0 30px 30px;
+  padding: 30px 0 30px 20px;
   display: flex;
   flex-direction: column;
   gap: 100px;
+
+  .logo-container {
+    padding-left: 10px;
+  }
 
   .item-container {
     display: flex;
@@ -111,7 +117,7 @@ const MenuContainer = styled.div`
       padding: 15px 0;
       border-radius: 20px 0 0 20px;
       transition: 0.3s all ease-in-out;
-      padding-left: 20px;
+      padding-left: 10px;
 
       &.active {
         background-color: #fff;

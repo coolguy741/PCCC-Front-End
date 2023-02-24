@@ -34,7 +34,7 @@ const StyledToggle = styled.div`
   position: relative;
   height: 25px;
   width: calc(${width}*2);
-  background: #f87c56;
+  background: var(--red);
   border-radius: 29px;
   grid-template-columns: repeat(${items}, ${width});
   grid-template-rows: 1fr;
