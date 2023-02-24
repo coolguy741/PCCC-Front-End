@@ -62,6 +62,10 @@ const StyledHomepage = styled.div`
   display: grid;
   gap: 15px;
   grid-template-rows: min-content auto min-content;
+  background-image: url("/images/background.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   .spline {
     position: absolute;
