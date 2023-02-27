@@ -13,11 +13,13 @@ import { FoodwaysEditorPage } from "./FoodwaysEditorPage";
 import { RecipeBuilderPage } from "./RecipeBuilderPage";
 import { CalendarPage } from "./CalendarPage";
 import { ReportsPage } from "./ReportsPage";
+import { LandingPage } from "./LandingPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   { path: "/signin", element: <SignInPage /> },
   { path: "/signup", element: <SignUpPage /> },
+  { path: "/landing", element: <LandingPage /> },
   {
     path: "/dashboard",
     element: (
