@@ -89,17 +89,18 @@ export const DashboardMenu = () => {
 };
 
 const MenuContainer = styled.div`
-  width: 280px;
+  width: 350px;
   height: 100vh;
   background-color: var(--yellow);
   border-radius: 0 35px 35px 0;
-  padding: 30px 0 30px 20px;
+  padding: 30px 0;
   display: flex;
   flex-direction: column;
   gap: 100px;
+  box-shadow: 3px 0px 13px rgba(0, 0, 0, 0.15);
 
   .logo-container {
-    padding-left: 10px;
+    padding-left: 30px;
   }
 
   .item-container {
@@ -115,13 +116,11 @@ const MenuContainer = styled.div`
       gap: 20px;
       align-items: center;
       padding: 15px 0;
-      border-radius: 20px 0 0 20px;
       transition: 0.3s all ease-in-out;
-      padding-left: 10px;
+      padding-left: 30px;
 
       &.active {
-        background-color: #fff;
-        color: var(--yellow);
+        background-color: var(--orange);
         transition: 0.3s all ease-in-out;
       }
     }
