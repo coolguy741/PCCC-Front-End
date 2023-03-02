@@ -20,7 +20,9 @@ export const DashboardMenu = () => {
   return (
     <MenuContainer>
       <div className="logo-container">
-        <Logo width={120} />
+        <Link to="/">
+          <Logo width={120} />
+        </Link>
       </div>
       <div className="item-container">
         <Link to="/dashboard">
