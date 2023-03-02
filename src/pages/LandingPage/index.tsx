@@ -14,7 +14,7 @@ export const LandingPage = () => {
       </div>
       <div className="odd">
         <h1>Panel 3</h1>
-        <Spline scene="https://prod.spline.design/nvLk40a823tDdqwD/scene.splinecode" />
+        <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
       </div>
       <div>
         <h1>Panel 4</h1>
@@ -22,7 +22,7 @@ export const LandingPage = () => {
       </div>
       <div className="odd">
         <h1>Panel 5</h1>
-        <Spline scene="https://prod.spline.design/nvLk40a823tDdqwD/scene.splinecode" />
+        <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
       </div>
       <div>
         <h1>Panel 6</h1>
@@ -30,7 +30,7 @@ export const LandingPage = () => {
       </div>
       <div className="odd">
         <h1>Panel 7</h1>
-        <Spline scene="https://prod.spline.design/nvLk40a823tDdqwD/scene.splinecode" />
+        <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
       </div>
     </Container>
   );
