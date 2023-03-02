@@ -98,6 +98,7 @@ const MenuContainer = styled.div`
   flex-direction: column;
   gap: 100px;
   box-shadow: 3px 0px 13px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 
   .logo-container {
     padding-left: 30px;
