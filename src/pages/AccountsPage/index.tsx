@@ -1,7 +1,7 @@
-export const ProfilesPage = () => {
+export const AccountsPage = () => {
   return (
     <>
-      <h1>Profiles Page</h1>
+      <h1>Accounts Page</h1>
     </>
   );
 };
