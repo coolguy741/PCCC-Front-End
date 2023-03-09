@@ -3,7 +3,7 @@ import { HomePage } from "./HomePage";
 import { SignInPage } from "./SignInPage";
 import { SignUpPage } from "./SignUpPage";
 import { DashboardPage } from "./DashboardPage";
-import { ProfilesPage } from "./ProfilesPage";
+import { ProfilesPage } from "./AccountsPage";
 import { GroupOrganizerPage } from "./GroupOrganizerPage";
 import { MealPlannerPage } from "./MealPlannerPage";
 import { TopicEditorPage } from "./TopicEditorPage";
@@ -32,8 +32,8 @@ export const router = createBrowserRouter([
       { path: "reports", element: <ReportsPage /> },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
       { path: "meal-planner", element: <MealPlannerPage /> },
-      { path: "topic-editor", element: <TopicEditorPage /> },
-      { path: "discovery-editor", element: <DiscoveryEditorPage /> },
+      { path: "topics", element: <TopicEditorPage /> },
+      { path: "daily-discovery", element: <DiscoveryEditorPage /> },
       { path: "activities-builder", element: <ActivitiesBuilderPage /> },
       { path: "foodways-editor", element: <FoodwaysEditorPage /> },
       { path: "recipe-builder", element: <RecipeBuilderPage /> },

@@ -9233,6 +9233,11 @@ react-element-to-jsx-string@^14.3.4:
     is-plain-object "5.0.0"
     react-is "17.0.2"
 
+react-fps-stats@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-fps-stats/-/react-fps-stats-0.3.1.tgz#8fde25fd633c9c50a28abc2fe6a19587e8dfa23d"
+  integrity sha512-SwjJd8eK6XQseXF0DjOv0PotfzSkIm9yhqsggEaJHhPgKq0P7QcL5xuLy/UlOFGjFbRMHRp1w8b8wJfoWNR3uA==
+
 react-inspector@^5.1.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-inspector/-/react-inspector-5.1.1.tgz#58476c78fde05d5055646ed8ec02030af42953c8"

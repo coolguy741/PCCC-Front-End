@@ -1,38 +1,43 @@
 import styled from "styled-components";
 import Spline from "@splinetool/react-spline";
+// @ts-ignore
+import FPSStats from "react-fps-stats";
 
 export const LandingPage = () => {
   return (
-    <Container>
-      <div className="odd">
-        <h1>Panel 1</h1>
-        <Spline scene="https://prod.spline.design/75VaWhQ6daSyqN2c/scene.splinecode" />
-      </div>
-      <div>
-        <h1>Panel 2</h1>
-        <Spline scene="https://prod.spline.design/CDccCKiwER1WcG8q/scene.splinecode" />
-      </div>
-      <div className="odd">
-        <h1>Panel 3</h1>
-        <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
-      </div>
-      <div>
-        <h1>Panel 4</h1>
-        <Spline scene="https://prod.spline.design/CDccCKiwER1WcG8q/scene.splinecode" />
-      </div>
-      <div className="odd">
-        <h1>Panel 5</h1>
-        <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
-      </div>
-      <div>
-        <h1>Panel 6</h1>
-        <Spline scene="https://prod.spline.design/CDccCKiwER1WcG8q/scene.splinecode" />
-      </div>
-      <div className="odd">
-        <h1>Panel 7</h1>
-        <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
-      </div>
-    </Container>
+    <>
+      <FPSStats />
+      <Container>
+        <div className="odd">
+          <h1>Panel 1</h1>
+          <Spline scene="https://prod.spline.design/75VaWhQ6daSyqN2c/scene.splinecode" />
+        </div>
+        <div>
+          <h1>Panel 2</h1>
+          <Spline scene="https://prod.spline.design/CDccCKiwER1WcG8q/scene.splinecode" />
+        </div>
+        <div className="odd">
+          <h1>Panel 3</h1>
+          <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
+        </div>
+        <div>
+          <h1>Panel 4</h1>
+          <Spline scene="https://prod.spline.design/CDccCKiwER1WcG8q/scene.splinecode" />
+        </div>
+        <div className="odd">
+          <h1>Panel 5</h1>
+          <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
+        </div>
+        <div>
+          <h1>Panel 6</h1>
+          <Spline scene="https://prod.spline.design/CDccCKiwER1WcG8q/scene.splinecode" />
+        </div>
+        <div className="odd">
+          <h1>Panel 7</h1>
+          <Spline scene="https://prod.spline.design/8pgto-mMD3lNqRpI/scene.splinecode" />
+        </div>
+      </Container>
+    </>
   );
 };
 
