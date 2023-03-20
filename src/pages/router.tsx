@@ -15,11 +15,28 @@ import { CalendarPage } from "./CalendarPage";
 import { ReportsPage } from "./ReportsPage";
 import { LandingPage } from "./LandingPage";
 import { AchievementsPage } from "./AchievementsPage";
+import { AuthPage } from "./AuthPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
-  { path: "/signin", element: <SignInPage /> },
-  { path: "/signup", element: <SignUpPage /> },
+  {
+    path: "/signin",
+    element: (
+      <AuthPage>
+        <Outlet />
+      </AuthPage>
+    ),
+    children: [{ path: "", element: <SignInPage /> }],
+  },
+  {
+    path: "/signup",
+    element: (
+      <AuthPage>
+        <Outlet />
+      </AuthPage>
+    ),
+    children: [{ path: "", element: <SignUpPage /> }],
+  },
   { path: "/landing", element: <LandingPage /> },
   {
     path: "/dashboard",

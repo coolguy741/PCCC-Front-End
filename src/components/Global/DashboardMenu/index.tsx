@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { usePathName } from "../../hooks/usePathName";
+import { usePathName } from "../../../hooks/usePathName";
 import { Logo } from "../Logo";
 
 export const DashboardMenu = () => {

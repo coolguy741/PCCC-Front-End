@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Leva } from "leva";
 import styled from "styled-components";
-import { LanguageToggle } from "../../components/LanguageToggle";
-import { Logo } from "../../components/Logo";
-import Scene from "../../components/Scene";
+import { LanguageToggle } from "../../components/Global/LanguageToggle";
+import { Logo } from "../../components/Global/Logo";
+import Scene from "../../components/Global/Scene";
+import { Header } from "../../components/Global/Header";
 
 export const HomePage = () => {
   const [eng, useEng] = useState(true);
@@ -34,10 +35,7 @@ export const HomePage = () => {
 
   return (
     <StyledHomepage>
-      <header>
-        <Logo />
-        <LanguageToggle value={eng} setValue={useEng} />
-      </header>
+      <Header />
 
       <main>
         {eng ? <MainEng /> : <MainFr />}
@@ -140,22 +138,6 @@ const StyledHomepage = styled.div`
     }
   }
 
-  header {
-    padding: 6vw 6.5vw;
-    padding-bottom: 0;
-    display: grid;
-    grid-template-columns: auto min-content;
-    align-items: start;
-    gap: 10px;
-    z-index: 10;
-    pointer-events: none;
-    & > svg {
-      width: 115px;
-    }
-    & > div {
-      align-self: start;
-    }
-  }
   footer {
     padding: 6vw 6.5vw;
     padding-top: 0;
@@ -165,14 +147,6 @@ const StyledHomepage = styled.div`
   }
 
   @media (min-width: 1000px) {
-    header {
-      padding: 2vw 2.5vw;
-      padding-bottom: 0;
-
-      & > svg {
-        width: 130px;
-      }
-    }
     footer {
       padding: 1vw 2.5vw;
       padding-top: 0;

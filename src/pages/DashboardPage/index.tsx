@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DashboardMenu } from "../../components/DashboardMenu";
+import { DashboardMenu } from "../../components/Global/DashboardMenu";
 
 interface DashboardPageProps {
   children: JSX.Element;
