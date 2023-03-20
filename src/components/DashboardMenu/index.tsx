@@ -49,25 +49,25 @@ export const DashboardMenu = () => {
             Meal Planner
           </div>
         </Link>
-        <Link to="topic-editor">
+        <Link to="topics">
           <div className={`item ${isTopicEditor && "active"}`}>
             <img src="/images/topic-icon.svg" width="25" />
             Topic Editor
           </div>
         </Link>
-        <Link to="discovery-editor">
+        <Link to="daily-discovery">
           <div className={`item ${isDiscoveryEditor && "active"}`}>
             <img src="/images/discovery-icon.svg" width="25" />
             Discovery Editor
           </div>
         </Link>
-        <Link to="activities-builder">
+        <Link to="activities">
           <div className={`item ${isActivitiesBuilder && "active"}`}>
             <img src="/images/activities-icon.svg" width="25" />
             Activities Builder
           </div>
         </Link>
-        <Link to="foodways-editor">
+        <Link to="foodways">
           <div className={`item ${isFoodwaysEditor && "active"}`}>
             <img src="/images/foodways-icon.svg" width="25" />
             Foodways Editor

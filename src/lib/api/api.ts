@@ -5,10 +5,6 @@ import { hasProp } from "../util/hasProp";
 
 /** Prod URL for backend */
 export const BACKEND_BASE_URL = "https://backend.todo";
-/**
- * Endpoints
- * @see https://backend.attplaymaker.com/swagger/index.html
- */
 export const ENDPOINTS = {
   REGISTER: "User/register",
   ME: "me",
