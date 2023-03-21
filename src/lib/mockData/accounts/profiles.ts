@@ -1,0 +1,18 @@
+export const UserCards = [
+    { name: "Frank Aran", role: "Standard", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Standard", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Standard", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Standard", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Standard", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Standard", img: "/photos/1.png"},
+    { name: "Frank Aran", role: "Professional", img: "/photos/1.png"},
+];
