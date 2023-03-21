@@ -58,3 +58,7 @@ input {
     sans-serif;
   font-size: 14px;
 }
+
+.flex {
+  display: flex;
+}

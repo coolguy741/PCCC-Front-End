@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
             path: ":recipe/:assessment",
             element: <MealPlannerAssessmentPage />,
           },
-          { path: "edit", element: <MealPlannerEditPage /> },
+          { path: "edit", element: <MealPlannerPage /> },
           { path: "grocery-list", element: <MealPlannerGroceryPage /> },
         ],
       },
