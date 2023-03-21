@@ -9,12 +9,19 @@ export const SignUpPage = () => {
   const [nav, setNav] = useState(0);
   const [eng, useEng] = useState(true);
   const [over18, setOver18] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState<boolean | null>(null);
 
   return (
     <Container>
-      {nav === 0 && <AgeGate setNav={setNav} />}
-      {nav === 1 && <RoleGate setNav={setNav} />}
-      {nav === 2 && <SignUpForm setNav={setNav} />}
+      {nav === 0 && <AgeGate setNav={setNav} setOver18={setOver18} />}
+      {nav === 1 && (
+        <RoleGate
+          setNav={setNav}
+          isCoordinator={isCoordinator}
+          setIsCoordinator={setIsCoordinator}
+        />
+      )}
+      {nav === 2 && <SignUpForm setNav={setNav} over18={over18} />}
       {nav === 3 && <SecurityQuestions setNav={setNav} />}
     </Container>
   );

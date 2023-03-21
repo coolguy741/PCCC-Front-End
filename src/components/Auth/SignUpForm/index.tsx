@@ -5,21 +5,23 @@ import { Input } from "../../Global/Input";
 
 interface SignUpFormProps {
   setNav: (nav: number) => void;
+  over18: boolean | null;
 }
 
-export const SignUpForm = ({ setNav }: SignUpFormProps) => {
+export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
+  console.log(over18);
   return (
     <Container>
       <h1>Account Info</h1>
       <div className="signup-form">
         <div className="signup-form--left">
-          <Input type="text" placeholder="Name" />
-          <Input type="text" placeholder="Title" />
+          {over18 && <Input type="text" placeholder="Name" />}
+          {over18 && <Input type="text" placeholder="Title" />}
           <Input type="text" placeholder="Birth year" />
-          <Input type="text" placeholder="School ID Code" />
-          <Input type="text" placeholder="School" />
+          {over18 && <Input type="text" placeholder="School ID Code" />}
+          {over18 && <Input type="text" placeholder="School" />}
           <Input type="text" placeholder="Province" />
-          <Input type="text" placeholder="Email Address" />
+          {over18 && <Input type="text" placeholder="Email Address" />}
         </div>
         <div className="signup-form--right">
           <Input type="text" placeholder="User name" />
@@ -43,7 +45,7 @@ export const SignUpForm = ({ setNav }: SignUpFormProps) => {
         </div>
       </div>
       <div className="back-button">
-        <Button onClick={() => setNav(1)}>Back</Button>
+        <Button onClick={() => (over18 ? setNav(1) : setNav(0))}>Back</Button>
       </div>
       <div className="next-button">
         <Button onClick={() => setNav(3)}>Next</Button>
