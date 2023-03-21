@@ -16,6 +16,17 @@ import { ReportsPage } from "./ReportsPage";
 import { LandingPage } from "./LandingPage";
 import { AchievementsPage } from "./AchievementsPage";
 import { AuthPage } from "./AuthPage";
+import { Children } from "react";
+import { AccountsProfilesPage } from "./AccountsPage/Profiles";
+import { AccountsGroupsPage } from "./AccountsPage/Groups";
+import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
+import { AccountsUserLessonAssessmentPage } from "./AccountsPage/Profiles/LessonAssessment";
+import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/LessonAssessmentPrint";
+import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
+import { AccountsGroupPage } from "./AccountsPage/Groups/Group";
+import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
+import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
+import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
 
 export const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -46,7 +57,26 @@ export const router = createBrowserRouter([
       </DashboardPage>
     ),
     children: [
-      { path: "", element: <AccountsPage /> },
+      { 
+        path: "accounts", 
+        element: (
+          <AccountsPage>
+            <Outlet />
+          </AccountsPage>
+        ),
+        children:[
+          { path: "profiles", element: <AccountsProfilesPage/>},
+          { path: 'profiles/:user', element: <AccountsUserProfilePage /> },
+          { path: 'profiles/:user/:lessonAssessment', element: <AccountsUserLessonAssessmentPage /> },
+          { path: 'profiles/:user/:lessonAssessment/print', element: <AccountsUserLessonAssessmentPrintPage /> },
+          { path: "groups", element: <AccountsGroupsPage/> },
+          { path: 'groups/create', element: <AccountsCreateGroupPage /> },
+          { path: 'groups/:group', element: <AccountsGroupPage /> },
+          { path: 'groups/:group/edit', element: <AccountsEditGroupPage /> },
+          { path: 'groups/:group/calendar', element: <AccountsGroupCalendarPage /> },
+          { path: 'groups/:group/calendar/print', element: <AccountsGroupCalendarPrintPage /> },
+        ]
+      },
       { path: "reports", element: <ReportsPage /> },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
       { path: "meal-planner", element: <MealPlannerPage /> },

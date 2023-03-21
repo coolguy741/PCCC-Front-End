@@ -1,3 +1,7 @@
 export const AccountsProfilesPage = () => {
-  return null;
+  return (
+    <>
+      <h1>Profiles Page</h1>
+    </>
+  );
 };
