@@ -2,11 +2,11 @@ import { useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../components/Global/Button";
 
-import { MealPlannerActions } from "../../components/Meal/Actions";
-import { MealFilter } from "../../components/Meal/Filter";
-import { MealPlanHeader } from "../../components/Meal/Header";
-import { MealPlan } from "../../components/Meal/Plan";
-import { MealType } from "../../components/Meal/Type";
+import { MealPlannerActions } from "../../components/MealPlanner/Actions";
+import { MealFilter } from "../../components/MealPlanner/Filter";
+import { MealPlanHeader } from "../../components/MealPlanner/Header";
+import { MealPlan } from "../../components/MealPlanner/Plan";
+import { MealType } from "../../components/MealPlanner/Type";
 
 export const MealPlannerPage = () => {
   const match = useMatch("/dashboard/meal-planner/edit");

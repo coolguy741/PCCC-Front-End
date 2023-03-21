@@ -139,8 +139,8 @@ const StyledHomepage = styled.div`
   }
 
   footer {
-    padding: 6vw 6.5vw;
-    padding-top: 0;
+    position: absolute;
+    bottom: 0;
     font-size: 0.8rem;
     z-index: 10;
     pointer-events: none;
