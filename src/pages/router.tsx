@@ -16,6 +16,13 @@ import { ReportsPage } from "./ReportsPage";
 import { LandingPage } from "./LandingPage";
 import { AchievementsPage } from "./AchievementsPage";
 import { AuthPage } from "./AuthPage";
+import { MealPlannerEditPage } from "./MealPlannerPage/Edit";
+import { MealPlannerPrintPage } from "./MealPlannerPage/Print";
+import { PrintPage } from "./PrintPage";
+import { MealPlannerGroceryPage } from "./MealPlannerPage/Grocery";
+import { MealPlannerGroceryPrintPage } from "./MealPlannerPage/Grocery/Print";
+import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
+import { MealPlannerAssessmentPage } from "./MealPlannerPage/Recipe/Assessment";
 
 export const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -49,7 +56,24 @@ export const router = createBrowserRouter([
       { path: "", element: <AccountsPage /> },
       { path: "reports", element: <ReportsPage /> },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
-      { path: "meal-planner", element: <MealPlannerPage /> },
+      {
+        path: "meal-planner",
+        element: (
+          <>
+            <Outlet />
+          </>
+        ),
+        children: [
+          { path: "", element: <MealPlannerPage /> },
+          { path: ":recipe", element: <MealPlannerRecipePage /> },
+          {
+            path: ":recipe/:assessment",
+            element: <MealPlannerAssessmentPage />,
+          },
+          { path: "edit", element: <MealPlannerEditPage /> },
+          { path: "grocery-list", element: <MealPlannerGroceryPage /> },
+        ],
+      },
       { path: "topics", element: <TopicEditorPage /> },
       { path: "daily-discovery", element: <DiscoveryEditorPage /> },
       { path: "activities", element: <ActivitiesBuilderPage /> },
@@ -57,6 +81,32 @@ export const router = createBrowserRouter([
       { path: "recipe-builder", element: <RecipeBuilderPage /> },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
+    ],
+  },
+  {
+    path: "",
+    element: (
+      <PrintPage>
+        <Outlet />
+      </PrintPage>
+    ),
+    children: [
+      {
+        path: "dashboard/meal-planner",
+        element: (
+          <>
+            <Outlet />
+          </>
+        ),
+        children: [
+          { path: "print", element: <MealPlannerPrintPage /> },
+          {
+            path: "grocery-list/print",
+            element: <MealPlannerGroceryPrintPage />,
+          },
+          { path: ":recipe/print", element: <MealPlannerRecipePage /> },
+        ],
+      },
     ],
   },
 ]);
