@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useMatch } from "react-router-dom";
 
-import { MealPlan } from "../../../components/Meal/Plan";
+import { MealPlan } from "../../../components/MealPlanner/Plan";
 
 export const MealPlannerPrintPage = () => {
   const match = useMatch("/dashboard/meal-planner/print");

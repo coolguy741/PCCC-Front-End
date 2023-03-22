@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { GroceryItem } from "../../../components/Meal/Grocery";
+import { GroceryItem } from "../../../components/MealPlanner/Grocery";
 import { Grocery } from "../../types";
 
 const groceries: Grocery[] = [

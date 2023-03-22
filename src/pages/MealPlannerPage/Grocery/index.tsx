@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { LinkButton } from "../../../components/Global/Button/Link";
-import { GroceryItem } from "../../../components/Meal/Grocery";
+import { GroceryItem } from "../../../components/MealPlanner/Grocery";
 
-import { MealPlanHeader } from "../../../components/Meal/Header";
+import { MealPlanHeader } from "../../../components/MealPlanner/Header";
 import { Grocery } from "../../types";
 
 const groceries: Grocery[] = [
