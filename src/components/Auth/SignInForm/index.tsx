@@ -1,27 +1,63 @@
-import { Form } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "../../Global/Button";
+import { Input } from "../../Global/Input";
 
 export const SignInForm = () => {
   return (
     <Container>
-      <input type="text" placeholder="Username" />
-      <input type="text" placeholder="Password" />
-      <button>Sign In</button>
+      <div>
+        <h1>Sign in</h1>
+        <label>
+          <span>Username</span>
+          <Input type="username" />
+        </label>
+        <label>
+          <span>Password</span>
+          <Input type="password" />
+        </label>
+        <Button onClick={() => {}}>Sign In</Button>
+      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 
-  input,
-  button {
-    box-sizing: border-box;
-    padding: 10px;
-    width: 300px;
-    border-radius: 10px;
-    border: 1px solid #888;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    h1 {
+      align-self: flex-start;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+
+      span {
+        width: 7rem;
+        font-size: 1.2rem;
+      }
+
+      input,
+      select {
+        width: 18vw;
+      }
+    }
+    button {
+      margin-top: 2rem;
+    }
   }
 `;

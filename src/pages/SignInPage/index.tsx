@@ -3,27 +3,25 @@ import { SignInForm } from "../../components/Auth/SignInForm";
 
 export const SignInPage = () => {
   return (
-    <SignInPageContainer>
+    <Container>
       <SignInForm />
-    </SignInPageContainer>
+    </Container>
   );
 };
 
-const SignInPageContainer = styled.div`
+const Container = styled.div`
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 15rem;
+  padding-top: 5rem;
 
+  background-size: cover;
+  background-image: url("/images/background.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-image: url("/images/background.svg");
   color: #3d3d3d;
-  background-size: cover;
-  box-sizing: border-box;
-
-  & * {
-    box-sizing: border-box;
-  }
 `;

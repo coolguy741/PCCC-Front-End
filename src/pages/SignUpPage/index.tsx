@@ -9,12 +9,20 @@ export const SignUpPage = () => {
   const [nav, setNav] = useState(0);
   const [eng, useEng] = useState(true);
   const [over18, setOver18] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState<boolean | null>(null);
 
   return (
     <Container>
-      {nav === 0 && <AgeGate setNav={setNav} />}
-      {nav === 1 && <RoleGate setNav={setNav} />}
-      {nav === 2 && <SignUpForm setNav={setNav} />}
+      <h1>Sign up</h1>
+      {nav === 0 && <AgeGate setNav={setNav} setOver18={setOver18} />}
+      {nav === 1 && (
+        <RoleGate
+          setNav={setNav}
+          isCoordinator={isCoordinator}
+          setIsCoordinator={setIsCoordinator}
+        />
+      )}
+      {nav === 2 && <SignUpForm setNav={setNav} over18={over18} />}
       {nav === 3 && <SecurityQuestions setNav={setNav} />}
     </Container>
   );
@@ -26,8 +34,9 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  padding-left: 15rem;
+  padding-top: 5rem;
 
   background-size: cover;
   background-image: url("/images/background.svg");
