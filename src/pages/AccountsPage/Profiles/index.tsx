@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { AccountCard } from "../../../components/Accounts/AccountCard";
-import { UserCards } from "../../../lib/mockData/accounts/Profiles";
+import UserCards from '../../../lib/mockData/accounts/profiles.json';
 
 export const AccountsProfilesPage = () => {
+
   const handleUserTypeChange = () => {
   }
 
@@ -35,8 +37,8 @@ export const AccountsProfilesPage = () => {
         </div>
       </div>
       <div className="users">
-        {UserCards.map((Card) => {
-          return <AccountCard img={Card.img} name= {Card.name} role= {Card.role} onClick={handleCardDelete}/>
+        {UserCards.map((Card, index) => {
+          return <AccountCard img={Card.img} name= {Card.name} role= {Card.role} onClick={handleCardDelete} key={index}/>
         })}
       </div>
     </PageContainer>
