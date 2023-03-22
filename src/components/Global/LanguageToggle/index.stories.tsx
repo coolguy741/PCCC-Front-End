@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
-import "../../styles/index.css";
+import "../../../styles/index.css";
 import { LanguageToggle } from "./index";
 
 export default {

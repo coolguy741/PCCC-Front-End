@@ -3,6 +3,7 @@ import styled from "styled-components";
 //should be deleted after api implementation
 import { useLocation } from "react-router-dom";
 import { Button } from "../../../../components/Global/Button";
+import { Icon } from "../../../../components/Global/Icon";
 
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
@@ -64,16 +65,37 @@ export const AccountsUserProfilePage = () => {
           </div>
           <div className="badges-groups-container">
             <h3>Badges</h3>
-            <div className="badges">Badges</div>
-            <h3>Badges</h3>
-            <div className="groups">
-              {userData.groups.map(() => {
-                return <></>
-              })}
+            <div className="badges">
+              {
+                [...Array(userData.badges)].map((_, index) => (
+                  <span className="badge-icon" key={index}><Icon name="group"/></span>
+                ))
+              }
             </div>
+            <h3>Groups</h3>
+            <ul className="groups-list">
+              {userData.groups.map((group, index) => (
+                <li className="group-item" key={index}>
+                  <span className="group-icon"></span>
+                  <p className="bold-text">{group.name}</p>
+                  <p>&lpar {group.number} &rpar</p>
+                </li>
+              )
+              )}
+            </ul>
           </div>
           
         </div>
+        <h3>Activity</h3>
+        <ul className="activities-list">
+          {
+            userData.activities.map((activity, index) => (
+              <li className="activity-item">
+                <div className="activity-name"><span className="group-icon"/>{activity.content}</div>
+              </li>
+            ))
+          }
+        </ul>
     </PageContainer>
   );
 };

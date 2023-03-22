@@ -21,19 +21,19 @@
         "number": 3
       }
     ],
-    "activity": [
+    "activities": [
       {
-        "type": "assigned Activity",
+        "type": "activity",
         "content": "Tools of the Trade to Group A",
         "date": "30 mins ago"
       },
       {
-        "type": "created a group",
+        "type": "group",
         "content": "Group Name",
         "date": "30 mins ago"
       },
       {
-        "type": "completed Activity",
+        "type": "activity",
         "content": "Tools of the Trade for Group B",
         "date": "2 days ago"
       }
@@ -85,19 +85,19 @@
         "number": 3
       }
     ],
-    "activity": [
+    "activities": [
       {
-        "type": "assigned Activity",
+        "type": "activity",
         "content": "Tools of the Trade to Group A",
         "date": "30 mins ago"
       },
       {
-        "type": "created a group",
+        "type": "group",
         "content": "Group Name",
         "date": "30 mins ago"
       },
       {
-        "type": "completed Activity",
+        "type": "activity",
         "content": "Tools of the Trade for Group B",
         "date": "2 days ago"
       }
@@ -147,19 +147,19 @@
         "number": 3
       }
     ],
-    "activity": [
+    "activities": [
       {
-        "type": "created a group",
+        "type": "group",
         "content": "Group Name",
         "date": "30 mins ago"
       },
       {
-        "type": "deleted group",
+        "type": "group",
         "content": "Group Name",
         "date": "2 days ago"
       },
       {
-        "type": "created a new Topic",
+        "type": "topic",
         "content": "Topic Name",
         "date": "30 mins ago"
       }
