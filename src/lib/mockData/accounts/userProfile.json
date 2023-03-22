@@ -3,6 +3,7 @@
     "userID": "Crazy Carrot #321",
     "role": "Standard",
     "stars": 1,
+    "image": "/photos/1.png",
     "birthYear": 2010,
     "province": "British Colombia",
     "createdDate": "January 10, 2023",
@@ -25,17 +26,20 @@
       {
         "type": "activity",
         "content": "Tools of the Trade to Group A",
-        "date": "30 mins ago"
+        "date": "30 mins ago",
+        "name": "assigneed Activiy"
       },
       {
         "type": "group",
         "content": "Group Name",
-        "date": "30 mins ago"
+        "date": "30 mins ago",
+        "name": "deleted a group"
       },
       {
         "type": "activity",
         "content": "Tools of the Trade for Group B",
-        "date": "2 days ago"
+        "date": "2 days ago",
+        "name": "completed Activiy"
       }
     ],
     "lessonAssessment": [
@@ -62,6 +66,7 @@
   {
     "userID": "Crazy Carrot #321",
     "role": "Professional",
+    "image": "/photos/1.png",
     "name": "Jessie Brown",
     "title": "Educator",
     "birthYear": 1987,
@@ -89,17 +94,20 @@
       {
         "type": "activity",
         "content": "Tools of the Trade to Group A",
-        "date": "30 mins ago"
+        "date": "30 mins ago",
+        "name": "assigned Activity"
       },
       {
         "type": "group",
         "content": "Group Name",
-        "date": "30 mins ago"
+        "date": "30 mins ago",
+        "name": "created a group"
       },
       {
         "type": "activity",
         "content": "Tools of the Trade for Group B",
-        "date": "2 days ago"
+        "date": "2 days ago",
+        "name": "deleted activity"
       }
     ],
     "lessonAssessment": [
@@ -126,6 +134,7 @@
   {
     "userID": "Curious Apple #321",
     "role": "Admin",
+    "image": "/photos/1.png",
     "name": "Albert Santonio",
     "title": "Admin",
     "birthYear": 1988,
@@ -151,17 +160,20 @@
       {
         "type": "group",
         "content": "Group Name",
-        "date": "30 mins ago"
+        "date": "30 mins ago",
+        "name": "deleted a group"
       },
       {
         "type": "group",
         "content": "Group Name",
-        "date": "2 days ago"
+        "date": "2 days ago",
+        "name": "created a group"
       },
       {
         "type": "topic",
         "content": "Topic Name",
-        "date": "30 mins ago"
+        "date": "30 mins ago",
+        "name": "created a topic"
       }
     ],
     "lessonAssessment": [
