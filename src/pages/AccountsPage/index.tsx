@@ -8,13 +8,25 @@ interface AccountsPageProps {
 
 export const AccountsPage = ({ children }: AccountsPageProps) => {
   const { pathname } = useLocation();
-  
+
   return (
     <PageContainer>
       <h1>Accounts</h1>
       <div className="tags-container">
-        <Link className={`${pathname.includes('profiles') ? 'active' : ''} tag`} to="../profiles" relative="path">Profiles</Link>
-        <Link className={`${pathname.includes('groups') ? 'active' : ''} tag`} to="../groups" relative="path">Groups</Link>
+        <Link
+          className={`${pathname.includes("profiles") ? "active" : ""} tag`}
+          to="/dashboard/accounts/profiles"
+          relative="path"
+        >
+          Profiles
+        </Link>
+        <Link
+          className={`${pathname.includes("groups") ? "active" : ""} tag`}
+          to="/dashboard/accounts/groups"
+          relative="path"
+        >
+          Groups
+        </Link>
       </div>
       <div className="content">{children}</div>
     </PageContainer>
@@ -33,7 +45,7 @@ const PageContainer = styled.div`
     .tag {
       flex: 50%;
       text-align: center;
-      font-family: 'Noir Std';
+      font-family: "Noir Std";
       font-style: normal;
       font-weight: 700;
       font-size: 20px;
@@ -51,4 +63,4 @@ const PageContainer = styled.div`
       padding: 11px 0px;
     }
   }
-`
+`;

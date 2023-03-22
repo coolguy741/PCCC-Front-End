@@ -6,19 +6,24 @@ export const usePathName = () => {
   console.log(pathname);
 
   const isDashboard = pathname === "/dashboard" || pathname === "/dashboard/";
+  const isAccounts = pathname.includes("accounts");
   const isReports = pathname.includes("reports");
   const isGroupOrganizer = pathname.includes("group-organizer");
+  const isAchievements = pathname.includes("achievements");
   const isMealPlanner = pathname.includes("meal-planner");
-  const isTopicEditor = pathname.includes("topic-editor");
-  const isDiscoveryEditor = pathname.includes("discovery-editor");
-  const isActivitiesBuilder = pathname.includes("activities-builder");
-  const isFoodwaysEditor = pathname.includes("foodways-editor");
-  const isRecipeBuilder = pathname.includes("recipe-builder");
+  const isTopicEditor = pathname.includes("topics");
+  const isDiscoveryEditor = pathname.includes("daily-discovery");
+  const isActivitiesBuilder = pathname.includes("activities");
+  const isFoodwaysEditor = pathname.includes("foodways");
+  const isRecipeBuilder = pathname.includes("recipes");
   const isCalendar = pathname.includes("calendar");
+  const isGames = pathname.includes("games");
 
   return {
     isDashboard,
+    isAccounts,
     isReports,
+    isAchievements,
     isGroupOrganizer,
     isMealPlanner,
     isTopicEditor,
@@ -27,5 +32,6 @@ export const usePathName = () => {
     isFoodwaysEditor,
     isRecipeBuilder,
     isCalendar,
+    isGames,
   };
 };

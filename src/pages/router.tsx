@@ -13,7 +13,7 @@ import { FoodwaysPage } from "./FoodwaysPage";
 import { RecipeBuilderPage } from "./RecipeBuilderPage";
 import { CalendarPage } from "./CalendarPage";
 import { ReportsPage } from "./ReportsPage";
-import { LandingPage } from "./LandingPage";
+import { TestLandingPage } from "./TestLandingPage";
 import { AchievementsPage } from "./AchievementsPage";
 import { AuthPage } from "./AuthPage";
 import { MealPlannerPrintPage } from "./MealPlannerPage/Print";
@@ -32,9 +32,12 @@ import { AccountsGroupPage } from "./AccountsPage/Groups/Group";
 import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
 import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
+import { TempHomePage } from "./TempHomePage";
+import { GamesPage } from "./GamesPage";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
+  { path: "/", element: <TempHomePage /> },
+  { path: "/landing", element: <TestLandingPage /> },
   {
     path: "/signin",
     element: (
@@ -53,7 +56,6 @@ export const router = createBrowserRouter([
     ),
     children: [{ path: "", element: <SignUpPage /> }],
   },
-  { path: "/landing", element: <LandingPage /> },
   {
     path: "/dashboard",
     element: (
@@ -62,6 +64,7 @@ export const router = createBrowserRouter([
       </DashboardPage>
     ),
     children: [
+      { path: "", element: <HomePage /> },
       {
         path: "accounts",
         element: (
@@ -118,9 +121,10 @@ export const router = createBrowserRouter([
       { path: "daily-discovery", element: <DiscoveryEditorPage /> },
       { path: "activities", element: <ActivitiesBuilderPage /> },
       { path: "foodways", element: <FoodwaysPage /> },
-      { path: "recipe-builder", element: <RecipeBuilderPage /> },
+      { path: "recipes", element: <RecipeBuilderPage /> },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
+      { path: "games", element: <GamesPage /> },
     ],
   },
   {
