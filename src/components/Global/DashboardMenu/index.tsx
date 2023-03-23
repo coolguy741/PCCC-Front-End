@@ -100,6 +100,7 @@ export const DashboardMenu = () => {
 };
 
 const MenuContainer = styled.div`
+  position: fixed;
   width: 350px;
   height: 100vh;
   background-color: var(--yellow);
