@@ -57,6 +57,10 @@ export const router = createBrowserRouter([
     children: [{ path: "", element: <SignUpPage /> }],
   },
   {
+    path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
+    element: <AccountsUserLessonAssessmentPrintPage />,
+  },
+  {
     path: "/dashboard",
     element: (
       <DashboardPage>
@@ -79,10 +83,7 @@ export const router = createBrowserRouter([
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
           },
-          {
-            path: "profiles/:user/:lessonAssessment/print",
-            element: <AccountsUserLessonAssessmentPrintPage />,
-          },
+          
           { path: "groups", element: <AccountsGroupsPage /> },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },

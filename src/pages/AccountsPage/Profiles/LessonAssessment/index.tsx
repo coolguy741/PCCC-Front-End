@@ -12,8 +12,9 @@ export const AccountsUserLessonAssessmentPage = () => {
   }
 
   const handlePrint = () => {
+    navigate("/dashboard/accounts/profiles/:user/:lessonAssessment/print");
   }
-
+  
   return (
     <PageContainer>
       <div className="button-container">
