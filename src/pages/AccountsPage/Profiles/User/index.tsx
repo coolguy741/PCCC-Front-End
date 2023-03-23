@@ -89,7 +89,7 @@ export const AccountsUserProfilePage = () => {
         <ul className="activities-list">
           {
             userData.activities.map((activity, index) => (
-              <li className="activity-item">
+              <li className="activity-item" key={index}>
                 <div className="left">
                   <span className="icon-container">
                     <Icon name={activity.type}/>
