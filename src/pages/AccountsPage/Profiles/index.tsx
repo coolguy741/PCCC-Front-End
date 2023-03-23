@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { AccountCard } from "../../../components/Accounts/AccountCard";
 import UserCards from '../../../lib/mockData/accounts/profiles.json';
@@ -38,7 +39,7 @@ export const AccountsProfilesPage = () => {
       </div>
       <div className="users">
         {UserCards.map((Card, index) => {
-          return <AccountCard img={Card.img} name= {Card.name} role= {Card.role} onClick={handleCardDelete} key={index}/>
+          return <Link to="/dashboard/accounts/profiles/Standard"><AccountCard img={Card.img} name= {Card.name} role= {Card.role} onClick={handleCardDelete} key={index}/></Link>
         })}
       </div>
     </PageContainer>

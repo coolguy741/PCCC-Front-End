@@ -12,20 +12,54 @@ export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
   console.log(over18);
   return (
     <Container>
-      <h1>Account Info</h1>
       <div className="signup-form">
         <div className="signup-form--left">
-          {over18 && <Input type="text" placeholder="Name" />}
-          {over18 && <Input type="text" placeholder="Title" />}
-          <Input type="text" placeholder="Birth year" />
-          {over18 && <Input type="text" placeholder="School ID Code" />}
-          {over18 && <Input type="text" placeholder="School" />}
-          <Input type="text" placeholder="Province" />
-          {over18 && <Input type="text" placeholder="Email Address" />}
+          {over18 && (
+            <label>
+              <span>Name</span>
+              <Input type="text" />
+            </label>
+          )}
+          {over18 && (
+            <label>
+              <span>Title</span>
+              <Input type="text" />
+            </label>
+          )}
+          <label>
+            <span>Birth year</span>
+            <Input type="text" />
+          </label>
+          {over18 && (
+            <label>
+              <span>School ID Code</span>
+              <Input type="text" />
+            </label>
+          )}
+          {over18 && (
+            <label>
+              <span>School</span>
+              <Input type="text" />
+            </label>
+          )}
+          <label>
+            <span>Province</span>
+            <Input type="text" />
+          </label>
+          {over18 && (
+            <label>
+              <span>Email address</span>
+              <Input type="text" />
+            </label>
+          )}
         </div>
         <div className="signup-form--right">
-          <Input type="text" placeholder="User name" />
-          Choose avatar
+          <label>
+            <span>User name</span>
+            <Input type="text" />
+          </label>
+
+          <span>Choose avatar</span>
           <div className="avatars">
             <div />
             <div />
@@ -55,34 +89,49 @@ export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
 };
 
 const Container = styled.div`
-  h1 {
-    position: absolute;
-    top: 7rem;
-    left: 15rem;
-  }
+  font-size: 1.2rem;
+
   .signup-form {
     display: flex;
-    gap: 20px;
+    gap: 10vw;
 
     .signup-form {
       &--left,
       &--right {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 1rem;
+
+        label {
+          display: flex;
+          align-items: center;
+
+          span {
+            width: 15vw;
+          }
+
+          input,
+          select {
+            width: 18vw;
+          }
+        }
       }
 
       &--right {
+        span {
+          margin-top: 2rem;
+        }
+
         .avatars {
           display: flex;
-          gap: 5px;
-          max-width: 300px;
+          gap: 1rem;
+          max-width: 30vw;
           flex-wrap: wrap;
 
           div {
             width: 50px;
             height: 50px;
-            background-color: #ff0000;
+            background-color: var(--red);
           }
         }
       }
@@ -91,7 +140,7 @@ const Container = styled.div`
 
   .back-button {
     position: absolute;
-    top: 10rem;
+    top: 8rem;
     left: 2rem;
   }
 

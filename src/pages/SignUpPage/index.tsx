@@ -13,6 +13,7 @@ export const SignUpPage = () => {
 
   return (
     <Container>
+      <h1>Sign up</h1>
       {nav === 0 && <AgeGate setNav={setNav} setOver18={setOver18} />}
       {nav === 1 && (
         <RoleGate
@@ -33,8 +34,9 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  padding-left: 15rem;
+  padding-top: 5rem;
 
   background-size: cover;
   background-image: url("/images/background.svg");

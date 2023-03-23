@@ -78,7 +78,7 @@ const Container = styled.div`
 
   .back-button {
     position: absolute;
-    top: 10rem;
+    top: 8rem;
     left: 2rem;
   }
 
