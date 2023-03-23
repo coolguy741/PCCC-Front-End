@@ -1,10 +1,11 @@
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 import styled from "styled-components";
-//should be deleted after api implementation
-import { useLocation } from "react-router-dom";
 import { Button } from "../../../../components/Global/Button";
 import { Icon } from "../../../../components/Global/Icon";
 import { Photo } from "../../../../components/Accounts/Photo";
+import { Link } from "react-router-dom";
+//should be deleted after api implementation
+import { useLocation } from "react-router-dom";
 
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
@@ -21,7 +22,7 @@ export const AccountsUserProfilePage = () => {
 
   return (
     <PageContainer>
-        <Button onClick={handleBack} >&lt; Back</Button>
+        <Link to="/dashboard/accounts/profiles"><Button onClick={handleBack} >&lt; Back</Button></Link>
         <div className="info-container">
           <div className="avatar-container">
             <div className="avatar">

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button } from "../../Global/Button";
+import { Icon } from "../../Global/Icon";
 
 interface AccountCardProps {
   img: string;
@@ -12,7 +13,7 @@ export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Container>
       <img src={img} className="avatar"/>
-      {role === "Professional" ? <img src="/images/protected.svg" className="protected-icon"/> : <></> }
+      {role === "Professional" &&  <div className="icon-container"><Icon name="professional"/></div> }
       <div className="account-info">
         <div className="text">{name}</div>
         <div className="text">{role} User</div>
@@ -41,7 +42,7 @@ const Container = styled.div`
     border-radius: 50%;
   }
 
-  .protected-icon {
+  .icon-container {
     position: absolute;
     left: 10px;
     top: 48px;

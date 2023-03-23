@@ -13,8 +13,8 @@ export const AccountsPage = ({ children }: AccountsPageProps) => {
     <PageContainer>
       <h1>Accounts</h1>
       <div className="tags-container">
-        <Link className={`${pathname.includes('profiles') ? 'active' : ''} tag`} to="../profiles" relative="path">Profiles</Link>
-        <Link className={`${pathname.includes('groups') ? 'active' : ''} tag`} to="../groups" relative="path">Groups</Link>
+        <Link className={`${pathname.includes('profiles') ? 'active' : ''} tag`} to="/dashboard/accounts/profiles" relative="path">Profiles</Link>
+        <Link className={`${pathname.includes('groups') ? 'active' : ''} tag`} to="/dashboard/accounts/groups" relative="path">Groups</Link>
       </div>
       <div className="content">{children}</div>
     </PageContainer>
