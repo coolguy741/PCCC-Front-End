@@ -1,0 +1,30 @@
+{
+  "lesson": "Tools of the Trade - Assessment",
+  "topic": "garden guardian",
+  "questions": [
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "inputType": "text",
+      "numberOfLines": 4
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "inputType": "radio",
+      "content": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing"
+      ]
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "inputType": "trueFalse"
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "inputType": "text",
+      "numberOfLines": 1
+    }
+  ]
+}
