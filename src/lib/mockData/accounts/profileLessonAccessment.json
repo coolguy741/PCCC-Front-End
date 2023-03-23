@@ -4,12 +4,12 @@
   "questions": [
     {
       "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
-      "inputType": "text",
+      "inputType": "textarea",
       "numberOfLines": 4
     },
     {
       "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
-      "inputType": "radio",
+      "inputType": "radioBox",
       "content": [
         "Lorem ipsum dolor sit amet, consectetur adipiscing",
         "Lorem ipsum dolor sit amet, consectetur adipiscing",
@@ -23,7 +23,7 @@
     },
     {
       "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
-      "inputType": "text",
+      "inputType": "textarea",
       "numberOfLines": 1
     }
   ]
