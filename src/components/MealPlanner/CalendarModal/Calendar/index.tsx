@@ -68,9 +68,7 @@ export const Calendar: React.FC<Props> = ({
                           {data.date === date && (
                             <div>
                               <div className="flex">
-                                <div className="to-uppercase">
-                                  {data.type}:{" "}
-                                </div>
+                                <div className="to-uppercase">{data.type}:</div>
                                 <div>{data.group}</div>
                               </div>
                               <div>{data.topic}</div>
@@ -79,9 +77,7 @@ export const Calendar: React.FC<Props> = ({
                           )}
                           {data.week === index && (
                             <div>
-                              <div>
-                                {data.group}asdfasdfasdfasdfasdfasdfasdf
-                              </div>
+                              <div>{data.group}s</div>
                               {data.plans?.map((plan) => (
                                 <div
                                   key={plan.time.toString()}
@@ -95,15 +91,19 @@ export const Calendar: React.FC<Props> = ({
                           )}
                         </div>
                       )}
-                      <div className="dropdown-container">
-                        <AddRecipeDropdown add={() => console.error("add")} />
-                      </div>
+                      {!isPlan && (
+                        <div className="dropdown-container">
+                          <AddRecipeDropdown add={() => {}} />
+                        </div>
+                      )}
                     </div>
                   );
                 })}
-              <div className="dropdown-container">
-                <AddPlanDropdown add={() => console.error("add")} />
-              </div>
+              {isPlan && (
+                <div className="dropdown-container">
+                  <AddPlanDropdown add={() => {}} />
+                </div>
+              )}
             </Week>
           );
         })}
@@ -122,6 +122,10 @@ const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   position: relative;
+  & > div {
+    min-width: 0px;
+  }
+
   ${({ isPlan }) =>
     isPlan &&
     `&:hover .day {
@@ -134,6 +138,7 @@ const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
 
   .dropdown-container {
     position: absolute;
+    top: 0;
     width: 100%;
     .trigger {
       opacity: 0;
@@ -147,8 +152,6 @@ const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
     background: #d9d9d9;
     border: 0.5px solid var(--black);
     color: grey;
-    overflow: hidden;
-    white-space: nowrap;
 
     ${({ isPlan }) =>
       !isPlan &&
@@ -160,7 +163,6 @@ const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
         }
       }
     `}
-
     &.current-month {
       color: #000000;
     }
@@ -171,14 +173,11 @@ const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
   }
 
   .scheduled-plans {
-    width: 100%;
-
     div {
       overflow: hidden;
+      white-space: nowrap;
       text-overflow: ellipsis;
-    }
-
-    span {
+      position: relative;
       font-size: 0.75rem;
     }
   }

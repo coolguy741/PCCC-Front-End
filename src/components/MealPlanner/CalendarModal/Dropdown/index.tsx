@@ -56,6 +56,10 @@ const StyledDropdown = styled.div`
     background: #ffffff;
     cursor: pointer;
     margin: auto;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
     width: 20px;
   }
 `;
