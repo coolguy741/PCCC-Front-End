@@ -1,7 +1,8 @@
+import { useMemo } from "react";
 import styled from "styled-components";
 
 interface Props {
-  match?: boolean;
+  match?: string;
 }
 
 const weekDays = [
@@ -15,9 +16,11 @@ const weekDays = [
   "Saturday",
 ];
 
-export const MealPlan: React.FC<Props> = ({ match = false }) => {
+export const MealPlan: React.FC<Props> = ({ match = "" }) => {
+  const isPrint = useMemo(() => match.includes("print"), [match]);
+
   return (
-    <Container>
+    <Container isPrint={isPrint}>
       <div>
         {weekDays.map((weekDay) => (
           <div key={`weekday-${weekDay}`}>{weekDay}</div>
@@ -33,10 +36,13 @@ export const MealPlan: React.FC<Props> = ({ match = false }) => {
                   <div>Meal {index + 1}</div>
                 ) : (
                   <div key={`${dayIndex}-${weekDay}`}>
-                    {match ? (
+                    {!!match ? (
                       <Meal>
                         <div>
-                          <img src="/images/circle-minus.svg" width="15" />
+                          <div className="meal-image"></div>
+                          {!isPrint && (
+                            <img src="/images/circle-minus.svg" width="15" />
+                          )}
                           <p>Meal</p>
                         </div>
                       </Meal>
@@ -53,36 +59,53 @@ export const MealPlan: React.FC<Props> = ({ match = false }) => {
   );
 };
 
-const Container = styled.div`
-  height: 100%;
+const Container = styled.div.attrs((props: { isPrint: boolean }) => ({
+  isPrint: props.isPrint || false,
+}))`
+  & * {
+    box-sizing: border-box;
+  }
   overflow-x: hidden;
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   padding: 10px;
-  margin-right: 1.25rem;
-  background: #c4c4c4;
+  ${({ isPrint }) => !isPrint && `margin-right: 1.25rem; background: #c4c4c4;`}
   margin-bottom: 10px;
   & > div {
+    text-align: center;
     display: grid;
     border-bottom 1px solid #2f2f2f;
-    gap: 10px;
-    grid-template-columns: repeat(8, 1fr);
+    & > div {
+      padding: 10px;
+      ${({ isPrint }) => isPrint && `border-right: 1px solid #2f2f2f;`}
+    }
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    
+    & > div:last-child {
+      ${({ isPrint }) => isPrint && `border-right: none;`}
+    }
   }
   & > div:last-of-type {
     border-bottom: none;
   }
+
 `;
 
 const Meal = styled.div`
   width: 100%;
   height: 80px;
   & > div {
-    width: 100%;
-    height: 100%;
-    background: #2f2f2f;
     position: relative;
+    height: 100%;
+    text-align: center;
+
+    .meal-image {
+      width: 80%;
+      height: 70%;
+      margin: auto;
+      background: #2f2f2f;
+    }
 
     img {
       position: absolute;
@@ -91,7 +114,6 @@ const Meal = styled.div`
     }
 
     p {
-      color: #ffffff;
       margin: 0;
     }
   }

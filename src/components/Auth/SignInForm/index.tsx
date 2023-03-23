@@ -53,7 +53,7 @@ const Container = styled.div`
 
       input,
       select {
-        width: 18vw;
+        width: 18rem;
       }
     }
     button {

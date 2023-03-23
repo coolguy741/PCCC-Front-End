@@ -1,20 +1,26 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { usePathName } from "../../../hooks/usePathName";
 import { Logo } from "../Logo";
 
 export const DashboardMenu = () => {
+  const [userToolsOpen, setUserToolsOpen] = useState(false);
+  const [curriculumOpen, setCurriculumOpen] = useState(false);
   const {
     isDashboard,
+    isAccounts,
     isReports,
     isGroupOrganizer,
     isMealPlanner,
     isTopicEditor,
     isDiscoveryEditor,
     isActivitiesBuilder,
+    isAchievements,
     isFoodwaysEditor,
     isRecipeBuilder,
     isCalendar,
+    isGames,
   } = usePathName();
 
   return (
@@ -26,64 +32,67 @@ export const DashboardMenu = () => {
       </div>
       <div className="item-container">
         <Link to="/dashboard">
-          <div className={`item ${isDashboard && "active"}`}>
-            <img src="/images/student-icon.svg" width="25" />
-            Student Profiles
+          <div className={`item ${isDashboard && "active"}`}>Home</div>
+        </Link>
+        <Link to="accounts">
+          <div className={`item ${isAccounts && "active"}`}>Accounts</div>
+        </Link>
+        <Link to="achievements">
+          <div className={`item ${isAchievements && "active"}`}>
+            Achievements
           </div>
         </Link>
-        <Link to="reports">
-          <div className={`item ${isReports && "active"}`}>
-            <img src="/images/reports-icon.svg" width="25" />
-            Reports
-          </div>
-        </Link>
-        <Link to="group-organizer">
-          <div className={`item ${isGroupOrganizer && "active"}`}>
-            <img src="/images/group-icon.svg" width="25" />
-            Group Organizer
-          </div>
-        </Link>
-        <Link to="meal-planner">
-          <div className={`item ${isMealPlanner && "active"}`}>
-            <img src="/images/meal-icon.svg" width="25" />
-            Meal Planner
-          </div>
-        </Link>
-        <Link to="topics">
-          <div className={`item ${isTopicEditor && "active"}`}>
-            <img src="/images/topic-icon.svg" width="25" />
-            Topic Editor
-          </div>
-        </Link>
-        <Link to="daily-discovery">
-          <div className={`item ${isDiscoveryEditor && "active"}`}>
-            <img src="/images/discovery-icon.svg" width="25" />
-            Discovery Editor
-          </div>
-        </Link>
-        <Link to="activities">
-          <div className={`item ${isActivitiesBuilder && "active"}`}>
-            <img src="/images/activities-icon.svg" width="25" />
-            Activities Builder
-          </div>
-        </Link>
-        <Link to="foodways">
-          <div className={`item ${isFoodwaysEditor && "active"}`}>
-            <img src="/images/foodways-icon.svg" width="25" />
-            Foodways Editor
-          </div>
-        </Link>
-        <Link to="recipe-builder">
-          <div className={`item ${isRecipeBuilder && "active"}`}>
-            <img src="/images/student-icon.svg" width="25" />
-            Recipe Builder
-          </div>
-        </Link>
-        <Link to="calendar">
-          <div className={`item ${isCalendar && "active"}`}>
-            <img src="/images/calendar-icon.svg" width="25" />
-            Calendar
-          </div>
+        <div
+          className={`item`}
+          onClick={() => setUserToolsOpen(!userToolsOpen)}
+        >
+          User Tools
+        </div>
+        <div className={`drop-down ${userToolsOpen && "open"}`}>
+          <Link to="calendar">
+            <div className={`item ${isCalendar && "active"}`}>Calendar</div>
+          </Link>
+          <Link to="meal-planner">
+            <div className={`item ${isMealPlanner && "active"}`}>
+              Meal Planner
+            </div>
+          </Link>
+        </div>
+        <div
+          className={`item`}
+          onClick={() => setCurriculumOpen(!curriculumOpen)}
+        >
+          Curriculum
+        </div>
+        <div className={`drop-down ${curriculumOpen && "open"}`}>
+          <Link to="accounts">
+            <Link to="topics">
+              <div className={`item ${isTopicEditor && "active"}`}>Topics</div>
+            </Link>
+            <Link to="activities">
+              <div className={`item ${isActivitiesBuilder && "active"}`}>
+                Activities
+              </div>
+            </Link>
+            <Link to="recipes">
+              <div className={`item ${isRecipeBuilder && "active"}`}>
+                Recipes
+              </div>
+            </Link>
+            <Link to="daily-discovery">
+              <div className={`item ${isDiscoveryEditor && "active"}`}>
+                Daily Discovery
+              </div>
+            </Link>
+            <Link to="foodways">
+              <div className={`item ${isFoodwaysEditor && "active"}`}>
+                Foodways
+              </div>
+            </Link>
+          </Link>
+        </div>
+        <Link to="games">
+          <div className={`item ${isGames && "active"}`}>Games</div>
         </Link>
       </div>
     </MenuContainer>
@@ -91,6 +100,7 @@ export const DashboardMenu = () => {
 };
 
 const MenuContainer = styled.div`
+  position: fixed;
   width: 350px;
   height: 100vh;
   background-color: var(--yellow);
@@ -111,6 +121,19 @@ const MenuContainer = styled.div`
     flex-direction: column;
     gap: 5px;
 
+    .drop-down {
+      display: none;
+
+      &.open {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .item {
+        padding-left: 3rem;
+      }
+    }
+
     .item {
       font-size: 1.3rem;
       font-weight: 600;
@@ -118,9 +141,11 @@ const MenuContainer = styled.div`
       display: flex;
       gap: 20px;
       align-items: center;
-      padding: 15px 0;
+      padding: 5px 0;
       transition: 0.3s all ease-in-out;
       padding-left: 30px;
+      cursor: pointer;
+      user-select: none;
 
       &.active {
         background-color: var(--orange);

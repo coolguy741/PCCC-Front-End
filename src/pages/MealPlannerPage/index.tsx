@@ -26,7 +26,7 @@ export const MealPlannerPage = () => {
               </button>
             )}
             <MealFilter match={!!match} />
-            <MealPlan match={!!match} />
+            <MealPlan match={match?.pathname} />
           </div>
           <MealPlannerActions match={!!match} />
         </div>

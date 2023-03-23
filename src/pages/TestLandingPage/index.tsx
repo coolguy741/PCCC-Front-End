@@ -3,7 +3,7 @@ import Spline from "@splinetool/react-spline";
 // @ts-ignore
 import FPSStats from "react-fps-stats";
 
-export const LandingPage = () => {
+export const TestLandingPage = () => {
   return (
     <>
       <FPSStats />

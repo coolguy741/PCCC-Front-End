@@ -27,10 +27,10 @@ const StyledButton = styled(Link).attrs((props: { disabled: boolean }) => ({
   border-radius: 2rem;
   color: #3d3d3d;
   cursor: pointer;
+  display: inline-block;
   font-size: 0.75rem;
   padding: 0.75rem 1.125rem;
   vertical-align: top;
-  min-width: 8rem;
   ${({ disabled }) =>
     disabled &&
     `

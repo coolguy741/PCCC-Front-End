@@ -43,6 +43,7 @@ const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-left: 350px;
 
     &__header {
       width: 100%;
