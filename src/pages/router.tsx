@@ -37,6 +37,8 @@ import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
+import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
+import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -145,6 +147,13 @@ export const router = createBrowserRouter([
           {
             path: "create",
             element: <CreateFoodwaysPage />,
+          },
+          {
+            path: ":foodway",
+            children: [
+              { path: "", element: <FoodwaysOverviewPage /> },
+              { path: "edit", element: <EditFoodwaysPage /> },
+            ],
           },
         ],
       },

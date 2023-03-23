@@ -12,7 +12,7 @@ const TAGS = [
   "pescatarian",
 ];
 
-export const CreateFoodwaysPage = () => {
+export const EditFoodwaysPage = () => {
   return (
     <Container>
       <h1>Foodways</h1>
@@ -28,7 +28,7 @@ export const CreateFoodwaysPage = () => {
           <Button>Preview</Button>
         </div>
         <div className="content__body">
-          <h2>Create Foodways</h2>
+          <h2>Edit Foodways</h2>
           <div className="content__body__form">
             <div className="content__body__form__inputs">
               <label>
