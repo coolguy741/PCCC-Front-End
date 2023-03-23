@@ -3,21 +3,25 @@ import styled from "styled-components";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
 
-export const SignInForm = () => {
+export const ResetPasswordForm = () => {
   return (
     <Container>
       <div>
-        <h1>Sign in</h1>
+        <h1>Reset Password</h1>
         <label>
-          <span>Username</span>
+          <span>New Password</span>
           <Input type="username" />
         </label>
         <label>
-          <span>Password</span>
+          <span>Retype Password</span>
           <Input type="password" />
         </label>
-        <Link to="forgot-password">Forgot password?</Link>
-        <Button onClick={() => {}}>Sign In</Button>
+        <div className="back-button">
+          <Link to="/signin">
+            <Button>Back</Button>
+          </Link>
+        </div>
+        <Button onClick={() => {}}>Reset</Button>
       </div>
     </Container>
   );
@@ -49,7 +53,7 @@ const Container = styled.div`
       align-items: center;
 
       span {
-        width: 7rem;
+        width: 11rem;
         font-size: 1.2rem;
       }
 
@@ -61,5 +65,11 @@ const Container = styled.div`
     button {
       margin-top: 2rem;
     }
+  }
+
+  .back-button {
+    position: absolute;
+    top: 8rem;
+    left: 2rem;
   }
 `;

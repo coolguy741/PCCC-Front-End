@@ -34,6 +34,8 @@ import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
 import { TempHomePage } from "./TempHomePage";
 import { GamesPage } from "./GamesPage";
+import { ForgotPasswordPage } from "./ForgotPasswordPage";
+import { ResetPasswordPage } from "./ResetPasswordPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -45,7 +47,22 @@ export const router = createBrowserRouter([
         <Outlet />
       </AuthPage>
     ),
-    children: [{ path: "", element: <SignInPage /> }],
+    children: [
+      {
+        path: "",
+        children: [
+          { path: "", element: <SignInPage /> },
+          {
+            path: "forgot-password",
+            element: <ForgotPasswordPage />,
+          },
+          {
+            path: "reset-password",
+            element: <ResetPasswordPage />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/signup",
