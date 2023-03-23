@@ -89,7 +89,7 @@ export const AccountsUserProfilePage = () => {
         <ul className="activities-list">
           {
             userData.activities.map((activity, index) => (
-              <li className="activity-item">
+              <li className="activity-item" key={index}>
                 <div className="left">
                   <span className="icon-container">
                     <Icon name={activity.type}/>
@@ -117,7 +117,7 @@ export const AccountsUserProfilePage = () => {
             {
               userData.lessonAssessment.map((lesson, index) => (
                 <tr key={index}>
-                  <td>{lesson.lessons}</td>
+                  <td><Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">{lesson.lessons}</Link></td>
                   <td>{lesson.group}</td>
                   <td>{lesson.date}</td>
                   <td>{lesson.status}</td>
@@ -295,6 +295,13 @@ const PageContainer = styled.div`
       tr {
         height: 50px;
         border-bottom: 2px solid black;
+        
+        Link {
+          &:hover, &:visited:{
+            text-decoration: none;
+            color; inherit;
+          }
+        }
       }
     }
   }
