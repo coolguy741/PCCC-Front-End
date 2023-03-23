@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import { HomePage } from "./HomePage";
-import { SignInPage } from "./SignInPage";
-import { SignUpPage } from "./SignUpPage";
+import { SignInPage } from "./AuthPage/SignInPage";
+import { SignUpPage } from "./AuthPage/SignUpPage";
 import { DashboardPage } from "./DashboardPage";
 import { AccountsPage } from "./AccountsPage";
 import { GroupOrganizerPage } from "./GroupOrganizerPage";
@@ -33,9 +33,10 @@ import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
 import { TempHomePage } from "./TempHomePage";
 import { GamesPage } from "./GamesPage";
-import { ForgotPasswordPage } from "./ForgotPasswordPage";
-import { ResetPasswordPage } from "./ResetPasswordPage";
+import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
+import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
+import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -139,7 +140,13 @@ export const router = createBrowserRouter([
       { path: "activities", element: <ActivitiesBuilderPage /> },
       {
         path: "foodways",
-        children: [{ path: "", element: <FoodwaysPage /> }],
+        children: [
+          { path: "", element: <FoodwaysPage /> },
+          {
+            path: "create",
+            element: <CreateFoodwaysPage />,
+          },
+        ],
       },
       { path: "recipes", element: <RecipeBuilderPage /> },
       { path: "calendar", element: <CalendarPage /> },

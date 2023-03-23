@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../components/Global/Button";
 import foodways from "../../lib/mockData/foodways/foodways.json";
@@ -16,7 +17,9 @@ export const FoodwaysPage = () => {
           </div>
           <div className="content__header__buttons">
             <Button>Delete</Button>
-            <Button>Create Foodways</Button>
+            <Link to="create">
+              <Button>Create Foodways</Button>
+            </Link>
           </div>
         </div>
         <div className="content__body">

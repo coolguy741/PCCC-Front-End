@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { ResetPasswordForm } from "../../components/Auth/ResetPasswordForm";
+import { ForgotPasswordForm } from "../../../components/Auth/ForgotPasswordForm";
 
-export const ResetPasswordPage = () => {
+export const ForgotPasswordPage = () => {
   return (
     <Container>
-      <ResetPasswordForm />
+      <ForgotPasswordForm />
     </Container>
   );
 };
