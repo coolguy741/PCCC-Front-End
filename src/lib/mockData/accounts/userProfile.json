@@ -27,7 +27,7 @@
         "type": "activity",
         "content": "Tools of the Trade to Group A",
         "date": "30 mins ago",
-        "name": "assigneed Activiy"
+        "name": "assigneed Activiy : "
       },
       {
         "type": "group",
@@ -39,7 +39,7 @@
         "type": "activity",
         "content": "Tools of the Trade for Group B",
         "date": "2 days ago",
-        "name": "completed Activiy"
+        "name": "completed Activiy :"
       }
     ],
     "lessonAssessment": [
@@ -95,7 +95,7 @@
         "type": "activity",
         "content": "Tools of the Trade to Group A",
         "date": "30 mins ago",
-        "name": "assigned Activity"
+        "name": "assigned Activity :"
       },
       {
         "type": "group",
@@ -107,7 +107,7 @@
         "type": "activity",
         "content": "Tools of the Trade for Group B",
         "date": "2 days ago",
-        "name": "deleted activity"
+        "name": "deleted activity :"
       }
     ],
     "lessonAssessment": [
@@ -173,7 +173,7 @@
         "type": "topic",
         "content": "Topic Name",
         "date": "30 mins ago",
-        "name": "created a topic"
+        "name": "created a topic :"
       }
     ],
     "lessonAssessment": [
