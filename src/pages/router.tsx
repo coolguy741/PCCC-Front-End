@@ -21,7 +21,6 @@ import { PrintPage } from "./PrintPage";
 import { MealPlannerGroceryPage } from "./MealPlannerPage/Grocery";
 import { MealPlannerGroceryPrintPage } from "./MealPlannerPage/Grocery/Print";
 import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
-import { MealPlannerAssessmentPage } from "./MealPlannerPage/Recipe/Assessment";
 import { AccountsProfilesPage } from "./AccountsPage/Profiles";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
@@ -36,6 +35,7 @@ import { TempHomePage } from "./TempHomePage";
 import { GamesPage } from "./GamesPage";
 import { ForgotPasswordPage } from "./ForgotPasswordPage";
 import { ResetPasswordPage } from "./ResetPasswordPage";
+import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -128,7 +128,7 @@ export const router = createBrowserRouter([
           { path: ":recipe", element: <MealPlannerRecipePage /> },
           {
             path: ":recipe/:assessment",
-            element: <MealPlannerAssessmentPage />,
+            element: <MealPlannerRecipePage />,
           },
           { path: "edit", element: <MealPlannerPage /> },
           { path: "grocery-list", element: <MealPlannerGroceryPage /> },
@@ -165,7 +165,7 @@ export const router = createBrowserRouter([
             path: "grocery-list/print",
             element: <MealPlannerGroceryPrintPage />,
           },
-          { path: ":recipe/print", element: <MealPlannerRecipePage /> },
+          { path: ":recipe/print", element: <MealPlannerRecipePrintPage /> },
         ],
       },
     ],

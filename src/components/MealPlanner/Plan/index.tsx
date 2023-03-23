@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface Props {
@@ -41,7 +42,9 @@ export const MealPlan: React.FC<Props> = ({ match = "" }) => {
                         <div>
                           <div className="meal-image"></div>
                           {!isPrint && (
-                            <img src="/images/circle-minus.svg" width="15" />
+                            <Link to="/dashboard/meal-planner/1">
+                              <img src="/images/circle-minus.svg" width="15" />
+                            </Link>
                           )}
                           <p>Meal</p>
                         </div>
