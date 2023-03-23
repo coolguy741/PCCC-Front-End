@@ -137,7 +137,10 @@ export const router = createBrowserRouter([
       { path: "topics", element: <TopicEditorPage /> },
       { path: "daily-discovery", element: <DiscoveryEditorPage /> },
       { path: "activities", element: <ActivitiesBuilderPage /> },
-      { path: "foodways", element: <FoodwaysPage /> },
+      {
+        path: "foodways",
+        children: [{ path: "", element: <FoodwaysPage /> }],
+      },
       { path: "recipes", element: <RecipeBuilderPage /> },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
