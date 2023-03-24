@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../../../components/Global/Button";
 import { SmallButton } from "../../../../components/Global/SmallButton";
@@ -6,6 +7,11 @@ import mockData from "../../../../lib/mockData/accounts/createGroup.json";
 
 export const AccountsCreateGroupPage = () => {
   const [members, setMembers] = useState<string[]>([]);
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  }
 
   useEffect(() => {}, [members])
 
@@ -21,6 +27,9 @@ export const AccountsCreateGroupPage = () => {
 
   return (
     <Container>
+      <div className="buttons-container">
+        <Button onClick={handleBack}>Back</Button>
+s      </div>
       <h1>Create Group Page</h1>
       <div className="group-data-container">
         <div className="container">
@@ -81,6 +90,12 @@ export const AccountsCreateGroupPage = () => {
 };
 
 const Container = styled.div`
+  .buttons-container{
+    margin: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
   .text {
     padding:0px;
     margin: 0px;
