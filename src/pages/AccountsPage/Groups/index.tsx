@@ -3,7 +3,7 @@ import { GroupCard } from "../../../components/Accounts/GroupCard";
 import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
 import { Button } from "../../../components/Global/Button";
 import mockData from "../../../lib/mockData/accounts/groups.json";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const AccountsGroupsPage = () => {
   const navigate = useNavigate();
@@ -38,8 +38,10 @@ export const AccountsGroupsPage = () => {
         <div className="groups-container">
         {
           mockData.groups.map((group, index) => (
-            <div className="group-card-container">
-              <GroupCard data={group} key={index}/>
+            <div className="group-card-container" key={index}>
+              <Link to="./group">
+                <GroupCard data={group}/>
+              </Link>
             </div>
           ))
         }
@@ -100,6 +102,12 @@ const PageContainer = styled.div`
 
       .group-card-container {
         width: 45%;
+
+        a {
+          &:hover, &:visited{
+            decoration: none;
+          }
+        }
       }
     }
 

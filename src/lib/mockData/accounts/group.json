@@ -1,0 +1,77 @@
+{
+  "name": "Mrs. Brown’s Math Group A",
+  "groupID": 432561,
+  "lastModified": "Feb 22, 2022",
+  "owner": "Van Jones",
+  "role": "Professional",
+  "members": [
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User",
+      "image": "/photos/1.png"
+    }
+  ],
+  "activities": [
+    {
+      "type": "user",
+      "date": "30 mins ago",
+      "userActivity": {
+        "userName": "Standard User A",
+        "action": "completed Activity",
+        "activityName": "Tools of the Trade"
+      }
+    },
+    {
+      "type": "user",
+      "date": "30 mins ago",
+      "userActivity": {
+        "userName": "Standard User",
+        "action": "completed Activity",
+        "activityName": "Tools of the Trade"
+      }
+    },
+    {
+      "type": "topic",
+      "date": "30 mins ago",
+      "topicActivity": {
+        "action": "New topic",
+        "topicName": "Garden gaurdians posted"
+      }
+    }
+  ]
+}
