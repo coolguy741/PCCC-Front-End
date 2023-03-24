@@ -39,6 +39,8 @@ import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
+import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
+import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -103,7 +105,7 @@ export const router = createBrowserRouter([
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
           },
-          
+
           { path: "groups", element: <AccountsGroupsPage /> },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
@@ -154,6 +156,7 @@ export const router = createBrowserRouter([
             children: [
               { path: "", element: <FoodwaysOverviewPage /> },
               { path: "edit", element: <EditFoodwaysPage /> },
+              { path: "preview", element: <FoodwaysPreviewPage /> },
             ],
           },
         ],
@@ -174,11 +177,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "dashboard/meal-planner",
-        element: (
-          <>
-            <Outlet />
-          </>
-        ),
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
           {
@@ -186,6 +184,15 @@ export const router = createBrowserRouter([
             element: <MealPlannerGroceryPrintPage />,
           },
           { path: ":recipe/print", element: <MealPlannerRecipePrintPage /> },
+        ],
+      },
+      {
+        path: "dashboard/foodways",
+        children: [
+          {
+            path: ":foodway/print",
+            element: <FoodwaysPrintPage />,
+          },
         ],
       },
     ],

@@ -25,7 +25,9 @@ export const EditFoodwaysPage = () => {
             <Button>English</Button>
             <Button>French</Button>
           </div>
-          <Button>Preview</Button>
+          <Link to="../preview">
+            <Button>Preview</Button>
+          </Link>
         </div>
         <div className="content__body">
           <h2>Edit Foodways</h2>

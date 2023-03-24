@@ -11,7 +11,7 @@ type TPlan = {
 };
 
 // Should move these exported types to `types.ts` as this is updated according to the data structure
-export type TCalendarType = "plan" | "assessment" | "recipe";
+export type TCalendarType = "plan" | "assessment" | "recipe" | "foodways";
 
 export type TData = {
   group: string;

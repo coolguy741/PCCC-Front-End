@@ -3,7 +3,7 @@ import { useMatch } from "react-router-dom";
 import styled from "styled-components";
 
 import { MealPlannerActions } from "../../components/MealPlanner/Actions";
-import { CalendarModal } from "../../components/MealPlanner/CalendarModal";
+import { CalendarModal } from "../../components/Global/CalendarModal";
 import { MealFilter } from "../../components/MealPlanner/Filter";
 import { MealPlanHeader } from "../../components/MealPlanner/Header";
 import { MealPlan } from "../../components/MealPlanner/Plan";

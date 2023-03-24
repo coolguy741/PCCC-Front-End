@@ -6,7 +6,7 @@ import { Button } from "../../../components/Global/Button";
 import { CalendarModal } from "../../../components/Global/CalendarModal";
 import foodways from "../../../lib/mockData/foodways/foodways.json";
 
-export const FoodwaysOverviewPage = () => {
+export const FoodwaysPreviewPage = () => {
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   return (
     <>
@@ -18,14 +18,7 @@ export const FoodwaysOverviewPage = () => {
               <Button>Back</Button>
             </Link>
             <div className="content__header__buttons">
-              <Link to="edit">
-                <Button>Edit</Button>
-              </Link>
-              <Button onClick={() => setShowCalendarModal(true)}>
-                Add to calendar
-              </Button>
-              <Button>Publish</Button>
-              <Link to="print">
+              <Link to="../print">
                 <Button>Print</Button>
               </Link>
             </div>
