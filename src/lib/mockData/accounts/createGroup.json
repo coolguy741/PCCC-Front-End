@@ -1,0 +1,39 @@
+{
+  "groupID": 432156,
+  "lastModified": "Feb 22, 2022",
+  "professionals": ["John Doe", "AAAA", "BBBB"],
+  "users": [
+    {
+      "img": "/photos/1.png",
+      "name": "Standard User"
+    },
+    {
+      "img": "/photos/1.png",
+      "name": "Professional User"
+    },
+    {
+      "img": "/photos/1.png",
+      "name": "Standard User"
+    },
+    {
+      "img": "/photos/1.png",
+      "name": "Professional User"
+    },
+    {
+      "img": "/photos/1.png",
+      "name": "Standard User"
+    },
+    {
+      "img": "/photos/1.png",
+      "name": "Professional User"
+    },
+    {
+      "img": "/photos/1.png",
+      "name": "Professional User"
+    },
+    {
+      "img": "/photos/1.png",
+      "name": "Standard User"
+    }
+  ]
+}
