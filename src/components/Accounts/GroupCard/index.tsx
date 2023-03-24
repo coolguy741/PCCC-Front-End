@@ -11,10 +11,10 @@ interface GroupCardProps {
     owner: string;
     ownerRole: string;
     members: {
-        img: string;
-        name: string;
+      img: string;
+      name: string;
     }[];
-  }
+  };
 }
 
 export const GroupCard = ({ data }: GroupCardProps) => {
@@ -22,7 +22,7 @@ export const GroupCard = ({ data }: GroupCardProps) => {
 
   const handleExpand = () => {
     setIsExpand(!isExpand);
-  }
+  };
 
   return (
     <Container>
@@ -30,7 +30,7 @@ export const GroupCard = ({ data }: GroupCardProps) => {
         <div className="col-50">
           <div className="group-name-container">
             <div className="icon-container">
-              <Icon name= "group"/>
+              <Icon name="group" />
             </div>
             <p className="bold-big-text">{data.name}</p>
           </div>
@@ -44,24 +44,24 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           <p className="text">{"(" + data.ownerRole + ")"}</p>
         </div>
       </div>
-      <div className={`members-container ${isExpand == true ? "show" : "hide"}`}>
-        {
-          data.members.map((member, index) => (
-            <div className="member-container" key={index}>
-              <img src={member.img} placeholder="image"/>
-              <p className="bold-text">{member.name}</p>
-            </div>
-          ))
-        }
+      <div
+        className={`members-container ${isExpand == true ? "show" : "hide"}`}
+      >
+        {data.members.map((member, index) => (
+          <div className="member-container" key={index}>
+            <img src={member.img} placeholder="image" />
+            <p className="bold-text">{member.name}</p>
+          </div>
+        ))}
       </div>
       <div className="row">
         <button className="expand-button" onClick={handleExpand}>
-          {isExpand === false ? "Exapand" : "Collapse"}
+          {isExpand === false ? "Expand" : "Collapse"}
         </button>
         <div className="buttons-group">
-          <SmallButton>Join</SmallButton> 
-          <SmallButton>Edit</SmallButton> 
-          <SmallButton>Delete</SmallButton> 
+          <SmallButton>Join</SmallButton>
+          <SmallButton>Edit</SmallButton>
+          <SmallButton>Delete</SmallButton>
         </div>
       </div>
     </Container>
@@ -77,7 +77,7 @@ const Container = styled.div`
     display: flex;
     margin-bottom: 20px;
 
-    .col-50{
+    .col-50 {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -91,7 +91,7 @@ const Container = styled.div`
         }
       }
 
-      .icon-container{
+      .icon-container {
         width: 30px;
         height: 30px;
       }
@@ -106,8 +106,7 @@ const Container = styled.div`
   .members-container {
     display: flex;
     flex-wrap: wrap;
-    
-    
+
     .member-container {
       display: flex;
       width: 50%;
@@ -117,7 +116,6 @@ const Container = styled.div`
         border-radius: 50%;
         width: 40px;
         height: 40px;
-
       }
 
       p {
