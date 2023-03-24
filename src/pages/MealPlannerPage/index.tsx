@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { useMatch } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../../components/Global/Button";
 
 import { MealPlannerActions } from "../../components/MealPlanner/Actions";
+import { CalendarModal } from "../../components/MealPlanner/CalendarModal";
 import { MealFilter } from "../../components/MealPlanner/Filter";
 import { MealPlanHeader } from "../../components/MealPlanner/Header";
 import { MealPlan } from "../../components/MealPlanner/Plan";
@@ -10,6 +11,13 @@ import { MealType } from "../../components/MealPlanner/Type";
 
 export const MealPlannerPage = () => {
   const match = useMatch("/dashboard/meal-planner/edit");
+  const [isOpen, setIsOpen] = useState(false);
+  const close = () => {
+    setIsOpen(false);
+  };
+  const open = () => {
+    setIsOpen(true);
+  };
 
   return (
     <PageContainer>
@@ -21,7 +29,7 @@ export const MealPlannerPage = () => {
         <div className="meal-plan-container">
           <div className="meal-plan">
             {!!match && (
-              <button onClick={() => {}} className="link-to-calendar">
+              <button onClick={open} className="link-to-calendar">
                 Add to calendar
               </button>
             )}
@@ -32,6 +40,7 @@ export const MealPlannerPage = () => {
         </div>
         <MealType />
       </div>
+      <CalendarModal isOpen={isOpen} close={close} type="plan" />
     </PageContainer>
   );
 };

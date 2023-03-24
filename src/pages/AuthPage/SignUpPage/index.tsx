@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AgeGate } from "../../components/Auth/AgeGate";
-import { RoleGate } from "../../components/Auth/RoleGate";
-import { SecurityQuestions } from "../../components/Auth/SecurityQuestions";
-import { SignUpForm } from "../../components/Auth/SignUpForm";
+import { AgeGate } from "../../../components/Auth/AgeGate";
+import { RoleGate } from "../../../components/Auth/RoleGate";
+import { SecurityQuestions } from "../../../components/Auth/SecurityQuestions";
+import { SignUpForm } from "../../../components/Auth/SignUpForm";
 
 export const SignUpPage = () => {
   const [nav, setNav] = useState(0);

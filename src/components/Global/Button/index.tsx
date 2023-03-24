@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface ButtonProps {
   children: string;
-  onClick ?: () => void;
+  onClick?: () => void;
 }
 
 export const Button = ({ children, onClick }: ButtonProps) => {
