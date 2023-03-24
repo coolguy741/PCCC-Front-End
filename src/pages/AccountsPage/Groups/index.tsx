@@ -38,8 +38,8 @@ export const AccountsGroupsPage = () => {
         <div className="groups-container">
         {
           mockData.groups.map((group, index) => (
-            <div className="group-card-container">
-              <GroupCard data={group} key={index}/>
+            <div className="group-card-container" key={index}>
+              <GroupCard data={group}/>
             </div>
           ))
         }

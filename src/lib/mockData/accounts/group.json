@@ -1,0 +1,41 @@
+{
+  "name": "Mrs. Brown’s Math Group A",
+  "groupID": 432561,
+  "lastModified": "Feb 22, 2022",
+  "owner": "Van Jones",
+  "role": "Professional",
+  "members": [
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    },
+    {
+      "role": "Standard",
+      "name": "Standard User"
+    }
+  ]
+}
