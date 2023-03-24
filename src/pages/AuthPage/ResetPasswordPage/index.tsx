@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { SignInForm } from "../../components/Auth/SignInForm";
+import { ResetPasswordForm } from "../../../components/Auth/ResetPasswordForm";
 
-export const SignInPage = () => {
+export const ResetPasswordPage = () => {
   return (
     <Container>
-      <SignInForm />
+      <ResetPasswordForm />
     </Container>
   );
 };

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../components/Global/Button";
 import foodways from "../../lib/mockData/foodways/foodways.json";
@@ -16,22 +17,26 @@ export const FoodwaysPage = () => {
           </div>
           <div className="content__header__buttons">
             <Button>Delete</Button>
-            <Button>Create Foodways</Button>
+            <Link to="create">
+              <Button>Create Foodways</Button>
+            </Link>
           </div>
         </div>
         <div className="content__body">
           {foodways.map((foodway) => (
-            <div className="content__body__item">
-              <div className="content__body__item__title">
-                <h3>{foodway.title}</h3>
+            <Link to={`${foodway.id}`}>
+              <div className="content__body__item">
+                <div className="content__body__item__title">
+                  <h3>{foodway.title}</h3>
+                </div>
+                <div className="content__body__item__date">
+                  <p>{foodway.date}</p>
+                </div>
+                <div className="content__body__item__description">
+                  <p>{foodway.intro}</p>
+                </div>
               </div>
-              <div className="content__body__item__date">
-                <p>{foodway.date}</p>
-              </div>
-              <div className="content__body__item__description">
-                <p>{foodway.intro}</p>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

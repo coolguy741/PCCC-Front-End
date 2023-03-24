@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import { HomePage } from "./HomePage";
-import { SignInPage } from "./SignInPage";
-import { SignUpPage } from "./SignUpPage";
+import { SignInPage } from "./AuthPage/SignInPage";
+import { SignUpPage } from "./AuthPage/SignUpPage";
 import { DashboardPage } from "./DashboardPage";
 import { AccountsPage } from "./AccountsPage";
 import { GroupOrganizerPage } from "./GroupOrganizerPage";
@@ -33,13 +33,16 @@ import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
 import { TempHomePage } from "./TempHomePage";
 import { GamesPage } from "./GamesPage";
-import { ForgotPasswordPage } from "./ForgotPasswordPage";
-import { ResetPasswordPage } from "./ResetPasswordPage";
+import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
+import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { Topics } from "./TopicBuilderPage/Topics";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
 import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
 import { TopicCreatePreviewPage } from "./TopicBuilderPage/Create/Preview";
+import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
+import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
+import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -78,6 +81,10 @@ export const router = createBrowserRouter([
     children: [{ path: "", element: <SignUpPage /> }],
   },
   {
+    path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
+    element: <AccountsUserLessonAssessmentPrintPage />,
+  },
+  {
     path: "/dashboard",
     element: (
       <DashboardPage>
@@ -100,10 +107,7 @@ export const router = createBrowserRouter([
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
           },
-          {
-            path: "profiles/:user/:lessonAssessment/print",
-            element: <AccountsUserLessonAssessmentPrintPage />,
-          },
+
           { path: "groups", element: <AccountsGroupsPage /> },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
@@ -153,7 +157,20 @@ export const router = createBrowserRouter([
       { path: "activities", element: <ActivitiesBuilderPage /> },
       {
         path: "foodways",
-        children: [{ path: "", element: <FoodwaysPage /> }],
+        children: [
+          { path: "", element: <FoodwaysPage /> },
+          {
+            path: "create",
+            element: <CreateFoodwaysPage />,
+          },
+          {
+            path: ":foodway",
+            children: [
+              { path: "", element: <FoodwaysOverviewPage /> },
+              { path: "edit", element: <EditFoodwaysPage /> },
+            ],
+          },
+        ],
       },
       { path: "recipes", element: <RecipeBuilderPage /> },
       { path: "calendar", element: <CalendarPage /> },

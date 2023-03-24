@@ -1,0 +1,222 @@
+{
+  "groups": [
+    {
+      "name": "Group Name",
+      "groupID": 432156,
+      "lastModified": "Feb 22, 2022",
+      "owner": "Van Jones",
+      "ownerRole": "Professional",
+      "members": [
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        }
+      ]
+    },
+    {
+      "name": "Group Name",
+      "groupID": 432156,
+      "lastModified": "Feb 22, 2022",
+      "owner": "Van Jones",
+      "ownerRole": "Professional",
+      "members": [
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        }
+      ]
+    },
+    {
+      "name": "Group Name",
+      "groupID": 432156,
+      "lastModified": "Feb 22, 2022",
+      "owner": "Van Jones",
+      "ownerRole": "Professional",
+      "members": [
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        }
+      ]
+    },
+    {
+      "name": "Group Name",
+      "groupID": 432156,
+      "lastModified": "Feb 22, 2022",
+      "owner": "Van Jones",
+      "ownerRole": "Professional",
+      "members": [
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        }
+      ]
+    },
+    {
+      "name": "Group Name",
+      "groupID": 432156,
+      "lastModified": "Feb 22, 2022",
+      "owner": "Van Jones",
+      "ownerRole": "Professional",
+      "members": [
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        }
+      ]
+    },
+    {
+      "name": "Group Name",
+      "groupID": 432156,
+      "lastModified": "Feb 22, 2022",
+      "owner": "Van Jones",
+      "ownerRole": "Professional",
+      "members": [
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        },
+        {
+          "img": "/photos/1.png",
+          "name": "Standard User Name"
+        }
+      ]
+    }
+  ],
+  "groupInvitations": [
+    {
+      "groupName": "Group Name",
+      "creator": "Gaby Leee",
+      "creatorRole": "Admin",
+      "status": "free"
+    },
+    {
+      "groupName": "Group Name",
+      "creator": "Gaby Leee",
+      "creatorRole": "Admin",
+      "status": "Accepted"
+    },
+    {
+      "groupName": "Group Name",
+      "creator": "Gaby Leee",
+      "creatorRole": "Admin",
+      "status": "Denied"
+    }
+  ]
+}
