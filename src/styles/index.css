@@ -66,3 +66,7 @@ input {
 .flex {
   display: flex;
 }
+
+.space-x-6 {
+  column-gap: 1.5rem;
+}

@@ -50,7 +50,7 @@ const PageContainer = styled.div`
   width: 100%;
   height: 100%;
   margin-right: 50px;
-
+  overflow-y: auto;
   & .link-to-calendar {
     position: absolute;
     top: -30px;
