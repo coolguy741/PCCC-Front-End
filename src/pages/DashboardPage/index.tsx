@@ -35,7 +35,7 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
 const PageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
 
   .main-container {
@@ -65,6 +65,11 @@ const PageContainer = styled.div`
           height: 20px;
         }
       }
+    }
+
+    .__content {
+      height: 100%;
+      overflow: hidden;
     }
   }
 `;
