@@ -16,6 +16,7 @@ const StyledSmallButton = styled.button`
   color: #3d3d3d;
   cursor: pointer;
   font-size: 1rem;
-  padding: 0.5rem 0.7rem;
-  min-width: 8rem;
+  min-width: 4rem;
+  line-height: 110%;
+  padding: 0.5rem;
 `;

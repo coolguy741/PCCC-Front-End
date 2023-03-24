@@ -3,8 +3,15 @@ import { GroupCard } from "../../../components/Accounts/GroupCard";
 import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
 import { Button } from "../../../components/Global/Button";
 import mockData from "../../../lib/mockData/accounts/groups.json";
+import { useNavigate } from "react-router-dom";
 
 export const AccountsGroupsPage = () => {
+  const navigate = useNavigate();
+
+  const handleCreate = () => {
+    navigate("/dashboard/accounts/groups/create");
+  }
+
   return (
     <PageContainer>
       <div className="header-container">
@@ -23,17 +30,19 @@ export const AccountsGroupsPage = () => {
           </div>
         </div>
         <div className="button-container">
-          <Button>Create Group</Button>
+          <Button onClick={handleCreate}>Create Group</Button>
           <Button>Join Group</Button>
         </div>
       </div>
       <div className="row">
         <div className="groups-container">
-          {
-            mockData.groups.map((group, index) => (
+        {
+          mockData.groups.map((group, index) => (
+            <div className="group-card-container">
               <GroupCard data={group} key={index}/>
-            ))
-          }
+            </div>
+          ))
+        }
         </div>
         <div className="group-invitations-container">
           <p className="title-text">{"Group Invitations ( " + mockData.groupInvitations.length + " )"}</p>
@@ -69,6 +78,7 @@ const PageContainer = styled.div`
 
     .button-container {
       display: flex;
+      align-items: center;
 
       Button {
         margin-right: 10px;
@@ -87,6 +97,10 @@ const PageContainer = styled.div`
       margin: 0px;
       margin-top: 80px;
       padding: 0px;
+
+      .group-card-container {
+        width: 45%;
+      }
     }
 
     .group-invitations-container {
