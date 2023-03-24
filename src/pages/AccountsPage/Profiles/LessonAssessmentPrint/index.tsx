@@ -44,7 +44,5 @@ const PageContainer = styled.div`
     h2 {
       text-align: center;
     }
-
   }
-
 `
