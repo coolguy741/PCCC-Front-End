@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { MouseEvent } from "react";
 import styled from "styled-components";
-
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import { AddPlanDropdown } from "../AddPlanDropdown";
 import { AddRecipeDropdown } from "../AddRecipeDropdown";
 
@@ -40,80 +41,20 @@ export const Calendar: React.FC<Props> = ({
 
   return (
     <StyledCalendar>
-      {Array.from({ length: 5 })
-        .fill(1)
-        .map((value, index) => {
-          return (
-            <Week
-              key={`row-${index}`}
-              id={`${index + 1}`}
-              isPlan={isPlan}
-              onClick={onWeekClick}
-            >
-              {Array.from({ length: 7 })
-                .fill(1)
-                .map((value, colIndex) => {
-                  const date = 7 * index + colIndex + 1;
-
-                  return (
-                    <div
-                      key={`column-${index}-${colIndex}`}
-                      className={`day ${date <= 31 ? "current-month" : ""}`}
-                      onClick={onDayClick}
-                      id={`${date}`}
-                    >
-                      {date % 31 === 0 ? 31 : date % 31}
-                      {!!data && (
-                        <div className="scheduled-plans">
-                          {data.date === date && (
-                            <div>
-                              <div className="flex">
-                                <div className="to-uppercase">{data.type}:</div>
-                                <div>{data.group}</div>
-                              </div>
-                              <div>{data.topic}</div>
-                              <div>{data.recipeName}</div>
-                            </div>
-                          )}
-                          {data.week === index && (
-                            <div>
-                              <div>{data.group}s</div>
-                              {data.plans?.map((plan) => (
-                                <div
-                                  key={plan.time.toString()}
-                                  className="flex"
-                                >
-                                  <div>{plan.time.toLocaleTimeString()}</div>
-                                  <div>{plan.meal} </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                      {!isPlan && (
-                        <div className="dropdown-container">
-                          <AddRecipeDropdown add={() => {}} />
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              {isPlan && (
-                <div className="dropdown-container">
-                  <AddPlanDropdown add={() => {}} />
-                </div>
-              )}
-            </Week>
-          );
-        })}
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridMonth"
+        events={[
+          { title: "event 1", date: "2023-03-01" },
+          { title: "event 2", date: "2023-03-02" },
+        ]}
+      />
     </StyledCalendar>
   );
 };
 
 const StyledCalendar = styled.div`
   margin-top: 20px;
-  border: 0.5px solid var(--black);
 `;
 
 const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
