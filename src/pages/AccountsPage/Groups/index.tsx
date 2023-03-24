@@ -1,5 +1,8 @@
 import styled from "styled-components";
+import { GroupCard } from "../../../components/Accounts/GroupCard";
+import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
 import { Button } from "../../../components/Global/Button";
+import mockData from "../../../lib/mockData/accounts/groups.json";
 
 export const AccountsGroupsPage = () => {
   return (
@@ -26,10 +29,21 @@ export const AccountsGroupsPage = () => {
       </div>
       <div className="row">
         <div className="groups-container">
-          groups container
+          {
+            mockData.groups.map((group, index) => (
+              <GroupCard data={group} key={index}/>
+            ))
+          }
         </div>
-        <div className="group-invitations">
-          
+        <div className="group-invitations-container">
+          <p className="title-text">{"Group Invitations ( " + mockData.groupInvitations.length + " )"}</p>
+          <div className="group-invitations">
+            {
+              mockData.groupInvitations.map((group, index) => (
+                <GroupInvitationCard data = {group} key = {index}/>
+              ))
+            }
+          </div>
         </div>
       </div>
     </PageContainer>
@@ -64,21 +78,36 @@ const PageContainer = styled.div`
 
   .row {
     display: flex;
-    margin: 30px;
 
     .groups-container {
       width: 80%;
       display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 0px;
+      margin-top: 80px;
+      padding: 0px;
     }
 
-    .group-invitations {
-      width: 20%;
+    .group-invitations-container {
       display: flex;
       flex-direction: column;
       margin: 10px;
-      border: 1px black solid;
-      padding: 10px;
+      width: 20%;
 
-    }
+      .title-text {
+        font-size: 1.2rem;
+      }
+
+      .group-invitations {
+        border: 1px black solid;
+        padding: 10px;
+        
+        .bold-big-text {
+          font-size: 1.1 rem;
+          font-weight: 700;
+        }
+      }
+    }    
   }
 `
