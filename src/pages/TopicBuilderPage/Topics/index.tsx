@@ -238,7 +238,8 @@ const PageContainer = styled.div`
       gap: 2rem;
       padding: 5px;
       overflow: auto;
-
+      min-height: 30rem;
+      height: calc(100vh - 300px);
       & {
         h4 {
           font-size: 0.875rem;

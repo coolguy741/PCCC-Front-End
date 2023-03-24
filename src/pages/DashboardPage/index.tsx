@@ -69,7 +69,6 @@ const PageContainer = styled.div`
 
     .__content {
       height: 100%;
-      overflow: hidden;
     }
   }
 `;
