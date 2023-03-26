@@ -20,7 +20,8 @@ interface GroupCardProps {
 export const GroupCard = ({ data }: GroupCardProps) => {
   const [isExpand, setIsExpand] = useState(false);
 
-  const handleExpand = () => {
+  const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setIsExpand(!isExpand);
   };
 
