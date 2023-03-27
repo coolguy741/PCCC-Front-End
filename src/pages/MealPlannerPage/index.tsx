@@ -3,7 +3,7 @@ import { useMatch } from "react-router-dom";
 import styled from "styled-components";
 
 import { MealPlannerActions } from "../../components/MealPlanner/Actions";
-import { CalendarModal } from "../../components/MealPlanner/CalendarModal";
+import { CalendarModal } from "../../components/Global/CalendarModal";
 import { MealFilter } from "../../components/MealPlanner/Filter";
 import { MealPlanHeader } from "../../components/MealPlanner/Header";
 import { MealPlan } from "../../components/MealPlanner/Plan";
@@ -50,7 +50,7 @@ const PageContainer = styled.div`
   width: 100%;
   height: 100%;
   margin-right: 50px;
-
+  overflow-y: auto;
   & .link-to-calendar {
     position: absolute;
     top: -30px;

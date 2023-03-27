@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import { Button } from "../../../Global/Button";
+import { Button } from "../../Button";
 import { Dropdown } from "../Dropdown";
 
 interface Props {

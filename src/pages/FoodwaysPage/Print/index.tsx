@@ -1,38 +1,16 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Globe } from "../../../components/Foodways/Globe";
 import { Button } from "../../../components/Global/Button";
-import { CalendarModal } from "../../../components/Global/CalendarModal";
 import foodways from "../../../lib/mockData/foodways/foodways.json";
 
-export const FoodwaysOverviewPage = () => {
-  const [showCalendarModal, setShowCalendarModal] = useState(false);
+export const FoodwaysPrintPage = () => {
   return (
-    <>
-      <Container>
-        <h1>Foodways</h1>
-        <div className="content">
-          <div className="content__header">
-            <Link to="../">
-              <Button>Back</Button>
-            </Link>
-            <div className="content__header__buttons">
-              <Link to="edit">
-                <Button>Edit</Button>
-              </Link>
-              <Button onClick={() => setShowCalendarModal(true)}>
-                Add to calendar
-              </Button>
-              <Button>Publish</Button>
-              <Link to="print">
-                <Button>Print</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
+    <Container>
+      <h1>Foodways</h1>
+      <h2>Chocolate</h2>
+      <div className="content">
         <div className="content__body">
-          <h2>Chocolate</h2>
           <div className="content__body__timeline">
             <div className="content__body__timeline__container">
               <div className="content__body__timeline__container--vertical"></div>
@@ -59,35 +37,26 @@ export const FoodwaysOverviewPage = () => {
             </div>
           </div>
         </div>
-      </Container>
-      <CalendarModal
-        isOpen={showCalendarModal}
-        type="foodways"
-        close={() => setShowCalendarModal(false)}
-      />
-    </>
+      </div>
+    </Container>
   );
 };
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    margin-bottom: 5rem;
+  }
 
   .content {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-
-    &__header {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-
-      &__buttons {
-        display: flex;
-        gap: 1rem;
-      }
-    }
+    max-width: 90%;
 
     &__body {
       display: flex;
