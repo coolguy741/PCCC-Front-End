@@ -1,7 +1,22 @@
-export const RecipeBuilderPage = () => {
+import styled from "styled-components";
+import { RecipesHeader } from "../../components/Recipes/RecipesHeader";
+
+interface RecipesBuilderPageProps {
+  children: JSX.Element;
+}
+
+export const RecipesBuilderPage = ({ children }: RecipesBuilderPageProps) => {
+
   return (
-    <>
-      <h1>Recipe Builder Page</h1>
-    </>
+    <Container>
+      <RecipesHeader/>
+      <div className="content">{children}</div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  .content {
+    padding: 11px 0px;
+  }
+`;

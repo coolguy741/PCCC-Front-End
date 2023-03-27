@@ -10,7 +10,7 @@ import { TopicBuilderPage } from "./TopicBuilderPage";
 import { DiscoveryEditorPage } from "./DiscoveryEditorPage";
 import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
 import { FoodwaysPage } from "./FoodwaysPage";
-import { RecipeBuilderPage } from "./RecipeBuilderPage";
+import { RecipeBuilderPage, RecipesBuilderPage } from "./RecipeBuilderPage";
 import { CalendarPage } from "./CalendarPage";
 import { ReportsPage } from "./ReportsPage";
 import { TestLandingPage } from "./TestLandingPage";
@@ -45,6 +45,15 @@ import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
+import { RecipesPage } from "./RecipeBuilderPage/RecipesPage";
+import { RecipePage } from "./RecipeBuilderPage/RecipePage";
+import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
+import { RecipesCreateRecipePage } from "./RecipeBuilderPage/RecipesCreateRecipePage";
+import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
+import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
+import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
+import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
+import { RecipesCreatePreviewRecipePage } from "./RecipeBuilderPage/RecipesCreatePreviewRecipePage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -171,10 +180,20 @@ export const router = createBrowserRouter([
       { 
         path: "recipes", 
         element: (
-          <RecipeBuilderPage/>
+          <RecipesBuilderPage>
+            <Outlet/>
+          </RecipesBuilderPage>
         ),
         children: [
-          { path: "", element: <CalendarPage /> },
+          { path: "", element: <RecipesPage /> },
+          { path: ":recipt", element: <RecipePage /> },
+          { path: ":recipt/edit", element: <RecipesEditRecipePage /> },
+          { path: ":recipt/create", element: <RecipesCreateRecipePage /> },
+          { path: ":recipt/create/preview", element: <RecipesCreatePreviewRecipePage /> },
+          { path: ":recipt/lesson-assessment", element: <RecipesLessonAssessment /> },
+          { path: ":recipt/lesson-assessment/edit", element: <RecipesEditLessonAssessment /> },
+          { path: ":recipt/lesson-assessment/create", element: <RecipesCreateLessonAssessment /> },
+          { path: ":recipt/lesson-assessment/create/preview", element: <RecipesCreatePreviewLessonAssessment /> },
         ]
       },
       { path: "calendar", element: <CalendarPage /> },
@@ -218,6 +237,7 @@ export const router = createBrowserRouter([
         path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
+      
     ],
   },
 ]);

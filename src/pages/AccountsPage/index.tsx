@@ -16,8 +16,7 @@ export const AccountsPage = ({ children }: AccountsPageProps) => {
 };
 
 const PageContainer = styled.div`
-    .content {
-      padding: 11px 0px;
-    }
+  .content {
+    padding: 11px 0px;
   }
 `;
