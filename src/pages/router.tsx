@@ -6,7 +6,7 @@ import { DashboardPage } from "./DashboardPage";
 import { AccountsPage } from "./AccountsPage";
 import { GroupOrganizerPage } from "./GroupOrganizerPage";
 import { MealPlannerPage } from "./MealPlannerPage";
-import { TopicEditorPage } from "./TopicEditorPage";
+import { TopicBuilderPage } from "./TopicBuilderPage";
 import { DiscoveryEditorPage } from "./DiscoveryEditorPage";
 import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
 import { FoodwaysPage } from "./FoodwaysPage";
@@ -36,9 +36,15 @@ import { GamesPage } from "./GamesPage";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
+import { Topics } from "./TopicBuilderPage/Topics";
+import { TopicCreatePage } from "./TopicBuilderPage/Create";
+import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
+import { TopicCreatePreviewPage } from "./TopicBuilderPage/Create/Preview";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
+import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
+import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -103,7 +109,7 @@ export const router = createBrowserRouter([
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
           },
-          
+
           { path: "groups", element: <AccountsGroupsPage /> },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
@@ -138,7 +144,17 @@ export const router = createBrowserRouter([
           { path: "grocery-list", element: <MealPlannerGroceryPage /> },
         ],
       },
-      { path: "topics", element: <TopicEditorPage /> },
+      {
+        path: "topics",
+        element: <TopicBuilderPage />,
+        children: [
+          { path: "", element: <Topics /> },
+          { path: "create/:slug", element: <TopicCreatePage /> },
+          { path: "create/:slug/preview", element: <TopicCreatePreviewPage /> },
+          { path: ":id/:slug/edit", element: <TopicCreatePage /> },
+          { path: ":id/:slug", element: <TopicOverviewPage /> },
+        ],
+      },
       { path: "daily-discovery", element: <DiscoveryEditorPage /> },
       { path: "activities", element: <ActivitiesBuilderPage /> },
       {
@@ -154,6 +170,7 @@ export const router = createBrowserRouter([
             children: [
               { path: "", element: <FoodwaysOverviewPage /> },
               { path: "edit", element: <EditFoodwaysPage /> },
+              { path: "preview", element: <FoodwaysPreviewPage /> },
             ],
           },
         ],
@@ -174,11 +191,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "dashboard/meal-planner",
-        element: (
-          <>
-            <Outlet />
-          </>
-        ),
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
           {
@@ -186,6 +198,15 @@ export const router = createBrowserRouter([
             element: <MealPlannerGroceryPrintPage />,
           },
           { path: ":recipe/print", element: <MealPlannerRecipePrintPage /> },
+        ],
+      },
+      {
+        path: "dashboard/foodways",
+        children: [
+          {
+            path: ":foodway/print",
+            element: <FoodwaysPrintPage />,
+          },
         ],
       },
     ],

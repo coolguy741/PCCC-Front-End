@@ -6,7 +6,7 @@ import { MealPlanHeader } from "../../../components/MealPlanner/Header";
 import { Assessment } from "../../../components/MealPlanner/Assessment";
 import { Recipe } from "../../../components/MealPlanner/Recipe";
 import { LinkButton } from "../../../components/Global/Button/Link";
-import { CalendarModal } from "../../../components/MealPlanner/CalendarModal";
+import { CalendarModal } from "../../../components/Global/CalendarModal";
 import { PrintModal } from "../../../components/MealPlanner/PrintModal";
 import { EditConfirmModal } from "../../../components/MealPlanner/EditConfirmModal";
 
