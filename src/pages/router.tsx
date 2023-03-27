@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import { SignInPage } from "./AuthPage/SignInPage";
 import { SignUpPage } from "./AuthPage/SignUpPage";
@@ -99,13 +99,13 @@ export const router = createBrowserRouter([
           </AccountsPage>
         ),
         children: [
+          { path: "", element: <Navigate to="./profiles" />  },
           { path: "profiles", element: <AccountsProfilesPage /> },
           { path: "profiles/:user", element: <AccountsUserProfilePage /> },
           {
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
           },
-
           { path: "groups", element: <AccountsGroupsPage /> },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
@@ -168,7 +168,15 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      { path: "recipes", element: <RecipeBuilderPage /> },
+      { 
+        path: "recipes", 
+        element: (
+          <RecipeBuilderPage/>
+        ),
+        children: [
+          { path: "", element: <CalendarPage /> },
+        ]
+      },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
       { path: "games", element: <GamesPage /> },
