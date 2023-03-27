@@ -10,7 +10,7 @@ import { TopicBuilderPage } from "./TopicBuilderPage";
 import { DiscoveryEditorPage } from "./DiscoveryEditorPage";
 import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
 import { FoodwaysPage } from "./FoodwaysPage";
-import { RecipeBuilderPage, RecipesBuilderPage } from "./RecipeBuilderPage";
+import { RecipesBuilderPage } from "./RecipeBuilderPage";
 import { CalendarPage } from "./CalendarPage";
 import { ReportsPage } from "./ReportsPage";
 import { TestLandingPage } from "./TestLandingPage";
