@@ -118,10 +118,7 @@ export const router = createBrowserRouter([
             path: "groups/:group/calendar",
             element: <AccountsGroupCalendarPage />,
           },
-          {
-            path: "groups/:group/calendar/print",
-            element: <AccountsGroupCalendarPrintPage />,
-          },
+          
         ],
       },
       { path: "reports", element: <ReportsPage /> },
@@ -208,6 +205,10 @@ export const router = createBrowserRouter([
             element: <FoodwaysPrintPage />,
           },
         ],
+      },
+      {
+        path: "dashboard/accounts/groups/:group/calendar/print",
+        element: <AccountsGroupCalendarPrintPage />,
       },
     ],
   },
