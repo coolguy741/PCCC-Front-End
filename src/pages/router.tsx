@@ -186,14 +186,14 @@ export const router = createBrowserRouter([
         ),
         children: [
           { path: "", element: <RecipesPage /> },
+          { path: "create", element: <RecipesCreateRecipePage /> },
+          { path: "create/preview", element: <RecipesCreatePreviewRecipePage /> },
           { path: ":recipt", element: <RecipePage /> },
           { path: ":recipt/edit", element: <RecipesEditRecipePage /> },
-          { path: ":recipt/create", element: <RecipesCreateRecipePage /> },
-          { path: ":recipt/create/preview", element: <RecipesCreatePreviewRecipePage /> },
+          { path: "lesson-assessment/create", element: <RecipesCreateLessonAssessment /> },
+          { path: "lesson-assessment/create/preview", element: <RecipesCreatePreviewLessonAssessment /> },
           { path: ":recipt/lesson-assessment", element: <RecipesLessonAssessment /> },
           { path: ":recipt/lesson-assessment/edit", element: <RecipesEditLessonAssessment /> },
-          { path: ":recipt/lesson-assessment/create", element: <RecipesCreateLessonAssessment /> },
-          { path: ":recipt/lesson-assessment/create/preview", element: <RecipesCreatePreviewLessonAssessment /> },
         ]
       },
       { path: "calendar", element: <CalendarPage /> },

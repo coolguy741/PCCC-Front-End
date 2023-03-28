@@ -19,11 +19,11 @@ export const RecipeList = ({recipes} : RecipeListProps) => {
       {
         recipes.map((recipe, index) => (
           <div className="recipe-item" key={index}>
-            <Link to={`./${recipe.name}`}>
+            <Link to="./recipe1">
               <img src={recipe.image} placeholder="recipe"/>
               <p className="topic-text">{recipe.topic} </p>
               <p className="name-text">{recipe.name} </p>
-              <p className="content-text">{recipe.name} </p>
+              <p className="content-text">{recipe.content} </p>
             </Link>
           </div>
         ))
