@@ -2,16 +2,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface RecipeListProps {
-  recipes: [
+  recipes:
     {
-      image: string;
-      topic: string; 
-      name: string;
-      content: string; 
-      creator: string;
+      image: string,
+      topic: string, 
+      name: string,
+      content: string, 
+      creator: string,
       lastModified: string
-    }
-  ]
+    }[]
 }
 
 export const RecipeList = ({recipes} : RecipeListProps) => {
