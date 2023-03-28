@@ -1,0 +1,58 @@
+[
+  {
+    "image": "/images/recipes/recipe1.jpg",
+    "topic": "GARDEN GUADIAN",
+    "name": "Tools of the Trade",
+    "status": "Pending approval",
+    "creator": "John Doe",
+    "lastModified": "Dec 15, 22"
+  },
+  {
+    "image": "/images/recipes/recipe1.jpg",
+    "topic": "GARDEN GUADIAN",
+    "name": "Tools of the Trade",
+    "status": "Pending approval",
+    "creator": "John Doe",
+    "lastModified": "Dec 15, 22"
+  },
+  {
+    "image": "/images/recipes/recipe1.jpg",
+    "topic": "GARDEN GUADIAN",
+    "name": "Tools of the Trade",
+    "status": "Pending approval",
+    "creator": "John Doe",
+    "lastModified": "Dec 15, 22"
+  },
+  {
+    "image": "/images/recipes/recipe1.jpg",
+    "topic": "GARDEN GUADIAN",
+    "name": "Tools of the Trade",
+    "status": "Approved",
+    "creator": "John Doe",
+    "lastModified": "Dec 15, 22"
+  },
+  {
+    "image": "/images/recipes/recipe1.jpg",
+    "topic": "GARDEN GUADIAN",
+    "name": "Tools of the Trade",
+    "status": "Approved",
+    "creator": "John Doe",
+    "lastModified": "Dec 15, 22"
+  },
+  {
+    "image": "/images/recipes/recipe1.jpg",
+    "topic": "GARDEN GUADIAN",
+    "name": "Tools of the Trade",
+    "status": "Approved",
+    "creator": "John Doe",
+    "lastModified": "Dec 15, 22"
+  },
+  {
+    "image": "/images/recipes/recipe1.jpg",
+    "topic": "GARDEN GUADIAN",
+    "name": "Tools of the Trade",
+    "status": "Pending approval",
+    "creator": "John Doe",
+    "lastModified": "Dec 15, 22"
+  }
+]
