@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../../components/Global/Button";
 import { SelectBox } from "../../../components/Global/SelectBox";
@@ -10,6 +11,8 @@ const TopicOptions = ["name1", "name2", "name3"];
 const SortOptions = ["Date", "A-Z", "Z-A"];
 
 export const RecipesPage = () => {
+  const navigate = useNavigate();
+
   const handleFilterChange = () => {
   }
 
@@ -20,9 +23,11 @@ export const RecipesPage = () => {
   }
 
   const handleDeleteRecipe = () => {
+    alert("Delete selected recipes");
   }
 
   const handleCreateRecipe = () => {
+    navigate("./create");
   }
 
   const handleTableCheckboxChange = () => {
@@ -47,7 +52,7 @@ export const RecipesPage = () => {
         </div>
         <div className="buttons-container">
           <SmallButton onClick={handleDeleteRecipe}>Delete Recipe</SmallButton>
-          <SmallButton onClick={handleDeleteRecipe}>Create Recipe</SmallButton>
+          <SmallButton onClick={handleCreateRecipe}>Create Recipe</SmallButton>
         </div>
       </div>
       <div className="recipe-list-container">
