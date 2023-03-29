@@ -45,6 +45,7 @@ import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
+import { CloudDrivePage } from "./CloudDrivePage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -179,6 +180,7 @@ export const router = createBrowserRouter([
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
       { path: "games", element: <GamesPage /> },
+      { path: "cloud-drive", element: <CloudDrivePage /> },
     ],
   },
   {
