@@ -1,7 +1,7 @@
-export const GamesPage = () => {
-  return (
-    <>
-      <h1>Games Page</h1>
-    </>
-  );
+import { memo } from "react";
+
+const GamesPage = () => {
+  return <div>Games Page</div>;
 };
+
+export default memo(GamesPage);

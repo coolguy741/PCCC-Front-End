@@ -32,7 +32,6 @@ import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
 import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
 import { TempHomePage } from "./TempHomePage";
-import { GamesPage } from "./GamesPage";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
@@ -45,6 +44,7 @@ import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
+import GamesPage from "./GamesPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
