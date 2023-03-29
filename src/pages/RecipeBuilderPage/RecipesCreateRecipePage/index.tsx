@@ -4,8 +4,10 @@ import styled from "styled-components";
 import { Button } from "../../../components/Global/Button";
 import { EditableText } from "../../../components/Global/EditableText";
 import { FileUploader } from "../../../components/Global/FileUploader";
+import { ModalContainer } from "../../../components/Global/ModalContainer";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import { NumberSetter } from "../../../components/Recipes/NumberSetter";
+import { SaveRecipeModal } from "../../../components/Recipes/SaveRecipeModal";
 import { SearchWithText } from "../../../components/Recipes/SearchWithText";
 import { SelectIngredients, Ingredient } from "../../../components/Recipes/SelectIngredients";
 import mockData from "../../../lib/mockData/recipes/recipesCreate.json";
@@ -13,6 +15,7 @@ import mockData from "../../../lib/mockData/recipes/recipesCreate.json";
 export const RecipesCreateRecipePage = () => {
   const [currentLanguage, setCurrentLanguage] = useState('en');
   const [ingredients, setIngredients] =  useState<Ingredient[]>([]);
+  const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -21,6 +24,20 @@ export const RecipesCreateRecipePage = () => {
 
   const handlePreview = () => {
     navigate("./preview");
+  }
+
+  const showModal = () => {
+    setVisibleModal(true);
+  }
+
+  const handleSave = () => {
+    navigate('./preview');
+  }
+
+  const handleToggleLanguage = () => {
+    setVisibleModal(false);
+    if(currentLanguage === 'en')setCurrentLanguage('fr');
+    if(currentLanguage === 'fr')setCurrentLanguage('en');
   }
 
   return (
@@ -74,10 +91,15 @@ export const RecipesCreateRecipePage = () => {
             <EditableText text={"Combine all the ingredients together in a large bowl mix until well combined.Refrigerate for about 30 minutes Scoop out a tablespoon portion of mixture, roll each portion in the palm of your hands and place each ball into a resealable container for storage. Bites should be refrigerated to maintain shape or frozen for long term storage."} />
           </div>
           <RightAlignedContainer>
-            <SmallButton>Save</SmallButton>
+            <SmallButton onClick={showModal}>Save</SmallButton>
           </RightAlignedContainer>
         </div>
       </div>
+      {visibleModal && 
+      <ModalContainer>
+        <SaveRecipeModal onSave={handleSave} onToggleLanguage={handleToggleLanguage}/>
+      </ModalContainer>
+      }
     </PageContainer>
   );
 };

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Icon } from "../../Global/Icon";
 import { IconButton } from "../../Global/IconButton";
 import { SmallButton } from "../../Global/SmallButton";
 

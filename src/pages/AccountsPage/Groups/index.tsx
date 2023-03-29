@@ -7,9 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import { useState } from "react";
 import { IconButton } from "../../../components/Global/IconButton";
+import { ModalContainer } from "../../../components/Global/ModalContainer";
 
 export const AccountsGroupsPage = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
   const navigate = useNavigate();
 
   const handleCreate = () => {
@@ -17,11 +18,11 @@ export const AccountsGroupsPage = () => {
   }
 
   const handleJoinGroup = () => {
-    setShowModal(false);
+    setVisibleModal(false);
   }
 
   const handleClose = () => {
-    setShowModal(false);
+    setVisibleModal(false);
   }
 
   return (
@@ -43,7 +44,7 @@ export const AccountsGroupsPage = () => {
         </div>
         <div className="button-container">
           <Button onClick={handleCreate}>Create Group</Button>
-          <Button onClick={() => setShowModal(true)}>Join Group</Button>
+          <Button onClick={() => setVisibleModal(true)}>Join Group</Button>
         </div>
       </div>
       <div className="row">
@@ -69,7 +70,7 @@ export const AccountsGroupsPage = () => {
           </div>
         </div>
       </div>
-      {showModal &&
+      {visibleModal &&
         <ModalContainer>
           <JoinGroupModal role="Standard" groupID={2334} groupName="Group A" creator="Vane Jones" onJoin={handleJoinGroup} onClose={handleClose}/>
         </ModalContainer>
@@ -150,15 +151,3 @@ const PageContainer = styled.div`
     }    
   }
 `
-  
-const ModalContainer = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
