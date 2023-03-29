@@ -5,6 +5,8 @@ import { Button } from "../../../components/Global/Button";
 import { EditableText } from "../../../components/Global/EditableText";
 import { FileUploader } from "../../../components/Global/FileUploader";
 import { SmallButton } from "../../../components/Global/SmallButton";
+import { Search } from "../../../components/Recipes/Search";
+import { SearchWithText } from "../../../components/Recipes/SearchWithText";
 
 
 export const RecipesCreateRecipePage = () => {
@@ -52,12 +54,11 @@ export const RecipesCreateRecipePage = () => {
             </div>
             <div style={{width:'35%'}}>
               <h3>Tags</h3>
-              <FileUploader/>
+              <SearchWithText />
             </div>
           </div>
         </div>
         <div className="right-content">
-          
         </div>
       </div>
     </PageContainer>
