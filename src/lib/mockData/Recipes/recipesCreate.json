@@ -1,0 +1,76 @@
+{
+  "Ingredients": [
+    {
+      "value": "",
+      "label": "-- Select --"
+    },
+    {
+      "value": "Quick Oats",
+      "label": "Quick Oats"
+    },
+    {
+      "value": "Coconut Flakes",
+      "label": "Coconut Flakes"
+    },
+    {
+      "value": "Coconut Flakes",
+      "label": "Coconut Flakes"
+    },
+    {
+      "value": "Honey",
+      "label": "Honey"
+    }
+  ],
+  "Units": [
+    {
+      "value": "",
+      "label": "-- Select --"
+    },
+    {
+      "value": "cups",
+      "label": "cups"
+    },
+    {
+      "value": "tsp",
+      "label": "tsp"
+    }
+  ],
+  "Tags": [
+    {
+      "value": "Favorites",
+      "label": "Favorites"
+    },
+    {
+      "value": "No cook",
+      "label": "No cook"
+    },
+    {
+      "value": "Gluten free",
+      "label": "Gluten free"
+    },
+    {
+      "value": "Egg free",
+      "label": "Egg free"
+    },
+    {
+      "value": "Nut Free",
+      "label": "Nut Free"
+    },
+    {
+      "value": "Favorites",
+      "label": "Favorites"
+    },
+    {
+      "value": "Well Approved",
+      "label": "Well Approved"
+    },
+    {
+      "value": "Favorites",
+      "label": "Favorites"
+    },
+    {
+      "value": "Food Group 1",
+      "label": "Food Group 1"
+    }
+  ]
+}

@@ -5,12 +5,14 @@ import { Button } from "../../../components/Global/Button";
 import { EditableText } from "../../../components/Global/EditableText";
 import { FileUploader } from "../../../components/Global/FileUploader";
 import { SmallButton } from "../../../components/Global/SmallButton";
-import { Search } from "../../../components/Recipes/Search";
+import { NumberSetter } from "../../../components/Recipes/NumberSetter";
 import { SearchWithText } from "../../../components/Recipes/SearchWithText";
-
+import { SelectIngredients, Ingredient } from "../../../components/Recipes/SelectIngredients";
+import mockData from "../../../lib/mockData/recipes/recipesCreate.json";
 
 export const RecipesCreateRecipePage = () => {
   const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [ingredients, setIngredients] =  useState<Ingredient[]>([]);
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -44,9 +46,9 @@ export const RecipesCreateRecipePage = () => {
       <div className="content">
         <div className="left-content">
           <h3>Recipe Nmae</h3>
-          <EditableText text={""} />
+          <EditableText text={"Chocolate Granola Bites"} />
           <h3>What is it good for?</h3>
-          <EditableText text={""} />
+          <EditableText text={"These delicious bites are jam packed with fiber to keep you f"} />
           <div className="images-videos-tags-container">
             <div style={{width:'65%'}}>
               <h3>Images and Videos</h3>
@@ -59,6 +61,21 @@ export const RecipesCreateRecipePage = () => {
           </div>
         </div>
         <div className="right-content">
+          <div className="servering-size-container">
+            <h3>Servering Size</h3>
+            <NumberSetter defaultValue={2} />
+          </div>
+          <div>
+            <h3>Ingredients</h3>
+            <SelectIngredients ingredients={ingredients} setIngredients={setIngredients} ingredientOptions={mockData.Ingredients} unitOptions={mockData.Units}/>
+          </div>
+          <div>
+            <h3>Directions</h3>
+            <EditableText text={"Combine all the ingredients together in a large bowl mix until well combined.Refrigerate for about 30 minutes Scoop out a tablespoon portion of mixture, roll each portion in the palm of your hands and place each ball into a resealable container for storage. Bites should be refrigerated to maintain shape or frozen for long term storage."} />
+          </div>
+          <RightAlignedContainer>
+            <SmallButton>Save</SmallButton>
+          </RightAlignedContainer>
         </div>
       </div>
     </PageContainer>
@@ -87,12 +104,32 @@ const PageContainer = styled.div`
     gap: 20px;
 
     .left-content{
+      width: 50%;
 
       .images-videos-tags-container{
         display: flex; 
         justify-content: space-between;
         gap: 20px;
+
+      }
+    }
+
+    .right-content{
+      display:flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 50%;
+
+      .servering-size-container{
+        display: flex;
+        align-items: center;
+        gap: 20px;
       }
     }
   }
 `;
+
+const RightAlignedContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`

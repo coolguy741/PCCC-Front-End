@@ -44,6 +44,11 @@ export const Search: React.FC<Props> = ({ options, onSelect, onKeyDown }) => {
 
 const Container = styled.div`
   position: relative;
+  width: 100%;
+
+  input {
+    width: 100%;
+  }
 
   ul {
     position: absolute;
