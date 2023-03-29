@@ -89,4 +89,5 @@ const TwoColumnContainer = styled.div`
 `
 const Text = styled.p`
   font-size: 1rem;
+  margin: 0px;
 `

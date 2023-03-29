@@ -237,7 +237,10 @@ export const router = createBrowserRouter([
         path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
-      
+      {
+        path: "dashboard/recipes/:recipe/print",
+        element: <RecipesCreatePreviewRecipePage />,
+      },
     ],
   },
 ]);
