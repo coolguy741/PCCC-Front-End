@@ -18,6 +18,7 @@ export const usePathName = () => {
   const isRecipeBuilder = pathname.includes("recipes");
   const isCalendar = pathname.includes("calendar");
   const isGames = pathname.includes("games");
+  const isCloudDrive = pathname.includes("isCloudDrive");
 
   return {
     isDashboard,
@@ -33,5 +34,6 @@ export const usePathName = () => {
     isRecipeBuilder,
     isCalendar,
     isGames,
+    isCloudDrive,
   };
 };
