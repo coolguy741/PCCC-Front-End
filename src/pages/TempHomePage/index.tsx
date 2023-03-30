@@ -8,9 +8,14 @@ export const TempHomePage = () => {
   const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
 
   useEffect(() => {
+    const currentDomain = window.location.hostname;
+    if(currentDomain === "enfantsfortsmidables.ca") {
+      localStorage.setItem("lang", "fr");
+      setLang("fr");
+    }
+
     const handleStorageChange = (event: StorageEvent) => {
       setLang(localStorage.getItem("lang") ?? "en");
-      console.log("storage : ", localStorage.getItem("lang"));
     };
     
     window.addEventListener("storage", handleStorageChange);

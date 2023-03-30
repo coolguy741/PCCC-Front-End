@@ -2,18 +2,12 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 export const LanguageToggle = () => {
-  const [lang, setLang] = useState("en");
-
-  useEffect(() => {
-    if(lang === "en")   { localStorage.setItem("lang", "en");} 
-    if(lang === "fr")   { localStorage.setItem("lang", "fr");} 
-  }, [])
+  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
 
   const toggleLanguage = () => {
     if(lang === "en")   { setLang("fr"); localStorage.setItem("lang", "fr");} 
     if(lang === "fr")   { setLang("en"); localStorage.setItem("lang", "en");} 
     window.dispatchEvent(new Event('storage'));
-    console.log(localStorage.getItem("lang"));
   }
   
   return (
