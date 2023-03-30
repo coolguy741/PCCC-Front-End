@@ -8,18 +8,13 @@ export const TempHomePage = () => {
   const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
 
   useEffect(() => {
-    const currentDomain = window.location.hostname;
-    if(currentDomain === "enfantsfortsmidables.ca") {
-      localStorage.setItem("lang", "fr");
-      setLang("fr");
-    }
-
+    setLang(localStorage.getItem("lang") ?? "en");
     const handleStorageChange = (event: StorageEvent) => {
       setLang(localStorage.getItem("lang") ?? "en");
     };
     
     window.addEventListener("storage", handleStorageChange);
-
+    
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
@@ -61,7 +56,7 @@ export const TempHomePage = () => {
       <footer>
         {lang === "en"
           ? "For Power Full Kids program information visit www.pcchildrenscharity.ca"
-          : "Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site www.pcchildrenscharity.ca"}
+          : "Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site www.fondationpourlesenfantspc.ca"}
       </footer>
       <Leva hidden={true} />
     </StyledHomepage>
