@@ -55,8 +55,8 @@ export const TempHomePage = () => {
 
       <footer>
         {lang === "en"
-          ? "For Power Full Kids program information visit www.pcchildrenscharity.ca"
-          : "Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site www.fondationpourlesenfantspc.ca"}
+          ? <p>For Power Full Kids program information visit <a href="/">www.pcchildrenscharity.ca</a></p>
+          : <p>Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site <a href="/">www.fondationpourlesenfantspc.ca</a></p>}
       </footer>
       <Leva hidden={true} />
     </StyledHomepage>
@@ -153,8 +153,8 @@ const StyledHomepage = styled.div`
     position: absolute;
     bottom: 0;
     font-size: 0.8rem;
-    z-index: 10;
-    pointer-events: none;
+    z-index: 50;
+    pointer-events: auto;
   }
 
   @media (min-width: 1000px) {
