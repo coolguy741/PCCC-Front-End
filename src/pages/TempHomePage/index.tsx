@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Leva } from "leva";
 import styled from "styled-components";
-import { LanguageToggle } from "../../components/Global/LanguageToggle";
-import { Logo } from "../../components/Global/Logo";
 import Scene from "../../components/Global/Scene";
 import { Header } from "../../components/Global/Header";
 
 export const TempHomePage = () => {
-  const [eng, useEng] = useState(true);
+  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      setLang(localStorage.getItem("lang") ?? "en");
+      console.log("storage : ", localStorage.getItem("lang"));
+    };
+    
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   const MainEng = () => (
     <div className="title">
@@ -35,15 +46,15 @@ export const TempHomePage = () => {
 
   return (
     <StyledHomepage>
-      <Header eng={eng} useEng={useEng}/>
+      <Header />
 
       <main>
-        {eng ? <MainEng /> : <MainFr />}
+        {lang === "en" ? <MainEng /> : <MainFr />}
         <Scene />
       </main>
 
       <footer>
-        {eng
+        {lang === "en"
           ? "For Power Full Kids program information visit www.pcchildrenscharity.ca"
           : "Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site www.pcchildrenscharity.ca"}
       </footer>

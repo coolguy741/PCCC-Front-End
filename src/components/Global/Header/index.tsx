@@ -1,18 +1,12 @@
 import { Logo } from "../Logo";
 import { LanguageToggle } from "../LanguageToggle";
-import { SetStateAction } from "react";
 import styled from "styled-components";
 
-interface HeaderProps {
-  eng: boolean,
-  useEng : React.Dispatch<SetStateAction<boolean>>
-}
-
-export const Header = ({eng, useEng}:HeaderProps ) => {
+export const Header = () => {
   return (
     <StyledHeader>
       <Logo />
-      <LanguageToggle value={eng} setValue={useEng} />
+      <LanguageToggle/>
     </StyledHeader>
   );
 };
