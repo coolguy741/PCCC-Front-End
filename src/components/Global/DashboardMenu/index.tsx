@@ -28,7 +28,7 @@ export const DashboardMenu = () => {
     <MenuContainer>
       <div className="logo-container">
         <Link to="/">
-          <Logo width={120} />
+          <Logo height={55} />
         </Link>
       </div>
       <div className="item-container">
