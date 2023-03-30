@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../../components/Global/Button";
 import { Icon } from "../../../components/Global/Icon";
-import mockData from "../../../lib/mockData/recipes/recipePreview.json";
+import { RecipeContent } from "../../../components/Recipes/RecipeContent";
+import { RecipeTip } from "../../../components/Recipes/RecipeTip";
 
 export const RecipePage = () => {
   const navigate = useNavigate();
@@ -36,29 +37,8 @@ export const RecipePage = () => {
           <Button onClick={handlePrint}>Print</Button>
         </SubButtonGroup>
       </ButtonGroup>
-      <h2>{mockData.name}</h2>
-      <h3>{"Servering Size : " + mockData.serveringSize}</h3>
-      <CenterAlignedContainer>
-        <img src={mockData.image} placeholder="recipe"/>
-      </CenterAlignedContainer>
-      <TwoColumnContainer>
-        <div className="first-child">
-          <h3>Ingredients</h3>
-          <ul>
-            {mockData.ingredients.map((ingredient, index) => (
-              <li key={index}>
-                <Text>{ingredient}</Text>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="second-child">
-          <h3>Directions</h3>
-          <Text>{mockData.directions}</Text>
-        </div>
-      </TwoColumnContainer>
-      <h3>What is it good for?</h3>
-      <Text>{mockData.advantage}</Text>
+      <RecipeContent />
+      <RecipeTip/>
     </PageContainer>
   );
 };
@@ -66,6 +46,7 @@ export const RecipePage = () => {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 20px;
 `;
 
 const IconContainer = styled.div`
