@@ -21,6 +21,7 @@ export const DashboardMenu = () => {
     isRecipeBuilder,
     isCalendar,
     isGames,
+    isCloudDrive,
   } = usePathName();
 
   return (
@@ -93,6 +94,9 @@ export const DashboardMenu = () => {
         </div>
         <Link to="games">
           <div className={`item ${isGames && "active"}`}>Games</div>
+        </Link>
+        <Link to="cloud-drive">
+          <div className={`item ${isCloudDrive && "active"}`}>Cloud Drive</div>
         </Link>
       </div>
     </MenuContainer>

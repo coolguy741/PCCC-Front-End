@@ -39,10 +39,10 @@ import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { Topics } from "./TopicBuilderPage/Topics";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
 import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
-import { TopicCreatePreviewPage } from "./TopicBuilderPage/Create/Preview";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
+import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 import { RecipesPage } from "./RecipeBuilderPage/RecipesPage";
@@ -55,6 +55,7 @@ import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreate
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesCreatePreviewRecipePage } from "./RecipeBuilderPage/RecipesCreatePreviewRecipePage";
 import { RecipePrint } from "./RecipeBuilderPage/RecipePrint";
+import { CloudDrivePage } from "./CloudDrivePage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -153,7 +154,10 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <Topics /> },
           { path: "create/:slug", element: <TopicCreatePage /> },
-          { path: "create/:slug/preview", element: <TopicCreatePreviewPage /> },
+          {
+            path: "preview/create/:slug",
+            element: <TopicOverviewPage isCreatePreview />,
+          },
           { path: ":id/:slug/edit", element: <TopicCreatePage /> },
           { path: ":id/:slug", element: <TopicOverviewPage /> },
         ],
@@ -200,6 +204,7 @@ export const router = createBrowserRouter([
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
       { path: "games", element: <GamesPage /> },
+      { path: "cloud-drive", element: <CloudDrivePage /> },
     ],
   },
   {
@@ -214,12 +219,17 @@ export const router = createBrowserRouter([
         path: "dashboard/meal-planner",
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
+
           {
             path: "grocery-list/print",
             element: <MealPlannerGroceryPrintPage />,
           },
           { path: ":recipe/print", element: <MealPlannerRecipePrintPage /> },
         ],
+      },
+      {
+        path: "dashboard/topics/:id/:slug/print",
+        element: <TopicPrintPage />,
       },
       {
         path: "dashboard/foodways",

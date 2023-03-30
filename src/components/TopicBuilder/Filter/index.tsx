@@ -1,9 +1,16 @@
-import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 import { LinkButton } from "../../Global/Button/Link";
 
-export const TopicFilter = () => {
+interface Props {
+  showingNameSearch?: boolean;
+  showingActions?: boolean;
+}
+
+export const TopicFilter: React.FC<Props> = ({
+  showingNameSearch = false,
+  showingActions = true,
+}) => {
   return (
     <Container>
       <div className="flex space-x-6">
@@ -13,6 +20,14 @@ export const TopicFilter = () => {
             <option value="name">Topic name</option>
           </select>
         </div>
+        {showingNameSearch && (
+          <div>
+            <div>
+              <label>Search</label>
+            </div>
+            <input />
+          </div>
+        )}
         <div>
           <label>Sort</label>
           <select>
@@ -20,10 +35,12 @@ export const TopicFilter = () => {
           </select>
         </div>
       </div>
-      <div className="flex space-x-6">
-        <LinkButton to="#">Delete Topic</LinkButton>
-        <LinkButton to="#">Create Topic</LinkButton>
-      </div>
+      {showingActions && (
+        <div className="flex space-x-6">
+          <LinkButton to="#">Delete Topic</LinkButton>
+          <LinkButton to="create/topic">Create Topic</LinkButton>
+        </div>
+      )}
     </Container>
   );
 };

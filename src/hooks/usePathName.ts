@@ -13,11 +13,12 @@ export const usePathName = () => {
   const isMealPlanner = pathname.includes("meal-planner");
   const isTopicEditor = pathname.includes("topics");
   const isDiscoveryEditor = pathname.includes("daily-discovery");
-  const isActivitiesBuilder = pathname.includes("activities");
+  const isActivitiesBuilder = pathname.includes("dashboard/activities");
   const isFoodwaysEditor = pathname.includes("foodways");
-  const isRecipeBuilder = pathname.includes("recipes");
+  const isRecipeBuilder = pathname.includes("dashboard/recipes");
   const isCalendar = pathname.includes("calendar");
   const isGames = pathname.includes("games");
+  const isCloudDrive = pathname.includes("isCloudDrive");
 
   return {
     isDashboard,
@@ -33,5 +34,6 @@ export const usePathName = () => {
     isRecipeBuilder,
     isCalendar,
     isGames,
+    isCloudDrive,
   };
 };
