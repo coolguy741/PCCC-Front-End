@@ -35,7 +35,7 @@ export const TempHomePage = () => {
 
   return (
     <StyledHomepage>
-      <Header />
+      <Header eng={eng} useEng={useEng}/>
 
       <main>
         {eng ? <MainEng /> : <MainFr />}
