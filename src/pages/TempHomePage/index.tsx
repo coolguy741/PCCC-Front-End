@@ -55,8 +55,8 @@ export const TempHomePage = () => {
 
       <footer>
         {lang === "en"
-          ? <p>For Power Full Kids program information visit <a href="/">www.pcchildrenscharity.ca</a></p>
-          : <p>Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site <a href="/">www.fondationpourlesenfantspc.ca</a></p>}
+          ? <p>For Power Full Kids program information visit <a href="https://www.pcchildrenscharity.ca">www.pcchildrenscharity.ca</a></p>
+          : <p>Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site <a href="https://www.fondationpourlesenfantspc.ca">www.fondationpourlesenfantspc.ca</a></p>}
       </footer>
       <Leva hidden={true} />
     </StyledHomepage>
