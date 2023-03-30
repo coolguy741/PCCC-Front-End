@@ -153,8 +153,12 @@ const StyledHomepage = styled.div`
     position: absolute;
     bottom: 0;
     font-size: 0.8rem;
-    z-index: 50;
-    pointer-events: auto;
+    z-index: 10;
+    pointer-events: none;
+
+    a {
+      pointer-events: auto;
+    }
   }
 
   @media (min-width: 1000px) {
