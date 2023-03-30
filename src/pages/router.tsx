@@ -188,9 +188,9 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <RecipesPage /> },
           { path: "create", element: <RecipesCreateRecipePage /> },
-          { path: "create/preview", element: <RecipesCreatePreviewRecipePage /> },
-          { path: ":recipt", element: <RecipePage /> },
-          { path: ":recipt/edit", element: <RecipesEditRecipePage /> },
+          { path: ":recipe", element: <RecipePage /> },
+          { path: ":recipe/edit", element: <RecipesEditRecipePage /> },
+          { path: ":recipe/preview", element: <RecipesCreatePreviewRecipePage /> },
           { path: "lesson-assessment/create", element: <RecipesCreateLessonAssessment /> },
           { path: "lesson-assessment/create/preview", element: <RecipesCreatePreviewLessonAssessment /> },
           { path: ":recipt/lesson-assessment", element: <RecipesLessonAssessment /> },

@@ -8,13 +8,14 @@ import { ModalContainer } from "../../../components/Global/ModalContainer";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import { NumberSetter } from "../../../components/Recipes/NumberSetter";
 import { SaveRecipeModal } from "../../../components/Recipes/SaveRecipeModal";
-import { SearchWithText } from "../../../components/Recipes/SearchWithText";
+import { SelectTags, Tag } from "../../../components/Recipes/SelectTags";
 import { SelectIngredients, Ingredient } from "../../../components/Recipes/SelectIngredients";
 import mockData from "../../../lib/mockData/recipes/recipesCreate.json";
 
 export const RecipesCreateRecipePage = () => {
   const [currentLanguage, setCurrentLanguage] = useState('en');
   const [ingredients, setIngredients] =  useState<Ingredient[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ export const RecipesCreateRecipePage = () => {
   }
 
   const handlePreview = () => {
-    navigate("./preview");
+    navigate("./../recipe/preview");
   }
 
   const showModal = () => {
@@ -31,7 +32,7 @@ export const RecipesCreateRecipePage = () => {
   }
 
   const handleSave = () => {
-    navigate('./preview');
+    navigate('./../recipe/preview');
   }
 
   const handleToggleLanguage = () => {
@@ -62,7 +63,7 @@ export const RecipesCreateRecipePage = () => {
       </div>
       <div className="content">
         <div className="left-content">
-          <h3>Recipe Nmae</h3>
+          <h3>Recipe Name</h3>
           <EditableText text={"Chocolate Granola Bites"} />
           <h3>What is it good for?</h3>
           <EditableText text={"These delicious bites are jam packed with fiber to keep you f"} />
@@ -73,7 +74,7 @@ export const RecipesCreateRecipePage = () => {
             </div>
             <div style={{width:'35%'}}>
               <h3>Tags</h3>
-              <SearchWithText />
+              <SelectTags tagOptions={mockData.Tags} tags={tags} setTags={setTags}/>
             </div>
           </div>
         </div>

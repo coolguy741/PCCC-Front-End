@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Search } from '../Search';
 
-interface TextItem {
-  text: string;
+export interface Tag {
+  name: string;
   id: number;
 }
 
-const SearchOptions = [{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }];
+interface SelectTagsProps {
+  tagOptions: {
+    value: string, 
+    label: string
+  } [],
+  tags : Tag[],
+  setTags : React.Dispatch<React.SetStateAction<Tag[]>>
+}
 
-export const SearchWithText: React.FC = () => {
+export const SelectTags: React.FC<SelectTagsProps> = ({tagOptions, tags, setTags}) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
-  const [textList, setTextList] = useState<TextItem[]>([]);
-  const [textId, setTextId] = useState<number>(1);
+  const [tagId, setTagId] = useState<number>(tags.length);
 
   const handleSelect = (value: string) => {
     setSelectedOption(value);
@@ -21,26 +27,26 @@ export const SearchWithText: React.FC = () => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && selectedOption) {
-      setTextList(prevTextList => [...prevTextList, { text: selectedOption, id: textId }]);
-      setTextId(prevTextId => prevTextId + 1);
+      setTags(prevTag => [...prevTag, { name: selectedOption, id: tagId }]);
+      setTagId(prevTagId => prevTagId + 1);
       setSelectedOption('');
     }
   };
 
   const handleRemoveText = (id: number) => {
-    setTextList(prevTextList => prevTextList.filter(textItem => textItem.id !== id));
+    setTags(prevTags => prevTags.filter(tag => tag.id !== id));
   };
 
   return (
     <Container>
       <SearchContainer>
-        <Search options={SearchOptions} onSelect={handleSelect} onKeyDown={handleKeyDown} />
+        <Search options={tagOptions} onSelect={handleSelect} onKeyDown={handleKeyDown} />
       </SearchContainer>
       <TextList>
-        {textList.map(textItem => (
-          <TextItemWrapper key={textItem.id}>
-            <TextItemText>{textItem.text}</TextItemText>
-            <TextItemButton onClick={() => handleRemoveText(textItem.id)}>X</TextItemButton>
+        {tags.map(tag => (
+          <TextItemWrapper key={tag.id}>
+            <TextItemText>{tag.name}</TextItemText>
+            <TextItemButton onClick={() => handleRemoveText(tag.id)}>X</TextItemButton>
           </TextItemWrapper>
         ))}
         {selectedOption && (
