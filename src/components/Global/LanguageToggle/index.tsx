@@ -6,7 +6,7 @@ export const LanguageToggle = () => {
 
   useEffect(() => {
     const currentDomain = window.location.hostname;
-    if(currentDomain === "127.0.0.1") {
+    if(currentDomain === "enfantsfortsmidables.ca") {
       localStorage.setItem("lang", "fr");
       setLang("fr");
     } else {
