@@ -14,7 +14,7 @@ const GameCanvas: FC<GameCanvasPropTypes> = ({ children }) => {
   }, []);
 
   return (
-    <Canvas gl={GLParameters} dpr={devicePixelRatio}>
+    <Canvas shadows gl={GLParameters} dpr={devicePixelRatio}>
       <Suspense fallback={null}>{children}</Suspense>
     </Canvas>
   );

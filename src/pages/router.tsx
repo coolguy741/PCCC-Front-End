@@ -45,6 +45,7 @@ import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 import GamesPage from "./GamesPage";
+import GamePage from "./GamePage/GamePage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -210,5 +211,9 @@ export const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "gamedebug",
+    element: <GamePage />,
   },
 ]);

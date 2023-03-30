@@ -12,10 +12,10 @@ const PageStyleContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  overflow: hidden;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
 `;
 
 export default memo(PageStyleContainer);

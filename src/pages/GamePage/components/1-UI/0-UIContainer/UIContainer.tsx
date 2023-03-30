@@ -1,7 +1,12 @@
-import { FC, memo } from "react";
+import { FC, Fragment, memo } from "react";
+import DebugUIContainer from "../1-DebugUI/DebugUIContainer";
 
 const UIContainer: FC = () => {
-  return <div>UI CONTAINER</div>;
+  return (
+    <Fragment>
+      <DebugUIContainer />
+    </Fragment>
+  );
 };
 
 export default memo(UIContainer);
