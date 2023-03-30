@@ -1,0 +1,38 @@
+{
+  "badges": [
+    {
+      "title": "Achievement",
+      "content": "Lorem ipsum dolor sit amet consectetur"
+    },
+    {
+      "title": "Achievement",
+      "content": "Lorem ipsum dolor sit amet consectetur"
+    },
+    {
+      "title": "Achievement",
+      "content": "Lorem ipsum dolor sit amet consectetur"
+    }
+  ],
+  "inProgress": [
+    {
+      "title": "Achievement",
+      "content": "Lorem ipsum dolor sit amet consectetur",
+      "progressValue": 0.5
+    },
+    {
+      "title": "Achievement",
+      "content": "Lorem ipsum dolor sit amet consectetur",
+      "progressValue": 0.5
+    },
+    {
+      "title": "Achievement",
+      "content": "Lorem ipsum dolor sit amet consectetur",
+      "progressValue": 0.5
+    },
+    {
+      "title": "Achievement",
+      "content": "Lorem ipsum dolor sit amet consectetur",
+      "progressValue": 0
+    }
+  ]
+}
