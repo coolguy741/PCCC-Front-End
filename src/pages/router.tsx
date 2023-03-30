@@ -54,6 +54,7 @@ import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLess
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesCreatePreviewRecipePage } from "./RecipeBuilderPage/RecipesCreatePreviewRecipePage";
+import { RecipePrint } from "./RecipeBuilderPage/RecipePrint";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -239,7 +240,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "dashboard/recipes/:recipe/print",
-        element: <RecipesCreatePreviewRecipePage />,
+        element: <RecipePrint />,
       },
     ],
   },
