@@ -4,6 +4,18 @@ import { useEffect, useState } from "react";
 export const LanguageToggle = () => {
   const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
 
+  useEffect(() => {
+    const currentDomain = window.location.hostname;
+    if(currentDomain === "127.0.0.1") {
+      localStorage.setItem("lang", "fr");
+      setLang("fr");
+    } else {
+      localStorage.setItem("lang", "en");
+      setLang("en");
+    }
+    window.dispatchEvent(new Event('storage'));
+  }, []);
+
   const toggleLanguage = () => {
     if(lang === "en")   { setLang("fr"); localStorage.setItem("lang", "fr");} 
     if(lang === "fr")   { setLang("en"); localStorage.setItem("lang", "en");} 
