@@ -4,6 +4,8 @@ import { Text } from "../../../components/Global/Text";
 import { SelectBox } from "../../../components/Global/SelectBox";
 import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moments.json";
 import { SmallButton } from "../../../components/Global/SmallButton";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const SortOptions = [
   {
@@ -20,18 +22,49 @@ const SortOptions = [
   }
 ]
 
+interface Moment {
+  "id": number,
+  "image": string,
+  "alt": string,
+  "date": string,
+  "title": string,
+  "description": string
+}
+
 export const MealTimeMomentsPage = () => {
+  const [selectedMoments, setSelectedMoments] = useState<number[]>([]);
+  
+  const navigate = useNavigate();
+
   const handleSortChange = (value: string) => {
     alert("Sort by " + value);
   }
 
-  const handleDelete = () => {
-    alert("Deleted selected mealtime moments");
+  const handleDeleteSelectedMoments = () => {
+    const updatedMomentsData = mockData.moments.filter((moment) => !selectedMoments.includes(moment.id));
+    setSelectedMoments([]);
+    setCardsData(updatedMomentsData);
+  }
+
+  const setCardsData = (newCardsData: Moment[]) => {
+    mockData.moments.splice(0, mockData.moments.length, ...newCardsData);
+  }
+
+  const handleSelectionChange = (id: number, isSelected: boolean) => {
+    if(isSelected) {
+      setSelectedMoments([...selectedMoments, id]);
+    } else {
+      setSelectedMoments(selectedMoments.filter((moment) => id !== moment));
+    }
   }
 
   const handleCreate = () => {
-    alert("Deleted selected mealtime moments");
+    navigate("./create");
   }
+
+  useEffect(() => {
+    console.log("moments", mockData.moments);
+  }, [])
 
   return (
     <Container>
@@ -41,14 +74,16 @@ export const MealTimeMomentsPage = () => {
           <SelectBox options={SortOptions} onChange={handleSortChange}></SelectBox>
         </SelectBoxContainer>
         <ButtonGroup>
-          <SmallButton onClick={handleDelete}>Delete</SmallButton> 
+          <SmallButton onClick={handleDeleteSelectedMoments}>Delete</SmallButton> 
           <SmallButton onClick={handleCreate}>Create</SmallButton> 
         </ButtonGroup>
       </InputContainer>
       <CardsContainer>
       {
-        mockData.moments.map((moment, index) => (
-          <Card key={index} image={moment.image} title={moment.title} description={moment.description} placeholder="Moment Card" date={moment.date}/>
+        mockData.moments.map((moment) => (
+          <Link to="./mealtime-moment">
+            <Card key={moment.id} image={moment.image} title={moment.title} description={moment.description} alt={moment.alt} date={moment.date} onSelectionChange={handleSelectionChange} id={moment.id} isSelected={false}/>
+          </Link>
         ))
       }
       </CardsContainer>
