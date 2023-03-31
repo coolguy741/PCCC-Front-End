@@ -7,7 +7,7 @@ import { AccountsPage } from "./AccountsPage";
 import { GroupOrganizerPage } from "./GroupOrganizerPage";
 import { MealPlannerPage } from "./MealPlannerPage";
 import { TopicBuilderPage } from "./TopicBuilderPage";
-import { DiscoveryEditorPage } from "./DiscoveryEditorPage";
+import { DiscoveryEditorPage, MealTimeMomentsPage } from "./MealTimeMomentsPage";
 import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
 import { FoodwaysPage } from "./FoodwaysPage";
 import { RecipesBuilderPage } from "./RecipeBuilderPage";
@@ -162,7 +162,7 @@ export const router = createBrowserRouter([
           { path: ":id/:slug", element: <TopicOverviewPage /> },
         ],
       },
-      { path: "daily-discovery", element: <DiscoveryEditorPage /> },
+      { path: "mealtime-moments", element: <MealTimeMomentsPage /> },
       { path: "activities", element: <ActivitiesBuilderPage /> },
       {
         path: "foodways",

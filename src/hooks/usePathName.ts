@@ -12,7 +12,7 @@ export const usePathName = () => {
   const isAchievements = pathname.includes("achievements");
   const isMealPlanner = pathname.includes("meal-planner");
   const isTopicEditor = pathname.includes("topics");
-  const isDiscoveryEditor = pathname.includes("daily-discovery");
+  const isMealTimeMoments = pathname.includes("mealtime-moments");
   const isActivitiesBuilder = pathname.includes("dashboard/activities");
   const isFoodwaysEditor = pathname.includes("foodways");
   const isRecipeBuilder = pathname.includes("dashboard/recipes");
@@ -28,7 +28,7 @@ export const usePathName = () => {
     isGroupOrganizer,
     isMealPlanner,
     isTopicEditor,
-    isDiscoveryEditor,
+    isMealTimeMoments,
     isActivitiesBuilder,
     isFoodwaysEditor,
     isRecipeBuilder,
