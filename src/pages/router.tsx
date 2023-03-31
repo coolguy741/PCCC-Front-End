@@ -7,7 +7,7 @@ import { AccountsPage } from "./AccountsPage";
 import { GroupOrganizerPage } from "./GroupOrganizerPage";
 import { MealPlannerPage } from "./MealPlannerPage";
 import { TopicBuilderPage } from "./TopicBuilderPage";
-import { DiscoveryEditorPage, MealTimeMomentsPage } from "./MealTimeMomentsPage";
+import { MealTimeMomentsPage } from "./MealTimeMomentsPage/MealtimeMomentsPage";
 import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
 import { FoodwaysPage } from "./FoodwaysPage";
 import { RecipesBuilderPage } from "./RecipeBuilderPage";
@@ -54,8 +54,14 @@ import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLess
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesCreatePreviewRecipePage } from "./RecipeBuilderPage/RecipesCreatePreviewRecipePage";
-import { RecipePrint } from "./RecipeBuilderPage/RecipePrint";
+import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage"
 import { CloudDrivePage } from "./CloudDrivePage";
+import { MealtimeMomentPrintPage } from "./MealTimeMomentsPage/MealtimeMomentPrintPage";
+import { MealtimeMomentsBuilderPage } from "./MealTimeMomentsPage";
+import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
+import { MealTimeMomentsPreviewPage } from "./MealTimeMomentsPage/MealTimeMomentsPreviewPage";
+import { MealTimeMomentsEditMealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsEditMealTimeMomentPage";
+import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -162,7 +168,20 @@ export const router = createBrowserRouter([
           { path: ":id/:slug", element: <TopicOverviewPage /> },
         ],
       },
-      { path: "mealtime-moments", element: <MealTimeMomentsPage /> },
+      { path: "mealtime-moments", 
+        element: (
+        <MealtimeMomentsBuilderPage>
+          <Outlet/>
+        </MealtimeMomentsBuilderPage>
+        ),
+        children: [
+          { path: "", element: <MealTimeMomentsPage/>},
+          { path: "create", element: <MealTimeMomentsCreatePage/>},
+          { path: "preview", element: <MealTimeMomentsPreviewPage/>},
+          { path: ":mealtimeMoment", element: <MealTimeMomentPage/>},
+          { path: ":mealtimeMoment/edit", element: <MealTimeMomentsEditMealTimeMomentPage/>}
+        ]
+      },
       { path: "activities", element: <ActivitiesBuilderPage /> },
       {
         path: "foodways",
@@ -250,7 +269,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "dashboard/recipes/:recipe/print",
-        element: <RecipePrint />,
+        element: <RecipePrintPage />,
+      },
+      {
+        path: "dashboard/mealtime-moments/:mealtime-moments/print",
+        element: <MealtimeMomentPrintPage />,
       },
     ],
   },

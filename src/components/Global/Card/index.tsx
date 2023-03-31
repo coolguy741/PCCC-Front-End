@@ -1,30 +1,30 @@
 import styled from "styled-components";
-import { Text, UpperCase } from "../Text";
+import { Bold, Text, UpperCase } from "../Text";
 
 interface CardProps {
-  img : string,
+  image : string,
   placeholder ?: string,
   topic ?: string,
   date ?: string,
-  name: string,
-  content: string
+  title: string,
+  description: string
 }
 
-export const Card = ({img, placeholder="card", topic = "", date = "", name, content }: CardProps) => {
+export const Card = ({image, placeholder="card", topic = "", date = "", title, description }: CardProps) => {
   
   return (
     <Container>
-      <img src={img} placeholder={placeholder}/>
+      <img src={image} placeholder={placeholder}/>
       {
       topic != "" && 
-      <Text><UpperCase>{topic}</UpperCase></Text>
+      <Text size="sm"><UpperCase>{topic}</UpperCase></Text>
       }
       {
       date != "" && 
-      <Text><UpperCase>{date}</UpperCase></Text>
+      <Text size="sm"><UpperCase>{date}</UpperCase></Text>
       }
-      <Text>{name}</Text>
-      <Text>{content}</Text>
+      <Text><Bold>{title}</Bold></Text>
+      <Text size="sm">{description}</Text>
     </Container>
   );
 };
@@ -32,6 +32,6 @@ export const Card = ({img, placeholder="card", topic = "", date = "", name, cont
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   width: 190px;
 `;

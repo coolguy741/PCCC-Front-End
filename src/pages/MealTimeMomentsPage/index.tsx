@@ -1,13 +1,21 @@
 import styled from "styled-components";
-import { Card } from "../../components/Global/Card";
+import { MealtimeMomentsHeader } from "../../components/MealtimeMoment/MealtimeMomentsHeader";
 
-export const MealTimeMomentsPage = () => {
+interface MealtimeMomentsBuilderPageProps {
+  children: JSX.Element;
+}
+
+export const MealtimeMomentsBuilderPage = ({ children }: MealtimeMomentsBuilderPageProps) => {
   return (
     <Container>
-      <Card img="/images/1.png" name="aaa" content="bbb" placeholder="test image" />
+      <MealtimeMomentsHeader/>
+      <div className="content">{children}</div>
     </Container>
   );
 };
 
 const Container = styled.div`
-`
+  .content {
+    padding: 11px 0px;
+  }
+`;
