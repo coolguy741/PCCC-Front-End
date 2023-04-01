@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const RecipeTip = () => {
+export const MealtimeMomentTip = () => {
   return (
     <Container>
       <TipText>
-        <Text><Bold>It seems like you like this content. Check out our foodways page on <Underlined><Link to="./">Chocolate</Link></Underlined>?</Bold></Text>
+        <Text><Bold>It seems like you like this content. Would you like to learn more about <Underlined><Link to="./">Mealtime Moments</Link></Underlined>?</Bold></Text>
         <br/>
-        <Text><Bold>OR </Bold>try our fun <Underlined>&rsquo;<Link to="./">Vegetable Spring Rolls</Link>&rsquo;</Underlined> Recipe full of healthy ingredients</Text>
+        <Text><Bold>OR </Bold>Check out this fun <Underlined>&rsquo;<Link to="./">Vegetable Spring Rolls</Link>&rsquo;</Underlined> recipe that’s full of healthy ingredients</Text>
       </TipText>
       <img src="/images/bee.png" placeholder="bee"/>
     </Container>

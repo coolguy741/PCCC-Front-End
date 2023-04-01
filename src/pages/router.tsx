@@ -272,7 +272,7 @@ export const router = createBrowserRouter([
         element: <RecipePrintPage />,
       },
       {
-        path: "dashboard/mealtime-moments/:mealtime-moments/print",
+        path: "dashboard/mealtime-moments/:mealtime-moment/print",
         element: <MealtimeMomentPrintPage />,
       },
     ],
