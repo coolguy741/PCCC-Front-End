@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../../components/Global/Button";
 import { LanguageChooser } from "../../../components/Global/LanguageChooser";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { CenterAlignedContainer, LeftAlignedContainer, RightAlignedContainer } from "../../../components/Global/Container";
 import { FileUploader } from "../../../components/Global/FileUploader";
 import { SmallButton } from "../../../components/Global/SmallButton";
@@ -24,6 +24,10 @@ export const MealTimeMomentsCreatePage = () => {
 
   const handleBack = () => {
     navigate(-1);
+  }
+
+  const handlePreview = () => {
+    navigate("./../preview");
   }
 
   const handleSave = () => {
@@ -56,9 +60,10 @@ export const MealTimeMomentsCreatePage = () => {
 
   return (
     <PageContainer>
-      <LeftAlignedContainer>
+      <ButtonGroup>
         <Button onClick={handleBack}>Back</Button>
-      </LeftAlignedContainer>
+        <Button onClick={handlePreview}>Preview</Button>
+      </ButtonGroup>
       <CenterAlignedContainer>
         <LanguageChooser lang={lang} setLang={setLang}/>
       </CenterAlignedContainer>
@@ -98,6 +103,11 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px
+`
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 const Content = styled.div`
