@@ -41,7 +41,7 @@ export const MealTimeMomentPage = () => {
       </ButtonGroup>
       <h2>{mockData.title}</h2>
       <Content>
-        <Text>{mockData.content}</Text>
+        <Text>{mockData.overview}</Text>
           <StyledImage src={mockData.image} alt={mockData.alt}/> 
       </Content>
       <MealtimeMomentTip />
