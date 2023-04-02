@@ -55,7 +55,7 @@ export const RecipesEditRecipePage = () => {
             :
             <>
               <SmallButton onClick={() => setCurrentLanguage('en')}>English</SmallButton>
-              <ClickedButton onClick={() => setCurrentLanguage('fr')} bgColor="green">French</ClickedButton>
+              <SmallButton onClick={() => setCurrentLanguage('fr')} bgColor="green">French</SmallButton>
             </>
           }
         </div>

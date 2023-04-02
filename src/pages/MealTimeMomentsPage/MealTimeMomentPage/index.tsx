@@ -42,7 +42,7 @@ export const MealTimeMomentPage = () => {
       <h2>{mockData.title}</h2>
       <Content>
         <Text>{mockData.overview}</Text>
-          <StyledImage src={mockData.image} alt={mockData.alt}/> 
+        <StyledImage src={mockData.image} alt={mockData.alt}/> 
       </Content>
       <MealtimeMomentTip />
     </PageContainer>

@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
-export const MealtimeMomentsHeader = () => {
+export const BasicComponent = () => {
   return (
     <Container>
-      <h1>Mealtime Moments</h1>
+      edit content here
     </Container>
   );
 };
 
 const Container = styled.div`
-  margin-bottom: 10px;
+  display: flex;
+  gap: 20px;
 `;
