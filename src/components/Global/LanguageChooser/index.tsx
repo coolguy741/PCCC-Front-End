@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { Button } from "../Button";
-import { string } from "zod";
 
 interface LanguageChooserProps {
   lang: string,
