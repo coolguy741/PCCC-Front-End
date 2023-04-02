@@ -7,6 +7,8 @@ import { CenterAlignedContainer, LeftAlignedContainer, RightAlignedContainer } f
 import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-edit.json";
 import { FileUploader } from "../../../components/Global/FileUploader";
 import { SmallButton } from "../../../components/Global/SmallButton";
+import { ModalContainer } from "../../../components/Global/ModalContainer";
+import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
 
 export const MealTimeMomentsEditMealTimeMomentPage = () => {
   const [lang, setLang] = useState<string>(localStorage.getItem('lang') ?? "en");
@@ -14,6 +16,7 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
   const [titleFr, setTitleFr] = useState(mockData.fr.title);
   const [overivewEn, setOverviewEn] = useState(mockData.en.overview);
   const [overivewFr, setOverviewFr] = useState(mockData.fr.overview);
+  const [visibleModal, setVisibleModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,6 +46,13 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
     }
   };
 
+  const handleToggleLanguage = () => {
+    setVisibleModal(false);
+    if(lang === "en") setLang("fr");
+    else setLang("en");
+  }
+
+
   return (
     <PageContainer>
       <LeftAlignedContainer>
@@ -56,12 +66,12 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
           <LeftAlignedContainer>
             <h3>Title</h3>
           </LeftAlignedContainer>
-          <TitleInput value={lang === "en" ? mockData.en.title : mockData.fr.title} onChange={handleTitleChange}/>
+          <TitleInput value={lang === "en" ? titleEn : titleFr} onChange={handleTitleChange}/>
         </DetailContainer>
         <OverviewImageContainer>
           <DetailContainer>
             <h3>Overview</h3>
-            <OverviewTextArea value={lang === "en" ? mockData.en.overview : mockData.fr.overview} rows={15} onChange={handleOverviewChange}></OverviewTextArea>
+            <OverviewTextArea value={lang === "en" ? overivewEn : overivewFr} rows={15} onChange={handleOverviewChange}></OverviewTextArea>
           </DetailContainer>
           <DetailContainer>
             <h3>Images and Videos</h3>
@@ -69,7 +79,12 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
           </DetailContainer>
         </OverviewImageContainer>
       </Content>
-      <RightAlignedContainer><SmallButton onClick={handleSave}>Save changes</SmallButton></RightAlignedContainer>
+      <RightAlignedContainer><SmallButton onClick={() => setVisibleModal(true)}>Save changes</SmallButton></RightAlignedContainer>
+      {visibleModal && 
+      <ModalContainer>
+        <SaveChangesModal onSave={handleSave} onToggleLanguage={handleToggleLanguage}/>
+      </ModalContainer>
+      }
     </PageContainer>
   );
 };
