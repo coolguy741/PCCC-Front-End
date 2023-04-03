@@ -1,0 +1,76 @@
+{
+  "title": "Discover Together",
+  "relatedTo": "Chocolate",
+  "listData": [
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    },
+    {
+      "image": "/images/discover-item.jpg",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Foodways: Chocolate",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/foodways/Chocolate"
+    }
+  ]
+}

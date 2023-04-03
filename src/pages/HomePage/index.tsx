@@ -4,28 +4,30 @@ import { Icon } from "../../components/Global/Icon";
 import { HomeTip } from "../../components/Home/HomeTip";
 import { SmallButton } from "../../components/Global/SmallButton";
 import { Logo } from "../../components/Global/Logo";
+import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   return (
     <PageContainer>
       <MainContent>
-
         <MainSection>
           <BigText>Power Full Kids</BigText><SmallText>TM</SmallText>
         </MainSection>
         <CenterAlignedContainer>
           <Icon name="scroll" width="28px"/>
         </CenterAlignedContainer>
-        <TogetherSection>
-          <div className="text-container">
-            <p className="text">Power Full Kids</p>
-            <p className="big-text">Discover Together</p>
-          </div>
-          <div className="image-container">
-            <img src="/images/homepage/discover-together.jpg"/>
-            <HomeTip text="Discover more" top="-20px" left="100px"/>
-          </div>
-        </TogetherSection>
+        <Link to="./discover-together">
+          <TogetherSection>
+              <div className="text-container">
+                <p className="text">Power Full Kids</p>
+                <p className="big-text">Discover Together</p>
+              </div>
+              <div className="image-container">
+                <img src="/images/homepage/discover-together.jpg"/>
+                <HomeTip text="Discover more" top="-20px" left="100px"/>
+              </div>
+          </TogetherSection>
+        </Link>
         <TogetherSection>
           <div className="text-container">
             <p className="big-text">Grow Together</p>
