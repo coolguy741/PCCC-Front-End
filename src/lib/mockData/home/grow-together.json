@@ -1,76 +1,76 @@
 {
-  "title": "Discover Together",
-  "relatedTo": "Chocolate",
+  "title": "Grow Together",
+  "relatedTo": "Growing",
   "listData": [
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/grow-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Garden Guardian",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/activities"
     }
   ]
 }

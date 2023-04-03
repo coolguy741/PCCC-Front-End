@@ -1,76 +1,76 @@
 {
-  "title": "Discover Together",
-  "relatedTo": "Chocolate",
+  "title": "Cook Together",
+  "relatedTo": "Cooking",
   "listData": [
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/discover-item.jpg",
+      "image": "/images/homepage/cook-item.jpg",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
-      "title": "Foodways: Chocolate",
+      "title": "Kitchen Champ",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/dashboard/recipes/recipe"
     }
   ]
 }

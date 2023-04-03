@@ -28,24 +28,28 @@ export const HomePage = () => {
               </div>
           </TogetherSection>
         </Link>
-        <TogetherSection>
-          <div className="text-container">
-            <p className="big-text">Grow Together</p>
-          </div>
-          <div className="image-container">
-            <img src="/images/homepage/grow-together.jpg"/>
-            <HomeTip text="Learn more about gardening" top="-20px" left="100px"/>
-          </div>
-        </TogetherSection>
-        <TogetherSection>
-          <div className="text-container">
-            <p className="big-text">Cook Together</p>
-          </div>
-          <div className="image-container">
-            <img src="/images/homepage/cook-together.jpg"/>
-            <HomeTip text="Learn more about cooking" top="-20px" left="100px"/>
-          </div>
-        </TogetherSection>
+        <Link to="./grow-together">
+          <TogetherSection>
+            <div className="text-container">
+              <p className="big-text">Grow Together</p>
+            </div>
+            <div className="image-container">
+              <img src="/images/homepage/grow-together.jpg"/>
+              <HomeTip text="Learn more about gardening" top="-20px" left="100px"/>
+            </div>
+          </TogetherSection>
+        </Link>
+        <Link to="./cook-together">
+          <TogetherSection>
+            <div className="text-container">
+              <p className="big-text">Cook Together</p>
+            </div>
+            <div className="image-container">
+              <img src="/images/homepage/cook-together.jpg"/>
+              <HomeTip text="Learn more about cooking" top="-20px" left="100px"/>
+            </div>
+          </TogetherSection>
+        </Link>
         <Hr/>
         <ContentSection>
           <div className="text-container">
