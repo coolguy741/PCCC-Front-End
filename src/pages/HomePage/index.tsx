@@ -65,45 +65,51 @@ export const HomePage = () => {
             </div>
           </ContentSection>
         </Link>
-        <ContentSection>
-          <div className="text-container">
-            <p className="big-text">Foodways</p>
-            <p className="large-text">Lorem impsum</p>
-            <p className="text">z Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
-          </div>
-          <div className="image-container">
-            <img src="/images/homepage/games.jpg"/>
-            <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
-          </div>
-        </ContentSection>
-        <ContentSection>
-          <div className="text-container">
-            <p className="big-text">Mealtime Moments</p>
-            <p className="large-text">Lorem impsum</p>
-            <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        <Link to="./foodways/123">
+          <ContentSection>
+            <div className="text-container">
+              <p className="big-text">Foodways</p>
+              <p className="large-text">Lorem impsum</p>
+              <p className="text">z Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
+            </div>
+            <div className="image-container">
+              <img src="/images/homepage/games.jpg"/>
+              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+            </div>
+          </ContentSection>
+        </Link>
+        <Link to="./mealTime-moments/123">
+          <ContentSection>
+            <div className="text-container">
+              <p className="big-text">Mealtime Moments</p>
+              <p className="large-text">Lorem impsum</p>
+              <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
+            </div>
+            <div className="image-container">
+              <img src="/images/homepage/games.jpg"/>
+              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+            </div>
+          </ContentSection>
+        </Link>
+        <Link to="./meal-planner">
+          <ContentSection>
+            <div className="text-container">
+              <p className="big-text">Meal Planner</p>
+              <p className="large-text">Lorem impsum</p>
+              <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
-          </div>
-          <div className="image-container">
-            <img src="/images/homepage/games.jpg"/>
-            <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
-          </div>
-        </ContentSection>
-        <ContentSection>
-          <div className="text-container">
-            <p className="big-text">Meal Planner</p>
-            <p className="large-text">Lorem impsum</p>
-            <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
-          </div>
-          <div className="image-container">
-            <img src="/images/homepage/games.jpg"/>
-            <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
-          </div>
-        </ContentSection>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
+            </div>
+            <div className="image-container">
+              <img src="/images/homepage/games.jpg"/>
+              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+            </div>
+          </ContentSection>
+        </Link>
       </MainContent>
       <InfoContainer>
         <Logo/>
