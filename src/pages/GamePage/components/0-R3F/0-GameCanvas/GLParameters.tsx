@@ -1,5 +1,5 @@
 import {
-  ACESFilmicToneMapping,
+  CineonToneMapping,
   sRGBEncoding,
   TextureEncoding,
   ToneMapping,
@@ -28,7 +28,7 @@ const GLParameters: GLParamTypes = {
   autoClearDepth: false,
   toneMappingExposure: 1,
   outputEncoding: sRGBEncoding,
-  toneMapping: ACESFilmicToneMapping,
+  toneMapping: CineonToneMapping,
   debug: { checkShaderErrors: true },
   powerPreference: "high-performance",
 };

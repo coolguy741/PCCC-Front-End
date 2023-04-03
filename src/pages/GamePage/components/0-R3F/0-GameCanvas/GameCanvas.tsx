@@ -1,6 +1,6 @@
+import { Canvas } from "@react-three/fiber";
 import { FC, memo, ReactNode, Suspense, useMemo } from "react";
 import { MathUtils } from "three";
-import { Canvas } from "@react-three/fiber";
 import { GLParameters } from "./GLParameters";
 
 interface GameCanvasPropTypes {
