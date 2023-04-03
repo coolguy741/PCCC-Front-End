@@ -7,7 +7,7 @@ import { FileUploader } from "../../../components/Global/FileUploader";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import { NumberSetter } from "../../../components/Recipes/NumberSetter";
-import { SaveRecipeModal } from "../../../components/Global/SaveChangesModal";
+import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
 import { SelectTags, Tag } from "../../../components/Recipes/SelectTags";
 import { SelectIngredients, Ingredient } from "../../../components/Recipes/SelectIngredients";
 import mockData from "../../../lib/mockData/recipes/recipeEdit.json";
@@ -98,7 +98,7 @@ export const RecipesEditRecipePage = () => {
       </div>
       {visibleModal && 
       <ModalContainer>
-        <SaveRecipeModal onSave={handleSave} onToggleLanguage={handleToggleLanguage}/>
+        <SaveChangesModal onSave={handleSave} onToggleLanguage={handleToggleLanguage}/>
       </ModalContainer>
       }
     </PageContainer>
