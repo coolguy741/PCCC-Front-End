@@ -6,9 +6,50 @@ import { SmallButton } from "../../../components/Global/SmallButton";
 import { RecipeList } from "../../../components/Recipes/RecipeList";
 import mockData from "../../../lib/mockData/Recipes/recipes.json";
 
-const FilterOptions = ["Curriculum name1", "Curriculum name2", "Curriculum name3"];
-const TopicOptions = ["name1", "name2", "name3"];
-const SortOptions = ["Date", "A-Z", "Z-A"];
+const FilterOptions = [
+  {
+    value : "Curriculum name1",
+    label : "Curriculum name1",
+  },
+  {
+    value : "Curriculum name2",
+    label : "Curriculum name2",
+  },
+  {
+    value : "Curriculum name3",
+    label : "Curriculum name3",
+  },
+];
+
+const TopicOptions = [
+  { 
+    value: "name1",
+    label: "name1"
+  },
+  {
+    value: "name2",
+    label: "name2"
+  },
+  {
+    value: "name3",
+    label: "name3"
+  }
+];
+
+const SortOptions = [
+  {
+    value: "Date",
+    label: "Date"
+  },
+  {
+    value: "A-Z",
+    label: "A-Z"
+  },
+  {
+    value: "Z-A",
+    label: "Z-A"
+  }
+];
 
 export const RecipesPage = () => {
   const navigate = useNavigate();
@@ -39,15 +80,15 @@ export const RecipesPage = () => {
         <div className="selectboxes-container">
           <div>
             <p>Filter</p>
-            <SelectBox options={FilterOptions} value={FilterOptions[0]} onChange={handleFilterChange} /> 
+            <SelectBox options={FilterOptions} value={FilterOptions[0].value} onChange={handleFilterChange} /> 
           </div>
           <div>
             <p>Topic</p>
-            <SelectBox options={TopicOptions} value={TopicOptions[0]} onChange={handleTopicChange} /> 
+            <SelectBox options={TopicOptions} value={TopicOptions[0].value} onChange={handleTopicChange} /> 
           </div>
           <div>
             <p>Sort</p>
-            <SelectBox options={SortOptions} value={SortOptions[0]} onChange={handleSortChange} /> 
+            <SelectBox options={SortOptions} value={SortOptions[0].value} onChange={handleSortChange} /> 
           </div>
         </div>
         <div className="buttons-container">
