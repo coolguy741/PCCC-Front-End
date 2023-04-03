@@ -51,18 +51,20 @@ export const HomePage = () => {
           </TogetherSection>
         </Link>
         <Hr/>
-        <ContentSection>
-          <div className="text-container">
-            <p className="big-text">Games</p>
-            <p className="large-text">Mad Kitchen</p>
-            <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-            <SmallButton>Play</SmallButton>
-          </div>
-          <div className="image-container">
-            <img src="/images/homepage/games.jpg"/>
-            <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
-          </div>
-        </ContentSection>
+        <Link to="./games">
+          <ContentSection>
+            <div className="text-container">
+              <p className="big-text">Games</p>
+              <p className="large-text">Mad Kitchen</p>
+              <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
+              <SmallButton>Play</SmallButton>
+            </div>
+            <div className="image-container">
+              <img src="/images/homepage/games.jpg"/>
+              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+            </div>
+          </ContentSection>
+        </Link>
         <ContentSection>
           <div className="text-container">
             <p className="big-text">Foodways</p>
