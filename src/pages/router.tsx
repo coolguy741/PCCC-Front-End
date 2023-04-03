@@ -62,6 +62,10 @@ import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMoments
 import { MealTimeMomentsPreviewPage } from "./MealTimeMomentsPage/MealTimeMomentsPreviewPage";
 import { MealTimeMomentsEditMealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsEditMealTimeMomentPage";
 import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
+import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
+import { GrowTogetherPage } from "./GrowTogetherPage";
+import { CookTogetherPage } from "./CookTogetherPage";
+import { SearchPage } from "./SearchPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -224,6 +228,10 @@ export const router = createBrowserRouter([
       { path: "achievements", element: <AchievementsPage /> },
       { path: "games", element: <GamesPage /> },
       { path: "cloud-drive", element: <CloudDrivePage /> },
+      { path: "discover-together", element: <DiscoverTogetherPage /> },
+      { path: "grow-together", element: <GrowTogetherPage /> },
+      { path: "cook-together", element: <CookTogetherPage /> },
+      { path: "search", element: <SearchPage /> },
     ],
   },
   {
