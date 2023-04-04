@@ -7,10 +7,10 @@ interface SmallButtonProps {
 }
 
 export const SmallButton = ({ children, bgColor="yellow", onClick }: SmallButtonProps) => {
-  return <StyledSmallButton onClick={onClick} bgColor={bgColor}>{children}</StyledSmallButton>;
+  return <StyledButton onClick={onClick} bgColor={bgColor}>{children}</StyledButton>;
 };
 
-const StyledSmallButton = styled.button<SmallButtonProps>`
+const StyledButton = styled.button<SmallButtonProps>`
   background-color: ${SmallButtonProps => SmallButtonProps.bgColor ? 'var(--' + SmallButtonProps.bgColor +')' : 'var(--yellow)'};
   border: none;
   border-radius: 1.5rem;

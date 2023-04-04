@@ -1,7 +1,12 @@
 interface LogoProps {
-  width?: number;
+  height?: number;
 }
 
-export const Logo = ({ width = 150 }: LogoProps) => {
-  return <img src="/images/logo.svg" width={width} />;
+export const Logo = ({ height = 61 }: LogoProps) => {
+
+  return (
+      <>
+        {localStorage.getItem('lang') === "en" ? <img src="/images/logo-en.svg" height={height} /> : <img src="/images/logo-fr.svg" height={height} />}
+      </>
+  ) 
 };

@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { SmallButton } from "../../Global/SmallButton";
+import { SmallButton } from "../SmallButton";
 
-interface SaveRecipeModalProps {
+interface SaveChangesModalProps {
   onSave: () => void;
   onToggleLanguage: () => void;
 }
 
-export const SaveRecipeModal = ({ onSave, onToggleLanguage }: SaveRecipeModalProps) => {
+export const SaveChangesModal = ({ onSave, onToggleLanguage }: SaveChangesModalProps) => {
   return (
     <Modal>
       <h3>The French content is incomplete. Are you sure you want to exit without it? </h3>

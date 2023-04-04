@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { RecipeContent } from "../../../components/Recipes/RecipeContent";
 
-export const RecipePrint = () => {
+export const RecipePrintPage = () => {
   return (
     <PageContainer>
       <RecipeContent />

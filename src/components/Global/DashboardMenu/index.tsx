@@ -14,7 +14,7 @@ export const DashboardMenu = () => {
     isGroupOrganizer,
     isMealPlanner,
     isTopicEditor,
-    isDiscoveryEditor,
+    isMealTimeMoments,
     isActivitiesBuilder,
     isAchievements,
     isFoodwaysEditor,
@@ -28,7 +28,7 @@ export const DashboardMenu = () => {
     <MenuContainer>
       <div className="logo-container">
         <Link to="/">
-          <Logo width={120} />
+          <Logo height={55} />
         </Link>
       </div>
       <div className="item-container">
@@ -80,9 +80,9 @@ export const DashboardMenu = () => {
                 Recipes
               </div>
             </Link>
-            <Link to="daily-discovery">
-              <div className={`item ${isDiscoveryEditor && "active"}`}>
-                Daily Discovery
+            <Link to="mealtime-moments">
+              <div className={`item ${isMealTimeMoments && "active"}`}>
+                MealTime Moments
               </div>
             </Link>
             <Link to="foodways">
