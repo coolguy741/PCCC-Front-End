@@ -95,7 +95,7 @@ export const TopicCreateForm: React.FC<Props> = ({
 
       {components[tabIndex]}
 
-      <div className="flex justify-end space-x-6">
+      <div className="flex justify-end space-x-6 mt-4">
         <LinkButton to="#">Save changes, and Exit</LinkButton>
         <SmallButton onClick={handleNext}>
           Save changes, and Continue
