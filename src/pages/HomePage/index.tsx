@@ -5,6 +5,7 @@ import { HomeTip } from "../../components/Home/HomeTip";
 import { SmallButton } from "../../components/Global/SmallButton";
 import { Logo } from "../../components/Global/Logo";
 import { Link } from "react-router-dom";
+import { Button } from "../../components/Global/Button";
 
 export const HomePage = () => {
   return (
@@ -57,7 +58,7 @@ export const HomePage = () => {
               <p className="big-text">Games</p>
               <p className="large-text">Mad Kitchen</p>
               <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-              <SmallButton>Play</SmallButton>
+              <Button onClick={() => alert("It's coming soon")}>Play</Button>
             </div>
             <div className="image-container">
               <img src="/images/homepage/games.jpg"/>
@@ -112,21 +113,29 @@ export const HomePage = () => {
         </Link>
       </MainContent>
       <InfoContainer>
-        <Logo/>
+        <Link to="/"><Logo/></Link>
         <div className="column">
-          <p>About Us</p>
-          <p>Terms and conditions</p>
-          <p>Accessibility</p>
+          <Link to=""><p>About Us</p></Link>
+          <Link to=""><p>Terms and conditions</p></Link>
+          <Link to=""><p>Accessibility</p></Link>
         </div>
         <div className="column">
-          <p>Privacy Policy</p>
-          <p>Contact us</p>
+          <Link to=""><p>Privacy Policy</p></Link>
+          <Link to=""><p>Contact us</p></Link>
         </div>
         <div className="row">
-          <Icon name="facebook"/>
-          <Icon name="instagram"/>
-          <Icon name="twitter"/>
-          <Icon name="youtube"/>
+          <a href="">
+            <Icon name="facebook"/>
+          </a>
+          <a href="">
+            <Icon name="instagram"/>
+          </a>
+          <a href="">
+            <Icon name="twitter"/>
+          </a>
+          <a href="">
+            <Icon name="youtube"/>
+          </a>
         </div>
       </InfoContainer>
       <Footer>

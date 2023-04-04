@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import mockData from "../../lib/mockData/games.json";
-import { CenterAlignedContainer } from "../../components/Global/Container";
-import { SmallButton } from "../../components/Global/SmallButton";
 import { Text } from "../../components/Global/Text";
+import { Button } from "../../components/Global/Button";
 
 export const GamesPage = () => {
   return (
@@ -11,7 +10,7 @@ export const GamesPage = () => {
       <Title>{mockData.title}</Title>
       <ImageButtonContainer>
         <img src={mockData.image} alt={mockData.alt}/>
-        <SmallButton>Play</SmallButton>
+        <Button onClick={() => alert("It's coming soon")}>Play</Button>
       </ImageButtonContainer>
       <div>
         <h3>Overview</h3>
