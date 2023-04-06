@@ -69,6 +69,7 @@ import { SearchPage } from "./SearchPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
+import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -317,10 +318,10 @@ export const router = createBrowserRouter([
         path: "dashboard/recipes/:recipe/print",
         element: <RecipePrintPage />,
       },
-      // {
-      //   path: "dashboard/activities/:activity/print",
-      //   element: <ActivityPrintPage />,
-      // },
+      {
+        path: "dashboard/activities/:activity/print",
+        element: <ActivityPrintPage />,
+      },
       {
         path: "dashboard/mealtime-moments/:mealtime-moment/print",
         element: <MealtimeMomentPrintPage />,
