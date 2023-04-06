@@ -1,0 +1,76 @@
+{
+  "activities": [
+    {
+      "id": 1,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 2,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 3,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 4,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 5,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 6,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 7,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 8,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 9,
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "topic": "Garden Guardian",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    }
+  ]
+}

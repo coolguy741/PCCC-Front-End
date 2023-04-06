@@ -29,7 +29,7 @@ export const Card = ({id, image, isSelected = false, alt="card", topic = "", dat
       <img src={image} alt={alt}/>
       {
       topic != "" && 
-      <Text size="sm"><UpperCase>{topic}</UpperCase></Text>
+      <Text size="sm"><UpperCase>Topic: {topic}</UpperCase></Text>
       }
       {
       date != "" && 
