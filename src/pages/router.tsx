@@ -70,6 +70,7 @@ import { CalendarPrintPage } from "./CalendarPage/Print";
 import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -203,7 +204,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <ActivitiesPage /> },
           // { path: "create", element: <ActivitiesCreatePage /> },
-          // { path: "preview", element: <ActivitiesPreviewPage /> },
+          { path: "preview", element: <ActivitiesPreviewPage /> },
           { path: ":mealtimeMoment", element: <ActivityPage /> },
           // {
           //   path: ":mealtimeMoment/edit",
