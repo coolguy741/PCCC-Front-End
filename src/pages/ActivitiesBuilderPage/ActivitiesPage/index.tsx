@@ -93,7 +93,7 @@ export const ActivitiesPage = () => {
     setCardsData(updatedActivitiesData);
   }
 
-  const setCardsData = (newCardsData: Moment[]) => {
+  const setCardsData = (newCardsData: Activity[]) => {
     mockData.activities.splice(0, mockData.activities.length, ...newCardsData);
   }
 
