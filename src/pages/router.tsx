@@ -73,6 +73,7 @@ import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
 import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
+import { NotificationsPage } from "./NotificationsPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -274,6 +275,7 @@ export const router = createBrowserRouter([
       { path: "grow-together", element: <GrowTogetherPage /> },
       { path: "cook-together", element: <CookTogetherPage /> },
       { path: "search", element: <SearchPage /> },
+      { path: "notifications", element: <NotificationsPage /> },
     ],
   },
   {

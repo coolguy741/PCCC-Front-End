@@ -1,0 +1,31 @@
+{
+  "listData": [
+    {
+      "icon": "plugin",
+      "image": "/photos/1.png",
+      "alt": "icon",
+      "role": "Admin (Platform Administrator)",
+      "content": "created a new activity - Activity Name",
+      "date": "25 minutes ago",
+      "reviewed": false
+    },
+    {
+      "icon": "chef",
+      "image": "/photos/1.png",
+      "alt": "icon",
+      "role": "Admin (Platform Administrator)",
+      "content": "created a new activity - Activity Name",
+      "date": "25 minutes ago",
+      "reviewed": false
+    },
+    {
+      "icon": "group",
+      "image": "/photos/1.png",
+      "alt": "icon",
+      "role": "Admin (Platform Administrator)",
+      "content": "created a new activity - Activity Name",
+      "date": "25 minutes ago",
+      "reviewed": true
+    }
+  ]
+}
