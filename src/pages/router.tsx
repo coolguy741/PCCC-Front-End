@@ -67,6 +67,7 @@ import { GrowTogetherPage } from "./GrowTogetherPage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { SearchPage } from "./SearchPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
+import { ReportsPrintPage } from "./ReportsPage/Print";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -138,7 +139,19 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      { path: "reports", element: <ReportsPage /> },
+      {
+        path: "reports",
+        element: (
+          <>
+            <Outlet />
+          </>
+        ),
+        children: [
+          { path: ":slug", element: <ReportsPage /> },
+          { path: ":slug/preview", element: <ReportsPage /> },
+          { path: "", element: <Navigate to="./assessment" /> },
+        ],
+      },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
       {
         path: "meal-planner",
@@ -303,6 +316,7 @@ export const router = createBrowserRouter([
         element: <MealtimeMomentPrintPage />,
       },
       { path: "dashboard/calendar/print", element: <CalendarPrintPage /> },
+      { path: "dashboard/reports/:slug/print", element: <ReportsPrintPage /> },
     ],
   },
 ]);
