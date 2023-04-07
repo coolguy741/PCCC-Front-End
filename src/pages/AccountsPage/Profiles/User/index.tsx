@@ -25,9 +25,7 @@ export const AccountsUserProfilePage = () => {
         <Link to="/dashboard/accounts/profiles"><Button onClick={handleBack} >&lt; Back</Button></Link>
         <div className="info-container">
           <div className="avatar-container">
-            <div className="avatar">
-              <Photo src={userData.image} role={userData.role}/>
-            </div>
+            <Photo src={userData.image} role={userData.role} width="100px"/>
             {
             userData.role === "Standard" ? 
                 <div className="user-info">
@@ -148,11 +146,6 @@ const PageContainer = styled.div`
       display: flex;
       padding-top: 10px;
       width: 50%;
-
-      .avatar {
-        width: 100px;
-        height: 100px;
-      }
 
       .user-info {
         padding-left: 30px;

@@ -73,6 +73,9 @@ import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
 import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
+import { NotificationsPage } from "./NotificationsPage";
+import { ProfilePage } from "./Profile";
+import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -266,6 +269,12 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "profile", element: <ProfilePage /> 
+      },
+      {
+        path: "profile-settings", element: <ProfileSettingsPage /> 
+      },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
       { path: "games", element: <GamesPage /> },
@@ -274,6 +283,7 @@ export const router = createBrowserRouter([
       { path: "grow-together", element: <GrowTogetherPage /> },
       { path: "cook-together", element: <CookTogetherPage /> },
       { path: "search", element: <SearchPage /> },
+      { path: "notifications", element: <NotificationsPage /> },
     ],
   },
   {
