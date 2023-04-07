@@ -74,6 +74,8 @@ import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreview
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
 import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
 import { NotificationsPage } from "./NotificationsPage";
+import { ProfilePage } from "./Profile";
+import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -266,6 +268,12 @@ export const router = createBrowserRouter([
             element: <RecipesEditLessonAssessment />,
           },
         ],
+      },
+      {
+        path: "profile", element: <ProfilePage /> 
+      },
+      {
+        path: "profile-settings", element: <ProfileSettingsPage /> 
       },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
