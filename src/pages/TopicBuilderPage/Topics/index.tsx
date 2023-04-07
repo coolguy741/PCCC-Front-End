@@ -27,7 +27,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -40,7 +42,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -53,7 +57,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -66,7 +72,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -79,7 +87,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -92,7 +102,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -105,7 +117,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -118,7 +132,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -131,7 +147,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -144,7 +162,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -157,7 +177,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -170,7 +192,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -183,7 +207,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -196,7 +222,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -209,7 +237,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
