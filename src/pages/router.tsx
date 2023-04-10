@@ -123,6 +123,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "", element: <HomePage /> },
+      { path: "search", element: <SearchPage /> },
       {
         path: "accounts",
         element: (
