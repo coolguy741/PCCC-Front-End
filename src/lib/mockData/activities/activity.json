@@ -1,0 +1,45 @@
+{
+  "topic": "Garden Guardian",
+  "title": "Tools of the Trade",
+  "overview": "Throughout the Power Full Kids program, you will use your growing tool kit to grow food. Looking at the items in your growing tool kit, use the information bellow to understand the purpose of each tool.",
+  "requirements": [
+    "A selection of different sized recycled plastic containers",
+    "A set of gardening tools, including a trowel, small watering can, and gloves",
+    "A variety of seeds",
+    "Top soil"
+  ],
+  "tools": [
+    {
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "description": "You’re right, we didn’t provide plastic containers in your growing tool kit. Let’s reuse containers from home"
+    },
+    {
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "description": "You’re right, we didn’t provide plastic containers in your growing tool kit. Let’s reuse containers from home"
+    },
+    {
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "description": "You’re right, we didn’t provide plastic containers in your growing tool kit. Let’s reuse containers from home"
+    },
+    {
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "description": "You’re right, we didn’t provide plastic containers in your growing tool kit. Let’s reuse containers from home"
+    },
+    {
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "description": "You’re right, we didn’t provide plastic containers in your growing tool kit. Let’s reuse containers from home"
+    },
+    {
+      "image": "/images/activities/activity1.jpg",
+      "alt": "activity1",
+      "description": "You’re right, we didn’t provide plastic containers in your growing tool kit. Let’s reuse containers from home"
+    }
+  ],
+  "image": "/images/activities/activity1.jpg",
+  "alt": "activity1"
+}

@@ -30,4 +30,5 @@ export const SelectBox: FC<SelectBoxProps> = ({ options, value = options[0].valu
 };
 
 const StyledSelect = styled.select`
+  width: 130px;
 `

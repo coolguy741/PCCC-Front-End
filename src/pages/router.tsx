@@ -68,6 +68,12 @@ import { CookTogetherPage } from "./CookTogetherPage";
 import { SearchPage } from "./SearchPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { ReportsPrintPage } from "./ReportsPage/Print";
+import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
+import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
+import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
+import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
+import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -203,7 +209,24 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      { path: "activities", element: <ActivitiesBuilderPage /> },
+      {
+        path: "activities",
+        element: (
+          <ActivitiesBuilderPage>
+            <Outlet />
+          </ActivitiesBuilderPage>
+        ),
+        children: [
+          { path: "", element: <ActivitiesPage /> },
+          { path: "create", element: <ActivitiesCreatePage /> },
+          { path: "preview", element: <ActivitiesPreviewPage /> },
+          { path: ":mealtimeMoment", element: <ActivityPage /> },
+          {
+            path: ":mealtimeMoment/edit",
+            element: <ActivitiesEditPage />,
+          },
+        ],
+      },
       {
         path: "foodways",
         children: [
@@ -310,6 +333,10 @@ export const router = createBrowserRouter([
       {
         path: "dashboard/recipes/:recipe/print",
         element: <RecipePrintPage />,
+      },
+      {
+        path: "dashboard/activities/:activity/print",
+        element: <ActivityPrintPage />,
       },
       {
         path: "dashboard/mealtime-moments/:mealtime-moment/print",

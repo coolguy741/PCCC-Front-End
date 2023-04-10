@@ -1,7 +1,22 @@
-export const ActivitiesBuilderPage = () => {
+import styled from "styled-components";
+import { ActivitiesHeader } from "../../components/Activities/ActivitiesHeader";
+
+interface ActivitiesBuilderPageProps {
+  children: JSX.Element;
+}
+
+export const ActivitiesBuilderPage = ({ children }: ActivitiesBuilderPageProps) => {
+
   return (
-    <>
-      <h1>Activities Builder Page</h1>
-    </>
+    <Container>
+      <ActivitiesHeader/>
+      <div className="content">{children}</div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  .content {
+    padding: 11px 0px;
+  }
+`;
