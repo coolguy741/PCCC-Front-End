@@ -45,3 +45,4 @@ aws s3 sync "$LOCAL_FOLDER" $BUCKET_NAME_PROD --exclude "$EXCLUDED_LOCAL_FOLDERS
 
 
 aws cloudfront create-invalidation --distribution-id $CLOUD_FRONT_DISTRIBUTION_PROD --paths "$INVALIDATION_PATHS" --profile $AWS_PROFILE_PROD
+aws cloudfront create-invalidation --distribution-id $CLOUD_FRONT_DISTRIBUTION_PROD_FRENCH --paths "$INVALIDATION_PATHS" --profile $AWS_PROFILE_PROD
