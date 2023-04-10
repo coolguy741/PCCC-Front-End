@@ -1,6 +1,6 @@
 import { SoftShadows } from "@react-three/drei";
 import { useControls } from "leva";
-import { Fragment, memo, MutableRefObject, useRef, useState } from "react";
+import { Fragment, memo, MutableRefObject, useRef } from "react";
 import { Group } from "three";
 
 const Light = () => {
@@ -26,7 +26,7 @@ const Light = () => {
       >
         <orthographicCamera
           attach="shadow-camera"
-          args={[-25, 25, 25, -25, 0.1, 15]}
+          args={[-5, 5, 5, -5, 0.1, 15]}
         />
       </directionalLight>
     </group>
@@ -34,8 +34,6 @@ const Light = () => {
 };
 
 const Lighting = () => {
-  const [bad, set] = useState(false);
-
   return (
     <Fragment>
       <Light />
