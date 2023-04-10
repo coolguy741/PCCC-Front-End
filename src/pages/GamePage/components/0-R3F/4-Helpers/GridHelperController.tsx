@@ -18,7 +18,7 @@ const GridHelperController: FC<GridHelperControllerPropTypes> = ({
       sectionThickness={3}
       cellColor={"#89958C"}
       sectionColor={"#89958C"}
-      position={[0, -0.01, 0]}
+      position={[0, -0.02, 0]}
       args={gridArgs as [number]}
     />
   );
