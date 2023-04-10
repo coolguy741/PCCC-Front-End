@@ -1,18 +1,31 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-interface ToggleProps {
-  value: boolean;
-  setValue: (value: boolean) => void;
-}
+export const LanguageToggle = () => {
+  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
 
-export const LanguageToggle = ({ value, setValue }: ToggleProps) => {
-  const [isActive, setActive] = useState(value);
-  useEffect(() => setValue(isActive), [isActive]);
+  useEffect(() => {
+    const currentDomain = window.location.hostname;
+    if(currentDomain === "enfantsfortsmidables.ca") {
+      localStorage.setItem("lang", "fr");
+      setLang("fr");
+    } else {
+      localStorage.setItem("lang", "en");
+      setLang("en");
+    }
+    window.dispatchEvent(new Event('storage'));
+  }, []);
+
+  const toggleLanguage = () => {
+    if(lang === "en")   { setLang("fr"); localStorage.setItem("lang", "fr");} 
+    if(lang === "fr")   { setLang("en"); localStorage.setItem("lang", "en");} 
+    window.dispatchEvent(new Event('storage'));
+  }
+  
   return (
     <StyledToggle
-      onClick={() => setActive(!isActive)}
-      className={isActive ? "inactive" : "active"}
+      onClick={toggleLanguage}
+      className={lang === "en" ? "inactive" : "active"}
     >
       <div className="slider" />
       <div>

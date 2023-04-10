@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface LinkButtonProps {
-  children: string;
+  children: string | JSX.Element | string[];
   to: string;
   disabled?: boolean;
 }

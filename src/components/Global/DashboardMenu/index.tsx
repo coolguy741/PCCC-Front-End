@@ -14,20 +14,21 @@ export const DashboardMenu = () => {
     isGroupOrganizer,
     isMealPlanner,
     isTopicEditor,
-    isDiscoveryEditor,
+    isMealTimeMoments,
     isActivitiesBuilder,
     isAchievements,
     isFoodwaysEditor,
     isRecipeBuilder,
     isCalendar,
     isGames,
+    isCloudDrive,
   } = usePathName();
 
   return (
     <MenuContainer>
       <div className="logo-container">
         <Link to="/">
-          <Logo width={120} />
+          <Logo height={55} />
         </Link>
       </div>
       <div className="item-container">
@@ -65,34 +66,36 @@ export const DashboardMenu = () => {
           Curriculum
         </div>
         <div className={`drop-down ${curriculumOpen && "open"}`}>
-          <Link to="accounts">
-            <Link to="topics">
-              <div className={`item ${isTopicEditor && "active"}`}>Topics</div>
-            </Link>
-            <Link to="activities">
-              <div className={`item ${isActivitiesBuilder && "active"}`}>
-                Activities
-              </div>
-            </Link>
-            <Link to="recipes">
-              <div className={`item ${isRecipeBuilder && "active"}`}>
-                Recipes
-              </div>
-            </Link>
-            <Link to="daily-discovery">
-              <div className={`item ${isDiscoveryEditor && "active"}`}>
-                Daily Discovery
-              </div>
-            </Link>
-            <Link to="foodways">
-              <div className={`item ${isFoodwaysEditor && "active"}`}>
-                Foodways
-              </div>
-            </Link>
+          <Link to="topics">
+            <div className={`item ${isTopicEditor && "active"}`}>Topics</div>
+          </Link>
+          <Link to="activities">
+            <div className={`item ${isActivitiesBuilder && "active"}`}>
+              Activities
+            </div>
+          </Link>
+          <Link to="recipes">
+            <div className={`item ${isRecipeBuilder && "active"}`}>Recipes</div>
+          </Link>
+          <Link to="mealtime-moments">
+            <div className={`item ${isMealTimeMoments && "active"}`}>
+              MealTime Moments
+            </div>
+          </Link>
+          <Link to="foodways">
+            <div className={`item ${isFoodwaysEditor && "active"}`}>
+              Foodways
+            </div>
           </Link>
         </div>
         <Link to="games">
           <div className={`item ${isGames && "active"}`}>Games</div>
+        </Link>
+        <Link to="reports">
+          <div className={`item ${isReports && "active"}`}>Reports</div>
+        </Link>
+        <Link to="cloud-drive">
+          <div className={`item ${isCloudDrive && "active"}`}>Cloud Drive</div>
         </Link>
       </div>
     </MenuContainer>

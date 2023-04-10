@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Leva } from "leva";
 import styled from "styled-components";
-import { LanguageToggle } from "../../components/Global/LanguageToggle";
-import { Logo } from "../../components/Global/Logo";
 import Scene from "../../components/Global/Scene";
 import { Header } from "../../components/Global/Header";
 
 export const TempHomePage = () => {
-  const [eng, useEng] = useState(true);
+  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
+
+  useEffect(() => {
+    setLang(localStorage.getItem("lang") ?? "en");
+    const handleStorageChange = (event: StorageEvent) => {
+      setLang(localStorage.getItem("lang") ?? "en");
+    };
+    
+    window.addEventListener("storage", handleStorageChange);
+    
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   const MainEng = () => (
     <div className="title">
@@ -38,14 +49,14 @@ export const TempHomePage = () => {
       <Header />
 
       <main>
-        {eng ? <MainEng /> : <MainFr />}
+        {lang === "en" ? <MainEng /> : <MainFr />}
         <Scene />
       </main>
 
       <footer>
-        {eng
-          ? "For Power Full Kids program information visit www.pcchildrenscharity.ca"
-          : "Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site www.pcchildrenscharity.ca"}
+        {lang === "en"
+          ? <p>For Power Full Kids program information visit <a href="https://www.pcchildrenscharity.ca">www.pcchildrenscharity.ca</a></p>
+          : <p>Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site <a href="https://www.fondationpourlesenfantspc.ca">www.fondationpourlesenfantspc.ca</a></p>}
       </footer>
       <Leva hidden={true} />
     </StyledHomepage>
@@ -144,6 +155,10 @@ const StyledHomepage = styled.div`
     font-size: 0.8rem;
     z-index: 10;
     pointer-events: none;
+
+    a {
+      pointer-events: auto;
+    }
   }
 
   @media (min-width: 1000px) {

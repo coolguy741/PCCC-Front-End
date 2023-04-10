@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import { SignInPage } from "./AuthPage/SignInPage";
 import { SignUpPage } from "./AuthPage/SignUpPage";
@@ -7,10 +7,10 @@ import { AccountsPage } from "./AccountsPage";
 import { GroupOrganizerPage } from "./GroupOrganizerPage";
 import { MealPlannerPage } from "./MealPlannerPage";
 import { TopicBuilderPage } from "./TopicBuilderPage";
-import { DiscoveryEditorPage } from "./DiscoveryEditorPage";
+import { MealTimeMomentsPage } from "./MealTimeMomentsPage/MealtimeMomentsPage";
 import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
 import { FoodwaysPage } from "./FoodwaysPage";
-import { RecipeBuilderPage } from "./RecipeBuilderPage";
+import { RecipesBuilderPage } from "./RecipeBuilderPage";
 import { CalendarPage } from "./CalendarPage";
 import { ReportsPage } from "./ReportsPage";
 import { TestLandingPage } from "./TestLandingPage";
@@ -38,14 +38,46 @@ import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { Topics } from "./TopicBuilderPage/Topics";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
 import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
-import { TopicCreatePreviewPage } from "./TopicBuilderPage/Create/Preview";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
+import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
-import GamesPage from "./GamesPage";
+import { RecipesPage } from "./RecipeBuilderPage/RecipesPage";
+import { RecipePage } from "./RecipeBuilderPage/RecipePage";
+import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
+import { RecipesCreateRecipePage } from "./RecipeBuilderPage/RecipesCreateRecipePage";
+import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
+import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
+import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
+import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
+import { RecipesCreatePreviewRecipePage } from "./RecipeBuilderPage/RecipesCreatePreviewRecipePage";
+import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
+import { CloudDrivePage } from "./CloudDrivePage";
+import { MealtimeMomentPrintPage } from "./MealTimeMomentsPage/MealtimeMomentPrintPage";
+import { MealtimeMomentsBuilderPage } from "./MealTimeMomentsPage";
+import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
+import { MealTimeMomentsPreviewPage } from "./MealTimeMomentsPage/MealTimeMomentsPreviewPage";
+import { MealTimeMomentsEditMealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsEditMealTimeMomentPage";
+import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
+import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
+import { GrowTogetherPage } from "./GrowTogetherPage";
+import { CookTogetherPage } from "./CookTogetherPage";
+import { SearchPage } from "./SearchPage";
+import { CalendarPrintPage } from "./CalendarPage/Print";
+import { ReportsPrintPage } from "./ReportsPage/Print";
+import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
+import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
+import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
+import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
+import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
+import { NotificationsPage } from "./NotificationsPage";
+import { ProfilePage } from "./Profile";
+import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 import GamePage from "./GamePage/GamePage";
+import { GamesPage } from "./GamesPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -84,10 +116,6 @@ export const router = createBrowserRouter([
     children: [{ path: "", element: <SignUpPage /> }],
   },
   {
-    path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
-    element: <AccountsUserLessonAssessmentPrintPage />,
-  },
-  {
     path: "/dashboard",
     element: (
       <DashboardPage>
@@ -96,6 +124,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "", element: <HomePage /> },
+      { path: "search", element: <SearchPage /> },
       {
         path: "accounts",
         element: (
@@ -104,13 +133,13 @@ export const router = createBrowserRouter([
           </AccountsPage>
         ),
         children: [
+          { path: "", element: <Navigate to="./profiles" /> },
           { path: "profiles", element: <AccountsProfilesPage /> },
           { path: "profiles/:user", element: <AccountsUserProfilePage /> },
           {
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
           },
-
           { path: "groups", element: <AccountsGroupsPage /> },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
@@ -119,13 +148,21 @@ export const router = createBrowserRouter([
             path: "groups/:group/calendar",
             element: <AccountsGroupCalendarPage />,
           },
-          {
-            path: "groups/:group/calendar/print",
-            element: <AccountsGroupCalendarPrintPage />,
-          },
         ],
       },
-      { path: "reports", element: <ReportsPage /> },
+      {
+        path: "reports",
+        element: (
+          <>
+            <Outlet />
+          </>
+        ),
+        children: [
+          { path: ":slug", element: <ReportsPage /> },
+          { path: ":slug/preview", element: <ReportsPage /> },
+          { path: "", element: <Navigate to="./assessment" /> },
+        ],
+      },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
       {
         path: "meal-planner",
@@ -151,13 +188,50 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <Topics /> },
           { path: "create/:slug", element: <TopicCreatePage /> },
-          { path: "create/:slug/preview", element: <TopicCreatePreviewPage /> },
+          {
+            path: "preview/create/:slug",
+            element: <TopicOverviewPage isCreatePreview />,
+          },
           { path: ":id/:slug/edit", element: <TopicCreatePage /> },
           { path: ":id/:slug", element: <TopicOverviewPage /> },
         ],
       },
-      { path: "daily-discovery", element: <DiscoveryEditorPage /> },
-      { path: "activities", element: <ActivitiesBuilderPage /> },
+      {
+        path: "mealtime-moments",
+        element: (
+          <MealtimeMomentsBuilderPage>
+            <Outlet />
+          </MealtimeMomentsBuilderPage>
+        ),
+        children: [
+          { path: "", element: <MealTimeMomentsPage /> },
+          { path: "create", element: <MealTimeMomentsCreatePage /> },
+          { path: "preview", element: <MealTimeMomentsPreviewPage /> },
+          { path: ":mealtimeMoment", element: <MealTimeMomentPage /> },
+          {
+            path: ":mealtimeMoment/edit",
+            element: <MealTimeMomentsEditMealTimeMomentPage />,
+          },
+        ],
+      },
+      {
+        path: "activities",
+        element: (
+          <ActivitiesBuilderPage>
+            <Outlet />
+          </ActivitiesBuilderPage>
+        ),
+        children: [
+          { path: "", element: <ActivitiesPage /> },
+          { path: "create", element: <ActivitiesCreatePage /> },
+          { path: "preview", element: <ActivitiesPreviewPage /> },
+          { path: ":mealtimeMoment", element: <ActivityPage /> },
+          {
+            path: ":mealtimeMoment/edit",
+            element: <ActivitiesEditPage />,
+          },
+        ],
+      },
       {
         path: "foodways",
         children: [
@@ -176,10 +250,55 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      { path: "recipes", element: <RecipeBuilderPage /> },
+      {
+        path: "recipes",
+        element: (
+          <RecipesBuilderPage>
+            <Outlet />
+          </RecipesBuilderPage>
+        ),
+        children: [
+          { path: "", element: <RecipesPage /> },
+          { path: "create", element: <RecipesCreateRecipePage /> },
+          { path: ":recipe", element: <RecipePage /> },
+          { path: ":recipe/edit", element: <RecipesEditRecipePage /> },
+          {
+            path: ":recipe/preview",
+            element: <RecipesCreatePreviewRecipePage />,
+          },
+          {
+            path: "lesson-assessment/create",
+            element: <RecipesCreateLessonAssessment />,
+          },
+          {
+            path: "lesson-assessment/create/preview",
+            element: <RecipesCreatePreviewLessonAssessment />,
+          },
+          {
+            path: ":recipt/lesson-assessment",
+            element: <RecipesLessonAssessment />,
+          },
+          {
+            path: ":recipt/lesson-assessment/edit",
+            element: <RecipesEditLessonAssessment />,
+          },
+        ],
+      },
+      {
+        path: "profile", element: <ProfilePage /> 
+      },
+      {
+        path: "profile-settings", element: <ProfileSettingsPage /> 
+      },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
       { path: "games", element: <GamesPage /> },
+      { path: "cloud-drive", element: <CloudDrivePage /> },
+      { path: "discover-together", element: <DiscoverTogetherPage /> },
+      { path: "grow-together", element: <GrowTogetherPage /> },
+      { path: "cook-together", element: <CookTogetherPage /> },
+      { path: "search", element: <SearchPage /> },
+      { path: "notifications", element: <NotificationsPage /> },
     ],
   },
   {
@@ -194,12 +313,17 @@ export const router = createBrowserRouter([
         path: "dashboard/meal-planner",
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
+
           {
             path: "grocery-list/print",
             element: <MealPlannerGroceryPrintPage />,
           },
           { path: ":recipe/print", element: <MealPlannerRecipePrintPage /> },
         ],
+      },
+      {
+        path: "dashboard/topics/:id/:slug/print",
+        element: <TopicPrintPage />,
       },
       {
         path: "dashboard/foodways",
@@ -210,6 +334,28 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "dashboard/accounts/groups/:group/calendar/print",
+        element: <AccountsGroupCalendarPrintPage />,
+      },
+      {
+        path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
+        element: <AccountsUserLessonAssessmentPrintPage />,
+      },
+      {
+        path: "dashboard/recipes/:recipe/print",
+        element: <RecipePrintPage />,
+      },
+      {
+        path: "dashboard/activities/:activity/print",
+        element: <ActivityPrintPage />,
+      },
+      {
+        path: "dashboard/mealtime-moments/:mealtime-moment/print",
+        element: <MealtimeMomentPrintPage />,
+      },
+      { path: "dashboard/calendar/print", element: <CalendarPrintPage /> },
+      { path: "dashboard/reports/:slug/print", element: <ReportsPrintPage /> },
     ],
   },
   {

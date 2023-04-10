@@ -7,42 +7,25 @@ import mockData from '../../../../lib/mockData/accounts/profileLessonAccessment.
 export const AccountsUserLessonAssessmentPrintPage = () => {
   return (
     <PageContainer>
-      <div className="header">
-        <Link to="/">
-          <Logo width={120} />
-        </Link>
-        <p>power full kids</p>
-      </div>
-      <div className="content-container">
-        <p className="topic-text">Topic : {mockData.topic}</p>
-        <h2 className="title-text">{mockData.lesson}</h2>
-        {
-          mockData.questions.map((question ,index) => (
-            <Question content={question} key={index}/>
-          ))
-        }
-      </div>
+      <p className="topic-text">Topic : {mockData.topic}</p>
+      <h2 className="title-text">{mockData.lesson}</h2>
+      {
+        mockData.questions.map((question ,index) => (
+          <Question content={question} key={index}/>
+        ))
+      }
     </PageContainer>
   );
 };
 
 const PageContainer = styled.div`
-  .header{
-    background-color: #D9D9D9;
-    display: flex;
-    padding: 10px;
-    justify-content:space-between;
+  padding: 40px 200px;
+
+  .topic-text {
+    text-align: center;
   }
 
-  .content-container{
-    padding: 40px 200px;
-
-    .topic-text {
-      text-align: center;
-    }
-
-    h2 {
-      text-align: center;
-    }
+  h2 {
+    text-align: center;
   }
 `

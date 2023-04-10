@@ -33,7 +33,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -69,4 +71,39 @@ input {
 
 .space-x-6 {
   column-gap: 1.5rem;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.border {
+  border: 1px solid #d9d9d9;
+}
+
+textarea {
+  vertical-align: top;
+}
+.items-center {
+  align-items: center;
 }

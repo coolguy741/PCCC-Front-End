@@ -1,15 +1,12 @@
 import { Logo } from "../Logo";
 import { LanguageToggle } from "../LanguageToggle";
-import { useState } from "react";
 import styled from "styled-components";
 
 export const Header = () => {
-  const [eng, useEng] = useState(true);
-
   return (
     <StyledHeader>
       <Logo />
-      <LanguageToggle value={eng} setValue={useEng} />
+      <LanguageToggle/>
     </StyledHeader>
   );
 };

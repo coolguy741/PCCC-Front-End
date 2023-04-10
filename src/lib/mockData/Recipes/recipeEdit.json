@@ -1,0 +1,95 @@
+{
+  "recipeName": "Chocolate Granola Bites",
+  "advantage": "These delicious bites are jam packed with fiber to keep you flying! Oats, coconut, and flaxseeds are all good sources of fiber. Fiber keeps your digestive system clean and tidy by helping you poop! It keeps the good bacteria in your tummy happy and ...",
+  "directions": "Combine all the ingredients together in a large bowl mix until well combined. Refrigerate for about 30 minutes. Scoop out a tablespoon portion of mixture, roll each portion in the palm of your hands and place each ball into a resealable container for storage. Bites should be refrigerated to maintain shape or frozen for long term storage.",
+  "Ingredients": [
+    {
+      "value": "",
+      "label": "-- Select --"
+    },
+    {
+      "value": "Quick Oats",
+      "label": "Quick Oats"
+    },
+    {
+      "value": "Coconut Flakes",
+      "label": "Coconut Flakes"
+    },
+    {
+      "value": "Coconut Flakes",
+      "label": "Coconut Flakes"
+    },
+    {
+      "value": "Honey",
+      "label": "Honey"
+    }
+  ],
+  "Units": [
+    {
+      "value": "",
+      "label": "-- Select --"
+    },
+    {
+      "value": "cups",
+      "label": "cups"
+    },
+    {
+      "value": "tsp",
+      "label": "tsp"
+    }
+  ],
+  "Tags": [
+    {
+      "value": "Favorites",
+      "label": "Favorites"
+    },
+    {
+      "value": "No cook",
+      "label": "No cook"
+    },
+    {
+      "value": "Gluten free",
+      "label": "Gluten free"
+    },
+    {
+      "value": "Egg free",
+      "label": "Egg free"
+    },
+    {
+      "value": "Nut Free",
+      "label": "Nut Free"
+    },
+    {
+      "value": "Well Approved",
+      "label": "Well Approved"
+    },
+    {
+      "value": "Food Group 1",
+      "label": "Food Group 1"
+    }
+  ],
+  "initialIngredients": [
+    {
+      "id": 0,
+      "name": "Quick Oats",
+      "amount": 2,
+      "unit": "cups"
+    },
+    {
+      "id": 1,
+      "name": "Coconut Flakes",
+      "amount": 1,
+      "unit": "tsp"
+    }
+  ],
+  "initialTags": [
+    {
+      "id": 0,
+      "name": "Favorites"
+    },
+    {
+      "id": 1,
+      "name": "No cook"
+    }
+  ]
+}

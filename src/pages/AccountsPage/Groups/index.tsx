@@ -4,12 +4,25 @@ import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitatio
 import { Button } from "../../../components/Global/Button";
 import mockData from "../../../lib/mockData/accounts/groups.json";
 import { Link, useNavigate } from "react-router-dom";
+import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
+import { useState } from "react";
+import { IconButton } from "../../../components/Global/IconButton";
+import { ModalContainer } from "../../../components/Global/ModalContainer";
 
 export const AccountsGroupsPage = () => {
+  const [visibleModal, setVisibleModal] = useState(false);
   const navigate = useNavigate();
 
   const handleCreate = () => {
     navigate("/dashboard/accounts/groups/create");
+  }
+
+  const handleJoinGroup = () => {
+    setVisibleModal(false);
+  }
+
+  const handleClose = () => {
+    setVisibleModal(false);
   }
 
   return (
@@ -31,7 +44,7 @@ export const AccountsGroupsPage = () => {
         </div>
         <div className="button-container">
           <Button onClick={handleCreate}>Create Group</Button>
-          <Button>Join Group</Button>
+          <Button onClick={() => setVisibleModal(true)}>Join Group</Button>
         </div>
       </div>
       <div className="row">
@@ -57,6 +70,11 @@ export const AccountsGroupsPage = () => {
           </div>
         </div>
       </div>
+      {visibleModal &&
+        <ModalContainer>
+          <JoinGroupModal role="Standard" groupID={2334} groupName="Group A" creator="Vane Jones" onJoin={handleJoinGroup} onClose={handleClose}/>
+        </ModalContainer>
+      }
     </PageContainer>
   );
 };

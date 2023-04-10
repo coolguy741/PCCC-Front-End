@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import { TopicFilter } from "../../../components/TopicBuilder/Filter";
 
 export const Topics = () => {
@@ -10,7 +12,9 @@ export const Topics = () => {
       <div className="list-container">
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -23,7 +27,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -36,7 +42,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -49,7 +57,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -62,7 +72,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -75,7 +87,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -88,7 +102,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -101,7 +117,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -114,7 +132,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -127,7 +147,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -140,7 +162,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -153,7 +177,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -166,7 +192,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -179,7 +207,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -192,7 +222,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
@@ -205,7 +237,9 @@ export const Topics = () => {
         </div>
         <div className="topic-info">
           <div className="topic-image">
-            <div className="topic-overview-link" />
+            <Link to="1/topic">
+              <div className="topic-overview-link" />
+            </Link>
           </div>
           <div>
             <div className="topic-caption">Topic: Garden Guardian</div>
