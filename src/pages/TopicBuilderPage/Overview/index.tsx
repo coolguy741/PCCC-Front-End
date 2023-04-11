@@ -1,17 +1,17 @@
-import { useCallback, useMemo, useRef, useState } from "react";
-import { useMatch, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import { useCallback, useMemo, useRef, useState } from 'react';
+import { useLocation, useMatch } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { LinkButton } from "../../../components/Global/Button/Link";
-import { CalendarModal } from "../../../components/TopicBuilder/CalendarModal";
-import { TopicActivities } from "../../../components/TopicBuilder/Overview/Activities";
-import { TopicAssessment } from "../../../components/TopicBuilder/Overview/Assessment";
-import { TopicEducatorNotes } from "../../../components/TopicBuilder/Overview/EducatorNotes";
-import { TopicOverview } from "../../../components/TopicBuilder/Overview/Overview";
-import { TopicRecipes } from "../../../components/TopicBuilder/Overview/Recipes";
-import { TopicIntro } from "../../../components/TopicBuilder/Overview/Topic";
-import { PrintOptionsModal } from "../../../components/TopicBuilder/PrintOptionsModal";
-import { TopicSlider } from "../../../components/TopicBuilder/Slider";
+import { LinkButton } from '../../../components/Global/Button/Link';
+import { CalendarModal } from '../../../components/TopicBuilder/CalendarModal';
+import { TopicActivities } from '../../../components/TopicBuilder/Overview/Activities';
+import { TopicAssessment } from '../../../components/TopicBuilder/Overview/Assessment';
+import { TopicEducatorNotes } from '../../../components/TopicBuilder/Overview/EducatorNotes';
+import { TopicOverview } from '../../../components/TopicBuilder/Overview/Overview';
+import { TopicRecipes } from '../../../components/TopicBuilder/Overview/Recipes';
+import { TopicIntro } from '../../../components/TopicBuilder/Overview/Topic';
+import { PrintOptionsModal } from '../../../components/TopicBuilder/PrintOptionsModal';
+import { TopicSlider } from '../../../components/TopicBuilder/Slider';
 
 interface Props {
   isCreatePreview?: boolean;
@@ -23,15 +23,15 @@ export const TopicOverviewPage: React.FC<Props> = ({
   const [isOpenPrintModal, setIsOpenPrintModal] = useState(false);
   const [isOpenCalendarModal, setIsOpenCalendarModal] = useState(false);
   const tabs = useRef([
-    "topic",
-    "overview",
-    "educator-notes",
-    "assessment",
-    "activities?activity=1",
-    "activities?activity=2",
-    "recipes",
+    'topic',
+    'overview',
+    'educator-notes',
+    'assessment',
+    'activities?activity=1',
+    'activities?activity=2',
+    'recipes',
   ]);
-  const basePath = useRef("/dashboard/topics");
+  const basePath = useRef('/dashboard/topics');
   const components = useRef([
     <TopicIntro />,
     <TopicOverview />,
@@ -41,8 +41,8 @@ export const TopicOverviewPage: React.FC<Props> = ({
     <TopicActivities activity={2} />,
     <TopicRecipes />,
   ]);
-  const match = useMatch("/dashboard/topics/:id/:slug");
-  const topicCreatePreview = useMatch("/dashboard/topics/preview/create/:slug");
+  const match = useMatch('/dashboard/topics/:id/:slug');
+  const topicCreatePreview = useMatch('/dashboard/topics/preview/create/:slug');
   const { search } = useLocation();
   const id = match?.params.id;
   if (
@@ -59,12 +59,12 @@ export const TopicOverviewPage: React.FC<Props> = ({
           ? `/dashboard/topics/preview/create/${tabs.current[index]}`
           : `../${id}/${tabs.current[index]}`
         : basePath.current,
-    [id]
+    [id],
   );
-  const tab = (topicCreatePreview ?? match)?.params.slug ?? "topic";
+  const tab = (topicCreatePreview ?? match)?.params.slug ?? 'topic';
   const tabIndex = useMemo(
     () => tabs.current.indexOf(`${tab}${search}`),
-    [`${tab}${search}`]
+    [`${tab}${search}`],
   );
   const handlePrint = () => {
     setIsOpenPrintModal(true);
@@ -83,7 +83,7 @@ export const TopicOverviewPage: React.FC<Props> = ({
     <>
       <div className="flex justify-between">
         <LinkButton to={getPrevPath(tabIndex - 1)}>
-          &lt; {tabIndex ? "Back" : "Return to Topic List"}
+          &lt; {tabIndex ? 'Back' : 'Return to Topic List'}
         </LinkButton>
         {!isCreatePreview && (
           <div className="flex space-x-6">
@@ -161,7 +161,7 @@ const TopicInfo = styled.div`
       top: 50%;
       clip-path: polygon(0% 30%, 100% 0%, 70% 100%, 0 30%);
       background: #d9d9d9;
-      content: "";
+      content: '';
     }
   }
 

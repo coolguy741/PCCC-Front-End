@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const AccountsHeader = () => {
   const { pathname } = useLocation();
@@ -10,14 +9,14 @@ export const AccountsHeader = () => {
       <h1>Accounts</h1>
       <div className="tags-container">
         <Link
-          className={`${pathname.includes("profiles") ? "active" : ""} tag`}
+          className={`${pathname.includes('profiles') ? 'active' : ''} tag`}
           to="/dashboard/accounts/profiles"
           relative="path"
         >
           Profiles
         </Link>
         <Link
-          className={`${pathname.includes("groups") ? "active" : ""} tag`}
+          className={`${pathname.includes('groups') ? 'active' : ''} tag`}
           to="/dashboard/accounts/groups"
           relative="path"
         >
@@ -38,7 +37,7 @@ const Container = styled.div`
     .tag {
       flex: 50%;
       text-align: center;
-      font-family: "Noir Std";
+      font-family: 'Noir Std';
       font-style: normal;
       font-weight: 700;
       font-size: 20px;

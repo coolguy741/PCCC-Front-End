@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ResetPasswordForm } from "../../../components/Auth/ResetPasswordForm";
+import styled from 'styled-components';
+import { ResetPasswordForm } from '../../../components/Auth/ResetPasswordForm';
 
 export const ResetPasswordPage = () => {
   return (
@@ -20,7 +20,7 @@ const Container = styled.div`
   padding-top: 5rem;
 
   background-size: cover;
-  background-image: url("/images/background.svg");
+  background-image: url('/images/background.svg');
   background-position: center center;
   background-repeat: no-repeat;
   color: #3d3d3d;

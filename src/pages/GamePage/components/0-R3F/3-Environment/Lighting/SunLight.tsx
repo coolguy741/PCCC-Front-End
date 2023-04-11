@@ -1,7 +1,7 @@
-import { TransformControls } from "@react-three/drei";
-import { folder, useControls } from "leva";
-import { memo, MutableRefObject, useCallback, useMemo, useRef } from "react";
-import { Group, Vector3 } from "three";
+import { TransformControls } from '@react-three/drei';
+import { folder, useControls } from 'leva';
+import { memo, MutableRefObject, useCallback, useMemo, useRef } from 'react';
+import { Group, Vector3 } from 'three';
 
 const SunLight = () => {
   // Refs
@@ -11,7 +11,7 @@ const SunLight = () => {
   const { size, color, intensity } = useControls({
     MainLight: folder({
       intensity: 10,
-      color: "#ffffff",
+      color: '#ffffff',
     }),
     shadows: folder({
       shadowMap: folder({
@@ -30,7 +30,7 @@ const SunLight = () => {
     if (ref.current) {
       console.clear();
       const newPos = ref.current.getWorldPosition(newLightPos);
-      console.log("lightPosition:", newPos);
+      console.log('lightPosition:', newPos);
     }
   }, [newLightPos]);
 

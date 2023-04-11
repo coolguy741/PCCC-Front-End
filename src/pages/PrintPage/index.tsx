@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { PrintHeader } from "../../components/Global/Header/Print";
+import { PrintHeader } from '../../components/Global/Header/Print';
 
 interface PrintPageProps {
   children: JSX.Element;

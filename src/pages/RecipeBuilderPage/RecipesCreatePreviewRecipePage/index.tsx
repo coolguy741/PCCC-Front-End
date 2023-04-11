@@ -1,20 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
-import { SmallButton } from "../../../components/Global/SmallButton";
-import { RecipeContent } from "../../../components/Recipes/RecipeContent";
-
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button } from '../../../components/Global/Button';
+import { SmallButton } from '../../../components/Global/SmallButton';
+import { RecipeContent } from '../../../components/Recipes/RecipeContent';
 
 export const RecipesCreatePreviewRecipePage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
-  const toggleLanguage = () => {
-      
-  }
+  const toggleLanguage = () => {};
 
   return (
     <PageContainer>
@@ -25,7 +22,7 @@ export const RecipesCreatePreviewRecipePage = () => {
         <SmallButton onClick={toggleLanguage}>English</SmallButton>
         <SmallButton onClick={toggleLanguage}>French</SmallButton>
       </LanguageButtonGroup>
-      <RecipeContent/>
+      <RecipeContent />
     </PageContainer>
   );
 };
@@ -40,9 +37,9 @@ const LanguageButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
-`
+`;
 
 const LeftAlignedContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-`
+`;

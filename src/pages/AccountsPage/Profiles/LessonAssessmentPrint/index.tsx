@@ -1,7 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { Question } from "../../../../components/Accounts/Question";
-import { Logo } from "../../../../components/Global/Logo";
+import styled from 'styled-components';
+import { Question } from '../../../../components/Accounts/Question';
 import mockData from '../../../../lib/mockData/accounts/profileLessonAccessment.json';
 
 export const AccountsUserLessonAssessmentPrintPage = () => {
@@ -9,11 +7,9 @@ export const AccountsUserLessonAssessmentPrintPage = () => {
     <PageContainer>
       <p className="topic-text">Topic : {mockData.topic}</p>
       <h2 className="title-text">{mockData.lesson}</h2>
-      {
-        mockData.questions.map((question ,index) => (
-          <Question content={question} key={index}/>
-        ))
-      }
+      {mockData.questions.map((question, index) => (
+        <Question content={question} key={index} />
+      ))}
     </PageContainer>
   );
 };
@@ -28,4 +24,4 @@ const PageContainer = styled.div`
   h2 {
     text-align: center;
   }
-`
+`;

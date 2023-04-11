@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface MealPlanHeaderProps {
   title: string;
@@ -19,13 +19,13 @@ const Container = styled.div`
   h1 {
     font-weight: 700;
     font-size: 3rem;
-    font-family: "Noir Std";
+    font-family: 'Noir Std';
     line-height: 3.125rem;
     margin: 0.25rem 0;
   }
   p {
     margin: 0;
     font-weight: 700;
-    font-family: "Noir Std";
+    font-family: 'Noir Std';
   }
 `;

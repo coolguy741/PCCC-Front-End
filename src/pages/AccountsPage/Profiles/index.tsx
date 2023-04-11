@@ -1,20 +1,15 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styled from "styled-components";
-import { AccountCard } from "../../../components/Accounts/AccountCard";
+import styled from 'styled-components';
+import { AccountCard } from '../../../components/Accounts/AccountCard';
 import UserCards from '../../../lib/mockData/accounts/profiles.json';
 
 export const AccountsProfilesPage = () => {
+  const handleUserTypeChange = () => {};
 
-  const handleUserTypeChange = () => {
-  }
+  const handleSortTypeChange = () => {};
 
-  const handleSortTypeChange = () => {
-  }
+  const handleCardDelete = () => {};
 
-  const handleCardDelete = () => {
-  }
-  
   return (
     <PageContainer>
       <div className="filters-container">
@@ -39,7 +34,17 @@ export const AccountsProfilesPage = () => {
       </div>
       <div className="users">
         {UserCards.map((Card, index) => {
-          return <Link to="/dashboard/accounts/profiles/Standard"><AccountCard img={Card.img} name= {Card.name} role= {Card.role} onClick={handleCardDelete} key={index}/></Link>
+          return (
+            <Link to="/dashboard/accounts/profiles/Standard">
+              <AccountCard
+                img={Card.img}
+                name={Card.name}
+                role={Card.role}
+                onClick={handleCardDelete}
+                key={index}
+              />
+            </Link>
+          );
         })}
       </div>
     </PageContainer>
@@ -92,4 +97,4 @@ const PageContainer = styled.div`
     flex-wrap: wrap;
     gap: 22px;
   }
-`
+`;

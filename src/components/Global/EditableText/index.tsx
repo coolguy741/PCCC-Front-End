@@ -40,19 +40,19 @@ export const EditableText: React.FC<Props> = ({ text }) => {
 };
 
 const Container = styled.div`
-  padding : 20px;
-  background-color: #C4C4C4;
+  padding: 20px;
+  background-color: #c4c4c4;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  
+
   textarea: {
     flex-grow: 1;
   }
 
-  p{
+  p {
     margin: 0;
     padding: 0;
   }
-`
+`;

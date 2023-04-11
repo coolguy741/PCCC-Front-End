@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ActivityContent } from "../../../components/Activities/ActivityContent";
+import styled from 'styled-components';
+import { ActivityContent } from '../../../components/Activities/ActivityContent';
 
 export const ActivityPrintPage = () => {
   return (

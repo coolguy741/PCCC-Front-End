@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-print.json";
-import { CenterAlignedContainer } from "../../../components/Global/Container";
-import { Text } from "../../../components/Global/Text";
+import styled from 'styled-components';
+import { CenterAlignedContainer } from '../../../components/Global/Container';
+import { Text } from '../../../components/Global/Text';
+import mockData from '../../../lib/mockData/mealtime-moments/mealtime-moment-print.json';
 
 export const MealtimeMomentPrintPage = () => {
   return (
@@ -17,7 +17,7 @@ export const MealtimeMomentPrintPage = () => {
       </CenterAlignedContainer>
       <Content>
         <Text>{mockData.overview}</Text>
-        <StyledImage src={mockData.image} alt={mockData.alt}/> 
+        <StyledImage src={mockData.image} alt={mockData.alt} />
       </Content>
     </PageContainer>
   );
@@ -28,23 +28,22 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`
+`;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const RightButtonGroup = styled.div`
   display: flex;
   gap: 20px;
-`
+`;
 
 const Content = styled.div`
   display: flex;
   gap: 50px;
-`
+`;
 
-const StyledImage = styled.img`
-`
+const StyledImage = styled.img``;

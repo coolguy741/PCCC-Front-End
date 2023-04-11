@@ -1,29 +1,28 @@
-import styled from "styled-components";
-import { GroupCard } from "../../../components/Accounts/GroupCard";
-import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
-import { Button } from "../../../components/Global/Button";
-import mockData from "../../../lib/mockData/accounts/groups.json";
-import { Link, useNavigate } from "react-router-dom";
-import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
-import { useState } from "react";
-import { IconButton } from "../../../components/Global/IconButton";
-import { ModalContainer } from "../../../components/Global/ModalContainer";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { GroupCard } from '../../../components/Accounts/GroupCard';
+import { GroupInvitationCard } from '../../../components/Accounts/GroupInvitationCard';
+import { JoinGroupModal } from '../../../components/Accounts/JoinGroupModal';
+import { Button } from '../../../components/Global/Button';
+import { ModalContainer } from '../../../components/Global/ModalContainer';
+import mockData from '../../../lib/mockData/accounts/groups.json';
 
 export const AccountsGroupsPage = () => {
   const [visibleModal, setVisibleModal] = useState(false);
   const navigate = useNavigate();
 
   const handleCreate = () => {
-    navigate("/dashboard/accounts/groups/create");
-  }
+    navigate('/dashboard/accounts/groups/create');
+  };
 
   const handleJoinGroup = () => {
     setVisibleModal(false);
-  }
+  };
 
   const handleClose = () => {
     setVisibleModal(false);
-  }
+  };
 
   return (
     <PageContainer>
@@ -49,32 +48,37 @@ export const AccountsGroupsPage = () => {
       </div>
       <div className="row">
         <div className="groups-container">
-        {
-          mockData.groups.map((group, index) => (
+          {mockData.groups.map((group, index) => (
             <div className="group-card-container" key={index}>
               <Link to="./group">
-                <GroupCard data={group}/>
+                <GroupCard data={group} />
               </Link>
             </div>
-          ))
-        }
+          ))}
         </div>
         <div className="group-invitations-container">
-          <p className="title-text">{"Group Invitations ( " + mockData.groupInvitations.length + " )"}</p>
+          <p className="title-text">
+            {'Group Invitations ( ' + mockData.groupInvitations.length + ' )'}
+          </p>
           <div className="group-invitations">
-            {
-              mockData.groupInvitations.map((group, index) => (
-                <GroupInvitationCard data = {group} key = {index}/>
-              ))
-            }
+            {mockData.groupInvitations.map((group, index) => (
+              <GroupInvitationCard data={group} key={index} />
+            ))}
           </div>
         </div>
       </div>
-      {visibleModal &&
+      {visibleModal && (
         <ModalContainer>
-          <JoinGroupModal role="Standard" groupID={2334} groupName="Group A" creator="Vane Jones" onJoin={handleJoinGroup} onClose={handleClose}/>
+          <JoinGroupModal
+            role="Standard"
+            groupID={2334}
+            groupName="Group A"
+            creator="Vane Jones"
+            onJoin={handleJoinGroup}
+            onClose={handleClose}
+          />
         </ModalContainer>
-      }
+      )}
     </PageContainer>
   );
 };
@@ -122,7 +126,8 @@ const PageContainer = styled.div`
         width: 45%;
 
         a {
-          &:hover, &:visited{
+          &:hover,
+          &:visited {
             decoration: none;
           }
         }
@@ -142,12 +147,12 @@ const PageContainer = styled.div`
       .group-invitations {
         border: 1px black solid;
         padding: 10px;
-        
+
         .bold-big-text {
           font-size: 1.1 rem;
           font-weight: 700;
         }
       }
-    }    
+    }
   }
-`
+`;

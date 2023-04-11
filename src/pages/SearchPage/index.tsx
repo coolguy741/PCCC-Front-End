@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import styled from "styled-components";
-import { useSearchResultsStore } from "../../stores/searchResultsStore";
+import { useMemo } from 'react';
+import styled from 'styled-components';
+import { useSearchResultsStore } from '../../stores/searchResultsStore';
 
 export const SearchPage = () => {
   const { searchKey, results } = useSearchResultsStore();
@@ -8,9 +8,9 @@ export const SearchPage = () => {
 
   return (
     <PageContainer>
-      <Title>{"Search Results for " + searchKey}</Title>
+      <Title>{'Search Results for ' + searchKey}</Title>
       <ResultesText>
-        {`Results ${count} of ${count} for ${searchKey}`}{" "}
+        {`Results ${count} of ${count} for ${searchKey}`}{' '}
       </ResultesText>
       {results.map((result, index) => (
         <ListItem key={`list-${index}`}>
@@ -27,7 +27,7 @@ export const SearchPage = () => {
               dangerouslySetInnerHTML={{
                 __html: result.content.replaceAll(
                   searchKey,
-                  `<strong>${searchKey}</strong>`
+                  `<strong>${searchKey}</strong>`,
                 ),
               }}
             />
@@ -45,7 +45,7 @@ const PageContainer = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: "Noir Std";
+  font-family: 'Noir Std';
   font-style: normal;
   font-weight: 700;
   font-size: 48px;
@@ -56,7 +56,7 @@ const Title = styled.p`
 `;
 
 const ResultesText = styled.p`
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -75,7 +75,7 @@ const ListItem = styled.div`
       margin: 0px;
     }
     .topic {
-      font-family: "Open Sans";
+      font-family: 'Open Sans';
       font-style: normal;
       font-weight: 700;
       font-size: 12px;
@@ -85,7 +85,7 @@ const ListItem = styled.div`
     }
 
     .title {
-      font-family: "Noir Std";
+      font-family: 'Noir Std';
       font-style: normal;
       font-weight: 700;
       font-size: 24px;
@@ -95,7 +95,7 @@ const ListItem = styled.div`
     }
 
     .content {
-      font-family: "Noir Std";
+      font-family: 'Noir Std';
       font-style: normal;
       font-weight: 400;
       font-size: 12px;

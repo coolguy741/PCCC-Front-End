@@ -1,6 +1,6 @@
-import { BaseSyntheticEvent } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { BaseSyntheticEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 interface Props {
   tabIndex: number;
@@ -18,19 +18,19 @@ export const ReportsTabs: React.FC<Props> = ({
     const {
       target: { id },
     } = event;
-    navigate(`/dashboard/reports/${id}${isPreview ? "/preview" : ""}`);
+    navigate(`/dashboard/reports/${id}${isPreview ? '/preview' : ''}`);
   };
 
   return (
     <StyledTabs>
       {tabs.map((tab, index) => (
         <div
-          className={`${index === tabIndex ? "active" : ""}`}
+          className={`${index === tabIndex ? 'active' : ''}`}
           key={tab}
           id={tab}
           onClick={handleClick}
         >
-          {`${index === 0 ? "Lesson Assessment" : "Impact reporting"}`}
+          {`${index === 0 ? 'Lesson Assessment' : 'Impact reporting'}`}
         </div>
       ))}
     </StyledTabs>

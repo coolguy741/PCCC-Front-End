@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import mockData from "../../../lib/mockData/activities/activity.json";
-import { Text } from "../../Global/Text";
+import styled from 'styled-components';
+import mockData from '../../../lib/mockData/activities/activity.json';
+import { Text } from '../../Global/Text';
 
 export const ActivityContent = () => {
   return (
@@ -20,29 +20,25 @@ export const ActivityContent = () => {
           <ActivityContainer>
             <h3>Activity</h3>
             <ul>
-              {
-                mockData.tools.map((tool,index) => (
-                  <li key={index}>
-                    <img src={tool.image} alt={tool.alt} />
-                    <Text>{tool.description}</Text>
-                  </li>
-                ))
-              }
+              {mockData.tools.map((tool, index) => (
+                <li key={index}>
+                  <img src={tool.image} alt={tool.alt} />
+                  <Text>{tool.description}</Text>
+                </li>
+              ))}
             </ul>
           </ActivityContainer>
         </OverviewActivityContainer>
         <RequirementsImageContainer>
           <h3>What you'll need</h3>
           <ul>
-            {
-              mockData.requirements.map((requirement, index) => (
-                <li key={index}>
-                  <Text>{requirement}</Text>
-                </li>
-              ))            
-            }
+            {mockData.requirements.map((requirement, index) => (
+              <li key={index}>
+                <Text>{requirement}</Text>
+              </li>
+            ))}
           </ul>
-          <img src={mockData.image} alt={mockData.alt}/>
+          <img src={mockData.image} alt={mockData.alt} />
         </RequirementsImageContainer>
       </ContentContainer>
     </PageContainer>
@@ -57,27 +53,27 @@ const PageContainer = styled.div`
 
 const CenterAlignedContainer = styled.div`
   display: flex;
-  justify-content:center;
-`
+  justify-content: center;
+`;
 
 const ContentContainer = styled.div`
   width: 100%;
   display: flex;
   gap: 20px;
-`
+`;
 
 const OverviewActivityContainer = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
   gap: 30px;
-`
+`;
 
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`
+`;
 
 const ActivityContainer = styled.div`
   display: flex;
@@ -101,7 +97,7 @@ const ActivityContainer = styled.div`
       }
     }
   }
-`
+`;
 
 const RequirementsImageContainer = styled.div`
   width: 30%;
@@ -111,9 +107,8 @@ const RequirementsImageContainer = styled.div`
   ul {
     padding: 0px;
   }
-  
-  img{
+
+  img {
     margin-top: 100px;
   }
-`
-
+`;

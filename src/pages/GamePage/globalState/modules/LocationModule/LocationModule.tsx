@@ -1,4 +1,4 @@
-import { globalStateApiType } from "../../GlobalStateTypes";
+import { globalStateApiType } from '../../GlobalStateTypes';
 
 import {
   gardenHotspotKeys,
@@ -7,13 +7,13 @@ import {
   initLocationKey,
   kitchenHotspotKeys,
   locationKeys,
-} from "./LocationModuleDefines";
+} from './LocationModuleDefines';
 
 import {
   gardenHotspotKeyType,
   kitchenHotspotKeyType,
   locationKeyType,
-} from "./LocationModuleTypes";
+} from './LocationModuleTypes';
 
 const LocationModule = ({ set, get }: globalStateApiType) => {
   return {

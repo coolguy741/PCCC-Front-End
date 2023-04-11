@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
 const Forms = css`
   :where(button, input, optgroup, select, textarea) {
@@ -11,7 +11,7 @@ const Forms = css`
     text-transform: none;
   }
 
-  :where(button, [type="button"], [type="reset"], [type="submit"]) {
+  :where(button, [type='button'], [type='reset'], [type='submit']) {
     -webkit-appearance: button;
     padding: 1px 6px;
     &:not(:disabled) {
@@ -53,12 +53,12 @@ const Forms = css`
     vertical-align: top;
   }
 
-  :where([type="search"]) {
+  :where([type='search']) {
     -webkit-appearance: textfield;
     outline-offset: -2px;
   }
 
-  :where([type="color"]) {
+  :where([type='color']) {
     background: inherit;
   }
 

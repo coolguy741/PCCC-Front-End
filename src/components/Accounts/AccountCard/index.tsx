@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import { Button } from "../../Global/Button";
-import { Icon } from "../../Global/Icon";
+import styled from 'styled-components';
+import { Icon } from '../../Global/Icon';
 
 interface AccountCardProps {
   img: string;
@@ -12,8 +11,12 @@ interface AccountCardProps {
 export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Container>
-      <img src={img} className="avatar"/>
-      {role === "Professional" &&  <div className="icon-container"><Icon name="professional"/></div> }
+      <img src={img} className="avatar" />
+      {role === 'Professional' && (
+        <div className="icon-container">
+          <Icon name="professional" />
+        </div>
+      )}
       <div className="account-info">
         <div className="text">{name}</div>
         <div className="text">{role} User</div>
@@ -31,9 +34,8 @@ const Container = styled.div`
   width: 180px;
   height: 80px;
   position: relative;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   display: flex;
-  
 
   .avatar {
     margin-top: 5px;
@@ -70,7 +72,7 @@ const Container = styled.div`
       display: flex;
       float: right;
 
-      button{
+      button {
         border: none;
         border-radius: 10px;
         font-family: 'Open Sans';
@@ -80,8 +82,8 @@ const Container = styled.div`
         line-height: 143.18%;
         text-align: center;
         letter-spacing: 0.02em;
-        color: #3D3D3D;
-        background-color: #8D8D8D;
+        color: #3d3d3d;
+        background-color: #8d8d8d;
       }
     }
   }

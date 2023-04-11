@@ -1,15 +1,16 @@
-import styled from "styled-components";
-import { ActivitiesHeader } from "../../components/Activities/ActivitiesHeader";
+import styled from 'styled-components';
+import { ActivitiesHeader } from '../../components/Activities/ActivitiesHeader';
 
 interface ActivitiesBuilderPageProps {
   children: JSX.Element;
 }
 
-export const ActivitiesBuilderPage = ({ children }: ActivitiesBuilderPageProps) => {
-
+export const ActivitiesBuilderPage = ({
+  children,
+}: ActivitiesBuilderPageProps) => {
   return (
     <Container>
-      <ActivitiesHeader/>
+      <ActivitiesHeader />
       <div className="content">{children}</div>
     </Container>
   );

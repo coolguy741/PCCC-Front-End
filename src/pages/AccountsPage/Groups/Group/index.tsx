@@ -1,25 +1,25 @@
-import styled from "styled-components";
-import { Button } from "../../../../components/Global/Button";
-import { useNavigate } from "react-router-dom";
-import mockData from "../../../../lib/mockData/accounts/group.json";
-import { SmallButton } from "../../../../components/Global/SmallButton";
-import { Photo } from "../../../../components/Accounts/Photo";
-import { GroupActivity } from "../../../../components/Accounts/GroupActivity";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { GroupActivity } from '../../../../components/Accounts/GroupActivity';
+import { Photo } from '../../../../components/Accounts/Photo';
+import { Button } from '../../../../components/Global/Button';
+import { SmallButton } from '../../../../components/Global/SmallButton';
+import mockData from '../../../../lib/mockData/accounts/group.json';
 
 export const AccountsGroupPage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   const handleEdit = () => {
     navigate('/dashboard/accounts/groups/group/edit');
-  }
+  };
 
   const handleViewGroupCalender = () => {
     navigate('/dashboard/accounts/groups/group/calendar');
-  }
+  };
 
   return (
     <PageContainer>
@@ -30,11 +30,11 @@ export const AccountsGroupPage = () => {
       <div className="group-info-container">
         <div>
           <h2>{mockData.name}</h2>
-          <p className="text">{"Group ID : " + mockData.groupID}</p>
+          <p className="text">{'Group ID : ' + mockData.groupID}</p>
         </div>
         <div>
-          <p>{"Last modified: " + mockData.lastModified}</p>
-          <p>{"Owner: " + mockData.owner + " ( " + mockData.role + " ) "}</p>
+          <p>{'Last modified: ' + mockData.lastModified}</p>
+          <p>{'Owner: ' + mockData.owner + ' ( ' + mockData.role + ' ) '}</p>
         </div>
       </div>
       <div className="row">
@@ -45,21 +45,21 @@ export const AccountsGroupPage = () => {
             <option>Z-A</option>
           </select>
         </div>
-        <SmallButton onClick={handleViewGroupCalender}>View Group Calender</SmallButton>
+        <SmallButton onClick={handleViewGroupCalender}>
+          View Group Calender
+        </SmallButton>
       </div>
       <div className="members-container">
-      {
-        mockData.members.map((member, index) => (
+        {mockData.members.map((member, index) => (
           <div className="member-container">
             <div className="photo-container">
-              <Photo role={member.role} src={member.image}/>
+              <Photo role={member.role} src={member.image} />
             </div>
             <p className="text">{member.name}</p>
           </div>
-        ))
-      }
+        ))}
       </div>
-      <GroupActivity activities={mockData.activities}/>
+      <GroupActivity activities={mockData.activities} />
     </PageContainer>
   );
 };
@@ -68,33 +68,33 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  .buttons-container{
+  .buttons-container {
     margin: 20px 0px;
     display: flex;
     justify-content: space-between;
   }
 
-  .members-container{
-    display:flex;
+  .members-container {
+    display: flex;
     flex-wrap: wrap;
     gap: 30px;
 
-    .member-container{
+    .member-container {
       display: flex;
       align-items: center;
 
-      .photo-container{
+      .photo-container {
         width: 70px;
         height: 70px;
       }
 
-      .text{
+      .text {
         margin-left: 20px;
       }
     }
   }
 
-  .group-info-container{
+  .group-info-container {
     display: flex;
     justify-content: space-between;
   }
@@ -107,11 +107,11 @@ const PageContainer = styled.div`
     .sort-container {
       display: flex;
       align-items: center;
-      
+
       select {
         margin-left: 20px;
         padding: 5px;
       }
     }
   }
-`
+`;

@@ -9,50 +9,62 @@ export interface Tag {
 
 interface SelectTagsProps {
   tagOptions: {
-    value: string, 
-    label: string
-  } [],
-  tags : Tag[],
-  setTags : React.Dispatch<React.SetStateAction<Tag[]>>
+    value: string;
+    label: string;
+  }[];
+  tags: Tag[];
+  setTags: React.Dispatch<React.SetStateAction<Tag[]>>;
 }
 
-export const SelectTags: React.FC<SelectTagsProps> = ({tagOptions, tags, setTags}) => {
+export const SelectTags: React.FC<SelectTagsProps> = ({
+  tagOptions,
+  tags,
+  setTags,
+}) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [tagId, setTagId] = useState<number>(tags.length);
 
   const handleSelect = (value: string) => {
     setSelectedOption(value);
-    console.log("selectedOption", selectedOption);
+    console.log('selectedOption', selectedOption);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && selectedOption) {
-      setTags(prevTag => [...prevTag, { name: selectedOption, id: tagId }]);
-      setTagId(prevTagId => prevTagId + 1);
+      setTags((prevTag) => [...prevTag, { name: selectedOption, id: tagId }]);
+      setTagId((prevTagId) => prevTagId + 1);
       setSelectedOption('');
     }
   };
 
   const handleRemoveText = (id: number) => {
-    setTags(prevTags => prevTags.filter(tag => tag.id !== id));
+    setTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
   };
 
   return (
     <Container>
       <SearchContainer>
-        <Search options={tagOptions} onSelect={handleSelect} onKeyDown={handleKeyDown} />
+        <Search
+          options={tagOptions}
+          onSelect={handleSelect}
+          onKeyDown={handleKeyDown}
+        />
       </SearchContainer>
       <TextList>
-        {tags.map(tag => (
+        {tags.map((tag) => (
           <TextItemWrapper key={tag.id}>
             <TextItemText>{tag.name}</TextItemText>
-            <TextItemButton onClick={() => handleRemoveText(tag.id)}>X</TextItemButton>
+            <TextItemButton onClick={() => handleRemoveText(tag.id)}>
+              X
+            </TextItemButton>
           </TextItemWrapper>
         ))}
         {selectedOption && (
           <TextItemWrapper>
             <TextItemText>{selectedOption}</TextItemText>
-            <TextItemButton onClick={() => setSelectedOption('')}>X</TextItemButton>
+            <TextItemButton onClick={() => setSelectedOption('')}>
+              X
+            </TextItemButton>
           </TextItemWrapper>
         )}
       </TextList>
@@ -60,19 +72,17 @@ export const SelectTags: React.FC<SelectTagsProps> = ({tagOptions, tags, setTags
   );
 };
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   padding: 20px;
 `;
 
 const SearchContainer = styled.div`
   width: 100%;
-  
-`
+`;
 
 const TextList = styled.div`
   display: flex;

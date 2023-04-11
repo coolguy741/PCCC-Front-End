@@ -1,7 +1,7 @@
-import { SetStateAction, useState } from "react";
-import styled from "styled-components";
-import { Button } from "../../Global/Button";
-import { Input } from "../../Global/Input";
+import { useState } from 'react';
+import styled from 'styled-components';
+import { Button } from '../../Global/Button';
+import { Input } from '../../Global/Input';
 
 interface AgeGateProps {
   setNav: (nav: number) => void;

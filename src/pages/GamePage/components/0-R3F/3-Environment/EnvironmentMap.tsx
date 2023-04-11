@@ -1,14 +1,14 @@
-import { Environment } from "@react-three/drei";
-import { folder, useControls } from "leva";
-import { memo } from "react";
-import { shallow } from "zustand/shallow";
-import { useGlobalState } from "../../../globalState/useGlobalState";
+import { Environment } from '@react-three/drei';
+import { folder, useControls } from 'leva';
+import { memo } from 'react';
+import { shallow } from 'zustand/shallow';
+import { useGlobalState } from '../../../globalState/useGlobalState';
 
 const EnvironmentMap = () => {
   // Global State
   const { dynamicEnvironmentMap } = useGlobalState(
     (state) => ({ dynamicEnvironmentMap: state.dynamicEnvironmentMap }),
-    shallow
+    shallow,
   );
 
   // Hooks
@@ -29,8 +29,8 @@ const EnvironmentMap = () => {
     <Environment
       blur={blurHDR}
       background={projectHDR}
-      files={"forest.hdr"}
-      path={"/game_assets/envMaps/"}
+      files={'forest.hdr'}
+      path={'/game_assets/envMaps/'}
     />
   );
 };

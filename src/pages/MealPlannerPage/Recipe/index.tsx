@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import { useMatch } from "react-router-dom";
-import { useState } from "react";
+import { useState } from 'react';
+import { useMatch } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { MealPlanHeader } from "../../../components/MealPlanner/Header";
-import { Assessment } from "../../../components/MealPlanner/Assessment";
-import { Recipe } from "../../../components/MealPlanner/Recipe";
-import { LinkButton } from "../../../components/Global/Button/Link";
-import { CalendarModal } from "../../../components/Global/CalendarModal";
-import { PrintModal } from "../../../components/MealPlanner/PrintModal";
-import { EditConfirmModal } from "../../../components/MealPlanner/EditConfirmModal";
+import { LinkButton } from '../../../components/Global/Button/Link';
+import { CalendarModal } from '../../../components/Global/CalendarModal';
+import { Assessment } from '../../../components/MealPlanner/Assessment';
+import { EditConfirmModal } from '../../../components/MealPlanner/EditConfirmModal';
+import { MealPlanHeader } from '../../../components/MealPlanner/Header';
+import { PrintModal } from '../../../components/MealPlanner/PrintModal';
+import { Recipe } from '../../../components/MealPlanner/Recipe';
 
 export const MealPlannerRecipePage = () => {
-  const isRecipe = useMatch("/dashboard/meal-planner/:id");
-  const isAssessment = useMatch("/dashboard/meal-planner/:id/:id");
+  const isRecipe = useMatch('/dashboard/meal-planner/:id');
+  const isAssessment = useMatch('/dashboard/meal-planner/:id/:id');
   const [isOpen, setIsOpen] = useState(false);
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -40,7 +40,7 @@ export const MealPlannerRecipePage = () => {
       <MealPlanHeader
         title="Meal Planner"
         description={
-          isRecipe ? "Plan your meal ahead of time for the entire team." : ""
+          isRecipe ? 'Plan your meal ahead of time for the entire team.' : ''
         }
       />
       <div className="btn-group">
@@ -60,10 +60,10 @@ export const MealPlannerRecipePage = () => {
       <Slider>
         <div className="slider-container">
           <div
-            className={`rounded-full ${isAssessment ? "bg-black" : "border"}`}
+            className={`rounded-full ${isAssessment ? 'bg-black' : 'border'}`}
           ></div>
-          <div className={`line  ${isAssessment ? "bg-black" : ""}`}></div>
-          <div className={`rounded-full ${isAssessment ? "border" : ""}`}></div>
+          <div className={`line  ${isAssessment ? 'bg-black' : ''}`}></div>
+          <div className={`rounded-full ${isAssessment ? 'border' : ''}`}></div>
         </div>
         <div className="labels">
           <span className="recipe">Recipe</span>
@@ -74,7 +74,7 @@ export const MealPlannerRecipePage = () => {
       <CalendarModal
         isOpen={isOpen}
         close={close}
-        type={isAssessment ? "assessment" : "recipe"}
+        type={isAssessment ? 'assessment' : 'recipe'}
       />
       <PrintModal isOpen={isPrintModalOpen} close={closePrintModal} />
       <EditConfirmModal isOpen={isConfirmModalOpen} close={closeConfirmModal} />

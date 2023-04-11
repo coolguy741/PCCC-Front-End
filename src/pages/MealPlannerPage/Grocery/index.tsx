@@ -1,145 +1,145 @@
-import styled from "styled-components";
-import { LinkButton } from "../../../components/Global/Button/Link";
-import { GroceryItem } from "../../../components/MealPlanner/Grocery";
+import styled from 'styled-components';
+import { LinkButton } from '../../../components/Global/Button/Link';
+import { GroceryItem } from '../../../components/MealPlanner/Grocery';
 
-import { MealPlanHeader } from "../../../components/MealPlanner/Header";
-import { Grocery } from "../../types";
+import { MealPlanHeader } from '../../../components/MealPlanner/Header';
+import { Grocery } from '../../types';
 
 const groceries: Grocery[] = [
   {
     id: 1,
-    name: "Produce",
+    name: 'Produce',
     materials: [
       {
-        name: "Photatoes",
+        name: 'Photatoes',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Galic cloves",
+        name: 'Galic cloves',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Yellow onions",
+        name: 'Yellow onions',
         amount: 3,
-        unit: "grams",
+        unit: 'grams',
       },
       {
-        name: "Celery",
+        name: 'Celery',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
     ],
   },
   {
     id: 2,
-    name: "Diary",
+    name: 'Diary',
     materials: [
       {
-        name: "Milk",
+        name: 'Milk',
         amount: 3,
-        unit: "liter",
+        unit: 'liter',
       },
       {
-        name: "Yogurt",
+        name: 'Yogurt',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Butter",
+        name: 'Butter',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Cream",
+        name: 'Cream',
         amount: 3,
-        unit: "liter",
+        unit: 'liter',
       },
     ],
   },
   {
     id: 3,
-    name: "Meet",
+    name: 'Meet',
     materials: [
       {
-        name: "Chicken",
+        name: 'Chicken',
         amount: 3,
-        unit: "grams",
+        unit: 'grams',
       },
       {
-        name: "Turkey",
+        name: 'Turkey',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Bacon",
+        name: 'Bacon',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
     ],
   },
   {
     id: 4,
-    name: "Meet",
+    name: 'Meet',
     materials: [
       {
-        name: "Chicken",
+        name: 'Chicken',
         amount: 3,
-        unit: "grams",
+        unit: 'grams',
       },
       {
-        name: "Turkey",
+        name: 'Turkey',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Bacon",
+        name: 'Bacon',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
     ],
   },
   {
     id: 5,
-    name: "Meet",
+    name: 'Meet',
     materials: [
       {
-        name: "Chicken",
+        name: 'Chicken',
         amount: 3,
-        unit: "grams",
+        unit: 'grams',
       },
       {
-        name: "Turkey",
+        name: 'Turkey',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Bacon",
+        name: 'Bacon',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
     ],
   },
   {
-    name: "Meet",
+    name: 'Meet',
 
     id: 6,
     materials: [
       {
-        name: "Chicken",
+        name: 'Chicken',
         amount: 3,
-        unit: "grams",
+        unit: 'grams',
       },
       {
-        name: "Turkey",
+        name: 'Turkey',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
       {
-        name: "Bacon",
+        name: 'Bacon',
         amount: 3,
-        unit: "each",
+        unit: 'each',
       },
     ],
   },
@@ -182,7 +182,7 @@ const PageContainer = styled.div`
     h3 {
       font-weight: 700;
       font-size: 2rem;
-      font-family: "Noir Std";
+      font-family: 'Noir Std';
       line-height: 3.125rem;
       margin: 0.25rem 0;
     }

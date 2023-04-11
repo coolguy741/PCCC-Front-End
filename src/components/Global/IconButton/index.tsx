@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Icon } from "../Icon";
+import styled from 'styled-components';
+import { Icon } from '../Icon';
 
 interface ButtonProps {
   icon: string;
@@ -8,8 +8,17 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-export const IconButton = ({ icon, width = 32, height = 32, onClick }: ButtonProps) => {
-  return <StyledButton onClick={onClick} width={width} height={height}><Icon name={icon}/></StyledButton>;
+export const IconButton = ({
+  icon,
+  width = 32,
+  height = 32,
+  onClick,
+}: ButtonProps) => {
+  return (
+    <StyledButton onClick={onClick} width={width} height={height}>
+      <Icon name={icon} />
+    </StyledButton>
+  );
 };
 
 const StyledButton = styled.button<{ width?: number; height?: number }>`

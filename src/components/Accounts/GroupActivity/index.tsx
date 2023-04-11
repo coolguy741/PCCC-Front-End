@@ -1,21 +1,20 @@
-import styled from "styled-components";
-import { Icon } from "../../Global/Icon";
+import styled from 'styled-components';
+import { Icon } from '../../Global/Icon';
 
 interface GroupActivityProps {
-  activities : 
-    {
-      type: string, 
-      date: string,
-      userActivity ? : {
-        userName: string,
-        action: string,
-        activityName: string
-      }, 
-      topicActivity ? : {
-        action: string,
-        topicName : string
-      }
-    }[]
+  activities: {
+    type: string;
+    date: string;
+    userActivity?: {
+      userName: string;
+      action: string;
+      activityName: string;
+    };
+    topicActivity?: {
+      action: string;
+      topicName: string;
+    };
+  }[];
 }
 
 export const GroupActivity = ({ activities }: GroupActivityProps) => {
@@ -23,46 +22,46 @@ export const GroupActivity = ({ activities }: GroupActivityProps) => {
     <Container>
       <h3>Activity</h3>
       <ul className="activities-list">
-        {
-          activities.map((activity, index) => (
-            <li className="activity-item" key={index}>
-              <div className="left">
-                {
-                  activity.type === "user" && 
-                  <>
-                    <span className="icon-container">
-                      <Icon name="badge"/>
-                    </span>
-                    {
-                      activity.userActivity &&
-                      <>
-                        <p className="bold-text">{activity.userActivity.userName}</p>
-                        <p className="text">{activity.userActivity.action}</p>
-                        <p className="text">{": " + activity.userActivity.activityName}</p>
-                      </> 
-                    }
-                  </>
-                }
-                {
-                  activity.type === "topic" && 
-                  <>
-                    <span className="icon-container">
-                      <Icon name="message"/>
-                    </span>
-                    {
-                      activity.topicActivity &&
-                      <>
-                        <p className="text">{activity.topicActivity.action}</p>
-                        <p className="text">{": " + activity.topicActivity.topicName}</p>
-                      </> 
-                    }
-                  </>
-                }
-              </div>
-              <p className="text-date">{activity.date}</p>
-            </li>
-          ))
-        }
+        {activities.map((activity, index) => (
+          <li className="activity-item" key={index}>
+            <div className="left">
+              {activity.type === 'user' && (
+                <>
+                  <span className="icon-container">
+                    <Icon name="badge" />
+                  </span>
+                  {activity.userActivity && (
+                    <>
+                      <p className="bold-text">
+                        {activity.userActivity.userName}
+                      </p>
+                      <p className="text">{activity.userActivity.action}</p>
+                      <p className="text">
+                        {': ' + activity.userActivity.activityName}
+                      </p>
+                    </>
+                  )}
+                </>
+              )}
+              {activity.type === 'topic' && (
+                <>
+                  <span className="icon-container">
+                    <Icon name="message" />
+                  </span>
+                  {activity.topicActivity && (
+                    <>
+                      <p className="text">{activity.topicActivity.action}</p>
+                      <p className="text">
+                        {': ' + activity.topicActivity.topicName}
+                      </p>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+            <p className="text-date">{activity.date}</p>
+          </li>
+        ))}
       </ul>
     </Container>
   );
@@ -84,7 +83,7 @@ const Container = styled.div`
       justify-content: space-between;
       max-width: 700px;
 
-      .left{
+      .left {
         display: flex;
       }
 
@@ -92,7 +91,7 @@ const Container = styled.div`
         width: 40px;
         height: 40px;
       }
-      
+
       .bold-text {
         padding-left: 10px;
         font-weight: 700;

@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { Button } from "../../components/Global/Button";
-import foodways from "../../lib/mockData/foodways/foodways.json";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button } from '../../components/Global/Button';
+import foodways from '../../lib/mockData/foodways/foodways.json';
 
 export const FoodwaysPage = () => {
   return (

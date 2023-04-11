@@ -1,16 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface ModalContainerProps {
   children: JSX.Element;
 }
 
-export const ModalContainer = ({children}: ModalContainerProps) => {
-  return (
-    <Container>
-      {children}
-    </Container>
-  )
-}
+export const ModalContainer = ({ children }: ModalContainerProps) => {
+  return <Container>{children}</Container>;
+};
 
 const Container = styled.div`
   position: fixed;

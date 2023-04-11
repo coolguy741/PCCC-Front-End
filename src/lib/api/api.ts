@@ -1,17 +1,17 @@
-import { z } from "zod";
-import { STORAGE_KEY_JWT } from "../../pages/consts";
-import { setUser, User } from "../../stores/userStore";
-import { hasProp } from "../util/hasProp";
+import { z } from 'zod';
+import { STORAGE_KEY_JWT } from '../../pages/consts';
+import { setUser, User } from '../../stores/userStore';
+import { hasProp } from '../util/hasProp';
 
 /** Prod URL for backend */
-export const BACKEND_BASE_URL = "https://backend.todo";
+export const BACKEND_BASE_URL = 'https://backend.todo';
 export const ENDPOINTS = {
-  REGISTER: "User/register",
-  ME: "me",
+  REGISTER: 'User/register',
+  ME: 'me',
 };
 
 /** Default error message if we can't infer anything useful. */
-const GENERIC_ERROR_MESSAGE = "Something went wrong.";
+const GENERIC_ERROR_MESSAGE = 'Something went wrong.';
 
 /** Persist jwt in localstorage */
 const persistJwt = (jwt: string) => {
@@ -49,20 +49,20 @@ async function fetcher<RequestBodyType, ResponseBodyType>(
   {
     auth = false,
     body,
-    method = "GET",
+    method = 'GET',
     stub,
   }: {
     auth?: boolean;
     body?: RequestBodyType;
-    method?: "GET" | "POST";
+    method?: 'GET' | 'POST';
     stub?: () => ResponseBodyType;
-  } = {}
+  } = {},
 ): Promise<ResponseBodyType> {
   const jwt = getPersistedJwt();
 
   // If we are testing with a stub, simulate API call
-  if (typeof stub !== "undefined") {
-    console.warn("STUBBED API CALL", endpoint, body);
+  if (typeof stub !== 'undefined') {
+    console.warn('STUBBED API CALL', endpoint, body);
     await delay(500);
     return stub();
   } else {
@@ -77,7 +77,7 @@ async function fetcher<RequestBodyType, ResponseBodyType>(
     const response = await fetch(`${BACKEND_BASE_URL}${endpoint}`, {
       method,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         ...(auth && jwt ? { Authorization: `Bearer ${jwt}` } : {}),
       },
       ...(body ? { body: JSON.stringify(body) } : {}),
@@ -103,11 +103,11 @@ async function fetcher<RequestBodyType, ResponseBodyType>(
       let message: string;
       if (response.statusText) message = response.statusText;
       else if (json?.message) message = json.message;
-      else if (response.status === 401) message = "Unauthorized request.";
+      else if (response.status === 401) message = 'Unauthorized request.';
       else if (response.status === 400)
-        message = "Something went wrong with the request.";
+        message = 'Something went wrong with the request.';
       else if (response.status === 500)
-        message = "Something went wrong on the server.";
+        message = 'Something went wrong on the server.';
       else message = GENERIC_ERROR_MESSAGE;
 
       // Throw the error, but include the response and json so that it might be reshaped by the caller
@@ -149,9 +149,9 @@ export const API_getUser = async (): Promise<void> => {
       // Set our user in the userStore
       setUser(user);
     } catch (err) {
-      console.error("Error parsing user data from API response", err);
+      console.error('Error parsing user data from API response', err);
       throw new Error(
-        "Error parsing user data from API response. See the console."
+        'Error parsing user data from API response. See the console.',
       );
     }
   } catch (err) {
@@ -177,18 +177,18 @@ export const API_getUser = async (): Promise<void> => {
  */
 const reshapeFetcherError = (
   err: unknown,
-  throwBasedOnResponse: (response: Response, json: unknown) => void = () => {}
+  throwBasedOnResponse: (response: Response, json: unknown) => void = () => {},
 ) => {
   // If this is somehow not an Error, throw generically.
   if (!(err instanceof Error)) throw new Error(GENERIC_ERROR_MESSAGE);
 
   // If this was thrown by fetcher with a response in the cause, reshape the error based on the response
   if (
-    typeof err.cause === "object" &&
+    typeof err.cause === 'object' &&
     err.cause !== null &&
-    hasProp(err.cause, "response") &&
+    hasProp(err.cause, 'response') &&
     err.cause.response instanceof Response &&
-    hasProp(err.cause, "json")
+    hasProp(err.cause, 'json')
   ) {
     const { response, json } = err.cause;
     throwBasedOnResponse(response, json);
@@ -198,7 +198,7 @@ const reshapeFetcherError = (
   throw new Error(err.message);
 };
 
-type SanitizationStrategy = "phone" | "email" | "username" | "scan";
+type SanitizationStrategy = 'phone' | 'email' | 'username' | 'scan';
 /**
  * Currently a trivial wrapper with the intent to centralize sanitization logic.
  * One day we can add XSS and profanity filtering here.
@@ -208,7 +208,7 @@ type SanitizationStrategy = "phone" | "email" | "username" | "scan";
  */
 export function sanitize(
   dirty: string,
-  strategy: SanitizationStrategy
+  strategy: SanitizationStrategy,
 ): string {
   // TODO: sanitize XSS and profanity
   return dirty;

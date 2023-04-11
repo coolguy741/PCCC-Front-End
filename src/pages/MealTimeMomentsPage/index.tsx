@@ -1,14 +1,16 @@
-import styled from "styled-components";
-import { MealtimeMomentsHeader } from "../../components/MealtimeMoment/MealtimeMomentsHeader";
+import styled from 'styled-components';
+import { MealtimeMomentsHeader } from '../../components/MealtimeMoment/MealtimeMomentsHeader';
 
 interface MealtimeMomentsBuilderPageProps {
   children: JSX.Element;
 }
 
-export const MealtimeMomentsBuilderPage = ({ children }: MealtimeMomentsBuilderPageProps) => {
+export const MealtimeMomentsBuilderPage = ({
+  children,
+}: MealtimeMomentsBuilderPageProps) => {
   return (
     <Container>
-      <MealtimeMomentsHeader/>
+      <MealtimeMomentsHeader />
       <div className="content">{children}</div>
     </Container>
   );

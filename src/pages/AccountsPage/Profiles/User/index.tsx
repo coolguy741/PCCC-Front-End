@@ -1,129 +1,132 @@
-import MockData from "../../../../lib/mockData/accounts/userProfile.json";
-import styled from "styled-components";
-import { Button } from "../../../../components/Global/Button";
-import { Icon } from "../../../../components/Global/Icon";
-import { Photo } from "../../../../components/Accounts/Photo";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Photo } from '../../../../components/Accounts/Photo';
+import { Button } from '../../../../components/Global/Button';
+import { Icon } from '../../../../components/Global/Icon';
+import MockData from '../../../../lib/mockData/accounts/userProfile.json';
 //should be deleted after api implementation
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
-  const {pathname} = useLocation();
-  const userData = pathname.includes("Standard") ? MockData[0] : pathname.includes("Professional") ? MockData[1] : MockData[2];
-  
-  const handleBack = () => {
+  const { pathname } = useLocation();
+  const userData = pathname.includes('Standard')
+    ? MockData[0]
+    : pathname.includes('Professional')
+    ? MockData[1]
+    : MockData[2];
 
-  }
+  const handleBack = () => {};
 
-  const handleEdit = () => {
-
-  }
+  const handleEdit = () => {};
 
   return (
     <PageContainer>
-        <Link to="/dashboard/accounts/profiles"><Button onClick={handleBack} >&lt; Back</Button></Link>
-        <div className="info-container">
-          <div className="avatar-container">
-            <Photo src={userData.image} role={userData.role} width="100px"/>
-            {
-            userData.role === "Standard" ? 
-                <div className="user-info">
-                  <p className="bold-big-text">{userData.userID}</p>
-                  <p className="text">Birth year: {userData.birthYear}</p>
-                  <p className="text">Province: {userData.province}</p>
-                  <p className="text">Created: {userData.createdDate}</p>
-                </div>
-            : userData.role === "Professional" ?
-                <div className="user-info">
-                  <p className="bold-big-text">{userData.userID}</p>
-                  <p className="bold-text">{userData.name}</p>
-                  <p className="text">Birth year: {userData.birthYear}</p>
-                  <p className="text">ID Code: {userData.idCode}</p>
-                  <p className="text">School: {userData.school}</p>
-                  <p className="text">Province: {userData.province}</p> 
-                  <p className="text">{userData.email}</p> 
-                  <p className="text">Created: {userData.createdDate}</p>
-                </div>
-            :
-                <div className="user-info">
-                  <p className="bold-big-text">{userData.userID}</p>
-                  <p className="bold-text">{userData.name}</p>
-                  <p className="text">Birth year: {userData.birthYear}</p>
-                  <p className="text">Province: {userData.province}</p> 
-                  <p className="text">{userData.email}</p> 
-                  <p className="text">Created: {userData.createdDate}</p>
-                </div>
-            }
-            
-          </div>
-          <div className="badges-groups-container">
-            <h3>Badges</h3>
-            <div className="badges-container">
-              <div className="badges">
-                {[...Array(userData.badges)].map((_, index) => (
-                  <span className="badge-icon" key={index}><Icon name="badge"/></span>
-                ))
-                }
-              </div>
+      <Link to="/dashboard/accounts/profiles">
+        <Button onClick={handleBack}>&lt; Back</Button>
+      </Link>
+      <div className="info-container">
+        <div className="avatar-container">
+          <Photo src={userData.image} role={userData.role} width="100px" />
+          {userData.role === 'Standard' ? (
+            <div className="user-info">
+              <p className="bold-big-text">{userData.userID}</p>
+              <p className="text">Birth year: {userData.birthYear}</p>
+              <p className="text">Province: {userData.province}</p>
+              <p className="text">Created: {userData.createdDate}</p>
             </div>
-            <h3>Groups</h3>
-            <div className="groups-container">
-              <ul className="groups-list">
-                {userData.groups.map((group, index) => (
-                  <li className="group-item" key={index}>
-                    <span className="group-icon"><Icon name="group"/></span>
-                    <span className="bold-text">{group.name}</span>
-                    <span className="small-text">{'( ' + group.number + ' )'}</span>
-                  </li>
-                )
-                )}
-              </ul>
+          ) : userData.role === 'Professional' ? (
+            <div className="user-info">
+              <p className="bold-big-text">{userData.userID}</p>
+              <p className="bold-text">{userData.name}</p>
+              <p className="text">Birth year: {userData.birthYear}</p>
+              <p className="text">ID Code: {userData.idCode}</p>
+              <p className="text">School: {userData.school}</p>
+              <p className="text">Province: {userData.province}</p>
+              <p className="text">{userData.email}</p>
+              <p className="text">Created: {userData.createdDate}</p>
             </div>
-          </div>
-          
+          ) : (
+            <div className="user-info">
+              <p className="bold-big-text">{userData.userID}</p>
+              <p className="bold-text">{userData.name}</p>
+              <p className="text">Birth year: {userData.birthYear}</p>
+              <p className="text">Province: {userData.province}</p>
+              <p className="text">{userData.email}</p>
+              <p className="text">Created: {userData.createdDate}</p>
+            </div>
+          )}
         </div>
-        <h3>Activity</h3>
-        <ul className="activities-list">
-          {
-            userData.activities.map((activity, index) => (
-              <li className="activity-item" key={index}>
-                <div className="left">
-                  <span className="icon-container">
-                    <Icon name={activity.type}/>
+        <div className="badges-groups-container">
+          <h3>Badges</h3>
+          <div className="badges-container">
+            <div className="badges">
+              {[...Array(userData.badges)].map((_, index) => (
+                <span className="badge-icon" key={index}>
+                  <Icon name="badge" />
+                </span>
+              ))}
+            </div>
+          </div>
+          <h3>Groups</h3>
+          <div className="groups-container">
+            <ul className="groups-list">
+              {userData.groups.map((group, index) => (
+                <li className="group-item" key={index}>
+                  <span className="group-icon">
+                    <Icon name="group" />
                   </span>
-                  <p className="bold-text">User</p>
-                  <p className="text">{activity.name}</p>
-                  <p className="text">{activity.content}</p>
-                </div>
-                <p className="text date">{activity.date}</p>
-              </li>
-            ))
-          }
-        </ul>
-        <h3>Lesson Accessment</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Lessons</th>
-              <th>Groups</th>
-              <th>Date</th>
-              <th>Status</th>
+                  <span className="bold-text">{group.name}</span>
+                  <span className="small-text">
+                    {'( ' + group.number + ' )'}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <h3>Activity</h3>
+      <ul className="activities-list">
+        {userData.activities.map((activity, index) => (
+          <li className="activity-item" key={index}>
+            <div className="left">
+              <span className="icon-container">
+                <Icon name={activity.type} />
+              </span>
+              <p className="bold-text">User</p>
+              <p className="text">{activity.name}</p>
+              <p className="text">{activity.content}</p>
+            </div>
+            <p className="text date">{activity.date}</p>
+          </li>
+        ))}
+      </ul>
+      <h3>Lesson Accessment</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Lessons</th>
+            <th>Groups</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {userData.lessonAssessment.map((lesson, index) => (
+            <tr key={index}>
+              <td>
+                <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
+                  {lesson.lessons}
+                </Link>
+              </td>
+              <td>{lesson.group}</td>
+              <td>{lesson.date}</td>
+              <td>{lesson.status}</td>
             </tr>
-          </thead>
-          <tbody>
-            {
-              userData.lessonAssessment.map((lesson, index) => (
-                <tr key={index}>
-                  <td><Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">{lesson.lessons}</Link></td>
-                  <td>{lesson.group}</td>
-                  <td>{lesson.date}</td>
-                  <td>{lesson.status}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
     </PageContainer>
   );
 };
@@ -299,4 +302,4 @@ const PageContainer = styled.div`
     }
   }
 
-`
+`;

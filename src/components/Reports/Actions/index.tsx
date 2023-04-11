@@ -1,4 +1,4 @@
-import { LinkButton } from "../../Global/Button/Link";
+import { LinkButton } from '../../Global/Button/Link';
 
 interface Props {
   tabs: string[];

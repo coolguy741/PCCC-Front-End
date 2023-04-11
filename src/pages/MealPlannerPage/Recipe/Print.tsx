@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Assessment } from "../../../components/MealPlanner/Assessment";
-import { Recipe } from "../../../components/MealPlanner/Recipe";
+import { Assessment } from '../../../components/MealPlanner/Assessment';
+import { Recipe } from '../../../components/MealPlanner/Recipe';
 
 export const MealPlannerRecipePrintPage = () => {
   return (

@@ -1,16 +1,16 @@
-import { useCallback, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { LinkButton } from "../../Global/Button/Link";
-import { SmallButton } from "../../Global/SmallButton";
-import { TopicSlider } from "../Slider";
-import { ActivitiesForm } from "./Activities";
-import { AssessmentForm } from "./Assessment";
-import { EducatorNotesForm } from "./EducatorNotes";
-import { OverviewForm } from "./Overview";
-import { RecipesForm } from "./Recipes";
-import { TopicForm } from "./Topic";
+import { LinkButton } from '../../Global/Button/Link';
+import { SmallButton } from '../../Global/SmallButton';
+import { TopicSlider } from '../Slider';
+import { ActivitiesForm } from './Activities';
+import { AssessmentForm } from './Assessment';
+import { EducatorNotesForm } from './EducatorNotes';
+import { OverviewForm } from './Overview';
+import { RecipesForm } from './Recipes';
+import { TopicForm } from './Topic';
 
 interface Props {
   tab: string;
@@ -19,12 +19,12 @@ interface Props {
 }
 
 const tabs = [
-  "topic",
-  "overview",
-  "educator-notes",
-  "assessment",
-  "activities",
-  "recipes",
+  'topic',
+  'overview',
+  'educator-notes',
+  'assessment',
+  'activities',
+  'recipes',
 ];
 
 const components = [
@@ -36,7 +36,7 @@ const components = [
   <RecipesForm />,
 ];
 
-const basePath = "/dashboard/topics";
+const basePath = '/dashboard/topics';
 
 export const TopicCreateForm: React.FC<Props> = ({
   tab,
@@ -53,14 +53,14 @@ export const TopicCreateForm: React.FC<Props> = ({
           ? `/dashboard/topics/${topicId}/${tabs[index]}/edit`
           : `/dashboard/topics/create/${tabs[index]}`
         : basePath,
-    []
+    [],
   );
   const handleNext = () => {
     if (tabIndex < tabs.length - 1) {
       navigate(
         isEdit
           ? `/dashboard/topics/${topicId}/${tabs[tabIndex + 1]}/edit`
-          : `/dashboard/topics/create/${tabs[tabIndex + 1]}`
+          : `/dashboard/topics/create/${tabs[tabIndex + 1]}`,
       );
     } else {
       setIsOpen(true);
@@ -75,7 +75,7 @@ export const TopicCreateForm: React.FC<Props> = ({
     <div>
       <div className="flex justify-between">
         <LinkButton to={getPrevPath(tabIndex - 1)}>
-          &lt; {tabIndex ? "Back" : "Return to Topic List"}
+          &lt; {tabIndex ? 'Back' : 'Return to Topic List'}
         </LinkButton>
         <div className="flex space-x-6">
           <LinkButton to="#">Enlish</LinkButton>
@@ -89,7 +89,7 @@ export const TopicCreateForm: React.FC<Props> = ({
         </StyledLink>
       </div>
 
-      <div className="mt-4">{topicId ? "Edit" : "Create"} Topic</div>
+      <div className="mt-4">{topicId ? 'Edit' : 'Create'} Topic</div>
 
       <TopicSlider tabs={tabs} tabIndex={tabIndex} />
 

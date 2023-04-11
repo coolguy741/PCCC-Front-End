@@ -14,12 +14,14 @@ export const FileUploader: React.FC = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles = event.target.files;
     if (newFiles) {
-      const newFileList: FileItem[] = Array.from(newFiles).map(file => {
+      const newFileList: FileItem[] = Array.from(newFiles).map((file) => {
         const isVideo = file.type.startsWith('video/');
-        const preview = isVideo ? generateVideoThumbnail(file) : URL.createObjectURL(file);
+        const preview = isVideo
+          ? generateVideoThumbnail(file)
+          : URL.createObjectURL(file);
         return { file, preview };
       });
-      setFileList(prevFileList => [...prevFileList, ...newFileList]);
+      setFileList((prevFileList) => [...prevFileList, ...newFileList]);
     }
   };
 
@@ -44,18 +46,31 @@ export const FileUploader: React.FC = () => {
   };
 
   const handleRemoveFile = (fileToRemove: FileItem) => {
-    setFileList(prevFileList => prevFileList.filter(fileItem => fileItem !== fileToRemove));
+    setFileList((prevFileList) =>
+      prevFileList.filter((fileItem) => fileItem !== fileToRemove),
+    );
   };
 
   return (
     <Container>
-      <div className='thumbnail-container'>
-        {fileList.map(fileItem => (
-          <div key={fileItem.preview} style={{ display: 'inline-block', position: 'relative' }}>
+      <div className="thumbnail-container">
+        {fileList.map((fileItem) => (
+          <div
+            key={fileItem.preview}
+            style={{ display: 'inline-block', position: 'relative' }}
+          >
             {fileItem.file.type.startsWith('image/') ? (
-              <img src={fileItem.preview} alt={fileItem.file.name} style={{ width: '100px', height: '100px' }} />
+              <img
+                src={fileItem.preview}
+                alt={fileItem.file.name}
+                style={{ width: '100px', height: '100px' }}
+              />
             ) : (
-              <img src={fileItem.preview} alt={fileItem.file.name} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+              <img
+                src={fileItem.preview}
+                alt={fileItem.file.name}
+                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+              />
             )}
             <button
               onClick={() => {
@@ -68,9 +83,14 @@ export const FileUploader: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className='button-container'>
+      <div className="button-container">
         <label>
-          <HiddenInput type="file" accept="image/*,video/*" ref={fileInputRef} onChange={handleFileChange} />
+          <HiddenInput
+            type="file"
+            accept="image/*,video/*"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
           <SmallButton onClick={handleUploadClick}>Upload</SmallButton>
         </label>
       </div>
@@ -80,13 +100,13 @@ export const FileUploader: React.FC = () => {
 
 const HiddenInput = styled.input`
   display: none;
-`
+`;
 
 const Container = styled.div`
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   padding: 20px;
 
-  .thumbnail-container{
+  .thumbnail-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -96,4 +116,4 @@ const Container = styled.div`
     display: flex;
     justify-content: end;
   }
-`
+`;

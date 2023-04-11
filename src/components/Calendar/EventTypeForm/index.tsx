@@ -1,6 +1,6 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 
-import { EventType } from "../Popup";
+import { EventType } from '../Popup';
 
 interface EventTypeForm {
   setEventType: (value: EventType) => void;

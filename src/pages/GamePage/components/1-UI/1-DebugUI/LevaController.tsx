@@ -1,5 +1,5 @@
-import { Leva } from "leva";
-import { memo } from "react";
+import { Leva } from 'leva';
+import { memo } from 'react';
 
 const LevaController = () => {
   return <Leva flat collapsed />;

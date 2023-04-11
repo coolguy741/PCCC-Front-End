@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ActivitiesHeader = () => {
   return (
@@ -8,5 +8,4 @@ export const ActivitiesHeader = () => {
   );
 };
 
-const Container = styled.div`
-`;
+const Container = styled.div``;

@@ -1,6 +1,6 @@
-import { BakeShadows, SoftShadows } from "@react-three/drei";
-import { folder, useControls } from "leva";
-import { Fragment, memo } from "react";
+import { BakeShadows, SoftShadows } from '@react-three/drei';
+import { folder, useControls } from 'leva';
+import { Fragment, memo } from 'react';
 
 const Shadows = () => {
   const { size, focus, samples, enableSS, enableBS } = useControls({

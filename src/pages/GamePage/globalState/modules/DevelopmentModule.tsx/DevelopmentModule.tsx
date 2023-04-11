@@ -1,4 +1,4 @@
-import { globalStateApiType } from "../../GlobalStateTypes";
+import { globalStateApiType } from '../../GlobalStateTypes';
 
 const DevelopmentModule = ({ set, get }: globalStateApiType) => {
   return {

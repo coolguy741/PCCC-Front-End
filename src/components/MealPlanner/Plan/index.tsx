@@ -1,24 +1,24 @@
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 interface Props {
   match?: string;
 }
 
 const weekDays = [
-  "",
-  "Sunday",
-  "Monday",
-  "TuesDay",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+  '',
+  'Sunday',
+  'Monday',
+  'TuesDay',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
 ];
 
-export const MealPlan: React.FC<Props> = ({ match = "" }) => {
-  const isPrint = useMemo(() => match.includes("print"), [match]);
+export const MealPlan: React.FC<Props> = ({ match = '' }) => {
+  const isPrint = useMemo(() => match.includes('print'), [match]);
 
   return (
     <Container isPrint={isPrint}>

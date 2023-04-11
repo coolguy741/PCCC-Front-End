@@ -1,23 +1,23 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
-import { ActivityContent } from "../../../components/Activities/ActivityContent";
-import { ActivityTip } from "../../../components/Activities/ActivityTip";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { ActivityContent } from '../../../components/Activities/ActivityContent';
+import { ActivityTip } from '../../../components/Activities/ActivityTip';
+import { Button } from '../../../components/Global/Button';
 
 export const ActivityPage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
-  
+  };
+
   const handleEdit = () => {
-    navigate("./edit");
-  }
+    navigate('./edit');
+  };
 
   const handlePrint = () => {
-    navigate("./print");
-  }
+    navigate('./print');
+  };
 
   return (
     <PageContainer>
@@ -29,7 +29,7 @@ export const ActivityPage = () => {
         </SubButtonGroup>
       </ButtonGroup>
       <ActivityContent />
-      <ActivityTip activityLink1="#" activityLink2="#"/>
+      <ActivityTip activityLink1="#" activityLink2="#" />
     </PageContainer>
   );
 };
@@ -44,10 +44,10 @@ const ButtonGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const SubButtonGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-`
+`;

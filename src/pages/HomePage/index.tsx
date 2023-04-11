@@ -1,32 +1,32 @@
-import styled from "styled-components";
-import { CenterAlignedContainer } from "../../components/Global/Container";
-import { Icon } from "../../components/Global/Icon";
-import { HomeTip } from "../../components/Home/HomeTip";
-import { SmallButton } from "../../components/Global/SmallButton";
-import { Logo } from "../../components/Global/Logo";
-import { Link } from "react-router-dom";
-import { Button } from "../../components/Global/Button";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button } from '../../components/Global/Button';
+import { CenterAlignedContainer } from '../../components/Global/Container';
+import { Icon } from '../../components/Global/Icon';
+import { Logo } from '../../components/Global/Logo';
+import { HomeTip } from '../../components/Home/HomeTip';
 
 export const HomePage = () => {
   return (
     <PageContainer>
       <MainContent>
         <MainSection>
-          <BigText>Power Full Kids</BigText><SmallText>TM</SmallText>
+          <BigText>Power Full Kids</BigText>
+          <SmallText>TM</SmallText>
         </MainSection>
         <CenterAlignedContainer>
-          <Icon name="scroll" width="28px"/>
+          <Icon name="scroll" width="28px" />
         </CenterAlignedContainer>
         <Link to="./discover-together">
           <TogetherSection>
-              <div className="text-container">
-                <p className="text">Power Full Kids</p>
-                <p className="big-text">Discover Together</p>
-              </div>
-              <div className="image-container">
-                <img src="/images/homepage/discover-together.jpg"/>
-                <HomeTip text="Discover more" top="-20px" left="100px"/>
-              </div>
+            <div className="text-container">
+              <p className="text">Power Full Kids</p>
+              <p className="big-text">Discover Together</p>
+            </div>
+            <div className="image-container">
+              <img src="/images/homepage/discover-together.jpg" />
+              <HomeTip text="Discover more" top="-20px" left="100px" />
+            </div>
           </TogetherSection>
         </Link>
         <Link to="./grow-together">
@@ -35,8 +35,12 @@ export const HomePage = () => {
               <p className="big-text">Grow Together</p>
             </div>
             <div className="image-container">
-              <img src="/images/homepage/grow-together.jpg"/>
-              <HomeTip text="Learn more about gardening" top="-20px" left="100px"/>
+              <img src="/images/homepage/grow-together.jpg" />
+              <HomeTip
+                text="Learn more about gardening"
+                top="-20px"
+                left="100px"
+              />
             </div>
           </TogetherSection>
         </Link>
@@ -46,23 +50,34 @@ export const HomePage = () => {
               <p className="big-text">Cook Together</p>
             </div>
             <div className="image-container">
-              <img src="/images/homepage/cook-together.jpg"/>
-              <HomeTip text="Learn more about cooking" top="-20px" left="100px"/>
+              <img src="/images/homepage/cook-together.jpg" />
+              <HomeTip
+                text="Learn more about cooking"
+                top="-20px"
+                left="100px"
+              />
             </div>
           </TogetherSection>
         </Link>
-        <Hr/>
+        <Hr />
         <Link to="./games">
           <ContentSection>
             <div className="text-container">
               <p className="big-text">Games</p>
               <p className="large-text">Mad Kitchen</p>
-              <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
+              <p className="text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud
+              </p>
               <Button onClick={() => alert("It's coming soon")}>Play</Button>
             </div>
             <div className="image-container">
-              <img src="/images/homepage/games.jpg"/>
-              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+              <img src="/images/homepage/games.jpg" />
+              <HomeTip text="Learn more about Games" top="-20px" left="100px" />
             </div>
           </ContentSection>
         </Link>
@@ -71,13 +86,20 @@ export const HomePage = () => {
             <div className="text-container">
               <p className="big-text">Foodways</p>
               <p className="large-text">Lorem impsum</p>
-              <p className="text">z Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
+              <p className="text">
+                z Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud orem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim
+              </p>
             </div>
             <div className="image-container">
-              <img src="/images/homepage/games.jpg"/>
-              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+              <img src="/images/homepage/games.jpg" />
+              <HomeTip text="Learn more about Games" top="-20px" left="100px" />
             </div>
           </ContentSection>
         </Link>
@@ -86,13 +108,27 @@ export const HomePage = () => {
             <div className="text-container">
               <p className="big-text">Mealtime Moments</p>
               <p className="large-text">Lorem impsum</p>
-              <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
+              <p className="text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud orem ipsum dolor
+                sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit
+              </p>
             </div>
             <div className="image-container">
-              <img src="/images/homepage/games.jpg"/>
-              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+              <img src="/images/homepage/games.jpg" />
+              <HomeTip text="Learn more about Games" top="-20px" left="100px" />
             </div>
           </ContentSection>
         </Link>
@@ -101,40 +137,61 @@ export const HomePage = () => {
             <div className="text-container">
               <p className="big-text">Meal Planner</p>
               <p className="large-text">Lorem impsum</p>
-              <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
+              <p className="text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum dolor
+                sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              </p>
             </div>
             <div className="image-container">
-              <img src="/images/homepage/games.jpg"/>
-              <HomeTip text="Learn more about Games" top="-20px" left="100px"/>
+              <img src="/images/homepage/games.jpg" />
+              <HomeTip text="Learn more about Games" top="-20px" left="100px" />
             </div>
           </ContentSection>
         </Link>
       </MainContent>
       <InfoContainer>
-        <Link to="/"><Logo/></Link>
+        <Link to="/">
+          <Logo />
+        </Link>
         <div className="column">
-          <Link to=""><p>About Us</p></Link>
-          <Link to=""><p>Terms and conditions</p></Link>
-          <Link to=""><p>Accessibility</p></Link>
+          <Link to="">
+            <p>About Us</p>
+          </Link>
+          <Link to="">
+            <p>Terms and conditions</p>
+          </Link>
+          <Link to="">
+            <p>Accessibility</p>
+          </Link>
         </div>
         <div className="column">
-          <Link to=""><p>Privacy Policy</p></Link>
-          <Link to=""><p>Contact us</p></Link>
+          <Link to="">
+            <p>Privacy Policy</p>
+          </Link>
+          <Link to="">
+            <p>Contact us</p>
+          </Link>
         </div>
         <div className="row">
           <a href="">
-            <Icon name="facebook"/>
+            <Icon name="facebook" />
           </a>
           <a href="">
-            <Icon name="instagram"/>
+            <Icon name="instagram" />
           </a>
           <a href="">
-            <Icon name="twitter"/>
+            <Icon name="twitter" />
           </a>
           <a href="">
-            <Icon name="youtube"/>
+            <Icon name="youtube" />
           </a>
         </div>
       </InfoContainer>
@@ -147,7 +204,7 @@ export const HomePage = () => {
 
 const PageContainer = styled.div`
   margin: 0px -30px;
-`
+`;
 
 const MainContent = styled.div`
   display: flex;
@@ -163,10 +220,9 @@ const BigText = styled.p`
   line-height: 76.993px;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #C4C4C4;
+  color: #c4c4c4;
   margin: 0px;
-
-`
+`;
 
 const SmallText = styled.span`
   font-family: 'Open Sans';
@@ -175,16 +231,16 @@ const SmallText = styled.span`
   font-size: 20px;
   line-height: 27px;
   letter-spacing: 0.02em;
-  color: #C4C4C4;
-  
+  color: #c4c4c4;
+
   margin: 0;
-`
+`;
 
 const MainSection = styled.div`
   display: flex;
   align-items: flex-start;
   margin: 250px;
-`
+`;
 
 const TogetherSection = styled.div`
   display: flex;
@@ -193,9 +249,9 @@ const TogetherSection = styled.div`
   margin: 50px;
 
   .text-container {
-     width:  600px;
+    width: 600px;
 
-     .text {
+    .text {
       font-family: 'Open Sans';
       font-style: normal;
       font-weight: 800;
@@ -203,25 +259,25 @@ const TogetherSection = styled.div`
       line-height: 39px;
       letter-spacing: 0.02em;
       text-transform: uppercase;
-      color: #C4C4C4;
-     }
+      color: #c4c4c4;
+    }
 
-     .big-text {
+    .big-text {
       font-family: 'Noir Std';
       font-style: normal;
       font-weight: 900;
       font-size: 107.971px;
       line-height: 85%;
-      text-transform: uppercase;     
-      color: #D9D9D9;
+      text-transform: uppercase;
+      color: #d9d9d9;
       margin: 0px;
-     }
+    }
   }
 
   .image-container {
     position: relative;
-   }
-`
+  }
+`;
 
 const ContentSection = styled.div`
   display: flex;
@@ -232,9 +288,9 @@ const ContentSection = styled.div`
   margin: 0px;
 
   .text-container {
-     width:  600px;
+    width: 600px;
 
-     .big-text {
+    .big-text {
       font-family: 'Noir Std';
       font-style: normal;
       font-weight: 700;
@@ -242,9 +298,9 @@ const ContentSection = styled.div`
       line-height: 103.68%;
       letter-spacing: 0.02em;
       color: #797979;
-     }
+    }
 
-     .large-text {
+    .large-text {
       font-family: 'Noir Std';
       font-style: normal;
       font-weight: 700;
@@ -252,9 +308,9 @@ const ContentSection = styled.div`
       line-height: 103.68%;
       letter-spacing: 0.02em;
       color: #797979;
-     }
+    }
 
-     .text {
+    .text {
       font-family: 'Noir Std';
       font-style: normal;
       font-weight: 400;
@@ -262,23 +318,23 @@ const ContentSection = styled.div`
       line-height: 14px;
       letter-spacing: 0.02em;
       color: #797979;
-     }
+    }
   }
 
   .image-container {
     position: relative;
-   }
-`
+  }
+`;
 
 const Hr = styled.div`
   padding: 0px;
   height: 0px;
   border-top: 2px solid black;
-`
+`;
 
 const InfoContainer = styled.div`
-  padding:40px;
-  background-color: #D9D9D9;
+  padding: 40px;
+  background-color: #d9d9d9;
   margin: 0px;
   display: flex;
   justify-content: space-between;
@@ -287,11 +343,10 @@ const InfoContainer = styled.div`
     display: flex;
     gap: 10px;
   }
-
-`
+`;
 
 const Footer = styled.div`
   padding: 23px;
   background-color: #797979;
   padding-left: 63px;
-`
+`;

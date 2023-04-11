@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 interface Props {
   defaultValue: number;
@@ -19,15 +18,15 @@ export const NumberSetter: React.FC<Props> = ({ defaultValue }) => {
 
   return (
     <Container>
-      <Button onClick={decreaseValue}>{"<"}</Button>
+      <Button onClick={decreaseValue}>{'<'}</Button>
       <Text>{value}</Text>
-      <Button onClick={increaseValue}>{">"}</Button>
+      <Button onClick={increaseValue}>{'>'}</Button>
     </Container>
   );
 };
 
 const Container = styled.div`
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   display: flex;
   align-items: center;
   padding: 5px;

@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { useMatch } from "react-router-dom";
+import { useMatch } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { MealPlan } from "../../../components/MealPlanner/Plan";
+import { MealPlan } from '../../../components/MealPlanner/Plan';
 
 export const MealPlannerPrintPage = () => {
-  const match = useMatch("/dashboard/meal-planner/print");
+  const match = useMatch('/dashboard/meal-planner/print');
 
   return (
     <PageContainer>
@@ -33,7 +33,7 @@ const PageContainer = styled.div`
     h3 {
       font-weight: 700;
       font-size: 2rem;
-      font-family: "Noir Std";
+      font-family: 'Noir Std';
       line-height: 3.125rem;
       margin: 0.25rem 0;
     }

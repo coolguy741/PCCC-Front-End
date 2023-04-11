@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { RadioGropQuestion } from "./RadioGroup";
-import { TrueFalseQuestion } from "./TrueFalse";
+import styled from 'styled-components';
+import { RadioGropQuestion } from './RadioGroup';
+import { TrueFalseQuestion } from './TrueFalse';
 
 interface QuestionProps {
   content: {
     question: string;
     inputType: string;
-    content?: string [];
+    content?: string[];
     numberOfLines?: number;
   };
 }
@@ -15,9 +15,18 @@ export const Question = ({ content }: QuestionProps) => {
   return (
     <Container>
       <p className="question">Q: {content.question}</p>
-      {content.inputType === "textarea" && <textarea className="textarea" rows={content.numberOfLines ? content.numberOfLines : 1} />}
-      {content.inputType === "radioBox" && <RadioGropQuestion optionContent={content.content ? content.content  : [""]} />}
-      {content.inputType === "trueFalse" && <TrueFalseQuestion/>}
+      {content.inputType === 'textarea' && (
+        <textarea
+          className="textarea"
+          rows={content.numberOfLines ? content.numberOfLines : 1}
+        />
+      )}
+      {content.inputType === 'radioBox' && (
+        <RadioGropQuestion
+          optionContent={content.content ? content.content : ['']}
+        />
+      )}
+      {content.inputType === 'trueFalse' && <TrueFalseQuestion />}
     </Container>
   );
 };
@@ -32,7 +41,7 @@ const Container = styled.div`
   .true-false-radio-container {
     display: flex;
 
-    div{
+    div {
       padding-right: 30px;
     }
   }

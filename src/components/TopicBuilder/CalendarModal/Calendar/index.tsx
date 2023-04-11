@@ -1,11 +1,10 @@
-import { useMemo } from "react";
-import { MouseEvent } from "react";
-import styled from "styled-components";
+import { MouseEvent } from 'react';
+import styled from 'styled-components';
 
-import { AddRecipeDropdown } from "../AddRecipeDropdown";
+import { AddRecipeDropdown } from '../AddRecipeDropdown';
 
 // Should move these exported types to `types.ts` as this is updated according to the data structure
-export type TCalendarType = "assessment" | "recipe";
+export type TCalendarType = 'assessment' | 'recipe';
 
 export type TData = {
   group: string;
@@ -26,7 +25,7 @@ interface Props {
 export const Calendar: React.FC<Props> = ({
   onDayClick,
   onWeekClick,
-  type = "assessment",
+  type = 'assessment',
   data,
 }) => {
   return (
@@ -48,7 +47,7 @@ export const Calendar: React.FC<Props> = ({
                   return (
                     <div
                       key={`column-${index}-${colIndex}`}
-                      className={`day ${date <= 31 ? "current-month" : ""}`}
+                      className={`day ${date <= 31 ? 'current-month' : ''}`}
                       onClick={onDayClick}
                       id={`${date}`}
                     >

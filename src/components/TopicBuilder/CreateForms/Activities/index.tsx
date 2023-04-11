@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { LinkButton } from "../../../Global/Button/Link";
-import { TopicFilter } from "../../Filter";
+import { LinkButton } from '../../../Global/Button/Link';
+import { TopicFilter } from '../../Filter';
 
 export const ActivitiesForm = () => {
   return (

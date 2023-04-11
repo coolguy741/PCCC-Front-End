@@ -1,6 +1,6 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { BrowserRouter } from "react-router-dom";
-import { Icon } from "./index";
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
+import { Icon } from './index';
 
 export default {
   component: Icon,
@@ -8,7 +8,7 @@ export default {
 
 const Template: ComponentStory<typeof Icon> = (args) => (
   <BrowserRouter>
-    <Icon name="group"/>
+    <Icon name="group" />
   </BrowserRouter>
 );
 

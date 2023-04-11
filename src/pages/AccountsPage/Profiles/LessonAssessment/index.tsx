@@ -1,20 +1,20 @@
-import styled from "styled-components";
-import { Button } from "../../../../components/Global/Button";
-import mockData from '../../../../lib/mockData/accounts/profileLessonAccessment.json';
 import { useNavigate } from 'react-router-dom';
-import { Question } from "../../../../components/Accounts/Question";
+import styled from 'styled-components';
+import { Question } from '../../../../components/Accounts/Question';
+import { Button } from '../../../../components/Global/Button';
+import mockData from '../../../../lib/mockData/accounts/profileLessonAccessment.json';
 
 export const AccountsUserLessonAssessmentPage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   const handlePrint = () => {
-    navigate("/dashboard/accounts/profiles/:user/:lessonAssessment/print");
-  }
-  
+    navigate('/dashboard/accounts/profiles/:user/:lessonAssessment/print');
+  };
+
   return (
     <PageContainer>
       <div className="button-container">
@@ -23,11 +23,9 @@ export const AccountsUserLessonAssessmentPage = () => {
       </div>
       <p className="topic-text">Topic : {mockData.topic}</p>
       <h2 className="title-text">{mockData.lesson}</h2>
-      {
-        mockData.questions.map((question ,index) => (
-          <Question content={question} key={index}/>
-        ))
-      }
+      {mockData.questions.map((question, index) => (
+        <Question content={question} key={index} />
+      ))}
     </PageContainer>
   );
 };
@@ -47,11 +45,9 @@ const PageContainer = styled.div`
     margin-bottom: 0px;
     padding: 0px;
   }
-  
+
   .title-text {
     padding: 0px;
     margin: 0px;
   }
-
-
-`
+`;

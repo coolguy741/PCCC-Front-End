@@ -1,8 +1,8 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
-import { Button } from "../../Button";
-import { Dropdown } from "../Dropdown";
+import { Button } from '../../Button';
+import { Dropdown } from '../Dropdown';
 
 interface Props {
   add: () => void;

@@ -1,24 +1,24 @@
-import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { DashboardMenu } from "../../components/Global/DashboardMenu";
-import { useSearchResultsStore } from "../../stores/searchResultsStore";
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { DashboardMenu } from '../../components/Global/DashboardMenu';
+import { useSearchResultsStore } from '../../stores/searchResultsStore';
 
 interface DashboardPageProps {
   children: JSX.Element;
 }
 
 const fields = [
-  "all",
-  "topics",
-  "activities",
-  "recipes",
-  "mealtime-moments",
-  "foodways",
+  'all',
+  'topics',
+  'activities',
+  'recipes',
+  'mealtime-moments',
+  'foodways',
 ];
 
 export const DashboardPage = ({ children }: DashboardPageProps) => {
-  const [field, setField] = useState("all");
+  const [field, setField] = useState('all');
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     addResults();
-    navigate("/dashboard/search");
+    navigate('/dashboard/search');
   };
 
   const handleSetField = (field: string) => {
@@ -58,7 +58,7 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
                   className="dropdown-trigger"
                   onClick={() => setIsOpen(true)}
                 >
-                  {field.replaceAll("-", " ")} <span>&lt;</span>
+                  {field.replaceAll('-', ' ')} <span>&lt;</span>
                 </div>
                 <DropdownMenu isOpen={isOpen}>
                   {fields.map((currentField, index) => {
@@ -70,10 +70,10 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
                       >
                         <div
                           className={`${
-                            field === currentField ? "checked" : ""
+                            field === currentField ? 'checked' : ''
                           }`}
                         >
-                          {currentField.replaceAll("-", " ")}
+                          {currentField.replaceAll('-', ' ')}
                         </div>
                       </DropdownItem>
                     );
@@ -195,7 +195,7 @@ const DropdownMenu = styled.div.attrs((props: { isOpen: boolean }) => ({
   top: 100%;
   z-index: 20;
   background: white;
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 `;
 
 const DropdownItem = styled.div`
@@ -212,7 +212,7 @@ const DropdownItem = styled.div`
       background: #396bdb;
       color: white;
       padding: 0 4px;
-      content: "✓";
+      content: '✓';
       width: 20px;
       height: 20px;
       border-radius: 5px;

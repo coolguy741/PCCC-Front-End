@@ -1,13 +1,13 @@
-import { createGlobalStyle } from "styled-components";
-import { Fonts } from "../Elements/Fonts";
-import { DisableTouchPointerEvents } from "../Snippets/DisableTouchPointerEvents";
-import { MarginPaddingNone } from "../Snippets/MarginPaddingNone";
-import { UserSelectNone } from "../Snippets/UserSelectNone";
-import { Forms } from "./Forms";
-import { Miscellaneous } from "./Miscellaneous";
-import { Normalize } from "./Normalize";
-import { Text } from "./Text";
-import { isDesktop } from "react-device-detect";
+import { isDesktop } from 'react-device-detect';
+import { createGlobalStyle } from 'styled-components';
+import { Fonts } from '../Elements/Fonts';
+import { DisableTouchPointerEvents } from '../Snippets/DisableTouchPointerEvents';
+import { MarginPaddingNone } from '../Snippets/MarginPaddingNone';
+import { UserSelectNone } from '../Snippets/UserSelectNone';
+import { Forms } from './Forms';
+import { Miscellaneous } from './Miscellaneous';
+import { Normalize } from './Normalize';
+import { Text } from './Text';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -84,7 +84,7 @@ const GlobalStyle = createGlobalStyle`
         touch-action: none;
         width: 100vw;
         height: 100vh;
-        background-color: ${isDesktop ? "black" : "black"};
+        background-color: ${isDesktop ? 'black' : 'black'};
         overflow: hidden;
       }
 

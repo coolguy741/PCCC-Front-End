@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import { Leva } from "leva";
-import styled from "styled-components";
-import Scene from "../../components/Global/Scene";
-import { Header } from "../../components/Global/Header";
+import { Leva } from 'leva';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Header } from '../../components/Global/Header';
+import Scene from '../../components/Global/Scene';
 
 export const TempHomePage = () => {
-  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
+  const [lang, setLang] = useState(localStorage.getItem('lang') ?? 'en');
 
   useEffect(() => {
-    setLang(localStorage.getItem("lang") ?? "en");
+    setLang(localStorage.getItem('lang') ?? 'en');
     const handleStorageChange = (event: StorageEvent) => {
-      setLang(localStorage.getItem("lang") ?? "en");
+      setLang(localStorage.getItem('lang') ?? 'en');
     };
-    
-    window.addEventListener("storage", handleStorageChange);
-    
+
+    window.addEventListener('storage', handleStorageChange);
+
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 
@@ -49,14 +49,27 @@ export const TempHomePage = () => {
       <Header />
 
       <main>
-        {lang === "en" ? <MainEng /> : <MainFr />}
+        {lang === 'en' ? <MainEng /> : <MainFr />}
         <Scene />
       </main>
 
       <footer>
-        {lang === "en"
-          ? <p>For Power Full Kids program information visit <a href="https://www.pcchildrenscharity.ca">www.pcchildrenscharity.ca</a></p>
-          : <p>Pour obtenir des renseignements sur le programme Enfants FORTSmidables, visitez le site <a href="https://www.fondationpourlesenfantspc.ca">www.fondationpourlesenfantspc.ca</a></p>}
+        {lang === 'en' ? (
+          <p>
+            For Power Full Kids program information visit{' '}
+            <a href="https://www.pcchildrenscharity.ca">
+              www.pcchildrenscharity.ca
+            </a>
+          </p>
+        ) : (
+          <p>
+            Pour obtenir des renseignements sur le programme Enfants
+            FORTSmidables, visitez le site{' '}
+            <a href="https://www.fondationpourlesenfantspc.ca">
+              www.fondationpourlesenfantspc.ca
+            </a>
+          </p>
+        )}
       </footer>
       <Leva hidden={true} />
     </StyledHomepage>
@@ -71,7 +84,7 @@ const StyledHomepage = styled.div`
   display: grid;
   gap: 15px;
   grid-template-rows: min-content auto min-content;
-  background-image: url("/images/background.svg");
+  background-image: url('/images/background.svg');
   background-position: center center;
   background-repeat: no-repeat;
   color: #3d3d3d;
@@ -112,7 +125,7 @@ const StyledHomepage = styled.div`
     }
 
     h1 {
-      font-family: "NoirStd-Heavy";
+      font-family: 'NoirStd-Heavy';
       font-size: 3rem;
       text-transform: uppercase;
       margin: 0;
@@ -130,7 +143,7 @@ const StyledHomepage = styled.div`
       font-size: 3.45rem;
     }
     h2 {
-      font-family: "NoirStd-Heavy";
+      font-family: 'NoirStd-Heavy';
       font-size: 1.1rem;
       text-transform: uppercase;
       font-style: normal;
@@ -140,7 +153,7 @@ const StyledHomepage = styled.div`
       margin-top: 22px;
     }
     h3 {
-      font-family: "NoirStd-Bold";
+      font-family: 'NoirStd-Bold';
       font-size: 1.1rem;
       font-style: normal;
       margin: 0;

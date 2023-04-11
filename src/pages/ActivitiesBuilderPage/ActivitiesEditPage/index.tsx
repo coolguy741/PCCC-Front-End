@@ -1,12 +1,15 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
-import { ModalContainer } from "../../../components/Global/ModalContainer";
-import { SmallButton } from "../../../components/Global/SmallButton";
-import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
-import { CenterAlignedContainer, RightAlignedContainer } from "../../../components/Global/Container";
-import { LanguageChooser } from "../../../components/Global/LanguageChooser";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button } from '../../../components/Global/Button';
+import {
+  CenterAlignedContainer,
+  RightAlignedContainer,
+} from '../../../components/Global/Container';
+import { LanguageChooser } from '../../../components/Global/LanguageChooser';
+import { ModalContainer } from '../../../components/Global/ModalContainer';
+import { SaveChangesModal } from '../../../components/Global/SaveChangesModal';
+import { SmallButton } from '../../../components/Global/SmallButton';
 
 export const ActivitiesEditPage = () => {
   const [lang, setLang] = useState('en');
@@ -15,25 +18,25 @@ export const ActivitiesEditPage = () => {
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   const handlePreview = () => {
-    navigate("./../preview");
-  }
+    navigate('./../preview');
+  };
 
   const showModal = () => {
     setVisibleModal(true);
-  }
+  };
 
   const handleSave = () => {
     navigate('./../preview');
-  }
+  };
 
   const handleToggleLanguage = () => {
-    if(lang === "en") setLang("fr");
-    if(lang === "fr") setLang("en");
+    if (lang === 'en') setLang('fr');
+    if (lang === 'fr') setLang('en');
     setVisibleModal(false);
-  }
+  };
 
   return (
     <PageContainer>
@@ -46,34 +49,34 @@ export const ActivitiesEditPage = () => {
         <LanguageChooser lang={lang} setLang={setLang} />
       </CenterAlignedContainer>
       <ContentContainer>
-        <p>
-          Coming Soon.
-        </p>
+        <p>Coming Soon.</p>
         <RightAlignedContainer>
           <SmallButton onClick={showModal}>Save</SmallButton>
         </RightAlignedContainer>
       </ContentContainer>
-      {visibleModal && 
-      <ModalContainer>
-        <SaveChangesModal onSave={handleSave} onToggleLanguage={handleToggleLanguage}/>
-      </ModalContainer>
-      }
+      {visibleModal && (
+        <ModalContainer>
+          <SaveChangesModal
+            onSave={handleSave}
+            onToggleLanguage={handleToggleLanguage}
+          />
+        </ModalContainer>
+      )}
     </PageContainer>
   );
 };
 
-
 const ClickedButton = styled(SmallButton)`
   background-color: green;
-`
+`;
 
 const PageContainer = styled.div`
-  .title-buttons-container{
+  .title-buttons-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .language-toggle{
+    .language-toggle {
       display: flex;
       gap: 20px;
     }
@@ -83,7 +86,7 @@ const PageContainer = styled.div`
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const ContentContainer = styled.div`
   display: flex;
@@ -91,28 +94,26 @@ const ContentContainer = styled.div`
   height: 400px;
   gap: 20px;
 
-  .left-content{
+  .left-content {
     width: 50%;
 
-    .images-videos-tags-container{
-      display: flex; 
+    .images-videos-tags-container {
+      display: flex;
       justify-content: space-between;
       gap: 20px;
-
     }
   }
 
-  .right-content{
-    display:flex;
+  .right-content {
+    display: flex;
     flex-direction: column;
     gap: 20px;
     width: 50%;
 
-    .servering-size-container{
+    .servering-size-container {
       display: flex;
       align-items: center;
       gap: 20px;
     }
   }
-`
-
+`;

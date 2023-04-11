@@ -1,12 +1,12 @@
-import { Logo } from "../Logo";
-import { LanguageToggle } from "../LanguageToggle";
-import styled from "styled-components";
+import styled from 'styled-components';
+import { LanguageToggle } from '../LanguageToggle';
+import { Logo } from '../Logo';
 
 export const Header = () => {
   return (
     <StyledHeader>
       <Logo />
-      <LanguageToggle/>
+      <LanguageToggle />
     </StyledHeader>
   );
 };

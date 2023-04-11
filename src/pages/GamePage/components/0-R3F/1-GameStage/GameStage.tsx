@@ -1,10 +1,10 @@
-import { OrbitControls } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import { FC, Fragment, memo, useCallback, useEffect } from "react";
-import Floor from "../2-Entities/Floor";
-import Kitchen from "../2-Entities/Kitchen";
-import Environment from "../3-Environment/Environment";
-import SceneHelpers from "../4-Helpers/SceneHelpers";
+import { OrbitControls } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import { FC, Fragment, memo, useCallback, useEffect } from 'react';
+import Floor from '../2-Entities/Floor';
+import Kitchen from '../2-Entities/Kitchen';
+import Environment from '../3-Environment/Environment';
+import SceneHelpers from '../4-Helpers/SceneHelpers';
 
 const GameStage: FC = () => {
   // Hooks
@@ -14,7 +14,7 @@ const GameStage: FC = () => {
     camera.position.set(
       -13.343773738107854,
       12.722521359474685,
-      16.161540739896658
+      16.161540739896658,
     );
   }, []);
 

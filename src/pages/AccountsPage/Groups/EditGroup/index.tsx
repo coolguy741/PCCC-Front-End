@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Button } from "../../../../components/Global/Button";
-import { SmallButton } from "../../../../components/Global/SmallButton";
-import mockData from "../../../../lib/mockData/accounts/editGroup.json";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button } from '../../../../components/Global/Button';
+import { SmallButton } from '../../../../components/Global/SmallButton';
+import mockData from '../../../../lib/mockData/accounts/editGroup.json';
 
 export const AccountsEditGroupPage = () => {
   const [members, setMembers] = useState<string[]>([]);
@@ -11,62 +11,64 @@ export const AccountsEditGroupPage = () => {
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   useEffect(() => {
     setMembers(mockData.members);
-  }, [])
+  }, []);
 
   const handleAdd = (name: string) => {
-    setMembers(mem => [...mem, name]);
-  }
+    setMembers((mem) => [...mem, name]);
+  };
 
-  const handleRemove = (index:number) => {
+  const handleRemove = (index: number) => {
     let local = [...members];
     local.splice(index, 1);
     setMembers(local);
-  }
+  };
 
   return (
     <Container>
       <div className="buttons-container">
-        <Button onClick={handleBack}>Back</Button>
-s      </div>
+        <Button onClick={handleBack}>Back</Button>s{' '}
+      </div>
       <h1>Edit Group Page</h1>
       <div className="group-data-container">
         <div className="container">
-          <p className="text">{"Last modified: " + mockData.lastModified}</p>
+          <p className="text">{'Last modified: ' + mockData.lastModified}</p>
           <div className="owner-container">
             <p className="text">Owner : </p>
             <select>
               {mockData.professionals.map((professional, index) => (
-                <option value={professional} key={index}>{professional}</option>
+                <option value={professional} key={index}>
+                  {professional}
+                </option>
               ))}
             </select>
           </div>
         </div>
       </div>
       <p className="user-name-title-container">Username</p>
-      <input type= "text" className="user-name-search-input"/>
+      <input type="text" className="user-name-search-input" />
       <div className="add-remove-container">
         <div className="add-container">
-          {
-            mockData.users.map((user, index) => (
-              <div className="user-container" key={index}>
-                <div className="image-name-container">
-                  <img src={user.img} placeholder="image"/>
-                  <p className="name">{user.name}</p>
-                </div>
-                <SmallButton onClick={() => handleAdd(user.name)}>Add</SmallButton>
+          {mockData.users.map((user, index) => (
+            <div className="user-container" key={index}>
+              <div className="image-name-container">
+                <img src={user.img} placeholder="image" />
+                <p className="name">{user.name}</p>
               </div>
-            ))
-          }
+              <SmallButton onClick={() => handleAdd(user.name)}>
+                Add
+              </SmallButton>
+            </div>
+          ))}
         </div>
         <div className="remove-container">
           <div className="group-data-container">
             <div className="col">
               <p className="text">Group Name</p>
-              <input type="text"/>
+              <input type="text" />
             </div>
             <div className="col">
               <p className="text">Group ID</p>
@@ -74,53 +76,55 @@ s      </div>
             </div>
           </div>
           <div className="members-container">
-            {
-              members.map((member, index) => (
-                <div className="member-container" key={index}>
-                  <p className="text">{member}</p>
-                  <></>
-                  <SmallButton onClick={() => handleRemove(index)}>Remove</SmallButton>
-                </div>
-              ))
-            }
+            {members.map((member, index) => (
+              <div className="member-container" key={index}>
+                <p className="text">{member}</p>
+                <></>
+                <SmallButton onClick={() => handleRemove(index)}>
+                  Remove
+                </SmallButton>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      <div className="edit-button-container"><Button>Save changes</Button></div>
+      <div className="edit-button-container">
+        <Button>Save changes</Button>
+      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
-  .buttons-container{
+  .buttons-container {
     margin: 20px 0px;
     display: flex;
     justify-content: space-between;
   }
 
   .text {
-    padding:0px;
+    padding: 0px;
     margin: 0px;
     line-height: 150%;
   }
 
-  .group-data-container{
+  .group-data-container {
     display: flex;
     justify-content: flex-end;
 
-    .container{
-      display:flex;
+    .container {
+      display: flex;
       flex-direction: column;
-  
-      .owner-container{
+
+      .owner-container {
         display: flex;
         align-items: center;
-  
+
         .text {
-          padding : 0px;
+          padding: 0px;
           margin: 0px;
         }
-        
+
         select {
           margin-left: 10px;
           height: 40px;
@@ -130,13 +134,13 @@ const Container = styled.div`
     }
   }
 
-  .user-name-title-container{
+  .user-name-title-container {
   }
 
-  .user-name-search-input{
+  .user-name-search-input {
   }
 
-  .add-remove-container{
+  .add-remove-container {
     display: flex;
     gap: 20px;
     margin-top: 40px;
@@ -153,8 +157,8 @@ const Container = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        
-        .image-name-container{
+
+        .image-name-container {
           display: flex;
           align-items: center;
 
@@ -163,36 +167,35 @@ const Container = styled.div`
             width: 30px;
             height: 30px;
           }
-  
+
           p {
             padding-left: 10px;
           }
         }
       }
     }
-    
+
     .remove-container {
       width: 70%;
 
-      .group-data-container{
+      .group-data-container {
         justify-content: left;
         display: flex;
 
         .col {
           margin-right: 20px;
         }
-
       }
 
-      .members-container{
+      .members-container {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
         margin-top: 20px;
         padding: 30px;
-        background-color: #D9D9D9;
+        background-color: #d9d9d9;
 
-        .member-container{
+        .member-container {
           width: 45%;
           margin-right: 20px;
           display: flex;
@@ -203,9 +206,9 @@ const Container = styled.div`
     }
   }
 
-  .edit-button-container{
+  .edit-button-container {
     display: flex;
-    margin : 20px 0px;
-    justify-content : flex-end;
+    margin: 20px 0px;
+    justify-content: flex-end;
   }
-`
+`;

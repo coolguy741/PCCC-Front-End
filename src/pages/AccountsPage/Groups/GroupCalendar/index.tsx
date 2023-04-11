@@ -1,20 +1,18 @@
-import styled from "styled-components";
-import { Calendar } from "../../../../components/Global/CalendarModal/Calendar";
-import React, {useState} from 'react';
-import { CheckboxGroup } from "../../../../components/Global/CheckboxGroup";
-import { Button } from "../../../../components/Global/Button";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button } from '../../../../components/Global/Button';
+import { Calendar } from '../../../../components/Global/CalendarModal/Calendar';
+import { CheckboxGroup } from '../../../../components/Global/CheckboxGroup';
 
 const checkboxOptions = [
-  {label: 'Meal Plan', value: 'Meal Plan'},
-  {label: 'Activities', value: 'Activities'},
-  {label: 'Recipies', value: 'Recipies'},
-  {label: 'Assessment', value: 'Assessment'},
+  { label: 'Meal Plan', value: 'Meal Plan' },
+  { label: 'Activities', value: 'Activities' },
+  { label: 'Recipies', value: 'Recipies' },
+  { label: 'Assessment', value: 'Assessment' },
 ];
 
 export const AccountsGroupCalendarPage = () => {
-  const handleCheckboxChange = () => {
-  }
+  const handleCheckboxChange = () => {};
 
   return (
     <PageContainer>
@@ -26,7 +24,7 @@ export const AccountsGroupCalendarPage = () => {
       </div>
       <div className="row">
         <div className="calendar-container">
-          <Calendar type={"plan"} />
+          <Calendar type={'plan'} />
         </div>
         <div className="inputs-container">
           <select className="group-select-box">
@@ -35,7 +33,10 @@ export const AccountsGroupCalendarPage = () => {
             <option>Group C</option>
           </select>
           <div className="checkboxGroup-container">
-            <CheckboxGroup options={checkboxOptions} onChange={handleCheckboxChange}/>
+            <CheckboxGroup
+              options={checkboxOptions}
+              onChange={handleCheckboxChange}
+            />
           </div>
         </div>
       </div>
@@ -47,15 +48,15 @@ const PageContainer = styled.div`
   .header {
     display: flex;
     justify-content: space-between;
-    align-self: center
+    align-self: center;
   }
 
   .row {
     display: flex;
 
-    .calendar-container{
+    .calendar-container {
       width: 70%;
-      margin-right:20px;
+      margin-right: 20px;
     }
 
     .inputs-container {
@@ -66,10 +67,9 @@ const PageContainer = styled.div`
         margin-top: 30px;
       }
     }
-
   }
-`
+`;
 
 const AlignCenteredLink = styled(Link)`
   align-self: center;
-`
+`;

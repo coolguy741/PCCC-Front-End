@@ -1,15 +1,14 @@
-import styled from "styled-components";
-import { List, itemType } from "../../components/Home/List";
-import mockData from "../../lib/mockData/notifications.json";
-import { Icon } from "../../components/Global/Icon";
-import { Photo } from "../../components/Accounts/Photo";
-import { Text, Bold } from "../../components/Global/Text";
-import { SmallButton } from "../../components/Global/SmallButton";
+import styled from 'styled-components';
+import { Photo } from '../../components/Accounts/Photo';
+import { Icon } from '../../components/Global/Icon';
+import { SmallButton } from '../../components/Global/SmallButton';
+import { Bold, Text } from '../../components/Global/Text';
+import mockData from '../../lib/mockData/notifications.json';
 
 export const NotificationsPage = () => {
   const handleReview = () => {
-    alert("Review activity X")
-  }
+    alert('Review activity X');
+  };
 
   return (
     <PageContainer>
@@ -17,16 +16,37 @@ export const NotificationsPage = () => {
       <SubTitle>Activity</SubTitle>
       <NotificationsContainer>
         <tbody>
-          {
-            mockData.listData.map((notification, index) => (
-              <tr key={index}>
-                <td className="icon"><Icon name={notification.icon} width="44px"/></td>
-                <td className="photo"><Photo src={notification.image} role="Admin" alt={notification.alt} width="40px"/></td>
-                <td className="text"><Text><Bold>{notification.role}</Bold>{ " " + notification.content}</Text></td>
-                <td className="date"><Text>{notification.date}</Text></td>
-                <td className="reviewed">{notification.reviewed === false ? <SmallButton onClick={handleReview}>Review</SmallButton> : <></>}</td>
-              </tr>
-            ))}
+          {mockData.listData.map((notification, index) => (
+            <tr key={index}>
+              <td className="icon">
+                <Icon name={notification.icon} width="44px" />
+              </td>
+              <td className="photo">
+                <Photo
+                  src={notification.image}
+                  role="Admin"
+                  alt={notification.alt}
+                  width="40px"
+                />
+              </td>
+              <td className="text">
+                <Text>
+                  <Bold>{notification.role}</Bold>
+                  {' ' + notification.content}
+                </Text>
+              </td>
+              <td className="date">
+                <Text>{notification.date}</Text>
+              </td>
+              <td className="reviewed">
+                {notification.reviewed === false ? (
+                  <SmallButton onClick={handleReview}>Review</SmallButton>
+                ) : (
+                  <></>
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </NotificationsContainer>
     </PageContainer>
@@ -39,16 +59,16 @@ const PageContainer = styled.div`
   gap: 20px;
 `;
 
-const Title =styled.p`
+const Title = styled.p`
   font-family: 'Noir Std';
   font-style: normal;
   font-weight: 700;
   font-size: 48px;
   line-height: 103.68%;
   letter-spacing: 0.02em;
-  color: #C4C4C4;
+  color: #c4c4c4;
   margin-bottom: 0px;
-`
+`;
 
 const SubTitle = styled.p`
   font-family: 'Open Sans';
@@ -60,7 +80,7 @@ const SubTitle = styled.p`
   color: #797979;
   margin: 0px;
   margin-top: 50px;
-`
+`;
 
 const NotificationsContainer = styled.table`
   display: flex;
@@ -85,4 +105,4 @@ const NotificationsContainer = styled.table`
       width: 20%;
     }
   }
-`
+`;

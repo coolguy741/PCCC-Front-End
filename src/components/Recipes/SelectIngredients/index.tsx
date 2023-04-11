@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { SmallButton } from "../../Global/SmallButton";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { SmallButton } from '../../Global/SmallButton';
 
 export interface Ingredient {
   id: number;
@@ -13,18 +13,23 @@ interface Props {
   ingredients: Ingredient[];
   setIngredients: React.Dispatch<React.SetStateAction<Ingredient[]>>;
   ingredientOptions: {
-    value: string,
-    label: string
-  } [];
+    value: string;
+    label: string;
+  }[];
   unitOptions: {
     value: string;
     label: string;
-  } [];
+  }[];
 }
 
-export const SelectIngredients: React.FC<Props> = ({ ingredients, setIngredients, ingredientOptions, unitOptions }) => {
-  const [name, setName] = useState("");
-  const [unit, setUnit] = useState("");
+export const SelectIngredients: React.FC<Props> = ({
+  ingredients,
+  setIngredients,
+  ingredientOptions,
+  unitOptions,
+}) => {
+  const [name, setName] = useState('');
+  const [unit, setUnit] = useState('');
   const [amount, setAmount] = useState(1);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -61,13 +66,17 @@ export const SelectIngredients: React.FC<Props> = ({ ingredients, setIngredients
       <InputGroup>
         <Select value={name} onChange={handleNameChange}>
           {ingredientOptions.map((option, index) => (
-            <option key={index} value={option.value}>{option.label}</option>
+            <option key={index} value={option.value}>
+              {option.label}
+            </option>
           ))}
         </Select>
         <Input type="number" value={amount} onChange={handleAmountChange} />
         <Select value={unit} onChange={handleUnitChange}>
           {unitOptions.map((option, index) => (
-            <option key={index} value={option.value}>{option.label}</option>
+            <option key={index} value={option.value}>
+              {option.label}
+            </option>
           ))}
         </Select>
         <SmallButton onClick={handleAdd}>Add</SmallButton>
@@ -76,11 +85,13 @@ export const SelectIngredients: React.FC<Props> = ({ ingredients, setIngredients
         {ingredients.map((ingredient) => (
           <PanelItem key={ingredient.id}>
             <Text>{ingredient.name}</Text>
-            <div style={{display: "flex"}}>
+            <div style={{ display: 'flex' }}>
               <Text>{ingredient.amount}</Text>
               <Text>{ingredient.unit}</Text>
             </div>
-            <CrossButton onClick={() => handleDelete(ingredient.id)}>X</CrossButton>
+            <CrossButton onClick={() => handleDelete(ingredient.id)}>
+              X
+            </CrossButton>
           </PanelItem>
         ))}
       </Panel>
@@ -105,37 +116,37 @@ const Input = styled.input`
   padding: 5px;
   width: 50px;
   border-radius: 4px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border: none;
 `;
 
 const Select = styled.select`
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   padding: 5px;
   border: none;
-`
+`;
 
 const Panel = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-`
+`;
 
-const PanelItem= styled.div`
-  background-color: #D9D9D9;
+const PanelItem = styled.div`
+  background-color: #d9d9d9;
   padding: 5px;
   border: none;
   display: flex;
   gap: 5px;
   align-items: center;
-`
+`;
 
 const Text = styled.p`
   font-size: 0.8rem;
   margin: 0;
   font-weight: 400;
-`
+`;
 
 const CrossButton = styled.button`
   font-size: 1rem;
-`
+`;

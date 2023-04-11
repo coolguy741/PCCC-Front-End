@@ -1,31 +1,37 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 export const LanguageToggle = () => {
-  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
+  const [lang, setLang] = useState(localStorage.getItem('lang') ?? 'en');
 
   useEffect(() => {
     const currentDomain = window.location.hostname;
-    if(currentDomain === "enfantsfortsmidables.ca") {
-      localStorage.setItem("lang", "fr");
-      setLang("fr");
+    if (currentDomain === 'enfantsfortsmidables.ca') {
+      localStorage.setItem('lang', 'fr');
+      setLang('fr');
     } else {
-      localStorage.setItem("lang", "en");
-      setLang("en");
+      localStorage.setItem('lang', 'en');
+      setLang('en');
     }
     window.dispatchEvent(new Event('storage'));
   }, []);
 
   const toggleLanguage = () => {
-    if(lang === "en")   { setLang("fr"); localStorage.setItem("lang", "fr");} 
-    if(lang === "fr")   { setLang("en"); localStorage.setItem("lang", "en");} 
+    if (lang === 'en') {
+      setLang('fr');
+      localStorage.setItem('lang', 'fr');
+    }
+    if (lang === 'fr') {
+      setLang('en');
+      localStorage.setItem('lang', 'en');
+    }
     window.dispatchEvent(new Event('storage'));
-  }
-  
+  };
+
   return (
     <StyledToggle
       onClick={toggleLanguage}
-      className={lang === "en" ? "inactive" : "active"}
+      className={lang === 'en' ? 'inactive' : 'active'}
     >
       <div className="slider" />
       <div>
@@ -38,7 +44,7 @@ export const LanguageToggle = () => {
   );
 };
 
-const width = "45px";
+const width = '45px';
 const items = 2;
 
 const StyledToggle = styled.div`

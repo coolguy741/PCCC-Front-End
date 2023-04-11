@@ -1,17 +1,17 @@
-const fs = require("fs/promises");
-const path = require("path");
-require("dotenv").config({ path: path.resolve(process.cwd(), "./.site") });
+const fs = require('fs/promises');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(process.cwd(), './.site') });
 
 async function main() {
   console.log(
-    "Tip: Use https://favicon.io/favicon-converter/ to generate icons. Place them in public/images"
+    'Tip: Use https://favicon.io/favicon-converter/ to generate icons. Place them in public/images',
   );
 
   try {
     const siteConfig = process.env;
 
-    if ("SITE_TITLE" in siteConfig) {
-      console.log("✅ Site config found");
+    if ('SITE_TITLE' in siteConfig) {
+      console.log('✅ Site config found');
 
       const template = `
   <!DOCTYPE html>
@@ -88,39 +88,39 @@ async function main() {
         short_name: siteConfig.SITE_TITLE,
         icons: [
           {
-            src: "/images/android-chrome-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
+            src: '/images/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
           },
           {
-            src: "/images/android-chrome-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
+            src: '/images/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
           },
         ],
         theme_color: siteConfig.SITE_THEME,
-        background_color: "#ffffff",
-        display: "standalone",
+        background_color: '#ffffff',
+        display: 'standalone',
       };
 
-      const writePath = path.resolve(process.cwd(), "./public");
+      const writePath = path.resolve(process.cwd(), './public');
       await fs.writeFile(
-        path.resolve(process.cwd(), ".") + "/index.html",
+        path.resolve(process.cwd(), '.') + '/index.html',
         template,
         {
-          encoding: "utf-8",
-        }
+          encoding: 'utf-8',
+        },
       );
-      console.log("✅ Wrote index.html");
+      console.log('✅ Wrote index.html');
       await fs.writeFile(
-        writePath + "/site.webmanifest",
+        writePath + '/site.webmanifest',
         JSON.stringify(manifest, null, 4),
-        { encoding: "utf-8" }
+        { encoding: 'utf-8' },
       );
-      console.log("✅ Wrote site.webmanifest");
-      console.log("✨ Done");
+      console.log('✅ Wrote site.webmanifest');
+      console.log('✨ Done');
     } else {
-      console.log("❌ No Site config found. Add a .site file.");
+      console.log('❌ No Site config found. Add a .site file.');
     }
   } catch (error) {
     throw error;

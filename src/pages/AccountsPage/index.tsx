@@ -1,15 +1,14 @@
-import styled from "styled-components";
-import { AccountsHeader } from "../../components/Accounts/AccountsHeader";
+import styled from 'styled-components';
+import { AccountsHeader } from '../../components/Accounts/AccountsHeader';
 
 interface AccountsPageProps {
   children: JSX.Element;
 }
 
 export const AccountsPage = ({ children }: AccountsPageProps) => {
-
   return (
     <PageContainer>
-      <AccountsHeader/>
+      <AccountsHeader />
       <div className="content">{children}</div>
     </PageContainer>
   );

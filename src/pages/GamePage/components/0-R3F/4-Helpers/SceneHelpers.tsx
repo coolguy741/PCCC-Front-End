@@ -1,8 +1,8 @@
-import { FC, Fragment, memo } from "react";
-import AxesHelperController from "./AxesHelperController";
-import GizmoHelperController from "./GizmoHelperController";
-import GridHelperController from "./GridHelperController";
-import PerfHelperController from "./PerfHelperController";
+import { FC, Fragment, memo } from 'react';
+import AxesHelperController from './AxesHelperController';
+import GizmoHelperController from './GizmoHelperController';
+import GridHelperController from './GridHelperController';
+import PerfHelperController from './PerfHelperController';
 
 interface SceneHelpersPropTypes {
   perf?: boolean;

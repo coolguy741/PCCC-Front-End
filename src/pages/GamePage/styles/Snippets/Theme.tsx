@@ -1,7 +1,7 @@
 const Theme = {
-  PCCCRed: "red",
-  PCCCGreen: "green",
-  PCCCBlue: "blue",
+  PCCCRed: 'red',
+  PCCCGreen: 'green',
+  PCCCBlue: 'blue',
 };
 
 export { Theme };

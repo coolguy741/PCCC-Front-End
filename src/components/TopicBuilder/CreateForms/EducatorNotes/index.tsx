@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const EducatorNotesForm = () => {
   return (
@@ -8,7 +8,7 @@ export const EducatorNotesForm = () => {
           <label>Curriculum</label>
         </div>
         <select>
-          <option value={"curriculum-a"}>Curriculm A</option>
+          <option value={'curriculum-a'}>Curriculm A</option>
         </select>
       </div>
       <NotesContainer>

@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import { SmallButton } from "../../Global/SmallButton";
+import styled from 'styled-components';
+import { SmallButton } from '../../Global/SmallButton';
 
 interface GroupInvitationCardProps {
-  data : {
-    groupName: string,
-    creator: string,
-    creatorRole: string,
-    status: string
-  }
+  data: {
+    groupName: string;
+    creator: string;
+    creatorRole: string;
+    status: string;
+  };
 }
 
 export const GroupInvitationCard = ({ data }: GroupInvitationCardProps) => {
@@ -16,27 +16,24 @@ export const GroupInvitationCard = ({ data }: GroupInvitationCardProps) => {
       <div className="invitation-container">
         <p className="bold-big-text">{data.groupName}</p>
         <p className="text">Creator: {data.creator}</p>
-        <p className="text">{"(" + data.creatorRole + ")"}</p>
+        <p className="text">{'(' + data.creatorRole + ')'}</p>
         <div className="status-container">
-          {
-          data.status === "free" && 
-          <>
-            <SmallButton>Accept</SmallButton>
-            <SmallButton>Deny</SmallButton>
-          </>
-          }
-          {
-          data.status === "Accepted" && 
-          <>
-            <p className="bold-text">Accepted</p>
-          </>
-          }
-          {
-          data.status === "Denied" && 
-          <>
-            <p className="bold-text">Denied</p>
-          </>
-          }
+          {data.status === 'free' && (
+            <>
+              <SmallButton>Accept</SmallButton>
+              <SmallButton>Deny</SmallButton>
+            </>
+          )}
+          {data.status === 'Accepted' && (
+            <>
+              <p className="bold-text">Accepted</p>
+            </>
+          )}
+          {data.status === 'Denied' && (
+            <>
+              <p className="bold-text">Denied</p>
+            </>
+          )}
         </div>
       </div>
     </Container>
@@ -45,7 +42,7 @@ export const GroupInvitationCard = ({ data }: GroupInvitationCardProps) => {
 
 const Container = styled.div`
   .invitation-container {
-    margin : 20px 0px;
+    margin: 20px 0px;
     color: #797979;
 
     .bold-big-text {
@@ -66,7 +63,7 @@ const Container = styled.div`
       display: flex;
       color: black;
       justify-content: space-between;
-      
+
       p {
         padding: 0px;
         margin: 0px;

@@ -24,20 +24,27 @@ export const Search: React.FC<Props> = ({ options, onSelect, onKeyDown }) => {
     onSelect(option.value);
   };
 
-  const filteredOptions = options.filter(option => option.label.toLowerCase().includes(query.toLowerCase()));
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(query.toLowerCase()),
+  );
 
   return (
     <Container>
-      <input type="text" value={query} onChange={handleQueryChange} onKeyDown={onKeyDown}/>
-      { query != "" &&
+      <input
+        type="text"
+        value={query}
+        onChange={handleQueryChange}
+        onKeyDown={onKeyDown}
+      />
+      {query != '' && (
         <ul>
-        {filteredOptions.map(option => (
-          <li key={option.value} onClick={() => handleSelect(option)}>
-            {option.label}
-          </li>
-        ))}
-      </ul>
-      }
+          {filteredOptions.map((option) => (
+            <li key={option.value} onClick={() => handleSelect(option)}>
+              {option.label}
+            </li>
+          ))}
+        </ul>
+      )}
     </Container>
   );
 };
@@ -60,5 +67,4 @@ const Container = styled.div`
       border-bottom: black 1px solid;
     }
   }
-`
-
+`;

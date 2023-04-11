@@ -1,22 +1,26 @@
-import { ChangeEvent, FC, useState } from "react";
-import styled from "styled-components";
+import { FC, useState } from 'react';
+import styled from 'styled-components';
 
 type SelectBoxProps = {
   options: {
-    value: string,
-    label: string
-  } [],
-  value?: string,
-  onChange: (value: string) => void,
+    value: string;
+    label: string;
+  }[];
+  value?: string;
+  onChange: (value: string) => void;
 };
 
-export const SelectBox: FC<SelectBoxProps> = ({ options, value = options[0].value, onChange }) => {
+export const SelectBox: FC<SelectBoxProps> = ({
+  options,
+  value = options[0].value,
+  onChange,
+}) => {
   const [selectedValue, setSelectedValue] = useState<string>(value);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
     onChange(event.target.value);
-  }
+  };
 
   return (
     <StyledSelect value={selectedValue} onChange={handleChange}>
@@ -31,4 +35,4 @@ export const SelectBox: FC<SelectBoxProps> = ({ options, value = options[0].valu
 
 const StyledSelect = styled.select`
   width: 130px;
-`
+`;

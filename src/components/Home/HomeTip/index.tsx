@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface HomeTipProps {
   text: string;
@@ -6,16 +6,16 @@ interface HomeTipProps {
   left?: string;
 }
 
-export const HomeTip = ({text, top="0px", left="0px"}: HomeTipProps) => {
+export const HomeTip = ({ text, top = '0px', left = '0px' }: HomeTipProps) => {
   return (
     <TipText top={top} left={left}>
       <Text>{text}</Text>
     </TipText>
-  )
-}
+  );
+};
 
-const TipText = styled.span<{top: string, left: string}>`
-  background-color: #D9D9D9;
+const TipText = styled.span<{ top: string; left: string }>`
+  background-color: #d9d9d9;
   text-align: start;
   border-radius: 2px;
   padding: 5px;
@@ -24,21 +24,20 @@ const TipText = styled.span<{top: string, left: string}>`
   left: ${(props) => props.left};
 
   &:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
-    
 
     right: 40px;
     margin-left: -5px;
     border-width: 10px;
     border-style: solid;
-    border-color: #D9D9D9 transparent transparent transparent;
+    border-color: #d9d9d9 transparent transparent transparent;
   }
-`
+`;
 
 const Text = styled.span`
   font-size: 1rem;
   text-align: start;
   color: #797979;
-`
+`;

@@ -1,5 +1,5 @@
-import { Fragment, memo } from "react";
-import SunLight from "./SunLight";
+import { Fragment, memo } from 'react';
+import SunLight from './SunLight';
 
 const Lighting = () => {
   return (

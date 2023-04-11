@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { SetStateAction } from "react";
+import styled from 'styled-components';
 
 interface InputProps {
   type: string;

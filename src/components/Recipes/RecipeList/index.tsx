@@ -1,33 +1,30 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 interface RecipeListProps {
-  recipes:
-    {
-      image: string,
-      topic: string, 
-      name: string,
-      content: string, 
-      creator: string,
-      lastModified: string
-    }[]
+  recipes: {
+    image: string;
+    topic: string;
+    name: string;
+    content: string;
+    creator: string;
+    lastModified: string;
+  }[];
 }
 
-export const RecipeList = ({recipes} : RecipeListProps) => {
+export const RecipeList = ({ recipes }: RecipeListProps) => {
   return (
     <Container>
-      {
-        recipes.map((recipe, index) => (
-          <div className="recipe-item" key={index}>
-            <Link to="./recipe1">
-              <img src={recipe.image} placeholder="recipe"/>
-              <p className="topic-text">{recipe.topic} </p>
-              <p className="name-text">{recipe.name} </p>
-              <p className="content-text">{recipe.content} </p>
-            </Link>
-          </div>
-        ))
-      }
+      {recipes.map((recipe, index) => (
+        <div className="recipe-item" key={index}>
+          <Link to="./recipe1">
+            <img src={recipe.image} placeholder="recipe" />
+            <p className="topic-text">{recipe.topic} </p>
+            <p className="name-text">{recipe.name} </p>
+            <p className="content-text">{recipe.content} </p>
+          </Link>
+        </div>
+      ))}
     </Container>
   );
 };

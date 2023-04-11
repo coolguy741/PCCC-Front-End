@@ -1,19 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
-import { LanguageChooser } from "../../../components/Global/LanguageChooser";
-import { useState } from "react";
-import { CenterAlignedContainer, LeftAlignedContainer } from "../../../components/Global/Container";
-import { ActivityContent } from "../../../components/Activities/ActivityContent";
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { ActivityContent } from '../../../components/Activities/ActivityContent';
+import { Button } from '../../../components/Global/Button';
+import {
+  CenterAlignedContainer,
+  LeftAlignedContainer,
+} from '../../../components/Global/Container';
+import { LanguageChooser } from '../../../components/Global/LanguageChooser';
 
 export const ActivitiesPreviewPage = () => {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState('en');
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <PageContainer>
@@ -21,9 +23,9 @@ export const ActivitiesPreviewPage = () => {
         <Button onClick={handleBack}>Back</Button>
       </LeftAlignedContainer>
       <CenterAlignedContainer>
-        <LanguageChooser lang={lang} setLang={setLang}/>
+        <LanguageChooser lang={lang} setLang={setLang} />
       </CenterAlignedContainer>
-      <ActivityContent/>
+      <ActivityContent />
     </PageContainer>
   );
 };
@@ -33,5 +35,3 @@ const PageContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
-
-

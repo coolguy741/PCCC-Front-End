@@ -1,43 +1,60 @@
-import styled from "styled-components";
-import { Bold, Text, UpperCase } from "../Text";
-import React, { useState } from "react";
-
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Bold, Text, UpperCase } from '../Text';
 
 interface CardProps {
-  id: number,
-  isSelected: boolean,
-  image : string,
-  alt ?: string,
-  topic ?: string,
-  date ?: string,
-  title: string,
-  description: string,
-  onSelectionChange: (id: number, isSelected: boolean) => void
+  id: number;
+  isSelected: boolean;
+  image: string;
+  alt?: string;
+  topic?: string;
+  date?: string;
+  title: string;
+  description: string;
+  onSelectionChange: (id: number, isSelected: boolean) => void;
 }
 
-export const Card = ({id, image, isSelected = false, alt="card", topic = "", date = "", title, description, onSelectionChange }: CardProps) => {
+export const Card = ({
+  id,
+  image,
+  isSelected = false,
+  alt = 'card',
+  topic = '',
+  date = '',
+  title,
+  description,
+  onSelectionChange,
+}: CardProps) => {
   const [isChecked, setIsChecked] = useState(isSelected);
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked);
-    console.log("Checked", event.target.checked);
+    console.log('Checked', event.target.checked);
     onSelectionChange(id, event.target.checked);
-  }
-  
+  };
+
   return (
     <Container>
-      <img src={image} alt={alt}/>
-      {
-      topic != "" && 
-      <Text size="sm"><UpperCase>Topic: {topic}</UpperCase></Text>
-      }
-      {
-      date != "" && 
-      <Text size="sm"><UpperCase>{date}</UpperCase></Text>
-      }
-      <Text><Bold>{title}</Bold></Text>
+      <img src={image} alt={alt} />
+      {topic != '' && (
+        <Text size="sm">
+          <UpperCase>Topic: {topic}</UpperCase>
+        </Text>
+      )}
+      {date != '' && (
+        <Text size="sm">
+          <UpperCase>{date}</UpperCase>
+        </Text>
+      )}
+      <Text>
+        <Bold>{title}</Bold>
+      </Text>
       <Text size="sm">{description}</Text>
-      <CheckboxInput checked={isChecked} onChange={handleCheckBoxChange} onClick={(event) => event.stopPropagation()}/>
+      <CheckboxInput
+        checked={isChecked}
+        onChange={handleCheckBoxChange}
+        onClick={(event) => event.stopPropagation()}
+      />
     </Container>
   );
 };
@@ -62,4 +79,4 @@ const CheckboxInput = styled.input.attrs({ type: 'checkbox' })`
   width: 35px;
   height: 35px;
   transition: all 0.3s ease-in-out;
-`
+`;

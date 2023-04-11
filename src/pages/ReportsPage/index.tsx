@@ -1,16 +1,16 @@
-import { useMemo } from "react";
-import { useMatch } from "react-router-dom";
-import styled from "styled-components";
+import { useMemo } from 'react';
+import { useMatch } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { PageHeader } from "../../components/Global/Header/PageHeader";
-import { ReportActions } from "../../components/Reports/Actions";
-import { ReportAssessment } from "../../components/Reports/Assessment";
-import { ReportAssessmentPreview } from "../../components/Reports/Assessment/Preview";
-import { ReportImpact } from "../../components/Reports/Impact";
-import { ReportImpactPreview } from "../../components/Reports/Impact/Preview";
-import { ReportsTabs } from "../../components/Reports/Tabs";
+import { PageHeader } from '../../components/Global/Header/PageHeader';
+import { ReportActions } from '../../components/Reports/Actions';
+import { ReportAssessment } from '../../components/Reports/Assessment';
+import { ReportAssessmentPreview } from '../../components/Reports/Assessment/Preview';
+import { ReportImpact } from '../../components/Reports/Impact';
+import { ReportImpactPreview } from '../../components/Reports/Impact/Preview';
+import { ReportsTabs } from '../../components/Reports/Tabs';
 
-const tabs = ["assessment", "impact-qa"];
+const tabs = ['assessment', 'impact-qa'];
 
 const mainComponents = [<ReportAssessment />, <ReportImpact />];
 const previewComponents = [
@@ -19,11 +19,11 @@ const previewComponents = [
 ];
 
 export const ReportsPage = () => {
-  const mainMatch = useMatch("/dashboard/reports/:slug");
-  const previewMatch = useMatch("/dashboard/reports/:slug/preview");
+  const mainMatch = useMatch('/dashboard/reports/:slug');
+  const previewMatch = useMatch('/dashboard/reports/:slug/preview');
 
   const tabIndex = useMemo(() => {
-    const tab = (mainMatch ?? previewMatch)?.params?.slug ?? "assessment";
+    const tab = (mainMatch ?? previewMatch)?.params?.slug ?? 'assessment';
 
     return tabs.indexOf(tab);
   }, [mainMatch, previewMatch]);

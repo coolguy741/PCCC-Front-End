@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { RecipeContent } from "../../../components/Recipes/RecipeContent";
+import styled from 'styled-components';
+import { RecipeContent } from '../../../components/Recipes/RecipeContent';
 
 export const RecipePrintPage = () => {
   return (

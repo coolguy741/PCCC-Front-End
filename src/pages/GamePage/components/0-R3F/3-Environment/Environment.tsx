@@ -1,8 +1,8 @@
 // import { Sky } from "@react-three/drei";
-import { Fragment, memo } from "react";
-import EnvironmentMap from "./EnvironmentMap";
-import Lighting from "./Lighting/Lighting";
-import Shadows from "./Shadows";
+import { Fragment, memo } from 'react';
+import EnvironmentMap from './EnvironmentMap';
+import Lighting from './Lighting/Lighting';
+import Shadows from './Shadows';
 
 const Environment = () => {
   return (

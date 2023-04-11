@@ -1,11 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const BasicComponent = () => {
-  return (
-    <Container>
-      edit content here
-    </Container>
-  );
+  return <Container>edit content here</Container>;
 };
 
 const Container = styled.div`

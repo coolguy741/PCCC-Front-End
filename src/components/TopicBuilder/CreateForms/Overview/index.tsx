@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Uploader } from "../../Uploader";
+import { Uploader } from '../../Uploader';
 
 export const OverviewForm = () => {
   return (

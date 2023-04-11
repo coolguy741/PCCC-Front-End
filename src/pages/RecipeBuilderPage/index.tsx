@@ -1,15 +1,14 @@
-import styled from "styled-components";
-import { RecipesHeader } from "../../components/Recipes/RecipesHeader";
+import styled from 'styled-components';
+import { RecipesHeader } from '../../components/Recipes/RecipesHeader';
 
 interface RecipesBuilderPageProps {
   children: JSX.Element;
 }
 
 export const RecipesBuilderPage = ({ children }: RecipesBuilderPageProps) => {
-
   return (
     <Container>
-      <RecipesHeader/>
+      <RecipesHeader />
       <div className="content">{children}</div>
     </Container>
   );

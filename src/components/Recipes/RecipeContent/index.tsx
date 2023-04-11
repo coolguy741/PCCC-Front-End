@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import mockData from "../../../lib/mockData/recipes/recipePreview.json";
+import styled from 'styled-components';
+import mockData from '../../../lib/mockData/recipes/recipePreview.json';
 
 export const RecipeContent = () => {
   return (
     <PageContainer>
       <h2>{mockData.name}</h2>
-      <h3>{"Servering Size : " + mockData.serveringSize}</h3>
+      <h3>{'Servering Size : ' + mockData.serveringSize}</h3>
       <CenterAlignedContainer>
-        <img src={mockData.image} placeholder="recipe"/>
+        <img src={mockData.image} placeholder="recipe" />
       </CenterAlignedContainer>
       <TwoColumnContainer>
         <div className="first-child">
@@ -39,23 +39,23 @@ const PageContainer = styled.div`
 
 const CenterAlignedContainer = styled.div`
   display: flex;
-  justify-content:center;
-`
+  justify-content: center;
+`;
 
 const TwoColumnContainer = styled.div`
   width: 100%;
   display: flex;
   gap: 20px;
 
-  .first-child{
+  .first-child {
     width: 30%;
   }
 
-  .second-child{
+  .second-child {
     width: 60%;
   }
-`
+`;
 const Text = styled.p`
   font-size: 1rem;
   margin: 0px;
-`
+`;

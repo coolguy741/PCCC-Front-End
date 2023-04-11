@@ -1,32 +1,32 @@
-import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
-import { useNavigate } from "react-router-dom";
-import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment.json";
-import { Text } from "../../../components/Global/Text";
-import { MealtimeMomentTip } from "../../../components/MealtimeMoment/MealtimeMomentTip";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button } from '../../../components/Global/Button';
+import { Text } from '../../../components/Global/Text';
+import { MealtimeMomentTip } from '../../../components/MealtimeMoment/MealtimeMomentTip';
+import mockData from '../../../lib/mockData/mealtime-moments/mealtime-moment.json';
 
 export const MealTimeMomentPage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   const handleAddToCalendar = () => {
-    alert("AddToCalendar");
-  }
+    alert('AddToCalendar');
+  };
 
   const handleEdit = () => {
-    navigate("./edit");
-  }
+    navigate('./edit');
+  };
 
   const handlePublish = () => {
-    alert("Publish");
-  }
+    alert('Publish');
+  };
 
   const handlePrint = () => {
-    navigate("./print");
-  }
+    navigate('./print');
+  };
 
   return (
     <PageContainer>
@@ -42,7 +42,7 @@ export const MealTimeMomentPage = () => {
       <h2>{mockData.title}</h2>
       <Content>
         <Text>{mockData.overview}</Text>
-        <StyledImage src={mockData.image} alt={mockData.alt}/> 
+        <StyledImage src={mockData.image} alt={mockData.alt} />
       </Content>
       <MealtimeMomentTip />
     </PageContainer>
@@ -53,23 +53,22 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`
+`;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const RightButtonGroup = styled.div`
   display: flex;
   gap: 20px;
-`
+`;
 
 const Content = styled.div`
   display: flex;
   gap: 50px;
-`
+`;
 
-const StyledImage = styled.img`
-`
+const StyledImage = styled.img``;

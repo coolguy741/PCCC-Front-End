@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface Props {
   tabs: string[];
@@ -19,12 +19,12 @@ export const TopicSlider: React.FC<Props> = ({
         <>
           {tabs.map((tab, index) => (
             <span
-              className={`slider-mark ${index < tabIndex ? "pass" : ""}`}
+              className={`slider-mark ${index < tabIndex ? 'pass' : ''}`}
               key={`tab-${tab}`}
             >
               {withLabel && (
                 <span className="slider-label" key={`label-${tab}`}>
-                  {tab.replaceAll("-", " ")}
+                  {tab.replaceAll('-', ' ')}
                 </span>
               )}
             </span>
@@ -44,7 +44,7 @@ const Slider = styled.div.attrs(
     min: props.min || 0,
     max: props.max || 1,
     value: props.value || 0,
-  })
+  }),
 )`
   display: flex;
   position: relative;

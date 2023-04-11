@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { PrintLogo } from "../Logo/Print";
+import { PrintLogo } from '../Logo/Print';
 
 export const PrintHeader = () => {
   return (
@@ -28,6 +28,6 @@ const StyledHeader = styled.header`
     color: #ffffff;
     font-weight: 800;
     font-size: 19px;
-    font-family: "Open Sans";
+    font-family: 'Open Sans';
   }
 `;
