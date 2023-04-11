@@ -9,11 +9,11 @@ export const Text = styled.p<TextProps>`
   font-style: normal;
   letter-spacing: 0.02em;
   font-size: ${({ size = '1rem' }) =>
-    size == 'lg'
+    size === 'lg'
       ? '1.2rem'
-      : size == 'md'
+      : size === 'md'
       ? '1rem'
-      : size == 'sm'
+      : size === 'sm'
       ? '0.8rem'
       : '1rem'};
   margin: 0px;

@@ -36,7 +36,7 @@ export const EventForm: React.FC<Props> = ({ eventType, addEvent }) => {
   };
 
   return (
-    <Container eventType={eventType}>
+    <Style.Container eventType={eventType}>
       <div className="form-body">
         <div className="form-title">{eventType.value?.replace('-', ' ')}</div>
         <div>
@@ -109,30 +109,32 @@ export const EventForm: React.FC<Props> = ({ eventType, addEvent }) => {
         </div>
         <Button onClick={handleAddEvent}>Add</Button>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div.attrs((props: { eventType: EventType }) => ({
-  eventType: props.eventType,
-}))`
-  .form-body {
-    display: grid;
-    grid-template-columns: 1.5fr 2fr;
+const Style = {
+  Container: styled.div.attrs((props: { eventType: EventType }) => ({
+    eventType: props.eventType,
+  }))`
+    .form-body {
+      display: grid;
+      grid-template-columns: 1.5fr 2fr;
 
-    & .form-title {
-      text-transform: capitalize;
+      & .form-title {
+        text-transform: capitalize;
+      }
+
+      & label {
+        text-transform: capitalize;
+      }
     }
 
-    & label {
-      text-transform: capitalize;
+    .form-footer {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 3fr 1fr;
+      align-items: end;
     }
-  }
-
-  .form-footer {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 3fr 1fr;
-    align-items: end;
-  }
-`;
+  `,
+};

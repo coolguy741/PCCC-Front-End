@@ -13,45 +13,46 @@ export const Achievement = ({
   progressValue = -1,
 }: AchievementProps) => {
   return (
-    <StyledAchievement>
-      <IconContainer>
+    <Style.StyledAchievement>
+      <Style.IconContainer>
         <Icon name="badge" />
-      </IconContainer>
+      </Style.IconContainer>
       <div>
-        <Text>
-          <Bold>{title}</Bold>
-        </Text>
-        <Text>{content}</Text>
+        <Style.Text>
+          <Style.Bold>{title}</Style.Bold>
+        </Style.Text>
+        <Style.Text>{content}</Style.Text>
       </div>
-      {progressValue !== -1 && <ProgressBar value={progressValue} max="1" />}
-    </StyledAchievement>
+      {progressValue !== -1 && (
+        <Style.ProgressBar value={progressValue} max="1" />
+      )}
+    </Style.StyledAchievement>
   );
 };
 
-const StyledAchievement = styled.div`
-  background-color: #d9d9d9;
-  padding: 13px 74px 13px 20px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-`;
-
-const IconContainer = styled.div`
-  width: 50px;
-  height: 50px;
-`;
-const Bold = styled.span`
-  font-weight: 700;
-  font-size: 1.2rem;
-`;
-
-const Text = styled.p`
-  font-size: 1rem;
-  margin: 0px;
-`;
-
-const ProgressBar = styled.progress`
-  height: 20px;
-  min-width: 300px;
-  border-radius: 0px;
-`;
+const Style = {
+  StyledAchievement: styled.div`
+    background-color: #d9d9d9;
+    padding: 13px 74px 13px 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  `,
+  IconContainer: styled.div`
+    width: 50px;
+    height: 50px;
+  `,
+  Bold: styled.span`
+    font-weight: 700;
+    font-size: 1.2rem;
+  `,
+  Text: styled.p`
+    font-size: 1rem;
+    margin: 0px;
+  `,
+  ProgressBar: styled.progress`
+    height: 20px;
+    min-width: 300px;
+    border-radius: 0px;
+  `,
+};

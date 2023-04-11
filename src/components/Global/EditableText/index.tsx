@@ -23,7 +23,7 @@ export const EditableText: React.FC<Props> = ({ text }) => {
   };
 
   return (
-    <Container>
+    <Style.Container>
       {isEditing ? (
         <>
           <input type="text" value={editedText} onChange={handleTextChange} />
@@ -35,24 +35,26 @@ export const EditableText: React.FC<Props> = ({ text }) => {
           <SmallButton onClick={handleEditClick}>Edit</SmallButton>
         </>
       )}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  padding: 20px;
-  background-color: #c4c4c4;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+const Style = {
+  Container: styled.div`
+    padding: 20px;
+    background-color: #c4c4c4;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-  textarea: {
-    flex-grow: 1;
-  }
+    textarea: {
+      flex-grow: 1;
+    }
 
-  p {
-    margin: 0;
-    padding: 0;
-  }
-`;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  `,
+};

@@ -3,5 +3,5 @@ interface LogoProps {
 }
 
 export const PrintLogo = ({ width = 80 }: LogoProps) => {
-  return <img src="/images/logo-print.svg" width={width} />;
+  return <img src="/images/logo-print.svg" alt="logo print" width={width} />;
 };

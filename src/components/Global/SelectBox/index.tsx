@@ -23,16 +23,18 @@ export const SelectBox: FC<SelectBoxProps> = ({
   };
 
   return (
-    <StyledSelect value={selectedValue} onChange={handleChange}>
+    <Style.Select value={selectedValue} onChange={handleChange}>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}
         </option>
       ))}
-    </StyledSelect>
+    </Style.Select>
   );
 };
 
-const StyledSelect = styled.select`
-  width: 130px;
-`;
+const Style = {
+  Select: styled.select`
+    width: 130px;
+  `,
+};

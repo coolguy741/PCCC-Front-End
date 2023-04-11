@@ -52,7 +52,7 @@ export const FileUploader: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Style.Container>
       <div className="thumbnail-container">
         {fileList.map((fileItem) => (
           <div
@@ -85,7 +85,7 @@ export const FileUploader: React.FC = () => {
       </div>
       <div className="button-container">
         <label>
-          <HiddenInput
+          <Style.HiddenInput
             type="file"
             accept="image/*,video/*"
             ref={fileInputRef}
@@ -94,26 +94,27 @@ export const FileUploader: React.FC = () => {
           <SmallButton onClick={handleUploadClick}>Upload</SmallButton>
         </label>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const HiddenInput = styled.input`
-  display: none;
-`;
+const Style = {
+  HiddenInput: styled.input`
+    display: none;
+  `,
+  Container: styled.div`
+    background-color: #c4c4c4;
+    padding: 20px;
 
-const Container = styled.div`
-  background-color: #c4c4c4;
-  padding: 20px;
+    .thumbnail-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 
-  .thumbnail-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .button-container {
-    display: flex;
-    justify-content: end;
-  }
-`;
+    .button-container {
+      display: flex;
+      justify-content: end;
+    }
+  `,
+};

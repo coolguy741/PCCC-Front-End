@@ -14,7 +14,7 @@ export const Photo = ({
   width = '100%',
 }: PhotoProps) => {
   return (
-    <Container size={width}>
+    <Style.Container size={width}>
       <img className="image" src={src} alt={alt} width={width} height={width} />
       {role !== 'Admin' && (
         <img
@@ -27,23 +27,25 @@ export const Photo = ({
           alt="Role-Icon"
         />
       )}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div<{ size: string }>`
-  position: relative;
-  width: ${(props) => props.size};
-  height: ${(props) => props.size};
+const Style = {
+  Container: styled.div<{ size: string }>`
+    position: relative;
+    width: ${(props) => props.size};
+    height: ${(props) => props.size};
 
-  .image {
-    border: none;
-    border-radius: 50%;
-  }
+    .image {
+      border: none;
+      border-radius: 50%;
+    }
 
-  .icon {
-    position: absolute;
-    top: 70%;
-    left: 8%;
-  }
-`;
+    .icon {
+      position: absolute;
+      top: 70%;
+      left: 8%;
+    }
+  `,
+};

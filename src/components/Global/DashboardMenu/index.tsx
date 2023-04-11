@@ -25,7 +25,7 @@ export const DashboardMenu = () => {
   } = usePathName();
 
   return (
-    <MenuContainer>
+    <Style.MenuContainer>
       <div className="logo-container">
         <Link to="/">
           <Logo height={55} />
@@ -98,62 +98,64 @@ export const DashboardMenu = () => {
           <div className={`item ${isCloudDrive && 'active'}`}>Cloud Drive</div>
         </Link>
       </div>
-    </MenuContainer>
+    </Style.MenuContainer>
   );
 };
 
-const MenuContainer = styled.div`
-  position: fixed;
-  width: 350px;
-  height: 100vh;
-  background-color: var(--yellow);
-  border-radius: 0 35px 35px 0;
-  padding: 30px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
-  box-shadow: 3px 0px 13px rgba(0, 0, 0, 0.15);
-  box-sizing: border-box;
-
-  .logo-container {
-    padding-left: 30px;
-  }
-
-  .item-container {
+const Style = {
+  MenuContainer: styled.div`
+    position: fixed;
+    width: 350px;
+    height: 100vh;
+    background-color: var(--yellow);
+    border-radius: 0 35px 35px 0;
+    padding: 30px 0;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 100px;
+    box-shadow: 3px 0px 13px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 
-    .drop-down {
-      display: none;
+    .logo-container {
+      padding-left: 30px;
+    }
 
-      &.open {
-        display: flex;
-        flex-direction: column;
+    .item-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .drop-down {
+        display: none;
+
+        &.open {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .item {
+          padding-left: 3rem;
+        }
       }
 
       .item {
-        padding-left: 3rem;
-      }
-    }
-
-    .item {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #fff;
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      padding: 5px 0;
-      transition: 0.3s all ease-in-out;
-      padding-left: 30px;
-      cursor: pointer;
-      user-select: none;
-
-      &.active {
-        background-color: var(--orange);
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 5px 0;
         transition: 0.3s all ease-in-out;
+        padding-left: 30px;
+        cursor: pointer;
+        user-select: none;
+
+        &.active {
+          background-color: var(--orange);
+          transition: 0.3s all ease-in-out;
+        }
       }
     }
-  }
-`;
+  `,
+};

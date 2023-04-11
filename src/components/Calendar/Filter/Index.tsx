@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CalendarFilter = () => {
   return (
-    <Container>
+    <Style.Container>
       <div className="filter-group">
         <div>
           <input type="checkbox" defaultChecked={true} />
@@ -32,21 +32,23 @@ export const CalendarFilter = () => {
           <label>Recipes</label>
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-  & .filter-group {
-    padding: 10px;
-    background: #d9d9d9;
-  }
+    & .filter-group {
+      padding: 10px;
+      background: #d9d9d9;
+    }
 
-  & .event-groups {
-    text-align: right;
-  }
-`;
+    & .event-groups {
+      text-align: right;
+    }
+  `,
+};

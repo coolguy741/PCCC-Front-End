@@ -34,14 +34,14 @@ export const Card = ({
   };
 
   return (
-    <Container>
+    <Style.Container>
       <img src={image} alt={alt} />
-      {topic != '' && (
+      {topic !== '' && (
         <Text size="sm">
           <UpperCase>Topic: {topic}</UpperCase>
         </Text>
       )}
-      {date != '' && (
+      {date !== '' && (
         <Text size="sm">
           <UpperCase>{date}</UpperCase>
         </Text>
@@ -50,33 +50,34 @@ export const Card = ({
         <Bold>{title}</Bold>
       </Text>
       <Text size="sm">{description}</Text>
-      <CheckboxInput
+      <Style.CheckboxInput
         checked={isChecked}
         onChange={handleCheckBoxChange}
         onClick={(event) => event.stopPropagation()}
       />
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 190px;
-  position: relative;
-`;
-
-const CheckboxInput = styled.input.attrs({ type: 'checkbox' })`
-  z-index: 50;
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  width: 35px;
-  height: 35px;
-  transition: all 0.3s ease-in-out;
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 190px;
+    position: relative;
+  `,
+  CheckboxInput: styled.input.attrs({ type: 'checkbox' })`
+    z-index: 50;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    width: 35px;
+    height: 35px;
+    transition: all 0.3s ease-in-out;
+  `,
+};

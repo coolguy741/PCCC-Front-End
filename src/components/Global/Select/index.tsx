@@ -8,13 +8,15 @@ interface SelectProps {
 
 export const Select = ({ placeholder, onChange, value }: SelectProps) => {
   return (
-    <StyledSelect placeholder={placeholder} onChange={onChange} value={value} />
+    <Style.Select placeholder={placeholder} onChange={onChange} value={value} />
   );
 };
 
-const StyledSelect = styled.select`
-  padding: 1rem;
-  border: none;
-  border-radius: 0.2rem;
-  width: 300px;
-`;
+const Style = {
+  Select: styled.select`
+    padding: 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    width: 300px;
+  `,
+};

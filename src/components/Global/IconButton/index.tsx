@@ -15,20 +15,22 @@ export const IconButton = ({
   onClick,
 }: ButtonProps) => {
   return (
-    <StyledButton onClick={onClick} width={width} height={height}>
+    <Style.Button onClick={onClick} width={width} height={height}>
       <Icon name={icon} />
-    </StyledButton>
+    </Style.Button>
   );
 };
 
-const StyledButton = styled.button<{ width?: number; height?: number }>`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  width: ${(props) => props.width ?? 32}px;
-  height: ${(props) => props.height ?? 32}px;
-`;
+const Style = {
+  Button: styled.button<{ width?: number; height?: number }>`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: ${(props) => props.width ?? 32}px;
+    height: ${(props) => props.height ?? 32}px;
+  `,
+};

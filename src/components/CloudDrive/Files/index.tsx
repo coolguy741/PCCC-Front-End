@@ -19,7 +19,7 @@ const files = [
 
 export const Files = () => {
   return (
-    <Container>
+    <Style.Container>
       <RecentFiles />
       <div className="flex items-center justify-between">
         <h4>Files</h4>
@@ -51,25 +51,27 @@ export const Files = () => {
           ))}
         </tbody>
       </table>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-  .files-table {
-    width: 100%;
-    tr {
-      th {
-        text-align: left;
-      }
+    .files-table {
+      width: 100%;
+      tr {
+        th {
+          text-align: left;
+        }
 
-      td:last-child {
-        text-align: right;
+        td:last-child {
+          text-align: right;
+        }
       }
     }
-  }
-`;
+  `,
+};

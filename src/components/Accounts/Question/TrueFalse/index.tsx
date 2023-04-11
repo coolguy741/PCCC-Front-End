@@ -10,7 +10,7 @@ export const TrueFalseQuestion = () => {
   };
 
   return (
-    <Container>
+    <Style.Container>
       <div>
         <input
           type="radio"
@@ -33,14 +33,16 @@ export const TrueFalseQuestion = () => {
         />
         <label htmlFor="false">False</label>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
+const Style = {
+  Container: styled.div`
+    display: flex;
 
-  div {
-    margin-right: 20px;
-  }
-`;
+    div {
+      margin-right: 20px;
+    }
+  `,
+};

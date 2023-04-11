@@ -9,7 +9,7 @@ interface InputProps {
 
 export const Input = ({ type, placeholder, onChange, value }: InputProps) => {
   return (
-    <StyledInput
+    <Style.Input
       type={type}
       placeholder={placeholder}
       onChange={onChange}
@@ -18,9 +18,11 @@ export const Input = ({ type, placeholder, onChange, value }: InputProps) => {
   );
 };
 
-const StyledInput = styled.input`
-  padding: 1rem;
-  border: none;
-  border-radius: 0.2rem;
-  width: 300px;
-`;
+const Style = {
+  Input: styled.input`
+    padding: 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    width: 300px;
+  `,
+};

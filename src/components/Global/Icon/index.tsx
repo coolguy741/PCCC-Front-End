@@ -7,7 +7,7 @@ interface IconProps {
 
 export const Icon = ({ name, width = '100%' }: IconProps) => {
   return (
-    <StyledIcon
+    <Style.Icon
       src={`/images/${name}-icon.svg`}
       className={name}
       placeholder="icon"
@@ -16,4 +16,6 @@ export const Icon = ({ name, width = '100%' }: IconProps) => {
   );
 };
 
-const StyledIcon = styled.img``;
+const Style = {
+  Icon: styled.img``,
+};

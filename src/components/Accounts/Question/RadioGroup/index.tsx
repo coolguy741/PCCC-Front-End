@@ -15,7 +15,7 @@ export const RadioGropQuestion = ({
   };
 
   return (
-    <Container>
+    <Style.Container>
       {optionContent.map((value, index) => (
         <div key={index}>
           <input
@@ -29,14 +29,16 @@ export const RadioGropQuestion = ({
           <label htmlFor={`option-${index}`}>{value}</label>
         </div>
       ))}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  margin: 10px 0px;
+const Style = {
+  Container: styled.div`
+    margin: 10px 0px;
 
-  div {
-    display: flex;
-  }
-`;
+    div {
+      display: flex;
+    }
+  `,
+};

@@ -20,7 +20,7 @@ export const JoinGroupModal = ({
   onClose,
 }: JoinGroupModalProps) => {
   return (
-    <Modal>
+    <Style.Modal>
       <h3>Join Group</h3>
       <p className="bold-text">{groupName}</p>
       <p className="text">{'Creator: ' + creator + ' (' + role + ' User)'}</p>
@@ -34,23 +34,25 @@ export const JoinGroupModal = ({
       <div className="button-container">
         <IconButton icon="close" onClick={onClose} width={25} height={25} />
       </div>
-    </Modal>
+    </Style.Modal>
   );
 };
 
-const Modal = styled.div`
-  background-color: white;
-  padding: 20px;
-  position: relative;
+const Style = {
+  Modal: styled.div`
+    background-color: white;
+    padding: 20px;
+    position: relative;
 
-  .input-container {
-    display: flex;
-    justify-content: space-between;
-  }
+    .input-container {
+      display: flex;
+      justify-content: space-between;
+    }
 
-  .button-container {
-    position: absolute;
-    top: 30px;
-    right: 20px;
-  }
-`;
+    .button-container {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+    }
+  `,
+};

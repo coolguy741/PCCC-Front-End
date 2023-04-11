@@ -12,7 +12,7 @@ interface GroupInvitationCardProps {
 
 export const GroupInvitationCard = ({ data }: GroupInvitationCardProps) => {
   return (
-    <Container>
+    <Style.Container>
       <div className="invitation-container">
         <p className="bold-big-text">{data.groupName}</p>
         <p className="text">Creator: {data.creator}</p>
@@ -36,38 +36,40 @@ export const GroupInvitationCard = ({ data }: GroupInvitationCardProps) => {
           )}
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  .invitation-container {
-    margin: 20px 0px;
-    color: #797979;
+const Style = {
+  Container: styled.div`
+    .invitation-container {
+      margin: 20px 0px;
+      color: #797979;
 
-    .bold-big-text {
-      padding: 0px;
-      margin: 0px;
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-
-    .text {
-      padding: 0px;
-      margin: 0px;
-      font-size: 1 rem;
-      font-weight: 400;
-    }
-
-    .status-container {
-      display: flex;
-      color: black;
-      justify-content: space-between;
-
-      p {
+      .bold-big-text {
         padding: 0px;
         margin: 0px;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .text {
+        padding: 0px;
+        margin: 0px;
+        font-size: 1 rem;
+        font-weight: 400;
+      }
+
+      .status-container {
+        display: flex;
+        color: black;
+        justify-content: space-between;
+
+        p {
+          padding: 0px;
+          margin: 0px;
+        }
       }
     }
-  }
-`;
+  `,
+};

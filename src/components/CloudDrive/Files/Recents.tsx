@@ -15,7 +15,7 @@ const recentFiles = [
 
 export const RecentFiles = () => {
   return (
-    <Container>
+    <Style.Container>
       <h4>Recents</h4>
       <div className="recent-files-list">
         {recentFiles.map((file, index) => (
@@ -25,58 +25,60 @@ export const RecentFiles = () => {
           </div>
         ))}
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  & {
-    .recent-files-list {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 2rem;
-
-      & > div {
-        display: flex;
-        flex-direction: column;
+const Style = {
+  Container: styled.div`
+    & {
+      .recent-files-list {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
         gap: 2rem;
-        background: #d9d9d9;
-        padding: 2rem;
 
-        img {
-          margin: auto;
+        & > div {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          background: #d9d9d9;
+          padding: 2rem;
+
+          img {
+            margin: auto;
+          }
         }
       }
-    }
 
-    @media only screen and (max-width: 1600px) {
-      .recent-files-list {
-        grid-template-columns: repeat(5, 1fr);
+      @media only screen and (max-width: 1600px) {
+        .recent-files-list {
+          grid-template-columns: repeat(5, 1fr);
+        }
+      }
+
+      @media only screen and (max-width: 1400px) {
+        .recent-files-list {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media only screen and (max-width: 1200px) {
+        .recent-files-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media only screen and (max-width: 1000px) {
+        .recent-files-list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
       }
     }
-
-    @media only screen and (max-width: 1400px) {
-      .recent-files-list {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    @media only screen and (max-width: 1200px) {
-      .recent-files-list {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media only screen and (max-width: 1000px) {
-      .recent-files-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    h4 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-  }
-`;
+  `,
+};

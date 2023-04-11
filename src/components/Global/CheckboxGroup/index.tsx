@@ -22,7 +22,7 @@ export const CheckboxGroup = ({ options, onChange }: CheckboxGroupProps) => {
   };
 
   return (
-    <Container>
+    <Style.Container>
       {options.map(({ value, label }) => (
         <label key={value}>
           <input
@@ -34,15 +34,17 @@ export const CheckboxGroup = ({ options, onChange }: CheckboxGroupProps) => {
           <span className="text">{label}</span>
         </label>
       ))}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
 
-  .text {
-    padding-left: 0.5rem;
-  }
-`;
+    .text {
+      padding-left: 0.5rem;
+    }
+  `,
+};
