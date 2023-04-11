@@ -20,34 +20,34 @@ export const ActivityPage = () => {
   };
 
   return (
-    <PageContainer>
-      <ButtonGroup>
+    <Style.PageContainer>
+      <Style.ButtonGroup>
         <Button onClick={handleBack}>Back</Button>
-        <SubButtonGroup>
+        <Style.SubButtonGroup>
           <Button onClick={handleEdit}>Edit</Button>
           <Button onClick={handlePrint}>Print</Button>
-        </SubButtonGroup>
-      </ButtonGroup>
+        </Style.SubButtonGroup>
+      </Style.ButtonGroup>
       <ActivityContent />
       <ActivityTip activityLink1="#" activityLink2="#" />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const SubButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
+  SubButtonGroup: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  `,
+};

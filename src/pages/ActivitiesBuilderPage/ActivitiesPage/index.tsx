@@ -117,10 +117,10 @@ export const ActivitiesPage = () => {
   }, []);
 
   return (
-    <Container>
-      <InputContainer>
-        <SelectBoxGroup>
-          <SelectBoxContainer>
+    <Style.Container>
+      <Style.InputContainer>
+        <Style.SelectBoxGroup>
+          <Style.SelectBoxContainer>
             <Text>Filter</Text>
             <div style={{ gap: '20px', display: 'flex' }}>
               <SelectBox
@@ -132,23 +132,23 @@ export const ActivitiesPage = () => {
                 onChange={handleTopicChange}
               ></SelectBox>
             </div>
-          </SelectBoxContainer>
-          <SelectBoxContainer>
+          </Style.SelectBoxContainer>
+          <Style.SelectBoxContainer>
             <Text>Sort</Text>
             <SelectBox
               options={SortOptions}
               onChange={handleSortChange}
             ></SelectBox>
-          </SelectBoxContainer>
-        </SelectBoxGroup>
-        <ButtonGroup>
+          </Style.SelectBoxContainer>
+        </Style.SelectBoxGroup>
+        <Style.ButtonGroup>
           <SmallButton onClick={handleDeleteSelectedActivities}>
             Delete
           </SmallButton>
           <SmallButton onClick={handleCreate}>Create</SmallButton>
-        </ButtonGroup>
-      </InputContainer>
-      <CardsContainer>
+        </Style.ButtonGroup>
+      </Style.InputContainer>
+      <Style.CardsContainer>
         {mockData.activities.map((activity) => (
           <Link to="./activity">
             <Card
@@ -164,43 +164,40 @@ export const ActivitiesPage = () => {
             />
           </Link>
         ))}
-      </CardsContainer>
-    </Container>
+      </Style.CardsContainer>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-
-const CardsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-`;
-
-const SelectBoxContainer = styled.div`
-  select {
-    margin-top: 10px;
-  }
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
-
-const SelectBoxGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  CardsContainer: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  `,
+  InputContainer: styled.div`
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+  `,
+  SelectBoxContainer: styled.div`
+    select {
+      margin-top: 10px;
+    }
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  `,
+  SelectBoxGroup: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  `,
+};

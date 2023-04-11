@@ -25,7 +25,7 @@ export const AccountsGroupsPage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <div className="header-container">
         <div className="group-container">
           <div className="label">
@@ -79,80 +79,82 @@ export const AccountsGroupsPage = () => {
           />
         </ModalContainer>
       )}
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  .header-container {
-    margin-top: 10px;
+const Style = {
+  PageContainer: styled.div`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    .group-container {
+    .header-container {
+      margin-top: 10px;
       display: flex;
+      justify-content: space-between;
 
-      .label {
-        margin-right: 10px;
+      .group-container {
+        display: flex;
+
+        .label {
+          margin-right: 10px;
+        }
+      }
+
+      .button-container {
+        display: flex;
+        align-items: center;
+
+        Button {
+          margin-right: 10px;
+        }
       }
     }
 
-    .button-container {
+    .row {
       display: flex;
-      align-items: center;
 
-      Button {
-        margin-right: 10px;
+      .groups-container {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 0px;
+        margin-top: 80px;
+        padding: 0px;
+
+        .group-card-container {
+          width: 45%;
+
+          a {
+            &:hover,
+            &:visited {
+              text-decoration: none;
+            }
+          }
+        }
       }
-    }
-  }
 
-  .row {
-    display: flex;
+      .group-invitations-container {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        width: 20%;
 
-    .groups-container {
-      width: 80%;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 0px;
-      margin-top: 80px;
-      padding: 0px;
+        .title-text {
+          font-size: 1.2rem;
+        }
 
-      .group-card-container {
-        width: 45%;
+        .group-invitations {
+          border: 1px black solid;
+          padding: 10px;
 
-        a {
-          &:hover,
-          &:visited {
-            decoration: none;
+          .bold-big-text {
+            font-size: 1.1 rem;
+            font-weight: 700;
           }
         }
       }
     }
-
-    .group-invitations-container {
-      display: flex;
-      flex-direction: column;
-      margin: 10px;
-      width: 20%;
-
-      .title-text {
-        font-size: 1.2rem;
-      }
-
-      .group-invitations {
-        border: 1px black solid;
-        padding: 10px;
-
-        .bold-big-text {
-          font-size: 1.1 rem;
-          font-weight: 700;
-        }
-      }
-    }
-  }
-`;
+  `,
+};

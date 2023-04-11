@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { DashboardMenu } from '../../components/Global/DashboardMenu';
 import { useSearchResultsStore } from '../../stores/searchResultsStore';
 
+// TODO: NOBERT. Continue styled naming
+
 interface DashboardPageProps {
   children: JSX.Element;
 }

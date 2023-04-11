@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ActivityContent } from '../../../components/Activities/ActivityContent';
 import { Button } from '../../../components/Global/Button';
-import {
-  CenterAlignedContainer,
-  LeftAlignedContainer,
-} from '../../../components/Global/Container';
+import { AlignmentStyle } from '../../../components/Global/Container';
 import { LanguageChooser } from '../../../components/Global/LanguageChooser';
 
 export const ActivitiesPreviewPage = () => {
@@ -18,20 +15,22 @@ export const ActivitiesPreviewPage = () => {
   };
 
   return (
-    <PageContainer>
-      <LeftAlignedContainer>
+    <Style.PageContainer>
+      <AlignmentStyle.LeftAlignedContainer>
         <Button onClick={handleBack}>Back</Button>
-      </LeftAlignedContainer>
-      <CenterAlignedContainer>
+      </AlignmentStyle.LeftAlignedContainer>
+      <AlignmentStyle.CenterAlignedContainer>
         <LanguageChooser lang={lang} setLang={setLang} />
-      </CenterAlignedContainer>
+      </AlignmentStyle.CenterAlignedContainer>
       <ActivityContent />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+};

@@ -16,7 +16,7 @@ export const AccountsUserLessonAssessmentPage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <div className="button-container">
         <Button onClick={handleBack}>&#60; Back</Button>
         <Button onClick={handlePrint}>Print</Button>
@@ -26,28 +26,30 @@ export const AccountsUserLessonAssessmentPage = () => {
       {mockData.questions.map((question, index) => (
         <Question content={question} key={index} />
       ))}
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  .button-container {
+const Style = {
+  PageContainer: styled.div`
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
+    flex-direction: column;
 
-  .topic-text {
-    margin-top: 20px;
-    margin-bottom: 0px;
-    padding: 0px;
-  }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
 
-  .title-text {
-    padding: 0px;
-    margin: 0px;
-  }
-`;
+    .topic-text {
+      margin-top: 20px;
+      margin-bottom: 0px;
+      padding: 0px;
+    }
+
+    .title-text {
+      padding: 0px;
+      margin: 0px;
+    }
+  `,
+};

@@ -25,7 +25,7 @@ export const AccountsUserProfilePage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <Link to="/dashboard/accounts/profiles">
         <Button onClick={handleBack}>&lt; Back</Button>
       </Link>
@@ -131,179 +131,181 @@ export const AccountsUserProfilePage = () => {
           ))}
         </tbody>
       </table>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-top: 11px;
-
-  Button {
-    max-width: 150px;
-  }
-
-  .info-container {
+const Style = {
+  PageContainer: styled.div`
     display: flex;
-    padding-top: 5px;
-    width: 100%;
+    flex-direction: column;
+    padding-top: 11px;
 
-    .avatar-container {
+    Button {
+      max-width: 150px;
+    }
+
+    .info-container {
       display: flex;
-      padding-top: 10px;
-      width: 50%;
+      padding-top: 5px;
+      width: 100%;
 
-      .user-info {
-        padding-left: 30px;
+      .avatar-container {
+        display: flex;
+        padding-top: 10px;
+        width: 50%;
+
+        .user-info {
+          padding-left: 30px;
+          font-family: 'Noir Std';
+          font-style: normal;
+          line-height: 103.68%;
+          letter-spacing: 0.02em;
+          color: #797979;
+
+          .bold-big-text {
+            font-size: 14.1465px;
+            font-weight: 700;
+          }
+
+          .text {
+            font-weight: 400;
+            font-size: 12px;
+          }
+        }
+      }
+
+      .badges-groups-container {
+        width: 50%;
+
+        .badges-container {
+          display: flex;
+
+          .badges {
+            padding: 20px;
+            background-color: #d9d9d9;
+            display: flex;
+
+            .badge-icon {
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+
+        .groups-container {
+          display: flex;
+
+          .groups-list {
+            background-color: #d9d9d9;
+            padding: 20px;
+
+            .group-item {
+              padding: 10px 0px;
+              display: flex;
+              align-items: center;
+
+              .group-icon {
+                width: 20px;
+                height: 20px;
+              }
+
+              .bold-text {
+                padding-left: 15px;
+                font-family: 'Noir Std';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 103.68%;
+                letter-spacing: 0.02em;
+                color: #797979;
+              }
+
+              .small-text {
+                padding-left: 5px;
+                font-family: 'Noir Std';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 143.18%;
+                letter-spacing: 0.02em;
+                color: #797979;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .activities-list {
+      padding: 0px;
+
+      .activity-item {
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
         font-family: 'Noir Std';
         font-style: normal;
-        line-height: 103.68%;
+        line-height: 19px;
         letter-spacing: 0.02em;
         color: #797979;
+        justify-content: space-between;
+        max-width: 700px;
 
-        .bold-big-text {
-          font-size: 14.1465px;
+        .left {
+          display: flex;
+        }
+
+        .icon-container {
+          width: 40px;
+          height: 40px;
+        }
+
+        .bold-text {
+          padding-left: 20px;
           font-weight: 700;
+          font-size: 16px;
         }
 
         .text {
-          font-weight: 400;
-          font-size: 12px;
+          padding-left: 10px;
         }
       }
     }
 
-    .badges-groups-container {
-      width: 50%;
-
-      .badges-container {
-        display: flex;
-
-        .badges {
-          padding: 20px;
-          background-color: #d9d9d9;
-          display: flex;
-
-          .badge-icon {
-            width: 60px;
-            height: 60px;
-          }
-        }
-      }
-
-      .groups-container {
-        display: flex;
-
-        .groups-list {
-          background-color: #d9d9d9;
-          padding: 20px;
-
-          .group-item {
-            padding: 10px 0px;
-            display: flex;
-            align-items: center;
-
-            .group-icon {
-              width: 20px;
-              height: 20px;
-            }
-
-            .bold-text {
-              padding-left: 15px;
-              font-family: 'Noir Std';
-              font-style: normal;
-              font-weight: 700;
-              font-size: 14px;
-              line-height: 103.68%;
-              letter-spacing: 0.02em;
-              color: #797979;
-            }
-
-            .small-text {
-              padding-left: 5px;
-              font-family: 'Noir Std';
-              font-style: normal;
-              font-weight: 400;
-              font-size: 12px;
-              line-height: 143.18%;
-              letter-spacing: 0.02em;
-              color: #797979;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .activities-list {
-    padding: 0px;
-
-    .activity-item {
-      padding-bottom: 10px;
-      display: flex;
+    table {
+      text-align: left;
       align-items: center;
       font-family: 'Noir Std';
       font-style: normal;
-      line-height: 19px;
+      line-height: 103.68%;
       letter-spacing: 0.02em;
       color: #797979;
-      justify-content: space-between;
-      max-width: 700px;
+      border-collapse: collapse;
 
-      .left {
-        display: flex;
+      thead {
+        font-weight: 400;
+        font-size: 20px;
+
+        tr {
+          height: 40px;
+        }
       }
 
-      .icon-container {
-        width: 40px;
-        height: 40px;
-      }
+      tbody {
+        tr {
+          height: 50px;
+          border-bottom: 2px solid black;
 
-      .bold-text {
-        padding-left: 20px;
-        font-weight: 700;
-        font-size: 16px;
-      }
-
-      .text {
-        padding-left: 10px;
-      }
-    }
-  }
-
-  table {
-    text-align: left;
-    align-items: center;
-    font-family: 'Noir Std';
-    font-style: normal;
-    line-height: 103.68%;
-    letter-spacing: 0.02em;
-    color: #797979;
-    border-collapse: collapse;
-
-    thead {
-      font-weight: 400;
-      font-size: 20px;
-
-      tr {
-        height: 40px;
-      }
-    }
-
-    tbody {
-      tr {
-        height: 50px;
-        border-bottom: 2px solid black;
-
-        a {
-          &:hover,
-          &:visited {
-            text-decoration: none;
-            color: inherit;
+          a {
+            &:hover,
+            &:visited {
+              text-decoration: none;
+              color: inherit;
+            }
           }
         }
       }
     }
-  }
-`;
+  `,
+};

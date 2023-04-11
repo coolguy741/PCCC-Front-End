@@ -26,7 +26,7 @@ export const AccountsCreateGroupPage = () => {
   };
 
   return (
-    <Container>
+    <Style.Container>
       <div className="buttons-container">
         <Button onClick={handleBack}>Back</Button>s{' '}
       </div>
@@ -53,7 +53,7 @@ export const AccountsCreateGroupPage = () => {
           {mockData.users.map((user, index) => (
             <div className="user-container" key={index}>
               <div className="image-name-container">
-                <img src={user.img} placeholder="image" />
+                <img src={user.img} placeholder="image" alt="user" />
                 <p className="name">{user.name}</p>
               </div>
               <SmallButton onClick={() => handleAdd(user.name)}>
@@ -89,124 +89,126 @@ export const AccountsCreateGroupPage = () => {
       <div className="create-button-container">
         <Button>Create</Button>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  .buttons-container {
-    margin: 20px 0px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .text {
-    padding: 0px;
-    margin: 0px;
-    line-height: 150%;
-  }
-
-  .group-data-container {
-    display: flex;
-    justify-content: flex-end;
-
-    .container {
+const Style = {
+  Container: styled.div`
+    .buttons-container {
+      margin: 20px 0px;
       display: flex;
-      flex-direction: column;
-
-      .owner-container {
-        display: flex;
-        align-items: center;
-
-        .text {
-          padding: 0px;
-          margin: 0px;
-        }
-
-        select {
-          margin-left: 10px;
-          height: 40px;
-          width: 150px;
-        }
-      }
+      justify-content: space-between;
     }
-  }
 
-  .user-name-title-container {
-  }
+    .text {
+      padding: 0px;
+      margin: 0px;
+      line-height: 150%;
+    }
 
-  .user-name-search-input {
-  }
+    .group-data-container {
+      display: flex;
+      justify-content: flex-end;
 
-  .add-remove-container {
-    display: flex;
-    gap: 20px;
-    margin-top: 40px;
-
-    .add-container {
-      height: 300px;
-      width: 300px;
-      overflow-y: scroll;
-
-      .user-container {
-        padding: 0px;
-        margin: 0px;
-        width: 100%;
+      .container {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
 
-        .image-name-container {
+        .owner-container {
           display: flex;
           align-items: center;
 
-          img {
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
+          .text {
+            padding: 0px;
+            margin: 0px;
           }
 
-          p {
-            padding-left: 10px;
+          select {
+            margin-left: 10px;
+            height: 40px;
+            width: 150px;
           }
         }
       }
     }
 
-    .remove-container {
-      width: 70%;
+    .user-name-title-container {
+    }
 
-      .group-data-container {
-        justify-content: left;
-        display: flex;
+    .user-name-search-input {
+    }
 
-        .col {
-          margin-right: 20px;
-        }
-      }
+    .add-remove-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 40px;
 
-      .members-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin-top: 20px;
-        padding: 30px;
-        background-color: #d9d9d9;
+      .add-container {
+        height: 300px;
+        width: 300px;
+        overflow-y: scroll;
 
-        .member-container {
-          width: 45%;
-          margin-right: 20px;
+        .user-container {
+          padding: 0px;
+          margin: 0px;
+          width: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
+
+          .image-name-container {
+            display: flex;
+            align-items: center;
+
+            img {
+              border-radius: 50%;
+              width: 30px;
+              height: 30px;
+            }
+
+            p {
+              padding-left: 10px;
+            }
+          }
+        }
+      }
+
+      .remove-container {
+        width: 70%;
+
+        .group-data-container {
+          justify-content: left;
+          display: flex;
+
+          .col {
+            margin-right: 20px;
+          }
+        }
+
+        .members-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          margin-top: 20px;
+          padding: 30px;
+          background-color: #d9d9d9;
+
+          .member-container {
+            width: 45%;
+            margin-right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
         }
       }
     }
-  }
 
-  .create-button-container {
-    display: flex;
-    margin: 20px 0px;
-    justify-content: flex-end;
-  }
-`;
+    .create-button-container {
+      display: flex;
+      margin: 20px 0px;
+      justify-content: flex-end;
+    }
+  `,
+};

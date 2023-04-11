@@ -22,7 +22,7 @@ export const AccountsGroupPage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <div className="buttons-container">
         <Button onClick={handleBack}>Back</Button>
         <Button onClick={handleEdit}>Edit</Button>
@@ -60,58 +60,60 @@ export const AccountsGroupPage = () => {
         ))}
       </div>
       <GroupActivity activities={mockData.activities} />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  .buttons-container {
-    margin: 20px 0px;
+const Style = {
+  PageContainer: styled.div`
     display: flex;
-    justify-content: space-between;
-  }
+    flex-direction: column;
 
-  .members-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-
-    .member-container {
+    .buttons-container {
+      margin: 20px 0px;
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+    }
 
-      .photo-container {
-        width: 70px;
-        height: 70px;
-      }
+    .members-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
 
-      .text {
-        margin-left: 20px;
+      .member-container {
+        display: flex;
+        align-items: center;
+
+        .photo-container {
+          width: 70px;
+          height: 70px;
+        }
+
+        .text {
+          margin-left: 20px;
+        }
       }
     }
-  }
 
-  .group-info-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .row {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-
-    .sort-container {
+    .group-info-container {
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+    }
 
-      select {
-        margin-left: 20px;
-        padding: 5px;
+    .row {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+
+      .sort-container {
+        display: flex;
+        align-items: center;
+
+        select {
+          margin-left: 20px;
+          padding: 5px;
+        }
       }
     }
-  }
-`;
+  `,
+};

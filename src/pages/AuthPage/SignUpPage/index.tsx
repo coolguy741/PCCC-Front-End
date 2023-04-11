@@ -12,7 +12,7 @@ export const SignUpPage = () => {
   const [isCoordinator, setIsCoordinator] = useState<boolean | null>(null);
 
   return (
-    <Container>
+    <Style.Container>
       <h1>Sign up</h1>
       {nav === 0 && <AgeGate setNav={setNav} setOver18={setOver18} />}
       {nav === 1 && (
@@ -24,23 +24,25 @@ export const SignUpPage = () => {
       )}
       {nav === 2 && <SignUpForm setNav={setNav} over18={over18} />}
       {nav === 3 && <SecurityQuestions setNav={setNav} />}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-left: 15rem;
-  padding-top: 5rem;
+const Style = {
+  Container: styled.div`
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 15rem;
+    padding-top: 5rem;
 
-  background-size: cover;
-  background-image: url('/images/background.svg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  color: #3d3d3d;
-`;
+    background-size: cover;
+    background-image: url('/images/background.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #3d3d3d;
+  `,
+};

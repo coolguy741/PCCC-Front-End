@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Style = {
+export const AlignmentStyle = {
   LeftAlignedContainer: styled.div`
     display: flex;
     justify-content: flex-start;

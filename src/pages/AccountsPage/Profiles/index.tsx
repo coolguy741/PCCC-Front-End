@@ -17,7 +17,7 @@ export const AccountsProfilesPage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <div className="filters-container">
         <div className="filter">
           <div className="bold-title">Filter By:</div>
@@ -53,54 +53,56 @@ export const AccountsProfilesPage = () => {
           );
         })}
       </div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  padding-top: 110px;
-  display: flex;
-  flex-direction: column;
-
-  .filters-container {
+const Style = {
+  PageContainer: styled.div`
+    padding-top: 110px;
     display: flex;
-    padding-bottom: 40px;
+    flex-direction: column;
 
-    .filter {
+    .filters-container {
       display: flex;
-      flex-direction: column;
-      font-size: 16px;
-      color: #797979;
-      font-style: normal;
-      font-family: 'Noir Std';
-      padding-right: 50px;
+      padding-bottom: 40px;
 
-      .bold-title {
-        font-weight: 600;
-        padding-bottom: 8px;
-      }
-
-      .title {
-        font-weight: 400;
-        padding-bottom: 8px;
-      }
-
-      select {
-        background-color: transparent;
-        font-family: 'Open Sans';
+      .filter {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        color: #797979;
         font-style: normal;
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 143.18%;
-        letter-spacing: 0.02em;
-        color: #3d3d3d;
+        font-family: 'Noir Std';
+        padding-right: 50px;
+
+        .bold-title {
+          font-weight: 600;
+          padding-bottom: 8px;
+        }
+
+        .title {
+          font-weight: 400;
+          padding-bottom: 8px;
+        }
+
+        select {
+          background-color: transparent;
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 12px;
+          line-height: 143.18%;
+          letter-spacing: 0.02em;
+          color: #3d3d3d;
+        }
       }
     }
-  }
 
-  .users {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-  }
-`;
+    .users {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+  `,
+};

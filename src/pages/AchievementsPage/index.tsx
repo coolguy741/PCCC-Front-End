@@ -4,11 +4,11 @@ import mockData from '../../lib/mockData/achievements.json';
 
 export const AchievementsPage = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <h1>Achievement</h1>
-      <SubContainer>
+      <Style.SubContainer>
         <h3>Bagdes</h3>
-        <AchievementsContainer>
+        <Style.AchievementsContainer>
           {mockData.badges.map((achievement, index) => (
             <Achievement
               key={index}
@@ -16,11 +16,11 @@ export const AchievementsPage = () => {
               content={achievement.content}
             />
           ))}
-        </AchievementsContainer>
-      </SubContainer>
-      <SubContainer>
+        </Style.AchievementsContainer>
+      </Style.SubContainer>
+      <Style.SubContainer>
         <h3>In progress</h3>
-        <AchievementsContainer>
+        <Style.AchievementsContainer>
           {mockData.inProgress.map((achievement, index) => (
             <Achievement
               key={index}
@@ -29,25 +29,26 @@ export const AchievementsPage = () => {
               progressValue={achievement.progressValue}
             />
           ))}
-        </AchievementsContainer>
-      </SubContainer>
-    </PageContainer>
+        </Style.AchievementsContainer>
+      </Style.SubContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-
-const SubContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-const AchievementsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  SubContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  AchievementsContainer: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  `,
+};
