@@ -29,46 +29,44 @@ export const MealTimeMomentPage = () => {
   };
 
   return (
-    <PageContainer>
-      <ButtonGroup>
+    <Style.PageContainer>
+      <Style.ButtonGroup>
         <Button onClick={handleBack}>Back</Button>
-        <RightButtonGroup>
+        <Style.RightButtonGroup>
           <Button onClick={handleEdit}>Edit</Button>
           <Button onClick={handleAddToCalendar}>Add to calendar</Button>
           <Button onClick={handlePublish}>Publish</Button>
           <Button onClick={handlePrint}>Print</Button>
-        </RightButtonGroup>
-      </ButtonGroup>
+        </Style.RightButtonGroup>
+      </Style.ButtonGroup>
       <h2>{mockData.title}</h2>
-      <Content>
+      <Style.Content>
         <Text>{mockData.overview}</Text>
-        <StyledImage src={mockData.image} alt={mockData.alt} />
-      </Content>
+        <Style.StyledImage src={mockData.image} alt={mockData.alt} />
+      </Style.Content>
       <MealtimeMomentTip />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const RightButtonGroup = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const Content = styled.div`
-  display: flex;
-  gap: 50px;
-`;
-
-const StyledImage = styled.img``;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `,
+  RightButtonGroup: styled.div`
+    display: flex;
+    gap: 20px;
+  `,
+  Content: styled.div`
+    display: flex;
+    gap: 50px;
+  `,
+  StyledImage: styled.img``,
+};

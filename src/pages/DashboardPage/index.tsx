@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { DashboardMenu } from '../../components/Global/DashboardMenu';
 import { useSearchResultsStore } from '../../stores/searchResultsStore';
 
-// TODO: NOBERT. Continue styled naming
-
 interface DashboardPageProps {
   children: JSX.Element;
 }
@@ -43,7 +41,7 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <DashboardMenu />
       <div className="main-container">
         <div className="main-container__header">
@@ -54,7 +52,7 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
           />
           <form className="search" onSubmit={handleSearch}>
             <div className="flex">
-              <Dropdown>
+              <Style.Dropdown>
                 {isOpen && <div className="dropdown" onClick={handleClose} />}
                 <div
                   className="dropdown-trigger"
@@ -62,10 +60,10 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
                 >
                   {field.replaceAll('-', ' ')} <span>&lt;</span>
                 </div>
-                <DropdownMenu isOpen={isOpen}>
+                <Style.DropdownMenu isOpen={isOpen}>
                   {fields.map((currentField, index) => {
                     return (
-                      <DropdownItem
+                      <Style.DropdownItem
                         key={`field-${index}`}
                         id={currentField}
                         onClick={() => handleSetField(currentField)}
@@ -77,11 +75,11 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
                         >
                           {currentField.replaceAll('-', ' ')}
                         </div>
-                      </DropdownItem>
+                      </Style.DropdownItem>
                     );
                   })}
-                </DropdownMenu>
-              </Dropdown>
+                </Style.DropdownMenu>
+              </Style.Dropdown>
               <input
                 type="text"
                 placeholder="Search"
@@ -101,123 +99,122 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
         </div>
         <div className="__content">{children}</div>
       </div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-
-  .main-container {
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
+const Style = {
+  PageContainer: styled.div`
+    position: relative;
     width: 100%;
-    margin-left: 350px;
+    height: 100vh;
+    display: flex;
 
-    &__header {
-      width: 100%;
+    .main-container {
+      padding: 30px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 50px;
+      flex-direction: column;
+      width: 100%;
+      margin-left: 350px;
 
-      .search {
+      &__header {
         width: 100%;
         display: flex;
-        gap: 20px;
-        & > div {
-          width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        gap: 50px;
 
-          select {
-            width: 100px;
-            outline: none;
-            border: none;
-            &:focus,
-            &:active {
+        .search {
+          width: 100%;
+          display: flex;
+          gap: 20px;
+          & > div {
+            width: 100%;
+
+            select {
+              width: 100px;
               outline: none;
               border: none;
+              &:focus,
+              &:active {
+                outline: none;
+                border: none;
+              }
             }
-          }
-          input.search-key {
-            width: 100%;
-            border: none;
-            padding: 10px 20px;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-            &:focus {
-              outline: none;
+            input.search-key {
+              width: 100%;
+              border: none;
+              padding: 10px 20px;
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
+              &:focus {
+                outline: none;
+              }
             }
           }
         }
       }
+
+      .__content {
+        height: 100%;
+      }
+    }
+  `,
+  Dropdown: styled.div`
+    position: relative;
+    background: white;
+    width: 300px;
+    padding: 10px 20px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    .dropdown {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
 
-    .__content {
-      height: 100%;
+    .dropdown-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-transform: capitalize;
+      span {
+        transform: rotate(-90deg);
+      }
     }
-  }
-`;
-
-const Dropdown = styled.div`
-  position: relative;
-  background: white;
-  width: 300px;
-  padding: 10px 20px;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-
-  .dropdown {
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  .dropdown-trigger {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  `,
+  DropdownMenu: styled.div.attrs((props: { isOpen: boolean }) => ({
+    isOpen: props.isOpen || false,
+  }))`
+    position: absolute;
+    top: 100%;
+    z-index: 20;
+    background: white;
+    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  `,
+  DropdownItem: styled.div`
+    padding: 10px 40px;
     text-transform: capitalize;
-    span {
-      transform: rotate(-90deg);
+    position: relative;
+    & > div {
+      white-space: nowrap;
+      &.checked:before {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translate(0, -50%);
+        background: #396bdb;
+        color: white;
+        padding: 0 4px;
+        content: '✓';
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+      }
     }
-  }
-`;
-
-const DropdownMenu = styled.div.attrs((props: { isOpen: boolean }) => ({
-  isOpen: props.isOpen || false,
-}))`
-  position: absolute;
-  top: 100%;
-  z-index: 20;
-  background: white;
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-`;
-
-const DropdownItem = styled.div`
-  padding: 10px 40px;
-  text-transform: capitalize;
-  position: relative;
-  & > div {
-    white-space: nowrap;
-    &.checked:before {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translate(0, -50%);
-      background: #396bdb;
-      color: white;
-      padding: 0 4px;
-      content: '✓';
-      width: 20px;
-      height: 20px;
-      border-radius: 5px;
-    }
-  }
-`;
+  `,
+};

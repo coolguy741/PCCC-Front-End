@@ -36,7 +36,7 @@ export const MealPlannerRecipePage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <MealPlanHeader
         title="Meal Planner"
         description={
@@ -57,7 +57,7 @@ export const MealPlannerRecipePage = () => {
           </button>
         </div>
       </div>
-      <Slider>
+      <Style.Slider>
         <div className="slider-container">
           <div
             className={`rounded-full ${isAssessment ? 'bg-black' : 'border'}`}
@@ -69,7 +69,7 @@ export const MealPlannerRecipePage = () => {
           <span className="recipe">Recipe</span>
           <span className="assessment">Assessment</span>
         </div>
-      </Slider>
+      </Style.Slider>
       {isAssessment ? <Assessment /> : <Recipe />}
       <CalendarModal
         isOpen={isOpen}
@@ -78,103 +78,104 @@ export const MealPlannerRecipePage = () => {
       />
       <PrintModal isOpen={isPrintModalOpen} close={closePrintModal} />
       <EditConfirmModal isOpen={isConfirmModalOpen} close={closeConfirmModal} />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin-right: 50px;
+const Style = {
+  PageContainer: styled.div`
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-right: 50px;
 
-  .slider-container {
-    display: flex;
-    margin-top: 20px;
-    align-items: center;
+    .slider-container {
+      display: flex;
+      margin-top: 20px;
+      align-items: center;
 
-    .border {
-      border: 3px solid var(--black);
+      .border {
+        border: 3px solid var(--black);
+      }
+
+      .bg-black {
+        background: var(--black) !important;
+      }
+
+      .rounded-full {
+        border-radius: 100%;
+        width: 20px;
+        height: 20px;
+        background: #9d9d9d;
+      }
+
+      .line {
+        height: 3px;
+        width: 100%;
+        background: #9d9d9d;
+      }
     }
 
-    .bg-black {
-      background: var(--black) !important;
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      .recipe {
+        transform: translate(calc(-50% + 10px));
+      }
+      .assessment {
+        transform: translate(calc(50% - 10px));
+      }
     }
 
-    .rounded-full {
-      border-radius: 100%;
-      width: 20px;
-      height: 20px;
-      background: #9d9d9d;
+    .btn-group {
+      display: flex;
+      margin-top: 1.75rem;
+      justify-content: space-between;
     }
 
-    .line {
-      height: 3px;
-      width: 100%;
-      background: #9d9d9d;
+    .btn-primary {
+      background-color: var(--yellow);
+      border: none;
+      border-radius: 2rem;
+      color: #3d3d3d;
+      cursor: pointer;
+      font-size: 0.75rem;
+      padding: 0.75rem 1.125rem;
+      vertical-align: top;
+      min-width: 6rem;
+      margin-left: 10px;
     }
-  }
 
-  .labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.25rem;
-    .recipe {
-      transform: translate(calc(-50% + 10px));
+    & *,
+    & *::before,
+    & * ::after {
+      box-sizing: border-box;
     }
-    .assessment {
-      transform: translate(calc(50% - 10px));
+
+    .meal-container {
+      display: grid;
+      grid-template-rows: 1fr;
+      gap: 20px;
+      grid-template-columns: 75% auto;
+
+      .meal-plan {
+        border-right: 1px solid #222222;
+        position: relative;
+      }
     }
-  }
 
-  .btn-group {
-    display: flex;
-    margin-top: 1.75rem;
-    justify-content: space-between;
-  }
-
-  .btn-primary {
-    background-color: var(--yellow);
-    border: none;
-    border-radius: 2rem;
-    color: #3d3d3d;
-    cursor: pointer;
-    font-size: 0.75rem;
-    padding: 0.75rem 1.125rem;
-    vertical-align: top;
-    min-width: 6rem;
-    margin-left: 10px;
-  }
-
-  & *,
-  & *::before,
-  & * ::after {
-    box-sizing: border-box;
-  }
-
-  .meal-container {
-    display: grid;
-    grid-template-rows: 1fr;
-    gap: 20px;
-    grid-template-columns: 75% auto;
-
-    .meal-plan {
-      border-right: 1px solid #222222;
-      position: relative;
+    .meal-plan-action {
+      display: flex;
+      justify-content: end;
+      gap: 10px;
+      padding-right: 1.5rem;
+      text-align: center;
     }
-  }
-
-  .meal-plan-action {
-    display: flex;
-    justify-content: end;
-    gap: 10px;
-    padding-right: 1.5rem;
-    text-align: center;
-  }
-`;
-
-const Slider = styled.div`
-  width: 80%;
-  max-width: 600px;
-  margin: auto;
-`;
+  `,
+  Slider: styled.div`
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+  `,
+};

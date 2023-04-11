@@ -2,11 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../components/Global/Button';
-import {
-  CenterAlignedContainer,
-  LeftAlignedContainer,
-  RightAlignedContainer,
-} from '../../../components/Global/Container';
+import { AlignmentStyle } from '../../../components/Global/Container';
 import { FileUploader } from '../../../components/Global/FileUploader';
 import { LanguageChooser } from '../../../components/Global/LanguageChooser';
 import { ModalContainer } from '../../../components/Global/ModalContainer';
@@ -14,6 +10,8 @@ import { SaveChangesModal } from '../../../components/Global/SaveChangesModal';
 import { SmallButton } from '../../../components/Global/SmallButton';
 import { SelectTags, Tag } from '../../../components/Recipes/SelectTags';
 import mockData from '../../../lib/mockData/mealtime-moments/mealtime-moment-create.json';
+
+// TODO: NOBERT. Continue style object implementation
 
 export const MealTimeMomentsCreatePage = () => {
   const [lang, setLang] = useState<string>(
@@ -72,14 +70,14 @@ export const MealTimeMomentsCreatePage = () => {
         <Button onClick={handleBack}>Back</Button>
         <Button onClick={handlePreview}>Preview</Button>
       </ButtonGroup>
-      <CenterAlignedContainer>
+      <AlignmentStyle.CenterAlignedContainer>
         <LanguageChooser lang={lang} setLang={setLang} />
-      </CenterAlignedContainer>
+      </AlignmentStyle.CenterAlignedContainer>
       <Content>
         <DetailContainer>
-          <LeftAlignedContainer>
+          <AlignmentStyle.LeftAlignedContainer>
             <h3>Title</h3>
-          </LeftAlignedContainer>
+          </AlignmentStyle.LeftAlignedContainer>
           <TitleInput
             value={lang === 'en' ? titleEn : titleFr}
             onChange={handleTitleChange}
@@ -108,9 +106,9 @@ export const MealTimeMomentsCreatePage = () => {
           </DetailContainer>
         </OverviewImageContainer>
       </Content>
-      <RightAlignedContainer>
+      <AlignmentStyle.RightAlignedContainer>
         <SmallButton onClick={() => setVisibleModal(true)}>Save</SmallButton>
-      </RightAlignedContainer>
+      </AlignmentStyle.RightAlignedContainer>
       {visibleModal && (
         <ModalContainer>
           <SaveChangesModal

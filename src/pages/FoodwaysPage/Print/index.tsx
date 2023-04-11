@@ -3,7 +3,7 @@ import { Globe } from '../../../components/Foodways/Globe';
 
 export const FoodwaysPrintPage = () => {
   return (
-    <Container>
+    <Style.Container>
       <h1>Foodways</h1>
       <h2>Chocolate</h2>
       <div className="content">
@@ -35,66 +35,68 @@ export const FoodwaysPrintPage = () => {
           </div>
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  h2 {
-    margin-bottom: 5rem;
-  }
-
-  .content {
+const Style = {
+  Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    max-width: 90%;
+    justify-content: center;
+    align-items: center;
 
-    &__body {
+    h2 {
+      margin-bottom: 5rem;
+    }
+
+    .content {
       display: flex;
       flex-direction: column;
+      gap: 2rem;
+      max-width: 90%;
 
-      &__timeline {
-        &--horizontal {
-          width: 100%;
-          min-height: 5px;
-          background-color: var(--black);
-        }
+      &__body {
+        display: flex;
+        flex-direction: column;
 
-        &__container {
-          display: flex;
-          justify-content: space-around;
-
-          &--vertical {
-            height: 50px;
-            width: 5px;
+        &__timeline {
+          &--horizontal {
+            width: 100%;
+            min-height: 5px;
             background-color: var(--black);
           }
-        }
-      }
 
-      &__main {
-        display: flex;
+          &__container {
+            display: flex;
+            justify-content: space-around;
 
-        &__globe {
-          width: 100%;
-
-          div {
-            height: 50vh;
+            &--vertical {
+              height: 50px;
+              width: 5px;
+              background-color: var(--black);
+            }
           }
         }
 
-        &__text {
+        &__main {
           display: flex;
-          flex-direction: column;
-          justify-content: center;
+
+          &__globe {
+            width: 100%;
+
+            div {
+              height: 50vh;
+            }
+          }
+
+          &__text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
         }
       }
     }
-  }
-`;
+  `,
+};
