@@ -11,7 +11,9 @@ export const RecipesCreatePreviewRecipePage = () => {
     navigate(-1);
   };
 
-  const toggleLanguage = () => {};
+  const toggleLanguage = () => {
+    return 'toggle language';
+  };
 
   return (
     <PageContainer>

@@ -22,7 +22,7 @@ export const AccountsEditGroupPage = () => {
   };
 
   const handleRemove = (index: number) => {
-    let local = [...members];
+    const local = [...members];
     local.splice(index, 1);
     setMembers(local);
   };

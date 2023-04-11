@@ -4,11 +4,17 @@ import { AccountCard } from '../../../components/Accounts/AccountCard';
 import UserCards from '../../../lib/mockData/accounts/profiles.json';
 
 export const AccountsProfilesPage = () => {
-  const handleUserTypeChange = () => {};
+  const handleUserTypeChange = () => {
+    return 'user type change';
+  };
 
-  const handleSortTypeChange = () => {};
+  const handleSortTypeChange = () => {
+    return 'sort type change';
+  };
 
-  const handleCardDelete = () => {};
+  const handleCardDelete = () => {
+    return 'card delete';
+  };
 
   return (
     <PageContainer>
@@ -61,14 +67,14 @@ const PageContainer = styled.div`
     padding-bottom: 40px;
 
     .filter {
-      display: flex
+      display: flex;
       flex-direction: column;
       font-size: 16px;
       color: #797979;
       font-style: normal;
       font-family: 'Noir Std';
       padding-right: 50px;
-      
+
       .bold-title {
         font-weight: 600;
         padding-bottom: 8px;
@@ -87,7 +93,7 @@ const PageContainer = styled.div`
         font-size: 12px;
         line-height: 143.18%;
         letter-spacing: 0.02em;
-        color: #3D3D3D;
+        color: #3d3d3d;
       }
     }
   }

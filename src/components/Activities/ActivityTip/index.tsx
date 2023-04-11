@@ -32,7 +32,7 @@ export const ActivityTip = ({
           </Underlined>
         </Text>
       </TipText>
-      <img src="/images/bee.png" placeholder="bee" />
+      <img src="/images/bee.png" alt="bee" placeholder="bee" />
     </Container>
   );
 };

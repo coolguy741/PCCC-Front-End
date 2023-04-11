@@ -53,11 +53,17 @@ const SortOptions = [
 export const RecipesPage = () => {
   const navigate = useNavigate();
 
-  const handleFilterChange = () => {};
+  const handleFilterChange = () => {
+    return 'filter-change';
+  };
 
-  const handleTopicChange = () => {};
+  const handleTopicChange = () => {
+    return 'topic change';
+  };
 
-  const handleSortChange = () => {};
+  const handleSortChange = () => {
+    return 'sort change';
+  };
 
   const handleDeleteRecipe = () => {
     alert('Delete selected recipes');
@@ -67,7 +73,9 @@ export const RecipesPage = () => {
     navigate('./create');
   };
 
-  const handleTableCheckboxChange = () => {};
+  const handleTableCheckboxChange = () => {
+    return 'checkbox change';
+  };
 
   return (
     <PageContainer>

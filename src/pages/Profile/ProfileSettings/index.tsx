@@ -148,11 +148,15 @@ export const ProfileSettingsPage = () => {
               </label>
               <SelectBox
                 options={firstNameOptions}
-                onChange={() => {}}
+                onChange={() => {
+                  return 'change';
+                }}
               ></SelectBox>
               <SelectBox
                 options={secondNameOptions}
-                onChange={() => {}}
+                onChange={() => {
+                  return 'change';
+                }}
               ></SelectBox>
               <input type="text" style={{ width: '60px' }} />
             </InputContainer>

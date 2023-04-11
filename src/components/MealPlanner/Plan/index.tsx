@@ -37,13 +37,18 @@ export const MealPlan: React.FC<Props> = ({ match = '' }) => {
                   <div>Meal {index + 1}</div>
                 ) : (
                   <div key={`${dayIndex}-${weekDay}`}>
-                    {!!match ? (
+                    {/* TODO: Look into redundant double negation */}
+                    {match ? (
                       <Meal>
                         <div>
                           <div className="meal-image"></div>
                           {!isPrint && (
                             <Link to="/dashboard/meal-planner/1">
-                              <img src="/images/circle-minus.svg" width="15" />
+                              <img
+                                src="/images/circle-minus.svg"
+                                alt="circle minus"
+                                width="15"
+                              />
                             </Link>
                           )}
                           <p>Meal</p>
@@ -73,18 +78,20 @@ const Container = styled.div.attrs((props: { isPrint: boolean }) => ({
   display: flex;
   flex-direction: column;
   padding: 10px;
-  ${({ isPrint }) => !isPrint && `margin-right: 1.25rem; background: #c4c4c4;`}
+  ${({ isPrint }) => !isPrint && `margin-right: 1.25rem; background: #c4c4c4;`};
   margin-bottom: 10px;
+
   & > div {
     text-align: center;
     display: grid;
-    border-bottom 1px solid #2f2f2f;
+    border-bottom: 1px solid #2f2f2f;
+
     & > div {
       padding: 10px;
       ${({ isPrint }) => isPrint && `border-right: 1px solid #2f2f2f;`}
     }
     grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    
+
     & > div:last-child {
       ${({ isPrint }) => isPrint && `border-right: none;`}
     }
@@ -92,7 +99,6 @@ const Container = styled.div.attrs((props: { isPrint: boolean }) => ({
   & > div:last-of-type {
     border-bottom: none;
   }
-
 `;
 
 const Meal = styled.div`

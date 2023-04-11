@@ -177,7 +177,10 @@ export const API_getUser = async (): Promise<void> => {
  */
 const reshapeFetcherError = (
   err: unknown,
-  throwBasedOnResponse: (response: Response, json: unknown) => void = () => {},
+  // TODO: Look into empty arrow function
+  throwBasedOnResponse: (response: Response, json: unknown) => void = () => {
+    return 'void';
+  },
 ) => {
   // If this is somehow not an Error, throw generically.
   if (!(err instanceof Error)) throw new Error(GENERIC_ERROR_MESSAGE);

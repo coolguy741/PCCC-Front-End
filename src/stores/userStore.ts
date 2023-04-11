@@ -38,7 +38,7 @@ export const setUser = (user: User | null) => useUserStore.setState({ user });
 /**
  * Imperatively set whether or not we have checked for a user this session
  */
-export const setHasCheckedForUserThisSession = (val: boolean = true) =>
+export const setHasCheckedForUserThisSession = (val = true) =>
   useUserStore.setState({ hasCheckedForUserThisSession: val });
 
 /**

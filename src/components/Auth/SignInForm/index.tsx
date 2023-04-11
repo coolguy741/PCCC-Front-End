@@ -4,6 +4,9 @@ import { Button } from '../../Global/Button';
 import { Input } from '../../Global/Input';
 
 export const SignInForm = () => {
+  function placeholderForSignIn() {
+    return 'clicked';
+  }
   return (
     <Container>
       <div>
@@ -17,7 +20,7 @@ export const SignInForm = () => {
           <Input type="password" />
         </label>
         <Link to="forgot-password">Forgot password?</Link>
-        <Button onClick={() => {}}>Sign In</Button>
+        <Button onClick={placeholderForSignIn}>Sign In</Button>
       </div>
     </Container>
   );

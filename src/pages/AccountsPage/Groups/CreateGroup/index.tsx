@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../../components/Global/Button';
@@ -13,14 +13,14 @@ export const AccountsCreateGroupPage = () => {
     navigate(-1);
   };
 
-  useEffect(() => {}, [members]);
+  // useEffect(() => {}, [members]);
 
   const handleAdd = (name: string) => {
     setMembers((mem) => [...mem, name]);
   };
 
   const handleRemove = (index: number) => {
-    let local = [...members];
+    const local = [...members];
     local.splice(index, 1);
     setMembers(local);
   };

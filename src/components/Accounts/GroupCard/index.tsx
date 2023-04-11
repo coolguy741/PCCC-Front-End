@@ -46,11 +46,11 @@ export const GroupCard = ({ data }: GroupCardProps) => {
         </div>
       </div>
       <div
-        className={`members-container ${isExpand == true ? 'show' : 'hide'}`}
+        className={`members-container ${isExpand === true ? 'show' : 'hide'}`}
       >
         {data.members.map((member, index) => (
           <div className="member-container" key={index}>
-            <img src={member.img} placeholder="image" />
+            <img src={member.img} alt="member" placeholder="image" />
             <p className="bold-text">{member.name}</p>
           </div>
         ))}

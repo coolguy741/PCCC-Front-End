@@ -12,7 +12,9 @@ const checkboxOptions = [
 ];
 
 export const AccountsGroupCalendarPage = () => {
-  const handleCheckboxChange = () => {};
+  const handleCheckboxChange = () => {
+    return 'handle check box';
+  };
 
   return (
     <PageContainer>

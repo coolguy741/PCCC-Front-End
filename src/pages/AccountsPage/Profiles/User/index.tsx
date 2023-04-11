@@ -16,9 +16,13 @@ export const AccountsUserProfilePage = () => {
     ? MockData[1]
     : MockData[2];
 
-  const handleBack = () => {};
+  const handleBack = () => {
+    return 'handle back';
+  };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    return 'handle edit';
+  };
 
   return (
     <PageContainer>
@@ -145,7 +149,7 @@ const PageContainer = styled.div`
     padding-top: 5px;
     width: 100%;
 
-    .avatar-container{
+    .avatar-container {
       display: flex;
       padding-top: 10px;
       width: 50%;
@@ -170,17 +174,17 @@ const PageContainer = styled.div`
       }
     }
 
-    .badges-groups-container{
+    .badges-groups-container {
       width: 50%;
 
-      .badges-container{
+      .badges-container {
         display: flex;
 
         .badges {
           padding: 20px;
-          background-color: #D9D9D9;
+          background-color: #d9d9d9;
           display: flex;
-  
+
           .badge-icon {
             width: 60px;
             height: 60px;
@@ -192,7 +196,7 @@ const PageContainer = styled.div`
         display: flex;
 
         .groups-list {
-          background-color: #D9D9D9;
+          background-color: #d9d9d9;
           padding: 20px;
 
           .group-item {
@@ -247,7 +251,7 @@ const PageContainer = styled.div`
       justify-content: space-between;
       max-width: 700px;
 
-      .left{
+      .left {
         display: flex;
       }
 
@@ -255,7 +259,7 @@ const PageContainer = styled.div`
         width: 40px;
         height: 40px;
       }
-      
+
       .bold-text {
         padding-left: 20px;
         font-weight: 700;
@@ -269,7 +273,7 @@ const PageContainer = styled.div`
   }
 
   table {
-    text-align:left;
+    text-align: left;
     align-items: center;
     font-family: 'Noir Std';
     font-style: normal;
@@ -291,15 +295,15 @@ const PageContainer = styled.div`
       tr {
         height: 50px;
         border-bottom: 2px solid black;
-        
-        Link {
-          &:hover, &:visited:{
+
+        a {
+          &:hover,
+          &:visited {
             text-decoration: none;
-            color; inherit;
+            color: inherit;
           }
         }
       }
     }
   }
-
 `;

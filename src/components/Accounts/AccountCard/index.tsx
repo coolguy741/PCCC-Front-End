@@ -11,7 +11,7 @@ interface AccountCardProps {
 export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Container>
-      <img src={img} className="avatar" />
+      <img src={img} alt="avatar" className="avatar" />
       {role === 'Professional' && (
         <div className="icon-container">
           <Icon name="professional" />

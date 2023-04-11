@@ -53,7 +53,7 @@ export const TopicCreateForm: React.FC<Props> = ({
           ? `/dashboard/topics/${topicId}/${tabs[index]}/edit`
           : `/dashboard/topics/create/${tabs[index]}`
         : basePath,
-    [],
+    [isEdit, topicId],
   );
   const handleNext = () => {
     if (tabIndex < tabs.length - 1) {

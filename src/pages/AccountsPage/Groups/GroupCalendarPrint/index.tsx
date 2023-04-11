@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import { Calendar } from '../../../../components/Global/CalendarModal/Calendar';
 
 export const AccountsGroupCalendarPrintPage = () => {
-  const handleCheckboxChange = () => {};
+  const handleCheckboxChange = () => {
+    return 'check box change';
+  };
 
   return (
     <PageContainer>

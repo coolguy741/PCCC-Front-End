@@ -23,7 +23,7 @@ export const Achievement = ({
         </Text>
         <Text>{content}</Text>
       </div>
-      {progressValue != -1 && <ProgressBar value={progressValue} max="1" />}
+      {progressValue !== -1 && <ProgressBar value={progressValue} max="1" />}
     </StyledAchievement>
   );
 };

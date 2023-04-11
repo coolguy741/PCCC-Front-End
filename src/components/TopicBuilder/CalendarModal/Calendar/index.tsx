@@ -28,6 +28,9 @@ export const Calendar: React.FC<Props> = ({
   type = 'assessment',
   data,
 }) => {
+  function placeholderForAddRecipe() {
+    return 'add recipe';
+  }
   return (
     <StyledCalendar>
       {Array.from({ length: 5 })
@@ -72,7 +75,7 @@ export const Calendar: React.FC<Props> = ({
                         </div>
                       )}
                       <div className="dropdown-container">
-                        <AddRecipeDropdown add={() => {}} />
+                        <AddRecipeDropdown add={placeholderForAddRecipe} />
                       </div>
                     </div>
                   );

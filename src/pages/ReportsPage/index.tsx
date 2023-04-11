@@ -28,7 +28,7 @@ export const ReportsPage = () => {
     return tabs.indexOf(tab);
   }, [mainMatch, previewMatch]);
 
-  const isPreview = useMemo(() => !!previewMatch, [mainMatch, previewMatch]);
+  const isPreview = useMemo(() => !!previewMatch, [previewMatch]);
 
   if (tabIndex < 0) {
     throw Error;

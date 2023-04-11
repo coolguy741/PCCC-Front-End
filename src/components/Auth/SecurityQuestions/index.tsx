@@ -8,6 +8,9 @@ interface SecurityQuestionsProps {
 }
 
 export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
+  function placeholderForSubmit() {
+    return 'clicked';
+  }
   return (
     <Container>
       <div className="password">
@@ -50,7 +53,7 @@ export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
         <Button onClick={() => setNav(2)}>Back</Button>
       </div>
       <div className="next-button">
-        <Button onClick={() => {}}>Submit</Button>
+        <Button onClick={placeholderForSubmit}>Submit</Button>
       </div>
     </Container>
   );
