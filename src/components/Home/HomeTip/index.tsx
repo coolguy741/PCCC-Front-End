@@ -8,36 +8,37 @@ interface HomeTipProps {
 
 export const HomeTip = ({ text, top = '0px', left = '0px' }: HomeTipProps) => {
   return (
-    <TipText top={top} left={left}>
-      <Text>{text}</Text>
-    </TipText>
+    <Style.TipText top={top} left={left}>
+      <Style.Text>{text}</Style.Text>
+    </Style.TipText>
   );
 };
 
-const TipText = styled.span<{ top: string; left: string }>`
-  background-color: #d9d9d9;
-  text-align: start;
-  border-radius: 2px;
-  padding: 5px;
-  position: absolute;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
-
-  &:after {
-    content: '';
-    display: block;
+const Style = {
+  TipText: styled.span<{ top: string; left: string }>`
+    background-color: #d9d9d9;
+    text-align: start;
+    border-radius: 2px;
+    padding: 5px;
     position: absolute;
+    top: ${(props) => props.top};
+    left: ${(props) => props.left};
 
-    right: 40px;
-    margin-left: -5px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: #d9d9d9 transparent transparent transparent;
-  }
-`;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
 
-const Text = styled.span`
-  font-size: 1rem;
-  text-align: start;
-  color: #797979;
-`;
+      right: 40px;
+      margin-left: -5px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: #d9d9d9 transparent transparent transparent;
+    }
+  `,
+  Text: styled.span`
+    font-size: 1rem;
+    text-align: start;
+    color: #797979;
+  `,
+};

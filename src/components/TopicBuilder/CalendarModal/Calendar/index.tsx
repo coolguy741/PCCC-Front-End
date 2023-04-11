@@ -32,12 +32,12 @@ export const Calendar: React.FC<Props> = ({
     return 'add recipe';
   }
   return (
-    <StyledCalendar>
+    <Style.Calendar>
       {Array.from({ length: 5 })
         .fill(1)
         .map((value, index) => {
           return (
-            <Week
+            <Style.Week
               key={`row-${index}`}
               id={`${index + 1}`}
               onClick={onWeekClick}
@@ -80,31 +80,31 @@ export const Calendar: React.FC<Props> = ({
                     </div>
                   );
                 })}
-            </Week>
+            </Style.Week>
           );
         })}
-    </StyledCalendar>
+    </Style.Calendar>
   );
 };
 
-const StyledCalendar = styled.div`
-  margin-top: 20px;
-  border: 0.5px solid var(--black);
-`;
+const Style = {
+  Calendar: styled.div`
+    margin-top: 20px;
+    border: 0.5px solid var(--black);
+  `,
+  Week: styled.div.attrs((props: { isPlan: boolean }) => ({
+    isPlan: props.isPlan || false,
+  }))`
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    position: relative;
+    & > div {
+      min-width: 0px;
+    }
 
-const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
-  isPlan: props.isPlan || false,
-}))`
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  position: relative;
-  & > div {
-    min-width: 0px;
-  }
-
-  ${({ isPlan }) =>
-    isPlan &&
-    `&:hover .day {
+    ${({ isPlan }) =>
+      isPlan &&
+      `&:hover .day {
       background: #2e2e2e;
     }
     &:hover > .dropdown-container .trigger {
@@ -112,26 +112,26 @@ const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
     }
   `}
 
-  .dropdown-container {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    .trigger {
-      opacity: 0;
+    .dropdown-container {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      .trigger {
+        opacity: 0;
+      }
     }
-  }
 
-  .day {
-    width: 100%;
-    height: 100px;
-    position: relative;
-    background: #d9d9d9;
-    border: 0.5px solid var(--black);
-    color: grey;
+    .day {
+      width: 100%;
+      height: 100px;
+      position: relative;
+      background: #d9d9d9;
+      border: 0.5px solid var(--black);
+      color: grey;
 
-    ${({ isPlan }) =>
-      !isPlan &&
-      `&:hover {
+      ${({ isPlan }) =>
+        !isPlan &&
+        `&:hover {
         background: #2e2e2e;
 
         & > .dropdown-container .trigger {
@@ -139,32 +139,33 @@ const Week = styled.div.attrs((props: { isPlan: boolean }) => ({
         }
       }
     `}
-    &.current-month {
-      color: #000000;
+      &.current-month {
+        color: #000000;
+      }
+
+      &.active {
+        background: var(--orange);
+      }
+    }
+
+    .scheduled-plans {
+      div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        position: relative;
+        font-size: 0.75rem;
+      }
+    }
+
+    .to-uppercase {
+      text-transform: uppercase;
     }
 
     &.active {
-      background: var(--orange);
+      .day {
+        background: var(--orange);
+      }
     }
-  }
-
-  .scheduled-plans {
-    div {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      position: relative;
-      font-size: 0.75rem;
-    }
-  }
-
-  .to-uppercase {
-    text-transform: uppercase;
-  }
-
-  &.active {
-    .day {
-      background: var(--orange);
-    }
-  }
-`;
+  `,
+};

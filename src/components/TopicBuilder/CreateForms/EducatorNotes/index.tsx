@@ -11,7 +11,7 @@ export const EducatorNotesForm = () => {
           <option value={'curriculum-a'}>Curriculm A</option>
         </select>
       </div>
-      <NotesContainer>
+      <Style.NotesContainer>
         <h4>Educator Notes</h4>
         <div>
           <div>
@@ -33,31 +33,33 @@ export const EducatorNotesForm = () => {
           </div>
           <div></div>
         </div>
-      </NotesContainer>
+      </Style.NotesContainer>
     </div>
   );
 };
 
-const NotesContainer = styled.div`
-  h4 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 10px 0;
-  }
+const Style = {
+  NotesContainer: styled.div`
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 10px 0;
+    }
 
-  & > div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
     & > div {
-      border: 1px solid #d9d9d9;
-      font-size: 0.75rem;
-      strong {
-        display: block;
-        font-size: 0.8rem;
-        margin-top: 10px;
-        font-weight: 700 !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      & > div {
+        border: 1px solid #d9d9d9;
+        font-size: 0.75rem;
+        strong {
+          display: block;
+          font-size: 0.8rem;
+          margin-top: 10px;
+          font-weight: 700 !important;
+        }
       }
     }
-  }
-`;
+  `,
+};

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TopicIntro = () => {
   return (
-    <Container>
+    <Style.Container>
       <div>
         <h4>Garden Guardian</h4>
         <p>
@@ -20,17 +20,19 @@ export const TopicIntro = () => {
         </p>
       </div>
       <div className="image-container"></div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  gap: 10px;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    gap: 10px;
 
-  & > .image-container {
-    width: 500px;
-    height: 200px;
-    background: var(--black);
-  }
-`;
+    & > .image-container {
+      width: 500px;
+      height: 200px;
+      background: var(--black);
+    }
+  `,
+};

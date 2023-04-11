@@ -42,71 +42,68 @@ export const SelectTags: React.FC<SelectTagsProps> = ({
   };
 
   return (
-    <Container>
-      <SearchContainer>
+    <Style.Container>
+      <Style.SearchContainer>
         <Search
           options={tagOptions}
           onSelect={handleSelect}
           onKeyDown={handleKeyDown}
         />
-      </SearchContainer>
-      <TextList>
+      </Style.SearchContainer>
+      <Style.TextList>
         {tags.map((tag) => (
-          <TextItemWrapper key={tag.id}>
-            <TextItemText>{tag.name}</TextItemText>
-            <TextItemButton onClick={() => handleRemoveText(tag.id)}>
+          <Style.TextItemWrapper key={tag.id}>
+            <Style.TextItemText>{tag.name}</Style.TextItemText>
+            <Style.TextItemButton onClick={() => handleRemoveText(tag.id)}>
               X
-            </TextItemButton>
-          </TextItemWrapper>
+            </Style.TextItemButton>
+          </Style.TextItemWrapper>
         ))}
         {selectedOption && (
-          <TextItemWrapper>
-            <TextItemText>{selectedOption}</TextItemText>
-            <TextItemButton onClick={() => setSelectedOption('')}>
+          <Style.TextItemWrapper>
+            <Style.TextItemText>{selectedOption}</Style.TextItemText>
+            <Style.TextItemButton onClick={() => setSelectedOption('')}>
               X
-            </TextItemButton>
-          </TextItemWrapper>
+            </Style.TextItemButton>
+          </Style.TextItemWrapper>
         )}
-      </TextList>
-    </Container>
+      </Style.TextList>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #c4c4c4;
-  padding: 20px;
-`;
-
-const SearchContainer = styled.div`
-  width: 100%;
-`;
-
-const TextList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-const TextItemWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #f2f2f2;
-  border-radius: 20px;
-  padding: 5px 10px;
-  margin: 5px;
-`;
-
-const TextItemText = styled.div`
-  margin-right: 10px;
-`;
-
-const TextItemButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #c4c4c4;
+    padding: 20px;
+  `,
+  SearchContainer: styled.div`
+    width: 100%;
+  `,
+  TextList: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  `,
+  TextItemWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 5px;
+  `,
+  TextItemText: styled.div`
+    margin-right: 10px;
+  `,
+  TextItemButton: styled.button`
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  `,
+};

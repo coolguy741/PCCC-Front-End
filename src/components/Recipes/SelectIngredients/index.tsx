@@ -62,91 +62,90 @@ export const SelectIngredients: React.FC<Props> = ({
   };
 
   return (
-    <Container>
-      <InputGroup>
-        <Select value={name} onChange={handleNameChange}>
+    <Style.Container>
+      <Style.InputGroup>
+        <Style.Select value={name} onChange={handleNameChange}>
           {ingredientOptions.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
             </option>
           ))}
-        </Select>
-        <Input type="number" value={amount} onChange={handleAmountChange} />
-        <Select value={unit} onChange={handleUnitChange}>
+        </Style.Select>
+        <Style.Input
+          type="number"
+          value={amount}
+          onChange={handleAmountChange}
+        />
+        <Style.Select value={unit} onChange={handleUnitChange}>
           {unitOptions.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
             </option>
           ))}
-        </Select>
+        </Style.Select>
         <SmallButton onClick={handleAdd}>Add</SmallButton>
-      </InputGroup>
-      <Panel>
+      </Style.InputGroup>
+      <Style.Panel>
         {ingredients.map((ingredient) => (
-          <PanelItem key={ingredient.id}>
-            <Text>{ingredient.name}</Text>
+          <Style.PanelItem key={ingredient.id}>
+            <Style.Text>{ingredient.name}</Style.Text>
             <div style={{ display: 'flex' }}>
-              <Text>{ingredient.amount}</Text>
-              <Text>{ingredient.unit}</Text>
+              <Style.Text>{ingredient.amount}</Style.Text>
+              <Style.Text>{ingredient.unit}</Style.Text>
             </div>
-            <CrossButton onClick={() => handleDelete(ingredient.id)}>
+            <Style.CrossButton onClick={() => handleDelete(ingredient.id)}>
               X
-            </CrossButton>
-          </PanelItem>
+            </Style.CrossButton>
+          </Style.PanelItem>
         ))}
-      </Panel>
-    </Container>
+      </Style.Panel>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-  gap: 20px;
-  font-size: 1rem;
-`;
-
-const Input = styled.input`
-  padding: 5px;
-  width: 50px;
-  border-radius: 4px;
-  background-color: #d9d9d9;
-  border: none;
-`;
-
-const Select = styled.select`
-  background-color: #d9d9d9;
-  padding: 5px;
-  border: none;
-`;
-
-const Panel = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-`;
-
-const PanelItem = styled.div`
-  background-color: #d9d9d9;
-  padding: 5px;
-  border: none;
-  display: flex;
-  gap: 5px;
-  align-items: center;
-`;
-
-const Text = styled.p`
-  font-size: 0.8rem;
-  margin: 0;
-  font-weight: 400;
-`;
-
-const CrossButton = styled.button`
-  font-size: 1rem;
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  InputGroup: styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 20px;
+    font-size: 1rem;
+  `,
+  Input: styled.input`
+    padding: 5px;
+    width: 50px;
+    border-radius: 4px;
+    background-color: #d9d9d9;
+    border: none;
+  `,
+  Select: styled.select`
+    background-color: #d9d9d9;
+    padding: 5px;
+    border: none;
+  `,
+  Panel: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  `,
+  PanelItem: styled.div`
+    background-color: #d9d9d9;
+    padding: 5px;
+    border: none;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  `,
+  Text: styled.p`
+    font-size: 0.8rem;
+    margin: 0;
+    font-weight: 400;
+  `,
+  CrossButton: styled.button`
+    font-size: 1rem;
+  `,
+};

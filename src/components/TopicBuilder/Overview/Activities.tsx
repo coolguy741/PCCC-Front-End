@@ -6,11 +6,11 @@ interface Props {
 
 export const TopicActivities: React.FC<Props> = ({ activity }) => {
   return (
-    <Container activity={activity}>
+    <Style.Container activity={activity}>
       <div>
-        <StyledAlert>
+        <Style.Alert>
           ! This content is not currently available in French
-        </StyledAlert>
+        </Style.Alert>
         {activity === 1 ? (
           <h4>Activity 1: Tools of the trade</h4>
         ) : (
@@ -97,44 +97,45 @@ export const TopicActivities: React.FC<Props> = ({ activity }) => {
 
         <div></div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div.attrs((props: { activity: number }) => ({
-  activity: props.activity || 1,
-}))`
-  display: flex;
-  gap: 10px;
-
-  & > .image-container {
-    & > div {
-      height: 200px;
-      width: 300px;
-      background: var(--black);
-    }
-  }
-
-  & .activities-list {
-    ${({ activity }) =>
-      activity === 1
-        ? `display: flex;
-          flex-direction: column;
-        `
-        : `display: grid;
-          grid-template-columns: 1fr 1fr;
-        `}
-
+const Style = {
+  Container: styled.div.attrs((props: { activity: number }) => ({
+    activity: props.activity || 1,
+  }))`
+    display: flex;
     gap: 10px;
-    & .image {
-      width: 50px;
-      height: 40px;
-      background: var(--black);
-    }
-  }
-`;
 
-const StyledAlert = styled.div`
-  padding: 20px;
-  background: #d9d9d9;
-`;
+    & > .image-container {
+      & > div {
+        height: 200px;
+        width: 300px;
+        background: var(--black);
+      }
+    }
+
+    & .activities-list {
+      ${({ activity }) =>
+        activity === 1
+          ? `display: flex;
+            flex-direction: column;
+          `
+          : `display: grid;
+            grid-template-columns: 1fr 1fr;
+          `}
+
+      gap: 10px;
+      & .image {
+        width: 50px;
+        height: 40px;
+        background: var(--black);
+      }
+    }
+  `,
+  Alert: styled.div`
+    padding: 20px;
+    background: #d9d9d9;
+  `,
+};

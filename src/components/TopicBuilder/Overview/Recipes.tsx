@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TopicRecipes = () => {
   return (
-    <Container>
+    <Style.Container>
       <div>
         <h4>Chocolate Granola Bites</h4>
         <div className="image"></div>
@@ -33,17 +33,19 @@ export const TopicRecipes = () => {
           </p>
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  gap: 10px;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    gap: 10px;
 
-  & .image {
-    width: 300px;
-    height: 150px;
-    background: var(--black);
-  }
-`;
+    & .image {
+      width: 300px;
+      height: 150px;
+      background: var(--black);
+    }
+  `,
+};

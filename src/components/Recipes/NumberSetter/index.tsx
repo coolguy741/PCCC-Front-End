@@ -17,31 +17,31 @@ export const NumberSetter: React.FC<Props> = ({ defaultValue }) => {
   };
 
   return (
-    <Container>
-      <Button onClick={decreaseValue}>{'<'}</Button>
-      <Text>{value}</Text>
-      <Button onClick={increaseValue}>{'>'}</Button>
-    </Container>
+    <Style.Container>
+      <Style.Button onClick={decreaseValue}>{'<'}</Style.Button>
+      <Style.Text>{value}</Style.Text>
+      <Style.Button onClick={increaseValue}>{'>'}</Style.Button>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  background-color: #c4c4c4;
-  display: flex;
-  align-items: center;
-  padding: 5px;
-`;
-
-const Button = styled.button`
-  padding: 8px;
-  border: none;
-  background: none;
-  font-size: 0.8rem;
-  color: #000000;
-  cursor: pointer;
-  margin: 0;
-`;
-
-const Text = styled.div`
-  font-size: 1rem;
-`;
+const Style = {
+  Container: styled.div`
+    background-color: #c4c4c4;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+  `,
+  Button: styled.button`
+    padding: 8px;
+    border: none;
+    background: none;
+    font-size: 0.8rem;
+    color: #000000;
+    cursor: pointer;
+    margin: 0;
+  `,
+  Text: styled.div`
+    font-size: 1rem;
+  `,
+};

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MealType = () => {
   return (
-    <Container>
+    <Style.Container>
       <p>Filters</p>
       <div>
         <select placeholder="Search">
@@ -10,7 +10,7 @@ export const MealType = () => {
         </select>
         <input type="text" placeholder="Search" />
       </div>
-      <Meals>
+      <Style.Meals>
         <div />
         <div />
         <div />
@@ -20,44 +20,45 @@ export const MealType = () => {
         <div />
         <div />
         <div />
-      </Meals>
-    </Container>
+      </Style.Meals>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  max-height: calc(100vh - 180px);
-  input {
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-  }
-  select {
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-  }
-`;
+const Style = {
+  Container: styled.div`
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    max-height: calc(100vh - 180px);
+    input {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    select {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+  `,
+  Meals: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-const Meals = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  & > div {
-    background: #2f2f2f;
-    width: 100%;
-    height: 200px;
-  }
-`;
+    & > div {
+      background: #2f2f2f;
+      width: 100%;
+      height: 200px;
+    }
+  `,
+};

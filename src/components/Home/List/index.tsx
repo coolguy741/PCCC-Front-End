@@ -16,19 +16,21 @@ interface ListProps {
 
 export const List = ({ data }: ListProps) => {
   return (
-    <Container>
+    <Style.Container>
       {data.map((item, index) => (
         <Link to={item.path}>
           <ListItem key={index} data={item} />
         </Link>
       ))}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0px;
-`;
+const Style = {
+  Container: styled.ul`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0px;
+  `,
+};

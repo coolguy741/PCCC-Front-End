@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TopicOverview = () => {
   return (
-    <Container>
+    <Style.Container>
       <div>
         <h4>Overview: With Great Power Comes Great Responsibility</h4>
         <p>
@@ -51,25 +51,27 @@ export const TopicOverview = () => {
         </p>
       </div>
       <div className="image-container"></div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  & p {
-    font-size: 0.75rem;
-    margin: 0;
-  }
-  & h4 {
-    margin-bottom: 2px;
-  }
-  & > .image-container {
-    width: 500px;
-    height: 200px;
-    flex: initial;
-    background: var(--black);
-  }
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    & p {
+      font-size: 0.75rem;
+      margin: 0;
+    }
+    & h4 {
+      margin-bottom: 2px;
+    }
+    & > .image-container {
+      width: 500px;
+      height: 200px;
+      flex: initial;
+      background: var(--black);
+    }
+  `,
+};

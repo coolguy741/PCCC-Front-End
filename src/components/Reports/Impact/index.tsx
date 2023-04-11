@@ -4,7 +4,7 @@ import { LinkButton } from '../../Global/Button/Link';
 
 export const ReportImpact = () => {
   return (
-    <Container>
+    <Style.Container>
       <div>
         <div>
           <div>
@@ -48,25 +48,27 @@ export const ReportImpact = () => {
           </LinkButton>
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  & div {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+const Style = {
+  Container: styled.div`
     & div {
-      width: 100%;
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      & div {
+        width: 100%;
+        display: flex;
 
-      div {
-        width: 50%;
+        div {
+          width: 50%;
+        }
+      }
+      &:last-child {
+        grid-template-columns: 1fr 3fr 2fr;
       }
     }
-    &:last-child {
-      grid-template-columns: 1fr 3fr 2fr;
-    }
-  }
-`;
+  `,
+};

@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const RecipesHeader = () => {
   return (
-    <Container>
+    <Style.Container>
       <h1>Recipes</h1>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div``;
+const Style = {
+  Container: styled.div``,
+};

@@ -12,8 +12,8 @@ export const TopicSlider: React.FC<Props> = ({
   withLabel = true,
 }) => {
   return (
-    <SliderContainer>
-      <Slider min={0} max={tabs.length} value={tabIndex}>
+    <Style.SliderContainer>
+      <Style.Slider min={0} max={tabs.length} value={tabIndex}>
         <div className="default-bar"></div>
         <div className="progress-bar"></div>
         <>
@@ -30,80 +30,81 @@ export const TopicSlider: React.FC<Props> = ({
             </span>
           ))}
         </>
-      </Slider>
-    </SliderContainer>
+      </Style.Slider>
+    </Style.SliderContainer>
   );
 };
 
-const SliderContainer = styled.div`
-  padding: 20px 25px 40px 25px;
-`;
+const Style = {
+  SliderContainer: styled.div`
+    padding: 20px 25px 40px 25px;
+  `,
+  Slider: styled.div.attrs(
+    (props: { min: number; max: number; value: number }) => ({
+      min: props.min || 0,
+      max: props.max || 1,
+      value: props.value || 0,
+    }),
+  )`
+    display: flex;
+    position: relative;
+    justify-content: space-between;
 
-const Slider = styled.div.attrs(
-  (props: { min: number; max: number; value: number }) => ({
-    min: props.min || 0,
-    max: props.max || 1,
-    value: props.value || 0,
-  }),
-)`
-  display: flex;
-  position: relative;
-  justify-content: space-between;
+    .default-bar,
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      transform: translate(0, -50%);
+      top: 50%;
+      position: absolute;
+    }
 
-  .default-bar,
-  .progress-bar {
-    width: 100%;
-    height: 5px;
-    transform: translate(0, -50%);
-    top: 50%;
-    position: absolute;
-  }
+    .default-bar {
+      background: #d9d9d9;
+    }
 
-  .default-bar {
-    background: #d9d9d9;
-  }
-
-  .progress-bar {
-    ${({ value, min, max }) =>
-      `
+    .progress-bar {
+      ${({ value, min, max }) =>
+        `
     width: ${((value - min) * 100) / (max - min - 1)}% !important;
     `}
-    background: var(--black);
-  }
-
-  .progress-bar {
-    position: absolute;
-  }
-
-  & > span.slider-mark {
-    & > .slider-label {
-      position: absolute;
-      white-space: nowrap;
-      top: 50%;
-      text-transform: capitalize;
-      transform: translate(calc(-50% + 10px), 50%);
+      background: var(--black);
     }
-    width: 20px;
-    height: 20px;
-    position: relative;
-    background: #d9d9d9;
-    border-radius: 100%;
-    ${({ value, max }) =>
-      `
+
+    .progress-bar {
+      position: absolute;
+    }
+
+    & > span.slider-mark {
+      & > .slider-label {
+        position: absolute;
+        white-space: nowrap;
+        top: 50%;
+        text-transform: capitalize;
+        transform: translate(calc(-50% + 10px), 50%);
+      }
+      width: 20px;
+      height: 20px;
+      position: relative;
+      background: #d9d9d9;
+      border-radius: 100%;
+      ${({ value, max }) =>
+        `
       &:nth-last-child(${max - value}) {
         border: 3px solid var(--black);
       }
     `}
-    &.pass {
-      background: var(--black);
-    }
-    &.active {
-      border: 3px solid var(--black);
-    }
+      &.pass {
+        background: var(--black);
+      }
+      &.active {
+        border: 3px solid var(--black);
+      }
 
-    & .content {
-      position: absolute;
-      transform: translate(calc(-50% + 10px), calc(50% + 10px));
+      & .content {
+        position: absolute;
+        transform: translate(calc(-50% + 10px), calc(50% + 10px));
+      }
     }
-  }
-`;
+  `,
+};

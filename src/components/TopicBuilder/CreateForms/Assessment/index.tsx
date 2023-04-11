@@ -21,7 +21,7 @@ export const AssessmentForm = () => {
               eiusmod tempor?
             </div>
             <div>
-              <StyledInput type="text" />
+              <Style.Input type="text" />
             </div>
           </div>
           <div>
@@ -31,19 +31,19 @@ export const AssessmentForm = () => {
             </div>
             <div className="flex">
               <span>
-                <StyledInput type="radio" />
+                <Style.Input type="radio" />
               </span>
               <div>Lorem ipsum dolor sit amet, consectetur adipiscing</div>
             </div>
             <div className="flex">
               <span>
-                <StyledInput type="radio" />
+                <Style.Input type="radio" />
               </span>
               <div>Lorem ipsum dolor sit amet, consectetur adipiscing</div>
             </div>
             <div className="flex">
               <span>
-                <StyledInput type="radio" />
+                <Style.Input type="radio" />
               </span>
               <div>Lorem ipsum dolor sit amet, consectetur adipiscing</div>
             </div>
@@ -55,11 +55,11 @@ export const AssessmentForm = () => {
             </div>
             <div className="flex">
               <div className="flex">
-                <StyledInput type="radio" />
+                <Style.Input type="radio" />
                 <label>True</label>
               </div>
               <div className="flex">
-                <StyledInput type="radio" />
+                <Style.Input type="radio" />
                 <label>False</label>
               </div>
             </div>
@@ -70,7 +70,7 @@ export const AssessmentForm = () => {
               eiusmod tempor?
             </div>
             <div>
-              <StyledInput type="text" />
+              <Style.Input type="text" />
             </div>
           </div>
         </div>
@@ -79,9 +79,11 @@ export const AssessmentForm = () => {
   );
 };
 
-const StyledInput = styled.input`
-  padding: 0.75rem;
-  border: none;
-  border-radius: 0.2rem;
-  width: 100%;
-`;
+const Style = {
+  Input: styled.input`
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.2rem;
+    width: 100%;
+  `,
+};

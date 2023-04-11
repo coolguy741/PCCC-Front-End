@@ -29,14 +29,14 @@ export const Search: React.FC<Props> = ({ options, onSelect, onKeyDown }) => {
   );
 
   return (
-    <Container>
+    <Style.Container>
       <input
         type="text"
         value={query}
         onChange={handleQueryChange}
         onKeyDown={onKeyDown}
       />
-      {query != '' && (
+      {query && (
         <ul>
           {filteredOptions.map((option) => (
             <li key={option.value} onClick={() => handleSelect(option)}>
@@ -45,26 +45,28 @@ export const Search: React.FC<Props> = ({ options, onSelect, onKeyDown }) => {
           ))}
         </ul>
       )}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  position: relative;
-  width: 100%;
-
-  input {
-    width: 100%;
-  }
-
-  ul {
-    position: absolute;
-    top: 10px;
-    background-color: var(--yellow);
+const Style = {
+  Container: styled.div`
+    position: relative;
     width: 100%;
 
-    li {
-      border-bottom: black 1px solid;
+    input {
+      width: 100%;
     }
-  }
-`;
+
+    ul {
+      position: absolute;
+      top: 10px;
+      background-color: var(--yellow);
+      width: 100%;
+
+      li {
+        border-bottom: black 1px solid;
+      }
+    }
+  `,
+};

@@ -19,7 +19,7 @@ export const MealFilter: React.FC<Props> = ({ match }) => {
   };
 
   return (
-    <Container>
+    <Style.Container>
       <div>
         <label>Filters</label>
         <select>
@@ -55,43 +55,45 @@ export const MealFilter: React.FC<Props> = ({ match }) => {
           Generate Meal
         </LinkButton>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr;
-  align-items: end;
-  gap: 10px;
-  padding-top: 0.75rem;
-  h1 {
-    font-weight: 700;
-    font-size: 3rem;
-    font-family: 'Noir Std';
-    line-height: 3.125rem;
-    margin: 0.25rem 0;
-  }
-  p {
-    margin: 0;
-    font-weight: 700;
-    font-family: 'Noir Std';
-  }
-  select {
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-  }
-  input {
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-  }
-  label {
-    margin-bottom: 1rem;
-    display: inline-block;
-  }
-`;
+const Style = {
+  Container: styled.div`
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    align-items: end;
+    gap: 10px;
+    padding-top: 0.75rem;
+    h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      font-family: 'Noir Std';
+      line-height: 3.125rem;
+      margin: 0.25rem 0;
+    }
+    p {
+      margin: 0;
+      font-weight: 700;
+      font-family: 'Noir Std';
+    }
+    select {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+    input {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+    label {
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+  `,
+};

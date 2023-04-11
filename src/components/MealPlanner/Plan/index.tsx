@@ -21,7 +21,7 @@ export const MealPlan: React.FC<Props> = ({ match = '' }) => {
   const isPrint = useMemo(() => match.includes('print'), [match]);
 
   return (
-    <Container isPrint={isPrint}>
+    <Style.Container isPrint={isPrint}>
       <div>
         {weekDays.map((weekDay) => (
           <div key={`weekday-${weekDay}`}>{weekDay}</div>
@@ -39,7 +39,7 @@ export const MealPlan: React.FC<Props> = ({ match = '' }) => {
                   <div key={`${dayIndex}-${weekDay}`}>
                     {/* TODO: Look into redundant double negation */}
                     {match ? (
-                      <Meal>
+                      <Style.Meal>
                         <div>
                           <div className="meal-image"></div>
                           {!isPrint && (
@@ -53,9 +53,9 @@ export const MealPlan: React.FC<Props> = ({ match = '' }) => {
                           )}
                           <p>Meal</p>
                         </div>
-                      </Meal>
+                      </Style.Meal>
                     ) : (
-                      <Meal />
+                      <Style.Meal />
                     )}
                   </div>
                 )}
@@ -63,67 +63,69 @@ export const MealPlan: React.FC<Props> = ({ match = '' }) => {
             ))}
           </div>
         ))}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div.attrs((props: { isPrint: boolean }) => ({
-  isPrint: props.isPrint || false,
-}))`
-  & * {
-    box-sizing: border-box;
-  }
-  overflow-x: hidden;
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  ${({ isPrint }) => !isPrint && `margin-right: 1.25rem; background: #c4c4c4;`};
-  margin-bottom: 10px;
-
-  & > div {
-    text-align: center;
-    display: grid;
-    border-bottom: 1px solid #2f2f2f;
+const Style = {
+  Container: styled.div.attrs((props: { isPrint: boolean }) => ({
+    isPrint: props.isPrint || false,
+  }))`
+    & * {
+      box-sizing: border-box;
+    }
+    overflow-x: hidden;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    ${({ isPrint }) =>
+      !isPrint && `margin-right: 1.25rem; background: #c4c4c4;`};
+    margin-bottom: 10px;
 
     & > div {
-      padding: 10px;
-      ${({ isPrint }) => isPrint && `border-right: 1px solid #2f2f2f;`}
-    }
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      text-align: center;
+      display: grid;
+      border-bottom: 1px solid #2f2f2f;
 
-    & > div:last-child {
-      ${({ isPrint }) => isPrint && `border-right: none;`}
-    }
-  }
-  & > div:last-of-type {
-    border-bottom: none;
-  }
-`;
+      & > div {
+        padding: 10px;
+        ${({ isPrint }) => isPrint && `border-right: 1px solid #2f2f2f;`}
+      }
+      grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
-const Meal = styled.div`
-  width: 100%;
-  height: 80px;
-  & > div {
-    position: relative;
-    height: 100%;
-    text-align: center;
-
-    .meal-image {
-      width: 80%;
-      height: 70%;
-      margin: auto;
-      background: #2f2f2f;
+      & > div:last-child {
+        ${({ isPrint }) => isPrint && `border-right: none;`}
+      }
     }
-
-    img {
-      position: absolute;
-      top: 2px;
-      right: 2px;
+    & > div:last-of-type {
+      border-bottom: none;
     }
+  `,
+  Meal: styled.div`
+    width: 100%;
+    height: 80px;
+    & > div {
+      position: relative;
+      height: 100%;
+      text-align: center;
 
-    p {
-      margin: 0;
+      .meal-image {
+        width: 80%;
+        height: 70%;
+        margin: auto;
+        background: #2f2f2f;
+      }
+
+      img {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+      }
+
+      p {
+        margin: 0;
+      }
     }
-  }
-`;
+  `,
+};
