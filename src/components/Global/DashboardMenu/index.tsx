@@ -43,10 +43,7 @@ export const DashboardMenu = () => {
             Achievements
           </div>
         </Link>
-        <div
-          className={`item`}
-          onClick={() => setUserToolsOpen(!userToolsOpen)}
-        >
+        <div className="item" onClick={() => setUserToolsOpen(!userToolsOpen)}>
           User Tools
         </div>
         <div className={`drop-down ${userToolsOpen && "open"}`}>
@@ -60,7 +57,7 @@ export const DashboardMenu = () => {
           </Link>
         </div>
         <div
-          className={`item`}
+          className="item"
           onClick={() => setCurriculumOpen(!curriculumOpen)}
         >
           Curriculum

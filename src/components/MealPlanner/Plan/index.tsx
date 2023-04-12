@@ -80,7 +80,7 @@ const Style = {
     flex-direction: column;
     padding: 10px;
     ${({ isPrint }) =>
-      !isPrint && `margin-right: 1.25rem; background: #c4c4c4;`};
+      !isPrint && "margin-right: 1.25rem; background: #c4c4c4;"};
     margin-bottom: 10px;
 
     & > div {
@@ -90,12 +90,12 @@ const Style = {
 
       & > div {
         padding: 10px;
-        ${({ isPrint }) => isPrint && `border-right: 1px solid #2f2f2f;`}
+        ${({ isPrint }) => isPrint && "border-right: 1px solid #2f2f2f;"}
       }
       grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
       & > div:last-child {
-        ${({ isPrint }) => isPrint && `border-right: none;`}
+        ${({ isPrint }) => isPrint && "border-right: none;"}
       }
     }
     & > div:last-of-type {
