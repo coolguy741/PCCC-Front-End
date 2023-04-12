@@ -11,8 +11,6 @@ import { SmallButton } from '../../../components/Global/SmallButton';
 import { SelectTags, Tag } from '../../../components/Recipes/SelectTags';
 import mockData from '../../../lib/mockData/mealtime-moments/mealtime-moment-create.json';
 
-// TODO: NOBERT. Continue style object implementation
-
 export const MealTimeMomentsCreatePage = () => {
   const [lang, setLang] = useState<string>(
     localStorage.getItem('lang') ?? 'en',
@@ -65,47 +63,47 @@ export const MealTimeMomentsCreatePage = () => {
   };
 
   return (
-    <PageContainer>
-      <ButtonGroup>
+    <Style.PageContainer>
+      <Style.ButtonGroup>
         <Button onClick={handleBack}>Back</Button>
         <Button onClick={handlePreview}>Preview</Button>
-      </ButtonGroup>
+      </Style.ButtonGroup>
       <AlignmentStyle.CenterAlignedContainer>
         <LanguageChooser lang={lang} setLang={setLang} />
       </AlignmentStyle.CenterAlignedContainer>
-      <Content>
-        <DetailContainer>
+      <Style.Content>
+        <Style.DetailContainer>
           <AlignmentStyle.LeftAlignedContainer>
             <h3>Title</h3>
           </AlignmentStyle.LeftAlignedContainer>
-          <TitleInput
+          <Style.TitleInput
             value={lang === 'en' ? titleEn : titleFr}
             onChange={handleTitleChange}
           />
-        </DetailContainer>
-        <OverviewImageContainer>
-          <DetailContainer>
+        </Style.DetailContainer>
+        <Style.OverviewImageContainer>
+          <Style.DetailContainer>
             <h3>Overview</h3>
-            <OverviewTextArea
+            <Style.OverviewTextArea
               value={lang === 'en' ? overivewEn : overivewFr}
               rows={15}
               onChange={handleOverviewChange}
-            ></OverviewTextArea>
-          </DetailContainer>
-          <DetailContainer>
+            ></Style.OverviewTextArea>
+          </Style.DetailContainer>
+          <Style.DetailContainer>
             <h3>Images and Videos</h3>
             <FileUploader />
-          </DetailContainer>
-          <DetailContainer>
+          </Style.DetailContainer>
+          <Style.DetailContainer>
             <h3>Add tags</h3>
             <SelectTags
               tagOptions={mockData.Tags}
               tags={tags}
               setTags={setTags}
             />
-          </DetailContainer>
-        </OverviewImageContainer>
-      </Content>
+          </Style.DetailContainer>
+        </Style.OverviewImageContainer>
+      </Style.Content>
       <AlignmentStyle.RightAlignedContainer>
         <SmallButton onClick={() => setVisibleModal(true)}>Save</SmallButton>
       </AlignmentStyle.RightAlignedContainer>
@@ -117,58 +115,54 @@ export const MealTimeMomentsCreatePage = () => {
           />
         </ModalContainer>
       )}
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    justify-content: space-between;
+  `,
+  Content: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  TitleInput: styled.input`
+    border: solid 1px black;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px #007bff33;
+    }
+  `,
+  DetailContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-basis: 0;
+    flex-grow: 1;
+  `,
+  OverviewTextArea: styled.textarea`
+    width: 100%;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const TitleInput = styled.input`
-  border: solid 1px black;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px #007bff33;
-  }
-`;
-
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex-basis: 0;
-  flex-grow: 1;
-`;
-
-const OverviewImageContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 30px;
-`;
-
-const OverviewTextArea = styled.textarea`
-  width: 100%;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px #007bff33;
-  }
-`;
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px #007bff33;
+    }
+  `,
+  OverviewImageContainer: styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+  `,
+};

@@ -36,31 +36,35 @@ export const TopicPrintPage = () => {
     throw Error;
   }
   return (
-    <Container>{tabIndex >= 0 ? components[tabIndex] : components}</Container>
+    <Style.Container>
+      {tabIndex >= 0 ? components[tabIndex] : components}
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  padding: 4rem;
+const Style = {
+  Container: styled.div`
+    box-sizing: border-box;
+    width: 100%;
+    padding: 4rem;
 
-  .plan-detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    .plan-detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    h3 {
-      font-weight: 700;
-      font-size: 2rem;
-      font-family: 'Noir Std';
-      line-height: 3.125rem;
-      margin: 0.25rem 0;
+      h3 {
+        font-weight: 700;
+        font-size: 2rem;
+        font-family: 'Noir Std';
+        line-height: 3.125rem;
+        margin: 0.25rem 0;
+      }
+
+      span {
+        font-size: 1rem;
+        margin-left: 3rem;
+      }
     }
-
-    span {
-      font-size: 1rem;
-      margin-left: 3rem;
-    }
-  }
-`;
+  `,
+};

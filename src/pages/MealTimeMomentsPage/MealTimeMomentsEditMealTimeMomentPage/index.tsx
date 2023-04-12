@@ -2,11 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../components/Global/Button';
-import {
-  CenterAlignedContainer,
-  LeftAlignedContainer,
-  RightAlignedContainer,
-} from '../../../components/Global/Container';
+import { AlignmentStyle } from '../../../components/Global/Container';
 import { FileUploader } from '../../../components/Global/FileUploader';
 import { LanguageChooser } from '../../../components/Global/LanguageChooser';
 import { ModalContainer } from '../../../components/Global/ModalContainer';
@@ -61,43 +57,43 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
   };
 
   return (
-    <PageContainer>
-      <LeftAlignedContainer>
+    <Style.PageContainer>
+      <AlignmentStyle.LeftAlignedContainer>
         <Button onClick={handleBack}>Back</Button>
-      </LeftAlignedContainer>
-      <CenterAlignedContainer>
+      </AlignmentStyle.LeftAlignedContainer>
+      <AlignmentStyle.CenterAlignedContainer>
         <LanguageChooser lang={lang} setLang={setLang} />
-      </CenterAlignedContainer>
-      <Content>
-        <DetailContainer>
-          <LeftAlignedContainer>
+      </AlignmentStyle.CenterAlignedContainer>
+      <Style.Content>
+        <Style.DetailContainer>
+          <AlignmentStyle.LeftAlignedContainer>
             <h3>Title</h3>
-          </LeftAlignedContainer>
-          <TitleInput
+          </AlignmentStyle.LeftAlignedContainer>
+          <Style.TitleInput
             value={lang === 'en' ? titleEn : titleFr}
             onChange={handleTitleChange}
           />
-        </DetailContainer>
-        <OverviewImageContainer>
-          <DetailContainer>
+        </Style.DetailContainer>
+        <Style.OverviewImageContainer>
+          <Style.DetailContainer>
             <h3>Overview</h3>
-            <OverviewTextArea
+            <Style.OverviewTextArea
               value={lang === 'en' ? overivewEn : overivewFr}
               rows={15}
               onChange={handleOverviewChange}
-            ></OverviewTextArea>
-          </DetailContainer>
-          <DetailContainer>
+            ></Style.OverviewTextArea>
+          </Style.DetailContainer>
+          <Style.DetailContainer>
             <h3>Images and Videos</h3>
             <FileUploader />
-          </DetailContainer>
-        </OverviewImageContainer>
-      </Content>
-      <RightAlignedContainer>
+          </Style.DetailContainer>
+        </Style.OverviewImageContainer>
+      </Style.Content>
+      <AlignmentStyle.RightAlignedContainer>
         <SmallButton onClick={() => setVisibleModal(true)}>
           Save changes
         </SmallButton>
-      </RightAlignedContainer>
+      </AlignmentStyle.RightAlignedContainer>
       {visibleModal && (
         <ModalContainer>
           <SaveChangesModal
@@ -106,53 +102,50 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
           />
         </ModalContainer>
       )}
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  Content: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  TitleInput: styled.input`
+    border: solid 1px black;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px #007bff33;
+    }
+  `,
+  DetailContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-basis: 0;
+    flex-grow: 1;
+  `,
+  OverviewImageContainer: styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+  `,
+  OverviewTextArea: styled.textarea`
+    width: 100%;
 
-const TitleInput = styled.input`
-  border: solid 1px black;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px #007bff33;
-  }
-`;
-
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex-basis: 0;
-  flex-grow: 1;
-`;
-
-const OverviewImageContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 30px;
-`;
-
-const OverviewTextArea = styled.textarea`
-  width: 100%;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px #007bff33;
-  }
-`;
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px #007bff33;
+    }
+  `,
+};

@@ -5,7 +5,7 @@ import { TopicFilter } from '../../../components/TopicBuilder/Filter';
 
 export const Topics = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <div>
         <TopicFilter />
       </div>
@@ -251,69 +251,71 @@ export const Topics = () => {
           </div>
         </div>
       </div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+const Style = {
+  PageContainer: styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
-  & < div:first-child {
-    padding: 5px;
-    flex: initial;
-  }
-
-  & {
-    .list-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
+    & > div:first-child {
       padding: 5px;
-      overflow: auto;
-      min-height: 30rem;
-      height: calc(100vh - 300px);
-      & {
-        h4 {
-          font-size: 0.875rem;
-          margin: 0;
-        }
+      flex: initial;
+    }
 
-        p {
-          font-size: 0.75rem;
-          margin: 0;
-        }
-
-        .topic-info {
-          width: 100%;
-
-          .topic-image {
-            width: 100%;
-            border-radius: 0.5rem;
-            height: 150px;
-            background: grey;
-            position: relative;
-
-            .topic-overview-link {
-              position: absolute;
-              top: -0.25rem;
-              left: -0.25rem;
-              background: #ffffff;
-              width: 2rem;
-              height: 2rem;
-              border-radius: 100%;
-              cursor: pointer;
-              border: 2px solid var(--black);
-            }
+    & {
+      .list-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        padding: 5px;
+        overflow: auto;
+        min-height: 30rem;
+        height: calc(100vh - 300px);
+        & {
+          h4 {
+            font-size: 0.875rem;
+            margin: 0;
           }
 
-          .topic-caption {
-            font-transform: uppercase;
-            font-size: 0.5rem;
+          p {
+            font-size: 0.75rem;
+            margin: 0;
+          }
+
+          .topic-info {
+            width: 100%;
+
+            .topic-image {
+              width: 100%;
+              border-radius: 0.5rem;
+              height: 150px;
+              background: grey;
+              position: relative;
+
+              .topic-overview-link {
+                position: absolute;
+                top: -0.25rem;
+                left: -0.25rem;
+                background: #ffffff;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 100%;
+                cursor: pointer;
+                border: 2px solid var(--black);
+              }
+            }
+
+            .topic-caption {
+              text-transform: uppercase;
+              font-size: 0.5rem;
+            }
           }
         }
       }
     }
-  }
-`;
+  `,
+};

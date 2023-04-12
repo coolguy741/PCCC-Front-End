@@ -78,7 +78,7 @@ export const RecipesPage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <div className="input-group">
         <div className="selectboxes-container">
           <div>
@@ -114,31 +114,33 @@ export const RecipesPage = () => {
       <div className="recipe-list-container">
         <RecipeList recipes={mockData} />
       </div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  .input-group {
-    display: flex;
-    justify-content: space-between;
-
-    .selectboxes-container {
+const Style = {
+  PageContainer: styled.div`
+    .input-group {
       display: flex;
+      justify-content: space-between;
 
-      div {
-        padding-right: 20px;
+      .selectboxes-container {
+        display: flex;
+
+        div {
+          padding-right: 20px;
+        }
+      }
+
+      .buttons-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
       }
     }
 
-    .buttons-container {
-      display: flex;
-      align-items: center;
-      gap: 15px;
+    .recipe-list-container {
+      margin-top: 40px;
     }
-  }
-
-  .recipe-list-container {
-    margin-top: 40px;
-  }
-`;
+  `,
+};

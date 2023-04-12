@@ -1,10 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../components/Global/Button';
-import {
-  LeftAlignedContainer,
-  RightAlignedContainer,
-} from '../../../components/Global/Container';
+import { AlignmentStyle } from '../../../components/Global/Container';
 import { Icon } from '../../../components/Global/Icon';
 import { SelectBox } from '../../../components/Global/SelectBox';
 import { Text } from '../../../components/Global/Text';
@@ -107,42 +104,47 @@ export const ProfileSettingsPage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <h1>Profile Settings</h1>
-      <LeftAlignedContainer>
+      <AlignmentStyle.LeftAlignedContainer>
         <Button onClick={handleBack}>Back</Button>
-      </LeftAlignedContainer>
-      <Content>
-        <ProfileContainer>
+      </AlignmentStyle.LeftAlignedContainer>
+      <Style.Content>
+        <Style.ProfileContainer>
           <h3>Profile</h3>
-          <ChangingAvatar>
-            <UserAvatar>
+          <Style.ChangingAvatar>
+            <Style.UserAvatar>
               <h4>Avatar</h4>
-              <img src={mockData[0].image} width="200px" height="200px" />
-            </UserAvatar>
-            <Avatars>
+              <img
+                src={mockData[0].image}
+                alt="avatar"
+                width="200px"
+                height="200px"
+              />
+            </Style.UserAvatar>
+            <Style.Avatars>
               <h4>Change avatar</h4>
-              <AvatarList>
+              <Style.AvatarList>
                 {avatars.map((avatar, index) => (
                   <Icon key={index} name={avatar.name} width="42px" />
                 ))}
-              </AvatarList>
-            </Avatars>
-          </ChangingAvatar>
-          <InputGroup>
-            <InputContainer>
+              </Style.AvatarList>
+            </Style.Avatars>
+          </Style.ChangingAvatar>
+          <Style.InputGroup>
+            <Style.InputContainer>
               <label>
                 <Text>Name</Text>
               </label>
               <input type="text" />
-            </InputContainer>
-            <InputContainer>
+            </Style.InputContainer>
+            <Style.InputContainer>
               <label>
                 <Text>Email Address</Text>
               </label>
               <input type="text" />
-            </InputContainer>
-            <InputContainer>
+            </Style.InputContainer>
+            <Style.InputContainer>
               <label>
                 <Text>Username</Text>
               </label>
@@ -159,107 +161,100 @@ export const ProfileSettingsPage = () => {
                 }}
               ></SelectBox>
               <input type="text" style={{ width: '60px' }} />
-            </InputContainer>
-            <RightAlignedContainer>
+            </Style.InputContainer>
+            <AlignmentStyle.RightAlignedContainer>
               <Button onClick={handleGenerate}>Generate</Button>
-            </RightAlignedContainer>
-          </InputGroup>
-        </ProfileContainer>
-        <PasswordSettingContainer>
+            </AlignmentStyle.RightAlignedContainer>
+          </Style.InputGroup>
+        </Style.ProfileContainer>
+        <Style.PasswordSettingContainer>
           <h3>Change password</h3>
-          <InputGroup>
-            <InputContainer>
+          <Style.InputGroup>
+            <Style.InputContainer>
               <label>
                 <Text>Old password</Text>
               </label>
               <input type="text" />
-            </InputContainer>
-            <InputContainer>
+            </Style.InputContainer>
+            <Style.InputContainer>
               <label>
                 <Text>New password</Text>
               </label>
               <input type="text" />
-            </InputContainer>
-            <InputContainer>
+            </Style.InputContainer>
+            <Style.InputContainer>
               <label>
                 <Text>Confirm New password</Text>
               </label>
               <input type="text" />
-            </InputContainer>
-          </InputGroup>
-        </PasswordSettingContainer>
-      </Content>
-      <RightAlignedContainer>
+            </Style.InputContainer>
+          </Style.InputGroup>
+        </Style.PasswordSettingContainer>
+      </Style.Content>
+      <AlignmentStyle.RightAlignedContainer>
         <Button onClick={handleSaveChanges}>Save Changes</Button>
-      </RightAlignedContainer>
-    </PageContainer>
+      </AlignmentStyle.RightAlignedContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  Content: styled.div`
+    display: flex;
+    gap: 100px;
+  `,
+  ProfileContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  PasswordSettingContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  ChangingAvatar: styled.div`
+    display: flex;
+    gap: 80px;
+  `,
+  UserAvatar: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  Avatars: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  InputGroup: styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    gap: 20px;
+  `,
+  InputContainer: styled.div`
+    display: flex;
+    gap: 20px;
 
-const Content = styled.div`
-  display: flex;
-  gap: 100px;
-`;
+    label {
+      width: 150px;
+    }
 
-const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+    select {
+      width: 100px;
+    }
 
-const PasswordSettingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ChangingAvatar = styled.div`
-  display: flex;
-  gap: 80px;
-`;
-
-const UserAvatar = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Avatars = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 100px;
-  gap: 20px;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  gap: 20px;
-
-  label {
-    width: 150px;
-  }
-
-  select {
-    width: 100px;
-  }
-
-  input {
-    width: 300px;
-  }
-`;
-
-const AvatarList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  width: 200px;
-  height: 200px;
-  overflow-y: scroll;
-`;
+    input {
+      width: 300px;
+    }
+  `,
+  AvatarList: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 200px;
+    height: 200px;
+    overflow-y: scroll;
+  `,
+};

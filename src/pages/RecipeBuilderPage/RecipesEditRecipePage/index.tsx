@@ -47,12 +47,12 @@ export const RecipesEditRecipePage = () => {
   };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <Button onClick={handleBack}>Back</Button>
       <div className="title-buttons-container">
         <h2>Edit recipe</h2>
         <div className="language-toggle">
-          {currentLanguage == 'en' ? (
+          {currentLanguage === 'en' ? (
             <>
               <SmallButton
                 onClick={() => setCurrentLanguage('en')}
@@ -119,9 +119,9 @@ export const RecipesEditRecipePage = () => {
             <h3>Directions</h3>
             <EditableText text={mockData.directions} />
           </div>
-          <RightAlignedContainer>
+          <Style.RightAlignedContainer>
             <SmallButton onClick={showModal}>Save changes</SmallButton>
-          </RightAlignedContainer>
+          </Style.RightAlignedContainer>
         </div>
       </div>
       {visibleModal && (
@@ -132,56 +132,56 @@ export const RecipesEditRecipePage = () => {
           />
         </ModalContainer>
       )}
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const ClickedButton = styled(SmallButton)`
-  background-color: green;
-`;
-
-const PageContainer = styled.div`
-  .title-buttons-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .language-toggle {
+const Style = {
+  ClickedButton: styled(SmallButton)`
+    background-color: green;
+  `,
+  PageContainer: styled.div`
+    .title-buttons-container {
       display: flex;
-      gap: 20px;
-    }
-  }
+      justify-content: space-between;
+      align-items: center;
 
-  .content {
-    display: flex;
-    gap: 20px;
-
-    .left-content {
-      width: 50%;
-
-      .images-videos-tags-container {
+      .language-toggle {
         display: flex;
-        justify-content: space-between;
         gap: 20px;
       }
     }
 
-    .right-content {
+    .content {
       display: flex;
-      flex-direction: column;
       gap: 20px;
-      width: 50%;
 
-      .servering-size-container {
+      .left-content {
+        width: 50%;
+
+        .images-videos-tags-container {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+        }
+      }
+
+      .right-content {
         display: flex;
-        align-items: center;
+        flex-direction: column;
         gap: 20px;
+        width: 50%;
+
+        .servering-size-container {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
       }
     }
-  }
-`;
-
-const RightAlignedContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
+  `,
+  RightAlignedContainer: styled.div`
+    display: flex;
+    justify-content: flex-end;
+  `,
+};

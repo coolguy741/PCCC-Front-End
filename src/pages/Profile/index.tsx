@@ -11,12 +11,12 @@ export const ProfilePage = () => {
     navigate('./../profile-settings');
   };
   return (
-    <PageContainer>
-      <Header>
+    <Style.PageContainer>
+      <Style.Header>
         <h1>Your Profile</h1>
         <Button onClick={toProfileSettings}>Profile Settings</Button>
-      </Header>
-      <Content>
+      </Style.Header>
+      <Style.Content>
         <Photo src={mockData[1].image} role={mockData[1].role} width="100px" />
         {mockData[1].role === 'Standard' ? (
           <div className="user-info">
@@ -46,26 +46,26 @@ export const ProfilePage = () => {
             <p className="text">Created: {mockData[1].createdDate}</p>
           </div>
         )}
-      </Content>
-    </PageContainer>
+      </Style.Content>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  Header: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `,
+  Content: styled.div`
+    display: flex;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Content = styled.div`
-  display: flex;
-
-  .user-info {
-    margin-left: 40px;
-  }
-`;
+    .user-info {
+      margin-left: 40px;
+    }
+  `,
+};

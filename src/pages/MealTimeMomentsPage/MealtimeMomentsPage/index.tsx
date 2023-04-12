@@ -69,23 +69,23 @@ export const MealTimeMomentsPage = () => {
   }, []);
 
   return (
-    <Container>
-      <InputContainer>
-        <SelectBoxContainer>
+    <Style.Container>
+      <Style.InputContainer>
+        <Style.SelectBoxContainer>
           <Text>Sort</Text>
           <SelectBox
             options={SortOptions}
             onChange={handleSortChange}
           ></SelectBox>
-        </SelectBoxContainer>
-        <ButtonGroup>
+        </Style.SelectBoxContainer>
+        <Style.ButtonGroup>
           <SmallButton onClick={handleDeleteSelectedMoments}>
             Delete
           </SmallButton>
           <SmallButton onClick={handleCreate}>Create</SmallButton>
-        </ButtonGroup>
-      </InputContainer>
-      <CardsContainer>
+        </Style.ButtonGroup>
+      </Style.InputContainer>
+      <Style.CardsContainer>
         {mockData.moments.map((moment) => (
           <Link to="./mealtime-moment">
             <Card
@@ -101,39 +101,37 @@ export const MealTimeMomentsPage = () => {
             />
           </Link>
         ))}
-      </CardsContainer>
-    </Container>
+      </Style.CardsContainer>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  CardsContainer: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  `,
+  InputContainer: styled.div`
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+  `,
+  SelectBoxContainer: styled.div`
+    width: 150px;
 
-const CardsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-`;
-
-const SelectBoxContainer = styled.div`
-  width: 150px;
-
-  select {
-    margin-top: 10px;
-  }
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
+    select {
+      margin-top: 10px;
+    }
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  `,
+};

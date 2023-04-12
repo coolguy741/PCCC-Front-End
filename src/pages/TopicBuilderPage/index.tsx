@@ -5,29 +5,31 @@ import { PageHeader } from '../../components/Global/Header/PageHeader';
 
 export const TopicBuilderPage = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <PageHeader title="Topics" />
       <div className="topics-container">
         <Outlet />
       </div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .topics-container {
+const Style = {
+  PageContainer: styled.div`
+    width: 100%;
     height: 100%;
-    overflow: hidden;
-  }
+    display: flex;
+    flex-direction: column;
 
-  & *,
-  ::before,
-  ::after {
-    box-sizing: border-box;
-  }
-`;
+    .topics-container {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    & *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
+    }
+  `,
+};

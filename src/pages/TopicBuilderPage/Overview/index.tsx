@@ -59,12 +59,12 @@ export const TopicOverviewPage: React.FC<Props> = ({
           ? `/dashboard/topics/preview/create/${tabs.current[index]}`
           : `../${id}/${tabs.current[index]}`
         : basePath.current,
-    [id],
+    [id, isCreatePreview],
   );
   const tab = (topicCreatePreview ?? match)?.params.slug ?? 'topic';
   const tabIndex = useMemo(
     () => tabs.current.indexOf(`${tab}${search}`),
-    [`${tab}${search}`],
+    [search, tab],
   );
   const handlePrint = () => {
     setIsOpenPrintModal(true);
@@ -90,10 +90,10 @@ export const TopicOverviewPage: React.FC<Props> = ({
             <LinkButton to={`/dashboard/topics/${id}/${tab}/edit`}>
               Edit
             </LinkButton>
-            <StyledButton onClick={handleAddCalendar}>
+            <Style.Button onClick={handleAddCalendar}>
               Add to Calendar
-            </StyledButton>
-            <StyledButton onClick={handlePrint}>Print</StyledButton>
+            </Style.Button>
+            <Style.Button onClick={handlePrint}>Print</Style.Button>
           </div>
         )}
       </div>
@@ -115,7 +115,7 @@ export const TopicOverviewPage: React.FC<Props> = ({
         )}
       </div>
       {!isCreatePreview && (
-        <TopicInfo>
+        <Style.TopicInfo>
           <div className="topic-info-content">
             <div>
               It seems like you like this content. Learn more about gardening in
@@ -127,7 +127,7 @@ export const TopicOverviewPage: React.FC<Props> = ({
             </div>
           </div>
           <img src="/images/bee.svg" alt="bee" />
-        </TopicInfo>
+        </Style.TopicInfo>
       )}
       <PrintOptionsModal
         isOpen={isOpenPrintModal}
@@ -142,43 +142,44 @@ export const TopicOverviewPage: React.FC<Props> = ({
   );
 };
 
-const TopicInfo = styled.div`
-  display: flex;
-  align-items: center;
+const Style = {
+  TopicInfo: styled.div`
+    display: flex;
+    align-items: center;
 
-  & > .topic-info-content {
-    padding: 10px 20px;
-    border-radius: 10px;
-    background: #d9d9d9;
-    position: relative;
-
-    &:after {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      right: 0;
-      transform: rotate(45deg) translate(calc(50% - 5px), calc(-50%));
-      top: 50%;
-      clip-path: polygon(0% 30%, 100% 0%, 70% 100%, 0 30%);
+    & > .topic-info-content {
+      padding: 10px 20px;
+      border-radius: 10px;
       background: #d9d9d9;
-      content: '';
+      position: relative;
+
+      &:after {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 0;
+        transform: rotate(45deg) translate(calc(50% - 5px), calc(-50%));
+        top: 50%;
+        clip-path: polygon(0% 30%, 100% 0%, 70% 100%, 0 30%);
+        background: #d9d9d9;
+        content: '';
+      }
     }
-  }
 
-  & > img {
-    margin-left: -70px;
-    margin-top: -70px;
-  }
-`;
-
-const StyledButton = styled.button`
-  background-color: var(--yellow);
-  border: none;
-  border-radius: 2rem;
-  color: #3d3d3d;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 0.75rem;
-  padding: 0.75rem 1.125rem;
-  vertical-align: top;
-`;
+    & > img {
+      margin-left: -70px;
+      margin-top: -70px;
+    }
+  `,
+  Button: styled.button`
+    background-color: var(--yellow);
+    border: none;
+    border-radius: 2rem;
+    color: #3d3d3d;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.75rem 1.125rem;
+    vertical-align: top;
+  `,
+};

@@ -7,13 +7,13 @@ export const SearchPage = () => {
   const count = useMemo(() => results.length, [results]);
 
   return (
-    <PageContainer>
-      <Title>{'Search Results for ' + searchKey}</Title>
-      <ResultesText>
+    <Style.PageContainer>
+      <Style.Title>{'Search Results for ' + searchKey}</Style.Title>
+      <Style.ResultesText>
         {`Results ${count} of ${count} for ${searchKey}`}{' '}
-      </ResultesText>
+      </Style.ResultesText>
       {results.map((result, index) => (
-        <ListItem key={`list-${index}`}>
+        <Style.ListItem key={`list-${index}`}>
           <img
             src={result.image}
             width="110px"
@@ -32,81 +32,80 @@ export const SearchPage = () => {
               }}
             />
           </div>
-        </ListItem>
+        </Style.ListItem>
       ))}
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  Title: styled.p`
+    font-family: 'Noir Std';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 103.68%;
+    letter-spacing: 0.02em;
+    color: #c4c4c4;
+    margin-bottom: 0px;
+  `,
+  ResultesText: styled.p`
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 143.18%;
+    letter-spacing: 0.02em;
+    color: #797979;
+    margin: 0px;
+  `,
+  ListItem: styled.div`
+    display: flex;
+    gap: 70px;
 
-const Title = styled.p`
-  font-family: 'Noir Std';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 103.68%;
-  letter-spacing: 0.02em;
-  color: #c4c4c4;
-  margin-bottom: 0px;
-`;
+    .text-container {
+      p {
+        margin: 0px;
+      }
+      .topic {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 143.18%;
+        letter-spacing: 0.02em;
+        color: #797979;
+      }
 
-const ResultesText = styled.p`
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 143.18%;
-  letter-spacing: 0.02em;
-  color: #797979;
-  margin: 0px;
-`;
+      .title {
+        font-family: 'Noir Std';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 129.18%;
+        letter-spacing: 0.02em;
+        color: #797979;
+      }
 
-const ListItem = styled.div`
-  display: flex;
-  gap: 70px;
+      .content {
+        font-family: 'Noir Std';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 110%;
+        letter-spacing: 0.02em;
+        color: #797979;
 
-  .text-container {
-    p {
-      margin: 0px;
-    }
-    .topic {
-      font-family: 'Open Sans';
-      font-style: normal;
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 143.18%;
-      letter-spacing: 0.02em;
-      color: #797979;
-    }
-
-    .title {
-      font-family: 'Noir Std';
-      font-style: normal;
-      font-weight: 700;
-      font-size: 24px;
-      line-height: 129.18%;
-      letter-spacing: 0.02em;
-      color: #797979;
-    }
-
-    .content {
-      font-family: 'Noir Std';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 110%;
-      letter-spacing: 0.02em;
-      color: #797979;
-
-      strong {
-        color: var(--black);
-        font-size: 14px;
+        strong {
+          color: var(--black);
+          font-size: 14px;
+        }
       }
     }
-  }
-`;
+  `,
+};

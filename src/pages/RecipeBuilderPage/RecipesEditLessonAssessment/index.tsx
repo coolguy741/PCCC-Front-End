@@ -2,14 +2,16 @@ import styled from 'styled-components';
 
 export const RecipesEditLessonAssessment = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <h2>RecipesEditLessonAssessment</h2>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  .content {
-    padding: 11px 0px;
-  }
-`;
+const Style = {
+  PageContainer: styled.div`
+    .content {
+      padding: 11px 0px;
+    }
+  `,
+};

@@ -11,10 +11,10 @@ export const NotificationsPage = () => {
   };
 
   return (
-    <PageContainer>
-      <Title>Notifications</Title>
-      <SubTitle>Activity</SubTitle>
-      <NotificationsContainer>
+    <Style.PageContainer>
+      <Style.Title>Notifications</Style.Title>
+      <Style.SubTitle>Activity</Style.SubTitle>
+      <Style.NotificationsContainer>
         <tbody>
           {mockData.listData.map((notification, index) => (
             <tr key={index}>
@@ -48,61 +48,60 @@ export const NotificationsPage = () => {
             </tr>
           ))}
         </tbody>
-      </NotificationsContainer>
-    </PageContainer>
+      </Style.NotificationsContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  Title: styled.p`
+    font-family: 'Noir Std';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 103.68%;
+    letter-spacing: 0.02em;
+    color: #c4c4c4;
+    margin-bottom: 0px;
+  `,
+  SubTitle: styled.p`
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 143.18%;
+    letter-spacing: 0.02em;
+    color: #797979;
+    margin: 0px;
+    margin-top: 50px;
+  `,
+  NotificationsContainer: styled.table`
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
 
-const Title = styled.p`
-  font-family: 'Noir Std';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 103.68%;
-  letter-spacing: 0.02em;
-  color: #c4c4c4;
-  margin-bottom: 0px;
-`;
+    tr {
+      width: 100%;
+      border-bottom: 1px solid black;
+      height: 80px;
 
-const SubTitle = styled.p`
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 143.18%;
-  letter-spacing: 0.02em;
-  color: #797979;
-  margin: 0px;
-  margin-top: 50px;
-`;
-
-const NotificationsContainer = styled.table`
-  display: flex;
-  flex-direction: column;
-  border-collapse: collapse;
-
-  tr {
-    width: 100%;
-    border-bottom: 1px solid black;
-    height: 80px;
-
-    .icon {
-      width: 10%;
+      .icon {
+        width: 10%;
+      }
+      .photo {
+        width: 6%;
+      }
+      .text {
+        width: 60%;
+      }
+      .date {
+        width: 20%;
+      }
     }
-    .photo {
-      width: 6%;
-    }
-    .text {
-      width: 60%;
-    }
-    .date {
-      width: 20%;
-    }
-  }
-`;
+  `,
+};

@@ -22,15 +22,17 @@ export const ReportsPrintPage = () => {
     return tabs.indexOf(tab);
   }, [match]);
 
-  return <Container>{components[tabIndex]}</Container>;
+  return <Style.Container>{components[tabIndex]}</Style.Container>;
 };
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 40px;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    justify-content: center;
+    padding: 40px;
 
-  h4 {
-    font-size: 2.5rem;
-  }
-`;
+    h4 {
+      font-size: 2.5rem;
+    }
+  `,
+};

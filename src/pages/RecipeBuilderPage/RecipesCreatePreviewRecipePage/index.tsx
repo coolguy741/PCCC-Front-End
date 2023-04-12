@@ -16,32 +16,32 @@ export const RecipesCreatePreviewRecipePage = () => {
   };
 
   return (
-    <PageContainer>
-      <LeftAlignedContainer>
+    <Style.PageContainer>
+      <Style.LeftAlignedContainer>
         <Button onClick={handleBack}>Back</Button>
-      </LeftAlignedContainer>
-      <LanguageButtonGroup>
+      </Style.LeftAlignedContainer>
+      <Style.LanguageButtonGroup>
         <SmallButton onClick={toggleLanguage}>English</SmallButton>
         <SmallButton onClick={toggleLanguage}>French</SmallButton>
-      </LanguageButtonGroup>
+      </Style.LanguageButtonGroup>
       <RecipeContent />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const LanguageButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-`;
-
-const LeftAlignedContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  LanguageButtonGroup: styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  `,
+  LeftAlignedContainer: styled.div`
+    display: flex;
+    justify-content: flex-start;
+  `,
+};

@@ -35,13 +35,15 @@ export const ReportsPage = () => {
   }
 
   return (
-    <Container>
+    <Style.Container>
       <PageHeader title="Reports" />
       {isPreview && <ReportActions tabs={tabs} tabIndex={tabIndex} />}
       <ReportsTabs tabIndex={tabIndex} tabs={tabs} isPreview={isPreview} />
       {isPreview ? previewComponents[tabIndex] : mainComponents[tabIndex]}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div``;
+const Style = {
+  Container: styled.div``,
+};

@@ -7,15 +7,17 @@ interface RecipesBuilderPageProps {
 
 export const RecipesBuilderPage = ({ children }: RecipesBuilderPageProps) => {
   return (
-    <Container>
+    <Style.Container>
       <RecipesHeader />
       <div className="content">{children}</div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  .content {
-    padding: 11px 0px;
-  }
-`;
+const Style = {
+  Container: styled.div`
+    .content {
+      padding: 11px 0px;
+    }
+  `,
+};
