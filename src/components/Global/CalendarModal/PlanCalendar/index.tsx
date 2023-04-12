@@ -1,10 +1,10 @@
-import { Calendar, TData } from '../Calendar';
+import { Calendar, TData } from "../Calendar";
 
 const data: TData = {
-  type: 'plan',
-  group: 'Garden',
+  type: "plan",
+  group: "Garden",
   week: 2,
-  plans: [{ time: new Date(), meal: 'Chocolate' }],
+  plans: [{ time: new Date(), meal: "Chocolate" }],
 };
 
 export const PlanCalendar = () => {

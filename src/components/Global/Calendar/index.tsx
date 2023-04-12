@@ -1,9 +1,9 @@
-import { CalendarOptions, EventContentArg } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import FullCalendar from '@fullcalendar/react';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import styled from 'styled-components';
+import { CalendarOptions, EventContentArg } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import styled from "styled-components";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
@@ -11,7 +11,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
       <Style.CustomEventTitle>
         <p className="event-title">{eventInfo.event?.title}</p>
         <p className="event-content">
-          {eventInfo.event?.extendedProps.type.toUpperCase()} -{' '}
+          {eventInfo.event?.extendedProps.type.toUpperCase()} -{" "}
           {eventInfo.event?.extendedProps.description}
         </p>
       </Style.CustomEventTitle>
@@ -24,8 +24,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          left: 'prev,title,next',
-          right: 'timeGridDay,timeGridWeek,dayGridMonth',
+          left: "prev,title,next",
+          right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         {...props}
         longPressDelay={1000}
@@ -33,7 +33,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         selectLongPressDelay={1000}
         views={{
           dayGridMonth: {
-            titleFormat: { year: 'numeric', month: 'short', day: 'numeric' },
+            titleFormat: { year: "numeric", month: "short", day: "numeric" },
           },
         }}
         initialDate={new Date()}

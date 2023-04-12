@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { AlignmentStyle } from '../../../components/Global/Container';
-import { Text } from '../../../components/Global/Text';
-import mockData from '../../../lib/mockData/mealtime-moments/mealtime-moment-print.json';
+import styled from "styled-components";
+import { AlignmentStyle } from "../../../components/Global/Container";
+import { Text } from "../../../components/Global/Text";
+import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-print.json";
 
 export const MealtimeMomentPrintPage = () => {
   return (

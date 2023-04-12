@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../Global/Button';
-import { Input } from '../../Global/Input';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../Global/Button";
+import { Input } from "../../Global/Input";
 
 export const ResetPasswordForm = () => {
   function placeholderForReset() {
-    return 'clicked';
+    return "clicked";
   }
   return (
     <Container>

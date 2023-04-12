@@ -1,27 +1,27 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Photo } from '../../../../components/Accounts/Photo';
-import { Button } from '../../../../components/Global/Button';
-import { Icon } from '../../../../components/Global/Icon';
-import MockData from '../../../../lib/mockData/accounts/userProfile.json';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Photo } from "../../../../components/Accounts/Photo";
+import { Button } from "../../../../components/Global/Button";
+import { Icon } from "../../../../components/Global/Icon";
+import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 //should be deleted after api implementation
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
   const { pathname } = useLocation();
-  const userData = pathname.includes('Standard')
+  const userData = pathname.includes("Standard")
     ? MockData[0]
-    : pathname.includes('Professional')
+    : pathname.includes("Professional")
     ? MockData[1]
     : MockData[2];
 
   const handleBack = () => {
-    return 'handle back';
+    return "handle back";
   };
 
   const handleEdit = () => {
-    return 'handle edit';
+    return "handle edit";
   };
 
   return (
@@ -32,14 +32,14 @@ export const AccountsUserProfilePage = () => {
       <div className="info-container">
         <div className="avatar-container">
           <Photo src={userData.image} role={userData.role} width="100px" />
-          {userData.role === 'Standard' ? (
+          {userData.role === "Standard" ? (
             <div className="user-info">
               <p className="bold-big-text">{userData.userID}</p>
               <p className="text">Birth year: {userData.birthYear}</p>
               <p className="text">Province: {userData.province}</p>
               <p className="text">Created: {userData.createdDate}</p>
             </div>
-          ) : userData.role === 'Professional' ? (
+          ) : userData.role === "Professional" ? (
             <div className="user-info">
               <p className="bold-big-text">{userData.userID}</p>
               <p className="bold-text">{userData.name}</p>
@@ -82,7 +82,7 @@ export const AccountsUserProfilePage = () => {
                   </span>
                   <span className="bold-text">{group.name}</span>
                   <span className="small-text">
-                    {'( ' + group.number + ' )'}
+                    {"( " + group.number + " )"}
                   </span>
                 </li>
               ))}
@@ -157,7 +157,7 @@ const Style = {
 
         .user-info {
           padding-left: 30px;
-          font-family: 'Noir Std';
+          font-family: "Noir Std";
           font-style: normal;
           line-height: 103.68%;
           letter-spacing: 0.02em;
@@ -212,7 +212,7 @@ const Style = {
 
               .bold-text {
                 padding-left: 15px;
-                font-family: 'Noir Std';
+                font-family: "Noir Std";
                 font-style: normal;
                 font-weight: 700;
                 font-size: 14px;
@@ -223,7 +223,7 @@ const Style = {
 
               .small-text {
                 padding-left: 5px;
-                font-family: 'Noir Std';
+                font-family: "Noir Std";
                 font-style: normal;
                 font-weight: 400;
                 font-size: 12px;
@@ -244,7 +244,7 @@ const Style = {
         padding-bottom: 10px;
         display: flex;
         align-items: center;
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         line-height: 19px;
         letter-spacing: 0.02em;
@@ -276,7 +276,7 @@ const Style = {
     table {
       text-align: left;
       align-items: center;
-      font-family: 'Noir Std';
+      font-family: "Noir Std";
       font-style: normal;
       line-height: 103.68%;
       letter-spacing: 0.02em;

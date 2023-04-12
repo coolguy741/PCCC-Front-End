@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { Icon } from '../../Global/Icon';
-import { SmallButton } from '../../Global/SmallButton';
+import { useState } from "react";
+import styled from "styled-components";
+import { Icon } from "../../Global/Icon";
+import { SmallButton } from "../../Global/SmallButton";
 
 interface GroupCardProps {
   data: {
@@ -42,11 +42,11 @@ export const GroupCard = ({ data }: GroupCardProps) => {
         <div className="col-50">
           <p className="text">Last modified: {data.lastModified}</p>
           <p className="text">Owner: {data.owner}</p>
-          <p className="text">{'(' + data.ownerRole + ')'}</p>
+          <p className="text">{"(" + data.ownerRole + ")"}</p>
         </div>
       </div>
       <div
-        className={`members-container ${isExpand === true ? 'show' : 'hide'}`}
+        className={`members-container ${isExpand === true ? "show" : "hide"}`}
       >
         {data.members.map((member, index) => (
           <div className="member-container" key={index}>
@@ -57,7 +57,7 @@ export const GroupCard = ({ data }: GroupCardProps) => {
       </div>
       <div className="row">
         <button className="expand-button" onClick={handleExpand}>
-          {isExpand === false ? 'Expand' : 'Collapse'}
+          {isExpand === false ? "Expand" : "Collapse"}
         </button>
         <div className="buttons-group">
           <SmallButton>Join</SmallButton>

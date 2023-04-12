@@ -1,62 +1,62 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Card } from '../../../components/Global/Card';
-import { SelectBox } from '../../../components/Global/SelectBox';
-import { SmallButton } from '../../../components/Global/SmallButton';
-import { Text } from '../../../components/Global/Text';
-import mockData from '../../../lib/mockData/activities/activities.json';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Card } from "../../../components/Global/Card";
+import { SelectBox } from "../../../components/Global/SelectBox";
+import { SmallButton } from "../../../components/Global/SmallButton";
+import { Text } from "../../../components/Global/Text";
+import mockData from "../../../lib/mockData/activities/activities.json";
 
 const FilterOptions = [
   {
-    value: 'Curriculum name',
-    label: 'Curriculum name',
+    value: "Curriculum name",
+    label: "Curriculum name",
   },
   {
-    value: 'Curriculum name1',
-    label: 'Curriculum name1',
+    value: "Curriculum name1",
+    label: "Curriculum name1",
   },
   {
-    value: 'Curriculum name2',
-    label: 'Curriculum name2',
+    value: "Curriculum name2",
+    label: "Curriculum name2",
   },
   {
-    value: 'Curriculum name3',
-    label: 'Curriculum name3',
+    value: "Curriculum name3",
+    label: "Curriculum name3",
   },
 ];
 
 const TopicOptions = [
   {
-    value: 'Topic name',
-    label: 'Topic name',
+    value: "Topic name",
+    label: "Topic name",
   },
   {
-    value: 'name1',
-    label: 'name1',
+    value: "name1",
+    label: "name1",
   },
   {
-    value: 'name2',
-    label: 'name2',
+    value: "name2",
+    label: "name2",
   },
   {
-    value: 'name3',
-    label: 'name3',
+    value: "name3",
+    label: "name3",
   },
 ];
 
 const SortOptions = [
   {
-    value: 'Date Added',
-    label: 'Date Added',
+    value: "Date Added",
+    label: "Date Added",
   },
   {
-    value: 'A-Z',
-    label: 'A-Z',
+    value: "A-Z",
+    label: "A-Z",
   },
   {
-    value: 'Z-A',
-    label: 'Z-A',
+    value: "Z-A",
+    label: "Z-A",
   },
 ];
 
@@ -75,15 +75,15 @@ export const ActivitiesPage = () => {
   const navigate = useNavigate();
 
   const handleSortChange = (value: string) => {
-    alert('Sorted by ' + value);
+    alert("Sorted by " + value);
   };
 
   const handleCurriculumChange = (value: string) => {
-    alert('Filtered by curriculumn: ' + value);
+    alert("Filtered by curriculumn: " + value);
   };
 
   const handleTopicChange = (value: string) => {
-    alert('Filtered by topic: ' + value);
+    alert("Filtered by topic: " + value);
   };
 
   const handleDeleteSelectedActivities = () => {
@@ -109,11 +109,11 @@ export const ActivitiesPage = () => {
   };
 
   const handleCreate = () => {
-    navigate('./create');
+    navigate("./create");
   };
 
   useEffect(() => {
-    console.log('activities', mockData.activities);
+    console.log("activities", mockData.activities);
   }, []);
 
   return (
@@ -122,7 +122,7 @@ export const ActivitiesPage = () => {
         <Style.SelectBoxGroup>
           <Style.SelectBoxContainer>
             <Text>Filter</Text>
-            <div style={{ gap: '20px', display: 'flex' }}>
+            <div style={{ gap: "20px", display: "flex" }}>
               <SelectBox
                 options={FilterOptions}
                 onChange={handleCurriculumChange}

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Button } from '../../Global/Button';
-import { Input } from '../../Global/Input';
+import styled from "styled-components";
+import { Button } from "../../Global/Button";
+import { Input } from "../../Global/Input";
 
 interface SignUpFormProps {
   setNav: (nav: number) => void;

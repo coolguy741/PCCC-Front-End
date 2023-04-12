@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-import { TopicFilter } from '../../../components/TopicBuilder/Filter';
+import { TopicFilter } from "../../../components/TopicBuilder/Filter";
 
 export const Topics = () => {
   return (

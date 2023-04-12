@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useMatch } from 'react-router-dom';
-import styled from 'styled-components';
+import { useState } from "react";
+import { useMatch } from "react-router-dom";
+import styled from "styled-components";
 
-import { CalendarModal } from '../../components/Global/CalendarModal';
-import { MealPlannerActions } from '../../components/MealPlanner/Actions';
-import { MealFilter } from '../../components/MealPlanner/Filter';
-import { MealPlanHeader } from '../../components/MealPlanner/Header';
-import { MealPlan } from '../../components/MealPlanner/Plan';
-import { MealType } from '../../components/MealPlanner/Type';
+import { CalendarModal } from "../../components/Global/CalendarModal";
+import { MealPlannerActions } from "../../components/MealPlanner/Actions";
+import { MealFilter } from "../../components/MealPlanner/Filter";
+import { MealPlanHeader } from "../../components/MealPlanner/Header";
+import { MealPlan } from "../../components/MealPlanner/Plan";
+import { MealType } from "../../components/MealPlanner/Type";
 
 export const MealPlannerPage = () => {
-  const match = useMatch('/dashboard/meal-planner/edit');
+  const match = useMatch("/dashboard/meal-planner/edit");
   const [isOpen, setIsOpen] = useState(false);
   const close = () => {
     setIsOpen(false);

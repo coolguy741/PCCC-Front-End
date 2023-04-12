@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface Props {
   isPrint?: boolean;
@@ -7,10 +7,10 @@ interface Props {
 export const Assessment: React.FC<Props> = ({ isPrint = false }) => {
   return (
     <Style.Container>
-      <div className={`to-uppercase ${isPrint ? 'text-center' : ''}`}>
+      <div className={`to-uppercase ${isPrint ? "text-center" : ""}`}>
         Topic: Garden Guardian
       </div>
-      <h3 className={`${isPrint ? 'text-center' : ''}`}>
+      <h3 className={`${isPrint ? "text-center" : ""}`}>
         Chocolate granola bites - Assessment
       </h3>
       <div className="qa-list">

@@ -1,20 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Button } from '../../Global/Button';
-import { RecentFiles } from './Recents';
+import { Button } from "../../Global/Button";
+import { RecentFiles } from "./Recents";
 
 const files = [
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 0 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 0 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
-  { filename: 'Activity Sheets', uploadDate: 'January 6, 2023', size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 0 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 0 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
+  { filename: "Activity Sheets", uploadDate: "January 6, 2023", size: 100 },
 ];
 
 export const Files = () => {
@@ -43,7 +43,7 @@ export const Files = () => {
               </td>
               <td>{file.filename}</td>
               <td>{file.uploadDate}</td>
-              <td>{file.size ? `${file.size}KB` : '---'}</td>
+              <td>{file.size ? `${file.size}KB` : "---"}</td>
               <td width={100}>
                 <Button>Share</Button>
               </td>

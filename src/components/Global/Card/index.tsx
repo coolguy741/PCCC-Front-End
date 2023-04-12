@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Bold, Text, UpperCase } from '../Text';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Bold, Text, UpperCase } from "../Text";
 
 interface CardProps {
   id: number;
@@ -18,9 +18,9 @@ export const Card = ({
   id,
   image,
   isSelected = false,
-  alt = 'card',
-  topic = '',
-  date = '',
+  alt = "card",
+  topic = "",
+  date = "",
   title,
   description,
   onSelectionChange,
@@ -29,19 +29,19 @@ export const Card = ({
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked);
-    console.log('Checked', event.target.checked);
+    console.log("Checked", event.target.checked);
     onSelectionChange(id, event.target.checked);
   };
 
   return (
     <Style.Container>
       <img src={image} alt={alt} />
-      {topic !== '' && (
+      {topic !== "" && (
         <Text size="sm">
           <UpperCase>Topic: {topic}</UpperCase>
         </Text>
       )}
-      {date !== '' && (
+      {date !== "" && (
         <Text size="sm">
           <UpperCase>{date}</UpperCase>
         </Text>
@@ -67,7 +67,7 @@ const Style = {
     width: 190px;
     position: relative;
   `,
-  CheckboxInput: styled.input.attrs({ type: 'checkbox' })`
+  CheckboxInput: styled.input.attrs({ type: "checkbox" })`
     z-index: 50;
     position: absolute;
     top: -10px;

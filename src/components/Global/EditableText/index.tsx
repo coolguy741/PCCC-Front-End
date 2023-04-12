@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { SmallButton } from '../SmallButton';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { SmallButton } from "../SmallButton";
 
 interface Props {
   text: string;

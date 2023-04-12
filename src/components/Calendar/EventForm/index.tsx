@@ -1,8 +1,8 @@
-import { ChangeEvent, useState } from 'react';
-import styled from 'styled-components';
+import { ChangeEvent, useState } from "react";
+import styled from "styled-components";
 
-import { Button } from '../../Global/Button';
-import { CalendarEvent, EventType } from '../Popup';
+import { Button } from "../../Global/Button";
+import { CalendarEvent, EventType } from "../Popup";
 
 interface Props {
   eventType: EventType;
@@ -11,11 +11,11 @@ interface Props {
 
 export const EventForm: React.FC<Props> = ({ eventType, addEvent }) => {
   const [eventFormFields, setEventFormFields] = useState({
-    curriculum: '',
-    group: '',
-    topic: '',
-    name: '',
-    note: '',
+    curriculum: "",
+    group: "",
+    topic: "",
+    name: "",
+    note: "",
   });
 
   const handleChange = (
@@ -38,7 +38,7 @@ export const EventForm: React.FC<Props> = ({ eventType, addEvent }) => {
   return (
     <Style.Container eventType={eventType}>
       <div className="form-body">
-        <div className="form-title">{eventType.value?.replace('-', ' ')}</div>
+        <div className="form-title">{eventType.value?.replace("-", " ")}</div>
         <div>
           <input type="checkbox" name="isVisibleToGroup" />
           <label>Make visible to group</label>
@@ -84,7 +84,7 @@ export const EventForm: React.FC<Props> = ({ eventType, addEvent }) => {
         </div>
         <div>
           <div>
-            <label>{eventType.value?.replace('-', ' ')} name</label>
+            <label>{eventType.value?.replace("-", " ")} name</label>
           </div>
           <select
             name="topic"

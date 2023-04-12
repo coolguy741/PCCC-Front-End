@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import { CalendarFilter } from '../../components/Calendar/Filter/Index';
-import { CalendarPopup } from '../../components/Calendar/Popup';
-import { LinkButton } from '../../components/Global/Button/Link';
-import { Calendar } from '../../components/Global/Calendar';
-import { useCalendarEventsStore } from '../../stores/eventsStore';
+import { CalendarFilter } from "../../components/Calendar/Filter/Index";
+import { CalendarPopup } from "../../components/Calendar/Popup";
+import { LinkButton } from "../../components/Global/Button/Link";
+import { Calendar } from "../../components/Global/Calendar";
+import { useCalendarEventsStore } from "../../stores/eventsStore";
 
 export const CalendarPage = () => {
   const { events, getEvents } = useCalendarEventsStore((state) => state);
@@ -43,9 +43,9 @@ export const CalendarPage = () => {
           height="750px"
           dateClick={handleDateClick}
           buttonText={{
-            month: 'Month',
-            week: 'Week',
-            day: 'Day',
+            month: "Month",
+            week: "Week",
+            day: "Day",
           }}
         />
         <Style.CalendarSideMenu>

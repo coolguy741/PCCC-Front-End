@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { ListItem } from './item';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { ListItem } from "./item";
 export interface itemType {
   image: string;
   alt: string;

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Grocery } from '../../../pages/types';
+import { Grocery } from "../../../pages/types";
 
 interface Props {
   grocery?: Grocery;

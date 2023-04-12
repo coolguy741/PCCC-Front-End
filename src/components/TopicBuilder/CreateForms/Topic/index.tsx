@@ -1,4 +1,4 @@
-import { Uploader } from '../../Uploader';
+import { Uploader } from "../../Uploader";
 
 export const TopicForm = () => {
   return (

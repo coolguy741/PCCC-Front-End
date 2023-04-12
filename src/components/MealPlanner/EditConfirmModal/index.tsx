@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Button } from '../../Global/Button';
+import { Button } from "../../Global/Button";
 
 interface Props {
   isOpen?: boolean;

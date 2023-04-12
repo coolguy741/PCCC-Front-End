@@ -1,24 +1,24 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Card } from '../../../components/Global/Card';
-import { SelectBox } from '../../../components/Global/SelectBox';
-import { SmallButton } from '../../../components/Global/SmallButton';
-import { Text } from '../../../components/Global/Text';
-import mockData from '../../../lib/mockData/mealtime-moments/mealtime-moments.json';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Card } from "../../../components/Global/Card";
+import { SelectBox } from "../../../components/Global/SelectBox";
+import { SmallButton } from "../../../components/Global/SmallButton";
+import { Text } from "../../../components/Global/Text";
+import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moments.json";
 
 const SortOptions = [
   {
-    value: 'Date Added',
-    label: 'Date Added',
+    value: "Date Added",
+    label: "Date Added",
   },
   {
-    value: 'A-Z',
-    label: 'A-Z',
+    value: "A-Z",
+    label: "A-Z",
   },
   {
-    value: 'Z-A',
-    label: 'Z-A',
+    value: "Z-A",
+    label: "Z-A",
   },
 ];
 
@@ -37,7 +37,7 @@ export const MealTimeMomentsPage = () => {
   const navigate = useNavigate();
 
   const handleSortChange = (value: string) => {
-    alert('Sort by ' + value);
+    alert("Sort by " + value);
   };
 
   const handleDeleteSelectedMoments = () => {
@@ -61,11 +61,11 @@ export const MealTimeMomentsPage = () => {
   };
 
   const handleCreate = () => {
-    navigate('./create');
+    navigate("./create");
   };
 
   useEffect(() => {
-    console.log('moments', mockData.moments);
+    console.log("moments", mockData.moments);
   }, []);
 
   return (

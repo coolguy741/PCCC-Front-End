@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { Button } from '../../components/Global/Button';
-import { Text } from '../../components/Global/Text';
-import mockData from '../../lib/mockData/games.json';
+import styled from "styled-components";
+import { Button } from "../../components/Global/Button";
+import { Text } from "../../components/Global/Text";
+import mockData from "../../lib/mockData/games.json";
 
 export const GamesPage = () => {
   return (
@@ -27,7 +27,7 @@ export const GamesPage = () => {
 const PageContainer = styled.div``;
 
 const Title = styled.p`
-  font-family: 'Noir Std';
+  font-family: "Noir Std";
   font-style: normal;
   font-weight: 700;
   font-size: 48px;

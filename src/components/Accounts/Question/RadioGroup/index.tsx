@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
 interface RadioGropQuestionProps {
   optionContent: string[];
@@ -8,7 +8,7 @@ interface RadioGropQuestionProps {
 export const RadioGropQuestion = ({
   optionContent,
 }: RadioGropQuestionProps) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState("");
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);

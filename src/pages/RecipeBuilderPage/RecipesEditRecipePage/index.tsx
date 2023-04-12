@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../components/Global/Button';
-import { EditableText } from '../../../components/Global/EditableText';
-import { FileUploader } from '../../../components/Global/FileUploader';
-import { ModalContainer } from '../../../components/Global/ModalContainer';
-import { SaveChangesModal } from '../../../components/Global/SaveChangesModal';
-import { SmallButton } from '../../../components/Global/SmallButton';
-import { NumberSetter } from '../../../components/Recipes/NumberSetter';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../components/Global/Button";
+import { EditableText } from "../../../components/Global/EditableText";
+import { FileUploader } from "../../../components/Global/FileUploader";
+import { ModalContainer } from "../../../components/Global/ModalContainer";
+import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
+import { SmallButton } from "../../../components/Global/SmallButton";
+import { NumberSetter } from "../../../components/Recipes/NumberSetter";
 import {
   Ingredient,
   SelectIngredients,
-} from '../../../components/Recipes/SelectIngredients';
-import { SelectTags, Tag } from '../../../components/Recipes/SelectTags';
-import mockData from '../../../lib/mockData/recipes/recipeEdit.json';
+} from "../../../components/Recipes/SelectIngredients";
+import { SelectTags, Tag } from "../../../components/Recipes/SelectTags";
+import mockData from "../../../lib/mockData/recipes/recipeEdit.json";
 
 export const RecipesEditRecipePage = () => {
-  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [currentLanguage, setCurrentLanguage] = useState("en");
   const [ingredients, setIngredients] = useState<Ingredient[]>(
     mockData.initialIngredients,
   );
@@ -29,7 +29,7 @@ export const RecipesEditRecipePage = () => {
   };
 
   const handlePreview = () => {
-    navigate('./../preview');
+    navigate("./../preview");
   };
 
   const showModal = () => {
@@ -37,13 +37,13 @@ export const RecipesEditRecipePage = () => {
   };
 
   const handleSave = () => {
-    navigate('./../preview');
+    navigate("./../preview");
   };
 
   const handleToggleLanguage = () => {
     setVisibleModal(false);
-    if (currentLanguage === 'en') setCurrentLanguage('fr');
-    if (currentLanguage === 'fr') setCurrentLanguage('en');
+    if (currentLanguage === "en") setCurrentLanguage("fr");
+    if (currentLanguage === "fr") setCurrentLanguage("en");
   };
 
   return (
@@ -52,25 +52,25 @@ export const RecipesEditRecipePage = () => {
       <div className="title-buttons-container">
         <h2>Edit recipe</h2>
         <div className="language-toggle">
-          {currentLanguage === 'en' ? (
+          {currentLanguage === "en" ? (
             <>
               <SmallButton
-                onClick={() => setCurrentLanguage('en')}
+                onClick={() => setCurrentLanguage("en")}
                 bgColor="green"
               >
                 English
               </SmallButton>
-              <SmallButton onClick={() => setCurrentLanguage('fr')}>
+              <SmallButton onClick={() => setCurrentLanguage("fr")}>
                 French
               </SmallButton>
             </>
           ) : (
             <>
-              <SmallButton onClick={() => setCurrentLanguage('en')}>
+              <SmallButton onClick={() => setCurrentLanguage("en")}>
                 English
               </SmallButton>
               <SmallButton
-                onClick={() => setCurrentLanguage('fr')}
+                onClick={() => setCurrentLanguage("fr")}
                 bgColor="green"
               >
                 French
@@ -87,11 +87,11 @@ export const RecipesEditRecipePage = () => {
           <h3>What is it good for?</h3>
           <EditableText text={mockData.advantage} />
           <div className="images-videos-tags-container">
-            <div style={{ width: '65%' }}>
+            <div style={{ width: "65%" }}>
               <h3>Images and Videos</h3>
               <FileUploader />
             </div>
-            <div style={{ width: '35%' }}>
+            <div style={{ width: "35%" }}>
               <h3>Tags</h3>
               <SelectTags
                 tagOptions={mockData.Tags}

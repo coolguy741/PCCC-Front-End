@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { Button } from '../../Global/Button';
-import { Input } from '../../Global/Input';
-import { Select } from '../../Global/Select';
+import styled from "styled-components";
+import { Button } from "../../Global/Button";
+import { Input } from "../../Global/Input";
+import { Select } from "../../Global/Select";
 
 interface SecurityQuestionsProps {
   setNav: (nav: number) => void;
@@ -9,7 +9,7 @@ interface SecurityQuestionsProps {
 
 export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
   function placeholderForSubmit() {
-    return 'clicked';
+    return "clicked";
   }
   return (
     <Container>

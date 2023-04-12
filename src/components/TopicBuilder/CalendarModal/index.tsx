@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { AssessmentCalendar } from './AssessmentCalendar';
+import { AssessmentCalendar } from "./AssessmentCalendar";
 
 interface Props {
   isOpen?: boolean;

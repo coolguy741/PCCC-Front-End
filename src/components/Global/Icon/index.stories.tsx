@@ -1,6 +1,6 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BrowserRouter } from 'react-router-dom';
-import { Icon } from './index';
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
+import { Icon } from "./index";
 
 export default {
   component: Icon,

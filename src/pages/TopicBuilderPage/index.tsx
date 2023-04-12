@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import { Outlet } from "react-router-dom";
+import styled from "styled-components";
 
-import { PageHeader } from '../../components/Global/Header/PageHeader';
+import { PageHeader } from "../../components/Global/Header/PageHeader";
 
 export const TopicBuilderPage = () => {
   return (

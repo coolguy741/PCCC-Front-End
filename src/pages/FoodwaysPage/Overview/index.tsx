@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Globe } from '../../../components/Foodways/Globe';
-import { Button } from '../../../components/Global/Button';
-import { CalendarModal } from '../../../components/Global/CalendarModal';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Globe } from "../../../components/Foodways/Globe";
+import { Button } from "../../../components/Global/Button";
+import { CalendarModal } from "../../../components/Global/CalendarModal";
 
 export const FoodwaysOverviewPage = () => {
   const [showCalendarModal, setShowCalendarModal] = useState(false);

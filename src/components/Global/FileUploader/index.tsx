@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
-import { SmallButton } from '../SmallButton';
+import React, { useRef, useState } from "react";
+import styled from "styled-components";
+import { SmallButton } from "../SmallButton";
 
 interface FileItem {
   file: File;
@@ -15,7 +15,7 @@ export const FileUploader: React.FC = () => {
     const newFiles = event.target.files;
     if (newFiles) {
       const newFileList: FileItem[] = Array.from(newFiles).map((file) => {
-        const isVideo = file.type.startsWith('video/');
+        const isVideo = file.type.startsWith("video/");
         const preview = isVideo
           ? generateVideoThumbnail(file)
           : URL.createObjectURL(file);
@@ -32,15 +32,15 @@ export const FileUploader: React.FC = () => {
   };
 
   const generateVideoThumbnail = (file: File): string => {
-    const video = document.createElement('video');
+    const video = document.createElement("video");
     video.src = URL.createObjectURL(file);
-    video.addEventListener('loadedmetadata', () => {
+    video.addEventListener("loadedmetadata", () => {
       video.currentTime = Math.min(0.5, video.duration);
     });
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = 100;
     canvas.height = 100;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     context?.drawImage(video, 0, 0, canvas.width, canvas.height);
     return canvas.toDataURL();
   };
@@ -57,26 +57,26 @@ export const FileUploader: React.FC = () => {
         {fileList.map((fileItem) => (
           <div
             key={fileItem.preview}
-            style={{ display: 'inline-block', position: 'relative' }}
+            style={{ display: "inline-block", position: "relative" }}
           >
-            {fileItem.file.type.startsWith('image/') ? (
+            {fileItem.file.type.startsWith("image/") ? (
               <img
                 src={fileItem.preview}
                 alt={fileItem.file.name}
-                style={{ width: '100px', height: '100px' }}
+                style={{ width: "100px", height: "100px" }}
               />
             ) : (
               <img
                 src={fileItem.preview}
                 alt={fileItem.file.name}
-                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                style={{ width: "100px", height: "100px", objectFit: "cover" }}
               />
             )}
             <button
               onClick={() => {
                 handleRemoveFile(fileItem);
               }}
-              style={{ position: 'absolute', top: '0', right: '0' }}
+              style={{ position: "absolute", top: "0", right: "0" }}
             >
               X
             </button>

@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../components/Global/Button';
-import { Icon } from '../../../components/Global/Icon';
-import { RecipeContent } from '../../../components/Recipes/RecipeContent';
-import { RecipeTip } from '../../../components/Recipes/RecipeTip';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../components/Global/Button";
+import { Icon } from "../../../components/Global/Icon";
+import { RecipeContent } from "../../../components/Recipes/RecipeContent";
+import { RecipeTip } from "../../../components/Recipes/RecipeTip";
 
 export const RecipePage = () => {
   const navigate = useNavigate();
@@ -13,15 +13,15 @@ export const RecipePage = () => {
   };
 
   const handleEdit = () => {
-    navigate('./edit');
+    navigate("./edit");
   };
 
   const handleAddToCalendar = () => {
-    alert('Add to calendar');
+    alert("Add to calendar");
   };
 
   const handlePrint = () => {
-    navigate('./print');
+    navigate("./print");
   };
 
   return (

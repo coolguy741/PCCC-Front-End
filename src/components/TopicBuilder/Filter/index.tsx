@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { LinkButton } from '../../Global/Button/Link';
+import { LinkButton } from "../../Global/Button/Link";
 
 interface Props {
   showingNameSearch?: boolean;
@@ -57,7 +57,7 @@ const Style = {
       h1 {
         font-weight: 700;
         font-size: 3rem;
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         line-height: 3.125rem;
         margin: 0.25rem 0;
       }
@@ -65,7 +65,7 @@ const Style = {
       p {
         margin: 0;
         font-weight: 700;
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
       }
 
       select {

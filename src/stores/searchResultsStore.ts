@@ -1,5 +1,5 @@
-import { ChangeEvent } from 'react';
-import create from 'zustand';
+import { ChangeEvent } from "react";
+import create from "zustand";
 
 /**
  * This is a store that contains calendar events data.
@@ -13,30 +13,30 @@ type SearchResult = {
 
 const listData = [
   {
-    image: '/images/homepage/discover-item.jpg',
-    title: 'Follow the Foodway',
+    image: "/images/homepage/discover-item.jpg",
+    title: "Follow the Foodway",
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, flour sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...',
-    path: '/dashboard/foodways/Chocolate',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, flour sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+    path: "/dashboard/foodways/Chocolate",
   },
   {
-    image: '/images/homepage/discover-item.jpg',
-    title: 'Flour Power',
+    image: "/images/homepage/discover-item.jpg",
+    title: "Flour Power",
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed flour do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...',
-    path: '/dashboard/foodways/Chocolate',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed flour do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+    path: "/dashboard/foodways/Chocolate",
   },
   {
-    image: '/images/homepage/discover-item.jpg',
-    title: 'Over the grain bow',
+    image: "/images/homepage/discover-item.jpg",
+    title: "Over the grain bow",
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud flour...',
-    path: '/dashboard/foodways/Chocolate',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud flour...",
+    path: "/dashboard/foodways/Chocolate",
   },
 ];
 
 const initialState = {
-  searchKey: '',
+  searchKey: "",
 };
 
 export const useSearchResultsStore = create<{

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Icon } from '../Icon';
+import styled from "styled-components";
+import { Icon } from "../Icon";
 
 interface ButtonProps {
   icon: string;

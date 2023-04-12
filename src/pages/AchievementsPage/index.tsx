@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Achievement } from '../../components/Achievement';
-import mockData from '../../lib/mockData/achievements.json';
+import styled from "styled-components";
+import { Achievement } from "../../components/Achievement";
+import mockData from "../../lib/mockData/achievements.json";
 
 export const AchievementsPage = () => {
   return (

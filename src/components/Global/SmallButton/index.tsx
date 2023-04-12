@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface SmallButtonProps {
   bgColor?: string;
@@ -8,7 +8,7 @@ interface SmallButtonProps {
 
 export const SmallButton = ({
   children,
-  bgColor = 'yellow',
+  bgColor = "yellow",
   onClick,
 }: SmallButtonProps) => {
   return (
@@ -22,8 +22,8 @@ const Style = {
   Button: styled.button<SmallButtonProps>`
     background-color: ${(SmallButtonProps) =>
       SmallButtonProps.bgColor
-        ? 'var(--' + SmallButtonProps.bgColor + ')'
-        : 'var(--yellow)'};
+        ? "var(--" + SmallButtonProps.bgColor + ")"
+        : "var(--yellow)"};
     border: none;
     border-radius: 1.5rem;
     color: #3d3d3d;

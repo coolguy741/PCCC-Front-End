@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Search } from '../Search';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Search } from "../Search";
 
 export interface Tag {
   name: string;
@@ -21,19 +21,19 @@ export const SelectTags: React.FC<SelectTagsProps> = ({
   tags,
   setTags,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>('');
+  const [selectedOption, setSelectedOption] = useState<string>("");
   const [tagId, setTagId] = useState<number>(tags.length);
 
   const handleSelect = (value: string) => {
     setSelectedOption(value);
-    console.log('selectedOption', selectedOption);
+    console.log("selectedOption", selectedOption);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && selectedOption) {
+    if (event.key === "Enter" && selectedOption) {
       setTags((prevTag) => [...prevTag, { name: selectedOption, id: tagId }]);
       setTagId((prevTagId) => prevTagId + 1);
-      setSelectedOption('');
+      setSelectedOption("");
     }
   };
 
@@ -62,7 +62,7 @@ export const SelectTags: React.FC<SelectTagsProps> = ({
         {selectedOption && (
           <Style.TextItemWrapper>
             <Style.TextItemText>{selectedOption}</Style.TextItemText>
-            <Style.TextItemButton onClick={() => setSelectedOption('')}>
+            <Style.TextItemButton onClick={() => setSelectedOption("")}>
               X
             </Style.TextItemButton>
           </Style.TextItemWrapper>

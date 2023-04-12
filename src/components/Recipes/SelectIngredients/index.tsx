@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { SmallButton } from '../../Global/SmallButton';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { SmallButton } from "../../Global/SmallButton";
 
 export interface Ingredient {
   id: number;
@@ -28,8 +28,8 @@ export const SelectIngredients: React.FC<Props> = ({
   ingredientOptions,
   unitOptions,
 }) => {
-  const [name, setName] = useState('');
-  const [unit, setUnit] = useState('');
+  const [name, setName] = useState("");
+  const [unit, setUnit] = useState("");
   const [amount, setAmount] = useState(1);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -89,7 +89,7 @@ export const SelectIngredients: React.FC<Props> = ({
         {ingredients.map((ingredient) => (
           <Style.PanelItem key={ingredient.id}>
             <Style.Text>{ingredient.name}</Style.Text>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: "flex" }}>
               <Style.Text>{ingredient.amount}</Style.Text>
               <Style.Text>{ingredient.unit}</Style.Text>
             </div>

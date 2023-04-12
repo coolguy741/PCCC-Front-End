@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Header } from '../../components/Global/Header';
+import styled from "styled-components";
+import { Header } from "../../components/Global/Header";
 
 interface DashboardPageProps {
   children: JSX.Element;

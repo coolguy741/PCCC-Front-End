@@ -1,5 +1,5 @@
-import { Plane } from '@react-three/drei';
-import { memo } from 'react';
+import { Plane } from "@react-three/drei";
+import { memo } from "react";
 
 const Floor = () => {
   return (
@@ -9,7 +9,7 @@ const Floor = () => {
       scale={30}
       receiveShadow
     >
-      <meshStandardMaterial color={'#40e0d0'} />
+      <meshStandardMaterial color={"#40e0d0"} />
     </Plane>
   );
 };

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Question } from '../../../../components/Accounts/Question';
-import mockData from '../../../../lib/mockData/accounts/profileLessonAccessment.json';
+import styled from "styled-components";
+import { Question } from "../../../../components/Accounts/Question";
+import mockData from "../../../../lib/mockData/accounts/profileLessonAccessment.json";
 
 export const AccountsUserLessonAssessmentPrintPage = () => {
   return (

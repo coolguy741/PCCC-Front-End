@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { GroupCard } from '../../../components/Accounts/GroupCard';
-import { GroupInvitationCard } from '../../../components/Accounts/GroupInvitationCard';
-import { JoinGroupModal } from '../../../components/Accounts/JoinGroupModal';
-import { Button } from '../../../components/Global/Button';
-import { ModalContainer } from '../../../components/Global/ModalContainer';
-import mockData from '../../../lib/mockData/accounts/groups.json';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { GroupCard } from "../../../components/Accounts/GroupCard";
+import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
+import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
+import { Button } from "../../../components/Global/Button";
+import { ModalContainer } from "../../../components/Global/ModalContainer";
+import mockData from "../../../lib/mockData/accounts/groups.json";
 
 export const AccountsGroupsPage = () => {
   const [visibleModal, setVisibleModal] = useState(false);
   const navigate = useNavigate();
 
   const handleCreate = () => {
-    navigate('/dashboard/accounts/groups/create');
+    navigate("/dashboard/accounts/groups/create");
   };
 
   const handleJoinGroup = () => {
@@ -58,7 +58,7 @@ export const AccountsGroupsPage = () => {
         </div>
         <div className="group-invitations-container">
           <p className="title-text">
-            {'Group Invitations ( ' + mockData.groupInvitations.length + ' )'}
+            {"Group Invitations ( " + mockData.groupInvitations.length + " )"}
           </p>
           <div className="group-invitations">
             {mockData.groupInvitations.map((group, index) => (

@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import styled from 'styled-components';
+import { useEffect } from "react";
+import styled from "styled-components";
 
-import { Calendar } from '../../../components/Global/Calendar';
-import { useCalendarEventsStore } from '../../../stores/eventsStore';
+import { Calendar } from "../../../components/Global/Calendar";
+import { useCalendarEventsStore } from "../../../stores/eventsStore";
 
 export const CalendarPrintPage = () => {
   const { events, getEvents } = useCalendarEventsStore((state) => state);
@@ -28,7 +28,7 @@ const Style = {
     h3 {
       font-weight: 700;
       font-size: 2rem;
-      font-family: 'Noir Std';
+      font-family: "Noir Std";
       line-height: 3.125rem;
       margin: 0.25rem 0;
     }

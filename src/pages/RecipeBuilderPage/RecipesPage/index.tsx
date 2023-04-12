@@ -1,52 +1,52 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { SelectBox } from '../../../components/Global/SelectBox';
-import { SmallButton } from '../../../components/Global/SmallButton';
-import { RecipeList } from '../../../components/Recipes/RecipeList';
-import mockData from '../../../lib/mockData/Recipes/recipes.json';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { SelectBox } from "../../../components/Global/SelectBox";
+import { SmallButton } from "../../../components/Global/SmallButton";
+import { RecipeList } from "../../../components/Recipes/RecipeList";
+import mockData from "../../../lib/mockData/Recipes/recipes.json";
 
 const FilterOptions = [
   {
-    value: 'Curriculum name1',
-    label: 'Curriculum name1',
+    value: "Curriculum name1",
+    label: "Curriculum name1",
   },
   {
-    value: 'Curriculum name2',
-    label: 'Curriculum name2',
+    value: "Curriculum name2",
+    label: "Curriculum name2",
   },
   {
-    value: 'Curriculum name3',
-    label: 'Curriculum name3',
+    value: "Curriculum name3",
+    label: "Curriculum name3",
   },
 ];
 
 const TopicOptions = [
   {
-    value: 'name1',
-    label: 'name1',
+    value: "name1",
+    label: "name1",
   },
   {
-    value: 'name2',
-    label: 'name2',
+    value: "name2",
+    label: "name2",
   },
   {
-    value: 'name3',
-    label: 'name3',
+    value: "name3",
+    label: "name3",
   },
 ];
 
 const SortOptions = [
   {
-    value: 'Date',
-    label: 'Date',
+    value: "Date",
+    label: "Date",
   },
   {
-    value: 'A-Z',
-    label: 'A-Z',
+    value: "A-Z",
+    label: "A-Z",
   },
   {
-    value: 'Z-A',
-    label: 'Z-A',
+    value: "Z-A",
+    label: "Z-A",
   },
 ];
 
@@ -54,27 +54,27 @@ export const RecipesPage = () => {
   const navigate = useNavigate();
 
   const handleFilterChange = () => {
-    return 'filter-change';
+    return "filter-change";
   };
 
   const handleTopicChange = () => {
-    return 'topic change';
+    return "topic change";
   };
 
   const handleSortChange = () => {
-    return 'sort change';
+    return "sort change";
   };
 
   const handleDeleteRecipe = () => {
-    alert('Delete selected recipes');
+    alert("Delete selected recipes");
   };
 
   const handleCreateRecipe = () => {
-    navigate('./create');
+    navigate("./create");
   };
 
   const handleTableCheckboxChange = () => {
-    return 'checkbox change';
+    return "checkbox change";
   };
 
   return (

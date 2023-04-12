@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { LinkButton } from '../../Global/Button/Link';
+import { LinkButton } from "../../Global/Button/Link";
 
 interface Props {
   match?: boolean;
@@ -25,7 +25,7 @@ const Style = {
   }))`
     display: flex;
     ${({ match }) => `
-      justify-content: ${match ? 'start' : 'end'};
+      justify-content: ${match ? "start" : "end"};
     `}
     gap: 10px;
     padding-right: 1.5rem;

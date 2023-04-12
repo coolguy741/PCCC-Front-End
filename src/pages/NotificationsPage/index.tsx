@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import { Photo } from '../../components/Accounts/Photo';
-import { Icon } from '../../components/Global/Icon';
-import { SmallButton } from '../../components/Global/SmallButton';
-import { Bold, Text } from '../../components/Global/Text';
-import mockData from '../../lib/mockData/notifications.json';
+import styled from "styled-components";
+import { Photo } from "../../components/Accounts/Photo";
+import { Icon } from "../../components/Global/Icon";
+import { SmallButton } from "../../components/Global/SmallButton";
+import { Bold, Text } from "../../components/Global/Text";
+import mockData from "../../lib/mockData/notifications.json";
 
 export const NotificationsPage = () => {
   const handleReview = () => {
-    alert('Review activity X');
+    alert("Review activity X");
   };
 
   return (
@@ -32,7 +32,7 @@ export const NotificationsPage = () => {
               <td className="text">
                 <Text>
                   <Bold>{notification.role}</Bold>
-                  {' ' + notification.content}
+                  {" " + notification.content}
                 </Text>
               </td>
               <td className="date">
@@ -60,7 +60,7 @@ const Style = {
     gap: 20px;
   `,
   Title: styled.p`
-    font-family: 'Noir Std';
+    font-family: "Noir Std";
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
@@ -70,7 +70,7 @@ const Style = {
     margin-bottom: 0px;
   `,
   SubTitle: styled.p`
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 700;
     font-size: 24px;

@@ -1,19 +1,19 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { AccountCard } from '../../../components/Accounts/AccountCard';
-import UserCards from '../../../lib/mockData/accounts/profiles.json';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { AccountCard } from "../../../components/Accounts/AccountCard";
+import UserCards from "../../../lib/mockData/accounts/profiles.json";
 
 export const AccountsProfilesPage = () => {
   const handleUserTypeChange = () => {
-    return 'user type change';
+    return "user type change";
   };
 
   const handleSortTypeChange = () => {
-    return 'sort type change';
+    return "sort type change";
   };
 
   const handleCardDelete = () => {
-    return 'card delete';
+    return "card delete";
   };
 
   return (
@@ -73,7 +73,7 @@ const Style = {
         font-size: 16px;
         color: #797979;
         font-style: normal;
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         padding-right: 50px;
 
         .bold-title {
@@ -88,7 +88,7 @@ const Style = {
 
         select {
           background-color: transparent;
-          font-family: 'Open Sans';
+          font-family: "Open Sans";
           font-style: normal;
           font-weight: 700;
           font-size: 12px;

@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../components/Global/Button';
-import { AlignmentStyle } from '../../components/Global/Container';
-import { Icon } from '../../components/Global/Icon';
-import { Logo } from '../../components/Global/Logo';
-import { HomeTip } from '../../components/Home/HomeTip';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../components/Global/Button";
+import { AlignmentStyle } from "../../components/Global/Container";
+import { Icon } from "../../components/Global/Icon";
+import { Logo } from "../../components/Global/Logo";
+import { HomeTip } from "../../components/Home/HomeTip";
 
 export const HomePage = () => {
   return (
@@ -215,7 +215,7 @@ const Style = {
     gap: 30px;
   `,
   BigText: styled.p`
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 800;
     font-size: 76.993px;
@@ -226,7 +226,7 @@ const Style = {
     margin: 0px;
   `,
   SmallText: styled.span`
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 800;
     font-size: 20px;
@@ -251,7 +251,7 @@ const Style = {
       width: 600px;
 
       .text {
-        font-family: 'Open Sans';
+        font-family: "Open Sans";
         font-style: normal;
         font-weight: 800;
         font-size: 28.7848px;
@@ -262,7 +262,7 @@ const Style = {
       }
 
       .big-text {
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         font-weight: 900;
         font-size: 107.971px;
@@ -289,7 +289,7 @@ const Style = {
       width: 600px;
 
       .big-text {
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         font-weight: 700;
         font-size: 32px;
@@ -299,7 +299,7 @@ const Style = {
       }
 
       .large-text {
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         font-weight: 700;
         font-size: 48px;
@@ -309,7 +309,7 @@ const Style = {
       }
 
       .text {
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         font-weight: 400;
         font-size: 12px;

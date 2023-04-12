@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Files } from '../../components/CloudDrive/Files';
-import { PageHeader } from '../../components/Global/Header/PageHeader';
+import { Files } from "../../components/CloudDrive/Files";
+import { PageHeader } from "../../components/Global/Header/PageHeader";
 
 export const CloudDrivePage = () => {
   return (

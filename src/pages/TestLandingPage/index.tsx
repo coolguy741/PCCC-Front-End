@@ -1,7 +1,7 @@
-import Spline from '@splinetool/react-spline';
-import styled from 'styled-components';
+import Spline from "@splinetool/react-spline";
+import styled from "styled-components";
 // @ts-ignore
-import FPSStats from 'react-fps-stats';
+import FPSStats from "react-fps-stats";
 
 export const TestLandingPage = () => {
   return (

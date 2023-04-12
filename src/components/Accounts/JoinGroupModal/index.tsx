@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { IconButton } from '../../Global/IconButton';
-import { SmallButton } from '../../Global/SmallButton';
+import styled from "styled-components";
+import { IconButton } from "../../Global/IconButton";
+import { SmallButton } from "../../Global/SmallButton";
 
 interface JoinGroupModalProps {
   groupName: string;
@@ -23,7 +23,7 @@ export const JoinGroupModal = ({
     <Style.Modal>
       <h3>Join Group</h3>
       <p className="bold-text">{groupName}</p>
-      <p className="text">{'Creator: ' + creator + ' (' + role + ' User)'}</p>
+      <p className="text">{"Creator: " + creator + " (" + role + " User)"}</p>
       <br />
       <br />
       <p className="small-text">Enter Group ID</p>

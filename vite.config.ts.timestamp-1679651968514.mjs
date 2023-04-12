@@ -1,7 +1,7 @@
 // vite.config.ts
-import basicSsl from 'file:///D:/Companies/Groove%20Jones/front-end-project/03_proj/cms-website-frontend/node_modules/@vitejs/plugin-basic-ssl/dist/index.mjs';
-import react from 'file:///D:/Companies/Groove%20Jones/front-end-project/03_proj/cms-website-frontend/node_modules/@vitejs/plugin-react/dist/index.mjs';
-import { defineConfig } from 'file:///D:/Companies/Groove%20Jones/front-end-project/03_proj/cms-website-frontend/node_modules/vite/dist/node/index.js';
+import basicSsl from "file:///D:/Companies/Groove%20Jones/front-end-project/03_proj/cms-website-frontend/node_modules/@vitejs/plugin-basic-ssl/dist/index.mjs";
+import react from "file:///D:/Companies/Groove%20Jones/front-end-project/03_proj/cms-website-frontend/node_modules/@vitejs/plugin-react/dist/index.mjs";
+import { defineConfig } from "file:///D:/Companies/Groove%20Jones/front-end-project/03_proj/cms-website-frontend/node_modules/vite/dist/node/index.js";
 var vite_config_default = defineConfig({
   server: { https: true },
   plugins: [react(), basicSsl()],

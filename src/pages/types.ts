@@ -1,4 +1,4 @@
-export type Unit = 'each' | 'liter' | 'grams';
+export type Unit = "each" | "liter" | "grams";
 
 export interface Material {
   unit: Unit;

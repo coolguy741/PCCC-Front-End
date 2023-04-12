@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const RecipeTip = () => {
   return (
@@ -7,7 +7,7 @@ export const RecipeTip = () => {
       <Style.TipText>
         <Style.Text>
           <Style.Bold>
-            It seems like you like this content. Check out our foodways page on{' '}
+            It seems like you like this content. Check out our foodways page on{" "}
             <Style.Underlined>
               <Link to="./">Chocolate</Link>
             </Style.Underlined>
@@ -16,10 +16,10 @@ export const RecipeTip = () => {
         </Style.Text>
         <br />
         <Style.Text>
-          <Style.Bold>OR </Style.Bold>try our fun{' '}
+          <Style.Bold>OR </Style.Bold>try our fun{" "}
           <Style.Underlined>
             &rsquo;<Link to="./">Vegetable Spring Rolls</Link>&rsquo;
-          </Style.Underlined>{' '}
+          </Style.Underlined>{" "}
           Recipe full of healthy ingredients
         </Style.Text>
       </Style.TipText>
@@ -42,7 +42,7 @@ const Style = {
     position: relative;
 
     &:after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       top: 40px;

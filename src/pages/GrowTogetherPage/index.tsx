@@ -1,5 +1,5 @@
-import { TogetherPageTemplate } from '../../components/Home/TogetherPageTemplate';
-import mockData from '../../lib/mockData/home/grow-together.json';
+import { TogetherPageTemplate } from "../../components/Home/TogetherPageTemplate";
+import mockData from "../../lib/mockData/home/grow-together.json";
 
 export const GrowTogetherPage = () => {
   return (

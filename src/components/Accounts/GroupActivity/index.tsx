@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Icon } from '../../Global/Icon';
+import styled from "styled-components";
+import { Icon } from "../../Global/Icon";
 
 interface GroupActivityProps {
   activities: {
@@ -25,7 +25,7 @@ export const GroupActivity = ({ activities }: GroupActivityProps) => {
         {activities.map((activity, index) => (
           <li className="activity-item" key={index}>
             <div className="left">
-              {activity.type === 'user' && (
+              {activity.type === "user" && (
                 <>
                   <span className="icon-container">
                     <Icon name="badge" />
@@ -37,13 +37,13 @@ export const GroupActivity = ({ activities }: GroupActivityProps) => {
                       </p>
                       <p className="text">{activity.userActivity.action}</p>
                       <p className="text">
-                        {': ' + activity.userActivity.activityName}
+                        {": " + activity.userActivity.activityName}
                       </p>
                     </>
                   )}
                 </>
               )}
-              {activity.type === 'topic' && (
+              {activity.type === "topic" && (
                 <>
                   <span className="icon-container">
                     <Icon name="message" />
@@ -52,7 +52,7 @@ export const GroupActivity = ({ activities }: GroupActivityProps) => {
                     <>
                       <p className="text">{activity.topicActivity.action}</p>
                       <p className="text">
-                        {': ' + activity.topicActivity.topicName}
+                        {": " + activity.topicActivity.topicName}
                       </p>
                     </>
                   )}
@@ -76,7 +76,7 @@ const Style = {
         padding-bottom: 10px;
         display: flex;
         align-items: center;
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         line-height: 19px;
         letter-spacing: 0.02em;

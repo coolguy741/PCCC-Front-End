@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { ActivitiesHeader } from '../../components/Activities/ActivitiesHeader';
+import styled from "styled-components";
+import { ActivitiesHeader } from "../../components/Activities/ActivitiesHeader";
 
 interface ActivitiesBuilderPageProps {
   children: JSX.Element;

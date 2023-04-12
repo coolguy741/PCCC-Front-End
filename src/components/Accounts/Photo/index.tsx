@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface PhotoProps {
   src: string;
@@ -10,19 +10,19 @@ interface PhotoProps {
 export const Photo = ({
   src,
   role,
-  alt = 'photo',
-  width = '100%',
+  alt = "photo",
+  width = "100%",
 }: PhotoProps) => {
   return (
     <Style.Container size={width}>
       <img className="image" src={src} alt={alt} width={width} height={width} />
-      {role !== 'Admin' && (
+      {role !== "Admin" && (
         <img
           className="icon"
           src={
-            role === 'Standard'
-              ? '/images/star-icon.svg'
-              : '/images/professional-icon.svg'
+            role === "Standard"
+              ? "/images/star-icon.svg"
+              : "/images/professional-icon.svg"
           }
           alt="Role-Icon"
         />

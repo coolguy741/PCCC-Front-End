@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { SmallButton } from '../../Global/SmallButton';
+import styled from "styled-components";
+import { SmallButton } from "../../Global/SmallButton";
 
 interface GroupInvitationCardProps {
   data: {
@@ -16,20 +16,20 @@ export const GroupInvitationCard = ({ data }: GroupInvitationCardProps) => {
       <div className="invitation-container">
         <p className="bold-big-text">{data.groupName}</p>
         <p className="text">Creator: {data.creator}</p>
-        <p className="text">{'(' + data.creatorRole + ')'}</p>
+        <p className="text">{"(" + data.creatorRole + ")"}</p>
         <div className="status-container">
-          {data.status === 'free' && (
+          {data.status === "free" && (
             <>
               <SmallButton>Accept</SmallButton>
               <SmallButton>Deny</SmallButton>
             </>
           )}
-          {data.status === 'Accepted' && (
+          {data.status === "Accepted" && (
             <>
               <p className="bold-text">Accepted</p>
             </>
           )}
-          {data.status === 'Denied' && (
+          {data.status === "Denied" && (
             <>
               <p className="bold-text">Denied</p>
             </>

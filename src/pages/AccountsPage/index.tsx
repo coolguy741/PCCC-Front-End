@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { AccountsHeader } from '../../components/Accounts/AccountsHeader';
+import styled from "styled-components";
+import { AccountsHeader } from "../../components/Accounts/AccountsHeader";
 
 interface AccountsPageProps {
   children: JSX.Element;

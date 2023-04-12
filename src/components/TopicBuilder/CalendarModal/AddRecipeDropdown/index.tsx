@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
-import { Button } from '../../../Global/Button';
-import { Dropdown } from '../Dropdown';
+import { Button } from "../../../Global/Button";
+import { Dropdown } from "../Dropdown";
 
 interface Props {
   isRecipe?: boolean;
@@ -28,7 +28,7 @@ export const AddRecipeDropdown: React.FC<Props> = ({
       trigger={<i>x</i>}
       content={
         <Style.AddPlanForm>
-          <h3>Add {isRecipe ? 'Recipe' : 'Assessment'}</h3>
+          <h3>Add {isRecipe ? "Recipe" : "Assessment"}</h3>
           <div className="form-container">
             <div>
               <div>Curriculum A</div>

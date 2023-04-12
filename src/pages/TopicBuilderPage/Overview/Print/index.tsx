@@ -1,22 +1,22 @@
-import { useMemo } from 'react';
-import { useMatch } from 'react-router-dom';
-import styled from 'styled-components';
+import { useMemo } from "react";
+import { useMatch } from "react-router-dom";
+import styled from "styled-components";
 
-import { TopicActivities } from '../../../../components/TopicBuilder/Overview/Activities';
-import { TopicAssessment } from '../../../../components/TopicBuilder/Overview/Assessment';
-import { TopicEducatorNotes } from '../../../../components/TopicBuilder/Overview/EducatorNotes';
-import { TopicOverview } from '../../../../components/TopicBuilder/Overview/Overview';
-import { TopicRecipes } from '../../../../components/TopicBuilder/Overview/Recipes';
-import { TopicIntro } from '../../../../components/TopicBuilder/Overview/Topic';
+import { TopicActivities } from "../../../../components/TopicBuilder/Overview/Activities";
+import { TopicAssessment } from "../../../../components/TopicBuilder/Overview/Assessment";
+import { TopicEducatorNotes } from "../../../../components/TopicBuilder/Overview/EducatorNotes";
+import { TopicOverview } from "../../../../components/TopicBuilder/Overview/Overview";
+import { TopicRecipes } from "../../../../components/TopicBuilder/Overview/Recipes";
+import { TopicIntro } from "../../../../components/TopicBuilder/Overview/Topic";
 
 const tabs = [
-  'topic',
-  'overview',
-  'educator-notes',
-  'assessment',
-  'activities?activity=1',
-  'activities?activity=2',
-  'recipes',
+  "topic",
+  "overview",
+  "educator-notes",
+  "assessment",
+  "activities?activity=1",
+  "activities?activity=2",
+  "recipes",
 ];
 
 const components = [
@@ -28,9 +28,9 @@ const components = [
   <TopicRecipes />,
 ];
 export const TopicPrintPage = () => {
-  const match = useMatch('/dashboard/topics/:id/:slug/print');
+  const match = useMatch("/dashboard/topics/:id/:slug/print");
   const id = match?.params.id;
-  const tab = match?.params.slug ?? 'topic';
+  const tab = match?.params.slug ?? "topic";
   const tabIndex = useMemo(() => tabs.indexOf(tab), [tab]);
   if (!match || !id) {
     throw Error;
@@ -56,7 +56,7 @@ const Style = {
       h3 {
         font-weight: 700;
         font-size: 2rem;
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         line-height: 3.125rem;
         margin: 0.25rem 0;
       }

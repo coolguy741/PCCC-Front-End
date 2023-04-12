@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import mockData from '../../../lib/mockData/recipes/recipePreview.json';
+import styled from "styled-components";
+import mockData from "../../../lib/mockData/recipes/recipePreview.json";
 
 export const RecipeContent = () => {
   return (
     <Style.PageContainer>
       <h2>{mockData.name}</h2>
-      <h3>{'Servering Size : ' + mockData.serveringSize}</h3>
+      <h3>{"Servering Size : " + mockData.serveringSize}</h3>
       <Style.CenterAlignedContainer>
         <img src={mockData.image} alt="recipe" placeholder="recipe" />
       </Style.CenterAlignedContainer>

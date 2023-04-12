@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import mockData from '../../../lib/mockData/activities/activity.json';
-import { Text } from '../../Global/Text';
+import styled from "styled-components";
+import mockData from "../../../lib/mockData/activities/activity.json";
+import { Text } from "../../Global/Text";
 
 export const ActivityContent = () => {
   return (

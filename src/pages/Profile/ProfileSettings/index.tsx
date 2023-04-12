@@ -1,90 +1,90 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../components/Global/Button';
-import { AlignmentStyle } from '../../../components/Global/Container';
-import { Icon } from '../../../components/Global/Icon';
-import { SelectBox } from '../../../components/Global/SelectBox';
-import { Text } from '../../../components/Global/Text';
-import mockData from '../../../lib/mockData/profile/profile.json';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../components/Global/Button";
+import { AlignmentStyle } from "../../../components/Global/Container";
+import { Icon } from "../../../components/Global/Icon";
+import { SelectBox } from "../../../components/Global/SelectBox";
+import { Text } from "../../../components/Global/Text";
+import mockData from "../../../lib/mockData/profile/profile.json";
 
 const avatars = [
   {
-    name: 'carrot',
-    color: 'green',
+    name: "carrot",
+    color: "green",
   },
   {
-    name: 'apple',
-    color: 'green',
+    name: "apple",
+    color: "green",
   },
   {
-    name: 'strawberry',
-    color: 'green',
+    name: "strawberry",
+    color: "green",
   },
   {
-    name: 'carrot',
-    color: 'blue',
+    name: "carrot",
+    color: "blue",
   },
   {
-    name: 'apple',
-    color: 'blue',
+    name: "apple",
+    color: "blue",
   },
   {
-    name: 'strawberry',
-    color: 'blue',
+    name: "strawberry",
+    color: "blue",
   },
   {
-    name: 'carrot',
-    color: 'red',
+    name: "carrot",
+    color: "red",
   },
   {
-    name: 'apple',
-    color: 'red',
+    name: "apple",
+    color: "red",
   },
   {
-    name: 'strawberry',
-    color: 'red',
+    name: "strawberry",
+    color: "red",
   },
   {
-    name: 'carrot',
-    color: 'purple',
+    name: "carrot",
+    color: "purple",
   },
   {
-    name: 'apple',
-    color: 'purple',
+    name: "apple",
+    color: "purple",
   },
   {
-    name: 'strawberry',
-    color: 'purple',
+    name: "strawberry",
+    color: "purple",
   },
 ];
 
 const firstNameOptions = [
   {
-    value: 'Amused',
-    label: 'Amused',
+    value: "Amused",
+    label: "Amused",
   },
   {
-    value: 'Amused1',
-    label: 'Amused1',
+    value: "Amused1",
+    label: "Amused1",
   },
   {
-    value: 'Amused2',
-    label: 'Amused2',
+    value: "Amused2",
+    label: "Amused2",
   },
 ];
 
 const secondNameOptions = [
   {
-    value: 'Asparagus',
-    label: 'Asparagus',
+    value: "Asparagus",
+    label: "Asparagus",
   },
   {
-    value: 'Asparagus1',
-    label: 'Asparagus2',
+    value: "Asparagus1",
+    label: "Asparagus2",
   },
   {
-    value: 'Asparagus2',
-    label: 'Asparagus2',
+    value: "Asparagus2",
+    label: "Asparagus2",
   },
 ];
 
@@ -96,11 +96,11 @@ export const ProfileSettingsPage = () => {
   };
 
   const handleGenerate = () => {
-    alert('Generate ID number');
+    alert("Generate ID number");
   };
 
   const handleSaveChanges = () => {
-    alert('Save changes');
+    alert("Save changes");
   };
 
   return (
@@ -151,16 +151,16 @@ export const ProfileSettingsPage = () => {
               <SelectBox
                 options={firstNameOptions}
                 onChange={() => {
-                  return 'change';
+                  return "change";
                 }}
               ></SelectBox>
               <SelectBox
                 options={secondNameOptions}
                 onChange={() => {
-                  return 'change';
+                  return "change";
                 }}
               ></SelectBox>
-              <input type="text" style={{ width: '60px' }} />
+              <input type="text" style={{ width: "60px" }} />
             </Style.InputContainer>
             <AlignmentStyle.RightAlignedContainer>
               <Button onClick={handleGenerate}>Generate</Button>

@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { ActivityContent } from '../../../components/Activities/ActivityContent';
-import { Button } from '../../../components/Global/Button';
-import { AlignmentStyle } from '../../../components/Global/Container';
-import { LanguageChooser } from '../../../components/Global/LanguageChooser';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { ActivityContent } from "../../../components/Activities/ActivityContent";
+import { Button } from "../../../components/Global/Button";
+import { AlignmentStyle } from "../../../components/Global/Container";
+import { LanguageChooser } from "../../../components/Global/LanguageChooser";
 
 export const ActivitiesPreviewPage = () => {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState("en");
   const navigate = useNavigate();
 
   const handleBack = () => {

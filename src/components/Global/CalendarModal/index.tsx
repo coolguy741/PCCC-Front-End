@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
-import styled from 'styled-components';
+import { useMemo } from "react";
+import styled from "styled-components";
 
-import { AssessmentCalendar } from './AssessmentCalendar';
-import { TCalendarType } from './Calendar';
-import { PlanCalendar } from './PlanCalendar';
-import { RecipeCalendar } from './RecipeCalendar';
+import { AssessmentCalendar } from "./AssessmentCalendar";
+import { TCalendarType } from "./Calendar";
+import { PlanCalendar } from "./PlanCalendar";
+import { RecipeCalendar } from "./RecipeCalendar";
 
 interface Props {
   isOpen?: boolean;
@@ -14,11 +14,11 @@ interface Props {
 
 export const CalendarModal: React.FC<Props> = ({
   isOpen = false,
-  type = 'plan',
+  type = "plan",
   close,
 }) => {
-  const isPlan = useMemo(() => type === 'plan', [type]);
-  const isAssessment = useMemo(() => type === 'assessment', [type]);
+  const isPlan = useMemo(() => type === "plan", [type]);
+  const isAssessment = useMemo(() => type === "assessment", [type]);
 
   return isOpen ? (
     <Style.ModalContainer>

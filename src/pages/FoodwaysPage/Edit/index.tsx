@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../components/Global/Button';
-import { Input } from '../../../components/Global/Input';
-import { TextArea } from '../../../components/Global/TextArea';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../components/Global/Button";
+import { Input } from "../../../components/Global/Input";
+import { TextArea } from "../../../components/Global/TextArea";
 
 const TAGS = [
-  'vegan',
-  'vegetarian',
-  'gluten-free',
-  'dairy-free',
-  'pescatarian',
+  "vegan",
+  "vegetarian",
+  "gluten-free",
+  "dairy-free",
+  "pescatarian",
 ];
 
 export const EditFoodwaysPage = () => {

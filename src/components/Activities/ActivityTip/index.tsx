@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 interface ActivityTipProps {
   activityLink1: string;
@@ -15,7 +15,7 @@ export const ActivityTip = ({
       <Style.TipText>
         <Style.Text>
           <Style.Bold>
-            It seems like you like this content. Check out this other activity{' '}
+            It seems like you like this content. Check out this other activity{" "}
             <Style.Underlined>
               <Link to={activityLink1}>Bees need good nutrition too!</Link>
             </Style.Underlined>
@@ -25,7 +25,7 @@ export const ActivityTip = ({
         <br />
         <Style.Text>
           <Style.Bold>OR </Style.Bold>put your newfound knowledge to the test in
-          our other activity{' '}
+          our other activity{" "}
           <Style.Underlined>
             &rsquo;<Link to={activityLink2}>Plant a seed, feed yourself</Link>
             &rsquo;
@@ -51,7 +51,7 @@ const Style = {
     position: relative;
 
     &:after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       top: 40px;

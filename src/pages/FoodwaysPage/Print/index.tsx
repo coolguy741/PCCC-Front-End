@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Globe } from '../../../components/Foodways/Globe';
+import styled from "styled-components";
+import { Globe } from "../../../components/Foodways/Globe";
 
 export const FoodwaysPrintPage = () => {
   return (

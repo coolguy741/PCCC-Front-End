@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { SmallButton } from '../SmallButton';
+import styled from "styled-components";
+import { SmallButton } from "../SmallButton";
 
 interface SaveChangesModalProps {
   onSave: () => void;
@@ -14,7 +14,7 @@ export const SaveChangesModal = ({
     <Style.Modal>
       <h3>
         The French content is incomplete. Are you sure you want to exit without
-        it?{' '}
+        it?{" "}
       </h3>
       <Style.ButtonGroup>
         <SmallButton onClick={onSave}>Save changes and continue</SmallButton>

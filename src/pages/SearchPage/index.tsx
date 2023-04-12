@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
-import styled from 'styled-components';
-import { useSearchResultsStore } from '../../stores/searchResultsStore';
+import { useMemo } from "react";
+import styled from "styled-components";
+import { useSearchResultsStore } from "../../stores/searchResultsStore";
 
 export const SearchPage = () => {
   const { searchKey, results } = useSearchResultsStore();
@@ -8,9 +8,9 @@ export const SearchPage = () => {
 
   return (
     <Style.PageContainer>
-      <Style.Title>{'Search Results for ' + searchKey}</Style.Title>
+      <Style.Title>{"Search Results for " + searchKey}</Style.Title>
       <Style.ResultesText>
-        {`Results ${count} of ${count} for ${searchKey}`}{' '}
+        {`Results ${count} of ${count} for ${searchKey}`}{" "}
       </Style.ResultesText>
       {results.map((result, index) => (
         <Style.ListItem key={`list-${index}`}>
@@ -45,7 +45,7 @@ const Style = {
     gap: 20px;
   `,
   Title: styled.p`
-    font-family: 'Noir Std';
+    font-family: "Noir Std";
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
@@ -55,7 +55,7 @@ const Style = {
     margin-bottom: 0px;
   `,
   ResultesText: styled.p`
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 700;
     font-size: 12px;
@@ -73,7 +73,7 @@ const Style = {
         margin: 0px;
       }
       .topic {
-        font-family: 'Open Sans';
+        font-family: "Open Sans";
         font-style: normal;
         font-weight: 700;
         font-size: 12px;
@@ -83,7 +83,7 @@ const Style = {
       }
 
       .title {
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         font-weight: 700;
         font-size: 24px;
@@ -93,7 +93,7 @@ const Style = {
       }
 
       .content {
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         font-weight: 400;
         font-size: 12px;

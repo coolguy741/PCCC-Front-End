@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface HomeTipProps {
   text: string;
@@ -6,7 +6,7 @@ interface HomeTipProps {
   left?: string;
 }
 
-export const HomeTip = ({ text, top = '0px', left = '0px' }: HomeTipProps) => {
+export const HomeTip = ({ text, top = "0px", left = "0px" }: HomeTipProps) => {
   return (
     <Style.TipText top={top} left={left}>
       <Style.Text>{text}</Style.Text>
@@ -25,7 +25,7 @@ const Style = {
     left: ${(props) => props.left};
 
     &:after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
 

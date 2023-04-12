@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
 const FontSmoothing = css`
   -webkit-font-smoothing: antialiased;

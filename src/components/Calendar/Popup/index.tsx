@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
-import styled from 'styled-components';
+import { useMemo, useState } from "react";
+import styled from "styled-components";
 
-import { useCalendarEventsStore } from '../../../stores/eventsStore';
-import { EventForm } from '../EventForm';
-import { EventTypeForm } from '../EventTypeForm';
+import { useCalendarEventsStore } from "../../../stores/eventsStore";
+import { EventForm } from "../EventForm";
+import { EventTypeForm } from "../EventTypeForm";
 
 export interface EventType {
   type: string;
@@ -17,7 +17,7 @@ export type CalendarEvent = {
   name: string;
 };
 
-type PopupSize = 'sm' | 'md' | 'lg';
+type PopupSize = "sm" | "md" | "lg";
 
 interface Props {
   position: {
@@ -40,7 +40,7 @@ export const CalendarPopup: React.FC<Props> = ({
   const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
-    return isConfirm || !eventType ? 'sm' : 'md';
+    return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
 
   const handleAddEvent = (event: CalendarEvent) => {
@@ -49,9 +49,9 @@ export const CalendarPopup: React.FC<Props> = ({
       start: selectedDate,
       type: eventType?.type,
       description: `${event.curriculum.replaceAll(
-        '-',
-        ' ',
-      )} ${event.topic.replaceAll('-', ' ')} ${event.name}`,
+        "-",
+        " ",
+      )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
     });
     handleClose();
   };
@@ -88,7 +88,7 @@ const Style = {
       popupSize: props.popupSize,
     }),
   )`
-    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+    display: ${({ isOpen }) => (isOpen ? "block" : "none")};
     position: relative;
 
     .popup-background {
@@ -107,7 +107,7 @@ const Style = {
       left: ${position?.x}px;
       `}
       transform: translate(-50%);
-      width: ${({ popupSize }) => `${popupSize === 'sm' ? 300 : 500}px;`};
+      width: ${({ popupSize }) => `${popupSize === "sm" ? 300 : 500}px;`};
       position: fixed;
       z-index: 10;
 
@@ -119,7 +119,7 @@ const Style = {
         position: relative;
 
         &:after {
-          content: '';
+          content: "";
           width: 20px;
           left: 50%;
           transform: translate(-50%) rotate(45deg);

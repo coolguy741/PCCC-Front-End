@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../components/Global/Button';
-import { Text } from '../../../components/Global/Text';
-import { MealtimeMomentTip } from '../../../components/MealtimeMoment/MealtimeMomentTip';
-import mockData from '../../../lib/mockData/mealtime-moments/mealtime-moment.json';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../components/Global/Button";
+import { Text } from "../../../components/Global/Text";
+import { MealtimeMomentTip } from "../../../components/MealtimeMoment/MealtimeMomentTip";
+import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment.json";
 
 export const MealTimeMomentPage = () => {
   const navigate = useNavigate();
@@ -13,19 +13,19 @@ export const MealTimeMomentPage = () => {
   };
 
   const handleAddToCalendar = () => {
-    alert('AddToCalendar');
+    alert("AddToCalendar");
   };
 
   const handleEdit = () => {
-    navigate('./edit');
+    navigate("./edit");
   };
 
   const handlePublish = () => {
-    alert('Publish');
+    alert("Publish");
   };
 
   const handlePrint = () => {
-    navigate('./print');
+    navigate("./print");
   };
 
   return (

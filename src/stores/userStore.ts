@@ -1,5 +1,5 @@
-import create from 'zustand';
-import { API_getUser } from '../lib/api/api';
+import create from "zustand";
+import { API_getUser } from "../lib/api/api";
 
 /**
  * This is a store that contains user data.
@@ -75,7 +75,7 @@ export const getUserOrFetchUserIfFirstLoad = async () => {
     try {
       await API_getUser();
     } catch (err) {
-      console.warn('Failed to fetch user on page load', err);
+      console.warn("Failed to fetch user on page load", err);
     }
 
     // We have checked for the user, so we shouldn't use this approach to check again--this session.

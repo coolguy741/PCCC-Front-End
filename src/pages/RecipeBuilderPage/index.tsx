@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { RecipesHeader } from '../../components/Recipes/RecipesHeader';
+import styled from "styled-components";
+import { RecipesHeader } from "../../components/Recipes/RecipesHeader";
 
 interface RecipesBuilderPageProps {
   children: JSX.Element;

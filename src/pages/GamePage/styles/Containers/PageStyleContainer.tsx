@@ -1,7 +1,7 @@
-import { memo } from 'react';
-import styled from 'styled-components';
-import { MarginPaddingNone } from '../Snippets/MarginPaddingNone';
-import { UserSelectNone } from '../Snippets/UserSelectNone';
+import { memo } from "react";
+import styled from "styled-components";
+import { MarginPaddingNone } from "../Snippets/MarginPaddingNone";
+import { UserSelectNone } from "../Snippets/UserSelectNone";
 
 const PageStyleContainer = styled.div`
   ${UserSelectNone}

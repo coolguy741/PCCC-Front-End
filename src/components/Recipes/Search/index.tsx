@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
 interface Option {
   value: string;
@@ -13,14 +13,14 @@ interface Props {
 }
 
 export const Search: React.FC<Props> = ({ options, onSelect, onKeyDown }) => {
-  const [query, setQuery] = useState<string>('');
+  const [query, setQuery] = useState<string>("");
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
   const handleSelect = (option: Option) => {
-    setQuery('');
+    setQuery("");
     onSelect(option.value);
   };
 

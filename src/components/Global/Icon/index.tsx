@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface IconProps {
   name: string;
   width?: string;
 }
 
-export const Icon = ({ name, width = '100%' }: IconProps) => {
+export const Icon = ({ name, width = "100%" }: IconProps) => {
   return (
     <Style.Icon
       src={`/images/${name}-icon.svg`}

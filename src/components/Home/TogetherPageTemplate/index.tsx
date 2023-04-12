@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { itemType, List } from '../List';
+import styled from "styled-components";
+import { itemType, List } from "../List";
 
 interface TogetherPageTemplateProps {
   title: string;
@@ -30,7 +30,7 @@ const Style = {
     gap: 20px;
   `,
   Title: styled.p`
-    font-family: 'Noir Std';
+    font-family: "Noir Std";
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
@@ -40,7 +40,7 @@ const Style = {
     margin-bottom: 120px;
   `,
   RelatedToText: styled.p`
-    font-family: 'Noir Std';
+    font-family: "Noir Std";
     font-style: normal;
     font-weight: 700;
     font-size: 32px;

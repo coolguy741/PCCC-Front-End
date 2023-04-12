@@ -1,16 +1,16 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const recentFiles = [
-  'To bee or not to bee.pdf',
-  'Garden Guardian.pdf',
-  'Over the Grainbow.pdf',
-  'Garden Guardian1.pdf ',
-  'Garden Guardian2.pdf ',
-  'Garden Guardian2.pdf ',
-  'Garden Guardian2.pdf ',
-  'Garden Guardian2.pdf ',
-  'Garden Guardian2.pdf ',
-  'Garden Guardian2.pdf ',
+  "To bee or not to bee.pdf",
+  "Garden Guardian.pdf",
+  "Over the Grainbow.pdf",
+  "Garden Guardian1.pdf ",
+  "Garden Guardian2.pdf ",
+  "Garden Guardian2.pdf ",
+  "Garden Guardian2.pdf ",
+  "Garden Guardian2.pdf ",
+  "Garden Guardian2.pdf ",
+  "Garden Guardian2.pdf ",
 ];
 
 export const RecentFiles = () => {

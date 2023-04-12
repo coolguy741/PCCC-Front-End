@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { SignInForm } from '../../../components/Auth/SignInForm';
+import styled from "styled-components";
+import { SignInForm } from "../../../components/Auth/SignInForm";
 
 export const SignInPage = () => {
   return (
@@ -21,7 +21,7 @@ const Style = {
     padding-top: 5rem;
 
     background-size: cover;
-    background-image: url('/images/background.svg');
+    background-image: url("/images/background.svg");
     background-position: center center;
     background-repeat: no-repeat;
     color: #3d3d3d;

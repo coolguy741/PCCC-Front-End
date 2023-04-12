@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { usePathName } from '../../../hooks/usePathName';
-import { Logo } from '../Logo';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { usePathName } from "../../../hooks/usePathName";
+import { Logo } from "../Logo";
 
 export const DashboardMenu = () => {
   const [userToolsOpen, setUserToolsOpen] = useState(false);
@@ -33,13 +33,13 @@ export const DashboardMenu = () => {
       </div>
       <div className="item-container">
         <Link to="/dashboard">
-          <div className={`item ${isDashboard && 'active'}`}>Home</div>
+          <div className={`item ${isDashboard && "active"}`}>Home</div>
         </Link>
         <Link to="accounts">
-          <div className={`item ${isAccounts && 'active'}`}>Accounts</div>
+          <div className={`item ${isAccounts && "active"}`}>Accounts</div>
         </Link>
         <Link to="achievements">
-          <div className={`item ${isAchievements && 'active'}`}>
+          <div className={`item ${isAchievements && "active"}`}>
             Achievements
           </div>
         </Link>
@@ -49,12 +49,12 @@ export const DashboardMenu = () => {
         >
           User Tools
         </div>
-        <div className={`drop-down ${userToolsOpen && 'open'}`}>
+        <div className={`drop-down ${userToolsOpen && "open"}`}>
           <Link to="calendar">
-            <div className={`item ${isCalendar && 'active'}`}>Calendar</div>
+            <div className={`item ${isCalendar && "active"}`}>Calendar</div>
           </Link>
           <Link to="meal-planner">
-            <div className={`item ${isMealPlanner && 'active'}`}>
+            <div className={`item ${isMealPlanner && "active"}`}>
               Meal Planner
             </div>
           </Link>
@@ -65,37 +65,37 @@ export const DashboardMenu = () => {
         >
           Curriculum
         </div>
-        <div className={`drop-down ${curriculumOpen && 'open'}`}>
+        <div className={`drop-down ${curriculumOpen && "open"}`}>
           <Link to="topics">
-            <div className={`item ${isTopicEditor && 'active'}`}>Topics</div>
+            <div className={`item ${isTopicEditor && "active"}`}>Topics</div>
           </Link>
           <Link to="activities">
-            <div className={`item ${isActivitiesBuilder && 'active'}`}>
+            <div className={`item ${isActivitiesBuilder && "active"}`}>
               Activities
             </div>
           </Link>
           <Link to="recipes">
-            <div className={`item ${isRecipeBuilder && 'active'}`}>Recipes</div>
+            <div className={`item ${isRecipeBuilder && "active"}`}>Recipes</div>
           </Link>
           <Link to="mealtime-moments">
-            <div className={`item ${isMealTimeMoments && 'active'}`}>
+            <div className={`item ${isMealTimeMoments && "active"}`}>
               MealTime Moments
             </div>
           </Link>
           <Link to="foodways">
-            <div className={`item ${isFoodwaysEditor && 'active'}`}>
+            <div className={`item ${isFoodwaysEditor && "active"}`}>
               Foodways
             </div>
           </Link>
         </div>
         <Link to="games">
-          <div className={`item ${isGames && 'active'}`}>Games</div>
+          <div className={`item ${isGames && "active"}`}>Games</div>
         </Link>
         <Link to="reports">
-          <div className={`item ${isReports && 'active'}`}>Reports</div>
+          <div className={`item ${isReports && "active"}`}>Reports</div>
         </Link>
         <Link to="cloud-drive">
-          <div className={`item ${isCloudDrive && 'active'}`}>Cloud Drive</div>
+          <div className={`item ${isCloudDrive && "active"}`}>Cloud Drive</div>
         </Link>
       </div>
     </Style.MenuContainer>

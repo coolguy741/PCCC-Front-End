@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { GroupActivity } from '../../../../components/Accounts/GroupActivity';
-import { Photo } from '../../../../components/Accounts/Photo';
-import { Button } from '../../../../components/Global/Button';
-import { SmallButton } from '../../../../components/Global/SmallButton';
-import mockData from '../../../../lib/mockData/accounts/group.json';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { GroupActivity } from "../../../../components/Accounts/GroupActivity";
+import { Photo } from "../../../../components/Accounts/Photo";
+import { Button } from "../../../../components/Global/Button";
+import { SmallButton } from "../../../../components/Global/SmallButton";
+import mockData from "../../../../lib/mockData/accounts/group.json";
 
 export const AccountsGroupPage = () => {
   const navigate = useNavigate();
@@ -14,11 +14,11 @@ export const AccountsGroupPage = () => {
   };
 
   const handleEdit = () => {
-    navigate('/dashboard/accounts/groups/group/edit');
+    navigate("/dashboard/accounts/groups/group/edit");
   };
 
   const handleViewGroupCalender = () => {
-    navigate('/dashboard/accounts/groups/group/calendar');
+    navigate("/dashboard/accounts/groups/group/calendar");
   };
 
   return (
@@ -30,11 +30,11 @@ export const AccountsGroupPage = () => {
       <div className="group-info-container">
         <div>
           <h2>{mockData.name}</h2>
-          <p className="text">{'Group ID : ' + mockData.groupID}</p>
+          <p className="text">{"Group ID : " + mockData.groupID}</p>
         </div>
         <div>
-          <p>{'Last modified: ' + mockData.lastModified}</p>
-          <p>{'Owner: ' + mockData.owner + ' ( ' + mockData.role + ' ) '}</p>
+          <p>{"Last modified: " + mockData.lastModified}</p>
+          <p>{"Owner: " + mockData.owner + " ( " + mockData.role + " ) "}</p>
         </div>
       </div>
       <div className="row">

@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { ActivityContent } from '../../../components/Activities/ActivityContent';
-import { ActivityTip } from '../../../components/Activities/ActivityTip';
-import { Button } from '../../../components/Global/Button';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { ActivityContent } from "../../../components/Activities/ActivityContent";
+import { ActivityTip } from "../../../components/Activities/ActivityTip";
+import { Button } from "../../../components/Global/Button";
 
 export const ActivityPage = () => {
   const navigate = useNavigate();
@@ -12,11 +12,11 @@ export const ActivityPage = () => {
   };
 
   const handleEdit = () => {
-    navigate('./edit');
+    navigate("./edit");
   };
 
   const handlePrint = () => {
-    navigate('./print');
+    navigate("./print");
   };
 
   return (

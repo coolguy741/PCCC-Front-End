@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { Calendar } from '../../../../components/Global/CalendarModal/Calendar';
+import styled from "styled-components";
+import { Calendar } from "../../../../components/Global/CalendarModal/Calendar";
 
 export const AccountsGroupCalendarPrintPage = () => {
   const handleCheckboxChange = () => {
-    return 'check box change';
+    return "check box change";
   };
 
   return (
@@ -12,7 +12,7 @@ export const AccountsGroupCalendarPrintPage = () => {
       <div className="right">
         <h1>Group Calendar</h1>
         <div className="calendar-container">
-          <Calendar type={'plan'} />
+          <Calendar type={"plan"} />
         </div>
       </div>
     </Style.PageContainer>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const BasicComponent = () => {
   return <Style.Container>edit content here</Style.Container>;

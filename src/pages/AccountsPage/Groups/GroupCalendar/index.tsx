@@ -1,19 +1,19 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../../components/Global/Button';
-import { Calendar } from '../../../../components/Global/CalendarModal/Calendar';
-import { CheckboxGroup } from '../../../../components/Global/CheckboxGroup';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../../components/Global/Button";
+import { Calendar } from "../../../../components/Global/CalendarModal/Calendar";
+import { CheckboxGroup } from "../../../../components/Global/CheckboxGroup";
 
 const checkboxOptions = [
-  { label: 'Meal Plan', value: 'Meal Plan' },
-  { label: 'Activities', value: 'Activities' },
-  { label: 'Recipies', value: 'Recipies' },
-  { label: 'Assessment', value: 'Assessment' },
+  { label: "Meal Plan", value: "Meal Plan" },
+  { label: "Activities", value: "Activities" },
+  { label: "Recipies", value: "Recipies" },
+  { label: "Assessment", value: "Assessment" },
 ];
 
 export const AccountsGroupCalendarPage = () => {
   const handleCheckboxChange = () => {
-    return 'handle check box';
+    return "handle check box";
   };
 
   return (
@@ -26,7 +26,7 @@ export const AccountsGroupCalendarPage = () => {
       </div>
       <div className="row">
         <div className="calendar-container">
-          <Calendar type={'plan'} />
+          <Calendar type={"plan"} />
         </div>
         <div className="inputs-container">
           <select className="group-select-box">

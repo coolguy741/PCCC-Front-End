@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../components/Global/Button';
-import { SmallButton } from '../../../components/Global/SmallButton';
-import { RecipeContent } from '../../../components/Recipes/RecipeContent';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../components/Global/Button";
+import { SmallButton } from "../../../components/Global/SmallButton";
+import { RecipeContent } from "../../../components/Recipes/RecipeContent";
 
 export const RecipesCreatePreviewRecipePage = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export const RecipesCreatePreviewRecipePage = () => {
   };
 
   const toggleLanguage = () => {
-    return 'toggle language';
+    return "toggle language";
   };
 
   return (

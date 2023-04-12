@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { SmallButton } from '../../../components/Global/SmallButton';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { SmallButton } from "../../../components/Global/SmallButton";
 
 export const RecipesCreatePreviewLessonAssessment = () => {
-  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [currentLanguage, setCurrentLanguage] = useState("en");
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -12,7 +12,7 @@ export const RecipesCreatePreviewLessonAssessment = () => {
   };
 
   const handlePreview = () => {
-    navigate('./preview');
+    navigate("./preview");
   };
 
   return (
@@ -21,21 +21,21 @@ export const RecipesCreatePreviewLessonAssessment = () => {
       <div className="title-buttons-container">
         <h2>Create recipe</h2>
         <div className="language-toggle">
-          {currentLanguage === 'en' ? (
+          {currentLanguage === "en" ? (
             <>
-              <Style.ClickedButton onClick={() => setCurrentLanguage('en')}>
+              <Style.ClickedButton onClick={() => setCurrentLanguage("en")}>
                 English
               </Style.ClickedButton>
-              <SmallButton onClick={() => setCurrentLanguage('fr')}>
+              <SmallButton onClick={() => setCurrentLanguage("fr")}>
                 French
               </SmallButton>
             </>
           ) : (
             <>
-              <SmallButton onClick={() => setCurrentLanguage('en')}>
+              <SmallButton onClick={() => setCurrentLanguage("en")}>
                 English
               </SmallButton>
-              <Style.ClickedButton onClick={() => setCurrentLanguage('fr')}>
+              <Style.ClickedButton onClick={() => setCurrentLanguage("fr")}>
                 French
               </Style.ClickedButton>
             </>

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Icon } from '../../Global/Icon';
+import styled from "styled-components";
+import { Icon } from "../../Global/Icon";
 
 interface AccountCardProps {
   img: string;
@@ -12,7 +12,7 @@ export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Style.Container>
       <img src={img} alt="avatar" className="avatar" />
-      {role === 'Professional' && (
+      {role === "Professional" && (
         <div className="icon-container">
           <Icon name="professional" />
         </div>
@@ -57,7 +57,7 @@ const Style = {
       flex-grow: 1;
 
       .text {
-        font-family: 'Noir Std';
+        font-family: "Noir Std";
         font-style: normal;
         font-weight: 700;
         font-size: 11px;
@@ -76,7 +76,7 @@ const Style = {
         button {
           border: none;
           border-radius: 10px;
-          font-family: 'Open Sans';
+          font-family: "Open Sans";
           font-style: normal;
           font-weight: 700;
           font-size: 11px;

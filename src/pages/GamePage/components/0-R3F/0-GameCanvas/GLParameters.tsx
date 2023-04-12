@@ -3,7 +3,7 @@ import {
   sRGBEncoding,
   TextureEncoding,
   ToneMapping,
-} from 'three';
+} from "three";
 
 export interface GLParamTypes {
   depth: boolean;
@@ -30,7 +30,7 @@ const GLParameters: GLParamTypes = {
   outputEncoding: sRGBEncoding,
   toneMapping: CineonToneMapping,
   debug: { checkShaderErrors: true },
-  powerPreference: 'high-performance',
+  powerPreference: "high-performance",
 };
 
 export { GLParameters };

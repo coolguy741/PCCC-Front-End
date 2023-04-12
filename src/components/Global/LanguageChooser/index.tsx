@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface LanguageChooserProps {
   lang: string;
@@ -9,14 +9,14 @@ export const LanguageChooser = ({ lang, setLang }: LanguageChooserProps) => {
   return (
     <Style.Container>
       <Style.Button
-        className={`${lang === 'en' ? 'active' : 'inactive'}`}
-        onClick={() => setLang('en')}
+        className={`${lang === "en" ? "active" : "inactive"}`}
+        onClick={() => setLang("en")}
       >
         English
       </Style.Button>
       <Style.Button
-        className={`${lang === 'fr' ? 'active' : 'inactive'}`}
-        onClick={() => setLang('fr')}
+        className={`${lang === "fr" ? "active" : "inactive"}`}
+        onClick={() => setLang("fr")}
       >
         French
       </Style.Button>
@@ -31,9 +31,9 @@ const Style = {
   `,
   Button: styled.div<{ className: string }>`
     border: ${(props) =>
-      props.className === 'active'
-        ? '1px solid black ! important'
-        : 'none ! important'};
+      props.className === "active"
+        ? "1px solid black ! important"
+        : "none ! important"};
     background-color: var(--yellow);
     border-radius: 2rem;
     color: rgb(61, 61, 61);

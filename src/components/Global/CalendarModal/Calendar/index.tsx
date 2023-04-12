@@ -1,7 +1,7 @@
-import dayGridPlugin from '@fullcalendar/daygrid';
-import FullCalendar from '@fullcalendar/react';
-import { MouseEvent, useMemo } from 'react';
-import styled from 'styled-components';
+import dayGridPlugin from "@fullcalendar/daygrid";
+import FullCalendar from "@fullcalendar/react";
+import { MouseEvent, useMemo } from "react";
+import styled from "styled-components";
 
 type TPlan = {
   time: Date;
@@ -9,7 +9,7 @@ type TPlan = {
 };
 
 // Should move these exported types to `types.ts` as this is updated according to the data structure
-export type TCalendarType = 'plan' | 'assessment' | 'recipe' | 'foodways';
+export type TCalendarType = "plan" | "assessment" | "recipe" | "foodways";
 
 export type TData = {
   group: string;
@@ -31,10 +31,10 @@ interface Props {
 export const Calendar: React.FC<Props> = ({
   onDayClick,
   onWeekClick,
-  type = 'plan',
+  type = "plan",
   data,
 }) => {
-  const isPlan = useMemo(() => type === 'plan', [type]);
+  const isPlan = useMemo(() => type === "plan", [type]);
 
   return (
     <Style.Calendar>
@@ -42,8 +42,8 @@ export const Calendar: React.FC<Props> = ({
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={[
-          { title: 'event 1', date: '2023-03-01' },
-          { title: 'event 2', date: '2023-03-02' },
+          { title: "event 1", date: "2023-03-01" },
+          { title: "event 2", date: "2023-03-02" },
         ]}
       />
     </Style.Calendar>

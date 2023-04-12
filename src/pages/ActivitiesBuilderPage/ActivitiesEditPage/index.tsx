@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../components/Global/Button';
-import { AlignmentStyle } from '../../../components/Global/Container';
-import { LanguageChooser } from '../../../components/Global/LanguageChooser';
-import { ModalContainer } from '../../../components/Global/ModalContainer';
-import { SaveChangesModal } from '../../../components/Global/SaveChangesModal';
-import { SmallButton } from '../../../components/Global/SmallButton';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../components/Global/Button";
+import { AlignmentStyle } from "../../../components/Global/Container";
+import { LanguageChooser } from "../../../components/Global/LanguageChooser";
+import { ModalContainer } from "../../../components/Global/ModalContainer";
+import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
+import { SmallButton } from "../../../components/Global/SmallButton";
 
 export const ActivitiesEditPage = () => {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState("en");
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ export const ActivitiesEditPage = () => {
   };
 
   const handlePreview = () => {
-    navigate('./../preview');
+    navigate("./../preview");
   };
 
   const showModal = () => {
@@ -26,12 +26,12 @@ export const ActivitiesEditPage = () => {
   };
 
   const handleSave = () => {
-    navigate('./../preview');
+    navigate("./../preview");
   };
 
   const handleToggleLanguage = () => {
-    if (lang === 'en') setLang('fr');
-    if (lang === 'fr') setLang('en');
+    if (lang === "en") setLang("fr");
+    if (lang === "fr") setLang("en");
     setVisibleModal(false);
   };
 

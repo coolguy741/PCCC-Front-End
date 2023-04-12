@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const MealtimeMomentTip = () => {
   return (
@@ -8,7 +8,7 @@ export const MealtimeMomentTip = () => {
         <Style.Text>
           <Style.Bold>
             It seems like you like this content. Would you like to learn more
-            about{' '}
+            about{" "}
             <Style.Underlined>
               <Link to="./">Mealtime Moments</Link>
             </Style.Underlined>
@@ -17,10 +17,10 @@ export const MealtimeMomentTip = () => {
         </Style.Text>
         <br />
         <Style.Text>
-          <Style.Bold>OR </Style.Bold>Check out this fun{' '}
+          <Style.Bold>OR </Style.Bold>Check out this fun{" "}
           <Style.Underlined>
             &rsquo;<Link to="./">Vegetable Spring Rolls</Link>&rsquo;
-          </Style.Underlined>{' '}
+          </Style.Underlined>{" "}
           recipe that’s full of healthy ingredients
         </Style.Text>
       </Style.TipText>
@@ -43,7 +43,7 @@ const Style = {
     position: relative;
 
     &:after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       top: 40px;

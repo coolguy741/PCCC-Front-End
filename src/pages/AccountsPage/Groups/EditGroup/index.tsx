@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../../../../components/Global/Button';
-import { SmallButton } from '../../../../components/Global/SmallButton';
-import mockData from '../../../../lib/mockData/accounts/editGroup.json';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "../../../../components/Global/Button";
+import { SmallButton } from "../../../../components/Global/SmallButton";
+import mockData from "../../../../lib/mockData/accounts/editGroup.json";
 
 export const AccountsEditGroupPage = () => {
   const [members, setMembers] = useState<string[]>([]);
@@ -30,12 +30,12 @@ export const AccountsEditGroupPage = () => {
   return (
     <Style.Container>
       <div className="buttons-container">
-        <Button onClick={handleBack}>Back</Button>s{' '}
+        <Button onClick={handleBack}>Back</Button>s{" "}
       </div>
       <h1>Edit Group Page</h1>
       <div className="group-data-container">
         <div className="container">
-          <p className="text">{'Last modified: ' + mockData.lastModified}</p>
+          <p className="text">{"Last modified: " + mockData.lastModified}</p>
           <div className="owner-container">
             <p className="text">Owner : </p>
             <select>

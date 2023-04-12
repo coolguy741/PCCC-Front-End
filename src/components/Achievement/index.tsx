@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Icon } from '../Global/Icon';
+import styled from "styled-components";
+import { Icon } from "../Global/Icon";
 
 interface AchievementProps {
   title: string;

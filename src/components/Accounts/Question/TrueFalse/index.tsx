@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
 export const TrueFalseQuestion = () => {
   const [selectedValue, setSelectedValue] = useState(true);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === 'true') setSelectedValue(true);
+    if (event.target.value === "true") setSelectedValue(true);
     else setSelectedValue(false);
   };
 

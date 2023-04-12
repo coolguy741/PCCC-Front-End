@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { RadioGropQuestion } from './RadioGroup';
-import { TrueFalseQuestion } from './TrueFalse';
+import styled from "styled-components";
+import { RadioGropQuestion } from "./RadioGroup";
+import { TrueFalseQuestion } from "./TrueFalse";
 
 interface QuestionProps {
   content: {
@@ -15,18 +15,18 @@ export const Question = ({ content }: QuestionProps) => {
   return (
     <Style.Container>
       <p className="question">Q: {content.question}</p>
-      {content.inputType === 'textarea' && (
+      {content.inputType === "textarea" && (
         <textarea
           className="textarea"
           rows={content.numberOfLines ? content.numberOfLines : 1}
         />
       )}
-      {content.inputType === 'radioBox' && (
+      {content.inputType === "radioBox" && (
         <RadioGropQuestion
-          optionContent={content.content ? content.content : ['']}
+          optionContent={content.content ? content.content : [""]}
         />
       )}
-      {content.inputType === 'trueFalse' && <TrueFalseQuestion />}
+      {content.inputType === "trueFalse" && <TrueFalseQuestion />}
     </Style.Container>
   );
 };
