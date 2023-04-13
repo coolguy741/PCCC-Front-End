@@ -60,6 +60,7 @@ const orangeVStyles = css`
 const yellowVStyles = css`
   background: linear-gradient(182.85deg, #ffe166 2.47%, #eabc00 97.72%);
   box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
+  color: white;
 
   &:hover {
     box-shadow: 0px 9px 8px rgba(255, 217, 89, 0.4);
@@ -79,6 +80,12 @@ const yellowVStyles = css`
 const ghostVStyles = css`
   background: transparent;
   color: black;
+
+  svg {
+    path {
+      fill: black;
+    }
+  }
 
   &:disabled {
     color: #8b8b8b;
