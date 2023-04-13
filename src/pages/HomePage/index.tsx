@@ -5,10 +5,14 @@ import { AlignmentStyle } from "../../components/Global/Container";
 import { Icon } from "../../components/Global/Icon";
 import { Logo } from "../../components/Global/Logo";
 import { HomeTip } from "../../components/Home/HomeTip";
+import { DiscoverTogetherTile } from "./DiscoverTogetherTile";
+import { PowerFullKidsTile } from "./PowerFullKidsTile";
 
 export const HomePage = () => {
   return (
     <Style.PageContainer>
+      <PowerFullKidsTile />
+      <DiscoverTogetherTile />
       <Style.MainContent>
         <Style.MainSection>
           <Style.BigText>Power Full Kids</Style.BigText>
@@ -207,7 +211,7 @@ export const HomePage = () => {
 
 const Style = {
   PageContainer: styled.div`
-    margin: 0px -30px;
+    margin: -108px 0px 0px 0px;
   `,
   MainContent: styled.div`
     display: flex;
@@ -233,8 +237,7 @@ const Style = {
     line-height: 27px;
     letter-spacing: 0.02em;
     color: #c4c4c4;
-
-    margin: 0;
+    margin: 0px;
   `,
   MainSection: styled.div`
     display: flex;

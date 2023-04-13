@@ -9,6 +9,7 @@
   "ignorePatterns": "**/*.json",
   "rules": {
     "@typescript-eslint/ban-ts-comment": "off",
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
+    "linebreak-style": "off"
   }
 }
