@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { useSignUpStore } from "../../../stores/signUpStore";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
@@ -30,7 +31,7 @@ export const AgeGate = () => {
       setBirthYear(parseInt(_birthYear));
       setProvince(_province);
     }
-    changeCurrentStep("role");
+    changeStep("role");
   };
 
   return (

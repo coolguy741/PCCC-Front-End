@@ -28,11 +28,11 @@ body,
 
 body {
   margin: 0;
-  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Noir Std";
 }
 
 *,
@@ -47,8 +47,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 700;
   color: var(--black);
   margin: 0;
@@ -74,8 +73,7 @@ button {
 }
 
 input {
-  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
   font-size: 14px;
 }

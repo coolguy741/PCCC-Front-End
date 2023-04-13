@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { RoleGate } from "../../../components/Auth/RoleGate";
@@ -21,34 +20,7 @@ function switchSignUpView(step: StepsForSignUp) {
 }
 
 export const SignUpPage = () => {
-  const [eng, useEng] = useState(true);
   const currentStep = useSignUpStore((state) => state.currentStep);
-  const changeCurrentStep = useSignUpStore((state) => state.changeStep);
-
-  function switchSignUpView(step: StepsForSignUp) {
-    switch (step) {
-      case "age":
-        return (
-          <AgeGate
-            setOver18={setOver18}
-            birthYear={birthYear}
-            setBirthYear={setBirthYear}
-            changeCurrentStep={changeCurrentStep}
-          />
-        );
-      case "role": {
-        return (
-          <RoleGate
-            setIsCoordinator={setIsCoordinator}
-            isCoordinator={isCoordinator}
-            changeCurrentStep={changeCurrentStep}
-          />
-        );
-      }
-      default:
-        return null;
-    }
-  }
 
   return (
     <Style.Container>
@@ -72,7 +44,6 @@ const Style = {
     padding-top: 108px;
 
     .sign-up-breadcrump {
-      font-family: "Noir Std";
       position: absolute;
       left: 32px;
       top: 162px;
@@ -91,7 +62,6 @@ const Style = {
     }
 
     p {
-      font-family: "NoirStd-Regular";
       font-style: normal;
       font-weight: 400;
       font-size: 20px;
