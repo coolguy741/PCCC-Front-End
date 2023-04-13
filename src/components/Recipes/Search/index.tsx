@@ -61,7 +61,7 @@ const Style = {
     ul {
       position: absolute;
       top: 10px;
-      background-color: var(--yellow);
+      background-color: var(--yellow-500);
       width: 100%;
 
       li {

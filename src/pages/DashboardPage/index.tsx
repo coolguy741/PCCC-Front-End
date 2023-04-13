@@ -111,11 +111,11 @@ const Style = {
     display: flex;
 
     .main-container {
-      padding: 30px;
       display: flex;
       flex-direction: column;
-      width: 100%;
       margin-left: 350px;
+      width: calc(100% - 350px);
+      padding: 30px;
 
       &__header {
         width: 100%;

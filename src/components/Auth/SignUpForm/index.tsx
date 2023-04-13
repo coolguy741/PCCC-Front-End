@@ -1,14 +1,36 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { useSignUpStore } from "../../../stores/signUpStore";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
+import { Select } from "../../Global/Select";
 
-interface SignUpFormProps {
-  setNav: (nav: number) => void;
-  over18: boolean | null;
-}
+export const SignUpForm = () => {
+  const over18 = useSignUpStore((state) => state.over18);
+  const province = useSignUpStore((state) => state.province);
+  const setProvince = useSignUpStore((state) => state.setProvince);
+  const changeStep = useSignUpStore((state) => state.changeStep);
 
-export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
-  console.log(over18);
+  const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
+  const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
+    [],
+  );
+  const api = useAPI();
+
+  const getUsernames = async () => {
+    const { data } = await api.appCustomUsernameChoicesUsernameChoicesList();
+
+    setFirstNames(data.firstNames);
+    setSecondNames(data.secondNames);
+
+    return data;
+  };
+
+  useEffect(() => {
+    getUsernames();
+  }, []);
+
   return (
     <Container>
       <div className="signup-form">
@@ -43,7 +65,11 @@ export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
           )}
           <label>
             <span>Province</span>
-            <Input type="text" />
+            <Input
+              type="text"
+              onChange={(e) => setProvince(e.target.value)}
+              value={province}
+            />
           </label>
           {over18 && (
             <label>
@@ -55,6 +81,18 @@ export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
         <div className="signup-form--right">
           <label>
             <span>User name</span>
+            <Select>
+              {firstNames &&
+                firstNames.map((name, index) => (
+                  <option key={index}>{name}</option>
+                ))}
+            </Select>
+            <Select>
+              {secondNames &&
+                secondNames.map((name, index) => (
+                  <option key={index}>{name}</option>
+                ))}
+            </Select>
             <Input type="text" />
           </label>
 
@@ -78,10 +116,14 @@ export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
         </div>
       </div>
       <div className="back-button">
-        <Button onClick={() => (over18 ? setNav(1) : setNav(0))}>Back</Button>
+        <Button
+          onClick={() => (over18 ? changeStep("role") : changeStep("age"))}
+        >
+          Back
+        </Button>
       </div>
       <div className="next-button">
-        <Button onClick={() => setNav(3)}>Next</Button>
+        <Button onClick={() => changeStep("input-account")}>Next</Button>
       </div>
     </Container>
   );
@@ -108,17 +150,25 @@ const Container = styled.div`
           span {
             width: 15vw;
           }
-
-          input,
-          select {
-            width: 18vw;
-          }
         }
       }
 
       &--right {
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
         span {
-          margin-top: 2rem;
+        }
+
+        label span {
+          width: 120px;
+        }
+
+        input {
+          width: 100px;
         }
 
         .avatars {
@@ -130,7 +180,7 @@ const Container = styled.div`
           div {
             width: 50px;
             height: 50px;
-            background-color: var(--red);
+            background-color: var(--red-500);
           }
         }
       }
