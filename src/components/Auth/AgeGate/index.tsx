@@ -1,5 +1,7 @@
 import styled from "styled-components";
+import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { ArrowRight } from "../../Icons";
 
 interface AgeGateProps {
   setNav: (nav: number) => void;
@@ -37,6 +39,10 @@ export const AgeGate = ({ setNav, setOver18 }: AgeGateProps) => {
           <label>What is your province?</label>
           <Input type="text" />
         </fieldset>
+        <Button size="small" fullWidth>
+          Continue to the next step
+          <ArrowRight />
+        </Button>
       </form>
     </Style.Container>
   );
@@ -55,11 +61,15 @@ const Style = {
     width: 440px;
     height: 540px;
 
-    h1 {
+    h1,
+    h2 {
       margin: 0;
       padding: 0;
+    }
+
+    h1 {
       font-weight: 600;
-      font-size: 45px;
+      font-size: 40px;
       line-height: 52px;
     }
 
@@ -76,6 +86,21 @@ const Style = {
       padding: 0;
       border: none;
       margin-bottom: 15px;
+    }
+
+    form {
+      padding: 0;
+      height: 350px;
+      display: flex;
+      margin-top: 25px;
+      flex-direction: column;
+    }
+
+    button {
+      margin-top: auto;
+      svg {
+        margin-left: 10px;
+      }
     }
   `,
 };

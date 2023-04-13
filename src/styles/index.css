@@ -55,8 +55,18 @@ h1 {
   font-size: 48px;
 }
 
-a {
+a,
+button {
+  color: inherit;
+  cursor: pointer;
   text-decoration: none;
+  outline: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input {
