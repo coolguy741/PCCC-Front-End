@@ -89,4 +89,8 @@
   --radius-8: 48px;
   --radius-9: 64px;
   --radius-10: 80px;
+
+  /* Spaces for grid system */
+  --gutter-grid: 1rem;
+  --gutter-spacing: 0.25rem;
 }

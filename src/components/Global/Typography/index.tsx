@@ -48,23 +48,18 @@ export const Typography: React.FC<TypographyProps> = ({
 
 const mediumWStyles = css`
   font-weight: 500;
-  font-family: "NoirStd-Medium";
 `;
 const semiBoldWStyles = css`
   font-weight: 600;
-  font-family: "NoirStd-SemiBold";
 `;
 const boldWStyles = css`
   font-weight: 700;
-  font-family: "NoirStd-SemiBold";
 `;
 const heavyWStyles = css`
   font-weight: 900;
-  font-family: "NoirStd-Bold";
 `;
 const regularStyles = css`
   font-weight: 400;
-  font-family: "NoirStd-Regular";
 `;
 
 function getTypographyWeight(props: TypographyProps) {
@@ -124,6 +119,7 @@ function getTypographyVariantAndSize(props: TypographyProps) {
 
 export const Style = {
   Container: styled.div`
+    font-family: "Noir Std";
     ${({ m }) => m && `margin: calc(${m} * var(--gutter-spacing));`}
     ${({ mt }) => mt && `margin-top: calc(${mt} * var(--gutter-spacing));`}
     ${({ mb }) => mb && `margin-bottom: calc(${mb} * var(--gutter-spacing));`}
