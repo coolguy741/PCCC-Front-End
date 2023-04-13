@@ -6,9 +6,8 @@ import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
 
 export const AgeGate = () => {
-  const [_birthYear, _setBirthYear] = useState(null);
-  const [_province, _setProvince] = useState(null);
-  const birthYear = useSignUpStore((state) => state.birthYear);
+  const [_birthYear, _setBirthYear] = useState("");
+  const [_province, _setProvince] = useState("");
   const setBirthYear = useSignUpStore((state) => state.setBirthYear);
   const setProvince = useSignUpStore((state) => state.setProvince);
   const setOver18 = useSignUpStore((state) => state.setOver18);
@@ -19,8 +18,8 @@ export const AgeGate = () => {
 
     const currentYear = new Date().getFullYear();
 
-    if (_birthYear !== null) {
-      if (currentYear - _birthYear >= 18) {
+    if (_birthYear !== null && _province !== null) {
+      if (currentYear - parseInt(_birthYear) >= 18) {
         setOver18(true);
         changeStep("role");
       } else {
@@ -28,7 +27,8 @@ export const AgeGate = () => {
         changeStep("input-information");
       }
 
-      setBirthYear(_birthYear);
+      setBirthYear(parseInt(_birthYear));
+      setProvince(_province);
     }
   };
 

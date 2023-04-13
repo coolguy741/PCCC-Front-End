@@ -7,6 +7,9 @@ export const RoleGate = () => {
   const setIsCoordinator = useSignUpStore((state) => state.setIsCoordinator);
   const isCoordinator = useSignUpStore((state) => state.isCoordinator);
   const changeStep = useSignUpStore((state) => state.changeStep);
+  const over18 = useSignUpStore((state) => state.over18);
+  const birthYear = useSignUpStore((state) => state.birthYear);
+  const province = useSignUpStore((state) => state.province);
 
   return (
     <Container>
