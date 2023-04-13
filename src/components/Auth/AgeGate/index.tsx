@@ -1,21 +1,23 @@
 import { FormEvent } from "react";
 import styled from "styled-components";
+import { StepsForSignUp } from "../../../stores/signUpStore";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
 
 interface AgeGateProps {
-  setNav: (nav: number) => void;
   setOver18: (over18: boolean) => void;
   birthYear: number | null;
   setBirthYear: (birthYear: number | null) => void;
+  changeCurrentStep: (step: StepsForSignUp) => void;
 }
 
 export const AgeGate = ({
-  setNav,
   setOver18,
   birthYear,
   setBirthYear,
+  changeCurrentStep,
 }: AgeGateProps) => {
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,12 +26,11 @@ export const AgeGate = ({
     if (birthYear !== null) {
       if (currentYear - birthYear >= 18) {
         setOver18(true);
-        setNav(1);
       } else {
         setOver18(false);
-        setNav(2);
       }
     }
+    changeCurrentStep("role");
   };
 
   return (
@@ -59,26 +60,10 @@ const Style = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 7.78814px 19.4703px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(59.2764px);
-    padding: 45px 40px;
-    border-radius: 24px;
     height: 60vh;
     width: 440px;
     height: 540px;
-
-    h1,
-    h2 {
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      font-weight: 600;
-      font-size: 40px;
-      line-height: 52px;
-    }
+    ${glassBackground}
 
     label {
       font-family: "NoirStd-Regular";
