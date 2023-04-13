@@ -89,7 +89,7 @@ const Style = {
     }
 
     label {
-      font-family: "NoirStd-Regular";
+      font-family: "Noir Std";
       font-style: normal;
       font-weight: 400;
       font-size: 15px;

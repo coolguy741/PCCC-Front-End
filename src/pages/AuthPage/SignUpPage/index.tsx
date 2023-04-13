@@ -47,7 +47,7 @@ const Style = {
     padding-top: 108px;
 
     .sign-up-breadcrump {
-      font-family: "NoirStd-Regular";
+      font-family: "Noir Std";
       position: absolute;
       left: 32px;
       top: 162px;
