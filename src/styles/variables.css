@@ -1,5 +1,5 @@
 :root {
-  --white: #FFFFFF;
+  --white: #ffffff;
   --black: #000000;
 
   --yellow-100: #fff5cc;
@@ -12,55 +12,55 @@
   --yellow-800: #aa8900;
   --yellow-900: #806700;
 
-  --green-100: #D2F7E5;
-  --green-200: #A6EFCB;
-  --green-300: #79E7B0;
-  --green-400: #4CDE96;
-  --green-500: #26D07C;
-  --green-600: #20AD67;
-  --green-700: #198B53;
-  --green-800: #13683E;
-  --green-900: #0D4529;
+  --green-100: #d2f7e5;
+  --green-200: #a6efcb;
+  --green-300: #79e7b0;
+  --green-400: #4cde96;
+  --green-500: #26d07c;
+  --green-600: #20ad67;
+  --green-700: #198b53;
+  --green-800: #13683e;
+  --green-900: #0d4529;
 
-  --blue-100: #E1F4FF;
-  --blue-200: #C4E8FF;
-  --blue-300: #88D2FF;
-  --blue-400: #11A5FF;
-  --blue-500: #0084D5;
-  --blue-600: #0075BD;
-  --blue-700: #0067A6;
+  --blue-100: #e1f4ff;
+  --blue-200: #c4e8ff;
+  --blue-300: #88d2ff;
+  --blue-400: #11a5ff;
+  --blue-500: #0084d5;
+  --blue-600: #0075bd;
+  --blue-700: #0067a6;
   --blue-800: #004976;
-  --blue-900: #002C47;
+  --blue-900: #002c47;
 
-  --orange-100: #FEE5DD;
-  --orange-200: #FCCBBB;
-  --orange-300: #FBB09A;
-  --orange-400: #F99678;
-  --orange-500: #F87C56;
-  --orange-600: #F65321;
-  --orange-700: #D63909;
-  --orange-800: #A02B07;
-  --orange-900: #6B1C04;
+  --orange-100: #fee5dd;
+  --orange-200: #fccbbb;
+  --orange-300: #fbb09a;
+  --orange-400: #f99678;
+  --orange-500: #f87c56;
+  --orange-600: #f65321;
+  --orange-700: #d63909;
+  --orange-800: #a02b07;
+  --orange-900: #6b1c04;
 
-  --red-100: #F9D3D0;
-  --red-200: #F3A7A1;
-  --red-300: #ED7B73;
-  --red-400: #E74F44;
-  --red-500: #DA291C;
-  --red-600: #B62217;
-  --red-700: #911B13;
-  --red-800: #6D140E;
-  --red-900: #490E09;
+  --red-100: #f9d3d0;
+  --red-200: #f3a7a1;
+  --red-300: #ed7b73;
+  --red-400: #e74f44;
+  --red-500: #da291c;
+  --red-600: #b62217;
+  --red-700: #911b13;
+  --red-800: #6d140e;
+  --red-900: #490e09;
 
-  --neutral-100: #ECECEC;
-  --neutral-200: #B1B1B1;
-  --neutral-300: #9E9E9E;
-  --neutral-400: #8B8B8B;
+  --neutral-100: #ececec;
+  --neutral-200: #b1b1b1;
+  --neutral-300: #9e9e9e;
+  --neutral-400: #8b8b8b;
   --neutral-500: #777777;
   --neutral-600: #646464;
   --neutral-700: #505050;
-  --neutral-800: #3D3D3D;
-  --neutral-900: #2E2E2E;
+  --neutral-800: #3d3d3d;
+  --neutral-900: #2e2e2e;
 
   /* Global spacing variables */
   --spacing-1: 4px;
