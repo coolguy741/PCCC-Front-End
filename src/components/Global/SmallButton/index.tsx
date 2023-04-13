@@ -23,7 +23,7 @@ const Style = {
     background-color: ${(SmallButtonProps) =>
       SmallButtonProps.bgColor
         ? "var(--" + SmallButtonProps.bgColor + ")"
-        : "var(--yellow)"};
+        : "var(--yellow-500)"};
     border: none;
     border-radius: 1.5rem;
     color: #3d3d3d;

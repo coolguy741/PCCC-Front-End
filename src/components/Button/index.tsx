@@ -131,7 +131,7 @@ function getButtonSize(props: ButtonProps) {
 
 export const Style = {
   Container: styled.button`
-    font-family: "NoirStd-Medium";
+    font-family: "Noir Std";
     font-style: normal;
     font-weight: 500;
     letter-spacing: -0.02em;

@@ -54,7 +54,7 @@ const Style = {
     position: relative;
     height: 25px;
     width: calc(${width}*2);
-    background: var(--red);
+    background: var(--red-500);
     border-radius: 29px;
     grid-template-columns: repeat(${items}, ${width});
     grid-template-rows: 1fr;

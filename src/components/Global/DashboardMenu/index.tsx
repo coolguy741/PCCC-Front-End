@@ -104,7 +104,7 @@ const Style = {
     position: fixed;
     width: 350px;
     height: 100vh;
-    background-color: var(--yellow);
+    background-color: var(--yellow-500);
     border-radius: 0 35px 35px 0;
     padding: 30px 0;
     display: flex;
@@ -149,7 +149,7 @@ const Style = {
         user-select: none;
 
         &.active {
-          background-color: var(--orange);
+          background-color: var(--orange-500);
           transition: 0.3s all ease-in-out;
         }
       }
