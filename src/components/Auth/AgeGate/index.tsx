@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import styled from "styled-components";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -16,7 +17,8 @@ export const AgeGate = ({
   birthYear,
   setBirthYear,
 }: AgeGateProps) => {
-  const submitHandler = () => {
+  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const currentYear = new Date().getFullYear();
 
     if (birthYear !== null) {
@@ -34,7 +36,7 @@ export const AgeGate = ({
     <Style.Container>
       <h1>Welcome</h1>
       <p>We will need some basic information to setup your account</p>
-      <form>
+      <form onSubmit={submitHandler}>
         <h2>Sign up</h2>
         <fieldset>
           <label>What year were you born?</label>
@@ -44,9 +46,9 @@ export const AgeGate = ({
           <label>What is your province?</label>
           <Input type="text" />
         </fieldset>
-        <Button size="small" fullWidth>
+        <Button size="small" fullWidth type="submit">
           Continue to the next step
-          <ArrowRight />
+          <ArrowRight width="15" />
         </Button>
       </form>
     </Style.Container>
@@ -97,7 +99,7 @@ const Style = {
       padding: 0;
       height: 350px;
       display: flex;
-      margin-top: 25px;
+      margin-top: 15px;
       flex-direction: column;
     }
 
