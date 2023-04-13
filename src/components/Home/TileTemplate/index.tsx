@@ -1,14 +1,11 @@
 import styled from "styled-components";
 
-
-
 export const TileTemplate = () => {
   return (
     <style.PageContainer>
       <style.Content>
         <style.TitleContainer>
-          <style.FirstLine>
-          </style.FirstLine>
+          <style.FirstLine></style.FirstLine>
         </style.TitleContainer>
       </style.Content>
     </style.PageContainer>
@@ -36,8 +33,7 @@ const style = {
     text-edge: cap;
     letter-spacing: 0.03em;
   `,
-  ColoredText: styled.p<{color:string}>`
-    color: 
-  `
-}
-
+  ColoredText: styled.p<{ color: string }>`
+    color: ;
+  `,
+};
