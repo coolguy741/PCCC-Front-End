@@ -1,32 +1,34 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { useSignUpStore } from "../../../stores/signUpStore";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
 
-interface AgeGateProps {
-  setNav: (nav: number) => void;
-  setOver18: (over18: boolean) => void;
-  birthYear: number | null;
-  setBirthYear: (birthYear: number | null) => void;
-}
+export const AgeGate = () => {
+  const [_birthYear, _setBirthYear] = useState(null);
+  const [_province, _setProvince] = useState(null);
+  const birthYear = useSignUpStore((state) => state.birthYear);
+  const setBirthYear = useSignUpStore((state) => state.setBirthYear);
+  const setProvince = useSignUpStore((state) => state.setProvince);
+  const setOver18 = useSignUpStore((state) => state.setOver18);
+  const changeStep = useSignUpStore((state) => state.changeStep);
 
-export const AgeGate = ({
-  setNav,
-  setOver18,
-  birthYear,
-  setBirthYear,
-}: AgeGateProps) => {
-  const submitHandler = () => {
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+
     const currentYear = new Date().getFullYear();
 
-    if (birthYear !== null) {
-      if (currentYear - birthYear >= 18) {
+    if (_birthYear !== null) {
+      if (currentYear - _birthYear >= 18) {
         setOver18(true);
-        setNav(1);
+        changeStep("role");
       } else {
         setOver18(false);
-        setNav(2);
+        changeStep("input-information");
       }
+
+      setBirthYear(_birthYear);
     }
   };
 
@@ -38,13 +40,21 @@ export const AgeGate = ({
         <h2>Sign up</h2>
         <fieldset>
           <label>What year were you born?</label>
-          <Input type="text" />
+          <Input
+            type="text"
+            onChange={(e) => _setBirthYear(e.target.value)}
+            value={_birthYear}
+          />
         </fieldset>
         <fieldset>
           <label>What is your province?</label>
-          <Input type="text" />
+          <Input
+            type="text"
+            onChange={(e) => _setProvince(e.target.value)}
+            value={_province}
+          />
         </fieldset>
-        <Button size="small" fullWidth>
+        <Button size="small" fullWidth onClick={(e) => submitHandler(e)}>
           Continue to the next step
           <ArrowRight />
         </Button>

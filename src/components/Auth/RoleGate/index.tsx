@@ -1,18 +1,13 @@
 import styled from "styled-components";
+import { useSignUpStore } from "../../../stores/signUpStore";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
 
-interface RoleGateProps {
-  setNav: (nav: number) => void;
-  isCoordinator: boolean | null;
-  setIsCoordinator: (isCoordinator: boolean) => void;
-}
+export const RoleGate = () => {
+  const setIsCoordinator = useSignUpStore((state) => state.setIsCoordinator);
+  const isCoordinator = useSignUpStore((state) => state.isCoordinator);
+  const changeStep = useSignUpStore((state) => state.changeStep);
 
-export const RoleGate = ({
-  setNav,
-  isCoordinator,
-  setIsCoordinator,
-}: RoleGateProps) => {
   return (
     <Container>
       <h3>
@@ -45,10 +40,10 @@ export const RoleGate = ({
         </div>
       )}
       <div className="back-button">
-        <Button onClick={() => setNav(0)}>Back</Button>
+        <Button onClick={() => changeStep("age")}>Back</Button>
       </div>
       <div className="next-button">
-        <Button onClick={() => setNav(2)}>Next</Button>
+        <Button onClick={() => changeStep("input-information")}>Next</Button>
       </div>
     </Container>
   );

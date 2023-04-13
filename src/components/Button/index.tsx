@@ -11,7 +11,7 @@ export type ButtonProps<As extends React.ElementType = "button"> = {
   as?: As;
   size?: ButtonSize;
   fullWidth?: boolean;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
 };
 
 function ForwardedButton<

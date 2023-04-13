@@ -1,35 +1,17 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
+import { useSignUpStore } from "../../../stores/signUpStore";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
 import { Select } from "../../Global/Select";
 
-interface SignUpFormProps {
-  setNav: (nav: number) => void;
-  over18: boolean | null;
-  province: string | null;
-  setProvince: (province: string | null) => void;
-  firstUsername: string | null;
-  setFirstUsername: (firstUsername: string | null) => void;
-  secondUsername: string | null;
-  setSecondUsername: (secondUsername: string | null) => void;
-  usernameNumber: number | null;
-  setUsernameNumber: (usernameNumber: number | null) => void;
-}
+export const SignUpForm = () => {
+  const over18 = useSignUpStore((state) => state.over18);
+  const province = useSignUpStore((state) => state.province);
+  const setProvince = useSignUpStore((state) => state.setProvince);
+  const changeStep = useSignUpStore((state) => state.changeStep);
 
-export const SignUpForm = ({
-  setNav,
-  over18,
-  province,
-  setProvince,
-  firstUsername,
-  setFirstUsername,
-  secondUsername,
-  setSecondUsername,
-  usernameNumber,
-  setUsernameNumber,
-}: SignUpFormProps) => {
   const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
   const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
     [],
@@ -134,10 +116,14 @@ export const SignUpForm = ({
         </div>
       </div>
       <div className="back-button">
-        <Button onClick={() => (over18 ? setNav(1) : setNav(0))}>Back</Button>
+        <Button
+          onClick={() => (over18 ? changeStep("role") : changeStep("age"))}
+        >
+          Back
+        </Button>
       </div>
       <div className="next-button">
-        <Button onClick={() => setNav(3)}>Next</Button>
+        <Button onClick={() => changeStep("input-account")}>Next</Button>
       </div>
     </Container>
   );
