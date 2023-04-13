@@ -34,7 +34,7 @@ const Style = {
       props.className === "active"
         ? "1px solid black ! important"
         : "none ! important"};
-    background-color: var(--yellow);
+    background-color: var(--yellow-500);
     border-radius: 2rem;
     color: rgb(61, 61, 61);
     cursor: pointer;

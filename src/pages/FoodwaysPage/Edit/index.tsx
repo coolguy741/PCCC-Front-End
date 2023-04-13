@@ -175,7 +175,7 @@ const Style = {
               }
 
               &__item {
-                background-color: var(--yellow);
+                background-color: var(--yellow-500);
                 padding: 0.5rem;
               }
             }

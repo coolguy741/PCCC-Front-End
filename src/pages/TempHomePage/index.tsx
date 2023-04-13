@@ -118,7 +118,7 @@ const Style = {
       }
 
       span {
-        color: var(--red);
+        color: var(--red-500);
       }
       sup {
         font-family: sans-serif;

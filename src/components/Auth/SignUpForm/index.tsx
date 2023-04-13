@@ -130,7 +130,7 @@ const Container = styled.div`
           div {
             width: 50px;
             height: 50px;
-            background-color: var(--red);
+            background-color: var(--red-500);
           }
         }
       }
