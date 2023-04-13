@@ -117,6 +117,11 @@ const Style = {
       width: calc(100% - 350px);
       padding: 30px;
 
+      @media screen and (max-width: 1920px) {
+        margin-left: var(--dashboard-menu-width-medium);
+        width: calc(100% - var(--dashboard-menu-width-medium));
+      }
+
       &__header {
         width: 100%;
         display: flex;
