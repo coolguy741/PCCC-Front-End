@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { DirectionLeft } from "../../../components/Icons";
+import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
-import { StepsForSignUp, useSignUpStore } from "./store";
 
 function switchSignUpView(step: StepsForSignUp, setNav: any, setOver18: any) {
   switch (step) {
