@@ -113,6 +113,7 @@ export const router = createBrowserRouter([
         <Outlet />
       </AuthPage>
     ),
+
     children: [{ path: "", element: <SignUpPage /> }],
   },
   {

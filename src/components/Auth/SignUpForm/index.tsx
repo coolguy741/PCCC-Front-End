@@ -1,14 +1,54 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
+import { Select } from "../../Global/Select";
 
 interface SignUpFormProps {
   setNav: (nav: number) => void;
   over18: boolean | null;
+  province: string | null;
+  setProvince: (province: string | null) => void;
+  firstUsername: string | null;
+  setFirstUsername: (firstUsername: string | null) => void;
+  secondUsername: string | null;
+  setSecondUsername: (secondUsername: string | null) => void;
+  usernameNumber: number | null;
+  setUsernameNumber: (usernameNumber: number | null) => void;
 }
 
-export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
-  console.log(over18);
+export const SignUpForm = ({
+  setNav,
+  over18,
+  province,
+  setProvince,
+  firstUsername,
+  setFirstUsername,
+  secondUsername,
+  setSecondUsername,
+  usernameNumber,
+  setUsernameNumber,
+}: SignUpFormProps) => {
+  const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
+  const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
+    [],
+  );
+  const api = useAPI();
+
+  const getUsernames = async () => {
+    const { data } = await api.appCustomUsernameChoicesUsernameChoicesList();
+
+    setFirstNames(data.firstNames);
+    setSecondNames(data.secondNames);
+
+    return data;
+  };
+
+  useEffect(() => {
+    getUsernames();
+  }, []);
+
   return (
     <Container>
       <div className="signup-form">
@@ -43,7 +83,11 @@ export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
           )}
           <label>
             <span>Province</span>
-            <Input type="text" />
+            <Input
+              type="text"
+              onChange={(e) => setProvince(e.target.value)}
+              value={province}
+            />
           </label>
           {over18 && (
             <label>
@@ -55,6 +99,18 @@ export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
         <div className="signup-form--right">
           <label>
             <span>User name</span>
+            <Select>
+              {firstNames &&
+                firstNames.map((name, index) => (
+                  <option key={index}>{name}</option>
+                ))}
+            </Select>
+            <Select>
+              {secondNames &&
+                secondNames.map((name, index) => (
+                  <option key={index}>{name}</option>
+                ))}
+            </Select>
             <Input type="text" />
           </label>
 
@@ -108,17 +164,25 @@ const Container = styled.div`
           span {
             width: 15vw;
           }
-
-          input,
-          select {
-            width: 18vw;
-          }
         }
       }
 
       &--right {
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
         span {
-          margin-top: 2rem;
+        }
+
+        label span {
+          width: 120px;
+        }
+
+        input {
+          width: 100px;
         }
 
         .avatars {

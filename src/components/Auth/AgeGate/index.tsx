@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
@@ -6,11 +5,16 @@ import { Input } from "../../Global/Input";
 interface AgeGateProps {
   setNav: (nav: number) => void;
   setOver18: (over18: boolean) => void;
+  birthYear: number | null;
+  setBirthYear: (birthYear: number | null) => void;
 }
 
-export const AgeGate = ({ setNav, setOver18 }: AgeGateProps) => {
-  const [birthYear, setBirthYear] = useState<number | null>(null);
-
+export const AgeGate = ({
+  setNav,
+  setOver18,
+  birthYear,
+  setBirthYear,
+}: AgeGateProps) => {
   const submitHandler = () => {
     const currentYear = new Date().getFullYear();
 

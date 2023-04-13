@@ -9,12 +9,24 @@ export const SignUpPage = () => {
   const [nav, setNav] = useState(0);
   const [eng, useEng] = useState(true);
   const [over18, setOver18] = useState(false);
+  const [province, setProvince] = useState<string | null>(null);
+  const [birthYear, setBirthYear] = useState<number | null>(null);
+  const [firstUsername, setFirstUsername] = useState<string | null>(null);
   const [isCoordinator, setIsCoordinator] = useState<boolean | null>(null);
+  const [secondUsername, setSecondUsername] = useState<string | null>(null);
+  const [usernameNumber, setUsernameNumber] = useState<number | null>(null);
 
   return (
     <Style.Container>
       <h1>Sign up</h1>
-      {nav === 0 && <AgeGate setNav={setNav} setOver18={setOver18} />}
+      {nav === 0 && (
+        <AgeGate
+          setNav={setNav}
+          setOver18={setOver18}
+          birthYear={birthYear}
+          setBirthYear={setBirthYear}
+        />
+      )}
       {nav === 1 && (
         <RoleGate
           setNav={setNav}
@@ -22,7 +34,20 @@ export const SignUpPage = () => {
           setIsCoordinator={setIsCoordinator}
         />
       )}
-      {nav === 2 && <SignUpForm setNav={setNav} over18={over18} />}
+      {nav === 2 && (
+        <SignUpForm
+          setNav={setNav}
+          over18={over18}
+          province={province}
+          setProvince={setProvince}
+          firstUsername={firstUsername}
+          setFirstUsername={setFirstUsername}
+          secondUsername={secondUsername}
+          setSecondUsername={setSecondUsername}
+          usernameNumber={usernameNumber}
+          setUsernameNumber={setUsernameNumber}
+        />
+      )}
       {nav === 3 && <SecurityQuestions setNav={setNav} />}
     </Style.Container>
   );
