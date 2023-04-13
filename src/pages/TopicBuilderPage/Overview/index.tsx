@@ -172,7 +172,7 @@ const Style = {
     }
   `,
   Button: styled.button`
-    background-color: var(--yellow);
+    background-color: var(--yellow-500);
     border: none;
     border-radius: 2rem;
     color: #3d3d3d;

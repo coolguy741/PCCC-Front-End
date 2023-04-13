@@ -1,39 +1,28 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
+import { RoleGate } from "../../../components/Auth/RoleGate";
+import { SignUpForm } from "../../../components/Auth/SignUpForm";
 import { DirectionLeft } from "../../../components/Icons";
 import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
-function switchSignUpView(
-  step: StepsForSignUp,
-  setNav: any,
-  setOver18: any,
-  birthYear: any,
-  setBirthYear: any,
-) {
+function switchSignUpView(step: StepsForSignUp) {
   switch (step) {
     case "age":
+      return <AgeGate />;
+    case "role":
+      return <RoleGate />;
+    case "input-information":
+      return <SignUpForm />;
     default:
-      return (
-        <AgeGate
-          setNav={setNav}
-          setOver18={setOver18}
-          birthYear={birthYear}
-          setBirthYear={setBirthYear}
-        />
-      );
+      return <AgeGate />;
   }
 }
 
 export const SignUpPage = () => {
   const [nav, setNav] = useState(0);
   const [eng, useEng] = useState(true);
-  const [over18, setOver18] = useState(false);
-  const [province, setProvince] = useState<string | null>(null);
-  const [birthYear, setBirthYear] = useState<number | null>(null);
-  const [firstUsername, setFirstUsername] = useState<string | null>(null);
-  const [isCoordinator, setIsCoordinator] = useState<boolean | null>(null);
   const currentStep = useSignUpStore((state) => state.currentStep);
 
   return (
@@ -42,13 +31,7 @@ export const SignUpPage = () => {
         <DirectionLeft />
         Back
       </span>
-      {switchSignUpView(
-        currentStep,
-        setNav,
-        setOver18,
-        birthYear,
-        setBirthYear,
-      )}
+      {switchSignUpView(currentStep)}
     </Style.Container>
   );
 };
@@ -64,7 +47,7 @@ const Style = {
     padding-top: 108px;
 
     .sign-up-breadcrump {
-      font-family: "NoirStd-Regular";
+      font-family: "Noir Std";
       position: absolute;
       left: 32px;
       top: 162px;

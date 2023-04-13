@@ -109,10 +109,10 @@ const Style = {
       }
 
       span {
-        background: var(--yellow);
+        background: var(--yellow-500);
         padding: 0.5rem;
         &.active {
-          background: var(--orange);
+          background: var(--orange-500);
           color: #ffffff;
         }
       }

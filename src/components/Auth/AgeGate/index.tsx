@@ -1,34 +1,34 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
+import { useSignUpStore } from "../../../stores/signUpStore";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
 
-interface AgeGateProps {
-  setNav: (nav: number) => void;
-  setOver18: (over18: boolean) => void;
-  birthYear: number | null;
-  setBirthYear: (birthYear: number | null) => void;
-}
+export const AgeGate = () => {
+  const [_birthYear, _setBirthYear] = useState("");
+  const [_province, _setProvince] = useState("");
+  const setBirthYear = useSignUpStore((state) => state.setBirthYear);
+  const setProvince = useSignUpStore((state) => state.setProvince);
+  const setOver18 = useSignUpStore((state) => state.setOver18);
+  const changeStep = useSignUpStore((state) => state.changeStep);
 
-export const AgeGate = ({
-  setNav,
-  setOver18,
-  birthYear,
-  setBirthYear,
-}: AgeGateProps) => {
-  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const submitHandler = (event: FormEvent<HTMLElement>) => {
     event.preventDefault();
+
     const currentYear = new Date().getFullYear();
 
-    if (birthYear !== null) {
-      if (currentYear - birthYear >= 18) {
+    if (_birthYear !== null && _province !== null) {
+      if (currentYear - parseInt(_birthYear) >= 18) {
         setOver18(true);
-        setNav(1);
+        changeStep("role");
       } else {
         setOver18(false);
-        setNav(2);
+        changeStep("input-information");
       }
+
+      setBirthYear(parseInt(_birthYear));
+      setProvince(_province);
     }
   };
 
@@ -40,13 +40,21 @@ export const AgeGate = ({
         <h2>Sign up</h2>
         <fieldset>
           <label>What year were you born?</label>
-          <Input type="text" />
+          <Input
+            type="text"
+            onChange={(e) => _setBirthYear(e.target.value)}
+            value={_birthYear}
+          />
         </fieldset>
         <fieldset>
           <label>What is your province?</label>
-          <Input type="text" />
+          <Input
+            type="text"
+            onChange={(e) => _setProvince(e.target.value)}
+            value={_province}
+          />
         </fieldset>
-        <Button size="small" fullWidth type="submit">
+        <Button size="small" fullWidth onClick={(e) => submitHandler(e)}>
           Continue to the next step
           <ArrowRight width="15" />
         </Button>
@@ -81,7 +89,7 @@ const Style = {
     }
 
     label {
-      font-family: "NoirStd-Regular";
+      font-family: "Noir Std";
       font-style: normal;
       font-weight: 400;
       font-size: 15px;
