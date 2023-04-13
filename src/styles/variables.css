@@ -4,4 +4,7 @@
   --black: #3d3d3d;
   --orange: #f87c56;
   --green: #05b405;
+
+  --gutter-grid: 1rem;
+  --gutter-spacing: 0.25rem;
 }
