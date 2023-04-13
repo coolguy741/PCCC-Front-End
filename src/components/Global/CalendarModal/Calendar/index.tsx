@@ -106,7 +106,7 @@ const Style = {
       }
 
       &.active {
-        background: var(--orange);
+        background: var(--orange-500);
       }
     }
 
@@ -126,7 +126,7 @@ const Style = {
 
     &.active {
       .day {
-        background: var(--orange);
+        background: var(--orange-500);
       }
     }
   `,

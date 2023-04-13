@@ -1,7 +1,92 @@
 :root {
-  --yellow: #ffcd00;
-  --red: #da291c;
-  --black: #3d3d3d;
-  --orange: #f87c56;
-  --green: #05b405;
+  --white: #FFFFFF;
+  --black: #000000;
+
+  --yellow-100: #fff5cc;
+  --yellow-200: #ffeb99;
+  --yellow-300: #ffe166;
+  --yellow-400: #ffd733;
+  --yellow-500: #f3d03e;
+  --yellow-600: #eabc00;
+  --yellow-700: #d5ab00;
+  --yellow-800: #aa8900;
+  --yellow-900: #806700;
+
+  --green-100: #D2F7E5;
+  --green-200: #A6EFCB;
+  --green-300: #79E7B0;
+  --green-400: #4CDE96;
+  --green-500: #26D07C;
+  --green-600: #20AD67;
+  --green-700: #198B53;
+  --green-800: #13683E;
+  --green-900: #0D4529;
+
+  --blue-100: #E1F4FF;
+  --blue-200: #C4E8FF;
+  --blue-300: #88D2FF;
+  --blue-400: #11A5FF;
+  --blue-500: #0084D5;
+  --blue-600: #0075BD;
+  --blue-700: #0067A6;
+  --blue-800: #004976;
+  --blue-900: #002C47;
+
+  --orange-100: #FEE5DD;
+  --orange-200: #FCCBBB;
+  --orange-300: #FBB09A;
+  --orange-400: #F99678;
+  --orange-500: #F87C56;
+  --orange-600: #F65321;
+  --orange-700: #D63909;
+  --orange-800: #A02B07;
+  --orange-900: #6B1C04;
+
+  --red-100: #F9D3D0;
+  --red-200: #F3A7A1;
+  --red-300: #ED7B73;
+  --red-400: #E74F44;
+  --red-500: #DA291C;
+  --red-600: #B62217;
+  --red-700: #911B13;
+  --red-800: #6D140E;
+  --red-900: #490E09;
+
+  --neutral-100: #ECECEC;
+  --neutral-200: #B1B1B1;
+  --neutral-300: #9E9E9E;
+  --neutral-400: #8B8B8B;
+  --neutral-500: #777777;
+  --neutral-600: #646464;
+  --neutral-700: #505050;
+  --neutral-800: #3D3D3D;
+  --neutral-900: #2E2E2E;
+
+  /* Global spacing variables */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 32px;
+  --spacing-8: 40px;
+  --spacing-9: 48px;
+  --spacing-10: 64px;
+  --spacing-11: 80px;
+  --spacing-12: 96px;
+  --spacing-13: 128px;
+  --spacing-14: 250px;
+
+  /* Corner radius variables */
+  --radius-1: 8px;
+  --radius-2: 12px;
+  --radius-3: 16px;
+  --radius-4: 20px;
+  --radius-5: 24px;
+  --radius-6: 32px;
+  --radius-7: 40px;
+  --radius-8: 48px;
+  --radius-9: 64px;
+  --radius-10: 80px;
 }
