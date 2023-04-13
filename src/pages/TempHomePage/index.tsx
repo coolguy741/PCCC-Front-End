@@ -126,7 +126,7 @@ const Style = {
       }
 
       h1 {
-        font-family: "NoirStd-Heavy";
+        font-family: "Noir Std";
         font-size: 3rem;
         text-transform: uppercase;
         margin: 0;
@@ -144,7 +144,8 @@ const Style = {
         font-size: 3.45rem;
       }
       h2 {
-        font-family: "NoirStd-Heavy";
+        font-family: "Noir Std";
+        font-weight: 900;
         font-size: 1.1rem;
         text-transform: uppercase;
         font-style: normal;
@@ -154,7 +155,8 @@ const Style = {
         margin-top: 22px;
       }
       h3 {
-        font-family: "NoirStd-Bold";
+        font-family: "Noir Std";
+        font-weight: 700;
         font-size: 1.1rem;
         font-style: normal;
         margin: 0;
