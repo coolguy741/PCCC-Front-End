@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
+import { avatars_data } from "../../../lib/avatars/data";
 import { useSignUpStore } from "../../../stores/signUpStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
+import Button from "../../Button";
+import { Input } from "../../Global/Input";
 
 export const SignUpForm = () => {
   const over18 = useSignUpStore((state) => state.over18);
@@ -65,7 +68,24 @@ export const SignUpForm = () => {
           </fieldset>
         </form>
       </section>
-      <section className="avatar-selection"></section>
+      <section className="avatar-selection">
+        <h2>Avatar Selection</h2>
+        <article className="username-selection">
+          <label>Username</label>
+          <Input type="text" />
+          <Input type="text" />
+          <Input type="text" />
+        </article>
+        <article className="choose-avatar">
+          <h3>Choose Avatar</h3>
+          <div className="avatars">
+            {avatars_data.map((avatar) => (
+              <button className="avatar">{avatar.icon()}</button>
+            ))}
+          </div>
+        </article>
+        <Button>Next</Button>
+      </section>
     </Style.Container>
   );
 };
@@ -75,6 +95,9 @@ const Style = {
     border: 1px solid red;
     width: 80%;
     height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     h1 {
       font-weight: 600;
@@ -86,6 +109,13 @@ const Style = {
     .sign-up {
       width: 45%;
       height: 100%;
+    }
+
+    .avatar-selection {
+      border: 1px solid red;
+      width: 50%;
+      height: 90%;
+      align-self: flex-end;
     }
 
     form {
@@ -125,6 +155,18 @@ const Style = {
         border-radius: 8px;
         border: 0;
       }
+    }
+
+    .avatars {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    button.avatar {
+      width: calc(100% / 12.5%);
+      height: calc(100% / 12.5%);
+      display: grid;
+      place-items: center;
     }
   `,
 };
