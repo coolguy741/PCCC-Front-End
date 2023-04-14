@@ -56,12 +56,6 @@ const Style = {
       align-items: center;
     }
 
-    h1 {
-      font-weight: 600;
-      font-size: 40px;
-      line-height: 52px;
-    }
-
     p {
       font-style: normal;
       font-weight: 400;
