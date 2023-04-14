@@ -43,12 +43,8 @@ const Style = {
     padding: 32px;
     padding-top: 108px;
 
-<<<<<<< HEAD
     .sign-up-breadcrumb {
       font-family: "Noir Std";
-=======
-    .sign-up-breadcrump {
->>>>>>> nobert/feature/auth-styling
       position: absolute;
       left: 32px;
       top: 162px;
