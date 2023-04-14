@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { RoleGate } from "../../../components/Auth/RoleGate";
@@ -21,13 +20,11 @@ function switchSignUpView(step: StepsForSignUp) {
 }
 
 export const SignUpPage = () => {
-  const [nav, setNav] = useState(0);
-  const [eng, useEng] = useState(true);
   const currentStep = useSignUpStore((state) => state.currentStep);
 
   return (
     <Style.Container>
-      <span className="sign-up-breadcrump">
+      <span className="sign-up-breadcrumb">
         <DirectionLeft />
         Back
       </span>
@@ -46,7 +43,7 @@ const Style = {
     padding: 32px;
     padding-top: 108px;
 
-    .sign-up-breadcrump {
+    .sign-up-breadcrumb {
       font-family: "Noir Std";
       position: absolute;
       left: 32px;
