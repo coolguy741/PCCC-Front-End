@@ -80,6 +80,7 @@ export const SignUpForm = () => {
         <article className="choose-avatar">
           <label>Choose Avatar</label>
           <div className="avatars">
+            {/* TODO: Improve avatar animations */}
             {avatars_data.map((avatar) => (
               <Style.Button className="avatar">{avatar.icon()}</Style.Button>
             ))}
