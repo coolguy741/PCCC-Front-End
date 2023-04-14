@@ -1,4 +1,4 @@
-import { Api } from "../APIs/AuthApis";
+import { Api } from "../lib/api/api";
 
 export const useAPI = () => {
   const { api, connect } = new Api({

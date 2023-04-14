@@ -14,7 +14,12 @@ export const SignInForm = () => {
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    connect.tokenCreate({ username, password });
+    connect.tokenCreate({
+      username,
+      password,
+      grant_type: "password",
+      client_id: "PccServer23_Web",
+    });
   }
 
   return (
