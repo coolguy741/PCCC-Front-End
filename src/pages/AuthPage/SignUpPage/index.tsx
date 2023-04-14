@@ -43,8 +43,12 @@ const Style = {
     padding: 32px;
     padding-top: 108px;
 
+<<<<<<< HEAD
     .sign-up-breadcrumb {
       font-family: "Noir Std";
+=======
+    .sign-up-breadcrump {
+>>>>>>> nobert/feature/auth-styling
       position: absolute;
       left: 32px;
       top: 162px;
@@ -54,6 +58,19 @@ const Style = {
       line-height: 20px;
       display: flex;
       align-items: center;
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: 40px;
+      line-height: 52px;
+    }
+
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
     }
 
     ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}

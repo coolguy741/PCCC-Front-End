@@ -3,10 +3,8 @@ import { create } from "zustand";
 export type StepsForSignUp =
   | "age"
   | "role"
-  | "confirm-role"
   | "input-information"
-  | "input-account"
-  | "input-password";
+  | "input-security";
 
 interface State {
   currentStep: StepsForSignUp;
@@ -21,7 +19,7 @@ interface State {
   setFirstUserName: (firstUserName: string) => void;
   secondUserName: string;
   setSecondUserName: (secondUserName: string) => void;
-  isCoordinator: boolean;
+  isCoordinator: boolean | null;
   setIsCoordinator: (isCoordinator: boolean) => void;
 }
 
@@ -46,7 +44,7 @@ export const useSignUpStore = create<State>()((set) => ({
   setSecondUserName: (secondUserName) =>
     set(() => ({ secondUserName: secondUserName })),
 
-  isCoordinator: false,
+  isCoordinator: null,
   setIsCoordinator: (isCoordinator) =>
     set(() => ({ isCoordinator: isCoordinator })),
 }));

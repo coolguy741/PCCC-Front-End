@@ -1,7 +1,10 @@
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { useSignUpStore } from "../../../stores/signUpStore";
-import { Button } from "../../Global/Button";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
+import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { ArrowRight } from "../../Icons";
 
 export const RoleGate = () => {
   const setIsCoordinator = useSignUpStore((state) => state.setIsCoordinator);
@@ -11,78 +14,133 @@ export const RoleGate = () => {
   const birthYear = useSignUpStore((state) => state.birthYear);
   const province = useSignUpStore((state) => state.province);
 
-  return (
-    <Container>
-      <h3>
-        Are you a teacher or food coordinator who is part of a school currently
-        running a power full kids program?
-      </h3>
-      <div className="radio-buttons">
-        <label>
-          <input
-            type="radio"
-            checked={isCoordinator === true}
-            onChange={() => setIsCoordinator(true)}
-          />
-          Yes
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={isCoordinator === false}
-            onChange={() => setIsCoordinator(false)}
-          />
-          No
-        </label>
-      </div>
-      {isCoordinator && (
-        <div className="educator-code">
-          <span>Please enter your Educator Code</span>
-          <Input type="text" />
-          <a href="#">Forgot your educator code?</a>
-        </div>
-      )}
-      <div className="back-button">
-        <Button onClick={() => changeStep("age")}>Back</Button>
-      </div>
-      <div className="next-button">
-        <Button onClick={() => changeStep("input-information")}>Next</Button>
-      </div>
-    </Container>
-  );
-};
+  const [height, setHeight] = useState("368px");
 
-const Container = styled.div`
-  h3 {
-    max-width: 50rem;
-  }
+  const submitHandler = (event: FormEvent<HTMLElement>) => {
+    event.preventDefault();
+    changeStep("input-information");
+  };
 
-  .educator-code {
-    display: flex;
-    flex-direction: column;
-    margin-top: 2rem;
-    gap: 1rem;
-
-    span {
-      font-size: 1.2rem;
+  function changeCoordinator(coor: boolean) {
+    if (coor) {
+      setIsCoordinator(true);
+      setHeight("580px");
+    } else {
+      setIsCoordinator(false);
+      setHeight("410px");
     }
   }
 
-  .radio-buttons {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.2rem;
-  }
+  return (
+    <Style.Container height={height}>
+      <h1>Sign Up</h1>
+      <p className="sign-up-p">
+        Are you a teacher or food coordinator who is part of of a school
+        currently running a power full kids program
+      </p>
+      <form onSubmit={submitHandler}>
+        <div className="radio-buttons">
+          <label>
+            <input
+              type="radio"
+              checked={isCoordinator === true}
+              onChange={() => changeCoordinator(true)}
+            />
+            Yes
+          </label>
+          <label>
+            <input
+              type="radio"
+              checked={isCoordinator === false}
+              onChange={() => changeCoordinator(false)}
+            />
+            No
+          </label>
+        </div>
+        {isCoordinator && (
+          <section className="role-coordinator">
+            <p className="school-id">Please enter your School ID Code</p>
 
-  .back-button {
-    position: absolute;
-    top: 8rem;
-    left: 2rem;
-  }
+            <div className="rc-split">
+              <Input type="text" />
+              <Input type="text" />
+            </div>
+            <p>Forgot Educator Code?</p>
+          </section>
+        )}
+        {typeof isCoordinator === "boolean" && (
+          <Button size="small" fullWidth type="submit">
+            Continue to the next step
+            <ArrowRight width="15" />
+          </Button>
+        )}
+      </form>
+    </Style.Container>
+  );
+};
 
-  .next-button {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-  }
-`;
+const Style = {
+  Container: styled.main<{ height: string }>`
+    ${glassBackground}
+    padding: 40px;
+    width: 500px;
+    height: ${({ height }) => height};
+    transition: height 0.2s linear;
+    position: relative;
+
+    h1 {
+      font-weight: 600;
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 24px;
+      color: #505050;
+      margin-top: 12px;
+    }
+
+    .radio-buttons {
+      display: flex;
+      flex-direction: column;
+      height: 70px;
+      margin: 30px 0;
+      justify-content: space-between;
+    }
+
+    .school-id {
+      margin-bottom: 12px;
+    }
+
+    form {
+      p {
+        color: #505050;
+      }
+
+      p:nth-of-type(2) {
+        text-align: right;
+      }
+
+      button {
+        margin-top: 50px;
+        svg {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .rc-split {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      input:first-of-type {
+        width: 35%;
+      }
+
+      input:nth-of-type(2) {
+        width: 60%;
+      }
+    }
+  `,
+};
