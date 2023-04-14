@@ -19,6 +19,8 @@ interface State {
   setFirstUserName: (firstUserName: string) => void;
   secondUserName: string;
   setSecondUserName: (secondUserName: string) => void;
+  thirdUserName: string;
+  setThirdUserName: (thirdUserName: string) => void;
   isCoordinator: boolean | null;
   setIsCoordinator: (isCoordinator: boolean) => void;
   schoolId: string;
@@ -47,6 +49,10 @@ export const useSignUpStore = create<State>()((set) => ({
   secondUserName: "",
   setSecondUserName: (secondUserName) =>
     set(() => ({ secondUserName: secondUserName })),
+
+  thirdUserName: "",
+  setThirdUserName: (thirdUserName) =>
+    set(() => ({ thirdUserName: thirdUserName })),
 
   isCoordinator: null,
   setIsCoordinator: (isCoordinator) =>

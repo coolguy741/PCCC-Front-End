@@ -1,16 +1,46 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
 import { Select } from "../../Global/Select";
 
-interface SecurityQuestionsProps {
-  setNav: (nav: number) => void;
+interface SecurityQuestion {
+  id?: string;
+  question?: string | null;
 }
 
-export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
+export const SecurityQuestions = () => {
+  const [firstSecurityQuestions, setFirstSecurityQuestions] = useState<
+    SecurityQuestion[] | null | undefined
+  >([]);
+  const [secondSecurityQuestions, setSecondSecurityQuestions] = useState<
+    SecurityQuestion[] | null | undefined
+  >([]);
+  const [thirdSecurityQuestions, setThirdSecurityQuestions] = useState<
+    SecurityQuestion[] | null | undefined
+  >([]);
+  const { api } = useAPI();
+
+  const getSecurityQuestions = async () => {
+    const { data } =
+      await api.appCustomSecurityQuestionChoicesSecurityQuestionsList();
+
+    setFirstSecurityQuestions(data.firstSecurityQuestions);
+    setSecondSecurityQuestions(data.secondSecurityQuestions);
+    setThirdSecurityQuestions(data.thirdSecurityQuestions);
+
+    return data;
+  };
+
+  useEffect(() => {
+    getSecurityQuestions();
+  }, []);
+
   function placeholderForSubmit() {
     return "clicked";
   }
+
   return (
     <Container>
       <div className="password">
@@ -26,7 +56,16 @@ export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
       <div className="questions">
         <label>
           <span>Security Question #1</span>
-          <Select />
+          <Select
+            onChange={() => console.log("change")}
+            value=""
+            placeholder=""
+          >
+            {firstSecurityQuestions &&
+              firstSecurityQuestions.map((question) => (
+                <option key={question.id}>{question.question}</option>
+              ))}
+          </Select>
         </label>
         <label>
           <span>Answer</span>
@@ -34,7 +73,16 @@ export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
         </label>
         <label>
           <span>Security Question #2</span>
-          <Select />
+          <Select
+            onChange={() => console.log("change")}
+            value=""
+            placeholder=""
+          >
+            {secondSecurityQuestions &&
+              secondSecurityQuestions.map((question) => (
+                <option key={question.id}>{question.question}</option>
+              ))}
+          </Select>
         </label>
         <label>
           <span>Answer</span>
@@ -42,7 +90,16 @@ export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
         </label>
         <label>
           <span>Security Question #3</span>
-          <Select />
+          <Select
+            onChange={() => console.log("change")}
+            value=""
+            placeholder=""
+          >
+            {thirdSecurityQuestions &&
+              thirdSecurityQuestions.map((question) => (
+                <option key={question.id}>{question.question}</option>
+              ))}
+          </Select>
         </label>
         <label>
           <span>Answer</span>
@@ -50,7 +107,7 @@ export const SecurityQuestions = ({ setNav }: SecurityQuestionsProps) => {
         </label>
       </div>
       <div className="back-button">
-        <Button onClick={() => setNav(2)}>Back</Button>
+        <Button>Back</Button>
       </div>
       <div className="next-button">
         <Button onClick={placeholderForSubmit}>Submit</Button>

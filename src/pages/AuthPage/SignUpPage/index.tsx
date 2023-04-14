@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { RoleGate } from "../../../components/Auth/RoleGate";
+import { SecurityQuestions } from "../../../components/Auth/SecurityQuestions";
 import { SignUpForm } from "../../../components/Auth/SignUpForm";
 import { DirectionLeft } from "../../../components/Icons";
 import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
@@ -14,6 +15,8 @@ function switchSignUpView(step: StepsForSignUp) {
       return <RoleGate />;
     case "input-information":
       return <SignUpForm />;
+    case "input-security":
+      return <SecurityQuestions />;
     default:
       return <AgeGate />;
   }

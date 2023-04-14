@@ -6,18 +6,25 @@ import { useSignUpStore } from "../../../stores/signUpStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
 export const SignUpForm = () => {
-  const over18 = useSignUpStore((state) => state.over18);
-  const province = useSignUpStore((state) => state.province);
-  const setProvince = useSignUpStore((state) => state.setProvince);
-  const changeStep = useSignUpStore((state) => state.changeStep);
-
+  const [_firstUserName, _setFirstUserName] = useState("");
+  const [_secondUserName, _setSecondUserName] = useState("");
+  const [_thirdUserName, _setThirdUserName] = useState("");
   const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
   const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
     [],
   );
+  const changeStep = useSignUpStore((state) => state.changeStep);
+  const firstUserName = useSignUpStore((state) => state.firstUserName);
+  const secondUserName = useSignUpStore((state) => state.secondUserName);
+  const thirdUserName = useSignUpStore((state) => state.thirdUserName);
+  const setFirstUserName = useSignUpStore((state) => state.setFirstUserName);
+  const setSecondUserName = useSignUpStore((state) => state.setSecondUserName);
+  const setThirdUserName = useSignUpStore((state) => state.setThirdUserName);
+
   const { api } = useAPI();
 
   const getUsernames = async () => {
@@ -33,11 +40,21 @@ export const SignUpForm = () => {
     getUsernames();
   }, []);
 
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setFirstUserName(_firstUserName);
+    setSecondUserName(_secondUserName);
+    setThirdUserName(_thirdUserName);
+
+    changeStep("input-security");
+  };
+
   return (
-    <Style.Container>
+    <Style.Container onSubmit={submitHandler}>
       <section className="sign-up">
         <h1>Sign Up</h1>
-        <form>
+        <section className="form">
           <legend>Account Info</legend>
           <fieldset>
             <label>Name</label>
@@ -67,15 +84,35 @@ export const SignUpForm = () => {
             <label>Email Address</label>
             <input />
           </fieldset>
-        </form>
+        </section>
       </section>
       <section className="avatar-selection">
         <h2>Avatar Selection</h2>
         <article className="username-selection">
           <label>Username</label>
-          <Input type="text" />
-          <Input type="text" />
-          <Input type="text" />
+          <Select
+            onChange={(e) => _setFirstUserName(e.target.value)}
+            value={_firstUserName}
+          >
+            {firstNames &&
+              firstNames.map((name, index) => (
+                <option key={index}>{name}</option>
+              ))}
+          </Select>
+          <Select
+            onChange={(e) => _setSecondUserName(e.target.value)}
+            value={_secondUserName}
+          >
+            {secondNames &&
+              secondNames.map((name, index) => (
+                <option key={index}>{name}</option>
+              ))}
+          </Select>
+          <Input
+            type="text"
+            onChange={(e) => _setThirdUserName(e.target.value)}
+            value={_thirdUserName}
+          />
         </article>
         <article className="choose-avatar">
           <label>Choose Avatar</label>
@@ -86,7 +123,7 @@ export const SignUpForm = () => {
             ))}
           </div>
         </article>
-        <Button className="next" size="small">
+        <Button className="next" size="small" type="submit">
           Next
           <ArrowRight />
         </Button>
@@ -96,7 +133,7 @@ export const SignUpForm = () => {
 };
 
 const Style = {
-  Container: styled.div`
+  Container: styled.form`
     width: 80%;
     height: 75%;
     display: flex;
@@ -123,7 +160,7 @@ const Style = {
       flex-direction: column;
     }
 
-    form {
+    .form {
       ${glassBackground};
       padding: 40px 20px;
       height: auto;
@@ -178,7 +215,8 @@ const Style = {
       padding: 15px 0;
 
       input:first-of-type,
-      input:nth-of-type(2) {
+      input:nth-of-type(2),
+      select {
         width: 25%;
       }
 
