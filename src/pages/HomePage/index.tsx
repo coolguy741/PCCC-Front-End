@@ -212,6 +212,8 @@ export const HomePage = () => {
 const Style = {
   PageContainer: styled.div`
     margin: -108px 0px 0px 0px;
+    font-family: "Noir Std";
+    font-style: normal;
   `,
   MainContent: styled.div`
     display: flex;
