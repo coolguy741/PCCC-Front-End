@@ -13,7 +13,7 @@ interface State {
   setOver18: (over18: boolean) => void;
   province: string;
   setProvince: (province: string) => void;
-  birthYear: number | null;
+  birthYear: number | undefined;
   setBirthYear: (birthYear: number) => void;
   firstUserName: string;
   setFirstUserName: (firstUserName: string) => void;
@@ -39,7 +39,7 @@ export const useSignUpStore = create<State>()((set) => ({
   province: "",
   setProvince: (province) => set(() => ({ province: province })),
 
-  birthYear: null,
+  birthYear: undefined,
   setBirthYear: (birthYear) => set(() => ({ birthYear: birthYear })),
 
   firstUserName: "",
