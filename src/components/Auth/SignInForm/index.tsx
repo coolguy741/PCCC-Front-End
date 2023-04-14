@@ -1,27 +1,45 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../../Global/Button";
+import { useAPI } from "../../../hooks/useAPI";
+import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
 export const SignInForm = () => {
-  function placeholderForSignIn() {
-    return "clicked";
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { connect } = useAPI();
+
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    connect.tokenCreate({ username, password });
   }
+
   return (
     <Container>
-      <div>
+      <form onSubmit={submitHandler}>
         <h1>Sign in</h1>
         <label>
           <span>Username</span>
-          <Input type="username" />
+          <Input
+            type="username"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
         </label>
         <label>
           <span>Password</span>
-          <Input type="password" />
+          <Input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
         </label>
         <Link to="forgot-password">Forgot password?</Link>
-        <Button onClick={placeholderForSignIn}>Sign In</Button>
-      </div>
+        <Button type="submit">Sign In</Button>
+      </form>
     </Container>
   );
 };
@@ -37,7 +55,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  div {
+  form {
     display: flex;
     flex-direction: column;
     gap: 1rem;

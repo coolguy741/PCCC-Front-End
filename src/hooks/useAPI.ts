@@ -1,7 +1,9 @@
 import { Api } from "../APIs/AuthApis";
 
 export const useAPI = () => {
-  const { api } = new Api({ baseUrl: "https://backend-dev.powerfullkids.ca" });
+  const { api, connect } = new Api({
+    baseUrl: "https://backend-dev.powerfullkids.ca",
+  });
 
-  return api;
+  return { api, connect };
 };

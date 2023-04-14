@@ -14,7 +14,7 @@ export const SignUpForm = () => {
   const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
     [],
   );
-  const api = useAPI();
+  const { api } = useAPI();
 
   const getUsernames = async () => {
     const { data } = await api.appCustomUsernameChoicesUsernameChoicesList();

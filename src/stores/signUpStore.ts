@@ -21,6 +21,10 @@ interface State {
   setSecondUserName: (secondUserName: string) => void;
   isCoordinator: boolean | null;
   setIsCoordinator: (isCoordinator: boolean) => void;
+  schoolId: string;
+  setSchoolId: (schoolId: string) => void;
+  schoolName: string;
+  setSchoolName: (schoolName: string) => void;
 }
 
 export const useSignUpStore = create<State>()((set) => ({
@@ -47,4 +51,10 @@ export const useSignUpStore = create<State>()((set) => ({
   isCoordinator: null,
   setIsCoordinator: (isCoordinator) =>
     set(() => ({ isCoordinator: isCoordinator })),
+
+  schoolId: "",
+  setSchoolId: (schoolId) => set(() => ({ schoolId: schoolId })),
+
+  schoolName: "",
+  setSchoolName: (schoolName) => set(() => ({ schoolName: schoolName })),
 }));

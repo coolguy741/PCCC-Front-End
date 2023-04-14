@@ -2535,14 +2535,14 @@ export class Api<
       }),
 
     /**
- * No description
- *
- * @tags User
- * @name AppUserCreate
- * @summary Create new user with standard role.
-To create new user with professional role use: api/app/user/professional
- * @request POST:/api/app/user
- */
+     * No description
+     *
+     * @tags User
+     * @name AppUserCreate
+     * @summary Create new user with standard role.
+    To create new user with professional role use: api/app/user/professional
+    * @request POST:/api/app/user
+    */
     appUserCreate: (
       data: PccServer23UsersCreateUserInput,
       params: RequestParams = {},
@@ -2605,14 +2605,14 @@ To create new user with professional role use: api/app/user/professional
       }),
 
     /**
- * No description
- *
- * @tags User
- * @name AppUserProfessionalCreate
- * @summary Create new user with professional role.
-To create new user with standard role use: api/app/user
- * @request POST:/api/app/user/professional
- */
+     * No description
+     *
+     * @tags User
+     * @name AppUserProfessionalCreate
+     * @summary Create new user with professional role.
+    To create new user with standard role use: api/app/user
+    * @request POST:/api/app/user/professional
+    */
     appUserProfessionalCreate: (
       data: PccServer23UsersCreateProfessionalUserInput,
       params: RequestParams = {},

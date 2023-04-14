@@ -7,17 +7,22 @@ import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
 
 export const RoleGate = () => {
+  const [_schoolId, _setSchoolId] = useState("");
+  const [_schoolName, _setSchoolName] = useState("");
   const setIsCoordinator = useSignUpStore((state) => state.setIsCoordinator);
   const isCoordinator = useSignUpStore((state) => state.isCoordinator);
   const changeStep = useSignUpStore((state) => state.changeStep);
-  const over18 = useSignUpStore((state) => state.over18);
-  const birthYear = useSignUpStore((state) => state.birthYear);
-  const province = useSignUpStore((state) => state.province);
+  const setSchoolId = useSignUpStore((state) => state.setSchoolId);
+  const setSchoolName = useSignUpStore((state) => state.setSchoolName);
 
   const [height, setHeight] = useState("368px");
 
   const submitHandler = (event: FormEvent<HTMLElement>) => {
     event.preventDefault();
+
+    if (_schoolId) setSchoolId(_schoolId);
+    if (_schoolName) setSchoolName(_schoolName);
+
     changeStep("input-information");
   };
 
@@ -62,8 +67,16 @@ export const RoleGate = () => {
             <p className="school-id">Please enter your School ID Code</p>
 
             <div className="rc-split">
-              <Input type="text" />
-              <Input type="text" />
+              <Input
+                type="text"
+                onChange={(e) => _setSchoolId(e.target.value)}
+                value={_schoolId}
+              />
+              <Input
+                type="text"
+                onChange={(e) => _setSchoolName(e.target.value)}
+                value={_schoolName}
+              />
             </div>
             <p>Forgot Educator Code?</p>
           </section>
