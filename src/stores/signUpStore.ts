@@ -3,10 +3,8 @@ import { create } from "zustand";
 export type StepsForSignUp =
   | "age"
   | "role"
-  | "confirm-role"
   | "input-information"
-  | "input-account"
-  | "input-password";
+  | "input-security";
 
 interface State {
   currentStep: StepsForSignUp;

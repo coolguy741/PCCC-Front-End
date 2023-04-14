@@ -56,7 +56,7 @@ export const AgeGate = () => {
             value={_province}
           />
         </fieldset>
-        <Button size="small" fullWidth onClick={(e) => submitHandler(e)}>
+        <Button size="small" fullWidth type="submit">
           Continue to the next step
           <ArrowRight width="15" />
         </Button>
@@ -70,28 +70,36 @@ const Style = {
     display: flex;
     flex-direction: column;
     height: 60vh;
-    width: 440px;
-    height: 540px;
+    width: 500px;
+    height: 600px;
     ${glassBackground}
 
     label {
-      font-family: "Noir Std";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 32px;
+      font-size: 16px;
+      color: #505050;
+      margin: 15px 0;
+    }
+
+    input {
+      margin: 15px 0;
+    }
+
+    p {
+      margin-top: 12px;
     }
 
     fieldset {
-      margin: 0;
-      padding: 0;
-      border: none;
       margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-top: 24px;
+      margin-bottom: 12px;
     }
 
     form {
       padding: 0;
-      height: 350px;
+      height: 400px;
       display: flex;
       margin-top: 15px;
       flex-direction: column;
