@@ -93,4 +93,6 @@
   /* Spaces for grid system */
   --gutter-grid: 1rem;
   --gutter-spacing: 0.25rem;
+  --dashboard-menu-width-large: 320px;
+  --dashboard-menu-width-medium: 136px;
 }
