@@ -58,31 +58,35 @@ export const SignUpForm = () => {
           <legend>Account Info</legend>
           <fieldset>
             <label>Name</label>
-            <input />
+            <Input width="60%" placeholder="John" />
           </fieldset>
           <fieldset>
             <label>Title</label>
-            <input />
+            <Input width="60%" placeholder="Student" />
           </fieldset>
           <fieldset>
             <label>Birth Year</label>
-            <input />
+            <div className="birth-split">
+              <Input width="25%" placeholder="MM" />
+              <Input width="25%" placeholder="DD" />
+              <Input width="40%" placeholder="YYYY" />
+            </div>
           </fieldset>
           <fieldset>
             <label>School ID Code</label>
-            <input />
+            <Input width="60%" placeholder="1234567890" />
           </fieldset>
           <fieldset>
             <label>School</label>
-            <input />
+            <Input width="60%" placeholder="George Collage" />
           </fieldset>
           <fieldset>
             <label>Province</label>
-            <input />
+            <Input width="60%" placeholder="Ontario" />
           </fieldset>
           <fieldset>
             <label>Email Address</label>
-            <input />
+            <Input width="60%" placeholder="Johndoe@gmail.com" />
           </fieldset>
         </section>
       </section>
@@ -181,21 +185,19 @@ const Style = {
       justify-content: space-between;
       margin-bottom: 10px;
 
+      .birth-split {
+        width: 60%;
+        display: flex;
+        justify-content: space-between;
+        height: 100%;
+      }
+
       label {
         width: 35%;
         color: #505050;
         font-weight: 400;
         font-size: 1rem;
         line-height: 25px;
-      }
-
-      input {
-        width: 60%;
-        height: 100%;
-        background: #ffffff;
-        box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        border: 0;
       }
     }
 
@@ -255,7 +257,7 @@ const Style = {
     }
 
     &:hover {
-      border: 4px solid grey;
+      border: 4px solid rgba(0, 0, 0, 0.75);
       svg {
         width: 75px;
         height: 75px;
