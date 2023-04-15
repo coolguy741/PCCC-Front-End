@@ -24,6 +24,13 @@ body,
   height: 100%;
   overflow: auto;
   background-color: #e5eef8;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
 }
 
 body {
