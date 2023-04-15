@@ -135,7 +135,7 @@ export const SignUpForm = () => {
 const Style = {
   Container: styled.form`
     width: 80%;
-    height: 75%;
+    height: 85%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -250,7 +250,8 @@ const Style = {
       position: absolute;
       width: 69px;
       height: 69px;
-      transition: width 0.25s linear, height 0.25s linear;
+      transition: width 0.25s linear, height 0.25s linear,
+        transform 0.3s ease-out;
     }
 
     &:hover {
@@ -258,6 +259,7 @@ const Style = {
       svg {
         width: 75px;
         height: 75px;
+        transform: translate(2px, -2px);
       }
     }
   `,
