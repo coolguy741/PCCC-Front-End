@@ -45,22 +45,24 @@ export const RoleGate = () => {
       </p>
       <form onSubmit={submitHandler}>
         <div className="radio-buttons">
-          <label>
-            <input
+          <fieldset>
+            {" "}
+            <Input
               type="radio"
               checked={isCoordinator === true}
               onChange={() => changeCoordinator(true)}
             />
-            Yes
-          </label>
-          <label>
-            <input
+            <label>Yes</label>
+          </fieldset>
+
+          <fieldset>
+            <Input
               type="radio"
               checked={isCoordinator === false}
               onChange={() => changeCoordinator(false)}
             />
-            No
-          </label>
+            <label>No</label>
+          </fieldset>
         </div>
         {isCoordinator && (
           <section className="role-coordinator">
@@ -71,14 +73,16 @@ export const RoleGate = () => {
                 type="text"
                 onChange={(e) => _setSchoolId(e.target.value)}
                 value={_schoolId}
+                placeholder="1234"
               />
               <Input
                 type="text"
                 onChange={(e) => _setSchoolName(e.target.value)}
                 value={_schoolName}
+                placeholder="Enter Name Here"
               />
             </div>
-            <p>Forgot Educator Code?</p>
+            <p className="forgot-code">Forgot Educator Code?</p>
           </section>
         )}
         {typeof isCoordinator === "boolean" && (
@@ -119,6 +123,18 @@ const Style = {
       height: 70px;
       margin: 30px 0;
       justify-content: space-between;
+
+      fieldset {
+        display: flex;
+        align-items: center;
+
+        label {
+          margin-left: 10px;
+          font-size: 18px;
+          line-height: 24px;
+          color: #2e2e2e;
+        }
+      }
     }
 
     .school-id {
@@ -154,6 +170,10 @@ const Style = {
       input:nth-of-type(2) {
         width: 60%;
       }
+    }
+
+    p.forgot-code {
+      font-size: 15px;
     }
   `,
 };

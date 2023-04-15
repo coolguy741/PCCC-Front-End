@@ -41,5 +41,36 @@ const Style = {
       border: 1px solid #e1e6ef;
       box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     }
+
+    &[type="radio"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: #fff;
+      padding: 0;
+      margin: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      position: relative;
+      display: grid;
+      place-items: center;
+
+      &:checked::before {
+        opacity: 1;
+      }
+
+      &::before {
+        content: url("/public/icons/checkmark.svg");
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.3s linear;
+      }
+
+      &:focus {
+        border: 2px solid white;
+        outline: max(2px, 0.15em) solid #0084d5;
+        outline-offset: max(2px, 0.15em);
+      }
+    }
   `,
 };

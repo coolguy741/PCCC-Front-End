@@ -97,6 +97,7 @@ export const SignUpForm = () => {
           <Select
             onChange={(e) => _setFirstUserName(e.target.value)}
             value={_firstUserName}
+            className="username-select"
           >
             {firstNames &&
               firstNames.map((name, index) => (
@@ -106,6 +107,7 @@ export const SignUpForm = () => {
           <Select
             onChange={(e) => _setSecondUserName(e.target.value)}
             value={_secondUserName}
+            className="username-select"
           >
             {secondNames &&
               secondNames.map((name, index) => (
@@ -116,6 +118,7 @@ export const SignUpForm = () => {
             type="text"
             onChange={(e) => _setThirdUserName(e.target.value)}
             value={_thirdUserName}
+            placeholder="12345"
           />
         </article>
         <article className="choose-avatar">
@@ -175,29 +178,29 @@ const Style = {
         line-height: 30px;
         margin-bottom: 25px;
       }
-    }
 
-    fieldset {
-      width: 100%;
-      height: 2.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-
-      .birth-split {
-        width: 60%;
+      fieldset {
+        width: 100%;
+        height: 2.4rem;
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        height: 100%;
-      }
+        margin-bottom: 10px;
 
-      label {
-        width: 35%;
-        color: #505050;
-        font-weight: 400;
-        font-size: 1rem;
-        line-height: 25px;
+        .birth-split {
+          width: 60%;
+          display: flex;
+          justify-content: space-between;
+          height: 100%;
+        }
+
+        label {
+          width: 35%;
+          color: #505050;
+          font-weight: 400;
+          font-size: 1rem;
+          line-height: 25px;
+        }
       }
     }
 
@@ -211,18 +214,20 @@ const Style = {
 
     .username-selection {
       display: flex;
-      width: 100%;
+      margin: 15px 0;
       align-items: center;
       justify-content: space-between;
-      padding: 15px 0;
+      height: 52px;
 
-      input:first-of-type,
-      input:nth-of-type(2),
-      select {
+      label {
+        width: 20%;
+      }
+
+      fieldset {
         width: 25%;
       }
 
-      input:nth-of-type(3) {
+      input {
         width: 20%;
       }
     }
