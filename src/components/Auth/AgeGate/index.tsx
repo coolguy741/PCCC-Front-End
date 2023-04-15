@@ -42,11 +42,16 @@ export const AgeGate = () => {
         <h2>Sign up</h2>
         <fieldset>
           <label>What year were you born?</label>
-          <Input
-            type="text"
-            onChange={(e) => _setBirthYear(e.target.value)}
-            value={_birthYear}
-          />
+          <div className="birth-split">
+            <Input width="15%" placeholder="MM" />
+            <Input width="15%" placeholder="DD" />
+            <Input
+              width="18%"
+              placeholder="YYYY"
+              onChange={(e) => _setBirthYear(e.target.value)}
+              value={_birthYear}
+            />
+          </div>
         </fieldset>
         <fieldset>
           <label>What is your province?</label>
@@ -54,6 +59,7 @@ export const AgeGate = () => {
             type="text"
             onChange={(e) => _setProvince(e.target.value)}
             value={_province}
+            width="67.5%"
           />
         </fieldset>
         <Button size="small" fullWidth type="submit">
@@ -82,6 +88,7 @@ const Style = {
 
     input {
       margin: 15px 0;
+      margin-right: 15px;
     }
 
     p {
