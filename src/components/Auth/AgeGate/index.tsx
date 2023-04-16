@@ -60,6 +60,7 @@ export const AgeGate = () => {
             onChange={(e) => _setProvince(e.target.value)}
             value={_province}
             width="67.5%"
+            placeholder="Ontario"
           />
         </fieldset>
         <Button size="small" fullWidth type="submit">
@@ -93,6 +94,9 @@ const Style = {
 
     p {
       margin-top: 12px;
+      font-size: 18px;
+      line-height: 24px;
+      color: #505050;
     }
 
     fieldset {

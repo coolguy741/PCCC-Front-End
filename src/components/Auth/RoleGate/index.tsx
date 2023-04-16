@@ -29,7 +29,7 @@ export const RoleGate = () => {
   function changeCoordinator(coor: boolean) {
     if (coor) {
       setIsCoordinator(true);
-      setHeight("580px");
+      setHeight("540px");
     } else {
       setIsCoordinator(false);
       setHeight("410px");
