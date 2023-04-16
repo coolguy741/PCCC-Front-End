@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button, { ButtonVariant } from "../../Button";
 
-interface TileTemplateProps {
+export interface TileTemplateProps {
   title: {
     firstLine: {
       text: string;
@@ -13,7 +13,7 @@ interface TileTemplateProps {
       color?: string;
     };
   };
-  desription: string;
+  description: string;
   button: {
     text: string;
     link: string;
@@ -23,7 +23,7 @@ interface TileTemplateProps {
 
 export const TileTemplate = ({
   title,
-  desription,
+  description,
   button,
 }: TileTemplateProps) => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export const TileTemplate = ({
             <style.SecondLine>{title.secondLine.text}</style.SecondLine>
           )}
         </style.TitleContainer>
-        <style.Description>{desription}</style.Description>
+        <style.Description>{description}</style.Description>
         <Button
           variant={`${button.variant ? button.variant : "orange"}`}
           onClick={goToPage}
