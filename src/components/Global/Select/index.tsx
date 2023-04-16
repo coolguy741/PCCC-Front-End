@@ -25,6 +25,6 @@ const Style = {
     padding: 1rem;
     border: none;
     border-radius: 0.2rem;
-    width: 100px;
+    background-color: #fff;
   `,
 };

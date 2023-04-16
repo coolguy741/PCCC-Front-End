@@ -3,10 +3,8 @@ import { create } from "zustand";
 export type StepsForSignUp =
   | "age"
   | "role"
-  | "confirm-role"
   | "input-information"
-  | "input-account"
-  | "input-password";
+  | "input-security";
 
 interface State {
   currentStep: StepsForSignUp;
@@ -15,14 +13,20 @@ interface State {
   setOver18: (over18: boolean) => void;
   province: string;
   setProvince: (province: string) => void;
-  birthYear: number | null;
+  birthYear: number | undefined;
   setBirthYear: (birthYear: number) => void;
   firstUserName: string;
   setFirstUserName: (firstUserName: string) => void;
   secondUserName: string;
   setSecondUserName: (secondUserName: string) => void;
-  isCoordinator: boolean;
+  thirdUserName: string;
+  setThirdUserName: (thirdUserName: string) => void;
+  isCoordinator: boolean | null;
   setIsCoordinator: (isCoordinator: boolean) => void;
+  schoolId: string;
+  setSchoolId: (schoolId: string) => void;
+  schoolName: string;
+  setSchoolName: (schoolName: string) => void;
 }
 
 export const useSignUpStore = create<State>()((set) => ({
@@ -35,7 +39,7 @@ export const useSignUpStore = create<State>()((set) => ({
   province: "",
   setProvince: (province) => set(() => ({ province: province })),
 
-  birthYear: null,
+  birthYear: undefined,
   setBirthYear: (birthYear) => set(() => ({ birthYear: birthYear })),
 
   firstUserName: "",
@@ -46,7 +50,17 @@ export const useSignUpStore = create<State>()((set) => ({
   setSecondUserName: (secondUserName) =>
     set(() => ({ secondUserName: secondUserName })),
 
-  isCoordinator: false,
+  thirdUserName: "",
+  setThirdUserName: (thirdUserName) =>
+    set(() => ({ thirdUserName: thirdUserName })),
+
+  isCoordinator: null,
   setIsCoordinator: (isCoordinator) =>
     set(() => ({ isCoordinator: isCoordinator })),
+
+  schoolId: "",
+  setSchoolId: (schoolId) => set(() => ({ schoolId: schoolId })),
+
+  schoolName: "",
+  setSchoolName: (schoolName) => set(() => ({ schoolName: schoolName })),
 }));
