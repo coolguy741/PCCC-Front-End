@@ -22,15 +22,16 @@ const TileData = {
 export const MealPlannerTile = () => {
   return (
     <style.PageContainer>
-      <style.Background />
+      <style.Background>
+        <img src="/images/homepage/meal-planner.png" alt="meal-planner" />
+      </style.Background>
       <style.TileContainer>
         <TileTemplate
           title={TileData.title}
-          desription={TileData.description}
+          description={TileData.description}
           button={TileData.button}
         />
       </style.TileContainer>
-      <img src="/images/homepage/meal-planner.png" alt="discover" />
     </style.PageContainer>
   );
 };
@@ -42,12 +43,6 @@ const style = {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    img {
-      top: 54px;
-      right: 60px;
-      width: 875.04px;
-    }
   `,
   TileContainer: styled.div`
     padding-left: 100px;
@@ -60,5 +55,11 @@ const style = {
     height: 100vh;
     background: linear-gradient(322.97deg, #fee5dd 2.67%, #fff5cc 96.38%);
     z-index: -1;
+    img {
+      position: absolute;
+      top: 54px;
+      right: 60px;
+      width: 875.04px;
+    }
   `,
 };

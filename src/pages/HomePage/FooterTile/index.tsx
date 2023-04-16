@@ -1,16 +1,27 @@
 import styled from "styled-components";
+import { Icon } from "../../../components/Global/Icon";
 
-export const PowerFullKidsTile = () => {
+const TileData = {
+  title: {
+    firstLine: {
+      text: "Mealtime",
+      color: "orange-600",
+    },
+    secondLine: {
+      text: "Moments",
+    },
+  },
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
+  button: {
+    text: "Explore",
+    link: "/dashboard/mealtime-moments",
+  },
+};
+
+export const FooterTile = () => {
   return (
     <style.PageContainer>
-      <style.Content>
-        <img
-          src="/images/powerfullkids.svg"
-          alt="powerfullkids"
-          width="1008px"
-          height="128px"
-        />
-      </style.Content>
       <style.Background>
         <style.Rectangle3 />
         <style.Rectangle2 />
@@ -22,6 +33,32 @@ export const PowerFullKidsTile = () => {
         </style.EllipseGroup>
         <style.Rectangle1 />
       </style.Background>
+      <style.InfoContainer>
+        <style.TitleContainer>
+          <style.FirstLine>Kids who eat</style.FirstLine>
+          <style.SecondLine>well, do well.</style.SecondLine>
+        </style.TitleContainer>
+        <style.Info>
+          <style.Column>
+            <div>About Us</div>
+            <div>Terms & Conditions</div>
+            <div>Accessibility</div>
+          </style.Column>
+          <style.Column>
+            <div>Privacy Policy</div>
+            <div>Contact Us</div>
+          </style.Column>
+          <style.Column>
+            <div>Follow Us</div>
+            <style.LinkGroup>
+              <Icon name="facebook" width="32px" />
+              <Icon name="instagram" width="32px" />
+              <Icon name="twitter" width="32px" />
+              <Icon name="youtube" width="32px" />
+            </style.LinkGroup>
+          </style.Column>
+        </style.Info>
+      </style.InfoContainer>
     </style.PageContainer>
   );
 };
@@ -29,21 +66,50 @@ export const PowerFullKidsTile = () => {
 const style = {
   PageContainer: styled.div`
     min-height: calc(100vh);
-    display: flex;
-    align-items: center;
-    padding-left: calc((100% - 1008px) * 0.4);
-    margin-left: -136px;
+    width: 100%;
+    font-family: "Noir Std";
+    font-style: normal;
   `,
-  Content: styled.div`
-    margin-left: 136px;
+  InfoContainer: styled.div`
+    padding-left: 100px;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+    color: var(--neutral-900);
+  `,
+  TitleContainer: styled.div`
+    font-weight: 900;
+    font-size: 120px;
+    line-height: 90%;
+    leading-trim: both;
+    text-edge: cap;
+    letter-spacing: 0.03em;
+    color: var(--neutral-900);
+    padding-top: 300px;
+  `,
+  FirstLine: styled.p``,
+  SecondLine: styled.p``,
+  Info: styled.div`
+    margin-top: 100px;
+    display: flex;
+    gap: 138px;
+  `,
+  Column: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  `,
+  LinkGroup: styled.div`
+    display: flex;
+    gap: 32px;
   `,
   Background: styled.div`
     position: absolute;
-    top: 0px;
+    top: 800vh;
     left: 0px;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: -2;
     overflow: hidden;
   `,
   EllipseGroup: styled.div`
