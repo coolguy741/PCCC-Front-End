@@ -32,7 +32,7 @@ const style = {
     padding-left: calc((100% - 1008px) * 0.4);
   `,
   Background: styled.div`
-    position: fixed;
+    position: absolute;
     top: 0px;
     left: 0px;
     width: 100vw;
