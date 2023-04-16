@@ -19,6 +19,7 @@ const Style = {
     font-size: 16px;
     line-height: 24px;
     color: #1d2433;
+    cursor: pointer;
 
     &:focus {
       border: 2px solid #0084d5;
