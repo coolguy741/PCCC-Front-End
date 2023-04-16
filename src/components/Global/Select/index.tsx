@@ -6,6 +6,7 @@ interface SelectProps extends InputProps {
   placeholder?: string;
   onChange?: (value: any) => void;
   value?: any;
+  width: string;
 }
 
 export const Select = ({
@@ -13,9 +14,10 @@ export const Select = ({
   placeholder,
   onChange,
   value,
+  width,
 }: SelectProps) => {
   return (
-    <Style.Container>
+    <Style.Container width={width}>
       <Style.Select placeholder={placeholder} onChange={onChange} value={value}>
         {children}
       </Style.Select>
@@ -24,8 +26,8 @@ export const Select = ({
 };
 
 const Style = {
-  Container: styled.fieldset`
-    width: 100%;
+  Container: styled.fieldset<SelectProps>`
+    width: ${({ width }) => (width ? width : "100%")};
     height: 100%;
     position: relative;
 
@@ -53,11 +55,9 @@ const Style = {
     width: 100%;
     box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    font-size: inherit;
-    margin: 0;
-    overflow: hidden;
     font-size: 16px;
     color: rgba(29, 36, 51, 0.8);
     position: relative;
+    font-family: "Noir Std";
   `,
 };
