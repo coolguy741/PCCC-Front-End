@@ -4,8 +4,8 @@ import { TileTemplate } from "../../../components/Home/TileTemplate";
 const TileData = {
   title: {
     firstLine: {
-      text: "Discover",
-      color: "orange-600",
+      text: "Cook",
+      color: "green-600",
     },
     secondLine: {
       text: "Together",
@@ -15,11 +15,11 @@ const TileData = {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
   button: {
     text: "Explore",
-    link: "/dashboard/discover-together",
+    link: "/dashboard/cook-together",
   },
 };
 
-export const DiscoverTogetherTile = () => {
+export const CookTogetherTile = () => {
   return (
     <style.PageContainer>
       <style.Background />
@@ -30,7 +30,7 @@ export const DiscoverTogetherTile = () => {
           button={TileData.button}
         />
       </style.TileContainer>
-      <img src="/images/homepage/discover-together.png" alt="discover" />
+      <img src="/images/homepage/cook-together.png" alt="grow" />
     </style.PageContainer>
   );
 };
@@ -54,11 +54,11 @@ const style = {
   `,
   Background: styled.div`
     position: absolute;
-    top: 100vh;
+    top: 300vh;
     left: 0px;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(322.97deg, #fee5dd 2.67%, #fff5cc 96.38%);
+    background: linear-gradient(111.02deg, #c4e8ff 9.6%, #a6efcb 97.76%);
     z-index: -1;
   `,
 };
