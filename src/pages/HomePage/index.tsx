@@ -207,7 +207,7 @@ export const HomePage = () => {
 
 const Style = {
   PageContainer: styled.div`
-    margin: 0px -30px;
+    margin: 0;
   `,
   MainContent: styled.div`
     display: flex;

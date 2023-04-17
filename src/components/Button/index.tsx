@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-export type ButtonVariant = "orange" | "yellow" | "ghost";
+export type ButtonVariant = "orange" | "yellow" | "ghost" | "green";
 export type ButtonSize = "small" | "medium" | "large";
 
 export type ButtonProps<As extends React.ElementType = "button"> = {
@@ -50,6 +50,34 @@ const orangeVStyles = css`
   &:active {
     background: linear-gradient(177.73deg, #f65321 1.81%, #b62217 98.01%);
     box-shadow: 0px 5px 15px rgba(214, 57, 9, 0.4);
+  }
+
+  &:disabled {
+    background: #c2ced6;
+    box-shadow: 0px 5px 15px rgba(141, 141, 141, 0.3);
+  }
+`;
+
+const greenVStyles = css`
+  background: linear-gradient(
+    200deg,
+    var(--green-500) 3.03%,
+    var(--green-600) 103.97%
+  );
+  color: white;
+  box-shadow: 0px 4px 5px var(--green-300);
+
+  &:hover {
+    box-shadow: 0px 9px 8px var(--green-300);
+  }
+
+  &:active {
+    background: linear-gradient(
+      177.73deg,
+      var(--green-600) 1.81%,
+      var(--green-700) 98.01%
+    );
+    box-shadow: 0px 5px 15px var(--green-500);
   }
 
   &:disabled {
@@ -121,6 +149,8 @@ function getButtonVariant(props: ButtonProps) {
       return ghostVStyles;
     case "yellow":
       return yellowVStyles;
+    case "green":
+      return greenVStyles;
     case "orange":
     default:
       return orangeVStyles;
