@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -70,7 +69,10 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
                         onClick={() => handleSetField(currentField)}
                       >
                         <div
-                          className={`${field === currentField ? "checked" : ""}`}
+                          // eslint-disable-next-line prettier/prettier
+                          className={`${
+                            field === currentField ? "checked" : ""
+                          }`}
                         >
                           {currentField.replaceAll("-", " ")}
                         </div>
