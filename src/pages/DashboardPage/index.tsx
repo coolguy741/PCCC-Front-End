@@ -69,6 +69,7 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
                         onClick={() => handleSetField(currentField)}
                       >
                         <div
+                          // eslint-disable-next-line prettier/prettier
                           className={`${
                             field === currentField ? "checked" : ""
                           }`}
@@ -109,6 +110,7 @@ const Style = {
     width: 100%;
     height: 100vh;
     display: flex;
+    overflow-x: hidden;
 
     .main-container {
       display: flex;
@@ -116,6 +118,11 @@ const Style = {
       margin-left: 350px;
       width: calc(100% - 350px);
       padding: 30px;
+
+      @media screen and (max-width: 1920px) {
+        margin-left: var(--dashboard-menu-width-medium);
+        width: calc(100% - var(--dashboard-menu-width-medium));
+      }
 
       &__header {
         width: 100%;

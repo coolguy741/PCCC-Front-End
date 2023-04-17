@@ -33,10 +33,10 @@ select:focus {
   outline: none;
 }
 
-body {
+body,
+p {
   margin: 0;
   font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Noir Std";
