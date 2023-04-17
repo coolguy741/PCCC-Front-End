@@ -158,7 +158,7 @@ const Style = {
     }
   `,
   MenuContainer: styled.div`
-    position: absolute;
+    position: fixed;
     z-index: 100;
     overflow-y: auto;
     width: var(--dashboard-menu-width-large);
