@@ -120,6 +120,7 @@ const Style = {
     position: absolute;
     top: 0;
     width: 100%;
+    z-index: 10;
     padding: calc(2 * var(--gutter-grid)) calc(1.5 * var(--gutter-grid));
   `,
   Header: styled.header`
@@ -154,7 +155,6 @@ const Style = {
   }))`
     position: relative;
     background: linear-gradient(#4cde96, #20ad67);
-    box-shadow: 0px 24px 38.9px rgba(38, 208, 124, 0.5);
     width: 128px;
     z-index: 5;
     color: white;

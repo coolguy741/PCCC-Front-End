@@ -58,31 +58,35 @@ export const SignUpForm = () => {
           <legend>Account Info</legend>
           <fieldset>
             <label>Name</label>
-            <input />
+            <Input width="60%" placeholder="John" />
           </fieldset>
           <fieldset>
             <label>Title</label>
-            <input />
+            <Input width="60%" placeholder="Student" />
           </fieldset>
           <fieldset>
             <label>Birth Year</label>
-            <input />
+            <div className="birth-split">
+              <Input width="25%" placeholder="MM" />
+              <Input width="25%" placeholder="DD" />
+              <Input width="40%" placeholder="YYYY" />
+            </div>
           </fieldset>
           <fieldset>
             <label>School ID Code</label>
-            <input />
+            <Input width="60%" placeholder="1234567890" />
           </fieldset>
           <fieldset>
             <label>School</label>
-            <input />
+            <Input width="60%" placeholder="George Collage" />
           </fieldset>
           <fieldset>
             <label>Province</label>
-            <input />
+            <Input width="60%" placeholder="Ontario" />
           </fieldset>
           <fieldset>
             <label>Email Address</label>
-            <input />
+            <Input width="60%" placeholder="Johndoe@gmail.com" />
           </fieldset>
         </section>
       </section>
@@ -93,6 +97,7 @@ export const SignUpForm = () => {
           <Select
             onChange={(e) => _setFirstUserName(e.target.value)}
             value={_firstUserName}
+            className="username-select"
           >
             {firstNames &&
               firstNames.map((name, index) => (
@@ -102,6 +107,7 @@ export const SignUpForm = () => {
           <Select
             onChange={(e) => _setSecondUserName(e.target.value)}
             value={_secondUserName}
+            className="username-select"
           >
             {secondNames &&
               secondNames.map((name, index) => (
@@ -112,6 +118,7 @@ export const SignUpForm = () => {
             type="text"
             onChange={(e) => _setThirdUserName(e.target.value)}
             value={_thirdUserName}
+            placeholder="12345"
           />
         </article>
         <article className="choose-avatar">
@@ -135,7 +142,7 @@ export const SignUpForm = () => {
 const Style = {
   Container: styled.form`
     width: 80%;
-    height: 75%;
+    height: 85%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -171,31 +178,29 @@ const Style = {
         line-height: 30px;
         margin-bottom: 25px;
       }
-    }
 
-    fieldset {
-      width: 100%;
-      height: 2.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+      fieldset {
+        width: 100%;
+        height: 2.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
 
-      label {
-        width: 35%;
-        color: #505050;
-        font-weight: 400;
-        font-size: 1rem;
-        line-height: 25px;
-      }
+        .birth-split {
+          width: 60%;
+          display: flex;
+          justify-content: space-between;
+          height: 100%;
+        }
 
-      input {
-        width: 60%;
-        height: 100%;
-        background: #ffffff;
-        box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        border: 0;
+        label {
+          width: 35%;
+          color: #505050;
+          font-weight: 400;
+          font-size: 1rem;
+          line-height: 25px;
+        }
       }
     }
 
@@ -209,18 +214,20 @@ const Style = {
 
     .username-selection {
       display: flex;
-      width: 100%;
+      margin: 15px 0;
       align-items: center;
       justify-content: space-between;
-      padding: 15px 0;
+      height: 52px;
 
-      input:first-of-type,
-      input:nth-of-type(2),
-      select {
+      label {
+        width: 20%;
+      }
+
+      fieldset {
         width: 25%;
       }
 
-      input:nth-of-type(3) {
+      input {
         width: 20%;
       }
     }
@@ -250,14 +257,16 @@ const Style = {
       position: absolute;
       width: 69px;
       height: 69px;
-      transition: width 0.25s linear, height 0.25s linear;
+      transition: width 0.25s linear, height 0.25s linear,
+        transform 0.3s ease-out;
     }
 
     &:hover {
-      border: 4px solid grey;
+      border: 4px solid rgba(0, 0, 0, 0.75);
       svg {
         width: 75px;
         height: 75px;
+        transform: translate(2px, -2px);
       }
     }
   `,
