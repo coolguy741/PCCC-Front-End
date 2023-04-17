@@ -4,37 +4,17 @@ import styled, { css } from "styled-components";
 export type ButtonVariant = "orange" | "yellow" | "ghost" | "green";
 export type ButtonSize = "small" | "medium" | "large";
 
-export type ButtonProps<As extends React.ElementType = "button"> = {
-  className?: string;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   children: React.ReactNode;
-  as?: As;
   size?: ButtonSize;
   fullWidth?: boolean;
-  onClick?: (e: any) => void;
-};
-
-function ForwardedButton<
-  T extends Element = HTMLButtonElement,
-  As extends React.ElementType = "button",
->({ as, children, ...props }: ButtonProps<As>, ref: React.ForwardedRef<T>) {
-  const Component: React.ElementType = as ?? "button";
-
-  return (
-    <Style.Container {...props} ref={ref} forwardedAs={Component}>
-      {children}
-    </Style.Container>
-  );
 }
 
-// Basic accessible button component.
-
-export const Button = React.forwardRef(ForwardedButton) as <
-  T extends Element = HTMLButtonElement,
-  As extends React.ElementType = "button",
->(
-  props: ButtonProps<As> & { ref?: React.Ref<T> },
-) => React.ReactElement | null;
+function Button({ children, ...props }: ButtonProps) {
+  return <Style.Container {...props}>{children}</Style.Container>;
+}
 
 export default Button;
 
