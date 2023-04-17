@@ -6,7 +6,7 @@ interface SelectProps extends InputProps {
   placeholder?: string;
   onChange?: (value: any) => void;
   value?: any;
-  width: string;
+  width?: string;
 }
 
 export const Select = ({
