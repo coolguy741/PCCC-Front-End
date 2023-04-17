@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
@@ -10,17 +12,20 @@ export const SignInForm = () => {
   const [password, setPassword] = useState("");
 
   const { connect } = useAPI();
+  const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
 
-  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    connect.tokenCreate({
+    const { data } = await connect.tokenCreate({
       username,
       password,
       grant_type: "password",
       client_id: "PccServer23_Web",
     });
-  }
+
+    setCookie(STORAGE_KEY_JWT, data.access_token, {});
+  };
 
   return (
     <Container>
