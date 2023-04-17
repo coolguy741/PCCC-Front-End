@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { useUserStore } from "../../../stores/userStore";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
 export const SignInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const { connect } = useAPI();
+  const navigate = useNavigate();
   const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
+  const { setUsernameForSecurityQuestions } = useUserStore();
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,6 +27,14 @@ export const SignInForm = () => {
     });
 
     setCookie(STORAGE_KEY_JWT, data.access_token, {});
+  };
+
+  const forgotPasswordHandler = () => {
+    setUsernameForSecurityQuestions(username);
+
+    console.log(username);
+
+    navigate("forgot-password");
   };
 
   return (
@@ -47,7 +57,9 @@ export const SignInForm = () => {
             value={password}
           />
         </label>
-        <Link to="forgot-password">Forgot password?</Link>
+        <span className="forgot-password" onClick={forgotPasswordHandler}>
+          Forgot password?
+        </span>
         <Button type="submit">Sign In</Button>
       </form>
     </Container>
@@ -70,6 +82,10 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+
+    .forgot-password {
+      cursor: pointer;
+    }
 
     h1 {
       align-self: flex-start;

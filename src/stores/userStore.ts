@@ -1,4 +1,5 @@
 import create from "zustand";
+import { PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput } from "../lib/api/api";
 
 /**
  * This is a store that contains user data.
@@ -14,6 +15,12 @@ export const useUserStore = create<{
   user: User | null;
   setUser: (user: User | null) => void;
   hasCheckedForUserThisSession: boolean;
+  usernameForSecurityQuestions: string;
+  setUsernameForSecurityQuestions: (username: string) => void;
+  securityQuestions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput;
+  setSecurityQuestions: (
+    questions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
+  ) => void;
 }>((set) => ({
   /** Our User/session object, null if not logged in */
   user: null,
@@ -21,6 +28,13 @@ export const useUserStore = create<{
   setUser: (user) => set({ user }),
   /** Whether or not we have called API_getUser this session with our JWT to see if we can resume a persisted auth session */
   hasCheckedForUserThisSession: false,
+  usernameForSecurityQuestions: "",
+  setUsernameForSecurityQuestions: (username: string) =>
+    set({ usernameForSecurityQuestions: username }),
+  securityQuestions: {},
+  setSecurityQuestions: (
+    questions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
+  ) => set({ securityQuestions: questions }),
 }));
 
 // Imperative getter/setter/computed-value functions
