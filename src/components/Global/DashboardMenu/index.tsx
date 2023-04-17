@@ -133,7 +133,6 @@ const Style = {
     }
   `,
   MenuContainer: styled.div`
-    position: fixed;
     z-index: 100;
     width: var(--dashboard-menu-width-large);
     height: 100vh;
