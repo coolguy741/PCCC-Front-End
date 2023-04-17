@@ -25,14 +25,13 @@ const Style = {
     width: 100%;
     height: 100vh;
     display: flex;
+    overflow-x: hidden;
 
     .main-container {
-      margin-left: 350px;
-      width: calc(100% - 350px);
+      width: calc(100% - var(--dashboard-menu-width-large));
       position: relative;
 
       @media screen and (max-width: 1920px) {
-        margin-left: var(--dashboard-menu-width-medium);
         width: calc(100% - var(--dashboard-menu-width-medium));
       }
 

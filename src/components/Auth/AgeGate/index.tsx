@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { useSignUpStore } from "../../../stores/signUpStore";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
@@ -13,8 +14,8 @@ export const AgeGate = () => {
   const setOver18 = useSignUpStore((state) => state.setOver18);
   const changeStep = useSignUpStore((state) => state.changeStep);
 
-  const submitHandler = (e: any) => {
-    e.preventDefault();
+  const submitHandler = (event: FormEvent<HTMLElement>) => {
+    event.preventDefault();
 
     const currentYear = new Date().getFullYear();
 
@@ -30,21 +31,27 @@ export const AgeGate = () => {
       setBirthYear(parseInt(_birthYear));
       setProvince(_province);
     }
+    changeStep("role");
   };
 
   return (
     <Style.Container>
       <h1>Welcome</h1>
       <p>We will need some basic information to setup your account</p>
-      <form>
+      <form onSubmit={submitHandler}>
         <h2>Sign up</h2>
         <fieldset>
           <label>What year were you born?</label>
-          <Input
-            type="text"
-            onChange={(e) => _setBirthYear(e.target.value)}
-            value={_birthYear}
-          />
+          <div className="birth-split">
+            <Input width="15%" placeholder="MM" />
+            <Input width="15%" placeholder="DD" />
+            <Input
+              width="18%"
+              placeholder="YYYY"
+              onChange={(e) => _setBirthYear(e.target.value)}
+              value={_birthYear}
+            />
+          </div>
         </fieldset>
         <fieldset>
           <label>What is your province?</label>
@@ -52,11 +59,13 @@ export const AgeGate = () => {
             type="text"
             onChange={(e) => _setProvince(e.target.value)}
             value={_province}
+            width="67.5%"
+            placeholder="Ontario"
           />
         </fieldset>
-        <Button size="small" fullWidth onClick={(e) => submitHandler(e)}>
+        <Button size="small" fullWidth type="submit">
           Continue to the next step
-          <ArrowRight />
+          <ArrowRight width="15" />
         </Button>
       </form>
     </Style.Container>
@@ -67,47 +76,43 @@ const Style = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 7.78814px 19.4703px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(59.2764px);
-    padding: 45px 40px;
-    border-radius: 24px;
     height: 60vh;
-    width: 440px;
-    height: 540px;
-
-    h1,
-    h2 {
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      font-weight: 600;
-      font-size: 40px;
-      line-height: 52px;
-    }
+    width: 500px;
+    height: 600px;
+    ${glassBackground}
 
     label {
-      font-family: "Noir Std";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 32px;
+      font-size: 16px;
+      color: #505050;
+      margin: 15px 0;
+    }
+
+    input {
+      margin: 15px 0;
+      margin-right: 15px;
+    }
+
+    p {
+      margin-top: 12px;
+      font-size: 18px;
+      line-height: 24px;
+      color: #505050;
     }
 
     fieldset {
-      margin: 0;
-      padding: 0;
-      border: none;
       margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-top: 24px;
+      margin-bottom: 12px;
     }
 
     form {
       padding: 0;
-      height: 350px;
+      height: 400px;
       display: flex;
-      margin-top: 25px;
+      margin-top: 15px;
       flex-direction: column;
     }
 
