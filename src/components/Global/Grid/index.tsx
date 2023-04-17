@@ -20,7 +20,7 @@ export const Row: React.FC<DefaultProps> = ({ children, ...props }) => {
   return <Style.Row {...props}>{children}</Style.Row>;
 };
 
-export const Col: React.FC<DefaultProps> = ({ children, ...props }) => {
+export const Col: React.FC<ColProps> = ({ children, ...props }) => {
   return <Style.Col {...props}>{children}</Style.Col>;
 };
 
@@ -30,7 +30,7 @@ export const Style = {
   `,
   Row: styled.div`
     display: flex;
-    margin: 0 -calc(0.5 * var(--gutter-grid));
+    margin: 0 calc(-0.5 * var(--gutter-grid));
     flex-wrap: wrap;
   `,
   Col: styled.div.attrs((props: ColProps) => ({

@@ -5,6 +5,7 @@ export const MENUS = [
   { label: "Accounts", to: "accounts", icon: "user" },
   {
     label: "User Tools",
+    to: "user-tools",
     icon: "tool",
     subMenus: [
       { label: "Calendar", to: "calendar", icon: "calendar" },
@@ -14,6 +15,7 @@ export const MENUS = [
   {
     label: "Content Builder",
     icon: "content-builder",
+    to: "content-builder",
     subMenus: [
       { label: "Topics", to: "topic", icon: "topic" },
       { label: "Activities", to: "activities", icon: "activities" },

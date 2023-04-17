@@ -39,17 +39,17 @@ const style = {
   `,
   Background: styled.div`
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
+    top: 0;
+    left: -32px;
+    width: calc(100% + 32px);
     height: 100vh;
     z-index: -1;
     overflow: hidden;
   `,
   EllipseGroup: styled.div`
     position: absolute;
-    width: max(100vw, 1920px);
-    height: max(100vh, 1200px);
+    width: 100%;
+    height: 100%;
   `,
   Ellipse1: styled.div`
     position: absolute;
@@ -95,18 +95,18 @@ const style = {
   `,
   Rectangle1: styled.div`
     position: absolute;
-    width: 1920px;
-    height: 1200px;
+    width: 100%;
+    height: 100%;
     left: 0px;
     top: 0px;
+    backdrop-filter: blur(1000px);
     background: rgba(255, 205, 0, 0.01);
-    backdrop-filter: blur(500px);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   `,
   Rectangle2: styled.div`
     position: absolute;
-    width: 1920px;
-    height: 1200px;
+    width: 100%;
+    height: 100%;
     left: 0px;
     top: 0px;
     background: #d2f7e5;
@@ -114,8 +114,8 @@ const style = {
   `,
   Rectangle3: styled.div`
     position: absolute;
-    width: 1920px;
-    height: 1200px;
+    width: 100%;
+    height: 100%;
     left: 0px;
     top: 0px;
     background: #f3d03e;

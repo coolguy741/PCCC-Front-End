@@ -44,38 +44,31 @@ export const LanguageToggle = () => {
   );
 };
 
-const width = "45px";
-const items = 2;
-
 const Style = {
   Toggle: styled.div`
-    font-size: 1rem;
-    display: grid;
+    font-size: 0.75rem;
+    display: flex;
     position: relative;
-    height: 25px;
-    width: calc(${width}*2);
-    background: var(--red-500);
-    border-radius: 29px;
-    grid-template-columns: repeat(${items}, ${width});
-    grid-template-rows: 1fr;
+    height: 28px;
+    width: 72px;
+    background: var(--blue-500);
     cursor: pointer;
-    border-radius: 20px;
-    padding-bottom: 1px;
-    transform: scale(0.8);
+    border-radius: 24px;
     z-index: 10;
     pointer-events: auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
 
     & .slider {
       z-index: 1;
       position: absolute;
       top: 0;
       left: 0;
-      width: ${width};
+      width: 40px;
       height: 100%;
       background: #ffffff;
-      /*box-shadow: -2px 0px 2px rgba(0, 0, 0, 0.25);*/
-      box-shadow: 0px 0px 2px 1px rgb(0 0 0 / 25%);
-      border-radius: 20px;
+      border-radius: 24px;
       transition: transform 0.2s;
     }
 
@@ -86,6 +79,7 @@ const Style = {
       align-items: center;
       height: 100%;
       transition: transform 0.2s, color 0.2s;
+      line-height: 0.75rem;
     }
 
     & div:nth-child(2) {
@@ -106,7 +100,7 @@ const Style = {
       }
 
       & .slider {
-        transform: translateX(calc(${width}*1));
+        transform: translateX(32px);
       }
     }
   `,

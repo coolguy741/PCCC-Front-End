@@ -49,16 +49,16 @@ const style = {
   `,
   Background: styled.div`
     position: absolute;
-    top: 200vh;
-    left: 0px;
-    width: 100vw;
+    top: 0;
+    left: -32px;
+    width: calc(100% + 32px);
     height: 100vh;
     background: linear-gradient(322.97deg, #d2f7e5 2.67%, #fff5cc 92.48%);
     z-index: -1;
 
     img {
       position: absolute;
-      top: 54px;
+      top: 50%;
       right: 60px;
       width: 875.04px;
     }
