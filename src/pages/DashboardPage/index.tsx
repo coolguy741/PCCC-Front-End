@@ -120,7 +120,7 @@ const Style = {
       padding: 30px;
 
       @media screen and (max-width: 1920px) {
-        margin-left: 0;
+        margin-left: var(--dashboard-menu-width-medium);
         width: calc(100% - var(--dashboard-menu-width-medium));
       }
 
