@@ -32,7 +32,7 @@ const Style = {
     position: relative;
 
     &::after {
-      content: url("/public/icons/downSelect.svg");
+      content: url("/icons/downSelect.svg");
       position: absolute;
       right: 15px;
       top: calc(21%);
