@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CookTogetherTile } from "./CookTogetherTile";
 import { DiscoverTogetherTile } from "./DiscoverTogetherTile";
 import { FoodwaysTile } from "./FoodwaysTile";
+import { FooterTile } from "./FooterTile";
 import { GrowTogetherTile } from "./GrowTogetherTile";
 import { MadKitchenTile } from "./MadKitchenTile";
 import { MealPlannerTile } from "./MealPlannerTile";
@@ -19,6 +20,7 @@ export const HomePage = () => {
       <FoodwaysTile />
       <MealtimeMomentsTile />
       <MealPlannerTile />
+      <FooterTile />
     </Style.PageContainer>
   );
 };

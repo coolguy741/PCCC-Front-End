@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -69,9 +70,7 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
                         onClick={() => handleSetField(currentField)}
                       >
                         <div
-                          className={`${
-                            field === currentField ? "checked" : ""
-                          }`}
+                          className={`${field === currentField ? "checked" : ""}`}
                         >
                           {currentField.replaceAll("-", " ")}
                         </div>
@@ -109,6 +108,7 @@ const Style = {
     width: 100%;
     height: 100vh;
     display: flex;
+    overflow-x: hidden;
 
     .main-container {
       display: flex;
