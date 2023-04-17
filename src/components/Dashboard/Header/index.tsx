@@ -72,8 +72,9 @@ export const DashboardHeader = () => {
                             onClick={() => handleSetField(currentField)}
                           >
                             <div
-                              className={`${field === currentField ? "checked" : ""
-                                }`}
+                              className={`${
+                                field === currentField ? "checked" : ""
+                              }`}
                             >
                               {currentField.replaceAll("-", " ")}
                             </div>
@@ -82,7 +83,7 @@ export const DashboardHeader = () => {
                       })}
                     </Style.DropdownMenu>
                   </Style.Dropdown>
-                  <Style.Input
+                  <input
                     type="text"
                     placeholder="Search"
                     name="search"
@@ -196,8 +197,8 @@ const Style = {
       }
 
       ${({ isOpen }) =>
-      isOpen &&
-      `img {
+        isOpen &&
+        `img {
          transform: rotate(-180deg);
       }`};
     }
