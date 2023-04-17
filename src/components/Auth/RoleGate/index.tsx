@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { useSignUpStore } from "../../../stores/signUpStore";
@@ -65,7 +66,13 @@ export const RoleGate = () => {
           </fieldset>
         </div>
         {isCoordinator && (
-          <section className="role-coordinator">
+          <motion.section
+            className="role-coordinator"
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ ease: "easeOut", duration: 0.5, delay: 0.3 }}
+          >
             <p className="school-id">Please enter your School ID Code</p>
 
             <div className="rc-split">
@@ -83,18 +90,20 @@ export const RoleGate = () => {
               />
             </div>
             <p className="forgot-code">Forgot Educator Code?</p>
-          </section>
+          </motion.section>
         )}
         {typeof isCoordinator === "boolean" && (
-          <Button size="small" fullWidth type="submit">
+          <MotionButton size="small" fullWidth type="submit">
             Continue to the next step
             <ArrowRight width="15" />
-          </Button>
+          </MotionButton>
         )}
       </form>
     </Style.Container>
   );
 };
+
+const MotionButton = motion(Button);
 
 const Style = {
   Container: styled.main<{ height: string }>`
