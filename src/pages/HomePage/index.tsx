@@ -80,11 +80,11 @@ const Style = {
     .swiper-slide {
       & img {
         transform: scale(0.7) translate(0, -50%);
-        transition: transform 1.5s ease-in-out;
+        transition: transform 1s ease-in-out;
       }
       &.swiper-slide-active img {
         transform: scale(1) translate(0, -50%);
-        transition: transform 1.5s ease-in-out;
+        transition: transform 1s ease-in-out;
       }
     }
 
