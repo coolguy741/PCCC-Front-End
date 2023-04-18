@@ -1,24 +1,68 @@
+import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { RoleGate } from "../../../components/Auth/RoleGate";
 import { SecurityQuestions } from "../../../components/Auth/SecurityQuestions";
 import { SignUpForm } from "../../../components/Auth/SignUpForm";
-import { DirectionLeft } from "../../../components/Icons";
+import {
+  AppleBG,
+  DirectionLeft,
+  GrapeBG,
+  LemonBG,
+} from "../../../components/Icons";
 import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+
+const Motion = {
+  AgeGate: motion(AgeGate),
+  RoleGate: motion(RoleGate),
+  SignUpForm: motion(SignUpForm),
+  SecurityQuestions: motion(SecurityQuestions),
+};
 
 function switchSignUpView(step: StepsForSignUp) {
   switch (step) {
     case "age":
-      return <AgeGate />;
+      return (
+        <Motion.AgeGate
+          key="age"
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+        />
+      );
     case "role":
-      return <RoleGate />;
+      return <Motion.RoleGate key="role" exit={{ opacity: 0 }} />;
     case "input-information":
-      return <SignUpForm />;
+      return (
+        <Motion.SignUpForm key="input-information" exit={{ opacity: 0 }} />
+      );
     case "input-security":
-      return <SecurityQuestions />;
+      return (
+        <Motion.SecurityQuestions key="input-security" exit={{ opacity: 0 }} />
+      );
     default:
-      return <AgeGate />;
+      return (
+        <Motion.AgeGate
+          key="age"
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+        />
+      );
+  }
+}
+
+function switchSignUpBG(step: StepsForSignUp) {
+  switch (step) {
+    case "age":
+      return <LemonBG />;
+    case "role":
+      return <GrapeBG />;
+    case "input-information":
+      return <AppleBG />;
+    case "input-security":
+      return <GrapeBG />;
+    default:
+      return <LemonBG />;
   }
 }
 
@@ -31,7 +75,11 @@ export const SignUpPage = () => {
         <DirectionLeft />
         Back
       </span>
-      {switchSignUpView(currentStep)}
+      <AnimatePresence mode="wait" initial={false}>
+        {switchSignUpView(currentStep)}
+      </AnimatePresence>
+
+      <div className="auth-image">{switchSignUpBG(currentStep)}</div>
     </Style.Container>
   );
 };
@@ -64,6 +112,23 @@ const Style = {
       font-weight: 400;
       font-size: 20px;
       line-height: 24px;
+    }
+
+    .auth-image {
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      z-index: 0;
+      max-width: 30%;
+
+      svg {
+        width: 100%;
+      }
+    }
+
+    main,
+    form {
+      z-index: 1;
     }
 
     ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
