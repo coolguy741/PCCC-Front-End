@@ -51,6 +51,7 @@ export const RoleGate = () => {
               type="radio"
               checked={isCoordinator === true}
               onChange={() => changeCoordinator(true)}
+              required
             />
             <label>Yes</label>
           </fieldset>
@@ -60,6 +61,7 @@ export const RoleGate = () => {
               type="radio"
               checked={isCoordinator === false}
               onChange={() => changeCoordinator(false)}
+              required
             />
             <label>No</label>
           </fieldset>
