@@ -1,15 +1,19 @@
 import styled from "styled-components";
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+type InputProps = React.InputHTMLAttributes<HTMLSelectElement>;
 interface SelectProps extends InputProps {
   children: React.ReactNode;
   width?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  value?: string;
 }
 
-export const Select = ({ children, width }: SelectProps) => {
+export const Select = ({ children, width, onChange, value }: SelectProps) => {
   return (
     <Style.Container width={width}>
-      <Style.Select>{children}</Style.Select>
+      <Style.Select onChange={onChange} value={value}>
+        {children}
+      </Style.Select>
     </Style.Container>
   );
 };
