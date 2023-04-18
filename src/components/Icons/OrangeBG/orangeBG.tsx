@@ -1,8 +1,9 @@
-import { IconProps } from "../../../types";
+import { motion } from "framer-motion";
+import { MotionIconProps } from "../../../types/icon";
 
-export default function OrangeBG(props: IconProps) {
+export default function OrangeBG(props: MotionIconProps) {
   return (
-    <svg
+    <motion.svg
       width="558"
       height="576"
       viewBox="0 0 558 576"
@@ -18,6 +19,6 @@ export default function OrangeBG(props: IconProps) {
         d="M284.726 119.212C286.676 91.0041 264.662 65.0777 237.718 52.5315C210.761 39.9854 179.709 38.2071 149.625 37.8391C112.93 37.3976 75.4513 38.8325 41.0137 50.7655C55.0438 75.3551 71.0976 99.1965 92.0569 118.942C113.016 138.675 139.163 154.765 168.401 159.524C226.533 168.967 284.726 119.199 284.726 119.199"
         fill="#26D07C"
       />
-    </svg>
+    </motion.svg>
   );
 }

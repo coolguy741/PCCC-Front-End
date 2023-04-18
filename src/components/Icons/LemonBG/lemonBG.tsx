@@ -1,8 +1,9 @@
-import { IconProps } from "../../../types";
+import { motion } from "framer-motion";
+import { MotionIconProps } from "../../../types/icon";
 
-export default function LemonBG(props: IconProps) {
+export default function LemonBG(props: MotionIconProps) {
   return (
-    <svg
+    <motion.svg
       width="571"
       height="543"
       viewBox="0 0 571 543"
@@ -18,6 +19,6 @@ export default function LemonBG(props: IconProps) {
         d="M528.097 86.7881C530.882 95.317 537.205 102.079 542.587 109.231C563.821 137.364 571.827 173.965 570.812 209.312C569.81 244.67 560.43 279.212 549.838 312.925C516.639 294.113 499.168 256.184 487.796 219.522C479.617 193.155 473.455 164.949 479.79 138.083C486.126 111.217 528.097 86.7881 528.097 86.7881Z"
         fill="#26D07C"
       />
-    </svg>
+    </motion.svg>
   );
 }

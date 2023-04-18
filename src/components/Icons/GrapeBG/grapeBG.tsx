@@ -1,8 +1,9 @@
-import { IconProps } from "../../../types";
+import { motion } from "framer-motion";
+import { MotionIconProps } from "../../../types/icon";
 
-export default function GrapeBG(props: IconProps) {
+export default function GrapeBG(props: MotionIconProps) {
   return (
-    <svg
+    <motion.svg
       width="484"
       height="614"
       viewBox="0 0 484 614"
@@ -22,6 +23,6 @@ export default function GrapeBG(props: IconProps) {
         d="M309.757 84.3155C320.843 66.0597 335.261 51.4165 351.417 41.9795C366.194 33.3529 382.182 29.1221 398.098 25.5643C425.567 19.4103 454.535 15.2344 480.65 28.1056C469.912 45.0427 467.347 69.2465 456.261 85.7853C445.091 102.448 426.994 108.258 410.239 106.734C393.484 105.195 377.472 97.3927 361.436 90.7717C345.388 84.1644 328.55 78.6423 311.927 81.8842"
         fill="#0084D5"
       />
-    </svg>
+    </motion.svg>
   );
 }

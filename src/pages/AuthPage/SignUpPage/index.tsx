@@ -15,6 +15,21 @@ import {
 import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
+const animationProps = {
+  style: {
+    transformOrigin: "bottom left",
+  },
+  initial: { opacity: 0, x: "-95%", scale: 0.75 },
+  animate: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { delay: 0.3, duration: 0.5 },
+  },
+  exit: { opacity: 0, x: "-95%", scale: 0.75 },
+  transition: { ease: "linear" },
+};
+
 function switchSignUpView(step: StepsForSignUp) {
   switch (step) {
     case "age":
@@ -35,17 +50,17 @@ function switchSignUpView(step: StepsForSignUp) {
 function switchSignUpBG(step: StepsForSignUp) {
   switch (step) {
     case "age":
-      return <LemonBG />;
+      return <LemonBG key="age" {...animationProps} />;
     case "role":
-      return <GrapeBG />;
+      return <GrapeBG key="role" {...animationProps} />;
     case "input-information":
-      return <AppleBG />;
+      return <AppleBG key="input-information" {...animationProps} />;
     case "input-security":
-      return <GrapeBG />;
+      return <GrapeBG key="input-security" {...animationProps} />;
     case "educator-recovery":
-      return <OrangeBG />;
+      return <OrangeBG key="educator-recovery" {...animationProps} />;
     default:
-      return <LemonBG />;
+      return <LemonBG key="default" {...animationProps} />;
   }
 }
 
@@ -62,7 +77,11 @@ export const SignUpPage = () => {
         {switchSignUpView(currentStep)}
       </AnimatePresence>
 
-      <div className="auth-image">{switchSignUpBG(currentStep)}</div>
+      <div className="auth-image">
+        <AnimatePresence mode="wait" initial={false}>
+          {switchSignUpBG(currentStep)}
+        </AnimatePresence>
+      </div>
     </Style.Container>
   );
 };
@@ -76,6 +95,7 @@ const Style = {
     position: relative;
     padding: 32px;
     padding-top: 108px;
+    perspective: 1000px;
 
     .sign-up-breadcrumb {
       font-family: "Noir Std";
@@ -103,6 +123,7 @@ const Style = {
       left: 0;
       z-index: 0;
       max-width: 30%;
+      perspective: 500px;
 
       svg {
         width: 100%;
@@ -112,6 +133,7 @@ const Style = {
     main,
     form {
       z-index: 1;
+      perspective: 250px;
     }
 
     ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
