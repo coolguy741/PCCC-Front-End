@@ -88,7 +88,7 @@ const Style = {
     }
 
     .swiper-pagination {
-      right: 28px;
+      right: 36px;
       width: 16px;
       .swiper-pagination-bullet {
         background: var(--neutral-900);
