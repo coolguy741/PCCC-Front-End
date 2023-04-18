@@ -138,7 +138,8 @@ const Style = {
         display: flex;
         input {
           flex: 1;
-          border-radius: 4px;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
           border: none;
           padding: 11px 16px;
 

@@ -1,28 +1,10 @@
 import styled from "styled-components";
 import { Icon } from "../../../components/Global/Icon";
-
-const TileData = {
-  title: {
-    firstLine: {
-      text: "Mealtime",
-      color: "orange-600",
-    },
-    secondLine: {
-      text: "Moments",
-    },
-  },
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
-  button: {
-    text: "Explore",
-    link: "/dashboard/mealtime-moments",
-  },
-};
-
 export const FooterTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
+        <style.Lemon src="/images/lemon.png" alt="lemon" />
         <style.Rectangle3 />
         <style.Rectangle2 />
         <style.EllipseGroup>
@@ -186,5 +168,13 @@ const style = {
     top: 0px;
     background: #f3d03e;
     transform: matrix(-1, 0, 0, 1, 0, 0);
+  `,
+  Lemon: styled.img`
+    z-index: 10;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    transform: matrix(1, 0, 0, 1, 0, 0)!important;
+  }
   `,
 };
