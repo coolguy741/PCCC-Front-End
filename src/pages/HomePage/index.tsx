@@ -95,12 +95,14 @@ const Style = {
         opacity: 1;
         width: 8px;
         height: 8px;
+        margin: 16px;
         transform: translate(-50%);
         transition: all 0.2s ease-in-out;
 
         &.swiper-pagination-bullet-active {
           width: 16px;
           height: 16px;
+          margin: 16px;
           transform: translate(-50%);
         }
       }
