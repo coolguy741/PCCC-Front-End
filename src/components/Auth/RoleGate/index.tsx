@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSignUpStore } from "../../../stores/signUpStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
@@ -24,7 +24,7 @@ export const RoleGate = () => {
     if (_schoolId) setSchoolId(_schoolId);
     if (_schoolName) setSchoolName(_schoolName);
 
-    changeStep("input-information");
+    changeStep(2);
   };
 
   function changeCoordinator(coor: boolean) {
@@ -36,6 +36,14 @@ export const RoleGate = () => {
       setHeight("410px");
     }
   }
+
+  useEffect(() => {
+    if (isCoordinator === true) {
+      setHeight("540px");
+    } else if (isCoordinator === false) {
+      setHeight("410px");
+    }
+  }, [isCoordinator]);
 
   return (
     <Style.Container
@@ -57,6 +65,7 @@ export const RoleGate = () => {
               type="radio"
               checked={isCoordinator === true}
               onChange={() => changeCoordinator(true)}
+              required
             />
             <label>Yes</label>
           </fieldset>
@@ -66,6 +75,7 @@ export const RoleGate = () => {
               type="radio"
               checked={isCoordinator === false}
               onChange={() => changeCoordinator(false)}
+              required
             />
             <label>No</label>
           </fieldset>
@@ -88,10 +98,7 @@ export const RoleGate = () => {
                 placeholder="Enter Name Here"
               />
             </div>
-            <p
-              className="forgot-code"
-              onClick={() => changeStep("educator-recovery")}
-            >
+            <p className="forgot-code" onClick={() => changeStep(4)}>
               Forgot Educator Code?
             </p>
           </section>

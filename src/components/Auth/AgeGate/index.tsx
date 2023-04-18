@@ -12,6 +12,7 @@ export const AgeGate = () => {
   const [_province, _setProvince] = useState("");
   const setBirthYear = useSignUpStore((state) => state.setBirthYear);
   const setProvince = useSignUpStore((state) => state.setProvince);
+  const over18 = useSignUpStore((state) => state.over18);
   const setOver18 = useSignUpStore((state) => state.setOver18);
   const changeStep = useSignUpStore((state) => state.changeStep);
 
@@ -23,16 +24,17 @@ export const AgeGate = () => {
     if (_birthYear !== null && _province !== null) {
       if (currentYear - parseInt(_birthYear) >= 18) {
         setOver18(true);
-        changeStep("role");
+        changeStep(1);
+        console.log("OVER 18", currentYear - parseInt(_birthYear));
       } else {
         setOver18(false);
-        changeStep("input-information");
+        changeStep(2);
+        console.log("UNDER 18", currentYear - parseInt(_birthYear));
       }
 
       setBirthYear(parseInt(_birthYear));
       setProvince(_province);
     }
-    changeStep("role");
   };
 
   return (
@@ -44,13 +46,14 @@ export const AgeGate = () => {
         <fieldset>
           <label>What year were you born?</label>
           <div className="birth-split">
-            <Input width="15%" placeholder="MM" />
-            <Input width="15%" placeholder="DD" />
+            <Input width="15%" placeholder="MM" required />
+            <Input width="15%" placeholder="DD" required />
             <Input
               width="18%"
               placeholder="YYYY"
               onChange={(e) => _setBirthYear(e.target.value)}
               value={_birthYear}
+              required
             />
           </div>
         </fieldset>
@@ -62,6 +65,7 @@ export const AgeGate = () => {
             value={_province}
             width="67.5%"
             placeholder="Ontario"
+            required
           />
         </fieldset>
         <Button size="small" fullWidth type="submit">

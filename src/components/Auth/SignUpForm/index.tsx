@@ -19,9 +19,7 @@ export const SignUpForm = () => {
     [],
   );
   const changeStep = useSignUpStore((state) => state.changeStep);
-  const firstUserName = useSignUpStore((state) => state.firstUserName);
-  const secondUserName = useSignUpStore((state) => state.secondUserName);
-  const thirdUserName = useSignUpStore((state) => state.thirdUserName);
+  const isCoordinator = useSignUpStore((state) => state.isCoordinator);
   const setFirstUserName = useSignUpStore((state) => state.setFirstUserName);
   const setSecondUserName = useSignUpStore((state) => state.setSecondUserName);
   const setThirdUserName = useSignUpStore((state) => state.setThirdUserName);
@@ -48,7 +46,7 @@ export const SignUpForm = () => {
     setSecondUserName(_secondUserName);
     setThirdUserName(_thirdUserName);
 
-    changeStep("input-security");
+    changeStep(3);
   };
 
   return (
@@ -62,14 +60,18 @@ export const SignUpForm = () => {
         <h1>Sign Up</h1>
         <section className="form">
           <legend>Account Info</legend>
-          <fieldset>
-            <label>Name</label>
-            <Input width="60%" placeholder="John" />
-          </fieldset>
-          <fieldset>
-            <label>Title</label>
-            <Input width="60%" placeholder="Student" />
-          </fieldset>
+          {isCoordinator && (
+            <>
+              <fieldset>
+                <label>Name</label>
+                <Input width="60%" placeholder="John" />
+              </fieldset>
+              <fieldset>
+                <label>Title</label>
+                <Input width="60%" placeholder="Student" />
+              </fieldset>
+            </>
+          )}
           <fieldset>
             <label>Birth Year</label>
             <div className="birth-split">
@@ -78,22 +80,28 @@ export const SignUpForm = () => {
               <Input width="40%" placeholder="YYYY" />
             </div>
           </fieldset>
-          <fieldset>
-            <label>School ID Code</label>
-            <Input width="60%" placeholder="1234567890" />
-          </fieldset>
-          <fieldset>
-            <label>School</label>
-            <Input width="60%" placeholder="George Collage" />
-          </fieldset>
+          {isCoordinator && (
+            <>
+              <fieldset>
+                <label>School ID Code</label>
+                <Input width="60%" placeholder="1234567890" />
+              </fieldset>
+              <fieldset>
+                <label>School</label>
+                <Input width="60%" placeholder="George Collage" />
+              </fieldset>
+            </>
+          )}
           <fieldset>
             <label>Province</label>
             <Input width="60%" placeholder="Ontario" />
           </fieldset>
-          <fieldset>
-            <label>Email Address</label>
-            <Input width="60%" placeholder="Johndoe@gmail.com" />
-          </fieldset>
+          {isCoordinator && (
+            <fieldset>
+              <label>Email Address</label>
+              <Input width="60%" placeholder="Johndoe@gmail.com" />
+            </fieldset>
+          )}
         </section>
       </section>
       <section className="avatar-selection">
@@ -150,7 +158,7 @@ const Style = {
     width: 80%;
     height: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding-top: calc(- (108px / 2));
 
