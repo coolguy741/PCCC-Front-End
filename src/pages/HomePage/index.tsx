@@ -77,11 +77,11 @@ const Style = {
     }
 
     .swiper-slide {
-      & img {
+      & img.tile-image {
         transform: scale(0.7) translate(0, -50%);
         transition: transform 0.5s ease-in-out;
       }
-      &.swiper-slide-active img {
+      &.swiper-slide-active img.tile-image {
         transform: scale(1) translate(0, -50%);
         transition: transform 0.5s ease-in-out;
       }

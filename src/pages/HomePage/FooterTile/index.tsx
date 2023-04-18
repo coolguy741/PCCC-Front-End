@@ -60,7 +60,7 @@ const style = {
     color: var(--neutral-900);
   `,
   TitleContainer: styled.div`
-    font-weight: 900;
+    font-weight: 700;
     font-size: 120px;
     line-height: 90%;
     leading-trim: both;

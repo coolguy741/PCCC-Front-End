@@ -54,7 +54,7 @@ export const DashboardMenu = () => {
         </div>
         <div className="item-container">
           {MENUS.map((menu) => (
-            <Style.MenuItem>
+            <Style.MenuItem key={`menu-${menu.to}`}>
               {menu.subMenus ? (
                 <>
                   <Style.SubMenuItem

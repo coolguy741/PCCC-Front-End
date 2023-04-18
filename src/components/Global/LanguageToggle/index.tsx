@@ -57,15 +57,20 @@ const Style = {
     z-index: 10;
     pointer-events: auto;
     justify-content: space-between;
+    filter: drop-shadow(0px 10px 17px rgba(17, 165, 255, 0.3));
     align-items: center;
     padding: 0 10px;
+
+    &:hover {
+      filter: drop-shadow(0px 10px 10px rgba(17, 165, 255, 0.3));
+    }
 
     & .slider {
       z-index: 1;
       position: absolute;
       top: 0;
       left: 0;
-      width: 40px;
+      width: 42px;
       height: 100%;
       background: #ffffff;
       border-radius: 24px;
