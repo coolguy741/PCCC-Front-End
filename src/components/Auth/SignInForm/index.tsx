@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { useSignInStore } from "../../../stores/signInStore";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
 export const SignInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const changeStep = useSignInStore((state) => state.changeStep);
 
   const { connect } = useAPI();
   const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
@@ -25,72 +28,80 @@ export const SignInForm = () => {
     });
 
     setCookie(STORAGE_KEY_JWT, data.access_token, {});
+    changeStep("security");
   };
 
   return (
     <Container>
       <form onSubmit={submitHandler}>
-        <h1>Sign in</h1>
-        <label>
-          <span>Username</span>
+        <h1>Log in</h1>
+        <fieldset>
+          <label>Username</label>
           <Input
             type="username"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
+            height="52px"
           />
-        </label>
-        <label>
-          <span>Password</span>
+        </fieldset>
+        <fieldset>
+          <label>Password</label>
           <Input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            height="52px"
           />
-        </label>
+        </fieldset>
         <Link to="forgot-password">Forgot password?</Link>
-        <Button type="submit">Sign In</Button>
+        <Button type="submit" fullWidth>
+          Login
+        </Button>
       </form>
     </Container>
   );
 };
 
-const Container = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+const Container = styled.main`
+  ${glassBackground}
+  width: 525px;
+
+  h1 {
+    font-weight: 600;
+    font-size: 33px;
+    line-height: 40px;
+    margin-bottom: 32px;
+  }
 
   form {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+  }
 
-    h1 {
-      align-self: flex-start;
-    }
-
+  fieldset {
     label {
-      display: flex;
-      align-items: center;
-
-      span {
-        width: 7rem;
-        font-size: 1.2rem;
-      }
-
-      input,
-      select {
-        width: 18rem;
-      }
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 28px;
+      color: #505050;
     }
-    button {
-      margin-top: 2rem;
+
+    input {
+      margin: 15px 0;
+      margin-top: 7.5px;
     }
+  }
+
+  a {
+    font-size: 15px;
+    line-height: 20px;
+    width: 100%;
+    text-align: right;
+    color: #646464;
+  }
+
+  button {
+    margin-top: 56px;
   }
 `;
