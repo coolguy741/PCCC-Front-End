@@ -2,25 +2,14 @@ import styled from "styled-components";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 interface SelectProps extends InputProps {
-  children: any;
-  placeholder?: string;
-  onChange?: (value: any) => void;
-  value?: any;
+  children: React.ReactNode;
   width?: string;
 }
 
-export const Select = ({
-  children,
-  placeholder,
-  onChange,
-  value,
-  width,
-}: SelectProps) => {
+export const Select = ({ children, width }: SelectProps) => {
   return (
     <Style.Container width={width}>
-      <Style.Select placeholder={placeholder} onChange={onChange} value={value}>
-        {children}
-      </Style.Select>
+      <Style.Select>{children}</Style.Select>
     </Style.Container>
   );
 };
@@ -32,7 +21,7 @@ const Style = {
     position: relative;
 
     &::after {
-      content: url("/public/icons/downSelect.svg");
+      content: url("/icons/downSelect.svg");
       position: absolute;
       right: 15px;
       top: calc(21%);

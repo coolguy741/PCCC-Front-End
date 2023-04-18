@@ -61,7 +61,7 @@ const Style = {
       }
 
       &::before {
-        content: url("/public/icons/checkmark.svg");
+        content: url("/icons/checkmark.svg");
         position: absolute;
         opacity: 0;
         transition: opacity 0.3s linear;
