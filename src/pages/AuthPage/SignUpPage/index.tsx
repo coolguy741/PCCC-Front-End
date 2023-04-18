@@ -1,5 +1,4 @@
 import { AnimatePresence } from "framer-motion";
-import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { EducatorRecovery } from "../../../components/Auth/EducatorRecovery";
 import { RoleGate } from "../../../components/Auth/RoleGate";
@@ -12,8 +11,8 @@ import {
   LemonBG,
   OrangeBG,
 } from "../../../components/Icons";
+import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
-import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
 const animationProps = {
   style: {
@@ -83,7 +82,7 @@ export const SignUpPage = () => {
   const currentStep = useSignUpStore((state) => state.currentStep);
 
   return (
-    <Style.Container>
+    <AuthLayout>
       <span className="sign-up-breadcrumb">
         <DirectionLeft />
         Back
@@ -97,60 +96,6 @@ export const SignUpPage = () => {
           {switchSignUpBG(currentStep)}
         </AnimatePresence>
       </div>
-    </Style.Container>
+    </AuthLayout>
   );
-};
-
-const Style = {
-  Container: styled.div`
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-    position: relative;
-    padding: 32px;
-    padding-top: 108px;
-    perspective: 1000px;
-
-    .sign-up-breadcrumb {
-      font-family: "Noir Std";
-      position: absolute;
-      left: 32px;
-      top: 162px;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 15px;
-      line-height: 20px;
-      display: flex;
-      align-items: center;
-    }
-
-    p {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 24px;
-    }
-
-    .auth-image {
-      position: absolute;
-      bottom: -10px;
-      left: 0;
-      z-index: 0;
-      max-width: 30%;
-      perspective: 500px;
-
-      svg {
-        width: 100%;
-      }
-    }
-
-    main,
-    form {
-      z-index: 1;
-      perspective: 250px;
-    }
-
-    ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
-  `,
 };
