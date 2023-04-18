@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
+import { EducatorRecovery } from "../../../components/Auth/EducatorRecovery";
 import { RoleGate } from "../../../components/Auth/RoleGate";
 import { SecurityQuestions } from "../../../components/Auth/SecurityQuestions";
 import { SignUpForm } from "../../../components/Auth/SignUpForm";
@@ -9,6 +10,7 @@ import {
   DirectionLeft,
   GrapeBG,
   LemonBG,
+  OrangeBG,
 } from "../../../components/Icons";
 import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
@@ -40,6 +42,8 @@ function switchSignUpView(step: StepsForSignUp) {
       return (
         <Motion.SecurityQuestions key="input-security" exit={{ opacity: 0 }} />
       );
+    case "educator-recovery":
+      return <EducatorRecovery />;
     default:
       return (
         <Motion.AgeGate
@@ -61,6 +65,8 @@ function switchSignUpBG(step: StepsForSignUp) {
       return <AppleBG />;
     case "input-security":
       return <GrapeBG />;
+    case "educator-recovery":
+      return <OrangeBG />;
     default:
       return <LemonBG />;
   }
