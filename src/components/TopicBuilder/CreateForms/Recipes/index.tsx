@@ -8,7 +8,7 @@ export const RecipesForm = () => {
     <div>
       <div>Select the recipes you want to link to this topic</div>
       <TopicFilter showingActions={false} showingNameSearch={true} />
-      <RecipesList>
+      <Style.RecipesList>
         <div className="flex justify-between">
           <div>Recipe A: Tools of the Trade </div>
           <LinkButton to="#">Remove</LinkButton>
@@ -25,15 +25,17 @@ export const RecipesForm = () => {
           <div>Recipe D: Tools of the Trade </div>
           <LinkButton to="#">Add</LinkButton>
         </div>
-      </RecipesList>
+      </Style.RecipesList>
     </div>
   );
 };
 
-const RecipesList = styled.div`
-  margin-bottom: 20px;
-  & > div {
-    border-bottom: 1px solid var(--black);
-    padding: 5px 0;
-  }
-`;
+const Style = {
+  RecipesList: styled.div`
+    margin-bottom: 20px;
+    & > div {
+      border-bottom: 1px solid var(--black);
+      padding: 5px 0;
+    }
+  `,
+};

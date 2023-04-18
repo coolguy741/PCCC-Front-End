@@ -28,20 +28,22 @@ export const ReportsPage = () => {
     return tabs.indexOf(tab);
   }, [mainMatch, previewMatch]);
 
-  const isPreview = useMemo(() => !!previewMatch, [mainMatch, previewMatch]);
+  const isPreview = useMemo(() => !!previewMatch, [previewMatch]);
 
   if (tabIndex < 0) {
     throw Error;
   }
 
   return (
-    <Container>
+    <Style.Container>
       <PageHeader title="Reports" />
       {isPreview && <ReportActions tabs={tabs} tabIndex={tabIndex} />}
       <ReportsTabs tabIndex={tabIndex} tabs={tabs} isPreview={isPreview} />
       {isPreview ? previewComponents[tabIndex] : mainComponents[tabIndex]}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div``;
+const Style = {
+  Container: styled.div``,
+};

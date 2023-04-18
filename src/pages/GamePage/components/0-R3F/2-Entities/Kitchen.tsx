@@ -144,7 +144,7 @@ type GLTFResult = GLTF & {
 const Kitchen = (props: JSX.IntrinsicElements["group"]) => {
   const pieRef: MutableRefObject<THREE.Group | null> = useRef(null);
   const { nodes, materials } = useGLTF(
-    "/game_assets/models/Kitchen_v002-transformed.glb"
+    "/game_assets/models/Kitchen_v002-transformed.glb",
   ) as GLTFResult;
 
   useFrame(({ clock }) => {

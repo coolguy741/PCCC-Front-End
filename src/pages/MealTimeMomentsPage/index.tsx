@@ -5,17 +5,21 @@ interface MealtimeMomentsBuilderPageProps {
   children: JSX.Element;
 }
 
-export const MealtimeMomentsBuilderPage = ({ children }: MealtimeMomentsBuilderPageProps) => {
+export const MealtimeMomentsBuilderPage = ({
+  children,
+}: MealtimeMomentsBuilderPageProps) => {
   return (
-    <Container>
-      <MealtimeMomentsHeader/>
+    <Style.Container>
+      <MealtimeMomentsHeader />
       <div className="content">{children}</div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  .content {
-    padding: 11px 0px;
-  }
-`;
+const Style = {
+  Container: styled.div`
+    .content {
+      padding: 11px 0px;
+    }
+  `,
+};

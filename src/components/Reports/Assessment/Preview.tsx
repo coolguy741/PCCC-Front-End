@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ReportAssessmentPreview = () => {
   return (
-    <Container>
+    <Style.Container>
       <h4>Lesson Assessment</h4>
       <table>
         <thead>
@@ -63,20 +63,22 @@ export const ReportAssessmentPreview = () => {
           </tr>
         </tbody>
       </table>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  table {
-    width: 100%;
-  }
-  table,
-  th,
-  td {
-    padding: 10px;
-    text-align: left;
-    border-collapse: collapse;
-    border: 1px solid var(--black);
-  }
-`;
+const Style = {
+  Container: styled.div`
+    table {
+      width: 100%;
+    }
+    table,
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-collapse: collapse;
+      border: 1px solid var(--black);
+    }
+  `,
+};

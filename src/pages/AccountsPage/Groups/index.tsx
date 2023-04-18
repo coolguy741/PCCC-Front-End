@@ -1,13 +1,12 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GroupCard } from "../../../components/Accounts/GroupCard";
 import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
-import { Button } from "../../../components/Global/Button";
-import mockData from "../../../lib/mockData/accounts/groups.json";
-import { Link, useNavigate } from "react-router-dom";
 import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
-import { useState } from "react";
-import { IconButton } from "../../../components/Global/IconButton";
+import { Button } from "../../../components/Global/Button";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
+import mockData from "../../../lib/mockData/accounts/groups.json";
 
 export const AccountsGroupsPage = () => {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -15,18 +14,18 @@ export const AccountsGroupsPage = () => {
 
   const handleCreate = () => {
     navigate("/dashboard/accounts/groups/create");
-  }
+  };
 
   const handleJoinGroup = () => {
     setVisibleModal(false);
-  }
+  };
 
   const handleClose = () => {
     setVisibleModal(false);
-  }
+  };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <div className="header-container">
         <div className="group-container">
           <div className="label">
@@ -49,105 +48,113 @@ export const AccountsGroupsPage = () => {
       </div>
       <div className="row">
         <div className="groups-container">
-        {
-          mockData.groups.map((group, index) => (
+          {mockData.groups.map((group, index) => (
             <div className="group-card-container" key={index}>
               <Link to="./group">
-                <GroupCard data={group}/>
+                <GroupCard data={group} />
               </Link>
             </div>
-          ))
-        }
+          ))}
         </div>
         <div className="group-invitations-container">
-          <p className="title-text">{"Group Invitations ( " + mockData.groupInvitations.length + " )"}</p>
+          <p className="title-text">
+            {"Group Invitations ( " + mockData.groupInvitations.length + " )"}
+          </p>
           <div className="group-invitations">
-            {
-              mockData.groupInvitations.map((group, index) => (
-                <GroupInvitationCard data = {group} key = {index}/>
-              ))
-            }
+            {mockData.groupInvitations.map((group, index) => (
+              <GroupInvitationCard data={group} key={index} />
+            ))}
           </div>
         </div>
       </div>
-      {visibleModal &&
+      {visibleModal && (
         <ModalContainer>
-          <JoinGroupModal role="Standard" groupID={2334} groupName="Group A" creator="Vane Jones" onJoin={handleJoinGroup} onClose={handleClose}/>
+          <JoinGroupModal
+            role="Standard"
+            groupID={2334}
+            groupName="Group A"
+            creator="Vane Jones"
+            onJoin={handleJoinGroup}
+            onClose={handleClose}
+          />
         </ModalContainer>
-      }
-    </PageContainer>
+      )}
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  .header-container {
-    margin-top: 10px;
+const Style = {
+  PageContainer: styled.div`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    .group-container {
+    .header-container {
+      margin-top: 10px;
       display: flex;
+      justify-content: space-between;
 
-      .label {
-        margin-right: 10px;
+      .group-container {
+        display: flex;
+
+        .label {
+          margin-right: 10px;
+        }
+      }
+
+      .button-container {
+        display: flex;
+        align-items: center;
+
+        Button {
+          margin-right: 10px;
+        }
       }
     }
 
-    .button-container {
+    .row {
       display: flex;
-      align-items: center;
 
-      Button {
-        margin-right: 10px;
+      .groups-container {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 0px;
+        margin-top: 80px;
+        padding: 0px;
+
+        .group-card-container {
+          width: 45%;
+
+          a {
+            &:hover,
+            &:visited {
+              text-decoration: none;
+            }
+          }
+        }
       }
-    }
-  }
 
-  .row {
-    display: flex;
+      .group-invitations-container {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        width: 20%;
 
-    .groups-container {
-      width: 80%;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 0px;
-      margin-top: 80px;
-      padding: 0px;
+        .title-text {
+          font-size: 1.2rem;
+        }
 
-      .group-card-container {
-        width: 45%;
+        .group-invitations {
+          border: 1px black solid;
+          padding: 10px;
 
-        a {
-          &:hover, &:visited{
-            decoration: none;
+          .bold-big-text {
+            font-size: 1.1 rem;
+            font-weight: 700;
           }
         }
       }
     }
-
-    .group-invitations-container {
-      display: flex;
-      flex-direction: column;
-      margin: 10px;
-      width: 20%;
-
-      .title-text {
-        font-size: 1.2rem;
-      }
-
-      .group-invitations {
-        border: 1px black solid;
-        padding: 10px;
-        
-        .bold-big-text {
-          font-size: 1.1 rem;
-          font-weight: 700;
-        }
-      }
-    }    
-  }
-`
+  `,
+};

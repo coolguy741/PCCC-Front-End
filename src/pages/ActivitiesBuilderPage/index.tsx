@@ -5,18 +5,21 @@ interface ActivitiesBuilderPageProps {
   children: JSX.Element;
 }
 
-export const ActivitiesBuilderPage = ({ children }: ActivitiesBuilderPageProps) => {
-
+export const ActivitiesBuilderPage = ({
+  children,
+}: ActivitiesBuilderPageProps) => {
   return (
-    <Container>
-      <ActivitiesHeader/>
+    <Style.Container>
+      <ActivitiesHeader />
       <div className="content">{children}</div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  .content {
-    padding: 11px 0px;
-  }
-`;
+const Style = {
+  Container: styled.div`
+    .content {
+      padding: 11px 0px;
+    }
+  `,
+};

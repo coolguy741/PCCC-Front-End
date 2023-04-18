@@ -6,7 +6,7 @@ interface Props {
 
 export const Recipe: React.FC<Props> = ({ isPrint }) => {
   return (
-    <Container>
+    <Style.Container>
       <h3>Chocolate Granola Bites</h3>
       {!isPrint && <div className="recipe-image" />}
       <div className="articles">
@@ -34,44 +34,46 @@ export const Recipe: React.FC<Props> = ({ isPrint }) => {
           </div>
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  & * {
-    box-sizing: border-box;
-  }
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  margin-bottom: 10px;
+const Style = {
+  Container: styled.div`
+    & * {
+      box-sizing: border-box;
+    }
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 10px;
 
-  h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .recipe-image {
-    background: var(--black);
-    width: 200px;
-    margin: auto;
-    height: 200px;
-  }
-
-  .articles {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-
-    h4 {
-      font-size: 1.25rem;
+    h3 {
+      font-size: 2rem;
       font-weight: 700;
       margin: 0;
     }
-    &>div: last-child {
-      grid-column: span 2;
+
+    .recipe-image {
+      background: var(--black);
+      width: 200px;
+      margin: auto;
+      height: 200px;
     }
-  }
-`;
+
+    .articles {
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
+
+      h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+      }
+      & > div:last-child {
+        grid-column: span 2;
+      }
+    }
+  `,
+};

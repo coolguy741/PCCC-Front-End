@@ -1,17 +1,19 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../../components/Global/Button";
-import { LanguageChooser } from "../../../components/Global/LanguageChooser";
-import { useState } from "react";
-import { CenterAlignedContainer, LeftAlignedContainer, RightAlignedContainer } from "../../../components/Global/Container";
-import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-edit.json";
+import { AlignmentStyle } from "../../../components/Global/Container";
 import { FileUploader } from "../../../components/Global/FileUploader";
-import { SmallButton } from "../../../components/Global/SmallButton";
+import { LanguageChooser } from "../../../components/Global/LanguageChooser";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
 import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
+import { SmallButton } from "../../../components/Global/SmallButton";
+import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-edit.json";
 
 export const MealTimeMomentsEditMealTimeMomentPage = () => {
-  const [lang, setLang] = useState<string>(localStorage.getItem('lang') ?? "en");
+  const [lang, setLang] = useState<string>(
+    localStorage.getItem("lang") ?? "en",
+  );
   const [titleEn, setTitleEn] = useState(mockData.en.title);
   const [titleFr, setTitleFr] = useState(mockData.fr.title);
   const [overivewEn, setOverviewEn] = useState(mockData.en.overview);
@@ -22,24 +24,26 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   const handleSave = () => {
     alert("Save changes");
-  }
+  };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (lang === 'en') {
+    if (lang === "en") {
       setTitleEn(value);
     } else {
       setTitleFr(value);
     }
   };
 
-  const handleOverviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleOverviewChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     const value = event.target.value;
-    if (lang === 'en') {
+    if (lang === "en") {
       setOverviewEn(value);
     } else {
       setOverviewFr(value);
@@ -48,90 +52,100 @@ export const MealTimeMomentsEditMealTimeMomentPage = () => {
 
   const handleToggleLanguage = () => {
     setVisibleModal(false);
-    if(lang === "en") setLang("fr");
+    if (lang === "en") setLang("fr");
     else setLang("en");
-  }
-
+  };
 
   return (
-    <PageContainer>
-      <LeftAlignedContainer>
+    <Style.PageContainer>
+      <AlignmentStyle.LeftAlignedContainer>
         <Button onClick={handleBack}>Back</Button>
-      </LeftAlignedContainer>
-      <CenterAlignedContainer>
-        <LanguageChooser lang={lang} setLang={setLang}/>
-      </CenterAlignedContainer>
-      <Content>
-        <DetailContainer>
-          <LeftAlignedContainer>
+      </AlignmentStyle.LeftAlignedContainer>
+      <AlignmentStyle.CenterAlignedContainer>
+        <LanguageChooser lang={lang} setLang={setLang} />
+      </AlignmentStyle.CenterAlignedContainer>
+      <Style.Content>
+        <Style.DetailContainer>
+          <AlignmentStyle.LeftAlignedContainer>
             <h3>Title</h3>
-          </LeftAlignedContainer>
-          <TitleInput value={lang === "en" ? titleEn : titleFr} onChange={handleTitleChange}/>
-        </DetailContainer>
-        <OverviewImageContainer>
-          <DetailContainer>
+          </AlignmentStyle.LeftAlignedContainer>
+          <Style.TitleInput
+            value={lang === "en" ? titleEn : titleFr}
+            onChange={handleTitleChange}
+          />
+        </Style.DetailContainer>
+        <Style.OverviewImageContainer>
+          <Style.DetailContainer>
             <h3>Overview</h3>
-            <OverviewTextArea value={lang === "en" ? overivewEn : overivewFr} rows={15} onChange={handleOverviewChange}></OverviewTextArea>
-          </DetailContainer>
-          <DetailContainer>
+            <Style.OverviewTextArea
+              value={lang === "en" ? overivewEn : overivewFr}
+              rows={15}
+              onChange={handleOverviewChange}
+            ></Style.OverviewTextArea>
+          </Style.DetailContainer>
+          <Style.DetailContainer>
             <h3>Images and Videos</h3>
             <FileUploader />
-          </DetailContainer>
-        </OverviewImageContainer>
-      </Content>
-      <RightAlignedContainer><SmallButton onClick={() => setVisibleModal(true)}>Save changes</SmallButton></RightAlignedContainer>
-      {visibleModal && 
-      <ModalContainer>
-        <SaveChangesModal onSave={handleSave} onToggleLanguage={handleToggleLanguage}/>
-      </ModalContainer>
-      }
-    </PageContainer>
+          </Style.DetailContainer>
+        </Style.OverviewImageContainer>
+      </Style.Content>
+      <AlignmentStyle.RightAlignedContainer>
+        <SmallButton onClick={() => setVisibleModal(true)}>
+          Save changes
+        </SmallButton>
+      </AlignmentStyle.RightAlignedContainer>
+      {visibleModal && (
+        <ModalContainer>
+          <SaveChangesModal
+            onSave={handleSave}
+            onToggleLanguage={handleToggleLanguage}
+          />
+        </ModalContainer>
+      )}
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px
-`
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  Content: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  TitleInput: styled.input`
+    border: solid 1px black;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px
-`
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px #007bff33;
+    }
+  `,
+  DetailContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-basis: 0;
+    flex-grow: 1;
+  `,
+  OverviewImageContainer: styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+  `,
+  OverviewTextArea: styled.textarea`
+    width: 100%;
 
-const TitleInput = styled.input`
-  border: solid 1px black;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px #007bff33;
-  }
-`
-
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex-basis: 0;
-  flex-grow: 1;
-`
-
-const OverviewImageContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 30px;
-`
-
-const OverviewTextArea = styled.textarea`
-  width: 100%;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px #007bff33;
-  }
-`
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px #007bff33;
+    }
+  `,
+};

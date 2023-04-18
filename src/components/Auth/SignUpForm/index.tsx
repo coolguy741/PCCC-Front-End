@@ -1,152 +1,273 @@
-import { Form } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button } from "../../Global/Button";
+import { useAPI } from "../../../hooks/useAPI";
+import { avatars_data } from "../../../lib/avatars/data";
+import { useSignUpStore } from "../../../stores/signUpStore";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
+import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { Select } from "../../Global/Select";
+import { ArrowRight } from "../../Icons";
 
-interface SignUpFormProps {
-  setNav: (nav: number) => void;
-  over18: boolean | null;
-}
+export const SignUpForm = () => {
+  const [_firstUserName, _setFirstUserName] = useState("");
+  const [_secondUserName, _setSecondUserName] = useState("");
+  const [_thirdUserName, _setThirdUserName] = useState("");
+  const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
+  const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
+    [],
+  );
+  const changeStep = useSignUpStore((state) => state.changeStep);
+  const firstUserName = useSignUpStore((state) => state.firstUserName);
+  const secondUserName = useSignUpStore((state) => state.secondUserName);
+  const thirdUserName = useSignUpStore((state) => state.thirdUserName);
+  const setFirstUserName = useSignUpStore((state) => state.setFirstUserName);
+  const setSecondUserName = useSignUpStore((state) => state.setSecondUserName);
+  const setThirdUserName = useSignUpStore((state) => state.setThirdUserName);
 
-export const SignUpForm = ({ setNav, over18 }: SignUpFormProps) => {
-  console.log(over18);
+  const { api } = useAPI();
+
+  const getUsernames = async () => {
+    const { data } = await api.appCustomUsernameChoicesUsernameChoicesList();
+
+    setFirstNames(data.firstNames);
+    setSecondNames(data.secondNames);
+
+    return data;
+  };
+
+  useEffect(() => {
+    getUsernames();
+  }, []);
+
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setFirstUserName(_firstUserName);
+    setSecondUserName(_secondUserName);
+    setThirdUserName(_thirdUserName);
+
+    changeStep("input-security");
+  };
+
   return (
-    <Container>
-      <div className="signup-form">
-        <div className="signup-form--left">
-          {over18 && (
-            <label>
-              <span>Name</span>
-              <Input type="text" />
-            </label>
-          )}
-          {over18 && (
-            <label>
-              <span>Title</span>
-              <Input type="text" />
-            </label>
-          )}
-          <label>
-            <span>Birth year</span>
-            <Input type="text" />
-          </label>
-          {over18 && (
-            <label>
-              <span>School ID Code</span>
-              <Input type="text" />
-            </label>
-          )}
-          {over18 && (
-            <label>
-              <span>School</span>
-              <Input type="text" />
-            </label>
-          )}
-          <label>
-            <span>Province</span>
-            <Input type="text" />
-          </label>
-          {over18 && (
-            <label>
-              <span>Email address</span>
-              <Input type="text" />
-            </label>
-          )}
-        </div>
-        <div className="signup-form--right">
-          <label>
-            <span>User name</span>
-            <Input type="text" />
-          </label>
-
-          <span>Choose avatar</span>
+    <Style.Container onSubmit={submitHandler}>
+      <section className="sign-up">
+        <h1>Sign Up</h1>
+        <section className="form">
+          <legend>Account Info</legend>
+          <fieldset>
+            <label>Name</label>
+            <Input width="60%" placeholder="John" />
+          </fieldset>
+          <fieldset>
+            <label>Title</label>
+            <Input width="60%" placeholder="Student" />
+          </fieldset>
+          <fieldset>
+            <label>Birth Year</label>
+            <div className="birth-split">
+              <Input width="25%" placeholder="MM" />
+              <Input width="25%" placeholder="DD" />
+              <Input width="40%" placeholder="YYYY" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <label>School ID Code</label>
+            <Input width="60%" placeholder="1234567890" />
+          </fieldset>
+          <fieldset>
+            <label>School</label>
+            <Input width="60%" placeholder="George Collage" />
+          </fieldset>
+          <fieldset>
+            <label>Province</label>
+            <Input width="60%" placeholder="Ontario" />
+          </fieldset>
+          <fieldset>
+            <label>Email Address</label>
+            <Input width="60%" placeholder="Johndoe@gmail.com" />
+          </fieldset>
+        </section>
+      </section>
+      <section className="avatar-selection">
+        <h2>Avatar Selection</h2>
+        <article className="username-selection">
+          <label>Username</label>
+          <Select
+            onChange={(e) => _setFirstUserName(e.target.value)}
+            value={_firstUserName}
+            className="username-select"
+          >
+            {firstNames &&
+              firstNames.map((name, index) => (
+                <option key={index}>{name}</option>
+              ))}
+          </Select>
+          <Select
+            onChange={(e) => _setSecondUserName(e.target.value)}
+            value={_secondUserName}
+            className="username-select"
+          >
+            {secondNames &&
+              secondNames.map((name, index) => (
+                <option key={index}>{name}</option>
+              ))}
+          </Select>
+          <Input
+            type="text"
+            onChange={(e) => _setThirdUserName(e.target.value)}
+            value={_thirdUserName}
+            placeholder="12345"
+          />
+        </article>
+        <article className="choose-avatar">
+          <label>Choose Avatar</label>
           <div className="avatars">
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            {/* TODO: Improve avatar animations */}
+            {avatars_data.map((avatar) => (
+              <Style.Button className="avatar">{avatar.icon()}</Style.Button>
+            ))}
           </div>
-        </div>
-      </div>
-      <div className="back-button">
-        <Button onClick={() => (over18 ? setNav(1) : setNav(0))}>Back</Button>
-      </div>
-      <div className="next-button">
-        <Button onClick={() => setNav(3)}>Next</Button>
-      </div>
-    </Container>
+        </article>
+        <Button className="next" size="small" type="submit">
+          Next
+          <ArrowRight />
+        </Button>
+      </section>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  font-size: 1.2rem;
-
-  .signup-form {
+const Style = {
+  Container: styled.form`
+    width: 80%;
+    height: 85%;
     display: flex;
-    gap: 10vw;
+    align-items: center;
+    justify-content: space-between;
 
-    .signup-form {
-      &--left,
-      &--right {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    h1 {
+      font-weight: 600;
+      font-size: 25px;
+      line-height: 30px;
+      margin-bottom: 20px;
+    }
 
-        label {
-          display: flex;
-          align-items: center;
+    .sign-up {
+      width: 45%;
+      height: 100%;
+    }
 
-          span {
-            width: 15vw;
-          }
+    .avatar-selection {
+      width: 50%;
+      height: 90%;
+      align-self: flex-end;
+      display: flex;
+      flex-direction: column;
+    }
 
-          input,
-          select {
-            width: 18vw;
-          }
-        }
+    .form {
+      ${glassBackground};
+      padding: 40px 20px;
+      height: auto;
+
+      legend {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 25px;
       }
 
-      &--right {
-        span {
-          margin-top: 2rem;
+      fieldset {
+        width: 100%;
+        height: 2.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .birth-split {
+          width: 60%;
+          display: flex;
+          justify-content: space-between;
+          height: 100%;
         }
 
-        .avatars {
-          display: flex;
-          gap: 1rem;
-          max-width: 30vw;
-          flex-wrap: wrap;
-
-          div {
-            width: 50px;
-            height: 50px;
-            background-color: var(--red);
-          }
+        label {
+          width: 35%;
+          color: #505050;
+          font-weight: 400;
+          font-size: 1rem;
+          line-height: 25px;
         }
       }
     }
-  }
 
-  .back-button {
-    position: absolute;
-    top: 8rem;
-    left: 2rem;
-  }
+    .avatars {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
 
-  .next-button {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-  }
-`;
+    .username-selection {
+      display: flex;
+      margin: 15px 0;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+
+      label {
+        width: 20%;
+      }
+
+      fieldset {
+        width: 25%;
+      }
+
+      input {
+        width: 20%;
+      }
+    }
+
+    button.next {
+      margin-top: auto;
+      margin-left: auto;
+      width: 237px;
+
+      svg {
+        margin-left: 10px;
+      }
+    }
+  `,
+  Button: styled.button`
+    width: 75px;
+    height: 75px;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 4px solid white;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    transition: border 0.25s ease-in;
+
+    svg {
+      position: absolute;
+      width: 69px;
+      height: 69px;
+      transition: width 0.25s linear, height 0.25s linear,
+        transform 0.3s ease-out;
+    }
+
+    &:hover {
+      border: 4px solid rgba(0, 0, 0, 0.75);
+      svg {
+        width: 75px;
+        height: 75px;
+        transform: translate(2px, -2px);
+      }
+    }
+  `,
+};

@@ -4,10 +4,10 @@ import { Uploader } from "../../Uploader";
 
 export const OverviewForm = () => {
   return (
-    <Container>
+    <Style.Container>
       <div>
         <div>Overview</div>
-        <Content className="border">
+        <Style.Content className="border">
           <div>
             Providing food for your loved ones is powerful. Throughout nature
             and history, providers have helped their family groups and
@@ -46,27 +46,28 @@ export const OverviewForm = () => {
             Activity 2 and 3 we’ll explore foraging, and all the ways of knowing
             when it’s safe and when it’s not.
           </div>
-        </Content>
+        </Style.Content>
       </div>
       <div className="flex">
         <Uploader />
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
-`;
+const Style = {
+  Container: styled.div`
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  `,
+  Content: styled.div`
+    font-size: 0.75rem;
 
-const Content = styled.div`
-  font-size: 0.75rem;
-
-  .section-title {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-top: 10px;
-  }
-`;
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+  `,
+};

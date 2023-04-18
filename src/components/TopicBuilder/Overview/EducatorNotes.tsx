@@ -11,7 +11,7 @@ export const TopicEducatorNotes = () => {
           <option value={"curriculum-a"}>Curriculm A</option>
         </select>
       </div>
-      <NotesContainer>
+      <Style.NotesContainer>
         <h4>Educator Notes</h4>
         <div>
           <div>
@@ -45,30 +45,32 @@ export const TopicEducatorNotes = () => {
             </p>
           </div>
         </div>
-      </NotesContainer>
+      </Style.NotesContainer>
     </div>
   );
 };
 
-const NotesContainer = styled.div`
-  h4 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 10px 0;
-  }
+const Style = {
+  NotesContainer: styled.div`
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 10px 0;
+    }
 
-  & > div {
     & > div {
-      p {
-        font-weight: 300;
-      }
+      & > div {
+        p {
+          font-weight: 300;
+        }
 
-      font-size: 0.75rem;
-      strong {
-        font-size: 0.8rem;
-        margin-top: 10px;
-        font-weight: 700 !important;
+        font-size: 0.75rem;
+        strong {
+          font-size: 0.8rem;
+          margin-top: 10px;
+          font-weight: 700 !important;
+        }
       }
     }
-  }
-`;
+  `,
+};

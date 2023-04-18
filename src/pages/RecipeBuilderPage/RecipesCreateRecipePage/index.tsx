@@ -5,59 +5,76 @@ import { Button } from "../../../components/Global/Button";
 import { EditableText } from "../../../components/Global/EditableText";
 import { FileUploader } from "../../../components/Global/FileUploader";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
+import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import { NumberSetter } from "../../../components/Recipes/NumberSetter";
-import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
+import {
+  Ingredient,
+  SelectIngredients,
+} from "../../../components/Recipes/SelectIngredients";
 import { SelectTags, Tag } from "../../../components/Recipes/SelectTags";
-import { SelectIngredients, Ingredient } from "../../../components/Recipes/SelectIngredients";
 import mockData from "../../../lib/mockData/recipes/recipesCreate.json";
 
 export const RecipesCreateRecipePage = () => {
-  const [currentLanguage, setCurrentLanguage] = useState('en');
-  const [ingredients, setIngredients] =  useState<Ingredient[]>([]);
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   const handlePreview = () => {
     navigate("./../recipe/preview");
-  }
+  };
 
   const showModal = () => {
     setVisibleModal(true);
-  }
+  };
 
   const handleSave = () => {
-    navigate('./../recipe/preview');
-  }
+    navigate("./../recipe/preview");
+  };
 
   const handleToggleLanguage = () => {
     setVisibleModal(false);
-    if(currentLanguage === 'en')setCurrentLanguage('fr');
-    if(currentLanguage === 'fr')setCurrentLanguage('en');
-  }
+    if (currentLanguage === "en") setCurrentLanguage("fr");
+    if (currentLanguage === "fr") setCurrentLanguage("en");
+  };
 
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <Button onClick={handleBack}>Back</Button>
       <div className="title-buttons-container">
         <h2>Create recipe</h2>
         <div className="language-toggle">
-          {currentLanguage == "en" ?
+          {currentLanguage == "en" ? (
             <>
-              <SmallButton onClick={() => setCurrentLanguage('en')} bgColor="green">English</SmallButton>
-              <SmallButton onClick={() => setCurrentLanguage('fr')}>French</SmallButton>
+              <SmallButton
+                onClick={() => setCurrentLanguage("en")}
+                bgColor="green"
+              >
+                English
+              </SmallButton>
+              <SmallButton onClick={() => setCurrentLanguage("fr")}>
+                French
+              </SmallButton>
             </>
-            :
+          ) : (
             <>
-              <SmallButton onClick={() => setCurrentLanguage('en')}>English</SmallButton>
-              <ClickedButton onClick={() => setCurrentLanguage('fr')} bgColor="green">French</ClickedButton>
+              <SmallButton onClick={() => setCurrentLanguage("en")}>
+                English
+              </SmallButton>
+              <Style.ClickedButton
+                onClick={() => setCurrentLanguage("fr")}
+                bgColor="green"
+              >
+                French
+              </Style.ClickedButton>
             </>
-          }
+          )}
         </div>
         <SmallButton onClick={handlePreview}>Preview</SmallButton>
       </div>
@@ -66,15 +83,23 @@ export const RecipesCreateRecipePage = () => {
           <h3>Recipe Name</h3>
           <EditableText text={"Chocolate Granola Bites"} />
           <h3>What is it good for?</h3>
-          <EditableText text={"These delicious bites are jam packed with fiber to keep you f"} />
+          <EditableText
+            text={
+              "These delicious bites are jam packed with fiber to keep you f"
+            }
+          />
           <div className="images-videos-tags-container">
-            <div style={{width:'65%'}}>
+            <div style={{ width: "65%" }}>
               <h3>Images and Videos</h3>
               <FileUploader />
             </div>
-            <div style={{width:'35%'}}>
+            <div style={{ width: "35%" }}>
               <h3>Tags</h3>
-              <SelectTags tagOptions={mockData.Tags} tags={tags} setTags={setTags}/>
+              <SelectTags
+                tagOptions={mockData.Tags}
+                tags={tags}
+                setTags={setTags}
+              />
             </div>
           </div>
         </div>
@@ -85,74 +110,84 @@ export const RecipesCreateRecipePage = () => {
           </div>
           <div>
             <h3>Ingredients</h3>
-            <SelectIngredients ingredients={ingredients} setIngredients={setIngredients} ingredientOptions={mockData.Ingredients} unitOptions={mockData.Units}/>
+            <SelectIngredients
+              ingredients={ingredients}
+              setIngredients={setIngredients}
+              ingredientOptions={mockData.Ingredients}
+              unitOptions={mockData.Units}
+            />
           </div>
           <div>
             <h3>Directions</h3>
-            <EditableText text={"Combine all the ingredients together in a large bowl mix until well combined.Refrigerate for about 30 minutes Scoop out a tablespoon portion of mixture, roll each portion in the palm of your hands and place each ball into a resealable container for storage. Bites should be refrigerated to maintain shape or frozen for long term storage."} />
+            <EditableText
+              text={
+                "Combine all the ingredients together in a large bowl mix until well combined.Refrigerate for about 30 minutes Scoop out a tablespoon portion of mixture, roll each portion in the palm of your hands and place each ball into a resealable container for storage. Bites should be refrigerated to maintain shape or frozen for long term storage."
+              }
+            />
           </div>
-          <RightAlignedContainer>
+          <Style.RightAlignedContainer>
             <SmallButton onClick={showModal}>Save</SmallButton>
-          </RightAlignedContainer>
+          </Style.RightAlignedContainer>
         </div>
       </div>
-      {visibleModal && 
-      <ModalContainer>
-        <SaveChangesModal onSave={handleSave} onToggleLanguage={handleToggleLanguage}/>
-      </ModalContainer>
-      }
-    </PageContainer>
+      {visibleModal && (
+        <ModalContainer>
+          <SaveChangesModal
+            onSave={handleSave}
+            onToggleLanguage={handleToggleLanguage}
+          />
+        </ModalContainer>
+      )}
+    </Style.PageContainer>
   );
 };
 
+const Style = {
+  ClickedButton: styled(SmallButton)`
+    background-color: green;
+  `,
+  PageContainer: styled.div`
+    .title-buttons-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-const ClickedButton = styled(SmallButton)`
-  background-color: green;
-`
+      .language-toggle {
+        display: flex;
+        gap: 20px;
+      }
+    }
 
-const PageContainer = styled.div`
-  .title-buttons-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .language-toggle{
+    .content {
       display: flex;
       gap: 20px;
-    }
-  }
 
-  .content{
-    display: flex;
-    gap: 20px;
+      .left-content {
+        width: 50%;
 
-    .left-content{
-      width: 50%;
-
-      .images-videos-tags-container{
-        display: flex; 
-        justify-content: space-between;
-        gap: 20px;
-
+        .images-videos-tags-container {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+        }
       }
-    }
 
-    .right-content{
-      display:flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 50%;
-
-      .servering-size-container{
+      .right-content {
         display: flex;
-        align-items: center;
+        flex-direction: column;
         gap: 20px;
+        width: 50%;
+
+        .servering-size-container {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
       }
     }
-  }
-`;
-
-const RightAlignedContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
+  `,
+  RightAlignedContainer: styled.div`
+    display: flex;
+    justify-content: flex-end;
+  `,
+};

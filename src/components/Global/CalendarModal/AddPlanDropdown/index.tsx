@@ -23,7 +23,7 @@ export const AddPlanDropdown: React.FC<Props> = ({ add }) => {
       open={open}
       trigger={<i>x</i>}
       content={
-        <AddPlanForm>
+        <Style.AddPlanForm>
           <h3>Add Meal Plan</h3>
           <div className="form-container">
             <div>
@@ -41,22 +41,24 @@ export const AddPlanDropdown: React.FC<Props> = ({ add }) => {
               <Button onClick={close}>Add</Button>
             </div>
           </div>
-        </AddPlanForm>
+        </Style.AddPlanForm>
       }
     />
   );
 };
 
-const AddPlanForm = styled.div`
-  padding: 30px;
-  & h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0;
-  }
-  & .form-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-  }
-`;
+const Style = {
+  AddPlanForm: styled.div`
+    padding: 30px;
+    & h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    & .form-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+  `,
+};

@@ -5,7 +5,7 @@ import foodways from "../../lib/mockData/foodways/foodways.json";
 
 export const FoodwaysPage = () => {
   return (
-    <Container>
+    <Style.Container>
       <h1>Foodways</h1>
       <div className="content">
         <div className="content__header">
@@ -40,47 +40,49 @@ export const FoodwaysPage = () => {
           ))}
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  .content {
+const Style = {
+  Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 2rem;
 
-    &__header {
+    .content {
       display: flex;
-      width: 100%;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 2rem;
 
-      &__sort {
+      &__header {
         display: flex;
-        flex-direction: column;
+        width: 100%;
+        justify-content: space-between;
+
+        &__sort {
+          display: flex;
+          flex-direction: column;
+        }
+
+        &__buttons {
+          display: flex;
+          gap: 1rem;
+        }
       }
 
-      &__buttons {
-        display: flex;
-        gap: 1rem;
+      &__body {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 0.5rem;
+
+        &__item {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          padding: 1rem;
+          background-color: #f5f5f5;
+        }
       }
     }
-
-    &__body {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 0.5rem;
-
-      &__item {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-        background-color: #f5f5f5;
-      }
-    }
-  }
-`;
+  `,
+};

@@ -53,14 +53,14 @@ export const TopicCreateForm: React.FC<Props> = ({
           ? `/dashboard/topics/${topicId}/${tabs[index]}/edit`
           : `/dashboard/topics/create/${tabs[index]}`
         : basePath,
-    []
+    [isEdit, topicId],
   );
   const handleNext = () => {
     if (tabIndex < tabs.length - 1) {
       navigate(
         isEdit
           ? `/dashboard/topics/${topicId}/${tabs[tabIndex + 1]}/edit`
-          : `/dashboard/topics/create/${tabs[tabIndex + 1]}`
+          : `/dashboard/topics/create/${tabs[tabIndex + 1]}`,
       );
     } else {
       setIsOpen(true);
@@ -81,12 +81,12 @@ export const TopicCreateForm: React.FC<Props> = ({
           <LinkButton to="#">Enlish</LinkButton>
           <LinkButton to="#">French</LinkButton>
         </div>
-        <StyledLink
+        <Style.Link
           href={`/dashboard/topics/preview/create/${tabs[tabIndex]}`}
           target="_blank"
         >
           Preview
-        </StyledLink>
+        </Style.Link>
       </div>
 
       <div className="mt-4">{topicId ? "Edit" : "Create"} Topic</div>
@@ -105,14 +105,16 @@ export const TopicCreateForm: React.FC<Props> = ({
   );
 };
 
-const StyledLink = styled.a`
-  background-color: var(--yellow);
-  border: none;
-  border-radius: 2rem;
-  color: #3d3d3d;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 0.75rem;
-  padding: 0.75rem 1.125rem;
-  vertical-align: top;
-`;
+const Style = {
+  Link: styled.a`
+    background-color: var(--yellow-500);
+    border: none;
+    border-radius: 2rem;
+    color: #3d3d3d;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.75rem 1.125rem;
+    vertical-align: top;
+  `,
+};

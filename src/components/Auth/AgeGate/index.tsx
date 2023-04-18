@@ -1,72 +1,126 @@
-import { SetStateAction, useState } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
-import { Button } from "../../Global/Button";
+import { useSignUpStore } from "../../../stores/signUpStore";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
+import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { ArrowRight } from "../../Icons";
 
-interface AgeGateProps {
-  setNav: (nav: number) => void;
-  setOver18: (over18: boolean) => void;
-}
+export const AgeGate = () => {
+  const [_birthYear, _setBirthYear] = useState("");
+  const [_province, _setProvince] = useState("");
+  const setBirthYear = useSignUpStore((state) => state.setBirthYear);
+  const setProvince = useSignUpStore((state) => state.setProvince);
+  const setOver18 = useSignUpStore((state) => state.setOver18);
+  const changeStep = useSignUpStore((state) => state.changeStep);
 
-export const AgeGate = ({ setNav, setOver18 }: AgeGateProps) => {
-  const [birthYear, setBirthYear] = useState<number | null>(null);
+  const submitHandler = (event: FormEvent<HTMLElement>) => {
+    event.preventDefault();
 
-  const submitHandler = () => {
     const currentYear = new Date().getFullYear();
 
-    if (birthYear !== null) {
-      if (currentYear - birthYear >= 18) {
+    if (_birthYear !== null && _province !== null) {
+      if (currentYear - parseInt(_birthYear) >= 18) {
         setOver18(true);
-        setNav(1);
+        changeStep("role");
       } else {
         setOver18(false);
-        setNav(2);
+        changeStep("input-information");
       }
+
+      setBirthYear(parseInt(_birthYear));
+      setProvince(_province);
     }
+    changeStep("role");
   };
 
   return (
-    <Container>
-      <div className="inner">
-        <h3>What year were you born?</h3>
-        <div>
+    <Style.Container>
+      <h1>Welcome</h1>
+      <p>We will need some basic information to setup your account</p>
+      <form onSubmit={submitHandler}>
+        <h2>Sign up</h2>
+        <fieldset>
+          <label>What year were you born?</label>
+          <div className="birth-split">
+            <Input width="15%" placeholder="MM" />
+            <Input width="15%" placeholder="DD" />
+            <Input
+              width="18%"
+              placeholder="YYYY"
+              onChange={(e) => _setBirthYear(e.target.value)}
+              value={_birthYear}
+            />
+          </div>
+        </fieldset>
+        <fieldset>
+          <label>What is your province?</label>
           <Input
             type="text"
-            onChange={(e) => setBirthYear(e.target.value)}
-            value={birthYear}
+            onChange={(e) => _setProvince(e.target.value)}
+            value={_province}
+            width="67.5%"
+            placeholder="Ontario"
           />
-          <div className="back-button">
-            <Button onClick={() => setNav(0)}>Back</Button>
-          </div>
-          <div className="next-button">
-            <Button onClick={submitHandler}>Next</Button>
-          </div>
-        </div>
-      </div>
-    </Container>
+        </fieldset>
+        <Button size="small" fullWidth type="submit">
+          Continue to the next step
+          <ArrowRight width="15" />
+        </Button>
+      </form>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 500px;
+    height: 600px;
+    ${glassBackground}
 
-  .inner {
-    div {
+    label {
+      font-size: 16px;
+      color: #505050;
+      margin: 15px 0;
+    }
+
+    input {
+      margin: 15px 0;
+      margin-right: 15px;
+    }
+
+    p {
+      margin-top: 12px;
+      font-size: 18px;
+      line-height: 24px;
+      color: #505050;
+    }
+
+    fieldset {
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    form {
+      padding: 0;
+      height: 400px;
       display: flex;
+      margin-top: 15px;
       flex-direction: column;
     }
 
-    .back-button {
-      position: absolute;
-      top: 8rem;
-      left: 2rem;
+    button {
+      margin-top: auto;
+      svg {
+        margin-left: 10px;
+      }
     }
-
-    .next-button {
-      position: absolute;
-      bottom: 2rem;
-      right: 2rem;
-    }
-  }
-`;
+  `,
+};

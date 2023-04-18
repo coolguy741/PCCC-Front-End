@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Calendar } from "../../components/Global/Calendar";
-import { LinkButton } from "../../components/Global/Button/Link";
-import { CalendarPopup } from "../../components/Calendar/Popup";
 import { CalendarFilter } from "../../components/Calendar/Filter/Index";
+import { CalendarPopup } from "../../components/Calendar/Popup";
+import { LinkButton } from "../../components/Global/Button/Link";
+import { Calendar } from "../../components/Global/Calendar";
 import { useCalendarEventsStore } from "../../stores/eventsStore";
 
 export const CalendarPage = () => {
@@ -37,7 +37,7 @@ export const CalendarPage = () => {
 
   return (
     <>
-      <Container>
+      <Style.Container>
         <Calendar
           events={events}
           height="750px"
@@ -48,13 +48,13 @@ export const CalendarPage = () => {
             day: "Day",
           }}
         />
-        <CalendarSideMenu>
+        <Style.CalendarSideMenu>
           <LinkButton to="print">Print</LinkButton>
           <div>
             <CalendarFilter />
           </div>
-        </CalendarSideMenu>
-      </Container>
+        </Style.CalendarSideMenu>
+      </Style.Container>
       <CalendarPopup
         position={position}
         isOpen={isOpen}
@@ -65,25 +65,26 @@ export const CalendarPage = () => {
   );
 };
 
-const Container = styled.div`
-  padding: 20px;
-  display: flex;
-  gap: 40px;
-`;
-
-const CalendarSideMenu = styled.div`
-  width: 250px;
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  align-items: end;
-  row-gap: 64px;
-
-  & > div {
-    flex: auto;
+const Style = {
+  Container: styled.div`
+    padding: 20px;
     display: flex;
+    gap: 40px;
+  `,
+  CalendarSideMenu: styled.div`
+    width: 250px;
+    display: flex;
+    overflow: hidden;
     flex-direction: column;
     align-items: end;
-    row-gap: 20px;
-  }
-`;
+    row-gap: 64px;
+
+    & > div {
+      flex: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      row-gap: 20px;
+    }
+  `,
+};

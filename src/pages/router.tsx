@@ -1,83 +1,83 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
-import { HomePage } from "./HomePage";
-import { SignInPage } from "./AuthPage/SignInPage";
-import { SignUpPage } from "./AuthPage/SignUpPage";
-import { DashboardPage } from "./DashboardPage";
 import { AccountsPage } from "./AccountsPage";
-import { GroupOrganizerPage } from "./GroupOrganizerPage";
-import { MealPlannerPage } from "./MealPlannerPage";
-import { TopicBuilderPage } from "./TopicBuilderPage";
-import { MealTimeMomentsPage } from "./MealTimeMomentsPage/MealtimeMomentsPage";
-import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
-import { FoodwaysPage } from "./FoodwaysPage";
-import { RecipesBuilderPage } from "./RecipeBuilderPage";
-import { CalendarPage } from "./CalendarPage";
-import { ReportsPage } from "./ReportsPage";
-import { TestLandingPage } from "./TestLandingPage";
-import { AchievementsPage } from "./AchievementsPage";
-import { AuthPage } from "./AuthPage";
-import { MealPlannerPrintPage } from "./MealPlannerPage/Print";
-import { PrintPage } from "./PrintPage";
-import { MealPlannerGroceryPage } from "./MealPlannerPage/Grocery";
-import { MealPlannerGroceryPrintPage } from "./MealPlannerPage/Grocery/Print";
-import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
-import { AccountsProfilesPage } from "./AccountsPage/Profiles";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
-import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
-import { AccountsUserLessonAssessmentPage } from "./AccountsPage/Profiles/LessonAssessment";
-import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/LessonAssessmentPrint";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
-import { AccountsGroupPage } from "./AccountsPage/Groups/Group";
 import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
+import { AccountsGroupPage } from "./AccountsPage/Groups/Group";
 import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
-import { TempHomePage } from "./TempHomePage";
+import { AccountsProfilesPage } from "./AccountsPage/Profiles";
+import { AccountsUserLessonAssessmentPage } from "./AccountsPage/Profiles/LessonAssessment";
+import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/LessonAssessmentPrint";
+import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
+import { AchievementsPage } from "./AchievementsPage";
+import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
+import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
+import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
+import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
+import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
+import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
+import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { AuthPage } from "./AuthPage";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
-import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
-import { Topics } from "./TopicBuilderPage/Topics";
-import { TopicCreatePage } from "./TopicBuilderPage/Create";
-import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
+import { SignInPage } from "./AuthPage/SignInPage";
+import { SignUpPage } from "./AuthPage/SignUpPage";
+import { CalendarPage } from "./CalendarPage";
+import { CalendarPrintPage } from "./CalendarPage/Print";
+import { CloudDrivePage } from "./CloudDrivePage";
+import { CookTogetherPage } from "./CookTogetherPage";
+import { DashboardPage } from "./DashboardPage";
+import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
+import { FoodwaysPage } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
-import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
-import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
-import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
+import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
-import { RecipesPage } from "./RecipeBuilderPage/RecipesPage";
+import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
+import GamePage from "./GamePage/GamePage";
+import { GamesPage } from "./GamesPage";
+import { GroupOrganizerPage } from "./GroupOrganizerPage";
+import { GrowTogetherPage } from "./GrowTogetherPage";
+import { HomePage } from "./HomePage";
+import { MealPlannerPage } from "./MealPlannerPage";
+import { MealPlannerGroceryPage } from "./MealPlannerPage/Grocery";
+import { MealPlannerGroceryPrintPage } from "./MealPlannerPage/Grocery/Print";
+import { MealPlannerPrintPage } from "./MealPlannerPage/Print";
+import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
+import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
+import { MealtimeMomentsBuilderPage } from "./MealTimeMomentsPage";
+import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
+import { MealtimeMomentPrintPage } from "./MealTimeMomentsPage/MealtimeMomentPrintPage";
+import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
+import { MealTimeMomentsEditMealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsEditMealTimeMomentPage";
+import { MealTimeMomentsPage } from "./MealTimeMomentsPage/MealtimeMomentsPage";
+import { MealTimeMomentsPreviewPage } from "./MealTimeMomentsPage/MealTimeMomentsPreviewPage";
+import { NotificationsPage } from "./NotificationsPage";
+import { PrintPage } from "./PrintPage";
+import { ProfilePage } from "./Profile";
+import { ProfileSettingsPage } from "./Profile/ProfileSettings";
+import { RecipesBuilderPage } from "./RecipeBuilderPage";
 import { RecipePage } from "./RecipeBuilderPage/RecipePage";
-import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
-import { RecipesCreateRecipePage } from "./RecipeBuilderPage/RecipesCreateRecipePage";
-import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
-import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
+import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesCreatePreviewRecipePage } from "./RecipeBuilderPage/RecipesCreatePreviewRecipePage";
-import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
-import { CloudDrivePage } from "./CloudDrivePage";
-import { MealtimeMomentPrintPage } from "./MealTimeMomentsPage/MealtimeMomentPrintPage";
-import { MealtimeMomentsBuilderPage } from "./MealTimeMomentsPage";
-import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
-import { MealTimeMomentsPreviewPage } from "./MealTimeMomentsPage/MealTimeMomentsPreviewPage";
-import { MealTimeMomentsEditMealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsEditMealTimeMomentPage";
-import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
-import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
-import { GrowTogetherPage } from "./GrowTogetherPage";
-import { CookTogetherPage } from "./CookTogetherPage";
-import { SearchPage } from "./SearchPage";
-import { CalendarPrintPage } from "./CalendarPage/Print";
+import { RecipesCreateRecipePage } from "./RecipeBuilderPage/RecipesCreateRecipePage";
+import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
+import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
+import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
+import { RecipesPage } from "./RecipeBuilderPage/RecipesPage";
+import { ReportsPage } from "./ReportsPage";
 import { ReportsPrintPage } from "./ReportsPage/Print";
-import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
-import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
-import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
-import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
-import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
-import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
-import { NotificationsPage } from "./NotificationsPage";
-import { ProfilePage } from "./Profile";
-import { ProfileSettingsPage } from "./Profile/ProfileSettings";
-import GamePage from "./GamePage/GamePage";
-import { GamesPage } from "./GamesPage";
+import { SearchPage } from "./SearchPage";
+import { TempHomePage } from "./TempHomePage";
+import { TestLandingPage } from "./TestLandingPage";
+import { TopicBuilderPage } from "./TopicBuilderPage";
+import { TopicCreatePage } from "./TopicBuilderPage/Create";
+import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
+import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
+import { Topics } from "./TopicBuilderPage/Topics";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage /> },
@@ -113,6 +113,7 @@ export const router = createBrowserRouter([
         <Outlet />
       </AuthPage>
     ),
+
     children: [{ path: "", element: <SignUpPage /> }],
   },
   {
@@ -285,10 +286,12 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "profile", element: <ProfilePage /> 
+        path: "profile",
+        element: <ProfilePage />,
       },
       {
-        path: "profile-settings", element: <ProfileSettingsPage /> 
+        path: "profile-settings",
+        element: <ProfileSettingsPage />,
       },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },

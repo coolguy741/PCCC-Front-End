@@ -6,27 +6,35 @@ interface SaveChangesModalProps {
   onToggleLanguage: () => void;
 }
 
-export const SaveChangesModal = ({ onSave, onToggleLanguage }: SaveChangesModalProps) => {
+export const SaveChangesModal = ({
+  onSave,
+  onToggleLanguage,
+}: SaveChangesModalProps) => {
   return (
-    <Modal>
-      <h3>The French content is incomplete. Are you sure you want to exit without it? </h3>
-      <ButtonGroup>
+    <Style.Modal>
+      <h3>
+        The French content is incomplete. Are you sure you want to exit without
+        it?{" "}
+      </h3>
+      <Style.ButtonGroup>
         <SmallButton onClick={onSave}>Save changes and continue</SmallButton>
-        <SmallButton onClick={onToggleLanguage}>Continue with other language</SmallButton>
-      </ButtonGroup>
-    </Modal>
+        <SmallButton onClick={onToggleLanguage}>
+          Continue with other language
+        </SmallButton>
+      </Style.ButtonGroup>
+    </Style.Modal>
   );
 };
 
-const Modal = styled.div`
-  background-color: white;
-  padding: 20px;
-  position: relative;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-`;
-
+const Style = {
+  Modal: styled.div`
+    background-color: white;
+    padding: 20px;
+    position: relative;
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  `,
+};

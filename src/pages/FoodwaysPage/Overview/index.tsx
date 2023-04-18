@@ -4,13 +4,12 @@ import styled from "styled-components";
 import { Globe } from "../../../components/Foodways/Globe";
 import { Button } from "../../../components/Global/Button";
 import { CalendarModal } from "../../../components/Global/CalendarModal";
-import foodways from "../../../lib/mockData/foodways/foodways.json";
 
 export const FoodwaysOverviewPage = () => {
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   return (
     <>
-      <Container>
+      <Style.Container>
         <h1>Foodways</h1>
         <div className="content">
           <div className="content__header">
@@ -59,7 +58,7 @@ export const FoodwaysOverviewPage = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Style.Container>
       <CalendarModal
         isOpen={showCalendarModal}
         type="foodways"
@@ -69,66 +68,68 @@ export const FoodwaysOverviewPage = () => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  .content {
+const Style = {
+  Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 2rem;
 
-    &__header {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-
-      &__buttons {
-        display: flex;
-        gap: 1rem;
-      }
-    }
-
-    &__body {
+    .content {
       display: flex;
       flex-direction: column;
+      gap: 2rem;
 
-      &__timeline {
-        &--horizontal {
-          width: 100%;
-          min-height: 5px;
-          background-color: var(--black);
-        }
+      &__header {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
 
-        &__container {
+        &__buttons {
           display: flex;
-          justify-content: space-around;
-
-          &--vertical {
-            height: 50px;
-            width: 5px;
-            background-color: var(--black);
-          }
+          gap: 1rem;
         }
       }
 
-      &__main {
+      &__body {
         display: flex;
+        flex-direction: column;
 
-        &__globe {
-          width: 100%;
+        &__timeline {
+          &--horizontal {
+            width: 100%;
+            min-height: 5px;
+            background-color: var(--black);
+          }
 
-          div {
-            height: 50vh;
+          &__container {
+            display: flex;
+            justify-content: space-around;
+
+            &--vertical {
+              height: 50px;
+              width: 5px;
+              background-color: var(--black);
+            }
           }
         }
 
-        &__text {
+        &__main {
           display: flex;
-          flex-direction: column;
-          justify-content: center;
+
+          &__globe {
+            width: 100%;
+
+            div {
+              height: 50vh;
+            }
+          }
+
+          &__text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
         }
       }
     }
-  }
-`;
+  `,
+};

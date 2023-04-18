@@ -7,16 +7,18 @@ interface DashboardPageProps {
 
 export const AuthPage = ({ children }: DashboardPageProps) => {
   return (
-    <Container>
+    <Style.Container>
       <Header />
       {children}
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-`;
+const Style = {
+  Container: styled.div`
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  `,
+};

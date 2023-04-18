@@ -1,6 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "../../Global/Icon";
-import { useState } from "react";
 import { SmallButton } from "../../Global/SmallButton";
 
 interface GroupCardProps {
@@ -26,7 +26,7 @@ export const GroupCard = ({ data }: GroupCardProps) => {
   };
 
   return (
-    <Container>
+    <Style.Container>
       <div className="row">
         <div className="col-50">
           <div className="group-name-container">
@@ -46,11 +46,11 @@ export const GroupCard = ({ data }: GroupCardProps) => {
         </div>
       </div>
       <div
-        className={`members-container ${isExpand == true ? "show" : "hide"}`}
+        className={`members-container ${isExpand === true ? "show" : "hide"}`}
       >
         {data.members.map((member, index) => (
           <div className="member-container" key={index}>
-            <img src={member.img} placeholder="image" />
+            <img src={member.img} alt="member" placeholder="image" />
             <p className="bold-text">{member.name}</p>
           </div>
         ))}
@@ -65,67 +65,69 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           <SmallButton>Delete</SmallButton>
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  border: 1px black solid;
-  padding: 10px;
+const Style = {
+  Container: styled.div`
+    border: 1px black solid;
+    padding: 10px;
 
-  .row {
-    width: 100%;
-    display: flex;
-    margin-bottom: 20px;
-
-    .col-50 {
+    .row {
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 50%;
+      margin-bottom: 20px;
 
-      .group-name-container {
+      .col-50 {
         display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 50%;
+
+        .group-name-container {
+          display: flex;
+          align-items: center;
+          p {
+            padding-left: 10px;
+          }
+        }
+
+        .icon-container {
+          width: 30px;
+          height: 30px;
+        }
+
+        p {
+          margin: 0px;
+          padding: 0px;
+        }
+      }
+    }
+
+    .members-container {
+      display: flex;
+      flex-wrap: wrap;
+
+      .member-container {
+        display: flex;
+        width: 50%;
         align-items: center;
+
+        img {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
+
         p {
           padding-left: 10px;
         }
       }
-
-      .icon-container {
-        width: 30px;
-        height: 30px;
-      }
-
-      p {
-        margin: 0px;
-        padding: 0px;
-      }
     }
-  }
 
-  .members-container {
-    display: flex;
-    flex-wrap: wrap;
-
-    .member-container {
-      display: flex;
-      width: 50%;
-      align-items: center;
-
-      img {
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-      }
-
-      p {
-        padding-left: 10px;
-      }
+    .hide {
+      display: none;
     }
-  }
-
-  .hide {
-    display: none;
-  }
-`;
+  `,
+};

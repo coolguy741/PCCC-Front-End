@@ -4,6 +4,9 @@ import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
 
 export const ResetPasswordForm = () => {
+  function placeholderForReset() {
+    return "clicked";
+  }
   return (
     <Container>
       <div>
@@ -21,7 +24,7 @@ export const ResetPasswordForm = () => {
             <Button>Back</Button>
           </Link>
         </div>
-        <Button onClick={() => {}}>Reset</Button>
+        <Button onClick={placeholderForReset}>Reset</Button>
       </div>
     </Container>
   );

@@ -3,38 +3,38 @@ import { Calendar } from "../../../../components/Global/CalendarModal/Calendar";
 
 export const AccountsGroupCalendarPrintPage = () => {
   const handleCheckboxChange = () => {
-  }
+    return "check box change";
+  };
 
   return (
-    <PageContainer>
-      <div className="left">
-        Group A Activities
-      </div>
+    <Style.PageContainer>
+      <div className="left">Group A Activities</div>
       <div className="right">
         <h1>Group Calendar</h1>
         <div className="calendar-container">
           <Calendar type={"plan"} />
         </div>
       </div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
 
-  .left {
-    width: 20%;
-    padding: 40px;
-    margin-top: 200px;
-    font-size: 1.8rem;
-  }
+    .left {
+      width: 20%;
+      padding: 40px;
+      margin-top: 200px;
+      font-size: 1.8rem;
+    }
 
-  .right {
-    padding-bottom : 40px;
-    padding-left : 40px;
-    padding-right : 40px;
-    width: 80%;
-  }
-  
-`
+    .right {
+      padding-bottom: 40px;
+      padding-left: 40px;
+      padding-right: 40px;
+      width: 80%;
+    }
+  `,
+};

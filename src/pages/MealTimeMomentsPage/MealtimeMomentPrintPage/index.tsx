@@ -1,50 +1,47 @@
 import styled from "styled-components";
-import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-print.json";
-import { CenterAlignedContainer } from "../../../components/Global/Container";
+import { AlignmentStyle } from "../../../components/Global/Container";
 import { Text } from "../../../components/Global/Text";
+import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-print.json";
 
 export const MealtimeMomentPrintPage = () => {
   return (
-    <PageContainer>
-      <CenterAlignedContainer>
+    <Style.PageContainer>
+      <AlignmentStyle.CenterAlignedContainer>
         <h1>Mealtime moments</h1>
-      </CenterAlignedContainer>
-      <CenterAlignedContainer>
+      </AlignmentStyle.CenterAlignedContainer>
+      <AlignmentStyle.CenterAlignedContainer>
         <h2>{mockData.title}</h2>
-      </CenterAlignedContainer>
-      <CenterAlignedContainer>
+      </AlignmentStyle.CenterAlignedContainer>
+      <AlignmentStyle.CenterAlignedContainer>
         <Text>{mockData.brief}</Text>
-      </CenterAlignedContainer>
-      <Content>
+      </AlignmentStyle.CenterAlignedContainer>
+      <Style.Content>
         <Text>{mockData.overview}</Text>
-        <StyledImage src={mockData.image} alt={mockData.alt}/> 
-      </Content>
-    </PageContainer>
+        <Style.StyledImage src={mockData.image} alt={mockData.alt} />
+      </Style.Content>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  padding: 0px 200px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`
-
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const RightButtonGroup = styled.div`
-  display: flex;
-  gap: 20px;
-`
-
-const Content = styled.div`
-  display: flex;
-  gap: 50px;
-`
-
-const StyledImage = styled.img`
-`
+const Style = {
+  PageContainer: styled.div`
+    padding: 0px 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  Content: styled.div`
+    display: flex;
+    gap: 50px;
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `,
+  RightButtonGroup: styled.div`
+    display: flex;
+    gap: 20px;
+  `,
+  StyledImage: styled.img``,
+};

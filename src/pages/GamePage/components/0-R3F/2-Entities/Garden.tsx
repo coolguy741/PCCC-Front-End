@@ -200,7 +200,7 @@ type GLTFResult = GLTF & {
 
 const Garden = (props: JSX.IntrinsicElements["group"]) => {
   const { nodes, materials } = useGLTF(
-    "/game_assets/models/Garden_Test-transformed.glb"
+    "/game_assets/models/Garden_Test-transformed.glb",
   ) as GLTFResult;
   return (
     <group {...props} dispose={null}>

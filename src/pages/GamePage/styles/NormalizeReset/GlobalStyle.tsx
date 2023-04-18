@@ -1,3 +1,4 @@
+import { isDesktop } from "react-device-detect";
 import { createGlobalStyle } from "styled-components";
 import { Fonts } from "../Elements/Fonts";
 import { DisableTouchPointerEvents } from "../Snippets/DisableTouchPointerEvents";
@@ -7,7 +8,6 @@ import { Forms } from "./Forms";
 import { Miscellaneous } from "./Miscellaneous";
 import { Normalize } from "./Normalize";
 import { Text } from "./Text";
-import { isDesktop } from "react-device-detect";
 
 const GlobalStyle = createGlobalStyle`
 

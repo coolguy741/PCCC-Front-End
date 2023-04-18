@@ -1,25 +1,25 @@
-import FullCalendar from "@fullcalendar/react";
+import { CalendarOptions, EventContentArg } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { CalendarOptions, EventApi, EventContentArg } from "@fullcalendar/core";
+import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import styled from "styled-components";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (
-      <CustomEventTitle>
+      <Style.CustomEventTitle>
         <p className="event-title">{eventInfo.event?.title}</p>
         <p className="event-content">
           {eventInfo.event?.extendedProps.type.toUpperCase()} -{" "}
           {eventInfo.event?.extendedProps.description}
         </p>
-      </CustomEventTitle>
+      </Style.CustomEventTitle>
     );
   };
 
   return (
-    <Container>
+    <Style.Container>
       <FullCalendar
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
@@ -42,73 +42,74 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         allDaySlot={false}
         editable={true}
       />
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  width: 100%;
+const Style = {
+  Container: styled.div`
+    width: 100%;
 
-  .fc-toolbar-chunk {
-    background: #2c3e50;
+    .fc-toolbar-chunk {
+      background: #2c3e50;
 
-    .fc-button {
-      &.fc-prev-button,
-      &.fc-next-button {
-        &:focus {
-          box-shadow: none;
-        }
-        margin-bottom: 10px;
-        span {
-          &:hover {
-            background: #999999;
+      .fc-button {
+        &.fc-prev-button,
+        &.fc-next-button {
+          &:focus {
+            box-shadow: none;
           }
-          border-radius: 100%;
-          background: #d9d9d9;
-          color: #000000;
+          margin-bottom: 10px;
+          span {
+            &:hover {
+              background: #999999;
+            }
+            border-radius: 100%;
+            background: #d9d9d9;
+            color: #000000;
+          }
+        }
+
+        &:hover {
+          border-color: #2c3e50;
+          background: #2c3e50;
         }
       }
-
-      &:hover {
-        border-color: #2c3e50;
-        background: #2c3e50;
+      .fc-toolbar-title {
+        color: white;
+        display: inline-block;
+        margin: 0;
+        padding: 20px;
       }
     }
-    .fc-toolbar-title {
-      color: white;
-      display: inline-block;
+
+    .fc-daygrid-day:hover {
+      background: #bce0f5;
+    }
+
+    @media only screen and (max-width: 1440px) {
+      .fc-header-toolbar.fc-toolbar {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+      }
+    }
+  `,
+  CustomEventTitle: styled.div`
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    p {
       margin: 0;
-      padding: 20px;
+      &.event-title {
+        text-transform: capitalize;
+        font-size: 9px;
+        font-weight: 700;
+      }
+      &.event-content {
+        font-size: 9px;
+      }
     }
-  }
-
-  .fc-daygrid-day:hover {
-    background: #bce0f5;
-  }
-
-  @media only screen and (max-width: 1440px) {
-    .fc-header-toolbar.fc-toolbar {
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-    }
-  }
-`;
-
-const CustomEventTitle = styled.div`
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  p {
-    margin: 0;
-    &.event-title {
-      text-transform: capitalize;
-      font-size: 9px;
-      font-weight: 700;
-    }
-    &.event-content {
-      font-size: 9px;
-    }
-  }
-`;
+  `,
+};

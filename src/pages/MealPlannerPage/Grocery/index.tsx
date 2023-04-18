@@ -147,7 +147,7 @@ const groceries: Grocery[] = [
 
 export const MealPlannerGroceryPage = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <MealPlanHeader
         title="Meal Planner"
         description="Plan your meal ahead of time for teh entire team."
@@ -166,43 +166,45 @@ export const MealPlannerGroceryPage = () => {
           ))}
         </div>
       </div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 810px;
+const Style = {
+  PageContainer: styled.div`
+    width: 100%;
+    height: 100%;
+    max-width: 810px;
 
-  .grocery-container {
-    position: relative;
-    padding-top: 1.25rem;
+    .grocery-container {
+      position: relative;
+      padding-top: 1.25rem;
 
-    h3 {
-      font-weight: 700;
-      font-size: 2rem;
-      font-family: "Noir Std";
-      line-height: 3.125rem;
-      margin: 0.25rem 0;
+      h3 {
+        font-weight: 700;
+        font-size: 2rem;
+        font-family: "Noir Std";
+        line-height: 3.125rem;
+        margin: 0.25rem 0;
+      }
+
+      .grocery-list {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .print-link-container {
+        position: absolute;
+        top: 50px;
+        right: 40px;
+      }
     }
 
-    .grocery-list {
-      display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(3, 1fr);
+    & *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
     }
-
-    .print-link-container {
-      position: absolute;
-      top: 50px;
-      right: 40px;
-    }
-  }
-
-  & *,
-  ::before,
-  ::after {
-    box-sizing: border-box;
-  }
-`;
+  `,
+};

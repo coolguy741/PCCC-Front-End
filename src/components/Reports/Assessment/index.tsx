@@ -4,7 +4,7 @@ import { LinkButton } from "../../Global/Button/Link";
 
 export const ReportAssessment = () => {
   return (
-    <Container>
+    <Style.Container>
       <div className="assessment-form">
         <div>
           <div>
@@ -71,19 +71,21 @@ export const ReportAssessment = () => {
           Export
         </LinkButton>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  .assessment-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-
-    & div {
+const Style = {
+  Container: styled.div`
+    .assessment-form {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 20px;
+
+      & div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
     }
-  }
-`;
+  `,
+};

@@ -5,11 +5,17 @@ interface IconProps {
   width?: string;
 }
 
-export const Icon = ({name, width = "100%"}: IconProps) => {
+export const Icon = ({ name, width = "100%" }: IconProps) => {
   return (
-    <StyledIcon src={`/images/${name}-icon.svg`} className={name} placeholder="icon" width={width}/>
+    <Style.Icon
+      src={`/images/${name}-icon.svg`}
+      className={name}
+      placeholder="icon"
+      width={width}
+    />
   );
 };
 
-const StyledIcon = styled.img`
-`;
+const Style = {
+  Icon: styled.img``,
+};

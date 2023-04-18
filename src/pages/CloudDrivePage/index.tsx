@@ -5,16 +5,18 @@ import { PageHeader } from "../../components/Global/Header/PageHeader";
 
 export const CloudDrivePage = () => {
   return (
-    <Container>
+    <Style.Container>
       <PageHeader title="Cloud Drive" />
       <Files />
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  gap: 30px;
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    gap: 30px;
+  `,
+};

@@ -6,17 +6,18 @@ interface AccountsPageProps {
 }
 
 export const AccountsPage = ({ children }: AccountsPageProps) => {
-
   return (
-    <PageContainer>
-      <AccountsHeader/>
+    <Style.PageContainer>
+      <AccountsHeader />
       <div className="content">{children}</div>
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  .content {
-    padding: 11px 0px;
-  }
-`;
+const Style = {
+  PageContainer: styled.div`
+    .content {
+      padding: 11px 0px;
+    }
+  `,
+};

@@ -14,7 +14,7 @@ const TAGS = [
 
 export const CreateFoodwaysPage = () => {
   return (
-    <Container>
+    <Style.Container>
       <h1>Foodways</h1>
       <div className="content">
         <div className="content__header">
@@ -83,109 +83,112 @@ export const CreateFoodwaysPage = () => {
           </div>
         </div>
       </div>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  .content {
+const Style = {
+  Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
 
-    &__header {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-
-      &__lang-buttons {
-        display: flex;
-        gap: 1rem;
-      }
-    }
-
-    &__body {
+    .content {
       display: flex;
       flex-direction: column;
       gap: 1rem;
 
-      &__form {
+      &__header {
         display: flex;
-        gap: 2rem;
+        width: 100%;
+        justify-content: space-between;
 
-        &__inputs {
+        &__lang-buttons {
           display: flex;
-          flex-direction: column;
-          width: 70%;
           gap: 1rem;
+        }
+      }
 
-          &--first-stop {
-            width: 50%;
+      &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &__form {
+          display: flex;
+          gap: 2rem;
+
+          &__inputs {
             display: flex;
             flex-direction: column;
+            width: 70%;
             gap: 1rem;
+
+            &--first-stop {
+              width: 50%;
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+
+              label {
+                display: flex;
+                gap: 1rem;
+                font-size: 1.2rem;
+
+                span {
+                  width: 5rem;
+                }
+              }
+
+              textarea {
+                width: 80%;
+                height: 100px;
+              }
+            }
 
             label {
               display: flex;
               gap: 1rem;
               font-size: 1.2rem;
-
-              span {
-                width: 5rem;
-              }
             }
 
             textarea {
-              width: 80%;
+              width: 100%;
               height: 100px;
             }
           }
 
-          label {
+          &__tags {
             display: flex;
-            gap: 1rem;
-            font-size: 1.2rem;
-          }
+            flex-direction: column;
+            width: 30%;
+            margin-top: -5rem;
 
-          textarea {
-            width: 100%;
-            height: 100px;
+            &__list {
+              display: flex;
+              gap: 1rem;
+              flex-wrap: wrap;
+              border: 1px solid #999;
+              padding: 1rem;
+
+              input {
+                width: 100%;
+              }
+
+              &__item {
+                background-color: var(--yellow-500);
+                padding: 0.5rem;
+              }
+            }
           }
         }
 
-        &__tags {
+        &__buttons {
           display: flex;
-          flex-direction: column;
-          width: 30%;
-          margin-top: -5rem;
-
-          &__list {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            border: 1px solid #999;
-            padding: 1rem;
-
-            input {
-              width: 100%;
-            }
-
-            &__item {
-              background-color: var(--yellow);
-              padding: 0.5rem;
-            }
-          }
+          justify-content: space-between;
+          width: 100%;
+          margin-top: 2rem;
         }
       }
-
-      &__buttons {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-top: 2rem;
     }
-  }
-`;
+  `,
+};

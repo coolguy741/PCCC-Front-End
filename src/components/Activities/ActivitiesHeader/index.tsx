@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const ActivitiesHeader = () => {
   return (
-    <Container>
+    <Style.Container>
       <h1>Activities</h1>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-`;
+const Style = {
+  Container: styled.div``,
+};

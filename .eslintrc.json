@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "react-app",
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "ignorePatterns": "**/*.json",
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
+    "quotes": ["error", "double"],
+    "linebreak-style": "off"
+  }
+}

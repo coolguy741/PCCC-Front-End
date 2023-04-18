@@ -4,45 +4,44 @@ import { Button } from "../../../components/Global/Button";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import { RecipeContent } from "../../../components/Recipes/RecipeContent";
 
-
 export const RecipesCreatePreviewRecipePage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   const toggleLanguage = () => {
-      
-  }
+    return "toggle language";
+  };
 
   return (
-    <PageContainer>
-      <LeftAlignedContainer>
+    <Style.PageContainer>
+      <Style.LeftAlignedContainer>
         <Button onClick={handleBack}>Back</Button>
-      </LeftAlignedContainer>
-      <LanguageButtonGroup>
+      </Style.LeftAlignedContainer>
+      <Style.LanguageButtonGroup>
         <SmallButton onClick={toggleLanguage}>English</SmallButton>
         <SmallButton onClick={toggleLanguage}>French</SmallButton>
-      </LanguageButtonGroup>
-      <RecipeContent/>
-    </PageContainer>
+      </Style.LanguageButtonGroup>
+      <RecipeContent />
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const LanguageButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-`
-
-const LeftAlignedContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  LanguageButtonGroup: styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  `,
+  LeftAlignedContainer: styled.div`
+    display: flex;
+    justify-content: flex-start;
+  `,
+};

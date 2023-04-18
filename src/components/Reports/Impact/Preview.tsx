@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ReportImpactPreview = () => {
   return (
-    <Container>
+    <Style.Container>
       <h4>Impact Reporting</h4>
       <table>
         <thead>
@@ -66,21 +66,23 @@ export const ReportImpactPreview = () => {
           </tr>
         </tbody>
       </table>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  table {
-    width: 100%;
-  }
+const Style = {
+  Container: styled.div`
+    table {
+      width: 100%;
+    }
 
-  table,
-  th,
-  td {
-    text-align: left;
-    padding: 10px;
-    border-collapse: collapse;
-    border: 1px solid var(--black);
-  }
-`;
+    table,
+    th,
+    td {
+      text-align: left;
+      padding: 10px;
+      border-collapse: collapse;
+      border: 1px solid var(--black);
+    }
+  `,
+};

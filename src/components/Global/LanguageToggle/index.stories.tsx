@@ -9,7 +9,7 @@ export default {
 
 const Template: ComponentStory<typeof LanguageToggle> = (args) => (
   <BrowserRouter>
-    <LanguageToggle/>
+    <LanguageToggle />
   </BrowserRouter>
 );
 

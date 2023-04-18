@@ -1,15 +1,15 @@
-import styled from "styled-components";
 import { useState } from "react";
+import styled from "styled-components";
 
 interface CheckboxGroupProps {
   options: {
-    value: string,
-    label: string
-  } [],
+    value: string;
+    label: string;
+  }[];
   onChange: () => void;
-} ;
+}
 
-export const CheckboxGroup = ({options, onChange}:CheckboxGroupProps) => {
+export const CheckboxGroup = ({ options, onChange }: CheckboxGroupProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const handleCheckboxChange = (value: string) => {
@@ -21,11 +21,11 @@ export const CheckboxGroup = ({options, onChange}:CheckboxGroupProps) => {
     onChange();
   };
 
-  return ( 
-    <Container>
-      {options.map(({value, label}) => (
+  return (
+    <Style.Container>
+      {options.map(({ value, label }) => (
         <label key={value}>
-          <input 
+          <input
             type="checkbox"
             value={value}
             checked={selectedValues.includes(value)}
@@ -34,15 +34,17 @@ export const CheckboxGroup = ({options, onChange}:CheckboxGroupProps) => {
           <span className="text">{label}</span>
         </label>
       ))}
-    </Container>
-  )
-}
+    </Style.Container>
+  );
+};
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  
-  .text {
-    padding-left: 0.5rem;
-  }
-`
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+
+    .text {
+      padding-left: 0.5rem;
+    }
+  `,
+};

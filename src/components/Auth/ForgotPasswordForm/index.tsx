@@ -19,6 +19,9 @@ const MOCK_SECURITY_QUESTIONS = [
 ];
 
 export const ForgotPasswordForm = () => {
+  function placeholderForSubmit() {
+    return "clicked";
+  }
   return (
     <Container>
       <div>
@@ -41,7 +44,7 @@ export const ForgotPasswordForm = () => {
           </Link>
         </div>
         <Link to="../reset-password">
-          <Button onClick={() => {}}>Submit</Button>
+          <Button onClick={placeholderForSubmit}>Submit</Button>
         </Link>
       </div>
     </Container>

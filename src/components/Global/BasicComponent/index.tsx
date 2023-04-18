@@ -1,14 +1,12 @@
 import styled from "styled-components";
 
 export const BasicComponent = () => {
-  return (
-    <Container>
-      edit content here
-    </Container>
-  );
+  return <Style.Container>edit content here</Style.Container>;
 };
 
-const Container = styled.div`
-  display: flex;
-  gap: 20px;
-`;
+const Style = {
+  Container: styled.div`
+    display: flex;
+    gap: 20px;
+  `,
+};

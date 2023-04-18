@@ -8,7 +8,7 @@ const EnvironmentMap: FC = () => {
   // Global State
   const { dynamicEnvironmentMap } = useGlobalState(
     (state) => ({ dynamicEnvironmentMap: state.dynamicEnvironmentMap }),
-    shallow
+    shallow,
   );
 
   // Hooks

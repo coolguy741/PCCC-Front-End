@@ -8,7 +8,7 @@ export default {
 
 const Template: ComponentStory<typeof Icon> = (args) => (
   <BrowserRouter>
-    <Icon name="group"/>
+    <Icon name="group" />
   </BrowserRouter>
 );
 

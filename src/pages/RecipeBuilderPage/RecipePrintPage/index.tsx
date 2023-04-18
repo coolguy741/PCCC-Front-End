@@ -3,10 +3,16 @@ import { RecipeContent } from "../../../components/Recipes/RecipeContent";
 
 export const RecipePrintPage = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <RecipeContent />
-    </PageContainer>
+    </Style.PageContainer>
   );
+};
+
+const Style = {
+  PageContainer: styled.div`
+    padding: 20px;
+  `,
 };
 
 const PageContainer = styled.div`

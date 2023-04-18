@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const Globe = () => {
   return (
-    <Container>
+    <Style.Container>
       <Canvas>
         <OrbitControls />
         <mesh>
@@ -12,8 +12,10 @@ export const Globe = () => {
           <meshBasicMaterial color="blue" />
         </mesh>
       </Canvas>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div``;
+const Style = {
+  Container: styled.div``,
+};

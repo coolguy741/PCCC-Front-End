@@ -8,7 +8,7 @@ interface TextAreaProps {
 
 export const TextArea = ({ placeholder, onChange, value }: TextAreaProps) => {
   return (
-    <StyledTextArea
+    <Style.TextArea
       placeholder={placeholder}
       onChange={onChange}
       value={value}
@@ -16,9 +16,11 @@ export const TextArea = ({ placeholder, onChange, value }: TextAreaProps) => {
   );
 };
 
-const StyledTextArea = styled.textarea`
-  padding: 1rem;
-  border: none;
-  border-radius: 0.2rem;
-  width: 300px;
-`;
+const Style = {
+  TextArea: styled.textarea`
+    padding: 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    width: 300px;
+  `,
+};

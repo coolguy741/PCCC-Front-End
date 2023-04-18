@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 export const MealtimeMomentsHeader = () => {
   return (
-    <Container>
+    <Style.Container>
       <h1>Mealtime Moments</h1>
-    </Container>
+    </Style.Container>
   );
 };
 
-const Container = styled.div`
-  margin-bottom: 10px;
-`;
+const Style = {
+  Container: styled.div`
+    margin-bottom: 10px;
+  `,
+};

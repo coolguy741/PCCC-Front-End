@@ -3,15 +3,17 @@ import { ActivityContent } from "../../../components/Activities/ActivityContent"
 
 export const ActivityPrintPage = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <ActivityContent />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px 86px 0px 86px;
-  gap: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 10px 86px 0px 86px;
+    gap: 20px;
+  `,
+};

@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import Spline from "@splinetool/react-spline";
+import styled from "styled-components";
 // @ts-ignore
 import FPSStats from "react-fps-stats";
 
@@ -7,7 +7,7 @@ export const TestLandingPage = () => {
   return (
     <>
       <FPSStats />
-      <Container>
+      <Style.Container>
         <div className="odd">
           <h1>Panel 1</h1>
           <Spline scene="https://prod.spline.design/75VaWhQ6daSyqN2c/scene.splinecode" />
@@ -36,38 +36,40 @@ export const TestLandingPage = () => {
           <h1>Panel 7</h1>
           <Spline scene="/globe.splinecode" />
         </div>
-      </Container>
+      </Style.Container>
     </>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
-  div {
-    position: relative;
-    height: 100vh;
+const Style = {
+  Container: styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
+    flex-direction: column;
+    position: relative;
 
-    h1 {
-      position: absolute;
-      z-index: 1;
-      pointer-events: none;
-    }
+    div {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
 
-    canvas {
-      position: absolute;
-      top: 0;
-      z-index: 0;
-    }
+      h1 {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+      }
 
-    &.odd {
-      background-color: #f0f0f0;
+      canvas {
+        position: absolute;
+        top: 0;
+        z-index: 0;
+      }
+
+      &.odd {
+        background-color: #f0f0f0;
+      }
     }
-  }
-`;
+  `,
+};

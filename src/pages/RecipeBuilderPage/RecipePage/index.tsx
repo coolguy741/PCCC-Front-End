@@ -10,81 +10,78 @@ export const RecipePage = () => {
 
   const handleBack = () => {
     navigate(-1);
-  }
-  
+  };
+
   const handleEdit = () => {
     navigate("./edit");
-  }
+  };
 
   const handleAddToCalendar = () => {
     alert("Add to calendar");
-  }
+  };
 
   const handlePrint = () => {
     navigate("./print");
-  }
+  };
 
   return (
-    <PageContainer>
-      <ButtonGroup>
+    <Style.PageContainer>
+      <Style.ButtonGroup>
         <Button onClick={handleBack}>Back</Button>
-        <SubButtonGroup>
-          <IconContainer>
-            <Icon name = "heart"/>
-          </IconContainer>
+        <Style.SubButtonGroup>
+          <Style.IconContainer>
+            <Icon name="heart" />
+          </Style.IconContainer>
           <Button onClick={handleEdit}>Edit</Button>
           <Button onClick={handleAddToCalendar}>Add to calendar</Button>
           <Button onClick={handlePrint}>Print</Button>
-        </SubButtonGroup>
-      </ButtonGroup>
+        </Style.SubButtonGroup>
+      </Style.ButtonGroup>
       <RecipeContent />
-      <RecipeTip/>
-    </PageContainer>
+      <RecipeTip />
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  IconContainer: styled.div`
+    width: 50px;
+    height: 50px;
+  `,
+  ButtonGroup: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
+  SubButtonGroup: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  `,
+  CenterAlignedContainer: styled.div`
+    display: flex;
+    justify-content: center;
+  `,
+  TwoColumnContainer: styled.div`
+    width: 100%;
+    display: flex;
+    gap: 20px;
 
-const IconContainer = styled.div`
-  width: 50px;
-  height: 50px;
-`
+    .first-child {
+      width: 30%;
+    }
 
-const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const SubButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`
-
-const CenterAlignedContainer = styled.div`
-  display: flex;
-  justify-content:center;
-`
-
-const TwoColumnContainer = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 20px;
-
-  .first-child{
-    width: 30%;
-  }
-
-  .second-child{
-    width: 60%;
-  }
-`
-const Text = styled.p`
-  font-size: 1rem;
-  margin: 0px;
-`
+    .second-child {
+      width: 60%;
+    }
+  `,
+  Text: styled.p`
+    font-size: 1rem;
+    margin: 0px;
+  `,
+};

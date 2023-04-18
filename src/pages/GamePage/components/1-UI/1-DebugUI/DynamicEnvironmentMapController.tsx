@@ -7,7 +7,7 @@ const DynamicEnvironmentMapController: FC = () => {
   // Global State
   const { setDynamicEnvironmentMap } = useGlobalState(
     (state) => ({ setDynamicEnvironmentMap: state.setDynamicEnvironmentMap }),
-    shallow
+    shallow,
   );
 
   const handleFileConversion = useCallback((file: any) => {
@@ -18,7 +18,7 @@ const DynamicEnvironmentMapController: FC = () => {
       () => {
         setDynamicEnvironmentMap(reader.result);
       },
-      false
+      false,
     );
 
     reader.readAsDataURL(file);

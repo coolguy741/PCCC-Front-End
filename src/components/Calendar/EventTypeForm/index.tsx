@@ -2,11 +2,11 @@ import { ChangeEvent } from "react";
 
 import { EventType } from "../Popup";
 
-interface EventTypeForm {
+interface IEventTypeForm {
   setEventType: (value: EventType) => void;
 }
 
-export const EventTypeForm: React.FC<EventTypeForm> = ({ setEventType }) => {
+export const EventTypeForm: React.FC<IEventTypeForm> = ({ setEventType }) => {
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const {
       target: { name, value },

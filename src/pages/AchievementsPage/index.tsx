@@ -4,45 +4,51 @@ import mockData from "../../lib/mockData/achievements.json";
 
 export const AchievementsPage = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <h1>Achievement</h1>
-      <SubContainer>
+      <Style.SubContainer>
         <h3>Bagdes</h3>
-        <AchievementsContainer>
-          {
-          mockData.badges.map((achievement, index) => (
-            <Achievement key={index} title={achievement.title} content={achievement.content}/>
-          ))
-          }
-        </AchievementsContainer>
-      </SubContainer>
-      <SubContainer>
+        <Style.AchievementsContainer>
+          {mockData.badges.map((achievement, index) => (
+            <Achievement
+              key={index}
+              title={achievement.title}
+              content={achievement.content}
+            />
+          ))}
+        </Style.AchievementsContainer>
+      </Style.SubContainer>
+      <Style.SubContainer>
         <h3>In progress</h3>
-        <AchievementsContainer>
-          {
-          mockData.inProgress.map((achievement, index) => (
-            <Achievement key={index} title={achievement.title} content={achievement.content} progressValue={achievement.progressValue}/>
-          ))
-          }
-        </AchievementsContainer>
-      </SubContainer>
-    </PageContainer>
+        <Style.AchievementsContainer>
+          {mockData.inProgress.map((achievement, index) => (
+            <Achievement
+              key={index}
+              title={achievement.title}
+              content={achievement.content}
+              progressValue={achievement.progressValue}
+            />
+          ))}
+        </Style.AchievementsContainer>
+      </Style.SubContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`
-
-const SubContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`
-const AchievementsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-`
+const Style = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  `,
+  SubContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  `,
+  AchievementsContainer: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  `,
+};

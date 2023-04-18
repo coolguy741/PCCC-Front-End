@@ -4,7 +4,7 @@ require("dotenv").config({ path: path.resolve(process.cwd(), "./.site") });
 
 async function main() {
   console.log(
-    "Tip: Use https://favicon.io/favicon-converter/ to generate icons. Place them in public/images"
+    "Tip: Use https://favicon.io/favicon-converter/ to generate icons. Place them in public/images",
   );
 
   try {
@@ -109,13 +109,13 @@ async function main() {
         template,
         {
           encoding: "utf-8",
-        }
+        },
       );
       console.log("✅ Wrote index.html");
       await fs.writeFile(
         writePath + "/site.webmanifest",
         JSON.stringify(manifest, null, 4),
-        { encoding: "utf-8" }
+        { encoding: "utf-8" },
       );
       console.log("✅ Wrote site.webmanifest");
       console.log("✨ Done");

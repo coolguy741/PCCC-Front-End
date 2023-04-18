@@ -10,9 +10,9 @@ export const Uploader = () => {
       </div>
       <div className="h-full border flex flex-col justify-between">
         <div className="flex space-x-6">
-          <Image />
-          <Image />
-          <Image />
+          <Style.Image />
+          <Style.Image />
+          <Style.Image />
         </div>
         <div>
           <LinkButton to="#">Upload</LinkButton>
@@ -22,8 +22,10 @@ export const Uploader = () => {
   );
 };
 
-const Image = styled.div`
-  width: 100px;
-  height: 80px;
-  background: var(--black);
-`;
+const Style = {
+  Image: styled.div`
+    width: 100px;
+    height: 80px;
+    background: var(--black);
+  `,
+};

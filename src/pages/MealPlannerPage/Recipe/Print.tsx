@@ -5,17 +5,19 @@ import { Recipe } from "../../../components/MealPlanner/Recipe";
 
 export const MealPlannerRecipePrintPage = () => {
   return (
-    <PageContainer>
+    <Style.PageContainer>
       <Assessment isPrint />
       <Recipe isPrint />
-    </PageContainer>
+    </Style.PageContainer>
   );
 };
 
-const PageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin-right: 50px;
-  padding: 20px;
-`;
+const Style = {
+  PageContainer: styled.div`
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-right: 50px;
+    padding: 20px;
+  `,
+};

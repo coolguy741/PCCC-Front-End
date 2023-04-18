@@ -13,27 +13,29 @@ export const LinkButton = ({
   disabled = false,
 }: LinkButtonProps) => {
   return (
-    <StyledButton to={to} disabled={disabled}>
+    <Style.Button to={to} disabled={disabled}>
       {children}
-    </StyledButton>
+    </Style.Button>
   );
 };
 
-const StyledButton = styled(Link).attrs((props: { disabled: boolean }) => ({
-  disabled: props.disabled || false,
-}))`
-  background-color: var(--yellow);
-  border: none;
-  border-radius: 2rem;
-  color: #3d3d3d;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 0.75rem;
-  padding: 0.75rem 1.125rem;
-  vertical-align: top;
-  ${({ disabled }) =>
-    disabled &&
-    `
-    pointer-events: none;
-  `}
-`;
+const Style = {
+  Button: styled(Link).attrs((props: { disabled: boolean }) => ({
+    disabled: props.disabled || false,
+  }))`
+    background-color: var(--yellow-500);
+    border: none;
+    border-radius: 2rem;
+    color: #3d3d3d;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.75rem 1.125rem;
+    vertical-align: top;
+    ${({ disabled }) =>
+      disabled &&
+      `
+      pointer-events: none;
+    `}
+  `,
+};
