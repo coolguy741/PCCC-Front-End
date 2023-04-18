@@ -20,14 +20,15 @@ export const SignInForm = () => {
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { data } = await connect.tokenCreate({
-      username,
-      password,
-      grant_type: "password",
-      client_id: "PccServer23_Web",
-    });
+    // const { data } = await connect.tokenCreate({
+    //   username,
+    //   password,
+    //   grant_type: "password",
+    //   client_id: "PccServer23_Web",
+    // });
 
-    setCookie(STORAGE_KEY_JWT, data.access_token, {});
+    // setCookie(STORAGE_KEY_JWT, data.access_token, {});
+    // console.log("clicked!!");
     changeStep("security");
   };
 
@@ -64,7 +65,7 @@ export const SignInForm = () => {
 
 const Container = styled.main`
   ${glassBackground}
-  width: 525px;
+  width: 500px;
 
   h1 {
     font-weight: 600;

@@ -83,7 +83,7 @@ export const SignUpPage = () => {
 
   return (
     <AuthLayout>
-      <span className="sign-up-breadcrumb">
+      <span className="auth-breadcrumb">
         <DirectionLeft />
         Back
       </span>

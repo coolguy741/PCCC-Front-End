@@ -20,7 +20,7 @@ const Style = {
     padding-top: 108px;
     perspective: 1000px;
 
-    .sign-up-breadcrumb {
+    .auth-breadcrumb {
       font-family: "Noir Std";
       position: absolute;
       left: 32px;
