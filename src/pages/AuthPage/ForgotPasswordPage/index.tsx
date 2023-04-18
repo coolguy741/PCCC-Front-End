@@ -1,7 +1,27 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { ForgotPasswordForm } from "../../../components/Auth/ForgotPasswordForm";
+import { useAPI } from "../../../hooks/useAPI";
+import { useUserStore } from "../../../stores/userStore";
 
 export const ForgotPasswordPage = () => {
+  const { setSecurityQuestions } = useUserStore();
+
+  const { api } = useAPI();
+
+  const getQuestions = async () => {
+    const { data } =
+      await api.appCustomSecurityQuestionChoicesSecurityQuestionsList();
+
+    setSecurityQuestions(data);
+
+    return data;
+  };
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
   return (
     <Style.Container>
       <ForgotPasswordForm />
