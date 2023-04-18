@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ width, ...props }: InputProps) => {
-  return <Style.Input width={width} {...props} />;
+export const Input = ({ width, height, ...props }: InputProps) => {
+  return <Style.Input width={width} height={height} {...props} />;
 };
 
 const Style = {
   Input: styled.input<InputProps>`
     width: ${({ width }) => (width ? width : "100%")};
-    height: 100%;
+    height: ${({ height }) => (height ? height : "100%")};
     background: #ffffff;
     box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
