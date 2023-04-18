@@ -4,7 +4,8 @@ export type StepsForSignUp =
   | "age"
   | "role"
   | "input-information"
-  | "input-security";
+  | "input-security"
+  | "educator-recovery";
 
 interface State {
   currentStep: StepsForSignUp;

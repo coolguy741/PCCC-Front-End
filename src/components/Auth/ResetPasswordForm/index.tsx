@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../../Global/Button";
@@ -30,7 +31,7 @@ export const ResetPasswordForm = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;
