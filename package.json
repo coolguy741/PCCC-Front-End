@@ -24,6 +24,7 @@
     "@react-three/fiber": "^8.12.0",
     "@splinetool/react-spline": "^2.2.1",
     "@splinetool/runtime": "^0.9.264",
+    "framer-motion": "^10.12.2",
     "leva": "^0.9.34",
     "path": "^0.12.7",
     "react": "^18.2.0",
@@ -37,7 +38,6 @@
     "swagger-typescript-api": "^12.0.4",
     "swiper": "^9.2.3",
     "three": "^0.150.1",
-    "vite-plugin-mkcert": "^1.13.2",
     "zod": "^3.21.4",
     "zustand": "^4.3.7"
   },

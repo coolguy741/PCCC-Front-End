@@ -118,8 +118,8 @@ const Style = {
     font-style: normal;
   `,
   ScrollIconContainer: styled.div`
-    position: fixed;
-    left: calc((100vw - 42px) / 2);
+    position: absolute;
+    left: calc((100% - 42px) / 2);
     bottom: 45px;
     z-index: 10;
   `,

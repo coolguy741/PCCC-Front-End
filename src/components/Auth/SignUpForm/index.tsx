@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
@@ -51,7 +52,12 @@ export const SignUpForm = () => {
   };
 
   return (
-    <Style.Container onSubmit={submitHandler}>
+    <Style.Container
+      onSubmit={submitHandler}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <section className="sign-up">
         <h1>Sign Up</h1>
         <section className="form">
@@ -140,17 +146,18 @@ export const SignUpForm = () => {
 };
 
 const Style = {
-  Container: styled.form`
+  Container: styled(motion.form)`
     width: 80%;
-    height: 85%;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-top: calc(- (108px / 2));
 
     h1 {
       font-weight: 600;
-      font-size: 25px;
-      line-height: 30px;
+      font-size: 30px;
+      line-height: 35px;
       margin-bottom: 20px;
     }
 
@@ -161,10 +168,17 @@ const Style = {
 
     .avatar-selection {
       width: 50%;
-      height: 90%;
+      height: auto;
       align-self: flex-end;
       display: flex;
       flex-direction: column;
+      padding-top: 100px;
+
+      h2 {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+      }
     }
 
     .form {
@@ -233,7 +247,7 @@ const Style = {
     }
 
     button.next {
-      margin-top: auto;
+      margin-top: 20px;
       margin-left: auto;
       width: 237px;
 

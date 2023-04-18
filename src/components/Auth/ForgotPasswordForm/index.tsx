@@ -1,43 +1,92 @@
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { useUserStore } from "../../../stores/userStore";
 import { Button } from "../../Global/Button";
 import { Input } from "../../Global/Input";
 
-const MOCK_SECURITY_QUESTIONS = [
-  {
-    question: "What is your favorite color?",
-    answer: "blue",
-  },
-  {
-    question: "What is your favorite food?",
-    answer: "pizza",
-  },
-  {
-    question: "What is your favorite animal?",
-    answer: "dog",
-  },
-];
-
 export const ForgotPasswordForm = () => {
+  const [firstSecurityQuestion, setFirstSecuirtyQuestion] = useState<any>();
+  const [secondSecurityQuestion, setSecondSecuirtyQuestion] = useState<any>();
+  const [thirdSecurityQuestion, setThirdSecuirtyQuestion] = useState<any>();
+  const { api } = useAPI();
+  const { securityQuestions, usernameForSecurityQuestions } = useUserStore();
+
   function placeholderForSubmit() {
     return "clicked";
   }
+
+  const getUserSecurityQuestions = async () => {
+    const { data } = await api.appUserQuestionIdsList({
+      Username: usernameForSecurityQuestions,
+    });
+
+    if (securityQuestions) {
+      if (securityQuestions.firstSecurityQuestions) {
+        const question = securityQuestions.firstSecurityQuestions.find(
+          (question) => question.id === data.firstQuestionId,
+        );
+        if (question) setFirstSecuirtyQuestion(question.question);
+      }
+
+      if (securityQuestions.secondSecurityQuestions) {
+        const question = securityQuestions.secondSecurityQuestions.find(
+          (question) => question.id === data.secondQuestionId,
+        );
+        if (question) setSecondSecuirtyQuestion(question.question);
+      }
+
+      if (securityQuestions.thirdSecurityQuestions) {
+        const question = securityQuestions.thirdSecurityQuestions.find(
+          (question) => question.id === data.thirdQuestionId,
+        );
+        if (question) setThirdSecuirtyQuestion(question.question);
+      }
+    }
+
+    return data;
+  };
+
+  useEffect(() => {
+    getUserSecurityQuestions();
+  }, []);
+
   return (
     <Container>
       <div>
         <h1>Security Questions</h1>
-        {MOCK_SECURITY_QUESTIONS.map((question, index) => (
-          <div>
-            <label className="question">
-              <span>Question #{index + 1}:</span>
-              <span>{question.question}</span>
-            </label>
-            <label key={index}>
-              <span>Answer:</span>
-              <Input type="text" />
-            </label>
-          </div>
-        ))}
+        <div>
+          <label className="question">
+            <span>Question #1:</span>
+            <span>{firstSecurityQuestion}</span>
+          </label>
+          <label>
+            <span>Answer:</span>
+            <Input type="text" />
+          </label>
+        </div>
+        <div>
+          <label className="question">
+            <span>Question #2:</span>
+            <span>{secondSecurityQuestion}</span>
+          </label>
+          <label>
+            <span>Answer:</span>
+            <Input type="text" />
+          </label>
+        </div>
+        <div>
+          <label className="question">
+            <span>Question #3:</span>
+            <span>{thirdSecurityQuestion}</span>
+          </label>
+          <label>
+            <span>Answer:</span>
+            <Input type="text" />
+          </label>
+        </div>
         <div className="back-button">
           <Link to="/signin">
             <Button>Back</Button>
@@ -51,7 +100,7 @@ export const ForgotPasswordForm = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled(motion.main)`
   position: absolute;
   top: 0;
   left: 0;
