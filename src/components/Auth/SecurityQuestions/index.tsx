@@ -196,7 +196,7 @@ export const SecurityQuestions = () => {
 const Style = {
   Container: styled(motion.form)`
     width: 80%;
-    height: 85%;
+    height: auto;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
