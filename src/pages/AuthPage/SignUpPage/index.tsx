@@ -1,4 +1,5 @@
 import { AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { EducatorRecovery } from "../../../components/Auth/EducatorRecovery";
@@ -12,7 +13,7 @@ import {
   LemonBG,
   OrangeBG,
 } from "../../../components/Icons";
-import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
+import { useSignUpStore } from "../../../stores/signUpStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
 const animationProps = {
@@ -45,56 +46,52 @@ const educatorAnimationProps = {
   transition: { ease: "linear" },
 };
 
-function switchSignUpView(step: StepsForSignUp) {
-  switch (step) {
-    case "age":
-      return <AgeGate key="age" />;
-    case "role":
-      return <RoleGate key="role" />;
-    case "input-information":
-      return <SignUpForm key="input-information" />;
-    case "input-security":
-      return <SecurityQuestions key="input-security" />;
-    case "educator-recovery":
-      return <EducatorRecovery />;
-    default:
-      return <AgeGate key="age" />;
-  }
-}
+const SIGN_UP_VIEW_ARR = [
+  <AgeGate key="age" />,
+  <RoleGate key="role" />,
+  <SignUpForm key="input-information" />,
+  <SecurityQuestions key="input-security" />,
+  <EducatorRecovery />,
+];
 
-function switchSignUpBG(step: StepsForSignUp) {
-  switch (step) {
-    case "age":
-      return <LemonBG key="age" {...animationProps} />;
-    case "role":
-      return <GrapeBG key="role" {...animationProps} />;
-    case "input-information":
-      return <AppleBG key="input-information" {...animationProps} />;
-    case "input-security":
-      return <GrapeBG key="input-security" {...animationProps} />;
-    case "educator-recovery":
-      return <OrangeBG key="educator-recovery" {...educatorAnimationProps} />;
-    default:
-      return <LemonBG key="default" {...animationProps} />;
-  }
-}
+const SIGN_UP_BG_ARR = [
+  <LemonBG key="age" {...animationProps} />,
+  <GrapeBG key="role" {...animationProps} />,
+  <AppleBG key="input-information" {...animationProps} />,
+  <GrapeBG key="input-security" {...animationProps} />,
+  <OrangeBG key="educator-recovery" {...educatorAnimationProps} />,
+];
 
 export const SignUpPage = () => {
   const currentStep = useSignUpStore((state) => state.currentStep);
+  const changeStep = useSignUpStore((state) => state.changeStep);
+  const over18 = useSignUpStore((state) => state.over18);
+
+  const navigate = useNavigate();
+
+  const clickHandler = () => {
+    if (currentStep === 0) {
+      navigate("/");
+    } else if (currentStep === 2 && !over18) {
+      changeStep(0);
+    } else {
+      changeStep(currentStep - 1);
+    }
+  };
 
   return (
     <Style.Container>
-      <span className="sign-up-breadcrumb">
+      <span className="sign-up-breadcrumb" onClick={clickHandler}>
         <DirectionLeft />
         Back
       </span>
       <AnimatePresence mode="wait" initial={false}>
-        {switchSignUpView(currentStep)}
+        {SIGN_UP_VIEW_ARR[currentStep]}
       </AnimatePresence>
 
       <div className={`auth-image ${currentStep}`}>
         <AnimatePresence mode="wait" initial={false}>
-          {switchSignUpBG(currentStep)}
+          {SIGN_UP_BG_ARR[currentStep]}
         </AnimatePresence>
       </div>
     </Style.Container>

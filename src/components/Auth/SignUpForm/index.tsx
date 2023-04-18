@@ -46,7 +46,7 @@ export const SignUpForm = () => {
     setSecondUserName(_secondUserName);
     setThirdUserName(_thirdUserName);
 
-    changeStep("input-security");
+    changeStep(3);
   };
 
   return (
@@ -158,7 +158,7 @@ const Style = {
     width: 80%;
     height: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding-top: calc(- (108px / 2));
 
