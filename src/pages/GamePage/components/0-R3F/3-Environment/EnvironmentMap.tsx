@@ -1,10 +1,10 @@
 import { Environment } from "@react-three/drei";
 import { folder, useControls } from "leva";
-import { memo } from "react";
+import { FC, memo, useMemo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 
-const EnvironmentMap = () => {
+const EnvironmentMap: FC = () => {
   // Global State
   const { dynamicEnvironmentMap } = useGlobalState(
     (state) => ({ dynamicEnvironmentMap: state.dynamicEnvironmentMap }),
@@ -19,18 +19,22 @@ const EnvironmentMap = () => {
     }),
   });
 
-  return dynamicEnvironmentMap ? (
+  const { dataURL, dataPath } = useMemo(() => {
+    const dataURL = dynamicEnvironmentMap
+      ? dynamicEnvironmentMap
+      : "forest.hdr";
+    const dataPath = dynamicEnvironmentMap
+      ? undefined
+      : "/game_assets/envMaps/";
+    return { dataURL, dataPath };
+  }, [dynamicEnvironmentMap]);
+
+  return (
     <Environment
       blur={blurHDR}
+      path={dataPath}
+      files={dataURL}
       background={projectHDR}
-      files={dynamicEnvironmentMap}
-    />
-  ) : (
-    <Environment
-      blur={blurHDR}
-      background={projectHDR}
-      files={"forest.hdr"}
-      path={"/game_assets/envMaps/"}
     />
   );
 };

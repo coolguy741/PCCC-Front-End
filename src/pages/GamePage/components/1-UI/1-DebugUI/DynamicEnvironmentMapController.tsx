@@ -1,15 +1,16 @@
-import { memo, useCallback } from "react";
+import { FC, memo, useCallback } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 
-const DynamicEnvironmentMapController = () => {
+const DynamicEnvironmentMapController: FC = () => {
   // Global State
   const { setDynamicEnvironmentMap } = useGlobalState(
     (state) => ({ setDynamicEnvironmentMap: state.setDynamicEnvironmentMap }),
     shallow
   );
-  const convertFileToImage = useCallback((file: any) => {
+
+  const handleFileConversion = useCallback((file: any) => {
     const reader = new FileReader();
 
     reader.addEventListener(
@@ -25,9 +26,9 @@ const DynamicEnvironmentMapController = () => {
 
   return (
     <FileUploader
-      handleChange={(file: any) => convertFileToImage(file)}
       name="file"
       types={["hdr"]}
+      handleChange={handleFileConversion}
     />
   );
 };
