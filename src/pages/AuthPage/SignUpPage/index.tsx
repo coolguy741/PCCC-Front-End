@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { AgeGate } from "../../../components/Auth/AgeGate";
 import { EducatorRecovery } from "../../../components/Auth/EducatorRecovery";
@@ -15,43 +15,20 @@ import {
 import { StepsForSignUp, useSignUpStore } from "../../../stores/signUpStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
-const Motion = {
-  AgeGate: motion(AgeGate),
-  RoleGate: motion(RoleGate),
-  SignUpForm: motion(SignUpForm),
-  SecurityQuestions: motion(SecurityQuestions),
-};
-
 function switchSignUpView(step: StepsForSignUp) {
   switch (step) {
     case "age":
-      return (
-        <Motion.AgeGate
-          key="age"
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-        />
-      );
+      return <AgeGate key="age" />;
     case "role":
-      return <Motion.RoleGate key="role" exit={{ opacity: 0 }} />;
+      return <RoleGate key="role" />;
     case "input-information":
-      return (
-        <Motion.SignUpForm key="input-information" exit={{ opacity: 0 }} />
-      );
+      return <SignUpForm key="input-information" />;
     case "input-security":
-      return (
-        <Motion.SecurityQuestions key="input-security" exit={{ opacity: 0 }} />
-      );
+      return <SecurityQuestions key="input-security" />;
     case "educator-recovery":
       return <EducatorRecovery />;
     default:
-      return (
-        <Motion.AgeGate
-          key="age"
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-        />
-      );
+      return <AgeGate key="age" />;
   }
 }
 

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
@@ -51,7 +52,12 @@ export const SignUpForm = () => {
   };
 
   return (
-    <Style.Container onSubmit={submitHandler}>
+    <Style.Container
+      onSubmit={submitHandler}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <section className="sign-up">
         <h1>Sign Up</h1>
         <section className="form">
@@ -140,7 +146,7 @@ export const SignUpForm = () => {
 };
 
 const Style = {
-  Container: styled.form`
+  Container: styled(motion.form)`
     width: 80%;
     height: 85%;
     display: flex;

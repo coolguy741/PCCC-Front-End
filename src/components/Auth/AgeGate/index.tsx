@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { useSignUpStore } from "../../../stores/signUpStore";
@@ -35,7 +36,7 @@ export const AgeGate = () => {
   };
 
   return (
-    <Style.Container>
+    <Style.Container animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <h1>Welcome</h1>
       <p>We will need some basic information to setup your account</p>
       <form onSubmit={submitHandler}>
@@ -73,7 +74,7 @@ export const AgeGate = () => {
 };
 
 const Style = {
-  Container: styled.main`
+  Container: styled(motion.main)`
     display: flex;
     flex-direction: column;
     height: 60vh;

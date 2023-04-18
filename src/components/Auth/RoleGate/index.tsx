@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { useSignUpStore } from "../../../stores/signUpStore";
@@ -37,7 +38,12 @@ export const RoleGate = () => {
   }
 
   return (
-    <Style.Container height={height}>
+    <Style.Container
+      height={height}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <h1>Sign Up</h1>
       <p className="sign-up-p">
         Are you a teacher or food coordinator who is part of of a school
@@ -102,7 +108,7 @@ export const RoleGate = () => {
 };
 
 const Style = {
-  Container: styled.main<{ height: string }>`
+  Container: styled(motion.main)<{ height: string }>`
     ${glassBackground}
     padding: 40px;
     width: 500px;
