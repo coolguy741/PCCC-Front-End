@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { SignInForm } from "../../../components/Auth/SignInForm";
-import { DirectionLeft, LemonBG } from "../../../components/Icons";
+import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
+import { AppleBG, DirectionLeft, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { StepsForSignIn, useSignInStore } from "../../../stores/signInStore";
 
@@ -19,7 +20,7 @@ const animationProps = {
   transition: { ease: "linear" },
 };
 
-const educatorAnimationProps = {
+const rightSideAnimationProps = {
   style: {
     transformOrigin: "bottom right",
   },
@@ -37,16 +38,22 @@ const educatorAnimationProps = {
 function switchSignInView(step: StepsForSignIn) {
   switch (step) {
     case "login":
+      return <SignInForm key="login" />;
+    case "security":
+      return <SignInSecurity key="security" />;
     default:
-      return <SignInForm key="age" />;
+      return <SignInForm key="login" />;
   }
 }
 
 function switchSignInBG(step: StepsForSignIn) {
   switch (step) {
     case "login":
+      return <OrangeBG key="login" {...rightSideAnimationProps} />;
+    case "security":
+      return <AppleBG key="security" {...animationProps} />;
     default:
-      return <LemonBG key="age" {...animationProps} />;
+      return <OrangeBG key="login" {...rightSideAnimationProps} />;
   }
 }
 
@@ -55,7 +62,7 @@ export const SignInPage = () => {
 
   return (
     <AuthLayout>
-      <span className="sign-up-breadcrumb">
+      <span className="auth-breadcrumb">
         <DirectionLeft />
         Back
       </span>
