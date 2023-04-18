@@ -30,6 +30,21 @@ const animationProps = {
   transition: { ease: "linear" },
 };
 
+const educatorAnimationProps = {
+  style: {
+    transformOrigin: "bottom right",
+  },
+  initial: { opacity: 0, x: "100vw", scale: 0.75 },
+  animate: {
+    opacity: 1,
+    x: "70vw",
+    scale: 1,
+    transition: { delay: 0.3, duration: 0.5 },
+  },
+  exit: { opacity: 0, x: "100vw", scale: 0.75 },
+  transition: { ease: "linear" },
+};
+
 function switchSignUpView(step: StepsForSignUp) {
   switch (step) {
     case "age":
@@ -58,7 +73,7 @@ function switchSignUpBG(step: StepsForSignUp) {
     case "input-security":
       return <GrapeBG key="input-security" {...animationProps} />;
     case "educator-recovery":
-      return <OrangeBG key="educator-recovery" {...animationProps} />;
+      return <OrangeBG key="educator-recovery" {...educatorAnimationProps} />;
     default:
       return <LemonBG key="default" {...animationProps} />;
   }
@@ -77,7 +92,7 @@ export const SignUpPage = () => {
         {switchSignUpView(currentStep)}
       </AnimatePresence>
 
-      <div className="auth-image">
+      <div className={`auth-image ${currentStep}`}>
         <AnimatePresence mode="wait" initial={false}>
           {switchSignUpBG(currentStep)}
         </AnimatePresence>
