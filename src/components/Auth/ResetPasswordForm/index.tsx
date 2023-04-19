@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../../Global/Button";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
+import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
 export const ResetPasswordForm = () => {
@@ -9,71 +9,54 @@ export const ResetPasswordForm = () => {
     return "clicked";
   }
   return (
-    <Container>
-      <div>
-        <h1>Reset Password</h1>
-        <label>
-          <span>New Password</span>
-          <Input type="username" />
-        </label>
-        <label>
-          <span>Retype Password</span>
-          <Input type="password" />
-        </label>
-        <div className="back-button">
-          <Link to="/signin">
-            <Button>Back</Button>
-          </Link>
-        </div>
-        <Button onClick={placeholderForReset}>Reset</Button>
-      </div>
-    </Container>
+    <Style.Container onSubmit={placeholderForReset}>
+      <h1>Password Reset</h1>
+      <fieldset>
+        <label>New Password</label>
+        <Input type="username" width="55%" />
+      </fieldset>
+      <fieldset>
+        <label>Retype New: Password</label>
+        <Input type="password" width="55%" />
+      </fieldset>
+      <Button type="submit" fullWidth>
+        Reset
+      </Button>
+    </Style.Container>
   );
 };
 
-const Container = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+const Style = {
+  Container: styled(motion.form)`
+    ${glassBackground};
+    width: 650px;
+    height: auto;
 
     h1 {
-      align-self: flex-start;
+      font-weight: 600;
+      font-size: 33px;
+      line-height: 40px;
+      color: #2e2e2e;
+      margin-bottom: 32px;
     }
 
-    label {
+    fieldset {
       display: flex;
       align-items: center;
+      margin-bottom: 24px;
+      justify-content: space-between;
+      height: 52px;
 
-      span {
-        width: 11rem;
-        font-size: 1.2rem;
-      }
-
-      input,
-      select {
-        width: 18rem;
+      label {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #505050;
       }
     }
+
     button {
-      margin-top: 2rem;
+      margin-top: 40px;
     }
-  }
-
-  .back-button {
-    position: absolute;
-    top: 8rem;
-    left: 2rem;
-  }
-`;
+  `,
+};
