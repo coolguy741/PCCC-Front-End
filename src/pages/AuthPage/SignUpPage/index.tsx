@@ -88,7 +88,7 @@ export const SignUpPage = () => {
         {SIGN_UP_VIEW_ARR[currentStep]}
       </AnimatePresence>
 
-      <div className={`auth-image ${currentStep}`}>
+      <div className="auth-image">
         <AnimatePresence mode="wait" initial={false}>
           {SIGN_UP_BG_ARR[currentStep]}
         </AnimatePresence>
