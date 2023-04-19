@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import { useSignInStore } from "../../../stores/signInStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { Info } from "../../Icons";
 
 export const SignInSecurity = () => {
+  const changeStep = useSignInStore((state) => state.changeStep);
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    changeStep("incorrect-security");
   };
 
   return (

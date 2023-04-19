@@ -1,7 +1,13 @@
 import { AnimatePresence } from "framer-motion";
+import { IncorrectSecurityAnswers } from "../../../components/Auth/IncorrectSecurityAnswers/incorrectSecurityAnswers";
 import { SignInForm } from "../../../components/Auth/SignInForm";
 import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
-import { AppleBG, DirectionLeft, OrangeBG } from "../../../components/Icons";
+import {
+  AppleBG,
+  DirectionLeft,
+  GrapeBG,
+  OrangeBG,
+} from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { StepsForSignIn, useSignInStore } from "../../../stores/signInStore";
 
@@ -41,6 +47,13 @@ function switchSignInView(step: StepsForSignIn) {
       return <SignInForm key="login" />;
     case "security":
       return <SignInSecurity key="security" />;
+    case "incorrect-security":
+      return (
+        <IncorrectSecurityAnswers
+          key="incorrect-security"
+          {...animationProps}
+        />
+      );
     default:
       return <SignInForm key="login" />;
   }
@@ -52,6 +65,8 @@ function switchSignInBG(step: StepsForSignIn) {
       return <OrangeBG key="login" {...rightSideAnimationProps} />;
     case "security":
       return <AppleBG key="security" {...animationProps} />;
+    case "incorrect-security":
+      return <GrapeBG key="incorrect-security" {...animationProps} />;
     default:
       return <OrangeBG key="login" {...rightSideAnimationProps} />;
   }
@@ -70,7 +85,7 @@ export const SignInPage = () => {
         {switchSignInView(currentStep)}
       </AnimatePresence>
 
-      <div className={`auth-image ${currentStep}`}>
+      <div className="auth-image">
         <AnimatePresence mode="wait" initial={false}>
           {switchSignInBG(currentStep)}
         </AnimatePresence>
