@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
 export const PowerFullKidsTile = () => {
   return (
@@ -11,8 +12,8 @@ export const PowerFullKidsTile = () => {
           height="128px"
         />
       </style.Content>
-      <style.Background>
-        <style.Rectangle3 />
+      <style.Background />
+      {/* <style.Rectangle3 />
         <style.Rectangle2 />
         <style.EllipseGroup>
           <style.Ellipse4 />
@@ -20,8 +21,8 @@ export const PowerFullKidsTile = () => {
           <style.Ellipse2 />
           <style.Ellipse1 />
         </style.EllipseGroup>
-        <style.Rectangle1 />
-      </style.Background>
+        <style.Rectangle1 /> */}
+      {/* </style.Background> */}
     </style.PageContainer>
   );
 };
@@ -45,6 +46,7 @@ const style = {
     height: 100vh;
     z-index: -1;
     overflow: hidden;
+    ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
   `,
   EllipseGroup: styled.div`
     position: absolute;

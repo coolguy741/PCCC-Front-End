@@ -1,18 +1,19 @@
 import styled from "styled-components";
 import { Icon } from "../../../components/Global/Icon";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 export const FooterTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
         <style.Lemon src="/images/lemon.png" alt="lemon" />
-        <style.Rectangle3 />
+        {/* <style.Rectangle3 />
         <style.Rectangle2 />
         <style.EllipseGroup>
           <style.Ellipse4 />
           <style.Ellipse3 />
           <style.Ellipse2 />
           <style.Ellipse1 />
-        </style.EllipseGroup>
+        </style.EllipseGroup> */}
         <style.Rectangle1 />
       </style.Background>
       <style.InfoContainer>
@@ -62,10 +63,7 @@ const style = {
   TitleContainer: styled.div`
     font-weight: 700;
     font-size: 120px;
-    line-height: 90%;
-    leading-trim: both;
-    text-edge: cap;
-    letter-spacing: 0.03em;
+    line-height: 100%;
     color: var(--neutral-900);
     padding-top: 300px;
   `,
@@ -91,8 +89,9 @@ const style = {
     left: -32px;
     width: calc(100% + 32px);
     height: 100vh;
-    z-index: -2;
+    z-index: -1;
     overflow: hidden;
+    ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
   `,
   EllipseGroup: styled.div`
     position: absolute;

@@ -20,12 +20,13 @@ export const HomePage = () => {
   return (
     <Style.PageContainer>
       <Swiper
-        direction={"vertical"}
         slidesPerView={1}
         mousewheel={true}
         pagination={{
           clickable: true,
         }}
+        direction={"vertical"}
+        speed={1500}
         modules={[Mousewheel, Pagination]}
         className="mySwiper"
       >
@@ -79,28 +80,30 @@ const Style = {
     .swiper-slide {
       & img.tile-image {
         transform: scale(0.7) translate(0, -50%);
-        transition: transform 0.5s ease-in-out;
+        transition: transform 1s ease-in-out;
       }
       &.swiper-slide-active img.tile-image {
         transform: scale(1) translate(0, -50%);
-        transition: transform 0.5s ease-in-out;
+        transition: transform 1s ease-in-out;
       }
     }
 
     .swiper-pagination {
-      right: 28px;
+      right: 36px;
       width: 16px;
       .swiper-pagination-bullet {
         background: var(--neutral-900);
         opacity: 1;
         width: 8px;
         height: 8px;
+        margin: 16px;
         transform: translate(-50%);
         transition: all 0.2s ease-in-out;
 
         &.swiper-pagination-bullet-active {
           width: 16px;
           height: 16px;
+          margin: 16px;
           transform: translate(-50%);
         }
       }
