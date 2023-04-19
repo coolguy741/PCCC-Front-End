@@ -9,6 +9,14 @@ interface State {
   setProvince: (province: string) => void;
   birthYear: number | undefined;
   setBirthYear: (birthYear: number) => void;
+  email: string;
+  setEmail: (email: string) => void;
+  name: string;
+  setName: (name: string) => void;
+  title: string;
+  setTitle: (title: string) => void;
+  schoolIdCode: string;
+  setSchoolIdCode: (schoolIdCode: string) => void;
   firstUserName: string;
   setFirstUserName: (firstUserName: string) => void;
   secondUserName: string;
@@ -35,6 +43,19 @@ export const useSignUpStore = create<State>()((set) => ({
 
   birthYear: undefined,
   setBirthYear: (birthYear) => set(() => ({ birthYear: birthYear })),
+
+  email: "",
+  setEmail: (email) => set(() => ({ email: email })),
+
+  name: "",
+  setName: (name) => set(() => ({ name: name })),
+
+  title: "",
+  setTitle: (title) => set(() => ({ title: title })),
+
+  schoolIdCode: "",
+  setSchoolIdCode: (schoolIdCode) =>
+    set(() => ({ schoolIdCode: schoolIdCode })),
 
   firstUserName: "",
   setFirstUserName: (firstUserName) =>

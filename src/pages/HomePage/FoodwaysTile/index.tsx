@@ -20,7 +20,11 @@ export const FoodwaysTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
-        <img src="/images/homepage/foodways.png" alt="foodways" />
+        <img
+          src="/images/homepage/foodways.png"
+          alt="foodways"
+          className="tile-image"
+        />
       </style.Background>
       <style.TileContainer>
         <TileTemplate

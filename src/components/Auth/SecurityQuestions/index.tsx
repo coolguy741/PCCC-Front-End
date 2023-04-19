@@ -33,10 +33,16 @@ export const SecurityQuestions = () => {
     SecurityQuestion[] | null | undefined
   >([]);
   const birthYear = useSignUpStore((state) => state.birthYear);
+  const email = useSignUpStore((state) => state.email);
   const province = useSignUpStore((state) => state.province);
   const firstUserName = useSignUpStore((state) => state.firstUserName);
   const secondUserName = useSignUpStore((state) => state.secondUserName);
   const thirdUserName = useSignUpStore((state) => state.thirdUserName);
+  const name = useSignUpStore((state) => state.name);
+  const title = useSignUpStore((state) => state.title);
+  const schoolIdCode = useSignUpStore((state) => state.schoolIdCode);
+  const schoolName = useSignUpStore((state) => state.schoolName);
+  const isCoordinator = useSignUpStore((state) => state.isCoordinator);
 
   const { api } = useAPI();
 
@@ -58,11 +64,16 @@ export const SecurityQuestions = () => {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    api.appUserCreate({
+    console.log({
       birthYear: birthYear,
       province: province,
       username: `${firstUserName}${secondUserName}${thirdUserName}`,
       password: password,
+      email: email,
+      name: name,
+      title: title,
+      schoolIdCode: schoolIdCode,
+      school: schoolName,
       firstSecurityQuestionId: firstSecurityQuestionId,
       firstSecurityQuestionAnswer: firstSecurityAnswer,
       secondSecurityQuestionId: secondSecurityQuestionId,
@@ -70,6 +81,39 @@ export const SecurityQuestions = () => {
       thirdSecurityQuestionId: thirdSecurityQuestionId,
       thirdSecurityQuestionAnswer: thirdSecurityAnswer,
     });
+
+    if (isCoordinator) {
+      api.appUserProfessionalCreate({
+        birthYear: birthYear,
+        province: province,
+        username: `${firstUserName}${secondUserName}${thirdUserName}`,
+        password: password,
+        email: email,
+        name: name,
+        title: title,
+        schoolIdCode: schoolIdCode,
+        school: schoolName,
+        firstSecurityQuestionId: firstSecurityQuestionId,
+        firstSecurityQuestionAnswer: firstSecurityAnswer,
+        secondSecurityQuestionId: secondSecurityQuestionId,
+        secondSecurityQuestionAnswer: secondSecurityAnswer,
+        thirdSecurityQuestionId: thirdSecurityQuestionId,
+        thirdSecurityQuestionAnswer: thirdSecurityAnswer,
+      });
+    } else {
+      api.appUserCreate({
+        birthYear: birthYear,
+        province: province,
+        username: `${firstUserName}${secondUserName}${thirdUserName}`,
+        password: password,
+        firstSecurityQuestionId: firstSecurityQuestionId,
+        firstSecurityQuestionAnswer: firstSecurityAnswer,
+        secondSecurityQuestionId: secondSecurityQuestionId,
+        secondSecurityQuestionAnswer: secondSecurityAnswer,
+        thirdSecurityQuestionId: thirdSecurityQuestionId,
+        thirdSecurityQuestionAnswer: thirdSecurityAnswer,
+      });
+    }
   };
 
   return (
@@ -94,6 +138,7 @@ export const SecurityQuestions = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               width="65%"
+              required
             />
           </fieldset>
           <fieldset>
@@ -103,6 +148,7 @@ export const SecurityQuestions = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               width="65%"
+              required
             />
           </fieldset>
         </article>
@@ -113,9 +159,13 @@ export const SecurityQuestions = () => {
         <fieldset>
           <label>Question 1:</label>
           <Select
-            onChange={(e) => setFirstSecurityQuestionId(e.target.value)}
+            onChange={(e) => {
+              setFirstSecurityQuestionId(e.target.value);
+              console.log(e.target.value);
+            }}
             value={firstSecurityQuestionId}
             width="75%"
+            required
           >
             <option></option>
             {firstSecurityQuestions &&

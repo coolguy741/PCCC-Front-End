@@ -49,8 +49,8 @@ const Style = {
       background-color: #fff;
       padding: 0;
       margin: 0;
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       border-radius: 4px;
       position: relative;
       display: grid;
@@ -61,7 +61,10 @@ const Style = {
       }
 
       &::before {
-        content: url("/icons/checkmark.svg");
+        content: "";
+        width: 12px;
+        height: 12px;
+        background: var(--blue-500);
         position: absolute;
         opacity: 0;
         transition: opacity 0.3s linear;

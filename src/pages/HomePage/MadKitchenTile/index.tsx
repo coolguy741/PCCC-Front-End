@@ -23,7 +23,11 @@ export const MadKitchenTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
-        <img src="/images/homepage/mad-kitchen.png" alt="mad-kitchen" />
+        <img
+          src="/images/homepage/mad-kitchen.png"
+          alt="mad-kitchen"
+          className="tile-image"
+        />
       </style.Background>
       <style.TileContainer>
         <TileTemplate
