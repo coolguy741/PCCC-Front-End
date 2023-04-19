@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
 import { useSignInStore } from "../../../stores/signInStore";
+import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -8,9 +11,50 @@ import { Info } from "../../Icons";
 
 export const SignInSecurity = () => {
   const changeStep = useSignInStore((state) => state.changeStep);
+  const [firstSecurityQuestion, setFirstSecuirtyQuestion] = useState<any>();
+  const [secondSecurityQuestion, setSecondSecuirtyQuestion] = useState<any>();
+  const [thirdSecurityQuestion, setThirdSecuirtyQuestion] = useState<any>();
+  const { securityQuestions, usernameForSecurityQuestions } = useUserStore();
+
+  const { api } = useAPI();
+
+  const getUserSecurityQuestions = async () => {
+    const { data } = await api.appUserQuestionIdsList({
+      Username: usernameForSecurityQuestions,
+    });
+
+    if (securityQuestions) {
+      if (securityQuestions.firstSecurityQuestions) {
+        const question = securityQuestions.firstSecurityQuestions.find(
+          (question) => question.id === data.firstQuestionId,
+        );
+        if (question) setFirstSecuirtyQuestion(question.question);
+      }
+
+      if (securityQuestions.secondSecurityQuestions) {
+        const question = securityQuestions.secondSecurityQuestions.find(
+          (question) => question.id === data.secondQuestionId,
+        );
+        if (question) setSecondSecuirtyQuestion(question.question);
+      }
+
+      if (securityQuestions.thirdSecurityQuestions) {
+        const question = securityQuestions.thirdSecurityQuestions.find(
+          (question) => question.id === data.thirdQuestionId,
+        );
+        if (question) setThirdSecuirtyQuestion(question.question);
+      }
+    }
+
+    return data;
+  };
+
+  useEffect(() => {
+    getUserSecurityQuestions();
+  }, []);
+
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    changeStep("incorrect-security");
   };
 
   return (
@@ -27,7 +71,7 @@ export const SignInSecurity = () => {
       <fieldset>
         <label>
           <span>Question 1:</span>
-          <span>What is your favorite type of meat?</span>
+          <span>{firstSecurityQuestion}</span>
         </label>
         <div>
           <p>Answer</p>
@@ -37,7 +81,7 @@ export const SignInSecurity = () => {
       <fieldset>
         <label>
           <span>Question 1:</span>
-          <span>What is your favorite type of meat?</span>
+          <span>{secondSecurityQuestion}</span>
         </label>
         <div>
           <p>Answer</p>
@@ -47,7 +91,7 @@ export const SignInSecurity = () => {
       <fieldset>
         <label>
           <span>Question 1:</span>
-          <span>What is your favorite type of meat?</span>
+          <span>{thirdSecurityQuestion}</span>
         </label>
         <div>
           <p>Answer</p>
