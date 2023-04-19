@@ -1,21 +1,22 @@
 import { create } from "zustand";
 
-export type StepsForSignUp =
-  | "age"
-  | "role"
-  | "input-information"
-  | "input-security"
-  | "educator-recovery";
-
 interface State {
-  currentStep: StepsForSignUp;
-  changeStep: (step: StepsForSignUp) => void;
+  currentStep: number;
+  changeStep: (step: number) => void;
   over18: boolean;
   setOver18: (over18: boolean) => void;
   province: string;
   setProvince: (province: string) => void;
   birthYear: number | undefined;
   setBirthYear: (birthYear: number) => void;
+  email: string;
+  setEmail: (email: string) => void;
+  name: string;
+  setName: (name: string) => void;
+  title: string;
+  setTitle: (title: string) => void;
+  schoolIdCode: string;
+  setSchoolIdCode: (schoolIdCode: string) => void;
   firstUserName: string;
   setFirstUserName: (firstUserName: string) => void;
   secondUserName: string;
@@ -23,7 +24,7 @@ interface State {
   thirdUserName: string;
   setThirdUserName: (thirdUserName: string) => void;
   isCoordinator: boolean | null;
-  setIsCoordinator: (isCoordinator: boolean) => void;
+  setIsCoordinator: (isCoordinator: boolean | null) => void;
   schoolId: string;
   setSchoolId: (schoolId: string) => void;
   schoolName: string;
@@ -31,7 +32,7 @@ interface State {
 }
 
 export const useSignUpStore = create<State>()((set) => ({
-  currentStep: "age",
+  currentStep: 0,
   changeStep: (step) => set(() => ({ currentStep: step })),
 
   over18: false,
@@ -42,6 +43,19 @@ export const useSignUpStore = create<State>()((set) => ({
 
   birthYear: undefined,
   setBirthYear: (birthYear) => set(() => ({ birthYear: birthYear })),
+
+  email: "",
+  setEmail: (email) => set(() => ({ email: email })),
+
+  name: "",
+  setName: (name) => set(() => ({ name: name })),
+
+  title: "",
+  setTitle: (title) => set(() => ({ title: title })),
+
+  schoolIdCode: "",
+  setSchoolIdCode: (schoolIdCode) =>
+    set(() => ({ schoolIdCode: schoolIdCode })),
 
   firstUserName: "",
   setFirstUserName: (firstUserName) =>

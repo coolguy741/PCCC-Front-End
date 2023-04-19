@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ width, ...props }: InputProps) => {
-  return <Style.Input width={width} {...props} />;
+export const Input = ({ width, height, ...props }: InputProps) => {
+  return <Style.Input width={width} height={height} {...props} />;
 };
 
 const Style = {
   Input: styled.input<InputProps>`
     width: ${({ width }) => (width ? width : "100%")};
-    height: 100%;
+    height: ${({ height }) => (height ? height : "100%")};
     background: #ffffff;
     box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -49,8 +49,8 @@ const Style = {
       background-color: #fff;
       padding: 0;
       margin: 0;
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       border-radius: 4px;
       position: relative;
       display: grid;
@@ -61,7 +61,10 @@ const Style = {
       }
 
       &::before {
-        content: url("/icons/checkmark.svg");
+        content: "";
+        width: 12px;
+        height: 12px;
+        background: var(--blue-500);
         position: absolute;
         opacity: 0;
         transition: opacity 0.3s linear;

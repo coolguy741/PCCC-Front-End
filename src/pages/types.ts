@@ -1,4 +1,5 @@
 export type Unit = "each" | "liter" | "grams";
+export type Color = "orange" | "red" | "blue" | "green" | "yellow" | "neutral";
 
 export interface Material {
   unit: Unit;

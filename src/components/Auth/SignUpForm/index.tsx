@@ -11,20 +11,34 @@ import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
 export const SignUpForm = () => {
-  const [_firstUserName, _setFirstUserName] = useState("");
-  const [_secondUserName, _setSecondUserName] = useState("");
+  const [_name, _setName] = useState("");
+  const [_title, _setTitle] = useState("");
+  const [_email, _setEmail] = useState("");
+  const [_birthDay, _setBirthDay] = useState("");
+  const [_province, _setProvince] = useState("");
+  const [_birthYear, _setBirthYear] = useState("");
+  const [_birthMonth, _setBirthMonth] = useState("");
+  const [_schoolName, _setSchoolName] = useState("");
+  const [_schoolIdCode, _setSchoolIdCode] = useState("");
   const [_thirdUserName, _setThirdUserName] = useState("");
+  const [_firstUserName, _setFirstUserName] = useState("Awesome");
+  const [_secondUserName, _setSecondUserName] = useState("Apple");
   const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
   const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
     [],
   );
+  const setName = useSignUpStore((state) => state.setName);
+  const setTitle = useSignUpStore((state) => state.setTitle);
   const changeStep = useSignUpStore((state) => state.changeStep);
-  const firstUserName = useSignUpStore((state) => state.firstUserName);
-  const secondUserName = useSignUpStore((state) => state.secondUserName);
-  const thirdUserName = useSignUpStore((state) => state.thirdUserName);
+  const setBirthYear = useSignUpStore((state) => state.setBirthYear);
+  const isCoordinator = useSignUpStore((state) => state.isCoordinator);
   const setFirstUserName = useSignUpStore((state) => state.setFirstUserName);
   const setSecondUserName = useSignUpStore((state) => state.setSecondUserName);
   const setThirdUserName = useSignUpStore((state) => state.setThirdUserName);
+  const setSchoolIdCode = useSignUpStore((state) => state.setSchoolIdCode);
+  const setSchoolName = useSignUpStore((state) => state.setSchoolName);
+  const setProvince = useSignUpStore((state) => state.setProvince);
+  const setEmail = useSignUpStore((state) => state.setEmail);
 
   const { api } = useAPI();
 
@@ -44,11 +58,22 @@ export const SignUpForm = () => {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (isCoordinator) {
+      setName(_name);
+      setTitle(_title);
+      setBirthYear(parseInt(_birthYear));
+      setSchoolIdCode(_schoolIdCode);
+      setSchoolIdCode(_schoolIdCode);
+      setSchoolName(_schoolName);
+      setProvince(_province);
+      setEmail(_email);
+    }
+
     setFirstUserName(_firstUserName);
     setSecondUserName(_secondUserName);
     setThirdUserName(_thirdUserName);
 
-    changeStep("input-security");
+    changeStep(3);
   };
 
   return (
@@ -62,38 +87,102 @@ export const SignUpForm = () => {
         <h1>Sign Up</h1>
         <section className="form">
           <legend>Account Info</legend>
+          {isCoordinator && (
+            <>
+              <fieldset>
+                <label>Name</label>
+                <Input
+                  width="60%"
+                  placeholder="John"
+                  onChange={(e) => _setName(e.target.value)}
+                  value={_name}
+                  required
+                />
+              </fieldset>
+              <fieldset>
+                <label>Title</label>
+                <Input
+                  width="60%"
+                  placeholder="Student"
+                  onChange={(e) => _setTitle(e.target.value)}
+                  value={_title}
+                  required
+                />
+              </fieldset>
+            </>
+          )}
           <fieldset>
-            <label>Name</label>
-            <Input width="60%" placeholder="John" />
-          </fieldset>
-          <fieldset>
-            <label>Title</label>
-            <Input width="60%" placeholder="Student" />
-          </fieldset>
-          <fieldset>
-            <label>Birth Year</label>
+            <label>Date of Birth</label>
             <div className="birth-split">
-              <Input width="25%" placeholder="MM" />
-              <Input width="25%" placeholder="DD" />
-              <Input width="40%" placeholder="YYYY" />
+              <Input
+                width="25%"
+                placeholder="MM"
+                onChange={(e) => _setBirthDay(e.target.value)}
+                value={_birthDay}
+                required
+              />
+              <Input
+                width="25%"
+                placeholder="DD"
+                onChange={(e) => _setBirthMonth(e.target.value)}
+                value={_birthMonth}
+                required
+              />
+              <Input
+                width="40%"
+                placeholder="YYYY"
+                onChange={(e) => _setBirthYear(e.target.value)}
+                value={_birthYear}
+                required
+              />
             </div>
           </fieldset>
-          <fieldset>
-            <label>School ID Code</label>
-            <Input width="60%" placeholder="1234567890" />
-          </fieldset>
-          <fieldset>
-            <label>School</label>
-            <Input width="60%" placeholder="George Collage" />
-          </fieldset>
+          {isCoordinator && (
+            <>
+              <fieldset>
+                <label>School ID Code</label>
+                <Input
+                  width="60%"
+                  placeholder="1234567890"
+                  onChange={(e) => _setSchoolIdCode(e.target.value)}
+                  value={_schoolIdCode}
+                  required
+                />
+              </fieldset>
+              <fieldset>
+                <label>School</label>
+                <Input
+                  width="60%"
+                  placeholder="George Collage"
+                  onChange={(e) => _setSchoolName(e.target.value)}
+                  value={_schoolName}
+                  required
+                />
+              </fieldset>
+            </>
+          )}
           <fieldset>
             <label>Province</label>
-            <Input width="60%" placeholder="Ontario" />
+            <Input
+              width="60%"
+              placeholder="Ontario"
+              onChange={(e) => _setProvince(e.target.value)}
+              value={_province}
+              required
+            />
           </fieldset>
-          <fieldset>
-            <label>Email Address</label>
-            <Input width="60%" placeholder="Johndoe@gmail.com" />
-          </fieldset>
+          {isCoordinator && (
+            <fieldset>
+              <label>Email Address</label>
+              <Input
+                width="60%"
+                placeholder="Johndoe@gmail.com"
+                onChange={(e) => _setEmail(e.target.value)}
+                value={_email}
+                required
+              />
+            </fieldset>
+          )}
         </section>
       </section>
       <section className="avatar-selection">
@@ -104,6 +193,7 @@ export const SignUpForm = () => {
             onChange={(e) => _setFirstUserName(e.target.value)}
             value={_firstUserName}
             className="username-select"
+            required
           >
             {firstNames &&
               firstNames.map((name, index) => (
@@ -111,9 +201,13 @@ export const SignUpForm = () => {
               ))}
           </Select>
           <Select
-            onChange={(e) => _setSecondUserName(e.target.value)}
+            onChange={(e) => {
+              console.log(e.target.value);
+              _setSecondUserName(e.target.value);
+            }}
             value={_secondUserName}
             className="username-select"
+            required
           >
             {secondNames &&
               secondNames.map((name, index) => (
@@ -150,7 +244,7 @@ const Style = {
     width: 80%;
     height: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding-top: calc(- (108px / 2));
 

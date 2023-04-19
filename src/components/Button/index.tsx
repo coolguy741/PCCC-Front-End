@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 export type ButtonVariant = "orange" | "yellow" | "ghost" | "green";
@@ -9,11 +10,21 @@ export interface ButtonProps
   variant?: ButtonVariant;
   children: React.ReactNode;
   size?: ButtonSize;
+  to?: string;
   fullWidth?: boolean;
 }
 
-function Button({ children, ...props }: ButtonProps) {
-  return <Style.Container {...props}>{children}</Style.Container>;
+function Button({ children, to, onClick, ...props }: ButtonProps) {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    to && navigate(to);
+  };
+
+  return (
+    <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
+      {children}
+    </Style.Button>
+  );
 }
 
 export default Button;
@@ -88,11 +99,11 @@ const yellowVStyles = css`
 
 const ghostVStyles = css`
   background: transparent;
-  color: black;
+  color: var(--neutral-500);
 
   svg {
     path {
-      fill: black;
+      fill: var(--neutral-500);
     }
   }
 
@@ -102,15 +113,15 @@ const ghostVStyles = css`
 `;
 
 const smallSStyles = css`
-  width: 130px;
-  height: 44px;
+  height: 40px;
   font-size: 16px;
+  padding: 10px 16px;
   line-height: 24px;
 `;
 
 const mediumSStyles = css`
   width: 154px;
-  height: 48px;
+  height: 44px;
   font-size: 16px;
   line-height: 24px;
 `;
@@ -160,7 +171,25 @@ function getButtonSize(props: ButtonProps) {
 }
 
 export const Style = {
-  Container: styled.button`
+  Button: styled.button`
+    font-family: "Noir Std";
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    border-radius: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.3s ease-out, color 0.3s ease-in,
+      background 0.3s linear;
+    border: 0;
+
+    ${getButtonVariant}
+    ${getButtonSize}
+    ${checkFullWidth}
+  `,
+
+  Link: styled(Link)`
     font-family: "Noir Std";
     font-style: normal;
     font-weight: 500;
