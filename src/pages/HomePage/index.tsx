@@ -77,11 +77,11 @@ const Style = {
     }
 
     .swiper-slide {
-      & img {
+      & img.tile-image {
         transform: scale(0.7) translate(0, -50%);
         transition: transform 0.5s ease-in-out;
       }
-      &.swiper-slide-active img {
+      &.swiper-slide-active img.tile-image {
         transform: scale(1) translate(0, -50%);
         transition: transform 0.5s ease-in-out;
       }
@@ -118,8 +118,8 @@ const Style = {
     font-style: normal;
   `,
   ScrollIconContainer: styled.div`
-    position: fixed;
-    left: calc((100vw - 42px) / 2);
+    position: absolute;
+    left: calc((100% - 42px) / 2);
     bottom: 45px;
     z-index: 10;
   `,

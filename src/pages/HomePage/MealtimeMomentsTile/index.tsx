@@ -26,6 +26,7 @@ export const MealtimeMomentsTile = () => {
         <img
           src="/images/homepage/mealtime-moments.png"
           alt="mealtime-moments"
+          className="tile-image"
         />
       </style.Background>
       <style.TileContainer>

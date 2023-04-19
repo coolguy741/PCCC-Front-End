@@ -23,7 +23,11 @@ export const MealPlannerTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
-        <img src="/images/homepage/meal-planner.png" alt="meal-planner" />
+        <img
+          src="/images/homepage/meal-planner.png"
+          alt="meal-planner"
+          className="tile-image"
+        />
       </style.Background>
       <style.TileContainer>
         <TileTemplate

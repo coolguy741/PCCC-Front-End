@@ -23,7 +23,11 @@ export const CookTogetherTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
-        <img src="/images/homepage/cook-together.png" alt="cook-together" />
+        <img
+          src="/images/homepage/cook-together.png"
+          alt="cook-together"
+          className="tile-image"
+        />
       </style.Background>
       <style.TileContainer>
         <TileTemplate

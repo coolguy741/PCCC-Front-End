@@ -23,7 +23,11 @@ export const DiscoverTogetherTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
-        <img src="/images/homepage/discover-together.png" alt="discover" />
+        <img
+          src="/images/homepage/discover-together.png"
+          alt="discover"
+          className="tile-image"
+        />
       </style.Background>
       <style.TileContainer>
         <TileTemplate

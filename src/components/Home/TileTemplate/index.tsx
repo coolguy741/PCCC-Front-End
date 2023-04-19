@@ -52,7 +52,7 @@ export const TileTemplate = ({
         <Button
           variant={`${button.variant ? button.variant : "orange"}`}
           onClick={goToPage}
-          size="small"
+          size="large"
         >
           {button.text}
         </Button>

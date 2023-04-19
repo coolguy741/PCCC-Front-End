@@ -23,7 +23,11 @@ export const GrowTogetherTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
-        <img src="/images/homepage/grow-together.png" alt="grow-together" />
+        <img
+          src="/images/homepage/grow-together.png"
+          alt="grow-together"
+          className="tile-image"
+        />
       </style.Background>
       <style.TileContainer>
         <TileTemplate
