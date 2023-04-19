@@ -12,9 +12,14 @@ const animatedBackground = keyframes`
 	}
 `;
 
-export function animatedbackgroundGradient(left: string, right: string) {
+export function animatedbackgroundGradient(
+  left: string,
+  right: string,
+  left2: string = left,
+  right2: string = right,
+) {
   return css`
-    background: linear-gradient(-45deg, ${left}, ${right}, ${left}, ${right});
+    background: linear-gradient(-45deg, ${left}, ${right}, ${left2}, ${right2});
     background-size: 400% 400%;
     animation: ${animatedBackground} 15s ease infinite;
   `;
