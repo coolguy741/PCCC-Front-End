@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
@@ -23,16 +23,18 @@ export const SignInForm = () => {
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // const { data } = await connect.tokenCreate({
-    //   username,
-    //   password,
-    //   grant_type: "password",
-    //   client_id: "PccServer23_Web",
-    // });
+    const { data } = await connect.tokenCreate({
+      username,
+      password,
+      grant_type: "password",
+      client_id: "PccServer23_Web",
+    });
 
-    // setCookie(STORAGE_KEY_JWT, data.access_token, {});
-    // console.log("clicked!!");
-    changeStep("security");
+    console.log(data);
+
+    if (data.access_token) {
+      setCookie(STORAGE_KEY_JWT, data.access_token, {});
+    }
   };
 
   const forgotPasswordHandler = () => {
@@ -65,7 +67,7 @@ export const SignInForm = () => {
             height="52px"
           />
         </fieldset>
-        <Link to="forgot-password">Forgot password?</Link>
+        <span onClick={() => changeStep(1)}>Forgot password?</span>
         <Button type="submit" fullWidth>
           Login
         </Button>
@@ -105,12 +107,13 @@ const Container = styled.main`
     }
   }
 
-  a {
+  span {
     font-size: 15px;
     line-height: 20px;
     width: 100%;
     text-align: right;
     color: #646464;
+    cursor: pointer;
   }
 
   button {

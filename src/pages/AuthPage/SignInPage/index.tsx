@@ -3,7 +3,7 @@ import { SignInForm } from "../../../components/Auth/SignInForm";
 import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
 import { AppleBG, DirectionLeft, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
-import { StepsForSignIn, useSignInStore } from "../../../stores/signInStore";
+import { useSignInStore } from "../../../stores/signInStore";
 
 const animationProps = {
   style: {
@@ -35,44 +35,36 @@ const rightSideAnimationProps = {
   transition: { ease: "linear" },
 };
 
-function switchSignInView(step: StepsForSignIn) {
-  switch (step) {
-    case "login":
-      return <SignInForm key="login" />;
-    case "security":
-      return <SignInSecurity key="security" />;
-    default:
-      return <SignInForm key="login" />;
-  }
-}
+const SIGN_IN_VIEW_ARR = [
+  <SignInForm key="login" />,
+  <SignInSecurity key="security" />,
+];
 
-function switchSignInBG(step: StepsForSignIn) {
-  switch (step) {
-    case "login":
-      return <OrangeBG key="login" {...rightSideAnimationProps} />;
-    case "security":
-      return <AppleBG key="security" {...animationProps} />;
-    default:
-      return <OrangeBG key="login" {...rightSideAnimationProps} />;
-  }
-}
+const SIGN_IN_BG_ARR = [
+  <OrangeBG key="login" {...rightSideAnimationProps} />,
+  <AppleBG key="security" {...animationProps} />,
+];
 
 export const SignInPage = () => {
   const currentStep = useSignInStore((state) => state.currentStep);
+  const changeStep = useSignInStore((state) => state.changeStep);
 
   return (
     <AuthLayout>
-      <span className="auth-breadcrumb">
+      <span
+        className="auth-breadcrumb"
+        onClick={() => changeStep(currentStep - 1)}
+      >
         <DirectionLeft />
         Back
       </span>
       <AnimatePresence mode="wait" initial={false}>
-        {switchSignInView(currentStep)}
+        {SIGN_IN_VIEW_ARR[currentStep]}
       </AnimatePresence>
 
       <div className={`auth-image ${currentStep}`}>
         <AnimatePresence mode="wait" initial={false}>
-          {switchSignInBG(currentStep)}
+          {SIGN_IN_BG_ARR[currentStep]}
         </AnimatePresence>
       </div>
     </AuthLayout>
