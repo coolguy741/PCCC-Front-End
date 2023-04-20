@@ -71,9 +71,16 @@ const Style = {
     backdrop-filter: blur(59.2764px);
     border-radius: 16px;
     position: relative;
-
     font-family: "Noir Std";
     font-style: normal;
+
+    &: hover {
+      background: linear-gradient(
+        182.85deg,
+        rgba(255, 225, 102, 0.75) 2.47%,
+        rgba(234, 188, 0, 0.75) 97.72%
+      );
+    }
 
     img {
       height: 100%;
