@@ -4,36 +4,10 @@ import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSe
 import { AppleBG, ArrowLeft, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { useSignInStore } from "../../../stores/signInStore";
-
-const animationProps = {
-  style: {
-    transformOrigin: "bottom left",
-  },
-  initial: { opacity: 0, x: "-95%", scale: 0.75 },
-  animate: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: { delay: 0.3, duration: 0.5 },
-  },
-  exit: { opacity: 0, x: "-95%", scale: 0.75 },
-  transition: { ease: "linear" },
-};
-
-const rightSideAnimationProps = {
-  style: {
-    transformOrigin: "bottom right",
-  },
-  initial: { opacity: 0, x: "100vw", scale: 0.75 },
-  animate: {
-    opacity: 1,
-    x: "70vw",
-    scale: 1,
-    transition: { delay: 0.3, duration: 0.5 },
-  },
-  exit: { opacity: 0, x: "100vw", scale: 0.75 },
-  transition: { ease: "linear" },
-};
+import {
+  animationProps,
+  rightSideAnimationProps,
+} from "../../../styles/animations/auth";
 
 const SIGN_IN_VIEW_ARR = [
   <SignInForm key="login" />,
