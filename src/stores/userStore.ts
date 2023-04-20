@@ -17,6 +17,8 @@ export const useUserStore = create<{
   hasCheckedForUserThisSession: boolean;
   usernameForSecurityQuestions: string;
   setUsernameForSecurityQuestions: (username: string) => void;
+  forgetType: "username" | "password" | null;
+  setForgetType: (forgetParameter: "username" | "password") => void;
   securityQuestions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput;
   setSecurityQuestions: (
     questions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
@@ -35,6 +37,9 @@ export const useUserStore = create<{
   setSecurityQuestions: (
     questions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
   ) => set({ securityQuestions: questions }),
+  forgetType: null,
+  setForgetType: (forgetParameter: "username" | "password") =>
+    set({ forgetType: forgetParameter }),
 }));
 
 // Imperative getter/setter/computed-value functions

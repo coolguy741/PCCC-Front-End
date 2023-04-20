@@ -67,7 +67,17 @@ export const SignInForm = () => {
             height="52px"
           />
         </fieldset>
-        <span onClick={() => changeStep(1)}>Forgot password?</span>
+        <p className="forgot" onClick={() => changeStep(1)}>
+          Forgot your{" "}
+          <button>
+            <u>username</u>
+          </button>{" "}
+          or{" "}
+          <button>
+            <u>password</u>
+          </button>
+          ?
+        </p>
         <Button type="submit" fullWidth>
           Login
         </Button>
@@ -107,16 +117,15 @@ const Container = styled.main`
     }
   }
 
-  span {
+  p.forgot {
     font-size: 15px;
     line-height: 20px;
     width: 100%;
-    text-align: right;
     color: #646464;
     cursor: pointer;
   }
 
-  button {
+  button[type="submit"] {
     margin-top: 56px;
   }
 `;
