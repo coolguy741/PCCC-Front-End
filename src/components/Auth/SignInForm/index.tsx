@@ -18,7 +18,7 @@ export const SignInForm = () => {
   const { connect } = useAPI();
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
-  const { setUsernameForSecurityQuestions } = useUserStore();
+  const { setUsernameForSecurityQuestions, setForgetType } = useUserStore();
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,13 +37,15 @@ export const SignInForm = () => {
     }
   };
 
-  const forgotPasswordHandler = () => {
-    setUsernameForSecurityQuestions(username);
+  function forgotPassword() {
+    setForgetType("password");
+    navigate("forgot");
+  }
 
-    console.log(username);
-
-    navigate("forgot-password");
-  };
+  function forgotUsername() {
+    setForgetType("username");
+    navigate("forgot");
+  }
 
   return (
     <Container>
@@ -67,13 +69,13 @@ export const SignInForm = () => {
             height="52px"
           />
         </fieldset>
-        <p className="forgot" onClick={() => changeStep(1)}>
+        <p className="forgot">
           Forgot your{" "}
-          <button>
+          <button onClick={forgotUsername}>
             <u>username</u>
           </button>{" "}
           or{" "}
-          <button>
+          <button onClick={forgotPassword}>
             <u>password</u>
           </button>
           ?

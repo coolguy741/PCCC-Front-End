@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { SignInForm } from "../../../components/Auth/SignInForm";
 import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
-import { AppleBG, DirectionLeft, OrangeBG } from "../../../components/Icons";
+import { AppleBG, ArrowLeft, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { useSignInStore } from "../../../stores/signInStore";
 
@@ -55,7 +55,7 @@ export const SignInPage = () => {
         className="auth-breadcrumb"
         onClick={() => changeStep(currentStep - 1)}
       >
-        <DirectionLeft />
+        <ArrowLeft />
         Back
       </span>
       <AnimatePresence mode="wait" initial={false}>

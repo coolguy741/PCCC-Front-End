@@ -7,7 +7,7 @@ import { SecurityQuestions } from "../../../components/Auth/SecurityQuestions";
 import { SignUpForm } from "../../../components/Auth/SignUpForm";
 import {
   AppleBG,
-  DirectionLeft,
+  ArrowLeft,
   GrapeBG,
   LemonBG,
   OrangeBG,
@@ -81,7 +81,7 @@ export const SignUpPage = () => {
   return (
     <AuthLayout>
       <span className="auth-breadcrumb" onClick={clickHandler}>
-        <DirectionLeft />
+        <ArrowLeft />
         Back
       </span>
       <AnimatePresence mode="wait" initial={false}>

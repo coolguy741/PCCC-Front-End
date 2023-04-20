@@ -19,7 +19,7 @@ import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreview
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 import { AuthPage } from "./AuthPage";
-import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
+import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { SignInPage } from "./AuthPage/SignInPage";
 import { SignUpPage } from "./AuthPage/SignUpPage";
@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <SignInPage /> },
           {
-            path: "forgot-password",
+            path: "forgot",
             element: <ForgotPasswordPage />,
           },
           {
