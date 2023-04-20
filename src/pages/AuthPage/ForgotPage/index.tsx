@@ -1,28 +1,10 @@
-import { useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import { ForgotForm } from "../../../components/Auth/ForgotForm";
-import { ArrowLeft } from "../../../components/Icons";
-import { useAPI } from "../../../hooks/useAPI";
+import { ArrowLeft, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
-import { useUserStore } from "../../../stores/userStore";
+import { rightSideAnimationProps } from "../../../styles/animations/auth";
 
 export const ForgotPasswordPage = () => {
-  const { setSecurityQuestions } = useUserStore();
-
-  const { api } = useAPI();
-
-  const getQuestions = async () => {
-    const { data } =
-      await api.appCustomSecurityQuestionChoicesSecurityQuestionsList();
-
-    setSecurityQuestions(data);
-
-    return data;
-  };
-
-  useEffect(() => {
-    getQuestions();
-  }, []);
-
   return (
     <AuthLayout>
       <span className="auth-breadcrumb">
@@ -30,6 +12,12 @@ export const ForgotPasswordPage = () => {
         Back
       </span>
       <ForgotForm />
+
+      <div className="auth-image">
+        <AnimatePresence mode="wait" initial={false}>
+          <OrangeBG key="login" {...rightSideAnimationProps} />,
+        </AnimatePresence>
+      </div>
     </AuthLayout>
   );
 };
