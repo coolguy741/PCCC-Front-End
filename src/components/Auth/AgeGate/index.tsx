@@ -46,11 +46,28 @@ export const AgeGate = () => {
         <fieldset>
           <label>What year were you born?</label>
           <div className="birth-split">
-            <Input width="15%" placeholder="MM" required />
-            <Input width="15%" placeholder="DD" required />
+            <Input
+              width="15%"
+              placeholder="MM"
+              required
+              type="number"
+              min="1"
+              max="12"
+            />
+            <Input
+              width="15%"
+              placeholder="DD"
+              required
+              type="number"
+              min="1"
+              max="31"
+            />
             <Input
               width="18%"
               placeholder="YYYY"
+              type="number"
+              min="1900"
+              max="2023"
               onChange={(e) => _setBirthYear(e.target.value)}
               value={_birthYear}
               required
