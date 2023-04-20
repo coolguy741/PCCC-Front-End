@@ -19,6 +19,7 @@ const Style = {
     padding: 32px;
     padding-top: 108px;
     perspective: 1000px;
+    z-index: 0;
 
     .auth-breadcrumb {
       font-family: "Noir Std";
