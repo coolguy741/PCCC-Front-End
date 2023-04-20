@@ -32,14 +32,6 @@ export const ResetPasswordForm = () => {
       return;
     }
 
-    console.log({
-      username: usernameForSecurityQuestions,
-      newPassword: password,
-      firstQuestionAnswer: firstQuestionAnswer,
-      secondQuestionAnswer: secondQuestionAnswer,
-      thirdQuestionAnswer: thirdQuestionAnswer,
-    });
-
     const response = await api.appUserResetPasswordCreate({
       username: usernameForSecurityQuestions,
       newPassword: password,

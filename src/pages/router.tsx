@@ -347,7 +347,7 @@ export const router = createBrowserRouter([
         element: <AccountsGroupCalendarPrintPage />,
       },
       {
-        path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
+        path: "dashboard/accounts/profiles/:user/:lessonAssessment/print",
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
       {
