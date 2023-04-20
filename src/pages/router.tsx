@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -81,7 +82,7 @@ import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 import { Topics } from "./TopicBuilderPage/Topics";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <TempHomePage /> },
+  { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
   { path: "/landing", element: <TestLandingPage /> },
   {
     path: "/signin",
@@ -369,5 +370,9 @@ export const router = createBrowserRouter([
   {
     path: "gamedebug",
     element: <GamePage />,
+  },
+  {
+    path: "*",
+    element: <h1>Route not found</h1>,
   },
 ]);
