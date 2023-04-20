@@ -21,6 +21,7 @@ import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 import { AuthPage } from "./AuthPage";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
+import { SecurityQuestionsPage } from "./AuthPage/SecurityQuestionsPage";
 import { SignInPage } from "./AuthPage/SignInPage";
 import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
@@ -95,8 +96,12 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <SignInPage /> },
           {
-            path: "forgot",
+            path: "forgot-password",
             element: <ForgotPasswordPage />,
+          },
+          {
+            path: "security-questions",
+            element: <SecurityQuestionsPage />,
           },
           {
             path: "reset-password",

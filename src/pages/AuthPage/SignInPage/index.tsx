@@ -1,4 +1,5 @@
 import { AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { SignInForm } from "../../../components/Auth/SignInForm";
 import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
 import { AppleBG, ArrowLeft, OrangeBG } from "../../../components/Icons";
@@ -21,24 +22,21 @@ const SIGN_IN_BG_ARR = [
 
 export const SignInPage = () => {
   const currentStep = useSignInStore((state) => state.currentStep);
-  const changeStep = useSignInStore((state) => state.changeStep);
+  const navigate = useNavigate();
 
   return (
     <AuthLayout>
-      <span
-        className="auth-breadcrumb"
-        onClick={() => changeStep(currentStep - 1)}
-      >
+      <span className="auth-breadcrumb" onClick={() => navigate("/")}>
         <ArrowLeft />
         Back
       </span>
       <AnimatePresence mode="wait" initial={false}>
-        {SIGN_IN_VIEW_ARR[currentStep]}
+        <SignInForm key="login" />
       </AnimatePresence>
 
       <div className="auth-image">
         <AnimatePresence mode="wait" initial={false}>
-          {SIGN_IN_BG_ARR[currentStep]}
+          <OrangeBG key="login" {...rightSideAnimationProps} />
         </AnimatePresence>
       </div>
     </AuthLayout>

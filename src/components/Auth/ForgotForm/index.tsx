@@ -1,15 +1,33 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
 export const ForgotForm = () => {
-  const { forgetType } = useUserStore();
-  function placeholderForSubmit() {
-    return "clicked";
-  }
+  const [input, setInput] = useState("");
+  const { changeStep } = useSignInStore();
+  const { forgetType, setUsernameForSecurityQuestions, setSecurityQuestions } =
+    useUserStore();
+  const { api } = useAPI();
+
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (forgetType === "username") {
+      console.log(`Send email to ${input} with password reset link`);
+    }
+
+    if (forgetType === "password") {
+      setUsernameForSecurityQuestions(input);
+
+      changeStep(1);
+    }
+  };
 
   const title =
     forgetType === "password" ? "Forgot Password?" : "Forgot Username?";
@@ -19,14 +37,32 @@ export const ForgotForm = () => {
       : "Enter the email that belongs to the account and we will send your username to you ";
   const label = forgetType === "password" ? "Username" : "Email";
 
+  const getSecurityQuestions = async () => {
+    const { data } =
+      await api.appCustomSecurityQuestionChoicesSecurityQuestionsList();
+
+    setSecurityQuestions(data);
+
+    return data;
+  };
+
+  useEffect(() => {
+    getSecurityQuestions();
+  }, []);
+
   return (
     <Style.Container>
       <h1>{title}</h1>
       <p>{subtitle}</p>
-      <form onSubmit={placeholderForSubmit}>
+      <form onSubmit={submitHandler}>
         <fieldset>
           <label>{label}</label>
-          <Input height="52px" />
+          <Input
+            height="52px"
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+            required
+          />
         </fieldset>
         {forgetType === "username" && (
           <span>

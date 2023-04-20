@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
-import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
@@ -13,12 +12,11 @@ import { Input } from "../../Global/Input";
 export const SignInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const changeStep = useSignInStore((state) => state.changeStep);
 
   const { connect } = useAPI();
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
-  const { setUsernameForSecurityQuestions, setForgetType } = useUserStore();
+  const { setForgetType } = useUserStore();
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,12 +37,12 @@ export const SignInForm = () => {
 
   function forgotPassword() {
     setForgetType("password");
-    navigate("forgot");
+    navigate("forgot-password");
   }
 
   function forgotUsername() {
     setForgetType("username");
-    navigate("forgot");
+    navigate("forgot-password");
   }
 
   return (
