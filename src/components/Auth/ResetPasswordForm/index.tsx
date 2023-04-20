@@ -1,23 +1,78 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
 export const ResetPasswordForm = () => {
-  function placeholderForReset() {
-    return "clicked";
-  }
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const usernameForSecurityQuestions = useUserStore(
+    (state) => state.usernameForSecurityQuestions,
+  );
+  const firstQuestionAnswer = useUserStore(
+    (state) => state.firstQuestionAnswer,
+  );
+  const secondQuestionAnswer = useUserStore(
+    (state) => state.secondQuestionAnswer,
+  );
+  const thirdQuestionAnswer = useUserStore(
+    (state) => state.thirdQuestionAnswer,
+  );
+  const { api } = useAPI();
+
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    console.log({
+      username: usernameForSecurityQuestions,
+      newPassword: password,
+      firstQuestionAnswer: firstQuestionAnswer,
+      secondQuestionAnswer: secondQuestionAnswer,
+      thirdQuestionAnswer: thirdQuestionAnswer,
+    });
+
+    const response = await api.appUserResetPasswordCreate({
+      username: usernameForSecurityQuestions,
+      newPassword: password,
+      firstQuestionAnswer: firstQuestionAnswer,
+      secondQuestionAnswer: secondQuestionAnswer,
+      thirdQuestionAnswer: thirdQuestionAnswer,
+    });
+
+    console.log(response);
+  };
+
   return (
-    <Style.Container onSubmit={placeholderForReset}>
+    <Style.Container onSubmit={submitHandler}>
       <h1>Password Reset</h1>
       <fieldset>
         <label>New Password</label>
-        <Input type="username" width="55%" />
+        <Input
+          type="password"
+          width="55%"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          required
+        />
       </fieldset>
       <fieldset>
-        <label>Retype New: Password</label>
-        <Input type="password" width="55%" />
+        <label>Retype Password</label>
+        <Input
+          type="password"
+          width="55%"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          value={confirmPassword}
+          required
+        />
       </fieldset>
       <Button type="submit" fullWidth>
         Reset

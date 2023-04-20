@@ -10,11 +10,23 @@ import { Input } from "../../Global/Input";
 import { Info } from "../../Icons";
 
 export const SignInSecurity = () => {
-  const changeStep = useSignInStore((state) => state.changeStep);
+  const [_firstQuestionAnswer, _setFirstQuestionAnswer] = useState("");
+  const [_secondQuestionAnswer, _setSecondQuestionAnswer] = useState("");
+  const [_thirdQuestionAnswer, _setThirdQuestionAnswer] = useState("");
   const [firstSecurityQuestion, setFirstSecuirtyQuestion] = useState<any>();
   const [secondSecurityQuestion, setSecondSecuirtyQuestion] = useState<any>();
   const [thirdSecurityQuestion, setThirdSecuirtyQuestion] = useState<any>();
   const { securityQuestions, usernameForSecurityQuestions } = useUserStore();
+  const changeStep = useSignInStore((state) => state.changeStep);
+  const setFirstQuestionAnswer = useUserStore(
+    (state) => state.setFirstQuestionAnswer,
+  );
+  const setSecondQuestionAnswer = useUserStore(
+    (state) => state.setSecondQuestionAnswer,
+  );
+  const setThirdQuestionAnswer = useUserStore(
+    (state) => state.setThirdQuestionAnswer,
+  );
 
   const { api } = useAPI();
 
@@ -55,6 +67,12 @@ export const SignInSecurity = () => {
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setFirstQuestionAnswer(_firstQuestionAnswer);
+    setSecondQuestionAnswer(_secondQuestionAnswer);
+    setThirdQuestionAnswer(_thirdQuestionAnswer);
+
+    changeStep(2);
   };
 
   return (
@@ -75,7 +93,12 @@ export const SignInSecurity = () => {
         </label>
         <div>
           <p>Answer</p>
-          <Input width="70%" />
+          <Input
+            width="70%"
+            onChange={(e) => _setFirstQuestionAnswer(e.target.value)}
+            value={_firstQuestionAnswer}
+            required
+          />
         </div>
       </fieldset>
       <fieldset>
@@ -85,7 +108,12 @@ export const SignInSecurity = () => {
         </label>
         <div>
           <p>Answer</p>
-          <Input width="70%" />
+          <Input
+            width="70%"
+            onChange={(e) => _setSecondQuestionAnswer(e.target.value)}
+            value={_secondQuestionAnswer}
+            required
+          />
         </div>
       </fieldset>
       <fieldset>
@@ -95,7 +123,12 @@ export const SignInSecurity = () => {
         </label>
         <div>
           <p>Answer</p>
-          <Input width="70%" />
+          <Input
+            width="70%"
+            onChange={(e) => _setThirdQuestionAnswer(e.target.value)}
+            value={_thirdQuestionAnswer}
+            required
+          />
         </div>
       </fieldset>
       <Button type="submit" fullWidth>
