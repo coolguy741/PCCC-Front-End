@@ -140,7 +140,7 @@ const Style = {
       }
     `}
       &.current-month {
-        color: #000000;
+        color: var(--black);
       }
 
       &.active {

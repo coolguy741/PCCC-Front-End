@@ -52,7 +52,7 @@ const Style = {
       width: 100%;
       bottom: 0;
       z-index: 1;
-      background: #000000;
+      background: var(--black);
       opacity: 0.5;
     }
   `,
