@@ -3,32 +3,31 @@ import styled from "styled-components";
 import { Input } from "../Input";
 
 export interface ContentListItemData {
-  data: {
-    id: number;
-    image: string;
-    alt?: string;
-    topic?: string;
-    date?: string;
-    title: string;
-    description: string;
-  };
+  id: number;
+  image: string;
+  alt?: string;
+  topic?: string;
+  date?: string;
+  title: string;
+  description: string;
 }
 
-interface ContentListItemProps extends ContentListItemData {
+interface ContentListItemProps {
+  data: ContentListItemData;
   selectable?: boolean;
-  onSelectionChange?: (id: number, isSelected: boolean) => void;
+  onSelectedChange?: (id: number, isSelected: boolean) => void;
 }
 
 export const ContentListItem: React.FC<ContentListItemProps> = ({
   data,
   selectable = false,
-  onSelectionChange,
+  onSelectedChange,
 }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsSelected(!isSelected);
-    onSelectionChange && onSelectionChange(data.id, event.target.checked);
+    onSelectedChange && onSelectedChange(data.id, event.target.checked);
   };
 
   return (
@@ -70,6 +69,7 @@ const Style = {
     position: relative;
     font-family: "Noir Std";
     font-style: normal;
+    width: 100%;
 
     &: hover {
       background: linear-gradient(
