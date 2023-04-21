@@ -76,5 +76,18 @@ const Style = {
         outline-offset: max(2px, 0.15em);
       }
     }
+
+    /* CSS to hide arrows for numeric input */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield; /* Firefox */
+      appearance: textfield;
+    }
   `,
 };

@@ -3,73 +3,73 @@
   "relatedTo": "Growing",
   "listData": [
     {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "title": "Garden Guardian ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     },
     {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     },
     {
-      "image": "/images/homepage/grow-item.jpg",
-      "alt": "disover-item",
-      "topic": "Topic: Pot it like it’s hot!",
-      "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
-    },
-    {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     },
     {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     },
     {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     },
     {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     },
     {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     },
     {
-      "image": "/images/homepage/grow-item.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/activities"
+    },
+    {
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
+      "title": "Garden Guardian",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
     }
   ]

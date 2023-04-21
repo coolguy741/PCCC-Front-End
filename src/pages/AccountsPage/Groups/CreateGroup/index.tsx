@@ -1,19 +1,22 @@
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../../../../components/Global/Button";
+import Button from "../../../../components/Button";
 import { SmallButton } from "../../../../components/Global/SmallButton";
+import { useAPI } from "../../../../hooks/useAPI";
 import mockData from "../../../../lib/mockData/accounts/createGroup.json";
+import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsCreateGroupPage = () => {
   const [members, setMembers] = useState<string[]>([]);
   const navigate = useNavigate();
+  const { api } = useAPI();
+  const [cookies] = useCookies([STORAGE_KEY_JWT]);
 
   const handleBack = () => {
     navigate(-1);
   };
-
-  // useEffect(() => {}, [members]);
 
   const handleAdd = (name: string) => {
     setMembers((mem) => [...mem, name]);
@@ -25,10 +28,26 @@ export const AccountsCreateGroupPage = () => {
     setMembers(local);
   };
 
+  const handleCreate = async () => {
+    const response = await api.appCustomGroupsCreate(
+      {
+        name: "test",
+        description: "test",
+      },
+      {
+        headers: {
+          Authentication: `Bearer ${cookies.PCCC_TOKEN}`,
+        },
+      },
+    );
+
+    console.log(response);
+  };
+
   return (
     <Style.Container>
       <div className="buttons-container">
-        <Button onClick={handleBack}>Back</Button>s{" "}
+        <Button onClick={handleBack}>Back</Button>
       </div>
       <h1>Create Group Page</h1>
       <div className="group-data-container">
@@ -87,7 +106,7 @@ export const AccountsCreateGroupPage = () => {
         </div>
       </div>
       <div className="create-button-container">
-        <Button>Create</Button>
+        <Button onClick={handleCreate}>Create</Button>
       </div>
     </Style.Container>
   );

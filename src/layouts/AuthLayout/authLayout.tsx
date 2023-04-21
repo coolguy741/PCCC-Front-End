@@ -19,6 +19,7 @@ const Style = {
     padding: 32px;
     padding-top: 108px;
     perspective: 1000px;
+    z-index: 0;
 
     .auth-breadcrumb {
       font-family: "Noir Std";
@@ -27,11 +28,16 @@ const Style = {
       top: 162px;
       font-style: normal;
       font-weight: 500;
-      font-size: 15px;
-      line-height: 20px;
+      font-size: 18px;
+      line-height: 24px;
+      color: #777777;
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      svg {
+        margin-right: 15px;
+      }
     }
 
     p {

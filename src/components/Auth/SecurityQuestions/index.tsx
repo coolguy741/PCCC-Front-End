@@ -64,24 +64,6 @@ export const SecurityQuestions = () => {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log({
-      birthYear: birthYear,
-      province: province,
-      username: `${firstUserName}${secondUserName}${thirdUserName}`,
-      password: password,
-      email: email,
-      name: name,
-      title: title,
-      schoolIdCode: schoolIdCode,
-      school: schoolName,
-      firstSecurityQuestionId: firstSecurityQuestionId,
-      firstSecurityQuestionAnswer: firstSecurityAnswer,
-      secondSecurityQuestionId: secondSecurityQuestionId,
-      secondSecurityQuestionAnswer: secondSecurityAnswer,
-      thirdSecurityQuestionId: thirdSecurityQuestionId,
-      thirdSecurityQuestionAnswer: thirdSecurityAnswer,
-    });
-
     if (isCoordinator) {
       api.appUserProfessionalCreate({
         birthYear: birthYear,

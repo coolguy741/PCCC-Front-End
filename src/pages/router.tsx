@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -19,8 +20,9 @@ import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreview
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 import { AuthPage } from "./AuthPage";
-import { ForgotPasswordPage } from "./AuthPage/ForgotPasswordPage";
+import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
+import { SecurityQuestionsPage } from "./AuthPage/SecurityQuestionsPage";
 import { SignInPage } from "./AuthPage/SignInPage";
 import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
@@ -80,7 +82,7 @@ import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 import { Topics } from "./TopicBuilderPage/Topics";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <TempHomePage /> },
+  { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
   { path: "/landing", element: <TestLandingPage /> },
   {
     path: "/signin",
@@ -97,6 +99,10 @@ export const router = createBrowserRouter([
           {
             path: "forgot-password",
             element: <ForgotPasswordPage />,
+          },
+          {
+            path: "security-questions",
+            element: <SecurityQuestionsPage />,
           },
           {
             path: "reset-password",
@@ -342,7 +348,7 @@ export const router = createBrowserRouter([
         element: <AccountsGroupCalendarPrintPage />,
       },
       {
-        path: "/dashboard/accounts/profiles/:user/:lessonAssessment/print",
+        path: "dashboard/accounts/profiles/:user/:lessonAssessment/print",
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
       {
@@ -364,5 +370,9 @@ export const router = createBrowserRouter([
   {
     path: "gamedebug",
     element: <GamePage />,
+  },
+  {
+    path: "*",
+    element: <h1>Route not found</h1>,
   },
 ]);

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
-import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
@@ -13,12 +12,11 @@ import { Input } from "../../Global/Input";
 export const SignInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const changeStep = useSignInStore((state) => state.changeStep);
 
   const { connect } = useAPI();
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
-  const { setUsernameForSecurityQuestions } = useUserStore();
+  const { setForgetType } = useUserStore();
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,13 +35,15 @@ export const SignInForm = () => {
     }
   };
 
-  const forgotPasswordHandler = () => {
-    setUsernameForSecurityQuestions(username);
-
-    console.log(username);
-
+  function forgotPassword() {
+    setForgetType("password");
     navigate("forgot-password");
-  };
+  }
+
+  function forgotUsername() {
+    setForgetType("username");
+    navigate("forgot-password");
+  }
 
   return (
     <Container>
@@ -67,7 +67,17 @@ export const SignInForm = () => {
             height="52px"
           />
         </fieldset>
-        <span onClick={() => changeStep(1)}>Forgot password?</span>
+        <p className="forgot">
+          Forgot your{" "}
+          <button onClick={forgotUsername}>
+            <u>username</u>
+          </button>{" "}
+          or{" "}
+          <button onClick={forgotPassword}>
+            <u>password</u>
+          </button>
+          ?
+        </p>
         <Button type="submit" fullWidth>
           Login
         </Button>
@@ -107,16 +117,15 @@ const Container = styled.main`
     }
   }
 
-  span {
+  p.forgot {
     font-size: 15px;
     line-height: 20px;
     width: 100%;
-    text-align: right;
     color: #646464;
     cursor: pointer;
   }
 
-  button {
+  button[type="submit"] {
     margin-top: 56px;
   }
 `;
