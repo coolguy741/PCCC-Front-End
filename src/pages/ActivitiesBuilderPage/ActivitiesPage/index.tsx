@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Card } from "../../../components/Global/Card";
+import { ContentListItem } from "../../../components/Global/ContentListItem";
 import { SelectBox } from "../../../components/Global/SelectBox";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import { Text } from "../../../components/Global/Text";
@@ -148,10 +148,10 @@ export const ActivitiesPage = () => {
           <SmallButton onClick={handleCreate}>Create</SmallButton>
         </Style.ButtonGroup>
       </Style.InputContainer>
-      <Style.CardsContainer>
+      <Style.ContentList>
         {mockData.activities.map((activity) => (
           <Link to="./activity">
-            <Card
+            <ContentListItem
               key={activity.id}
               image={activity.image}
               title={activity.title}
@@ -160,11 +160,12 @@ export const ActivitiesPage = () => {
               topic={activity.topic}
               onSelectionChange={handleSelectionChange}
               id={activity.id}
+              selectable={true}
               isSelected={false}
             />
           </Link>
         ))}
-      </Style.CardsContainer>
+      </Style.ContentList>
     </Style.Container>
   );
 };
@@ -175,10 +176,10 @@ const Style = {
     flex-direction: column;
     gap: 30px;
   `,
-  CardsContainer: styled.div`
+  ContentList: styled.div`
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 20px;
   `,
   InputContainer: styled.div`
     display: flex;
