@@ -1,93 +1,42 @@
 import { AnimatePresence } from "framer-motion";
-import { IncorrectSecurityAnswers } from "../../../components/Auth/IncorrectSecurityAnswers/incorrectSecurityAnswers";
+import { useNavigate } from "react-router-dom";
 import { SignInForm } from "../../../components/Auth/SignInForm";
 import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
-import {
-  AppleBG,
-  DirectionLeft,
-  GrapeBG,
-  OrangeBG,
-} from "../../../components/Icons";
+import { AppleBG, ArrowLeft, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
-import { StepsForSignIn, useSignInStore } from "../../../stores/signInStore";
+import { useSignInStore } from "../../../stores/signInStore";
+import {
+  animationProps,
+  rightSideAnimationProps,
+} from "../../../styles/animations/auth";
 
-const animationProps = {
-  style: {
-    transformOrigin: "bottom left",
-  },
-  initial: { opacity: 0, x: "-95%", scale: 0.75 },
-  animate: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: { delay: 0.3, duration: 0.5 },
-  },
-  exit: { opacity: 0, x: "-95%", scale: 0.75 },
-  transition: { ease: "linear" },
-};
+const SIGN_IN_VIEW_ARR = [
+  <SignInForm key="login" />,
+  <SignInSecurity key="security" />,
+];
 
-const rightSideAnimationProps = {
-  style: {
-    transformOrigin: "bottom right",
-  },
-  initial: { opacity: 0, x: "100vw", scale: 0.75 },
-  animate: {
-    opacity: 1,
-    x: "70vw",
-    scale: 1,
-    transition: { delay: 0.3, duration: 0.5 },
-  },
-  exit: { opacity: 0, x: "100vw", scale: 0.75 },
-  transition: { ease: "linear" },
-};
-
-function switchSignInView(step: StepsForSignIn) {
-  switch (step) {
-    case "login":
-      return <SignInForm key="login" />;
-    case "security":
-      return <SignInSecurity key="security" />;
-    case "incorrect-security":
-      return (
-        <IncorrectSecurityAnswers
-          key="incorrect-security"
-          {...animationProps}
-        />
-      );
-    default:
-      return <SignInForm key="login" />;
-  }
-}
-
-function switchSignInBG(step: StepsForSignIn) {
-  switch (step) {
-    case "login":
-      return <OrangeBG key="login" {...rightSideAnimationProps} />;
-    case "security":
-      return <AppleBG key="security" {...animationProps} />;
-    case "incorrect-security":
-      return <GrapeBG key="incorrect-security" {...animationProps} />;
-    default:
-      return <OrangeBG key="login" {...rightSideAnimationProps} />;
-  }
-}
+const SIGN_IN_BG_ARR = [
+  <OrangeBG key="login" {...rightSideAnimationProps} />,
+  <AppleBG key="security" {...animationProps} />,
+];
 
 export const SignInPage = () => {
   const currentStep = useSignInStore((state) => state.currentStep);
+  const navigate = useNavigate();
 
   return (
     <AuthLayout>
-      <span className="auth-breadcrumb">
-        <DirectionLeft />
+      <span className="auth-breadcrumb" onClick={() => navigate("/")}>
+        <ArrowLeft />
         Back
       </span>
       <AnimatePresence mode="wait" initial={false}>
-        {switchSignInView(currentStep)}
+        <SignInForm key="login" />
       </AnimatePresence>
 
       <div className="auth-image">
         <AnimatePresence mode="wait" initial={false}>
-          {switchSignInBG(currentStep)}
+          <OrangeBG key="login" {...rightSideAnimationProps} />
         </AnimatePresence>
       </div>
     </AuthLayout>

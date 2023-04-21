@@ -80,6 +80,9 @@ button {
   -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  font-size: inherit;
+  color: inherit;
 }
 
 input {

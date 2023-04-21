@@ -1,4 +1,5 @@
 import AppleBG from "./AppleBG/appleBG";
+import ArrowLeft from "./ArrowLeft/arrowLeft";
 import ArrowRight from "./ArrowRight/arrowRight";
 import DirectionLeft from "./DirectionLeft/directionLeft";
 import GrapeBG from "./GrapeBG/grapeBG";
@@ -18,4 +19,5 @@ export {
   GrapeBG,
   OrangeBG,
   AppleBG,
+  ArrowLeft,
 };

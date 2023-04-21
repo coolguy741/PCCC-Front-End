@@ -20,9 +20,9 @@ export const SignUpForm = () => {
   const [_birthMonth, _setBirthMonth] = useState("");
   const [_schoolName, _setSchoolName] = useState("");
   const [_schoolIdCode, _setSchoolIdCode] = useState("");
-  const [_firstUserName, _setFirstUserName] = useState("");
   const [_thirdUserName, _setThirdUserName] = useState("");
-  const [_secondUserName, _setSecondUserName] = useState("");
+  const [_firstUserName, _setFirstUserName] = useState("Awesome");
+  const [_secondUserName, _setSecondUserName] = useState("Apple");
   const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
   const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
     [],
@@ -119,6 +119,9 @@ export const SignUpForm = () => {
                 placeholder="MM"
                 onChange={(e) => _setBirthDay(e.target.value)}
                 value={_birthDay}
+                type="number"
+                min="1"
+                max="12"
                 required
               />
               <Input
@@ -127,6 +130,9 @@ export const SignUpForm = () => {
                 onChange={(e) => _setBirthMonth(e.target.value)}
                 value={_birthMonth}
                 required
+                type="number"
+                min="1"
+                max="31"
               />
               <Input
                 width="40%"
@@ -134,6 +140,9 @@ export const SignUpForm = () => {
                 onChange={(e) => _setBirthYear(e.target.value)}
                 value={_birthYear}
                 required
+                type="number"
+                min="1900"
+                max="2023"
               />
             </div>
           </fieldset>
@@ -193,6 +202,7 @@ export const SignUpForm = () => {
             onChange={(e) => _setFirstUserName(e.target.value)}
             value={_firstUserName}
             className="username-select"
+            required
           >
             {firstNames &&
               firstNames.map((name, index) => (
@@ -200,9 +210,13 @@ export const SignUpForm = () => {
               ))}
           </Select>
           <Select
-            onChange={(e) => _setSecondUserName(e.target.value)}
+            onChange={(e) => {
+              console.log(e.target.value);
+              _setSecondUserName(e.target.value);
+            }}
             value={_secondUserName}
             className="username-select"
+            required
           >
             {secondNames &&
               secondNames.map((name, index) => (

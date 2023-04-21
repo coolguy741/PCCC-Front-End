@@ -17,10 +17,18 @@ export const useUserStore = create<{
   hasCheckedForUserThisSession: boolean;
   usernameForSecurityQuestions: string;
   setUsernameForSecurityQuestions: (username: string) => void;
+  forgetType: "username" | "password" | null;
+  setForgetType: (forgetParameter: "username" | "password") => void;
   securityQuestions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput;
   setSecurityQuestions: (
     questions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
   ) => void;
+  firstQuestionAnswer: string;
+  setFirstQuestionAnswer: (answer: string) => void;
+  secondQuestionAnswer: string;
+  setSecondQuestionAnswer: (answer: string) => void;
+  thirdQuestionAnswer: string;
+  setThirdQuestionAnswer: (answer: string) => void;
 }>((set) => ({
   /** Our User/session object, null if not logged in */
   user: null,
@@ -35,6 +43,18 @@ export const useUserStore = create<{
   setSecurityQuestions: (
     questions: PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
   ) => set({ securityQuestions: questions }),
+  forgetType: null,
+  setForgetType: (forgetParameter: "username" | "password") =>
+    set({ forgetType: forgetParameter }),
+  firstQuestionAnswer: "",
+  setFirstQuestionAnswer: (answer: string) =>
+    set({ firstQuestionAnswer: answer }),
+  secondQuestionAnswer: "",
+  setSecondQuestionAnswer: (answer: string) =>
+    set({ secondQuestionAnswer: answer }),
+  thirdQuestionAnswer: "",
+  setThirdQuestionAnswer: (answer: string) =>
+    set({ thirdQuestionAnswer: answer }),
 }));
 
 // Imperative getter/setter/computed-value functions

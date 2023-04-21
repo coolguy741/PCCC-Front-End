@@ -1,16 +1,78 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
 import { useSignInStore } from "../../../stores/signInStore";
+import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { Info } from "../../Icons";
 
 export const SignInSecurity = () => {
+  const [_firstQuestionAnswer, _setFirstQuestionAnswer] = useState("");
+  const [_secondQuestionAnswer, _setSecondQuestionAnswer] = useState("");
+  const [_thirdQuestionAnswer, _setThirdQuestionAnswer] = useState("");
+  const [firstSecurityQuestion, setFirstSecuirtyQuestion] = useState<any>();
+  const [secondSecurityQuestion, setSecondSecuirtyQuestion] = useState<any>();
+  const [thirdSecurityQuestion, setThirdSecuirtyQuestion] = useState<any>();
+  const { securityQuestions, usernameForSecurityQuestions } = useUserStore();
   const changeStep = useSignInStore((state) => state.changeStep);
+  const setFirstQuestionAnswer = useUserStore(
+    (state) => state.setFirstQuestionAnswer,
+  );
+  const setSecondQuestionAnswer = useUserStore(
+    (state) => state.setSecondQuestionAnswer,
+  );
+  const setThirdQuestionAnswer = useUserStore(
+    (state) => state.setThirdQuestionAnswer,
+  );
+
+  const { api } = useAPI();
+
+  const getUserSecurityQuestions = async () => {
+    const { data } = await api.appUserQuestionIdsList({
+      Username: usernameForSecurityQuestions,
+    });
+
+    if (securityQuestions) {
+      if (securityQuestions.firstSecurityQuestions) {
+        const question = securityQuestions.firstSecurityQuestions.find(
+          (question) => question.id === data.firstQuestionId,
+        );
+        if (question) setFirstSecuirtyQuestion(question.question);
+      }
+
+      if (securityQuestions.secondSecurityQuestions) {
+        const question = securityQuestions.secondSecurityQuestions.find(
+          (question) => question.id === data.secondQuestionId,
+        );
+        if (question) setSecondSecuirtyQuestion(question.question);
+      }
+
+      if (securityQuestions.thirdSecurityQuestions) {
+        const question = securityQuestions.thirdSecurityQuestions.find(
+          (question) => question.id === data.thirdQuestionId,
+        );
+        if (question) setThirdSecuirtyQuestion(question.question);
+      }
+    }
+
+    return data;
+  };
+
+  useEffect(() => {
+    getUserSecurityQuestions();
+  }, []);
+
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    changeStep("incorrect-security");
+
+    setFirstQuestionAnswer(_firstQuestionAnswer);
+    setSecondQuestionAnswer(_secondQuestionAnswer);
+    setThirdQuestionAnswer(_thirdQuestionAnswer);
+
+    changeStep(2);
   };
 
   return (
@@ -27,31 +89,46 @@ export const SignInSecurity = () => {
       <fieldset>
         <label>
           <span>Question 1:</span>
-          <span>What is your favorite type of meat?</span>
+          <span>{firstSecurityQuestion}</span>
         </label>
         <div>
           <p>Answer</p>
-          <Input width="70%" />
+          <Input
+            width="70%"
+            onChange={(e) => _setFirstQuestionAnswer(e.target.value)}
+            value={_firstQuestionAnswer}
+            required
+          />
         </div>
       </fieldset>
       <fieldset>
         <label>
           <span>Question 1:</span>
-          <span>What is your favorite type of meat?</span>
+          <span>{secondSecurityQuestion}</span>
         </label>
         <div>
           <p>Answer</p>
-          <Input width="70%" />
+          <Input
+            width="70%"
+            onChange={(e) => _setSecondQuestionAnswer(e.target.value)}
+            value={_secondQuestionAnswer}
+            required
+          />
         </div>
       </fieldset>
       <fieldset>
         <label>
           <span>Question 1:</span>
-          <span>What is your favorite type of meat?</span>
+          <span>{thirdSecurityQuestion}</span>
         </label>
         <div>
           <p>Answer</p>
-          <Input width="70%" />
+          <Input
+            width="70%"
+            onChange={(e) => _setThirdQuestionAnswer(e.target.value)}
+            value={_thirdQuestionAnswer}
+            required
+          />
         </div>
       </fieldset>
       <Button type="submit" fullWidth>
