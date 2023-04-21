@@ -1,18 +1,11 @@
 import { create } from "zustand";
 
-export type StepsForSignIn =
-  | "login"
-  | "security"
-  | "password-reset"
-  | "incorrect-security"
-  | "educator-recovery";
-
 interface State {
-  currentStep: StepsForSignIn;
-  changeStep: (step: StepsForSignIn) => void;
+  currentStep: number;
+  changeStep: (step: number) => void;
 }
 
 export const useSignInStore = create<State>()((set) => ({
-  currentStep: "login",
+  currentStep: 0,
   changeStep: (step) => set(() => ({ currentStep: step })),
 }));
