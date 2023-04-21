@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ContentListItem, ContentListItemData } from "../ContentListItem";
 
@@ -15,14 +16,14 @@ export const ContentList: React.FC<ContentListProps> = ({
   return (
     <Style.Container>
       {listData.map((list) => (
-        <Style.ItemContainer>
+        <StyledLink to="./asd">
           <ContentListItem
             key={list.id}
             data={list}
             selectable={selectable}
             onSelectedChange={onSelectionChange}
           />
-        </Style.ItemContainer>
+        </StyledLink>
       ))}
     </Style.Container>
   );
@@ -41,3 +42,7 @@ const Style = {
     flex-basis: calc(50% - 20px);
   `,
 };
+
+const StyledLink = styled(Link)`
+  flex-basis: calc(50% - 20px);
+`;
