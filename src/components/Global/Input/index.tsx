@@ -22,7 +22,7 @@ const Style = {
     cursor: pointer;
 
     &:focus {
-      border: 2px solid #0084d5;
+      border: 2px solid var(--blue-500);
       box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1),
         0px 0px 0px 4px rgba(31, 81, 229, 0.08);
     }
@@ -34,7 +34,7 @@ const Style = {
     }
 
     &:active {
-      border: 2px solid #0084d5;
+      border: 2px solid var(--blue-500);
     }
 
     &:disabled {
@@ -72,7 +72,7 @@ const Style = {
 
       &:focus {
         border: 2px solid white;
-        outline: max(2px, 0.15em) solid #0084d5;
+        outline: max(2px, 0.15em) solid var(--blue-500);
         outline-offset: max(2px, 0.15em);
       }
     }

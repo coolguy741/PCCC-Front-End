@@ -86,7 +86,11 @@ const style = {
     left: -32px;
     width: calc(100% + 32px);
     height: 100vh;
-    background: linear-gradient(111.02deg, #c4e8ff 9.6%, #a6efcb 97.76%);
+    background: linear-gradient(
+      111.02deg,
+      var(--blue-200) 9.6%,
+      var(--green-200) 97.76%
+    );
     z-index: -1;
   `,
 };

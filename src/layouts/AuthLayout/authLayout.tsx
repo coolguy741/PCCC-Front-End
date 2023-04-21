@@ -66,6 +66,6 @@ const Style = {
       perspective: 250px;
     }
 
-    ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
   `,
 };

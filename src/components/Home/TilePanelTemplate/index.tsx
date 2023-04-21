@@ -42,16 +42,17 @@ const style = {
     position: absolute;
     top: ${(props) => "calc(" + props.order + "00vh)"};
     left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background: linear - gradient(111.02deg, #c4e8ff 9.6 %, #a6efcb 97.76 %);
-  z- index: -1;
+    width: 100vw;
+    height: 100vh;
+    background: linear -
+      gradient(111.02deg, var(--blue-200) 9.6%, var(--green-200) 97.76%);
+    z-index: -1;
 
     img {
-  position: absolute;
-  top: 54px;
-  right: 60px;
-  width: 875.04px;
-}
-`,
+      position: absolute;
+      top: 54px;
+      right: 60px;
+      width: 875.04px;
+    }
+  `,
 };

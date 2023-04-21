@@ -163,7 +163,7 @@ const Style = {
     width: var(--dashboard-menu-width-large);
     min-height: 100vh;
     height: 100%;
-    background: linear-gradient(-90deg, #4cde96, #20ad67);
+    background: linear-gradient(-90deg, var(--green-400), var(--green-600));
     border-radius: 0 32px 32px 0;
     padding: 36px 0;
     display: flex;

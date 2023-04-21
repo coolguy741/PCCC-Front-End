@@ -85,7 +85,7 @@ const style = {
     height: 100vh;
     background: linear-gradient(
       322.97deg,
-      #d2f7e5 2.67%,
+      var(--green-100) 2.67%,
       var(--yellow-100) 92.48%
     );
     z-index: -1;
