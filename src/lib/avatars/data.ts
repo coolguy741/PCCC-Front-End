@@ -28,86 +28,86 @@ interface Avatar {
 export const avatars_data: Avatar[] = [
   {
     icon: One,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Two,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Three,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Four,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Five,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Six,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Seven,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Eight,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Nine,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Ten,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Eleven,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Twelve,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Thirteen,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Fourteen,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Fifteen,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Sixteen,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Seventeen,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Eighteen,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Nineteen,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: Twenty,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
   {
     icon: TwentyOne,
-    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, #FFF5CC 96.38%)",
+    bg: "linear-gradient(322.97deg, #FEE5DD 2.67%, var(--yellow-100) 96.38%)",
   },
 ];

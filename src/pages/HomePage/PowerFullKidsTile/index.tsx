@@ -91,7 +91,7 @@ const style = {
     height: 1115.82px;
     left: 709.14px;
     top: 251.17px;
-    background: #fff5cc;
+    background: var(--yellow-100);
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
   `,

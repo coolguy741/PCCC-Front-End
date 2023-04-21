@@ -91,7 +91,11 @@ const style = {
     left: -32px;
     width: calc(100% + 32px);
     height: 100vh;
-    background: linear-gradient(322.97deg, #d2f7e5 2.67%, #fff5cc 92.48%);
+    background: linear-gradient(
+      322.97deg,
+      #d2f7e5 2.67%,
+      var(--yellow-100) 92.48%
+    );
     z-index: -1;
   `,
 };
