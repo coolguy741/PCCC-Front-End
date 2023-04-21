@@ -146,7 +146,10 @@ export const router = createBrowserRouter([
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
           },
-          { path: "groups", element: <AccountsGroupsPage /> },
+          {
+            path: "groups",
+            element: <AccountsGroupsPage />,
+          },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
           { path: "groups/:group/edit", element: <AccountsEditGroupPage /> },

@@ -29,6 +29,8 @@ export const AccountsCreateGroupPage = () => {
   };
 
   const handleCreate = async () => {
+    console.log("Cookies", cookies);
+
     const response = await api.appCustomGroupsCreate(
       {
         name: "test",
@@ -36,7 +38,7 @@ export const AccountsCreateGroupPage = () => {
       },
       {
         headers: {
-          Authentication: `Bearer ${cookies.PCCC_TOKEN}`,
+          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
         },
       },
     );
