@@ -81,7 +81,7 @@ const yellowVStyles = css`
   background: linear-gradient(
     182.85deg,
     var(--yellow-300) 2.47%,
-    #eabc00 97.72%
+    var(--yellow-600) 97.72%
   );
   box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
   color: white;
