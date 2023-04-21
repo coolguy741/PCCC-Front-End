@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const ContentListPageTemAdmin = () => {
-  return <Style.Container>ContentListPageTemAdmin</Style.Container>;
+export const ContentListPageTemplateAdmin = () => {
+  return <Style.Container>ContentListPageTemplateAdmin</Style.Container>;
 };
 
 const Style = {
