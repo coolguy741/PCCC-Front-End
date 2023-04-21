@@ -2,52 +2,49 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Input } from "../Input";
 
-interface ContentListItemProps {
-  id: number;
-  image: string;
-  alt?: string;
-  topic?: string;
-  title: string;
-  description: string;
-  selectable?: boolean;
-  isSelected?: boolean;
-  onSelectionChange: (id: number, isSelected: boolean) => void;
+export interface ContentListItemData {
+  data: {
+    id: number;
+    image: string;
+    alt?: string;
+    topic?: string;
+    date?: string;
+    title: string;
+    description: string;
+  };
 }
 
-export const ContentListItem = ({
-  id,
-  image,
-  alt = "content-list-image",
-  topic = "",
-  title,
-  description,
+interface ContentListItemProps extends ContentListItemData {
+  selectable?: boolean;
+  onSelectionChange?: (id: number, isSelected: boolean) => void;
+}
+
+export const ContentListItem: React.FC<ContentListItemProps> = ({
+  data,
   selectable = false,
-  isSelected = false,
-  onSelectionChange = (id: number, isSelected: boolean) => {
-    return "";
-  },
-}: ContentListItemProps) => {
-  const [isChecked, setIsChecked] = useState(isSelected);
+  onSelectionChange,
+}) => {
+  const [isSelected, setIsSelected] = useState(false);
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(!isChecked);
-    console.log("Checked", event.target.checked);
-    onSelectionChange(id, event.target.checked);
+    setIsSelected(!isSelected);
+    onSelectionChange && onSelectionChange(data.id, event.target.checked);
   };
 
   return (
     <Style.Container>
-      <img src={image} alt={alt} />
+      <img src={data.image} alt={data.alt} />
       <Style.Content>
-        {topic !== "" && <Style.Topic>{"Topic: " + topic}</Style.Topic>}
-        <Style.Title>{title}</Style.Title>
-        <Style.Description>{description}</Style.Description>
+        {data.topic && <Style.Topic>{"Topic: " + data.topic}</Style.Topic>}
+        {data.date && <Style.Date>{"Feature date: " + data.date}</Style.Date>}
+        <Style.Title>{data.title}</Style.Title>
+        <Style.Description>{data.description}</Style.Description>
       </Style.Content>
       {selectable && (
         <Style.InputContainer>
           <Input
             type="radio"
-            checked={true}
+            checked={isSelected}
             onChange={handleCheckBoxChange}
             width="33px"
             height="33px"
@@ -77,8 +74,8 @@ const Style = {
     &: hover {
       background: linear-gradient(
         182.85deg,
-        rgba(255, 225, 102, 0.75) 2.47%,
-        rgba(234, 188, 0, 0.75) 97.72%
+        rgba(255, 225, 102, 0.75) 2.47 %,
+        rgba(234, 188, 0, 0.75) 97.72 %
       );
     }
 
@@ -105,6 +102,20 @@ const Style = {
     border: 2px solid var(--orange-600);
     border-radius: 50px;
     color: var(--orange-600);
+    text-transform: uppercase;
+  `,
+  Date: styled.p`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 10px;
+    border: 2px solid var(--orange-600);
+    border-radius: 50px;
+    color: var(--orange-600);
+    text-transform: uppercase;
   `,
   Title: styled.p`
     font-weight: 600;
