@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ContentListItem } from "../../../components/Global/ContentListItem";
+import { ContentList } from "../../../components/Global/ContentList";
 import { SelectBox } from "../../../components/Global/SelectBox";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import { Text } from "../../../components/Global/Text";
@@ -60,17 +59,17 @@ const SortOptions = [
   },
 ];
 
-interface Activity {
-  id: number;
-  image: string;
-  alt: string;
-  topic: string;
-  title: string;
-  description: string;
-}
+// interface Activity {
+//   id: number;
+//   image: string;
+//   alt: string;
+//   topic: string;
+//   title: string;
+//   description: string;
+// }
 
 export const ActivitiesPage = () => {
-  const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
+  // const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
 
   const navigate = useNavigate();
 
@@ -86,35 +85,31 @@ export const ActivitiesPage = () => {
     alert("Filtered by topic: " + value);
   };
 
-  const handleDeleteSelectedActivities = () => {
-    const updatedActivitiesData = mockData.activities.filter(
-      (activity) => !selectedActivities.includes(activity.id),
-    );
-    setSelectedActivities([]);
-    setCardsData(updatedActivitiesData);
-  };
+  // const handleDeleteSelectedActivities = () => {
+  //   const updatedActivitiesData = mockData.activities.filter(
+  //     (activity) => !selectedActivities.includes(activity.id),
+  //   );
+  //   setSelectedActivities([]);
+  //   setCardsData(updatedActivitiesData);
+  // };
 
-  const setCardsData = (newCardsData: Activity[]) => {
-    mockData.activities.splice(0, mockData.activities.length, ...newCardsData);
-  };
+  // const setCardsData = (newCardsData: Activity[]) => {
+  //   mockData.activities.splice(0, mockData.activities.length, ...newCardsData);
+  // };
 
   const handleSelectionChange = (id: number, isSelected: boolean) => {
-    if (isSelected) {
-      setSelectedActivities([...selectedActivities, id]);
-    } else {
-      setSelectedActivities(
-        selectedActivities.filter((activity) => id !== activity),
-      );
-    }
+    // if (isSelected) {
+    //   setSelectedActivities([...selectedActivities, id]);
+    // } else {
+    //   setSelectedActivities(
+    //     selectedActivities.filter((activity) => id !== activity),
+    //   );
+    // }
   };
 
   const handleCreate = () => {
     navigate("./create");
   };
-
-  useEffect(() => {
-    console.log("activities", mockData.activities);
-  }, []);
 
   return (
     <Style.Container>
@@ -142,30 +137,15 @@ export const ActivitiesPage = () => {
           </Style.SelectBoxContainer>
         </Style.SelectBoxGroup>
         <Style.ButtonGroup>
-          <SmallButton onClick={handleDeleteSelectedActivities}>
-            Delete
-          </SmallButton>
+          <SmallButton>Delete</SmallButton>
           <SmallButton onClick={handleCreate}>Create</SmallButton>
         </Style.ButtonGroup>
       </Style.InputContainer>
-      <Style.ContentList>
-        {mockData.activities.map((activity) => (
-          <Link to="./activity">
-            <ContentListItem
-              key={activity.id}
-              image={activity.image}
-              title={activity.title}
-              description={activity.description}
-              alt={activity.alt}
-              topic={activity.topic}
-              onSelectionChange={handleSelectionChange}
-              id={activity.id}
-              selectable={true}
-              isSelected={false}
-            />
-          </Link>
-        ))}
-      </Style.ContentList>
+      <ContentList
+        listData={mockData.activities}
+        selectable={false}
+        onSelectionChange={handleSelectionChange}
+      />
     </Style.Container>
   );
 };
