@@ -17,7 +17,7 @@ export const MENUS = [
     icon: "content-builder",
     to: "content-builder",
     subMenus: [
-      { label: "Topics", to: "topic", icon: "topic" },
+      { label: "Topics", to: "topics", icon: "topic" },
       { label: "Activities", to: "activities", icon: "activities" },
       { label: "Recipes", to: "recipes", icon: "recipe" },
       {

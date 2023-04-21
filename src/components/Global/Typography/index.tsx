@@ -2,11 +2,20 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 export type TypographyVariant =
-  | "display"
-  | "headline"
-  | "title"
-  | "label"
-  | "body";
+  | "display1"
+  | "display2"
+  | "display3"
+  | "display4"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "paragraph1"
+  | "paragraph2"
+  | "paragraph3"
+  | "paragraph4";
 
 export type TypographyWeight =
   | "regular"
@@ -14,8 +23,6 @@ export type TypographyWeight =
   | "semi-bold"
   | "bold"
   | "heavy";
-
-export type TypographySize = "small" | "medium" | "large";
 
 export type TypographyProps = {
   className?: string;
@@ -35,8 +42,8 @@ export type TypographyProps = {
   pl?: number;
   pr?: number;
   variant?: TypographyVariant;
-  size?: TypographySize;
   weight?: TypographyWeight;
+  color?: string;
 };
 
 export const Typography: React.FC<TypographyProps> = ({
@@ -79,42 +86,81 @@ function getTypographyWeight(props: TypographyProps) {
   }
 }
 
-const displayVSStyles = (size: TypographySize) => css`
-  font-size: ${size === "large" ? 57 : size === "small" ? 36 : 45}px;
-  line-height: ${size === "large" ? 64 : size === "small" ? 44 : 52}px;
-`;
-const headlineVSStyles = (size: TypographySize) => css`
-  font-size: ${size === "large" ? 32 : size === "small" ? 24 : 28}px;
-  line-height: ${size === "large" ? 40 : size === "small" ? 32 : 36}px;
-`;
-const titleVSStyles = (size: TypographySize) => css`
-  font-size: ${size === "large" ? 22 : size === "small" ? 14 : 16}px;
-  line-height: ${size === "large" ? 28 : size === "small" ? 20 : 24}px;
-`;
-const labelVSStyles = (size: TypographySize) => css`
-  font-size: ${size === "large" ? 14 : size === "small" ? 11 : 12}px;
-  line-height: ${size === "large" ? 20 : size === "small" ? 16 : 16}px;
-`;
-const bodyVSStyles = (size: TypographySize) => css`
-  font-size: ${size === "large" ? 16 : size === "small" ? 12 : 14}px;
-  line-height: ${size === "large" ? 24 : size === "small" ? 16 : 20}px;
-`;
-
-function getTypographyVariantAndSize(props: TypographyProps) {
-  const { variant, size = "medium" } = props;
-
+const variantVStyles = (variant: TypographyVariant) => {
   switch (variant) {
-    case "display":
-      return displayVSStyles(size);
-    case "headline":
-      return headlineVSStyles(size);
-    case "title":
-      return titleVSStyles(size);
-    case "label":
-      return labelVSStyles(size);
+    case "display1":
+      return css`
+        font-size: 120px;
+        line-height: 144px;
+      `;
+    case "display2":
+      return css`
+        font-size: 72px;
+        line-height: 86px;
+      `;
+    case "display3":
+      return css`
+        font-size: 60px;
+        line-height: 72px;
+      `;
+    case "h1":
+      return css`
+        font-size: 48px;
+        line-height: 56px;
+      `;
+    case "h2":
+      return css`
+        font-size: 40px;
+        line-height: 48px;
+      `;
+    case "h3":
+      return css`
+        font-size: 33px;
+        line-height: 40px;
+      `;
+    case "h4":
+      return css`
+        font-size: 28px;
+        line-height: 32px;
+      `;
+    case "h5":
+      return css`
+        font-size: 23px;
+        line-height: 28px;
+      `;
+    case "h6":
+      return css`
+        font-size: 19px;
+        line-height: 24px;
+      `;
+    case "paragraph1":
+      return css`
+        font-size: 12px;
+        line-height: 14px;
+      `;
+    case "paragraph2":
+      return css`
+        font-size: 14px;
+        line-height: 16px;
+      `;
+    case "paragraph3":
+      return css`
+        font-size: 16px;
+        line-height: 20px;
+      `;
+
     default:
-      return bodyVSStyles(size);
+      return css`
+        font-size: 18px;
+        line-height: 24px;
+      `;
   }
+};
+
+function getTypographyVariant(props: TypographyProps) {
+  const { variant = "paragraph1" } = props;
+
+  return variantVStyles(variant);
 }
 
 export const Style = {
@@ -134,7 +180,8 @@ export const Style = {
     ${({ pl }) => pl && `padding-left: calc(${pl} * var(--gutter-spacing));`}
     ${({ px }) => px && `padding: 0 calc(${px} * var(--gutter-spacing));`}
     ${({ py }) => py && `padding: calc(${py} * var(--gutter-spacing)) 0;`}
+    ${({ color = "neutral-800" }) => `color: var(--${color});`}
     ${getTypographyWeight}
-    ${getTypographyVariantAndSize}
+    ${getTypographyVariant}
   `,
 };

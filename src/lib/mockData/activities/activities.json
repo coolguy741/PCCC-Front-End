@@ -2,7 +2,7 @@
   "activities": [
     {
       "id": 1,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -10,7 +10,7 @@
     },
     {
       "id": 2,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -18,7 +18,7 @@
     },
     {
       "id": 3,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -26,7 +26,7 @@
     },
     {
       "id": 4,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -34,7 +34,7 @@
     },
     {
       "id": 5,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -42,7 +42,7 @@
     },
     {
       "id": 6,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -50,7 +50,7 @@
     },
     {
       "id": 7,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -58,7 +58,7 @@
     },
     {
       "id": 8,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
@@ -66,7 +66,7 @@
     },
     {
       "id": 9,
-      "image": "/images/activities/activity1.jpg",
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "activity1",
       "topic": "Garden Guardian",
       "title": "Lorem Ipsum",
