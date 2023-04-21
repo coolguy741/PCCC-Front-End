@@ -30,7 +30,11 @@ function Button({ children, to, onClick, ...props }: ButtonProps) {
 export default Button;
 
 const orangeVStyles = css`
-  background: linear-gradient(109.03deg, #f87c56 3.03%, #f65321 103.97%);
+  background: linear-gradient(
+    109.03deg,
+    var(--orange-500) 3.03%,
+    var(--orange-600) 103.97%
+  );
   color: white;
   box-shadow: 0px 4px 5px rgba(248, 124, 86, 0.4);
 
@@ -39,7 +43,11 @@ const orangeVStyles = css`
   }
 
   &:active {
-    background: linear-gradient(177.73deg, #f65321 1.81%, #b62217 98.01%);
+    background: linear-gradient(
+      177.73deg,
+      var(--orange-600) 1.81%,
+      #b62217 98.01%
+    );
     box-shadow: 0px 5px 15px rgba(214, 57, 9, 0.4);
   }
 
