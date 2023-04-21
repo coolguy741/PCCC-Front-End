@@ -91,7 +91,11 @@ const yellowVStyles = css`
   }
 
   &:active {
-    background: linear-gradient(177.73deg, #f3d03e 1.81%, #f19100 98.01%);
+    background: linear-gradient(
+      177.73deg,
+      var(--yellow-500) 1.81%,
+      #f19100 98.01%
+    );
     box-shadow: 0px 5px 15px rgba(255, 207, 47, 0.4);
   }
 

@@ -120,7 +120,7 @@ const style = {
     height: 100%;
     left: 0px;
     top: 0px;
-    background: #f3d03e;
+    background: var(--yellow-500);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   `,
 };
