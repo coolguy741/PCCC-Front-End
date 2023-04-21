@@ -23,7 +23,6 @@ const SunLight: FC = () => {
   // Handlers
   const handleLogLightPos = useCallback(() => {
     if (sunLightRef.current) {
-      console.clear();
       const newPos = sunLightRef.current.getWorldPosition(sunLightWorldPos);
       console.log("lightPosition:", newPos);
     }
