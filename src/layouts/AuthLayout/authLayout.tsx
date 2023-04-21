@@ -30,7 +30,7 @@ const Style = {
       font-weight: 500;
       font-size: 18px;
       line-height: 24px;
-      color: #777777;
+      color: var(--neutral-500);
       display: flex;
       align-items: center;
       cursor: pointer;

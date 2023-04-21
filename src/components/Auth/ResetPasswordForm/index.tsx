@@ -83,7 +83,7 @@ const Style = {
       font-weight: 600;
       font-size: 33px;
       line-height: 40px;
-      color: #2e2e2e;
+      color: var(--neutral-900);
       margin-bottom: 32px;
     }
 
@@ -98,7 +98,7 @@ const Style = {
         font-weight: 500;
         font-size: 16px;
         line-height: 20px;
-        color: #505050;
+        color: var(--neutral-700);
       }
     }
 

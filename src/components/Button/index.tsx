@@ -124,7 +124,7 @@ const ghostVStyles = css`
   }
 
   &:disabled {
-    color: #8b8b8b;
+    color: var(--neutral-400);
   }
 `;
 

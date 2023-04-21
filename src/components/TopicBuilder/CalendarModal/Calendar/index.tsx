@@ -105,7 +105,7 @@ const Style = {
     ${({ isPlan }) =>
       isPlan &&
       `&:hover .day {
-      background: #2e2e2e;
+      background: var(--neutral-900);
     }
     &:hover > .dropdown-container .trigger {
       opacity: 1;
@@ -132,7 +132,7 @@ const Style = {
       ${({ isPlan }) =>
         !isPlan &&
         `&:hover {
-        background: #2e2e2e;
+        background: var(--neutral-900);
 
         & > .dropdown-container .trigger {
           opacity: 1;

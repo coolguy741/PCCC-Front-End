@@ -37,7 +37,7 @@ const Style = {
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
-      color: #505050;
+      color: var(--neutral-700);
     }
 
     button {

@@ -38,7 +38,7 @@ const Style = {
     }
 
     &:disabled {
-      background: #ececec;
+      background: var(--neutral-100);
       border: 1px solid #e1e6ef;
       box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     }
