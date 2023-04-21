@@ -74,8 +74,8 @@ const Style = {
     &: hover {
       background: linear-gradient(
         182.85deg,
-        rgba(255, 225, 102, 0.75) 2.47 %,
-        rgba(234, 188, 0, 0.75) 97.72 %
+        rgba(255, 225, 102, 0.75) 2.47%,
+        rgba(234, 188, 0, 0.75) 97.72%
       );
     }
 
