@@ -46,7 +46,7 @@ const orangeVStyles = css`
     background: linear-gradient(
       177.73deg,
       var(--orange-600) 1.81%,
-      #b62217 98.01%
+      var(--red-600) 98.01%
     );
     box-shadow: 0px 5px 15px rgba(214, 57, 9, 0.4);
   }
