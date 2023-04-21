@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { HTMLAttributes } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -27,9 +28,16 @@ export const SpeechBubble: React.FC<SpeechBubbleProps> = ({
   };
 
   return (
-    <Style.Container onClick={to ? handleClick : onClick} {...props}>
+    <Style.Button
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={to ? handleClick : onClick}
+      {...props}
+    >
       {children}
-    </Style.Container>
+    </Style.Button>
   );
 };
 
@@ -159,7 +167,7 @@ function getButtonVariant(props: SpeechBubbleProps) {
 }
 
 const Style = {
-  Container: styled.button`
+  Button: styled(motion.button)`
     border-radius: 0.5rem;
     padding: 14px 1rem;
     white-space: nowrap;
