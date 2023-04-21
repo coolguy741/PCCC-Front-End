@@ -1,5 +1,5 @@
 :root {
-  --white: #ffffff;
+  --white: var(--white);
   --black: #000000;
 
   --yellow-100: #fff5cc;

@@ -192,7 +192,7 @@ const Style = {
     z-index: 2;
     width: 90%;
     margin: auto;
-    background: #ffffff;
+    background: var(--white);
     padding: 5px;
   `,
   ModalHeader: styled.div`

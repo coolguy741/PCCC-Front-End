@@ -10,7 +10,7 @@ const Style = {
   Input: styled.input<InputProps>`
     width: ${({ width }) => (width ? width : "100%")};
     height: ${({ height }) => (height ? height : "100%")};
-    background: #ffffff;
+    background: var(--white);
     box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 5px 15px;

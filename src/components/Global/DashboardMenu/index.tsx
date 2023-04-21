@@ -119,7 +119,7 @@ export const DashboardMenu = () => {
 
 const Style = {
   MenuItem: styled.div`
-    color: #ffffff;
+    color: var(--white);
 
     .menu-item {
       display: flex;

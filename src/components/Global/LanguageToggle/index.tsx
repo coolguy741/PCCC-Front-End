@@ -72,7 +72,7 @@ const Style = {
       left: 0;
       width: 42px;
       height: 100%;
-      background: #ffffff;
+      background: var(--white);
       border-radius: 24px;
       transition: transform 0.2s;
     }
