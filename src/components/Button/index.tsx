@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { Icon } from "../Global/Icon";
 
 export type ButtonVariant = "orange" | "yellow" | "ghost" | "green";
 export type ButtonSize = "small" | "medium" | "large";
@@ -12,9 +13,18 @@ export interface ButtonProps
   size?: ButtonSize;
   to?: string;
   fullWidth?: boolean;
+  icon?: string;
+  iconPosition?: string;
 }
 
-function Button({ children, to, onClick, ...props }: ButtonProps) {
+function Button({
+  children,
+  to,
+  onClick,
+  icon,
+  iconPosition,
+  ...props
+}: ButtonProps) {
   const navigate = useNavigate();
   const handleNavigate = () => {
     to && navigate(to);
@@ -22,7 +32,9 @@ function Button({ children, to, onClick, ...props }: ButtonProps) {
 
   return (
     <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
-      {children}
+      {iconPosition === "left" && icon && <Icon name={icon} />}
+      <p>{children}</p>
+      {iconPosition === "right" && icon && <Icon name={icon} />}
     </Style.Button>
   );
 }
@@ -80,7 +92,7 @@ const greenVStyles = css`
 const yellowVStyles = css`
   background: linear-gradient(182.85deg, #ffe166 2.47%, #eabc00 97.72%);
   box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
-  color: white;
+  color: var(--neutral-800);
 
   &:hover {
     box-shadow: 0px 9px 8px rgba(255, 217, 89, 0.4);
@@ -113,24 +125,43 @@ const ghostVStyles = css`
 `;
 
 const smallSStyles = css`
-  height: 40px;
   font-size: 16px;
-  padding: 10px 16px;
   line-height: 24px;
+  padding: 10px 16px;
+  p {
+    padding: 0px 16px;
+  }
+  imag {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const mediumSStyles = css`
-  width: 154px;
-  height: 44px;
   font-size: 16px;
   line-height: 24px;
+  padding: 12px 28px;
+  p {
+    padding: 0px 16px;
+  }
+  imag {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const largeSStyles = css`
-  width: 176px;
-  height: 52px;
+  width: auto;
   font-size: 18px;
   line-height: 24px;
+  padding: 14px 20px;
+  p {
+    padding: 0px 16px;
+  }
+  imag {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 function getButtonVariant(props: ButtonProps) {
@@ -183,6 +214,7 @@ export const Style = {
     transition: box-shadow 0.3s ease-out, color 0.3s ease-in,
       background 0.3s linear;
     border: 0;
+    display: flex;
 
     ${getButtonVariant}
     ${getButtonSize}
