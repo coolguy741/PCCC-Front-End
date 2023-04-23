@@ -60,7 +60,7 @@ import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
 import { ProfilePage } from "./Profile";
 import { ProfileSettingsPage } from "./Profile/ProfileSettings";
-import { RecipesBuilderPage } from "./RecipeBuilderPage";
+import { RecipesPage } from "./RecipeBuilderPage";
 import { RecipePage } from "./RecipeBuilderPage/RecipePage";
 import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
@@ -70,7 +70,6 @@ import { RecipesCreateRecipePage } from "./RecipeBuilderPage/RecipesCreateRecipe
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
 import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
 import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
-import { RecipesPage } from "./RecipeBuilderPage/RecipesPage";
 import { ReportsPage } from "./ReportsPage";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
@@ -268,9 +267,10 @@ export const router = createBrowserRouter([
       {
         path: "recipes",
         element: (
-          <RecipesBuilderPage>
-            <Outlet />
-          </RecipesBuilderPage>
+          <ContentListPageLayout
+            title="Recipes"
+            icon="Recipes-orange-outlined"
+          />
         ),
         children: [
           { path: "", element: <RecipesPage /> },
