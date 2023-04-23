@@ -243,6 +243,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "foodways",
+        element: (
+          <ContentListPageLayout
+            title="Foodways"
+            icon="foodways-orange-outlined"
+          />
+        ),
         children: [
           { path: "", element: <FoodwaysPage /> },
           {
