@@ -13,10 +13,9 @@ import { AccountsUserLessonAssessmentPage } from "./AccountsPage/Profiles/Lesson
 import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/LessonAssessmentPrint";
 import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
 import { AchievementsPage } from "./AchievementsPage";
-import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
+import { ActivitiesPage } from "./ActivitiesBuilderPage";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
 import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
-import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
@@ -225,9 +224,10 @@ export const router = createBrowserRouter([
       {
         path: "activities",
         element: (
-          <ActivitiesBuilderPage>
-            <Outlet />
-          </ActivitiesBuilderPage>
+          <ContentListPageLayout
+            title="Activities"
+            icon="activities-orange-outlined"
+          />
         ),
         children: [
           { path: "", element: <ActivitiesPage /> },
