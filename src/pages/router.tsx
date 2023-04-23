@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
+import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -75,11 +76,10 @@ import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
 import { TempHomePage } from "./TempHomePage";
 import { TestLandingPage } from "./TestLandingPage";
-import { TopicBuilderPage } from "./TopicBuilderPage";
+import { Topics } from "./TopicBuilderPage";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
 import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
-import { Topics } from "./TopicBuilderPage/Topics";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
@@ -191,7 +191,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "topics",
-        element: <TopicBuilderPage />,
+        element: (
+          <ContentListPageLayout title="Topic" icon="topic-orange-outlined" />
+        ),
         children: [
           { path: "", element: <Topics /> },
           { path: "create/:slug", element: <TopicCreatePage /> },
