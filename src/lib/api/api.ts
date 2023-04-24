@@ -188,13 +188,11 @@ export interface PccServer23GroupsGroupUpdateDto {
 export interface PccServer23GroupsGroupWithNavigationPropertiesDto {
   group?: PccServer23GroupsGroupDto;
   owner?: PccServer23IdentityPublicIdentityUserDto;
-  role?: string | null;
 }
 
 export interface PccServer23IdentityPublicIdentityUserDto {
-  name?: string | null;
-  surname?: string | null;
   username?: string | null;
+  role?: string | null;
 }
 
 export interface PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput {
@@ -2570,13 +2568,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCustomGroupsCreate
      * @summary Create new group.
      * @request POST:/api/app/custom-groups
+     * @secure
      */
     appCustomGroupsCreate: (data: PccServer23GroupsGroupCreateSelfDto, params: RequestParams = {}) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups`,
         method: "POST",
         body: data,
+        secure: true,
         type: ContentType.Json,
+        format: "json",
         ...params,
       }),
 
@@ -2587,12 +2588,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCustomGroupsUpdate
      * @summary Update group details
      * @request PUT:/api/app/custom-groups/{id}
+     * @secure
      */
     appCustomGroupsUpdate: (id: string, data: PccServer23GroupsGroupUpdateDto, params: RequestParams = {}) =>
       this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/${id}`,
         method: "PUT",
         body: data,
+        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -2605,11 +2608,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCustomGroupsDelete
      * @summary Delete a group
      * @request DELETE:/api/app/custom-groups/{id}
+     * @secure
      */
     appCustomGroupsDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/${id}`,
         method: "DELETE",
+        secure: true,
         ...params,
       }),
 
@@ -2620,12 +2625,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCustomGroupsJoinCreate
      * @summary Join a group.
      * @request POST:/api/app/custom-groups/join
+     * @secure
      */
     appCustomGroupsJoinCreate: (data: PccServer23GroupsGroupJoinDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/join`,
         method: "POST",
         body: data,
+        secure: true,
         type: ContentType.Json,
         ...params,
       }),
@@ -2637,12 +2644,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCustomGroupsAcceptCreate
      * @summary Accept a group user join request
      * @request POST:/api/app/custom-groups/accept
+     * @secure
      */
     appCustomGroupsAcceptCreate: (data: PccServer23GroupsGroupAcceptDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/accept`,
         method: "POST",
         body: data,
+        secure: true,
         type: ContentType.Json,
         ...params,
       }),
@@ -2654,12 +2663,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCustomGroupsRejectCreate
      * @summary Reject a group user join request
      * @request POST:/api/app/custom-groups/reject
+     * @secure
      */
     appCustomGroupsRejectCreate: (data: PccServer23GroupsGroupRejectDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/reject`,
         method: "POST",
         body: data,
+        secure: true,
         type: ContentType.Json,
         ...params,
       }),
@@ -2671,6 +2682,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCustomGroupsMyCreatedGroupsList
      * @summary Get list of groups created by authenticated user
      * @request GET:/api/app/custom-groups/my-created-groups
+     * @secure
      */
     appCustomGroupsMyCreatedGroupsList: (
       query?: {
@@ -2700,6 +2712,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/custom-groups/my-created-groups`,
         method: "GET",
         query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomGroups
+     * @name AppCustomGroupsMyJoinedGroupsList
+     * @summary Get list of groups joined by authenticated user
+     * @request GET:/api/app/custom-groups/my-joined-groups
+     * @secure
+     */
+    appCustomGroupsMyJoinedGroupsList: (
+      query?: {
+        FilterText?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/custom-groups/my-joined-groups`,
+        method: "GET",
+        query: query,
+        secure: true,
         format: "json",
         ...params,
       }),
@@ -2882,11 +2935,13 @@ To create new user with standard role use: api/app/user
      * @name AppUserUserProfileList
      * @summary Get current authenticated user's profile with latest 10 user joined groups data
      * @request GET:/api/app/user/user-profile
+     * @secure
      */
     appUserUserProfileList: (params: RequestParams = {}) =>
       this.request<PccServer23UsersGetUserProfileDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user/user-profile`,
         method: "GET",
+        secure: true,
         format: "json",
         ...params,
       }),
