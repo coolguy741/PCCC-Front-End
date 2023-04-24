@@ -1,15 +1,17 @@
-import { HTMLAttributes } from "react";
+import { motion } from "framer-motion";
+import { BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { Color } from "../../../pages/types";
 
-interface SpeechBubbleProps extends HTMLAttributes<HTMLButtonElement> {
+interface SpeechBubbleProps {
   children: React.ReactNode;
   variant?: Color;
   to?: string;
   left?: number;
   top?: number;
+  onClick: (event: BaseSyntheticEvent) => void;
   position?: "fixed" | "absolute";
   unit?: "px" | "%";
 }
@@ -27,9 +29,9 @@ export const SpeechBubble: React.FC<SpeechBubbleProps> = ({
   };
 
   return (
-    <Style.Container onClick={to ? handleClick : onClick} {...props}>
+    <Style.Button onClick={to ? handleClick : onClick} {...props}>
       {children}
-    </Style.Container>
+    </Style.Button>
   );
 };
 
@@ -159,7 +161,7 @@ function getButtonVariant(props: SpeechBubbleProps) {
 }
 
 const Style = {
-  Container: styled.button`
+  Button: styled(motion.button)`
     border-radius: 0.5rem;
     padding: 14px 1rem;
     white-space: nowrap;
