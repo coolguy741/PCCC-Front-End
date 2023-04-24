@@ -129,7 +129,7 @@ export const DashboardHeader = () => {
                     Log in
                   </Button>
                   <Button variant="orange" to="/signup" size="small">
-                    <span>Sign up</span>
+                    Sign up
                   </Button>
                 </>
               )}
@@ -197,7 +197,7 @@ const Style = {
     isOpen: props.isOpen || false,
   }))`
     position: relative;
-    background: linear-gradient(#4cde96, #20ad67);
+    background: linear-gradient(var(--green-400), var(--green-600));
     z-index: 5;
     color: white;
     cursor: pointer;
@@ -233,11 +233,7 @@ const Style = {
         height: 20px;
       }
 
-      ${({ isOpen }) =>
-        isOpen &&
-        `img {
-         transform: rotate(-180deg);
-      }`};
+      ${({ isOpen }) => isOpen && "img { transform: rotate(-180deg);}"};
     }
   `,
   DropdownMenu: styled(motion.div)`
@@ -258,7 +254,7 @@ const Style = {
     gap: 10px;
 
     & input {
-      border: 2px solid #0084d5;
+      border: 2px solid var(--blue-500);
     }
 
     & div {

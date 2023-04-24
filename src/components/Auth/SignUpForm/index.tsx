@@ -119,6 +119,9 @@ export const SignUpForm = () => {
                 placeholder="MM"
                 onChange={(e) => _setBirthDay(e.target.value)}
                 value={_birthDay}
+                type="number"
+                min="1"
+                max="12"
                 required
               />
               <Input
@@ -127,6 +130,9 @@ export const SignUpForm = () => {
                 onChange={(e) => _setBirthMonth(e.target.value)}
                 value={_birthMonth}
                 required
+                type="number"
+                min="1"
+                max="31"
               />
               <Input
                 width="40%"
@@ -134,6 +140,9 @@ export const SignUpForm = () => {
                 onChange={(e) => _setBirthYear(e.target.value)}
                 value={_birthYear}
                 required
+                type="number"
+                min="1900"
+                max="2023"
               />
             </div>
           </fieldset>
@@ -304,7 +313,7 @@ const Style = {
 
         label {
           width: 35%;
-          color: #505050;
+          color: var(--neutral-700);
           font-weight: 400;
           font-size: 1rem;
           line-height: 25px;

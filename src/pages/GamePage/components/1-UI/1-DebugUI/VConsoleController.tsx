@@ -1,7 +1,7 @@
-import { memo, useEffect, useRef } from "react";
+import { FC, memo, useEffect, useRef } from "react";
 import VConsole from "vconsole";
 
-const VConsoleController = () => {
+const VConsoleController: FC = () => {
   // Refs
   const vConsoleRef = useRef<VConsole | null>(null);
 

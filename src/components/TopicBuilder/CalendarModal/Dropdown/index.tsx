@@ -38,7 +38,7 @@ const Style = {
       left: 50%;
       top: 30px;
       transform: translate(-50%);
-      background: #ffffff;
+      background: var(--white);
       z-index: 3;
     }
 
@@ -54,7 +54,7 @@ const Style = {
     }
 
     .trigger {
-      background: #ffffff;
+      background: var(--white);
       cursor: pointer;
       margin: auto;
       top: 20px;

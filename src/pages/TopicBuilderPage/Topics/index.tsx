@@ -300,7 +300,7 @@ const Style = {
                 position: absolute;
                 top: -0.25rem;
                 left: -0.25rem;
-                background: #ffffff;
+                background: var(--white);
                 width: 2rem;
                 height: 2rem;
                 border-radius: 100%;

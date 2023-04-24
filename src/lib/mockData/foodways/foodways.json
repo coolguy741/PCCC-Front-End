@@ -1,50 +1,76 @@
-[
-  {
-    "id": "123",
-    "title": "Chocolate",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    "id": "123",
-    "title": "Chickpeas",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    "id": "123",
-    "title": "Potatoes",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    "id": "123",
-    "title": "Chocolate",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    "id": "123",
-    "title": "Chickpeas",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    "id": "123",
-    "title": "Potatoes",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    "id": "123",
-    "title": "Chocolate",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    "id": "123",
-    "title": "Chickpeas",
-    "date": "Feb. 28, 2023",
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  }
-]
+{
+  "foodways": [
+    {
+      "id": 1,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 2,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 3,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 4,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 5,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 6,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 7,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 8,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    },
+    {
+      "id": 9,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "activity1",
+      "date": "04/04/23",
+      "title": "Lorem Ipsum",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    }
+  ]
+}

@@ -1,25 +1,17 @@
-import styled from "styled-components";
-import { ActivitiesHeader } from "../../components/Activities/ActivitiesHeader";
+import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
+import mockData from "../../lib/mockData/activities/activities.json";
 
-interface ActivitiesBuilderPageProps {
-  children: JSX.Element;
-}
+export const ActivitiesPage = () => {
+  const handleSelectionChange = (id: number, isSelected: boolean) => {
+    return;
+  };
 
-export const ActivitiesBuilderPage = ({
-  children,
-}: ActivitiesBuilderPageProps) => {
   return (
-    <Style.Container>
-      <ActivitiesHeader />
-      <div className="content">{children}</div>
-    </Style.Container>
+    <ContentListAdminPageTemplate
+      title={"Activity"}
+      selectsGroup={["Curriculum", "Topic", "Sort"]}
+      listData={mockData.activities}
+      onSelectionChange={handleSelectionChange}
+    />
   );
-};
-
-const Style = {
-  Container: styled.div`
-    .content {
-      padding: 11px 0px;
-    }
-  `,
 };
