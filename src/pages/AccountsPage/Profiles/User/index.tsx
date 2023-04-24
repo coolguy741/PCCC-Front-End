@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Photo } from "../../../../components/Accounts/Photo";
-import { Button } from "../../../../components/Global/Button";
-import { Icon } from "../../../../components/Global/Icon";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 //should be deleted after api implementation
 import { useLocation } from "react-router-dom";
+import { ArrowLeft, Group } from "../../../../components/Icons";
+import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
+import { glassBackground } from "../../../../styles/helpers/glassBackground";
 
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
@@ -25,287 +25,247 @@ export const AccountsUserProfilePage = () => {
   };
 
   return (
-    <Style.PageContainer>
-      <Link to="/dashboard/accounts/profiles">
-        <Button onClick={handleBack}>&lt; Back</Button>
-      </Link>
-      <div className="info-container">
-        <div className="avatar-container">
-          <Photo src={userData.image} role={userData.role} width="100px" />
+    <Style.Container>
+      <span className="breadcrumb">
+        <ArrowLeft />
+        Back
+      </span>
+      <h2>Standard Profile</h2>
+      <section className="content-container">
+        <article className="user-info">
+          <figure></figure>
           {userData.role === "Standard" ? (
-            <div className="user-info">
-              <p className="bold-big-text">{userData.userID}</p>
-              <p className="text">Birth year: {userData.birthYear}</p>
-              <p className="text">Province: {userData.province}</p>
-              <p className="text">Created: {userData.createdDate}</p>
+            <div className="user-info-content">
+              <h3>{userData.userID}</h3>
+              <p>Birth year: {userData.birthYear}</p>
+              <p>Province: {userData.province}</p>
+              <p>Created: {userData.createdDate}</p>
             </div>
           ) : userData.role === "Professional" ? (
-            <div className="user-info">
-              <p className="bold-big-text">{userData.userID}</p>
-              <p className="bold-text">{userData.name}</p>
-              <p className="text">Birth year: {userData.birthYear}</p>
-              <p className="text">ID Code: {userData.idCode}</p>
-              <p className="text">School: {userData.school}</p>
-              <p className="text">Province: {userData.province}</p>
-              <p className="text">{userData.email}</p>
-              <p className="text">Created: {userData.createdDate}</p>
+            <div className="user-info-content">
+              <h3>{userData.userID}</h3>
+              <h4>{userData.name}</h4>
+              <p>Birth year: {userData.birthYear}</p>
+              <p>ID Code: {userData.idCode}</p>
+              <p>School: {userData.school}</p>
+              <p>Province: {userData.province}</p>
+              <p>{userData.email}</p>
+              <p>Created: {userData.createdDate}</p>
             </div>
           ) : (
-            <div className="user-info">
-              <p className="bold-big-text">{userData.userID}</p>
-              <p className="bold-text">{userData.name}</p>
-              <p className="text">Birth year: {userData.birthYear}</p>
-              <p className="text">Province: {userData.province}</p>
-              <p className="text">{userData.email}</p>
-              <p className="text">Created: {userData.createdDate}</p>
+            <div className="user-info-content">
+              <h3>{userData.userID}</h3>
+              <h4>{userData.name}</h4>
+              <p>Birth year: {userData.birthYear}</p>
+              <p>Province: {userData.province}</p>
+              <p>{userData.email}</p>
+              <p>Created: {userData.createdDate}</p>
             </div>
           )}
-        </div>
-        <div className="badges-groups-container">
-          <h3>Badges</h3>
-          <div className="badges-container">
-            <div className="badges">
-              {[...Array(userData.badges)].map((_, index) => (
-                <span className="badge-icon" key={index}>
-                  <Icon name="badge" />
+        </article>
+        <article className="badges">
+          <div className="header-view">
+            <h3>Badges</h3>
+            <button>View all</button>
+          </div>
+          <div className="bagdes-icons">
+            <figure></figure>
+            <figure></figure>
+            <figure></figure>
+            <figure></figure>
+            <figure></figure>
+            <figure></figure>
+            <figure></figure>
+          </div>
+        </article>
+        <article className="groups">
+          <div className="header-view">
+            <h3>Groups</h3>
+            <button>View all</button>
+          </div>
+          <ul>
+            {userData.groups.map((group, index) => (
+              <li key={index}>
+                <Group />
+                <span>
+                  {group.name}
+                  &nbsp;
                 </span>
+                <span>{"(" + group.number + ")"}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+        <article className="activity">
+          <h3>Activity</h3>
+          <ul>
+            {userData.activities.map((activity, index) => (
+              <li key={index}>
+                <div>
+                  <p>User</p>
+                  <p>{activity.name}</p>
+                  <p>{activity.content}</p>
+                </div>
+                <p>{activity.date}</p>
+              </li>
+            ))}
+          </ul>
+        </article>
+        <article className="lesson-assesment">
+          <h3>Lesson Assessment</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Lessons</th>
+                <th>Groups</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userData.lessonAssessment.map((lesson, index) => (
+                <tr key={index}>
+                  <td>
+                    <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
+                      {lesson.lessons}
+                    </Link>
+                  </td>
+                  <td>{lesson.group}</td>
+                  <td>{lesson.date}</td>
+                  <td>{lesson.status}</td>
+                </tr>
               ))}
-            </div>
-          </div>
-          <h3>Groups</h3>
-          <div className="groups-container">
-            <ul className="groups-list">
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-      <h3>Activity</h3>
-      <ul className="activities-list">
-        {userData.activities.map((activity, index) => (
-          <li className="activity-item" key={index}>
-            <div className="left">
-              <span className="icon-container">
-                <Icon name={activity.type} />
-              </span>
-              <p className="bold-text">User</p>
-              <p className="text">{activity.name}</p>
-              <p className="text">{activity.content}</p>
-            </div>
-            <p className="text date">{activity.date}</p>
-          </li>
-        ))}
-      </ul>
-      <h3>Lesson Accessment</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Lessons</th>
-            <th>Groups</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userData.lessonAssessment.map((lesson, index) => (
-            <tr key={index}>
-              <td>
-                <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
-                  {lesson.lessons}
-                </Link>
-              </td>
-              <td>{lesson.group}</td>
-              <td>{lesson.date}</td>
-              <td>{lesson.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </Style.PageContainer>
+            </tbody>
+          </table>
+        </article>
+      </section>
+    </Style.Container>
   );
 };
 
 const Style = {
-  PageContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    padding-top: 11px;
-
-    Button {
-      max-width: 150px;
+  Container: styled.div`
+    h2 {
+      font-weight: 600;
+      font-size: 33px;
+      line-height: 40px;
+      color: var(--neutral-900);
+      margin-bottom: 16px;
     }
 
-    .info-container {
+    h3 {
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 32px;
+      color: var(--neutral-800);
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 20px;
+      color: var(--neutral-800);
+    }
+
+    .content-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(7, 90px);
+      grid-column-gap: 24px;
+      grid-row-gap: 24px;
+    }
+
+    .user-info,
+    .badges,
+    .groups,
+    .activity,
+    .lesson-assesment {
+      ${glassBackground};
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-view {
       display: flex;
-      padding-top: 5px;
-      width: 100%;
-
-      .avatar-container {
-        display: flex;
-        padding-top: 10px;
-        width: 50%;
-
-        .user-info {
-          padding-left: 30px;
-          font-family: "Noir Std";
-          font-style: normal;
-          line-height: 103.68%;
-          letter-spacing: 0.02em;
-          color: #797979;
-
-          .bold-big-text {
-            font-size: 14.1465px;
-            font-weight: 700;
-          }
-
-          .text {
-            font-weight: 400;
-            font-size: 12px;
-          }
-        }
-      }
-
-      .badges-groups-container {
-        width: 50%;
-
-        .badges-container {
-          display: flex;
-
-          .badges {
-            padding: 20px;
-            background-color: #d9d9d9;
-            display: flex;
-
-            .badge-icon {
-              width: 60px;
-              height: 60px;
-            }
-          }
-        }
-
-        .groups-container {
-          display: flex;
-
-          .groups-list {
-            background-color: #d9d9d9;
-            padding: 20px;
-
-            .group-item {
-              padding: 10px 0px;
-              display: flex;
-              align-items: center;
-
-              .group-icon {
-                width: 20px;
-                height: 20px;
-              }
-
-              .bold-text {
-                padding-left: 15px;
-                font-family: "Noir Std";
-                font-style: normal;
-                font-weight: 700;
-                font-size: 14px;
-                line-height: 103.68%;
-                letter-spacing: 0.02em;
-                color: #797979;
-              }
-
-              .small-text {
-                padding-left: 5px;
-                font-family: "Noir Std";
-                font-style: normal;
-                font-weight: 400;
-                font-size: 12px;
-                line-height: 143.18%;
-                letter-spacing: 0.02em;
-                color: #797979;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .activities-list {
-      padding: 0px;
-
-      .activity-item {
-        padding-bottom: 10px;
-        display: flex;
-        align-items: center;
-        font-family: "Noir Std";
-        font-style: normal;
-        line-height: 19px;
-        letter-spacing: 0.02em;
-        color: #797979;
-        justify-content: space-between;
-        max-width: 700px;
-
-        .left {
-          display: flex;
-        }
-
-        .icon-container {
-          width: 40px;
-          height: 40px;
-        }
-
-        .bold-text {
-          padding-left: 20px;
-          font-weight: 700;
-          font-size: 16px;
-        }
-
-        .text {
-          padding-left: 10px;
-        }
-      }
-    }
-
-    table {
-      text-align: left;
       align-items: center;
-      font-family: "Noir Std";
-      font-style: normal;
-      line-height: 103.68%;
-      letter-spacing: 0.02em;
-      color: #797979;
-      border-collapse: collapse;
+      justify-content: space-between;
+      margin-bottom: 15px;
 
-      thead {
-        font-weight: 400;
-        font-size: 20px;
-
-        tr {
-          height: 40px;
-        }
+      h3 {
+        margin-bottom: 0;
       }
 
-      tbody {
-        tr {
-          height: 50px;
-          border-bottom: 2px solid black;
+      button {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: var(--neutral-600);
+      }
+    }
 
-          a {
-            &:hover,
-            &:visited {
-              text-decoration: none;
-              color: inherit;
-            }
-          }
+    .user-info {
+      grid-area: 1 / 1 / 3 / 2;
+      ${() => animatedbackgroundGradient("#C4E8FF", "#A6EFCB")};
+      display: flex;
+
+      figure {
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        margin-right: 20px;
+      }
+    }
+
+    .badges {
+      grid-area: 1 / 2 / 3 / 3;
+
+      .bagdes-icons {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 25px;
+      }
+
+      figure {
+        width: 12%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .groups {
+      grid-area: 3 / 1 / 5 / 2;
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-wrap: wrap;
+
+        li {
+          display: flex;
+          align-items: center;
+          min-width: 30%;
+          margin-bottom: 20px;
+        }
+
+        svg {
+          margin-right: 10px;
         }
       }
+    }
+
+    .activity {
+      grid-area: 5 / 1 / 8 / 2;
+      border: 1px solid red;
+    }
+
+    .lesson-assesment {
+      grid-area: 3 / 2 / 8 / 3;
+      border: 1px solid red;
     }
   `,
 };
