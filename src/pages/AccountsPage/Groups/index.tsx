@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GroupCard } from "../../../components/Accounts/GroupCard";
 import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
 import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
-import { Button } from "../../../components/Global/Button";
+import Button from "../../../components/Button";
+import { Input } from "../../../components/Global/Input";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
 import { useAPI } from "../../../hooks/useAPI";
 import mockData from "../../../lib/mockData/accounts/groups.json";
@@ -55,15 +56,15 @@ export const AccountsGroupsPage = () => {
         <div className="group-container">
           <div className="label">
             <p>Group</p>
-            <input className=""></input>
+            <Input type="text" />
           </div>
           <div className="label">
             <p>Group ID</p>
-            <input className=""></input>
+            <Input type="text" />
           </div>
           <div className="label">
             <p>School</p>
-            <input className=""></input>
+            <Input type="text" />
           </div>
         </div>
         <div className="button-container">
@@ -75,9 +76,7 @@ export const AccountsGroupsPage = () => {
         <div className="groups-container">
           {groups.map((group, index) => (
             <div className="group-card-container" key={index}>
-              <Link to={`./${group.group.id}`}>
-                <GroupCard data={group} />
-              </Link>
+              <GroupCard data={group} />
             </div>
           ))}
         </div>
