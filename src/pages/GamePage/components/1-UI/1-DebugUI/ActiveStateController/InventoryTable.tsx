@@ -1,34 +1,34 @@
-import { FC, Fragment, memo } from "react";
-import {
-  InventoryObjectType,
-  InventoryValue,
-} from "../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
+import { FC, Fragment, memo, useCallback } from "react";
+import { InventoryObjectType } from "../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
 
 type InventoryTablePropTypes = {
   inventory: InventoryObjectType;
 };
 
 const InventoryTable: FC<InventoryTablePropTypes> = memo(({ inventory }) => {
-  const renderRows = (obj: InventoryObjectType) => {
+  const renderRows = useCallback((obj: InventoryObjectType | boolean) => {
     return Object.entries(obj).map(([key, value]) => {
-      const nestedValue = value as InventoryValue;
+      const nestedValue = value;
       if (typeof nestedValue === "boolean") {
         return (
-          <Fragment key={key}>
+          <span key={key}>
             {key}: {nestedValue ? "Yes" : "No"}
             <br />
-          </Fragment>
+          </span>
         );
       } else {
         return (
           <Fragment key={key}>
-            <u>{key}</u>
-            <ul>{renderRows(nestedValue)}</ul>
+            <br />
+            <span>
+              <u>{key}</u>
+              <ul>{renderRows(nestedValue)}</ul>
+            </span>
           </Fragment>
         );
       }
     });
-  };
+  }, []);
 
   return <Fragment>{renderRows(inventory)}</Fragment>;
 });
