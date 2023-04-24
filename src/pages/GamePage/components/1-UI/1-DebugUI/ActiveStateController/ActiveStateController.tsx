@@ -96,11 +96,11 @@ const ActiveStateController: FC = () => {
         {activeStateVisible ? "Hide Active State" : "Show Active State"}
       </ActiveStateControllerButtonStyle>
 
-      {/* <ActiveStateControllerButtonStyle
+      {/* <ActiveStateControllerButtonStyleRun
         onClick={handleSetUpdateActiveInventory}
       >
         RUN
-      </ActiveStateControllerButtonStyle> */}
+      </ActiveStateControllerButtonStyleRun> */}
     </Fragment>
   );
 };
