@@ -1,12 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { Typography } from "../../Global/Typography";
 
 export const AccountsHeader = () => {
   const { pathname } = useLocation();
 
   return (
     <Style.Container>
-      <h1>Accounts</h1>
+      <Typography variant="h1" color="orange-500" weight="semi-bold" mb={5}>
+        Accounts
+      </Typography>
       <nav className="tags-container">
         <Link
           className={`${pathname.includes("profiles") ? "active" : ""} tag`}
@@ -29,7 +32,6 @@ export const AccountsHeader = () => {
 
 const Style = {
   Container: styled.div`
-    padding: 25px 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -47,6 +49,7 @@ const Style = {
       height: 62px;
       width: 100%;
       display: flex;
+      margin-bottom: 45px;
 
       .tag {
         width: 50%;
@@ -63,7 +66,7 @@ const Style = {
       }
 
       .active {
-        border-bottom: 2px solid var(--blue-500);
+        border-bottom: 4px solid var(--blue-500);
       }
     }
   `,

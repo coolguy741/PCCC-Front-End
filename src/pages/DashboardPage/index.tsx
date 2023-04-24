@@ -24,6 +24,7 @@ const Style = {
     position: relative;
     width: 100%;
     height: 100vh;
+    max-height: 100vh;
     display: flex;
     overflow-x: hidden;
 
@@ -33,10 +34,6 @@ const Style = {
 
       @media screen and (max-width: 1920px) {
         width: calc(100% - var(--dashboard-menu-width-medium));
-      }
-
-      .__content {
-        height: 100%;
       }
     }
   `,

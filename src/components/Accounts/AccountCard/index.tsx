@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Icon } from "../../Global/Icon";
+import { Typography } from "../../Global/Typography";
 
 interface AccountCardProps {
   img: string;
@@ -11,17 +11,18 @@ interface AccountCardProps {
 export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Style.Container>
-      <img src={img} alt="avatar" className="avatar" />
-      {role === "Professional" && (
-        <div className="icon-container">
-          <Icon name="professional" />
-        </div>
-      )}
+      <div className="avatar" />
       <div className="account-info">
-        <div className="text">{name}</div>
-        <div className="text">{role} User</div>
+        <div>
+          <Typography variant="h5" weight="semi-bold" mb={2}>
+            {name}
+          </Typography>
+          <Typography variant="paragraph3">{role} User</Typography>
+        </div>
         <div className="button-layout">
-          <button onClick={onClick}>Delete</button>
+          <button onClick={onClick}>
+            <img src="/images/icons/trash.svg" alt={`delete user ${name}`} />
+          </button>
         </div>
       </div>
     </Style.Container>
@@ -30,19 +31,21 @@ export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
 
 const Style = {
   Container: styled.div`
-    margin: 5px;
-    padding: 10px;
-    width: 180px;
-    height: 80px;
+    padding: 16px;
+    border-radius: 16px;
     position: relative;
-    background-color: #d9d9d9;
+    background: #ffffff50;
+    filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
+    backdrop-filter: blur(119px);
     display: flex;
+    gap: 16px;
 
     .avatar {
       margin-top: 5px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+      width: 116px;
+      height: 116px;
+      min-width: 116px;
+      border-radius: 100%;
     }
 
     .icon-container {
@@ -52,40 +55,22 @@ const Style = {
     }
 
     .account-info {
-      padding-left: 8px;
-      padding-top: 6px;
-      flex-grow: 1;
-
-      .text {
-        font-family: "Noir Std";
-        font-style: normal;
-        font-weight: 700;
-        font-size: 11px;
-        line-height: 143.18%;
-        letter-spacing: 0.02em;
-        color: #797979;
-        padding-bottom: 5px;
-      }
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
 
       .button-layout {
-        width: 51px;
-        height: 21px;
-        display: flex;
-        float: right;
+        visibility: hidden;
+        text-align: right;
+      }
+    }
 
-        button {
-          border: none;
-          border-radius: 10px;
-          font-family: "Open Sans";
-          font-style: normal;
-          font-weight: 700;
-          font-size: 11px;
-          line-height: 143.18%;
-          text-align: center;
-          letter-spacing: 0.02em;
-          color: var(--neutral-800);
-          background-color: #8d8d8d;
-        }
+    &:hover {
+      background: linear-gradient(182.85deg, #ffeb99, #f3d03e);
+
+      .button-layout {
+        visibility: visible;
       }
     }
   `,
