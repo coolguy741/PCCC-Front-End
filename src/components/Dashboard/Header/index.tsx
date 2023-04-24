@@ -129,7 +129,7 @@ export const DashboardHeader = () => {
                     Log in
                   </Button>
                   <Button variant="orange" to="/signup" size="small">
-                    <span>Sign up</span>
+                    Sign up
                   </Button>
                 </>
               )}
@@ -233,11 +233,7 @@ const Style = {
         height: 20px;
       }
 
-      ${({ isOpen }) =>
-        isOpen &&
-        `img {
-         transform: rotate(-180deg);
-      }`};
+      ${({ isOpen }) => isOpen && "img { transform: rotate(-180deg);}"};
     }
   `,
   DropdownMenu: styled(motion.div)`
