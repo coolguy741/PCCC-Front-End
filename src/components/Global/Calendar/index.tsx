@@ -66,7 +66,7 @@ const Style = {
             }
             border-radius: 100%;
             background: #d9d9d9;
-            color: #000000;
+            color: var(--black);
           }
         }
 

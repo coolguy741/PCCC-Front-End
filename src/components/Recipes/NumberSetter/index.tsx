@@ -37,7 +37,7 @@ const Style = {
     border: none;
     background: none;
     font-size: 0.8rem;
-    color: #000000;
+    color: var(--black);
     cursor: pointer;
     margin: 0;
   `,

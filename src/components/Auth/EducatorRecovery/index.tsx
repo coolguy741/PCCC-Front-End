@@ -24,14 +24,14 @@ const Style = {
       font-weight: 600;
       font-size: 36px;
       line-height: 44px;
-      color: #2e2e2e;
+      color: var(--neutral-900);
       margin-bottom: 24px;
     }
 
     p {
       font-size: 24px;
       line-height: 32px;
-      color: #505050;
+      color: var(--neutral-700);
       margin-bottom: 12px;
     }
   `,

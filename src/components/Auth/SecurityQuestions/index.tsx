@@ -244,7 +244,7 @@ const Style = {
       font-weight: 600;
       font-size: 25px;
       line-height: 30px;
-      color: #2e2e2e;
+      color: var(--neutral-900);
       margin-bottom: 24px;
     }
 
@@ -256,7 +256,7 @@ const Style = {
         display: flex;
         font-size: 16px;
         line-height: 24px;
-        color: #505050;
+        color: var(--neutral-700);
 
         svg {
           margin-right: 15px;
@@ -278,7 +278,7 @@ const Style = {
         margin-bottom: 15px;
 
         label {
-          color: #505050;
+          color: var(--neutral-700);
           font-weight: 400;
           font-size: 1rem;
           line-height: 25px;
