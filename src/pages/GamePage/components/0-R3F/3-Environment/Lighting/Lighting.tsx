@@ -1,7 +1,7 @@
-import { Fragment, memo } from "react";
+import { FC, Fragment, memo } from "react";
 import SunLight from "./SunLight";
 
-const Lighting = () => {
+const Lighting: FC = () => {
   return (
     <Fragment>
       <SunLight />
