@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
+import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -12,10 +13,9 @@ import { AccountsUserLessonAssessmentPage } from "./AccountsPage/Profiles/Lesson
 import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/LessonAssessmentPrint";
 import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
 import { AchievementsPage } from "./AchievementsPage";
-import { ActivitiesBuilderPage } from "./ActivitiesBuilderPage";
+import { ActivitiesPage } from "./ActivitiesBuilderPage";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
 import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
-import { ActivitiesPage } from "./ActivitiesBuilderPage/ActivitiesPage";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
@@ -59,7 +59,7 @@ import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
 import { ProfilePage } from "./Profile";
 import { ProfileSettingsPage } from "./Profile/ProfileSettings";
-import { RecipesBuilderPage } from "./RecipeBuilderPage";
+import { RecipesPage } from "./RecipeBuilderPage";
 import { RecipePage } from "./RecipeBuilderPage/RecipePage";
 import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
@@ -69,17 +69,15 @@ import { RecipesCreateRecipePage } from "./RecipeBuilderPage/RecipesCreateRecipe
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
 import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
 import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
-import { RecipesPage } from "./RecipeBuilderPage/RecipesPage";
 import { ReportsPage } from "./ReportsPage";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
 import { TempHomePage } from "./TempHomePage";
 import { TestLandingPage } from "./TestLandingPage";
-import { TopicBuilderPage } from "./TopicBuilderPage";
+import { Topics } from "./TopicBuilderPage";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
 import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
-import { Topics } from "./TopicBuilderPage/Topics";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
@@ -191,7 +189,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "topics",
-        element: <TopicBuilderPage />,
+        element: (
+          <ContentListPageLayout title="Topic" icon="topic-orange-outlined" />
+        ),
         children: [
           { path: "", element: <Topics /> },
           { path: "create/:slug", element: <TopicCreatePage /> },
@@ -224,9 +224,10 @@ export const router = createBrowserRouter([
       {
         path: "activities",
         element: (
-          <ActivitiesBuilderPage>
-            <Outlet />
-          </ActivitiesBuilderPage>
+          <ContentListPageLayout
+            title="Activities"
+            icon="activities-orange-outlined"
+          />
         ),
         children: [
           { path: "", element: <ActivitiesPage /> },
@@ -241,6 +242,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "foodways",
+        element: (
+          <ContentListPageLayout
+            title="Foodways"
+            icon="foodways-orange-outlined"
+          />
+        ),
         children: [
           { path: "", element: <FoodwaysPage /> },
           {
@@ -260,9 +267,10 @@ export const router = createBrowserRouter([
       {
         path: "recipes",
         element: (
-          <RecipesBuilderPage>
-            <Outlet />
-          </RecipesBuilderPage>
+          <ContentListPageLayout
+            title="Recipes"
+            icon="Recipes-orange-outlined"
+          />
         ),
         children: [
           { path: "", element: <RecipesPage /> },
