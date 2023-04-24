@@ -29,7 +29,14 @@ export const SpeechBubble: React.FC<SpeechBubbleProps> = ({
   };
 
   return (
-    <Style.Button onClick={to ? handleClick : onClick} {...props}>
+    <Style.Button
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={to ? handleClick : onClick}
+      {...props}
+    >
       {children}
     </Style.Button>
   );

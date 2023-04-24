@@ -1,8 +1,8 @@
 import { BakeShadows, SoftShadows } from "@react-three/drei";
 import { folder, useControls } from "leva";
-import { Fragment, memo } from "react";
+import { FC, Fragment, memo } from "react";
 
-const Shadows = () => {
+const Shadows: FC = () => {
   const { size, focus, samples, enableSS, enableBS } = useControls({
     shadows: folder({
       softShadows: folder({
