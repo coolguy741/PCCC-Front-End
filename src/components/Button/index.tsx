@@ -129,9 +129,9 @@ const smallSStyles = css`
   line-height: 24px;
   padding: 10px 16px;
   p {
-    padding: 0px 16px;
+    padding: 0px 8px;
   }
-  imag {
+  img {
     width: 24px;
     height: 24px;
   }
@@ -140,25 +140,24 @@ const smallSStyles = css`
 const mediumSStyles = css`
   font-size: 16px;
   line-height: 24px;
-  padding: 12px 28px;
+  padding: 12px 18px;
   p {
-    padding: 0px 16px;
+    padding: 0px 12px;
   }
-  imag {
+  img {
     width: 24px;
     height: 24px;
   }
 `;
 
 const largeSStyles = css`
-  width: auto;
   font-size: 18px;
   line-height: 24px;
   padding: 14px 20px;
   p {
     padding: 0px 16px;
   }
-  imag {
+  img {
     width: 24px;
     height: 24px;
   }
