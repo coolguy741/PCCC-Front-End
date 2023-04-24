@@ -102,7 +102,7 @@ export const AccountsUserProfilePage = () => {
             {userData.activities.map((activity, index) => (
               <li key={index}>
                 <p>
-                  <Group /> User {activity.name} {activity.name}
+                  <Group /> User {activity.name} {activity.content}
                 </p>
                 <span>{activity.date}</span>
               </li>
@@ -258,7 +258,6 @@ const Style = {
 
     .activity {
       grid-area: 5 / 1 / 8 / 2;
-      border: 1px solid red;
 
       ul {
         list-style-type: none;
