@@ -17,7 +17,7 @@ const ActiveStateController: FC = () => {
     activeAchievements,
     activeGardenHotSpot,
     activeKitchenHotSpot,
-    setUpdateActiveInventory,
+    // setUpdateActiveInventory,
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
@@ -25,7 +25,7 @@ const ActiveStateController: FC = () => {
       activeAchievements: state.activeAchievements,
       activeGardenHotSpot: state.activeGardenHotSpot,
       activeKitchenHotSpot: state.activeKitchenHotSpot,
-      setUpdateActiveInventory: state.setUpdateActiveInventory,
+      // setUpdateActiveInventory: state.setUpdateActiveInventory,
     }),
     shallow,
   );
@@ -35,9 +35,9 @@ const ActiveStateController: FC = () => {
     setActiveStateVisible((prevState) => !prevState);
   }, []);
 
-  const handleSetUpdateActiveInventory = useCallback(() => {
-    setUpdateActiveInventory("Hat", true);
-  }, []);
+  // const handleSetUpdateActiveInventory = useCallback(() => {
+  //   setUpdateActiveInventory("Hat", true);
+  // }, []);
 
   return (
     <Fragment>
@@ -96,11 +96,11 @@ const ActiveStateController: FC = () => {
         {activeStateVisible ? "Hide Active State" : "Show Active State"}
       </ActiveStateControllerButtonStyle>
 
-      <ActiveStateControllerButtonStyle
+      {/* <ActiveStateControllerButtonStyle
         onClick={handleSetUpdateActiveInventory}
       >
         RUN
-      </ActiveStateControllerButtonStyle>
+      </ActiveStateControllerButtonStyle> */}
     </Fragment>
   );
 };
