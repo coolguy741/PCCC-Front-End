@@ -42,7 +42,11 @@ function Button({
 export default Button;
 
 const orangeVStyles = css`
-  background: linear-gradient(109.03deg, #f87c56 3.03%, #f65321 103.97%);
+  background: linear-gradient(
+    109.03deg,
+    var(--orange-500) 3.03%,
+    var(--orange-600) 103.97%
+  );
   color: white;
   box-shadow: 0px 4px 5px rgba(248, 124, 86, 0.4);
 
@@ -51,7 +55,11 @@ const orangeVStyles = css`
   }
 
   &:active {
-    background: linear-gradient(177.73deg, #f65321 1.81%, #b62217 98.01%);
+    background: linear-gradient(
+      177.73deg,
+      var(--orange-600) 1.81%,
+      var(--red-600) 98.01%
+    );
     box-shadow: 0px 5px 15px rgba(214, 57, 9, 0.4);
   }
 
@@ -90,7 +98,11 @@ const greenVStyles = css`
 `;
 
 const yellowVStyles = css`
-  background: linear-gradient(182.85deg, #ffe166 2.47%, #eabc00 97.72%);
+  background: linear-gradient(
+    182.85deg,
+    var(--yellow-300) 2.47%,
+    var(--yellow-600) 97.72%
+  );
   box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
   color: var(--neutral-800);
 
@@ -99,7 +111,11 @@ const yellowVStyles = css`
   }
 
   &:active {
-    background: linear-gradient(177.73deg, #f3d03e 1.81%, #f19100 98.01%);
+    background: linear-gradient(
+      177.73deg,
+      var(--yellow-500) 1.81%,
+      #f19100 98.01%
+    );
     box-shadow: 0px 5px 15px rgba(255, 207, 47, 0.4);
   }
 
@@ -120,7 +136,7 @@ const ghostVStyles = css`
   }
 
   &:disabled {
-    color: #8b8b8b;
+    color: var(--neutral-400);
   }
 `;
 

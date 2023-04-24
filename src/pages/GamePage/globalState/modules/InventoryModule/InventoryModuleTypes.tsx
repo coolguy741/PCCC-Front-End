@@ -29,23 +29,19 @@ export type InventoryKeyValueType = {
 
 export type FlattenedInventoryType = InventoryKeyValueType[];
 
-export interface NestedInventoryObject {
+export type NestedInventoryObject = {
   [key: string]: boolean | NestedInventoryObject;
-}
+};
 
-export interface InventoryObjectType {
-  GardenTools: { [K in GardenTools]: boolean };
-  KitchenTools: { [K in KitchenTools]: boolean };
-  Ingredients: { [K in Ingredients]: NestedInventoryObject };
-}
+export type InventoryObjectType = {
+  GardenTools: Record<GardenTools, boolean>;
+  KitchenTools: Record<KitchenTools, boolean>;
+  Ingredients: Record<Ingredients, NestedInventoryObject>;
+};
 
 export type InventoryObjectKey = keyof InventoryObjectType;
 
 export interface InventoryModuleTypes {
   activeInventory: InventoryObjectType;
-  setUpdateActiveInventory: (
-    keyName: string,
-    newValue: boolean,
-    inventoryObj: InventoryObjectType,
-  ) => void;
+  setUpdateActiveInventory: (keyName: string, newValue: boolean) => void;
 }

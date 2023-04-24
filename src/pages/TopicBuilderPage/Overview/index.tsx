@@ -175,7 +175,7 @@ const Style = {
     background-color: var(--yellow-500);
     border: none;
     border-radius: 2rem;
-    color: #3d3d3d;
+    color: var(--neutral-800);
     cursor: pointer;
     display: inline-block;
     font-size: 0.75rem;

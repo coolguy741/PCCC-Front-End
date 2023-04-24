@@ -26,7 +26,7 @@ const Style = {
         : "var(--yellow-500)"};
     border: none;
     border-radius: 1.5rem;
-    color: #3d3d3d;
+    color: var(--neutral-800);
     cursor: pointer;
     font-size: 1rem;
     min-width: 4rem;

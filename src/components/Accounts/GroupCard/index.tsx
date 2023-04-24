@@ -5,15 +5,22 @@ import { SmallButton } from "../../Global/SmallButton";
 
 interface GroupCardProps {
   data: {
-    name: string;
-    groupID: number;
-    lastModified: string;
-    owner: string;
-    ownerRole: string;
-    members: {
-      img: string;
+    group: {
       name: string;
-    }[];
+      id: number;
+      lastModificationTime: string;
+      owner: string;
+      ownerRole: string;
+      creationTime: string;
+      members: {
+        img: string;
+        name: string;
+      }[];
+    };
+    owner: {
+      username: string;
+      role: string;
+    };
   };
 }
 
@@ -33,27 +40,31 @@ export const GroupCard = ({ data }: GroupCardProps) => {
             <div className="icon-container">
               <Icon name="group" />
             </div>
-            <p className="bold-big-text">{data.name}</p>
+            <p className="bold-big-text">{data.group.name}</p>
           </div>
           <div>
-            <p className="text">Group ID: {data.groupID}</p>
+            <p className="text">Group ID: {data.group.id}</p>
           </div>
         </div>
         <div className="col-50">
-          <p className="text">Last modified: {data.lastModified}</p>
-          <p className="text">Owner: {data.owner}</p>
-          <p className="text">{"(" + data.ownerRole + ")"}</p>
+          <p className="text">
+            Last modified:{" "}
+            {data.group.lastModificationTime || data.group.creationTime}
+          </p>
+          <p className="text">Owner: {data.owner.username}</p>
+          <p className="text">{"(" + data.owner.role + ")"}</p>
         </div>
       </div>
       <div
         className={`members-container ${isExpand === true ? "show" : "hide"}`}
       >
-        {data.members.map((member, index) => (
-          <div className="member-container" key={index}>
-            <img src={member.img} alt="member" placeholder="image" />
-            <p className="bold-text">{member.name}</p>
-          </div>
-        ))}
+        {data.group.members &&
+          data.group.members.map((member, index) => (
+            <div className="member-container" key={index}>
+              <img src={member.img} alt="member" placeholder="image" />
+              <p className="bold-text">{member.name}</p>
+            </div>
+          ))}
       </div>
       <div className="row">
         <button className="expand-button" onClick={handleExpand}>

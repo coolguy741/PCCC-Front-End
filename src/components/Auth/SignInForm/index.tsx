@@ -108,7 +108,7 @@ const Container = styled.main`
       font-weight: 500;
       font-size: 16px;
       line-height: 28px;
-      color: #505050;
+      color: var(--neutral-700);
     }
 
     input {
@@ -121,7 +121,7 @@ const Container = styled.main`
     font-size: 15px;
     line-height: 20px;
     width: 100%;
-    color: #646464;
+    color: var(--neutral-600);
     cursor: pointer;
   }
 

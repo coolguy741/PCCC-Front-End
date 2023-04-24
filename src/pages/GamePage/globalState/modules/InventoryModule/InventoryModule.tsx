@@ -1,30 +1,35 @@
-import { globalStateApiType } from "../../GlobalStateTypes";
+import { globalStateApiType, GlobalStateTypes } from "../../GlobalStateTypes";
 import { InitInventory } from "./InventoryModuleDefines";
-import { InventoryObjectType } from "./InventoryModuleTypes";
+import { NestedInventoryObject } from "./InventoryModuleTypes";
 
 const InventoryModule = ({ set, get }: globalStateApiType) => {
   return {
     activeInventory: InitInventory,
-    setUpdateActiveInventory: (
-      keyName: string,
-      newValue: boolean,
-      inventoryObj: InventoryObjectType,
-    ) => {
-      //   const queue = [inventoryObj];
-      //   while (queue.length > 0) {
-      //     const currentObj = queue.shift();
-      //     for (let key in currentObj) {
-      //       if (key === keyName) {
-      //         currentObj[key] = newValue;
-      //         set((state: GlobalStateTypes) => {
-      //           state.activeInventory = newValue;
-      //         });
-      //         return;
-      //       } else if (typeof currentObj[key] === "object") {
-      //         queue.push(currentObj[key]);
-      //       }
-      //     }
-      //   }
+    setUpdateActiveInventory: (targetKey: string, newValue: boolean) => {
+      set((state: GlobalStateTypes) => {
+        const updateNestedValueHelper = (
+          obj: NestedInventoryObject,
+          targetKey: string,
+          newValue: boolean,
+        ): void => {
+          for (const key in obj) {
+            const value = obj[key as keyof NestedInventoryObject];
+            if (typeof value === "boolean") {
+              if (key === targetKey) {
+                obj[key as keyof NestedInventoryObject] = newValue;
+              }
+            } else if (typeof value === "object") {
+              updateNestedValueHelper(
+                value as NestedInventoryObject,
+                targetKey,
+                newValue,
+              );
+            }
+          }
+        };
+
+        updateNestedValueHelper(state.activeInventory, targetKey, newValue);
+      });
     },
   };
 };

@@ -83,7 +83,7 @@ const Style = {
           line-height: 143.18%;
           text-align: center;
           letter-spacing: 0.02em;
-          color: #3d3d3d;
+          color: var(--neutral-800);
           background-color: #8d8d8d;
         }
       }
