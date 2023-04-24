@@ -101,12 +101,10 @@ export const AccountsUserProfilePage = () => {
           <ul>
             {userData.activities.map((activity, index) => (
               <li key={index}>
-                <div>
-                  <p>User</p>
-                  <p>{activity.name}</p>
-                  <p>{activity.content}</p>
-                </div>
-                <p>{activity.date}</p>
+                <p>
+                  <Group /> User {activity.name} {activity.name}
+                </p>
+                <span>{activity.date}</span>
               </li>
             ))}
           </ul>
@@ -261,11 +259,88 @@ const Style = {
     .activity {
       grid-area: 5 / 1 / 8 / 2;
       border: 1px solid red;
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+
+        li {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 20px;
+          padding: 7.5px 0;
+          border-bottom: 1px solid var(--neutral-300);
+
+          p {
+            display: flex;
+            font-size: 16px;
+            line-height: 20px;
+            color: var(--neutral-600);
+          }
+
+          span {
+            font-size: 15.568px;
+            line-height: 19px;
+            text-align: right;
+            letter-spacing: 0.02em;
+            color: var(--neutral-600);
+          }
+
+          &:last-of-type {
+            border-bottom: 1px solid transparent;
+          }
+        }
+
+        svg {
+          margin-right: 10px;
+        }
+      }
     }
 
     .lesson-assesment {
       grid-area: 3 / 2 / 8 / 3;
-      border: 1px solid red;
+
+      table {
+        text-align: left;
+
+        th {
+          font-weight: 500;
+          font-size: 19px;
+          line-height: 24px;
+          color: var(--neutral-600);
+        }
+
+        td {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 20px;
+          color: #646464;
+          padding: 20px 0;
+        }
+
+        tr {
+          margin-bottom: 20px;
+
+          th:first-of-type,
+          td:first-of-type {
+            width: 40%;
+          }
+
+          th:nth-of-type(3),
+          td:nth-of-type(3) {
+            width: 30%;
+          }
+
+          th:nth-of-type(2),
+          td:nth-of-type(2),
+          th:last-of-type,
+          td:last-of-type {
+            width: 15%;
+          }
+        }
+      }
     }
   `,
 };
