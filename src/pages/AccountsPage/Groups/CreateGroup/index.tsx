@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
+import { Input } from "../../../../components/Global/Input";
 import { SmallButton } from "../../../../components/Global/SmallButton";
 import { useAPI } from "../../../../hooks/useAPI";
 import mockData from "../../../../lib/mockData/accounts/createGroup.json";
@@ -10,6 +11,7 @@ import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsCreateGroupPage = () => {
   const [members, setMembers] = useState<string[]>([]);
+  const [groupName, setGroupName] = useState("");
   const navigate = useNavigate();
   const { api } = useAPI();
   const [cookies] = useCookies([STORAGE_KEY_JWT]);
@@ -33,8 +35,8 @@ export const AccountsCreateGroupPage = () => {
 
     const response = await api.appCustomGroupsCreate(
       {
-        name: "test",
-        description: "test",
+        name: groupName,
+        description: "Test description",
       },
       {
         headers: {
@@ -86,13 +88,17 @@ export const AccountsCreateGroupPage = () => {
         <div className="remove-container">
           <div className="group-data-container">
             <div className="col">
-              <p className="text">Group Name</p>
-              <input type="text" />
+              <Input
+                type="text"
+                placeholder="Group Name"
+                value={groupName}
+                onChange={(e) => setGroupName(e.target.value)}
+              />
             </div>
-            <div className="col">
+            {/* <div className="col">
               <p className="text">Group ID</p>
               <p className="text">{mockData.groupID}</p>
-            </div>
+            </div> */}
           </div>
           <div className="members-container">
             {members.map((member, index) => (

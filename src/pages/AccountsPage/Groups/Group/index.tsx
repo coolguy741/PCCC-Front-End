@@ -20,7 +20,7 @@ export const AccountsGroupPage = () => {
   };
 
   const handleEdit = () => {
-    navigate("/dashboard/accounts/groups/group/edit");
+    navigate(`/dashboard/accounts/groups/${params.group}/edit`);
   };
 
   const handleViewGroupCalender = () => {
