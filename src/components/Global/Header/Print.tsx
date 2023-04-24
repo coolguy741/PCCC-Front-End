@@ -26,7 +26,7 @@ const Style = {
       height: 25.77px;
     }
     div {
-      color: #ffffff;
+      color: var(--white);
       font-weight: 800;
       font-size: 19px;
       font-family: "Open Sans";

@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
-import { HTMLAttributes } from "react";
+import { BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { Color } from "../../../pages/types";
 
-interface SpeechBubbleProps extends HTMLAttributes<HTMLButtonElement> {
+interface SpeechBubbleProps {
   children: React.ReactNode;
   variant?: Color;
   to?: string;
   left?: number;
   top?: number;
+  onClick: (event: BaseSyntheticEvent) => void;
   position?: "fixed" | "absolute";
   unit?: "px" | "%";
 }
@@ -130,11 +131,11 @@ const blueVStyles = css`
 `;
 
 const neutralVStyles = css`
-  background: #ffffff;
+  background: var(--white);
   filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.3));
 
   &:after {
-    background: #ffffff;
+    background: var(--white);
   }
 
   &:hover,
@@ -145,7 +146,7 @@ const neutralVStyles = css`
 
   &:active,
   &:active:after {
-    background: #ffffff;
+    background: var(--white);
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.3));
   }
 `;

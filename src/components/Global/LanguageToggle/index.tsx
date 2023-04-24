@@ -72,7 +72,7 @@ const Style = {
       left: 0;
       width: 42px;
       height: 100%;
-      background: #ffffff;
+      background: var(--white);
       border-radius: 24px;
       transition: transform 0.2s;
     }
@@ -88,7 +88,7 @@ const Style = {
     }
 
     & div:nth-child(2) {
-      color: #3d3d3d;
+      color: var(--neutral-800);
     }
 
     & div:nth-child(3) {
@@ -101,7 +101,7 @@ const Style = {
       }
 
       & div:nth-child(3) {
-        color: #3d3d3d;
+        color: var(--neutral-800);
       }
 
       & .slider {

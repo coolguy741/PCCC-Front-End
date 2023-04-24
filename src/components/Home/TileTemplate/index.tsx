@@ -38,9 +38,7 @@ export const TileTemplate = ({
         <style.TitleContainer>
           <style.FirstLine
             // eslint-disable-next-line prettier/prettier
-            color={`${
-              title.firstLine.color ? title.firstLine.color : "orange"
-            }`}
+            color={`${title.firstLine.color ? title.firstLine.color : "orange"}`}
           >
             {title.firstLine.text}
           </style.FirstLine>
@@ -49,13 +47,15 @@ export const TileTemplate = ({
           )}
         </style.TitleContainer>
         <style.Description>{description}</style.Description>
-        <Button
-          variant={`${button.variant ? button.variant : "orange"}`}
-          onClick={goToPage}
-          size="large"
-        >
-          {button.text}
-        </Button>
+        <div>
+          <Button
+            variant={`${button.variant ? button.variant : "orange"}`}
+            onClick={goToPage}
+            size="large"
+          >
+            {button.text}
+          </Button>
+        </div>
       </style.Content>
     </style.PageContainer>
   );

@@ -30,7 +30,7 @@ const Style = {
       font-weight: 500;
       font-size: 18px;
       line-height: 24px;
-      color: #777777;
+      color: var(--neutral-500);
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -66,6 +66,6 @@ const Style = {
       perspective: 250px;
     }
 
-    ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
   `,
 };

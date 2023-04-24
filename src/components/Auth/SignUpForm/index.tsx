@@ -313,7 +313,7 @@ const Style = {
 
         label {
           width: 35%;
-          color: #505050;
+          color: var(--neutral-700);
           font-weight: 400;
           font-size: 1rem;
           line-height: 25px;

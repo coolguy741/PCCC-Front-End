@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { Icon } from "../Global/Icon";
 
 export type ButtonVariant = "orange" | "yellow" | "ghost" | "green";
 export type ButtonSize = "small" | "medium" | "large";
@@ -12,9 +13,18 @@ export interface ButtonProps
   size?: ButtonSize;
   to?: string;
   fullWidth?: boolean;
+  icon?: string;
+  iconPosition?: string;
 }
 
-function Button({ children, to, onClick, ...props }: ButtonProps) {
+function Button({
+  children,
+  to,
+  onClick,
+  icon,
+  iconPosition,
+  ...props
+}: ButtonProps) {
   const navigate = useNavigate();
   const handleNavigate = () => {
     to && navigate(to);
@@ -22,7 +32,9 @@ function Button({ children, to, onClick, ...props }: ButtonProps) {
 
   return (
     <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
-      {children}
+      {iconPosition === "left" && icon && <Icon name={icon} />}
+      <p>{children}</p>
+      {iconPosition === "right" && icon && <Icon name={icon} />}
     </Style.Button>
   );
 }
@@ -30,7 +42,11 @@ function Button({ children, to, onClick, ...props }: ButtonProps) {
 export default Button;
 
 const orangeVStyles = css`
-  background: linear-gradient(109.03deg, #f87c56 3.03%, #f65321 103.97%);
+  background: linear-gradient(
+    109.03deg,
+    var(--orange-500) 3.03%,
+    var(--orange-600) 103.97%
+  );
   color: white;
   box-shadow: 0px 4px 5px rgba(248, 124, 86, 0.4);
 
@@ -39,7 +55,11 @@ const orangeVStyles = css`
   }
 
   &:active {
-    background: linear-gradient(177.73deg, #f65321 1.81%, #b62217 98.01%);
+    background: linear-gradient(
+      177.73deg,
+      var(--orange-600) 1.81%,
+      var(--red-600) 98.01%
+    );
     box-shadow: 0px 5px 15px rgba(214, 57, 9, 0.4);
   }
 
@@ -78,16 +98,24 @@ const greenVStyles = css`
 `;
 
 const yellowVStyles = css`
-  background: linear-gradient(182.85deg, #ffe166 2.47%, #eabc00 97.72%);
+  background: linear-gradient(
+    182.85deg,
+    var(--yellow-300) 2.47%,
+    var(--yellow-600) 97.72%
+  );
   box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
-  color: white;
+  color: var(--neutral-800);
 
   &:hover {
     box-shadow: 0px 9px 8px rgba(255, 217, 89, 0.4);
   }
 
   &:active {
-    background: linear-gradient(177.73deg, #f3d03e 1.81%, #f19100 98.01%);
+    background: linear-gradient(
+      177.73deg,
+      var(--yellow-500) 1.81%,
+      #f19100 98.01%
+    );
     box-shadow: 0px 5px 15px rgba(255, 207, 47, 0.4);
   }
 
@@ -108,29 +136,47 @@ const ghostVStyles = css`
   }
 
   &:disabled {
-    color: #8b8b8b;
+    color: var(--neutral-400);
   }
 `;
 
 const smallSStyles = css`
-  height: 40px;
   font-size: 16px;
-  padding: 10px 16px;
   line-height: 24px;
+  padding: 10px 16px;
+  p {
+    padding: 0px 8px;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const mediumSStyles = css`
-  width: 154px;
-  height: 44px;
   font-size: 16px;
   line-height: 24px;
+  padding: 12px 18px;
+  p {
+    padding: 0px 12px;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const largeSStyles = css`
-  width: 176px;
-  height: 52px;
   font-size: 18px;
   line-height: 24px;
+  padding: 14px 20px;
+  p {
+    padding: 0px 16px;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 function getButtonVariant(props: ButtonProps) {
@@ -183,6 +229,7 @@ export const Style = {
     transition: box-shadow 0.3s ease-out, color 0.3s ease-in,
       background 0.3s linear;
     border: 0;
+    display: flex;
 
     ${getButtonVariant}
     ${getButtonSize}
