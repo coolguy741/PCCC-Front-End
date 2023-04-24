@@ -1,11 +1,12 @@
 import { TransformControls } from "@react-three/drei";
 import { folder, useControls } from "leva";
 import { FC, memo, MutableRefObject, useCallback, useRef } from "react";
+import { DirectionalLight } from "three";
 import { sunLightWorldPos } from "./LightingDefines";
 
 const SunLight: FC = () => {
   // Refs
-  const sunLightRef: MutableRefObject<any> = useRef(null);
+  const sunLightRef: MutableRefObject<DirectionalLight | null> = useRef(null);
 
   // Hooks
   const { size, color, intensity } = useControls({
