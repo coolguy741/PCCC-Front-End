@@ -105,6 +105,7 @@ const Style = {
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       padding-right: 16px;
+      margin-right: -24px;
 
       ::-webkit-scrollbar {
         width: 8px;

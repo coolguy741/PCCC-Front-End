@@ -27,6 +27,7 @@ const Style = {
     .content {
       overflow-y: hidden;
       margin-right: -24px;
+      padding-right: 24px;
     }
   `,
   Background: styled.div`
