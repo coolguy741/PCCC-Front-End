@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
-import { HTMLAttributes } from "react";
+import { BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { Color } from "../../../pages/types";
 
-interface SpeechBubbleProps extends HTMLAttributes<HTMLButtonElement> {
+interface SpeechBubbleProps {
   children: React.ReactNode;
   variant?: Color;
   to?: string;
   left?: number;
   top?: number;
+  onClick: (event: BaseSyntheticEvent) => void;
   position?: "fixed" | "absolute";
   unit?: "px" | "%";
 }
