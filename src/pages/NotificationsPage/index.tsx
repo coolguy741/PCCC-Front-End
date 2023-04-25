@@ -107,6 +107,7 @@ const Style = {
   Row: styled.li`
     width: 100%;
     border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--neutral-600);
     padding: 24px 0px;
     display: flex;
     align-items: center;
