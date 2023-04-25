@@ -72,11 +72,7 @@ const Style = {
     width: 100%;
 
     &: hover {
-      background: linear-gradient(
-        182.85deg,
-        rgba(255, 225, 102, 0.75) 2.47%,
-        rgba(234, 188, 0, 0.75) 97.72%
-      );
+      background: linear-gradient(182.85deg, #ffeb99 2.47%, #f3d03e 97.72%);
     }
 
     img {
