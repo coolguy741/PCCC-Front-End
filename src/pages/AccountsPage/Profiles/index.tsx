@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { AccountCard } from "../../../components/Accounts/AccountCard";
 import { Select } from "../../../components/Global/Select";
 import { Typography } from "../../../components/Global/Typography";
+import { avatars_data } from "../../../lib/avatars/data";
 import UserCards from "../../../lib/mockData/accounts/profiles.json";
 
 const selectsGroup = [
@@ -73,7 +74,7 @@ export const AccountsProfilesPage = () => {
             <div key={`user-${index}`}>
               <Link to="/dashboard/accounts/profiles/Standard">
                 <AccountCard
-                  img={Card.img}
+                  img={avatars_data[index]}
                   name={Card.name}
                   role={Card.role}
                   onClick={handleCardDelete}

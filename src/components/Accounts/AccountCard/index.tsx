@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Typography } from "../../Global/Typography";
 
 interface AccountCardProps {
-  img: string;
+  img: { icon: any; bg: string };
   name: string;
   role: string;
   onClick: () => void;
@@ -11,7 +11,7 @@ interface AccountCardProps {
 export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Style.Container>
-      <div className="avatar" />
+      <div className="avatar">{img.icon()}</div>
       <div className="account-info">
         <div>
           <Typography variant="h5" weight="semi-bold" mb={2}>
@@ -46,6 +46,13 @@ const Style = {
       height: 116px;
       min-width: 116px;
       border-radius: 100%;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      transition: all 0.1s ease-in;
+
+      svg {
+        width: 116px;
+        height: 116px;
+      }
     }
 
     .icon-container {
@@ -71,6 +78,10 @@ const Style = {
 
       .button-layout {
         visibility: visible;
+      }
+
+      .avatar {
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.3);
       }
     }
   `,

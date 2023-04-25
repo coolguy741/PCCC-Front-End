@@ -86,6 +86,39 @@ export const AccountsUserProfilePage = () => {
                   </span>
                 </li>
               ))}
+              {userData.groups.map((group, index) => (
+                <li className="group-item" key={index}>
+                  <span className="group-icon">
+                    <Icon name="group" />
+                  </span>
+                  <span className="bold-text">{group.name}</span>
+                  <span className="small-text">
+                    {"( " + group.number + " )"}
+                  </span>
+                </li>
+              ))}
+              {userData.groups.map((group, index) => (
+                <li className="group-item" key={index}>
+                  <span className="group-icon">
+                    <Icon name="group" />
+                  </span>
+                  <span className="bold-text">{group.name}</span>
+                  <span className="small-text">
+                    {"( " + group.number + " )"}
+                  </span>
+                </li>
+              ))}
+              {userData.groups.map((group, index) => (
+                <li className="group-item" key={index}>
+                  <span className="group-icon">
+                    <Icon name="group" />
+                  </span>
+                  <span className="bold-text">{group.name}</span>
+                  <span className="small-text">
+                    {"( " + group.number + " )"}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
