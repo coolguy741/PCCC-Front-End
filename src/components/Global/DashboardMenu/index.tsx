@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, Ref, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,7 +11,7 @@ type MenuState = {
   "content-builder": boolean;
 };
 
-export const DashboardMenu = () => {
+export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
   const [menuOpen, setMenuOpen] = useState({
     "user-tools": false,
     "content-builder": false,
@@ -42,7 +42,7 @@ export const DashboardMenu = () => {
   };
 
   return (
-    <Style.MenuContainer>
+    <Style.MenuContainer ref={ref}>
       <div>
         <div>
           <Link to="/">
@@ -115,7 +115,7 @@ export const DashboardMenu = () => {
       </Button>
     </Style.MenuContainer>
   );
-};
+});
 
 const Style = {
   MenuItem: styled.div`
@@ -159,6 +159,7 @@ const Style = {
   `,
   MenuContainer: styled.div`
     z-index: 100;
+    position: fixed;
     overflow-y: auto;
     width: var(--dashboard-menu-width-large);
     min-height: 100vh;
