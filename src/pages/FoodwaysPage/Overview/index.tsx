@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState, WheelEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
@@ -9,46 +10,37 @@ const MOCK_DATA = {
   title: "Chocolate",
   stops: [
     {
-      location: "Mesoamerica",
       description:
-        "Lorem ipsum dolor sit amet. Est fugit consequatur aut maxime nobis sit quaerat nobis ea omnis distinctio quo quas quas et inventore aspernatur ut nihil fugiat. Ut quod amet aut blanditiis nobis sit quis amet. Et ullam consequatur vel vero repudiandae non blanditiis voluptatem? Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium.",
+        "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
       year: "1200",
       image: "/images/chocolate.jpg",
     },
     {
-      location: "Colombia",
-      description:
-        "Lorem ipsum dolor sit amet. Est fugit consequatur aut maxime nobis sit quaerat nobis ea omnis distinctio quo quas quas et inventore aspernatur ut nihil fugiat. Ut quod amet aut blanditiis nobis sit quis amet. Et ullam consequatur vel vero repudiandae non blanditiis voluptatem? Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium. Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium.",
-      year: "1300",
-      image: "/images/chocolate.jpg",
-    },
-    {
       location: "Mesoamerica",
       description:
-        "Lorem ipsum dolor sit amet. Est fugit consequatur aut maxime nobis sit quaerat nobis ea omnis distinctio quo quas quas et inventore aspernatur ut nihil fugiat. Ut quod amet aut blanditiis nobis sit quis amet. Et ullam consequatur vel vero repudiandae non blanditiis voluptatem? Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium.",
+        "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
+      year: "1300",
+      image: "/images/chocolate2.png",
+    },
+    {
+      location: "Europe",
+      description:
+        "Chocolate is made from the seeds of cacao trees, which are native to South America. The scientific name, Theobroma cacao, means “food of the gods”, but the Aztec word, “xocolatl” was probably the origin of the word chocolate. Xocolatl was a drink made from cacao beans that was prized among the upper class. In fact, in the Aztec culture, cacao beans were considered more valuable than gold and were used as currency.",
       year: "1400",
       image: "/images/chocolate.jpg",
     },
     {
-      location: "Colombia",
+      location: "Britain",
       description:
-        "Lorem ipsum dolor sit amet. Est fugit consequatur aut maxime nobis sit quaerat nobis ea omnis distinctio quo quas quas et inventore aspernatur ut nihil fugiat. Ut quod amet aut blanditiis nobis sit quis amet. Et ullam consequatur vel vero repudiandae non blanditiis voluptatem? Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium. Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium.",
-      year: "1500",
-      image: "/images/chocolate.jpg",
-    },
-    {
-      location: "Mesoamerica",
-      description:
-        "Lorem ipsum dolor sit amet. Est fugit consequatur aut maxime nobis sit quaerat nobis ea omnis distinctio quo quas quas et inventore aspernatur ut nihil fugiat. Ut quod amet aut blanditiis nobis sit quis amet. Et ullam consequatur vel vero repudiandae non blanditiis voluptatem? Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium.",
+        "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
       year: "1700",
       image: "/images/chocolate.jpg",
     },
     {
-      location: "Colombia",
       description:
-        "Lorem ipsum dolor sit amet. Est fugit consequatur aut maxime nobis sit quaerat nobis ea omnis distinctio quo quas quas et inventore aspernatur ut nihil fugiat. Ut quod amet aut blanditiis nobis sit quis amet. Et ullam consequatur vel vero repudiandae non blanditiis voluptatem? Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium. Id vitae reiciendis qui obcaecati veniam et quos libero. Ut eaque doloremque et aspernatur architecto aut animi amet. Ab cupiditate quibusdam et distinctio sint quo quae quasi non omnis modi sed velit praesentium.",
+        "Chocolate is made from the seeds of cacao trees, which are native to South America. The scientific name, Theobroma cacao, means “food of the gods”, but the Aztec word, “xocolatl” was probably the origin of the word chocolate. Xocolatl was a drink made from cacao beans that was prized among the upper class. In fact, in the Aztec culture, cacao beans were considered more valuable than gold and were used as currency.",
       year: "1850",
-      image: "/images/chocolate.jpg",
+      image: "/images/chocolate2.png",
     },
   ],
 };
@@ -57,7 +49,7 @@ export const FoodwaysOverviewPage = () => {
   const [nav, setNav] = useState(0);
   const [showCalendarModal, setShowCalendarModal] = useState(false);
 
-  const handleScroll = (e: any) => {
+  const handleScroll = (e: WheelEvent) => {
     if (e.deltaY > 0) {
       if (nav >= MOCK_DATA.stops.length - 1) {
         return;
@@ -72,6 +64,10 @@ export const FoodwaysOverviewPage = () => {
         setNav(nav - 1);
       }
     }
+  };
+
+  const hijackScroll = (e: WheelEvent) => {
+    e.stopPropagation();
   };
 
   return (
@@ -102,39 +98,65 @@ export const FoodwaysOverviewPage = () => {
               <Button>Publish</Button>
             </div>
           </div>
-        </div>
-        <div className="content__body">
-          <div className="content__body__left">
-            <h2>{MOCK_DATA.title}</h2>
-            <div className="content__body__left__text">
-              <img src={MOCK_DATA.stops[nav].image} />
-              <h3>{MOCK_DATA.stops[nav].location}</h3>
-              <p>{MOCK_DATA.stops[nav].description}</p>
-            </div>
-          </div>
-          <div className="content__body__right">
-            <div className="content__body__right__globe">
-              <Globe />
-            </div>
-            <div className="content__body__right__timeline">
-              {MOCK_DATA.stops.map((_, index) => (
-                <div key={`stop-${index}`} className="stop">
-                  <div
-                    className={`point ${nav >= index && "active"} ${
-                      nav > index && "solid"
-                    }`}
+          <div className="content__body">
+            <div className="content__body__left" onWheel={hijackScroll}>
+              <h2>{MOCK_DATA.title}</h2>
+
+              <div className="content__body__left__text">
+                <AnimatePresence>
+                  <motion.img
+                    src={MOCK_DATA.stops[nav].image}
+                    key={MOCK_DATA.stops[nav].image}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, display: "none" }}
                   />
-                  {index !== MOCK_DATA.stops.length - 1 && (
-                    <div
-                      className={`line ${nav >= index + 1 && "active"}
-                    }`}
-                    />
+                  {MOCK_DATA.stops[nav].location && (
+                    <motion.h3
+                      key={MOCK_DATA.stops[nav].location}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0, display: "none" }}
+                    >
+                      {MOCK_DATA.stops[nav].location}
+                    </motion.h3>
                   )}
-                </div>
-              ))}
-              <div className="bubble">{MOCK_DATA.stops[nav].year}</div>
+                  <motion.p
+                    key={MOCK_DATA.stops[nav].description}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, display: "none" }}
+                  >
+                    {MOCK_DATA.stops[nav].description}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </div>
+            <div className="content__body__right">
+              <div className="content__body__right__globe">
+                <Globe />
+              </div>
+              <div className="content__body__right__timeline">
+                {MOCK_DATA.stops.map((_, index) => (
+                  <div key={`stop-${index}`} className="stop">
+                    <div
+                      className={`point ${nav >= index && "active"} ${
+                        nav > index && "solid"
+                      }`}
+                    />
+                    {index !== MOCK_DATA.stops.length - 1 && (
+                      <div
+                        className={`line ${nav >= index + 1 && "active"}
+                  }`}
+                      />
+                    )}
+                  </div>
+                ))}
+                <div className="bubble">{MOCK_DATA.stops[nav].year}</div>
+              </div>
             </div>
           </div>
+          <div className="content__bottom"></div>
         </div>
       </Style.Container>
       <CalendarModal
@@ -148,20 +170,21 @@ export const FoodwaysOverviewPage = () => {
 
 const Style = {
   Container: styled.div<{ stops: number; nav: number }>`
-    display: flex;
-    flex-direction: column;
+  overflow-y: hidden;
 
     .content {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      flex-grow: 1;
+      overflow-y: hidden;
 
       &__header {
         display: flex;
         width: 100%;
         justify-content: space-between;
         align-items: center;
-        margin: 0 0 40px;
+        /* margin: 0 0 40px; */
 
         &__buttons {
           display: flex;
@@ -170,15 +193,15 @@ const Style = {
       }
 
       &__body {
-        display: flex;
-        min-height: 500px;
-        height: 100%;
+        display: grid;
+        height: calc(100% - 120px);
+        grid-template-columns: 5fr 7fr;
+        grid-template-rows: 9fr 1fr;
 
         &__left {
-          width: 40%;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
+          display: grid;
+          grid-template-rows: 100px 1fr;
+          overflow: hidden;
 
           h2 {
             background: linear-gradient(
@@ -205,13 +228,13 @@ const Style = {
             backdrop-filter: blur(59.2764px);
             border-radius: 16px;
             padding: 20px;
-            /* max-height: 400px; */
+            overflow-y: auto;
+            max-height: 90%;
           }
         }
 
         &__right {
           display: flex;
-          width: 60%;
 
           &__timeline {
             height: 100%;
@@ -283,10 +306,6 @@ const Style = {
 
           &__globe {
             width: 100%;
-
-            div {
-              height: 50vh;
-            }
           }
         }
       }
