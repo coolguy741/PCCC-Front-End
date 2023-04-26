@@ -103,7 +103,7 @@ const yellowVStyles = css`
     var(--yellow-300) 2.47%,
     var(--yellow-600) 97.72%
   );
-  box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
+  box-shadow: 0px 4px 5px rgba(170, 137, 0, 0.3);
   color: var(--neutral-800);
 
   &:hover {
@@ -116,7 +116,7 @@ const yellowVStyles = css`
       var(--yellow-500) 1.81%,
       #f19100 98.01%
     );
-    box-shadow: 0px 5px 15px rgba(255, 207, 47, 0.4);
+    box-shadow: 0px 5px 15px rgba(170, 137, 0, 0.3);
   }
 
   &:disabled {
