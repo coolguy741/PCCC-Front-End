@@ -26,6 +26,7 @@
     "@splinetool/react-spline": "^2.2.1",
     "@splinetool/runtime": "^0.9.264",
     "framer-motion": "^10.12.2",
+    "gsap": "^3.11.5",
     "immer": "^10.0.1",
     "leva": "^0.9.34",
     "path": "^0.12.7",

@@ -3,7 +3,7 @@
   "relatedTo": "Growing",
   "listData": [
     {
-      "id": 1,
+      "id": 0,
       "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "title": "Garden Guardian ",
@@ -11,9 +11,18 @@
       "path": "/dashboard/activities"
     },
     {
+      "id": 1,
+      "image": "/images/deleteLater/ContentSampleImage.png",
+      "alt": "disover-item",
+      "title": "Garden Guardian",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "path": "/dashboard/activities"
+    },
+    {
       "id": 2,
       "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
+      "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/activities"
@@ -65,15 +74,6 @@
     },
     {
       "id": 8,
-      "image": "/images/deleteLater/ContentSampleImage.png",
-      "alt": "disover-item",
-      "topic": "Topic: Pot it like it’s hot!",
-      "title": "Garden Guardian",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
-    },
-    {
-      "id": 9,
       "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
