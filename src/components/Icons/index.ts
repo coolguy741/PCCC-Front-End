@@ -2,6 +2,7 @@ import AppleBG from "./AppleBG/appleBG";
 import ArrowLeft from "./ArrowLeft/arrowLeft";
 import ArrowRight from "./ArrowRight/arrowRight";
 import DirectionLeft from "./DirectionLeft/directionLeft";
+import DirectionRight from "./DirectionRight/directionRight";
 import GrapeBG from "./GrapeBG/grapeBG";
 import Group from "./Group/group";
 import Info from "./Info/info";
@@ -22,4 +23,5 @@ export {
   AppleBG,
   ArrowLeft,
   Group,
+  DirectionRight,
 };
