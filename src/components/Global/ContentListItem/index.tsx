@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Input } from "../Input";
+import { Checkbox } from "../Checkbox";
 
 export interface ContentListItemData {
   id: number;
@@ -41,12 +41,9 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
       </Style.Content>
       {selectable && (
         <Style.InputContainer>
-          <Input
-            type="radio"
+          <Checkbox
             checked={isSelected}
             onChange={handleCheckBoxChange}
-            width="33px"
-            height="33px"
             onClick={(event) => event.stopPropagation()}
           />
         </Style.InputContainer>
