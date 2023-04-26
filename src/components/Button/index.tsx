@@ -13,16 +13,16 @@ export interface ButtonProps
   size?: ButtonSize;
   to?: string;
   fullWidth?: boolean;
-  icon?: string;
-  iconPosition?: string;
+  leftIcon?: string;
+  rightIcon?: string;
 }
 
 function Button({
   children,
   to,
   onClick,
-  icon,
-  iconPosition,
+  leftIcon,
+  rightIcon,
   ...props
 }: ButtonProps) {
   const navigate = useNavigate();
@@ -32,9 +32,9 @@ function Button({
 
   return (
     <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
-      {iconPosition === "left" && icon && <Icon name={icon} />}
+      {leftIcon && <Icon name={leftIcon} />}
       <div className="btn-content">{children}</div>
-      {iconPosition === "right" && icon && <Icon name={icon} />}
+      {rightIcon && <Icon name={rightIcon} />}
     </Style.Button>
   );
 }
