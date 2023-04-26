@@ -8,6 +8,7 @@ interface AccountsPageProps {
 export const AccountsPage = ({ children }: AccountsPageProps) => {
   return (
     <Style.PageContainer>
+      <Style.Background />
       <AccountsHeader />
       <div className="content">{children}</div>
     </Style.PageContainer>
@@ -16,22 +17,26 @@ export const AccountsPage = ({ children }: AccountsPageProps) => {
 
 const Style = {
   PageContainer: styled.div`
-    margin-top: 5rem;
-    padding: 0 2rem;
+    padding: 118px 40px 0 40px;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    position: relative;
+    max-height: 100vh;
 
-    .breadcrumb {
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 24px;
-      color: #777777;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      padding-bottom: 25px;
-
-      svg {
-        margin-right: 15px;
-      }
+    .content {
+      overflow-y: hidden;
+      margin-right: -24px;
+      padding-right: 24px;
     }
+  `,
+  Background: styled.div`
+    position: absolute;
+    top: 0;
+    left: -32px;
+    width: calc(100% + 32px);
+    height: 100vh;
+    background: linear-gradient(270deg, #c4e8ff, #fff9e0);
+    z-index: -1;
   `,
 };
