@@ -8,7 +8,7 @@ import { InventoryTable } from "./InventoryTable";
 
 const ActiveStateController: FC = () => {
   // Local State
-  const [globalStateVisible, setGlobalStateVisible] = useState<boolean>(false);
+  const [activeStateVisible, setActiveStateVisible] = useState<boolean>(false);
 
   // Global State
   const {
@@ -17,6 +17,7 @@ const ActiveStateController: FC = () => {
     activeAchievements,
     activeGardenHotSpot,
     activeKitchenHotSpot,
+    // setUpdateActiveInventory,
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
@@ -24,18 +25,23 @@ const ActiveStateController: FC = () => {
       activeAchievements: state.activeAchievements,
       activeGardenHotSpot: state.activeGardenHotSpot,
       activeKitchenHotSpot: state.activeKitchenHotSpot,
+      // setUpdateActiveInventory: state.setUpdateActiveInventory,
     }),
     shallow,
   );
 
   // Handlers
   const handleSetGlobalStateVisibility = useCallback(() => {
-    setGlobalStateVisible((prevState) => !prevState);
+    setActiveStateVisible((prevState) => !prevState);
   }, []);
+
+  // const handleSetUpdateActiveInventory = useCallback(() => {
+  //   setUpdateActiveInventory("Hat", true);
+  // }, []);
 
   return (
     <Fragment>
-      {globalStateVisible && (
+      {activeStateVisible && (
         <ActiveStateControllerStyleContainer>
           <table>
             <tbody>
@@ -87,8 +93,14 @@ const ActiveStateController: FC = () => {
       <ActiveStateControllerButtonStyle
         onClick={handleSetGlobalStateVisibility}
       >
-        {globalStateVisible ? "Hide Active State" : "Show Active State"}
+        {activeStateVisible ? "Hide Active State" : "Show Active State"}
       </ActiveStateControllerButtonStyle>
+
+      {/* <ActiveStateControllerButtonStyleRun
+        onClick={handleSetUpdateActiveInventory}
+      >
+        RUN
+      </ActiveStateControllerButtonStyleRun> */}
     </Fragment>
   );
 };

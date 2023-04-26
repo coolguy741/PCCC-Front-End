@@ -49,7 +49,7 @@ const Style = {
     left: -32px;
     width: calc(100% + 32px);
     height: 100vh;
-    background: linear-gradient(270deg, #c4e8ff, #fff9e0);
+    background: linear-gradient(270deg, var(--blue-200), #fff9e0);
     z-index: -1;
   `,
   ScrollContainer: styled.div`
