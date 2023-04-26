@@ -107,7 +107,7 @@ const yellowVStyles = css`
   color: var(--neutral-800);
 
   &:hover {
-    box-shadow: 0px 9px 8px rgba(255, 217, 89, 0.4);
+    box-shadow: 0px 9px 8px rgba(170, 137, 0, 0.3);
   }
 
   &:active {
