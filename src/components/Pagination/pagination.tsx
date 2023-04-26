@@ -44,6 +44,8 @@ const Style = {
       margin: 0 10px;
       color: var(--blue-500);
       border: 1px solid var(--blue-500);
+      font-size: 12px;
+      line-height: 14px;
 
       &.pagination-active {
         background: var(--blue-500);
