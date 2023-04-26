@@ -38,9 +38,7 @@ export const TileTemplate = ({
         <style.TitleContainer>
           <style.FirstLine
             // eslint-disable-next-line prettier/prettier
-            color={`${
-              title.firstLine.color ? title.firstLine.color : "orange"
-            }`}
+            color={`${title.firstLine.color ? title.firstLine.color : "orange"}`}
           >
             {title.firstLine.text}
           </style.FirstLine>
