@@ -142,7 +142,8 @@ const ghostVStyles = css`
 
 const smallSStyles = css`
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
+  font-weight: 600;
   padding: 10px 16px;
   .btn-content {
     padding: 0px 8px;
@@ -155,8 +156,9 @@ const smallSStyles = css`
 
 const mediumSStyles = css`
   font-size: 16px;
-  line-height: 24px;
-  padding: 12px 18px;
+  line-height: 20px;
+  font-weight: 600;
+  padding: 12px 20px;
   .btn-content {
     padding: 0px 12px;
   }
@@ -167,6 +169,7 @@ const mediumSStyles = css`
 `;
 
 const largeSStyles = css`
+  font-weight: 600;
   font-size: 18px;
   line-height: 24px;
   padding: 14px 20px;
