@@ -33,7 +33,7 @@ function Button({
   return (
     <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
       {iconPosition === "left" && icon && <Icon name={icon} />}
-      <p>{children}</p>
+      <div className="btn-content">{children}</div>
       {iconPosition === "right" && icon && <Icon name={icon} />}
     </Style.Button>
   );
@@ -103,11 +103,11 @@ const yellowVStyles = css`
     var(--yellow-300) 2.47%,
     var(--yellow-600) 97.72%
   );
-  box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
+  box-shadow: 0px 4px 5px rgba(170, 137, 0, 0.3);
   color: var(--neutral-800);
 
   &:hover {
-    box-shadow: 0px 9px 8px rgba(255, 217, 89, 0.4);
+    box-shadow: 0px 9px 8px rgba(170, 137, 0, 0.3);
   }
 
   &:active {
@@ -116,7 +116,7 @@ const yellowVStyles = css`
       var(--yellow-500) 1.81%,
       #f19100 98.01%
     );
-    box-shadow: 0px 5px 15px rgba(255, 207, 47, 0.4);
+    box-shadow: 0px 5px 15px rgba(170, 137, 0, 0.3);
   }
 
   &:disabled {
@@ -144,7 +144,7 @@ const smallSStyles = css`
   font-size: 16px;
   line-height: 24px;
   padding: 10px 16px;
-  p {
+  .btn-content {
     padding: 0px 8px;
   }
   img {
@@ -157,7 +157,7 @@ const mediumSStyles = css`
   font-size: 16px;
   line-height: 24px;
   padding: 12px 18px;
-  p {
+  .btn-content {
     padding: 0px 12px;
   }
   img {
@@ -170,7 +170,7 @@ const largeSStyles = css`
   font-size: 18px;
   line-height: 24px;
   padding: 14px 20px;
-  p {
+  .btn-content {
     padding: 0px 16px;
   }
   img {

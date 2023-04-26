@@ -103,6 +103,11 @@ const Style = {
     height: 600px;
     ${glassBackground}
 
+    h1 {
+      color: #3d3d3d;
+      font-weight: 700;
+    }
+
     label {
       font-size: 16px;
       color: var(--neutral-700);
