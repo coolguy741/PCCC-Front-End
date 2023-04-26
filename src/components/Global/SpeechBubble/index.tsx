@@ -11,7 +11,7 @@ interface SpeechBubbleProps {
   to?: string;
   left?: number;
   top?: number;
-  onClick: (event: BaseSyntheticEvent) => void;
+  onClick?: (event: BaseSyntheticEvent) => void;
   position?: "fixed" | "absolute";
   unit?: "px" | "%";
 }

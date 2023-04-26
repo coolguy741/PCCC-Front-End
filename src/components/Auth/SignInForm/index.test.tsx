@@ -4,15 +4,15 @@ import { MemoryRouter } from "react-router-dom";
 import { render, screen, userEvent } from "../../../lib/util/test-utils";
 import { SecurityQuestions } from "../SecurityQuestions";
 
-describe("Sign up form", async () => {
-  it("Should render", async () => {
+describe("Sign in form", async () => {
+  it("Should render without crash", async () => {
     render(
       <MemoryRouter>
         <SecurityQuestions />
       </MemoryRouter>,
     );
 
-    expect(screen.getByText(/Sign Up/)).toBeDefined();
+    expect(screen.getByText(/sing in/i)).toBeDefined();
 
     const passwordInput = screen.getByLabelText(/Create Password/);
     act(() => {
