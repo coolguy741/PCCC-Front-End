@@ -11,12 +11,12 @@ const SunLight: FC = () => {
   // Hooks
   const { size, color, intensity } = useControls({
     MainLight: folder({
-      intensity: 10,
+      intensity: 7,
       color: "#ffffff",
     }),
     shadows: folder({
       shadowMap: folder({
-        size: 8,
+        size: 6,
       }),
     }),
   });
@@ -39,7 +39,7 @@ const SunLight: FC = () => {
         color={color}
         ref={sunLightRef}
         shadow-bias={-0.001}
-        shadow-mapSize={4096}
+        shadow-mapSize={2048}
         intensity={intensity}
       >
         <orthographicCamera

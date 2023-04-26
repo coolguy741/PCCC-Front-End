@@ -3,6 +3,7 @@ import { shallow } from "zustand/shallow";
 import { AchievementKeyType } from "../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
 import ActiveStateControllerButtonStyle from "./ActiveStateControllerButtonStyle";
+import ActiveStateControllerButtonStyleRun from "./ActiveStateControllerButtonStyleRun";
 import ActiveStateControllerStyleContainer from "./ActiveStateControllerStyleContainer";
 import { InventoryTable } from "./InventoryTable";
 
@@ -12,6 +13,8 @@ const ActiveStateController: FC = () => {
 
   // Global State
   const {
+    activeCamera,
+    setActiveCamera,
     activeLocation,
     activeInventory,
     activeAchievements,
@@ -25,6 +28,8 @@ const ActiveStateController: FC = () => {
       activeAchievements: state.activeAchievements,
       activeGardenHotSpot: state.activeGardenHotSpot,
       activeKitchenHotSpot: state.activeKitchenHotSpot,
+      activeCamera: state.activeCamera,
+      setActiveCamera: state.setActiveCamera,
       // setUpdateActiveInventory: state.setUpdateActiveInventory,
     }),
     shallow,
@@ -35,9 +40,14 @@ const ActiveStateController: FC = () => {
     setActiveStateVisible((prevState) => !prevState);
   }, []);
 
-  // const handleSetUpdateActiveInventory = useCallback(() => {
-  //   setUpdateActiveInventory("Hat", true);
-  // }, []);
+  const handleSetUpdateActiveInventory = useCallback(() => {
+    // setUpdateActiveInventory("Rake", true);
+    if (activeCamera === "OrbitControls") {
+      setActiveCamera("PlayerCamera");
+    } else {
+      setActiveCamera("OrbitControls");
+    }
+  }, [activeCamera]);
 
   return (
     <Fragment>
@@ -96,11 +106,11 @@ const ActiveStateController: FC = () => {
         {activeStateVisible ? "Hide Active State" : "Show Active State"}
       </ActiveStateControllerButtonStyle>
 
-      {/* <ActiveStateControllerButtonStyleRun
+      <ActiveStateControllerButtonStyleRun
         onClick={handleSetUpdateActiveInventory}
       >
-        RUN
-      </ActiveStateControllerButtonStyleRun> */}
+        Swap Cam
+      </ActiveStateControllerButtonStyleRun>
     </Fragment>
   );
 };
