@@ -47,7 +47,7 @@ const ActiveStateController: FC = () => {
     } else {
       setActiveCamera("OrbitControls");
     }
-  }, [activeCamera]);
+  }, [activeCamera, setActiveCamera]);
 
   return (
     <Fragment>
