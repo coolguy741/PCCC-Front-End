@@ -5,9 +5,9 @@ export function Pagination() {
   return (
     <Style.Container>
       <DirectionLeft />
-      <p className="pagination-active">1</p>
+      <p className="pagination-p pagination-active">1</p>
       <span>of</span>
-      <p>24</p>
+      <p className="pagination-p">24</p>
       <DirectionRight />
     </Style.Container>
   );
@@ -34,7 +34,7 @@ const Style = {
       margin: 0px 5px;
     }
 
-    p {
+    p.pagination-p {
       width: 30px;
       height: 30px;
       border: 1px solid red;
