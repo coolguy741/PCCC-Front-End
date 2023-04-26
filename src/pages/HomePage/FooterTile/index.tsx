@@ -5,16 +5,7 @@ export const FooterTile = () => {
   return (
     <style.PageContainer>
       <style.Background>
-        <style.Lemon src="/images/lemon.png" alt="lemon" />
-        {/* <style.Rectangle3 />
-        <style.Rectangle2 />
-        <style.EllipseGroup>
-          <style.Ellipse4 />
-          <style.Ellipse3 />
-          <style.Ellipse2 />
-          <style.Ellipse1 />
-        </style.EllipseGroup> */}
-        <style.Rectangle1 />
+        <style.Lemon src="/images/icons/lemon.svg" alt="lemon" />
       </style.Background>
       <style.InfoContainer>
         <style.TitleContainer>
@@ -93,86 +84,13 @@ const style = {
     overflow: hidden;
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
   `,
-  EllipseGroup: styled.div`
-    position: absolute;
-    width: max(100vw, 1920px);
-    height: max(100vh, 1200px);
-  `,
-  Ellipse1: styled.div`
-    position: absolute;
-    width: 1257.76px;
-    height: 1208.35px;
-    left: -324.21px;
-    top: -261.28px;
-    background: var(--green-200);
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-    border-radius: 100%;
-    transparent: 1%;
-  `,
-  Ellipse2: styled.div`
-    position: absolute;
-    width: 1437.31px;
-    height: 1049.09px;
-    left: -355.65px;
-    top: 505.1px;
-    background: var(--green-300);
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-    border-radius: 100%;
-  `,
-  Ellipse3: styled.div`
-    position: absolute;
-    width: 1089.27px;
-    height: 962.16px;
-    left: -544.64px;
-    top: -301.06px;
-    background: #88d2ff;
-    opacity: 0.68;
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-    border-radius: 100%;
-  `,
-  Ellipse4: styled.div`
-    position: absolute;
-    width: 1389.03px;
-    height: 1115.82px;
-    left: 709.14px;
-    top: 251.17px;
-    background: var(--yellow-100);
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-    border-radius: 100%;
-  `,
-  Rectangle1: styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    background: rgba(255, 205, 0, 0.01);
-    backdrop-filter: blur(1000px);
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-  `,
-  Rectangle2: styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    background: var(--green-100);
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-  `,
-  Rectangle3: styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    background: var(--yellow-500);
-    transform: matrix(-1, 0, 0, 1, 0, 0);
-  `,
   Lemon: styled.img`
     z-index: 10;
     position: absolute;
-    bottom: 0px;
-    right: 0px;
-    transform: matrix(1, 0, 0, 1, 0, 0) !important;
+    bottom: -100px;
+    right: -50px;
+    max-with: 500px;
+    width: 50%;
+    transform: matrix(-1, 0, 0, 1, 50, 100) !important;
   `,
 };
