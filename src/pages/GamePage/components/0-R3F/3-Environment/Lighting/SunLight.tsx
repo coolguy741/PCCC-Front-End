@@ -1,11 +1,12 @@
 import { TransformControls } from "@react-three/drei";
 import { folder, useControls } from "leva";
-import { memo, MutableRefObject, useCallback, useMemo, useRef } from "react";
-import { Group, Vector3 } from "three";
+import { FC, memo, MutableRefObject, useCallback, useRef } from "react";
+import { DirectionalLight } from "three";
+import { sunLightWorldPos } from "./LightingDefines";
 
-const SunLight = () => {
+const SunLight: FC = () => {
   // Refs
-  const ref: MutableRefObject<Group | null> = useRef(null);
+  const sunLightRef: MutableRefObject<DirectionalLight | null> = useRef(null);
 
   // Hooks
   const { size, color, intensity } = useControls({
@@ -20,39 +21,32 @@ const SunLight = () => {
     }),
   });
 
-  const { newLightPos } = useMemo(() => {
-    const newLightPos = new Vector3();
-    return { newLightPos };
-  }, []);
-
   // Handlers
   const handleLogLightPos = useCallback(() => {
-    if (ref.current) {
-      console.clear();
-      const newPos = ref.current.getWorldPosition(newLightPos);
+    if (sunLightRef.current) {
+      const newPos = sunLightRef.current.getWorldPosition(sunLightWorldPos);
       console.log("lightPosition:", newPos);
     }
-  }, [newLightPos]);
+  }, []);
 
   return (
     <TransformControls
       onChange={handleLogLightPos}
       position={[3.386257562668803, 4.710346678759947, 2.662153116199844]}
     >
-      <group ref={ref}>
-        <directionalLight
-          castShadow
-          intensity={intensity}
-          shadow-mapSize={4096}
-          shadow-bias={-0.001}
-          color={color}
-        >
-          <orthographicCamera
-            attach="shadow-camera"
-            args={[size, size * -1, size, size * -1, 0.1, 100]}
-          />
-        </directionalLight>
-      </group>
+      <directionalLight
+        castShadow
+        color={color}
+        ref={sunLightRef}
+        shadow-bias={-0.001}
+        shadow-mapSize={4096}
+        intensity={intensity}
+      >
+        <orthographicCamera
+          attach="shadow-camera"
+          args={[size, size * -1, size, size * -1, 0.1, 100]}
+        />
+      </directionalLight>
     </TransformControls>
   );
 };

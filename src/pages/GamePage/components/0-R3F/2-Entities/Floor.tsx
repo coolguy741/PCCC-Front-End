@@ -1,7 +1,7 @@
 import { Plane } from "@react-three/drei";
-import { memo } from "react";
+import { FC, memo } from "react";
 
-const Floor = () => {
+const Floor: FC = () => {
   return (
     <Plane
       rotation={[-Math.PI / 2, 0, 0]}

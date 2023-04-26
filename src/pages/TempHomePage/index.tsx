@@ -88,7 +88,7 @@ const Style = {
     background-image: url("/images/background.svg");
     background-position: center center;
     background-repeat: no-repeat;
-    color: #3d3d3d;
+    color: var(--neutral-800);
     font-kerning: normal;
     background-size: cover;
 

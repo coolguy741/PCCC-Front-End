@@ -91,7 +91,7 @@ const style = {
     height: 100vh;
     z-index: -1;
     overflow: hidden;
-    ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
   `,
   EllipseGroup: styled.div`
     position: absolute;
@@ -104,7 +104,7 @@ const style = {
     height: 1208.35px;
     left: -324.21px;
     top: -261.28px;
-    background: #a6efcb;
+    background: var(--green-200);
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
     transparent: 1%;
@@ -115,7 +115,7 @@ const style = {
     height: 1049.09px;
     left: -355.65px;
     top: 505.1px;
-    background: #79e7b0;
+    background: var(--green-300);
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
   `,
@@ -136,7 +136,7 @@ const style = {
     height: 1115.82px;
     left: 709.14px;
     top: 251.17px;
-    background: #fff5cc;
+    background: var(--yellow-100);
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
   `,
@@ -156,7 +156,7 @@ const style = {
     height: 100%;
     left: 0px;
     top: 0px;
-    background: #d2f7e5;
+    background: var(--green-100);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   `,
   Rectangle3: styled.div`
@@ -165,7 +165,7 @@ const style = {
     height: 100%;
     left: 0px;
     top: 0px;
-    background: #f3d03e;
+    background: var(--yellow-500);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   `,
   Lemon: styled.img`
@@ -173,7 +173,6 @@ const style = {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    transform: matrix(1, 0, 0, 1, 0, 0)!important;
-  }
+    transform: matrix(1, 0, 0, 1, 0, 0) !important;
   `,
 };

@@ -181,7 +181,7 @@ const Style = {
       width: 100%;
       bottom: 0;
       z-index: 1;
-      background: #000000;
+      background: var(--black);
       opacity: 0.5;
     }
   `,
@@ -192,7 +192,7 @@ const Style = {
     z-index: 2;
     width: 90%;
     margin: auto;
-    background: #ffffff;
+    background: var(--white);
     padding: 5px;
   `,
   ModalHeader: styled.div`

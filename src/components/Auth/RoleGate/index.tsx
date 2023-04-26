@@ -131,7 +131,7 @@ const Style = {
     p {
       font-size: 20px;
       line-height: 24px;
-      color: #505050;
+      color: var(--neutral-700);
       margin-top: 12px;
     }
 
@@ -150,7 +150,7 @@ const Style = {
           margin-left: 10px;
           font-size: 18px;
           line-height: 24px;
-          color: #2e2e2e;
+          color: var(--neutral-900);
         }
       }
     }
@@ -161,7 +161,7 @@ const Style = {
 
     form {
       p {
-        color: #505050;
+        color: var(--neutral-700);
       }
 
       p:nth-of-type(2) {
