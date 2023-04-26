@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import create from "zustand";
+import { create } from "zustand";
 
 /**
  * This is a store that contains calendar events data.
@@ -45,7 +45,7 @@ export const useSearchResultsStore = create<{
   addResults: () => void;
   reset: () => void;
   handleChangeSearchKey: (event: ChangeEvent<HTMLInputElement>) => void;
-}>((set) => ({
+}>()((set) => ({
   ...initialState,
   results: [],
   reset: () => set((state) => ({ ...initialState })),

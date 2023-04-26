@@ -114,9 +114,10 @@ export const SecurityQuestions = () => {
         <article className="password">
           <h2>Password</h2>
           <fieldset>
-            <label>Create Password</label>
+            <label htmlFor="password">Create Password</label>
             <Input
               type="password"
+              id="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               width="65%"
