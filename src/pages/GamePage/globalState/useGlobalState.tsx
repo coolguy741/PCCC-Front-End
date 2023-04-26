@@ -25,9 +25,12 @@ const immerWrapper = immer<GlobalStateTypes>(
 
 const persistWrapper = persist(immerWrapper, {
   name: "pccc-game-state",
-  getStorage: () => localStorage,
-  merge: (persistedState, currentState) =>
-    mergeDeepLeft(persistedState as object, currentState),
+  getStorage: () => {
+    return localStorage;
+  },
+  merge: (persistedState, currentState) => {
+    return mergeDeepLeft(persistedState as object, currentState);
+  },
 });
 
 const devtoolsWrapper = devtools(persistWrapper);
