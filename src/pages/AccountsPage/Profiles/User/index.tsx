@@ -4,6 +4,8 @@ import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 //should be deleted after api implementation
 import { useLocation } from "react-router-dom";
 import { ArrowLeft, Group } from "../../../../components/Icons";
+import { Pagination } from "../../../../components/Pagination/pagination";
+import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
 
@@ -123,18 +125,20 @@ export const AccountsUserProfilePage = () => {
             <tbody>
               {userData.lessonAssessment.map((lesson, index) => (
                 <tr key={index}>
-                  <td>
+                  <td className="lesson-name">
+                    <span>GARDEN GUARDIAN</span>
                     <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
-                      {lesson.lessons}
+                      {trimStringByLength(lesson.lessons, 29)}
                     </Link>
                   </td>
                   <td>{lesson.group}</td>
                   <td>{lesson.date}</td>
-                  <td>{lesson.status}</td>
+                  <td className="lesson-status">{lesson.status}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <Pagination />
         </article>
       </section>
     </Style.Container>
@@ -302,15 +306,19 @@ const Style = {
 
     .lesson-assesment {
       grid-area: 3 / 2 / 8 / 3;
+      display: flex;
+      flex-direction: column;
 
       table {
         text-align: left;
+        width: 100%;
 
         th {
           font-weight: 500;
           font-size: 19px;
           line-height: 24px;
           color: var(--neutral-600);
+          margin-bottom: 15px;
         }
 
         td {
@@ -318,7 +326,39 @@ const Style = {
           font-size: 16px;
           line-height: 20px;
           color: #646464;
-          padding: 20px 0;
+          margin-top: 0px;
+          margin-bottom: 25px;
+          height: 38px;
+          transition: color 0.2s ease-out;
+          display: flex;
+          align-items: flex-end;
+        }
+
+        // TODO: Fix for complete and incomplete status hovers.
+        tbody {
+          tr:hover {
+            td {
+              color: var(--green-500);
+            }
+          }
+        }
+
+        .lesson-name {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+
+          span {
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 11px;
+            line-height: 13px;
+          }
+        }
+
+        .lesson-status {
+          color: var(--red-500);
         }
 
         tr {
