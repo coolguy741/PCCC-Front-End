@@ -1,7 +1,7 @@
 import { Leva } from "leva";
-import { memo } from "react";
+import { FC, memo } from "react";
 
-const LevaController = () => {
+const LevaController: FC = () => {
   return <Leva flat collapsed />;
 };
 

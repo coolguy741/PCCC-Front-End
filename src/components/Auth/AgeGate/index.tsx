@@ -110,7 +110,7 @@ const Style = {
 
     label {
       font-size: 16px;
-      color: #505050;
+      color: var(--neutral-700);
       margin: 15px 0;
     }
 
@@ -123,7 +123,7 @@ const Style = {
       margin-top: 12px;
       font-size: 18px;
       line-height: 24px;
-      color: #505050;
+      color: var(--neutral-700);
     }
 
     fieldset {

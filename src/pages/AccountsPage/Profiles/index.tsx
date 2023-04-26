@@ -94,7 +94,7 @@ const Style = {
           font-size: 12px;
           line-height: 143.18%;
           letter-spacing: 0.02em;
-          color: #3d3d3d;
+          color: var(--neutral-800);
         }
       }
     }

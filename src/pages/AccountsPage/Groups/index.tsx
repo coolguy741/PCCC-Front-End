@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GroupCard } from "../../../components/Accounts/GroupCard";
@@ -6,11 +7,16 @@ import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitatio
 import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import { Button } from "../../../components/Global/Button";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
+import { useAPI } from "../../../hooks/useAPI";
 import mockData from "../../../lib/mockData/accounts/groups.json";
+import { STORAGE_KEY_JWT } from "../../consts";
 
 export const AccountsGroupsPage = () => {
   const [visibleModal, setVisibleModal] = useState(false);
+  const [groups, setGroups] = useState<any[]>([]);
   const navigate = useNavigate();
+  const { api } = useAPI();
+  const [cookies] = useCookies([STORAGE_KEY_JWT]);
 
   const handleCreate = () => {
     navigate("/dashboard/accounts/groups/create");
@@ -23,6 +29,25 @@ export const AccountsGroupsPage = () => {
   const handleClose = () => {
     setVisibleModal(false);
   };
+
+  const getGroups = async () => {
+    const response = await api.appCustomGroupsMyCreatedGroupsList(
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+        },
+      },
+    );
+
+    if (response.data.items) {
+      setGroups(response.data.items);
+    }
+  };
+
+  useEffect(() => {
+    getGroups();
+  }, []);
 
   return (
     <Style.PageContainer>
@@ -48,9 +73,9 @@ export const AccountsGroupsPage = () => {
       </div>
       <div className="row">
         <div className="groups-container">
-          {mockData.groups.map((group, index) => (
+          {groups.map((group, index) => (
             <div className="group-card-container" key={index}>
-              <Link to="./group">
+              <Link to={`./${group.group.id}`}>
                 <GroupCard data={group} />
               </Link>
             </div>

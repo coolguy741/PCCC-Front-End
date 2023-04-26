@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
+import { ContentList } from "../../Global/ContentList";
+import { ContentListItemData } from "../../Global/ContentListItem";
 import { Typography } from "../../Global/Typography";
-import { itemType, List } from "../List";
 
 interface TogetherPageTemplateProps {
   title: string;
   relatedTo: string;
-  listData: itemType[];
+  listData: ContentListItemData[];
 }
 
 export const TogetherPageTemplate = ({
@@ -26,7 +27,7 @@ export const TogetherPageTemplate = ({
         </Typography>
       </div>
       <Style.ScrollContainer>
-        <List data={listData} />
+        <ContentList listData={listData} />
       </Style.ScrollContainer>
     </Style.PageContainer>
   );
@@ -48,12 +49,14 @@ const Style = {
     left: -32px;
     width: calc(100% + 32px);
     height: 100vh;
-    background: linear-gradient(270deg, #c4e8ff, #fff9e0);
+    background: linear-gradient(270deg, var(--blue-200), #fff9e0);
     z-index: -1;
   `,
   ScrollContainer: styled.div`
     overflow-y: auto;
     height: 100%;
+    padding-right: 16px;
+    margin-right: -24px;
 
     ::-webkit-scrollbar {
       width: 8px;
@@ -73,7 +76,7 @@ const Style = {
     ::-webkit-scrollbar-thumb {
       background: #ffffff80;
       border-radius: 8px;
-      box-shadow: 0 0 56px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     }
 
     /* Handle on hover */

@@ -1,23 +1,17 @@
-import styled from "styled-components";
-import { RecipesHeader } from "../../components/Recipes/RecipesHeader";
+import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
+import mockData from "../../lib/mockData/activities/activities.json";
 
-interface RecipesBuilderPageProps {
-  children: JSX.Element;
-}
+export const RecipesPage = () => {
+  const handleSelectionChange = (id: number, isSelected: boolean) => {
+    return;
+  };
 
-export const RecipesBuilderPage = ({ children }: RecipesBuilderPageProps) => {
   return (
-    <Style.Container>
-      <RecipesHeader />
-      <div className="content">{children}</div>
-    </Style.Container>
+    <ContentListAdminPageTemplate
+      title={"Recipe"}
+      selectsGroup={["Curriculum", "Topic", "Sort"]}
+      listData={mockData.activities}
+      onSelectionChange={handleSelectionChange}
+    />
   );
-};
-
-const Style = {
-  Container: styled.div`
-    .content {
-      padding: 11px 0px;
-    }
-  `,
 };

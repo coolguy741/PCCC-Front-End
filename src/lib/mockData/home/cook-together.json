@@ -3,73 +3,82 @@
   "relatedTo": "Cooking",
   "listData": [
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 1,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 2,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 3,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 4,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 5,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 6,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 7,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 8,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     },
     {
-      "image": "/images/homepage/cook-item.jpg",
+      "id": 9,
+      "image": "/images/deleteLater/ContentSampleImage.png",
       "alt": "disover-item",
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
       "path": "/dashboard/recipes/recipe"
     }
   ]

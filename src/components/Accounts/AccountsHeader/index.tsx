@@ -7,7 +7,7 @@ export const AccountsHeader = () => {
   return (
     <Style.Container>
       <h1>Accounts</h1>
-      <div className="tags-container">
+      <nav className="tags-container">
         <Link
           className={`${pathname.includes("profiles") ? "active" : ""} tag`}
           to="/dashboard/accounts/profiles"
@@ -22,34 +22,48 @@ export const AccountsHeader = () => {
         >
           Groups
         </Link>
-      </div>
+      </nav>
     </Style.Container>
   );
 };
 
 const Style = {
   Container: styled.div`
+    padding: 25px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-weight: 600;
+      font-size: 48px;
+      line-height: 56px;
+      color: var(--orange-500);
+      margin-bottom: 20px;
+    }
+
     .tags-container {
-      border-bottom: 2px black solid;
-      display: flex;
-      flex-direction: row;
+      border-bottom: 2px solid var(--blue-500);
+      height: 62px;
       width: 100%;
+      display: flex;
 
       .tag {
-        flex: 50%;
-        text-align: center;
-        font-family: "Noir Std";
-        font-style: normal;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 103.68%;
-        letter-spacing: 0.02em;
-        color: #797979;
-        padding: 18px;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 32px;
+        color: var(--blue-500);
+        border-bottom: 2px solid transparent;
+        transition: border 0.3s linear;
       }
 
       .active {
-        background-color: #a8a8a8;
+        border-bottom: 2px solid var(--blue-500);
       }
     }
   `,

@@ -5,7 +5,6 @@ export type TypographyVariant =
   | "display1"
   | "display2"
   | "display3"
-  | "display4"
   | "h1"
   | "h2"
   | "h3"

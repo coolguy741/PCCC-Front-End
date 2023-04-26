@@ -1,35 +1,17 @@
-import { Outlet } from "react-router-dom";
-import styled from "styled-components";
+import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
+import mockData from "../../lib/mockData/activities/activities.json";
 
-import { PageHeader } from "../../components/Global/Header/PageHeader";
+export const Topics = () => {
+  const handleSelectionChange = (id: number, isSelected: boolean) => {
+    return;
+  };
 
-export const TopicBuilderPage = () => {
   return (
-    <Style.PageContainer>
-      <PageHeader title="Topics" />
-      <div className="topics-container">
-        <Outlet />
-      </div>
-    </Style.PageContainer>
+    <ContentListAdminPageTemplate
+      title={"Topic"}
+      selectsGroup={["Topic", "Sort"]}
+      listData={mockData.activities}
+      onSelectionChange={handleSelectionChange}
+    />
   );
-};
-
-const Style = {
-  PageContainer: styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    .topics-container {
-      height: 100%;
-      overflow: hidden;
-    }
-
-    & *,
-    ::before,
-    ::after {
-      box-sizing: border-box;
-    }
-  `,
 };
