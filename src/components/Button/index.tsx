@@ -33,7 +33,7 @@ function Button({
   return (
     <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
       {iconPosition === "left" && icon && <Icon name={icon} />}
-      <p>{children}</p>
+      {children}
       {iconPosition === "right" && icon && <Icon name={icon} />}
     </Style.Button>
   );
