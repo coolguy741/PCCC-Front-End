@@ -171,6 +171,8 @@ const Style = {
     justify-content: space-between;
     box-shadow: 6px 0px 27px #0d452920;
     box-sizing: border-box;
+    /* position: fixed; */
+    // TODO: Sidebar position change location.
 
     & {
       ::-webkit-scrollbar {

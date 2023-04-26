@@ -143,6 +143,8 @@ export const AccountsUserProfilePage = () => {
 
 const Style = {
   Container: styled.div`
+    padding-bottom: 50px;
+
     h2 {
       font-weight: 600;
       font-size: 33px;
@@ -320,7 +322,7 @@ const Style = {
         }
 
         tr {
-          margin-bottom: 20px;
+          display: flex;
 
           th:first-of-type,
           td:first-of-type {
