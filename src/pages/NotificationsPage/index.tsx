@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { Photo } from "../../components/Accounts/Photo";
-import { Icon } from "../../components/Global/Icon";
-import { SmallButton } from "../../components/Global/SmallButton";
-import { Bold, Text } from "../../components/Global/Text";
+import Button from "../../components/Button";
+import { avatars_data } from "../../lib/avatars/data";
 import mockData from "../../lib/mockData/notifications.json";
 
 export const NotificationsPage = () => {
@@ -12,96 +10,173 @@ export const NotificationsPage = () => {
 
   return (
     <Style.PageContainer>
-      <Style.Title>Notifications</Style.Title>
-      <Style.SubTitle>Activity</Style.SubTitle>
-      <Style.NotificationsContainer>
-        <tbody>
-          {mockData.listData.map((notification, index) => (
-            <tr key={index}>
-              <td className="icon">
-                <Icon name={notification.icon} width="44px" />
-              </td>
-              <td className="photo">
-                <Photo
-                  src={notification.image}
-                  role="Admin"
-                  alt={notification.alt}
-                  width="40px"
-                />
-              </td>
-              <td className="text">
-                <Text>
-                  <Bold>{notification.role}</Bold>
-                  {" " + notification.content}
-                </Text>
-              </td>
-              <td className="date">
-                <Text>{notification.date}</Text>
-              </td>
-              <td className="reviewed">
-                {notification.reviewed === false ? (
-                  <SmallButton onClick={handleReview}>Review</SmallButton>
-                ) : (
-                  <></>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Style.NotificationsContainer>
+      <Style.Background />
+      <Style.TitleLine>
+        <Style.Title>Notifications</Style.Title>
+      </Style.TitleLine>
+      <Style.ScrollContainer>
+        <Style.ListContainer>
+          <Style.SubTitle>Activity</Style.SubTitle>
+          <Style.NotificationsContainer>
+            {mockData.listData.map((notification, index) => (
+              <Style.Row key={index}>
+                <div className="icon">{avatars_data[0].icon()}</div>
+                <div className="text">
+                  <div className="role">{notification.role}</div>
+                  <p className="activity">{notification.content}</p>
+                </div>
+                <div className="date">{notification.date}</div>
+                <Button className="review" onClick={handleReview} size="small">
+                  <span style={{ padding: "0px 15px" }}>Review</span>
+                </Button>
+              </Style.Row>
+            ))}
+          </Style.NotificationsContainer>
+        </Style.ListContainer>
+      </Style.ScrollContainer>
     </Style.PageContainer>
   );
 };
 
 const Style = {
   PageContainer: styled.div`
+    padding: 118px 40px 0 40px;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    position: relative;
+    overflow: overlay;
+    max-height: 100vh;
+    font-family: "Noir Std";
+    font-style: normal;
+  `,
+  Background: styled.div`
+    position: absolute;
+    top: 0;
+    left: -32px;
+    width: calc(100% + 32px);
+    height: 100vh;
+    background: linear-gradient(252.45deg, #c4e8ff 2.54%, #fff9e0 87.48%);
+    z-index: -1;
+  `,
+  TitleLine: styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 12px;
+    color: var(--orange-500);
+    padding-bottom: 38.53px;
+
+    img: {
+      color: var(--orange-500);
+    }
+  `,
+  Title: styled.p`
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 56px;
+  `,
+  ListContainer: styled.div`
+    padding: 24px 32px 24px 32px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(59.2764px);
+    border-radius: 16px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+  `,
+  SubTitle: styled.p`
+    font-family: "Noir Std";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 32px;
+    color: var(--neutral-600);
+  `,
+  NotificationsContainer: styled.ul`
     display: flex;
     flex-direction: column;
     gap: 20px;
-  `,
-  Title: styled.p`
+    border-collapse: collapse;
     font-family: "Noir Std";
     font-style: normal;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 103.68%;
-    letter-spacing: 0.02em;
-    color: #c4c4c4;
-    margin-bottom: 0px;
+    list-style-type: none;
   `,
-  SubTitle: styled.p`
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 143.18%;
-    letter-spacing: 0.02em;
-    color: #797979;
-    margin: 0px;
-    margin-top: 50px;
-  `,
-  NotificationsContainer: styled.table`
+  Row: styled.li`
+    width: 100%;
+    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--neutral-600);
+    padding: 24px 0px;
     display: flex;
-    flex-direction: column;
-    border-collapse: collapse;
+    align-items: center;
 
-    tr {
-      width: 100%;
-      border-bottom: 1px solid black;
-      height: 80px;
+    .icon {
+      padding-right: 32px;
+      font-weight: 600;
+      font-size: 23px;
+      line-height: 28px;
+      color: var(--neutral-700);
+    }
+    .text {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      .role {
+        font-weight: 600;
+        font-size: 23px;
+        line-height: 28px;
+        color: var(--neutral-600);
+      }
+      .activity {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
+        color: var(--neutral-600);
+      }
+    }
+    .date {
+      width: 226px;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 24px;
+      color: var(--neutral-700);
+    }
+  `,
+  Text: styled.p``,
+  Date: styled.p``,
+  ScrollContainer: styled.div`
+    overflow-y: auto;
+    height: 100%;
+    padding-right: 16px;
+    margin-right: -24px;
 
-      .icon {
-        width: 10%;
-      }
-      .photo {
-        width: 6%;
-      }
-      .text {
-        width: 60%;
-      }
-      .date {
-        width: 20%;
-      }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 20px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      display: none;
+    }
+
+    ::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #ffffff80;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ffffff90;
     }
   `,
 };
