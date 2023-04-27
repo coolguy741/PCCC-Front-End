@@ -56,23 +56,22 @@ export const SignUpForm = () => {
   }, []);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log("submitted");
     event.preventDefault();
-
     if (isCoordinator) {
       setName(_name);
       setTitle(_title);
-      setBirthYear(parseInt(_birthYear));
       setSchoolIdCode(_schoolIdCode);
       setSchoolIdCode(_schoolIdCode);
       setSchoolName(_schoolName);
-      setProvince(_province);
       setEmail(_email);
     }
 
+    setProvince(_province);
+    setBirthYear(parseInt(_birthYear));
     setFirstUserName(_firstUserName);
     setSecondUserName(_secondUserName);
     setThirdUserName(_thirdUserName);
-
     changeStep(3);
   };
 
@@ -82,6 +81,7 @@ export const SignUpForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      data-testid="signup-form"
     >
       <section className="sign-up">
         <h1>Sign Up</h1>
@@ -124,7 +124,7 @@ export const SignUpForm = () => {
                 type="number"
                 min="1"
                 max="12"
-                data-testid="month"
+                data-testid="day"
                 required
               />
               <Input
@@ -134,7 +134,7 @@ export const SignUpForm = () => {
                 value={_birthMonth}
                 required
                 type="number"
-                data-testid="day"
+                data-testid="month"
                 min="1"
                 max="31"
               />
@@ -216,7 +216,9 @@ export const SignUpForm = () => {
           >
             {firstNames &&
               firstNames.map((name, index) => (
-                <option key={`firstName-${index}`}>{name}</option>
+                <option key={`firstName-${index}`} value={name}>
+                  {name}
+                </option>
               ))}
           </Select>
           <Select
@@ -226,17 +228,21 @@ export const SignUpForm = () => {
             }}
             value={_secondUserName}
             className="username-select"
+            data-testid="second-username"
             required
           >
             {secondNames &&
               secondNames.map((name, index) => (
-                <option key={index}>{name}</option>
+                <option key={`secondName-${index}`} value={name}>
+                  {name}
+                </option>
               ))}
           </Select>
           <Input
             type="text"
             onChange={(e) => _setThirdUserName(e.target.value)}
             value={_thirdUserName}
+            data-testid="third-username"
             placeholder="12345"
           />
         </article>

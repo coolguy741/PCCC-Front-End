@@ -114,13 +114,14 @@ export const SecurityQuestions = () => {
         <article className="password">
           <h2>Password</h2>
           <fieldset>
-            <label htmlFor="password">Create Password</label>
+            <label>Create Password</label>
             <Input
               type="password"
               id="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               width="65%"
+              data-testid="password"
               required
             />
           </fieldset>
@@ -131,6 +132,7 @@ export const SecurityQuestions = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               width="65%"
+              data-testid="confirm-password"
               required
             />
           </fieldset>
@@ -147,6 +149,7 @@ export const SecurityQuestions = () => {
               console.log(e.target.value);
             }}
             value={firstSecurityQuestionId}
+            data-testid="first-security-question"
             width="75%"
             required
           >
@@ -218,7 +221,7 @@ export const SecurityQuestions = () => {
             width="75%"
           />
         </fieldset>
-        <Button type="submit" size="large">
+        <Button type="submit" size="large" data-testid="submit">
           Submit
         </Button>
       </section>

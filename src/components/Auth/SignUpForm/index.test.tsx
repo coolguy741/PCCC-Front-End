@@ -2,7 +2,7 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import { Mock, vi } from "vitest";
 
-import { cleanup, render, screen } from "../../../lib/util/test-utils";
+import { cleanup, render, screen, waitFor } from "../../../lib/util/test-utils";
 import { useSignUpStore } from "../../../stores/signUpStore";
 import { SignUpForm } from "../SignUpForm";
 
@@ -12,11 +12,13 @@ describe("SignUpForm", async () => {
   beforeEach(() => {
     useSignUpStore.setState(initialState, true);
     cleanup();
+
     vi.spyOn(global, "fetch").mockImplementation(
       vi.fn(async () => ({
         ok: true,
         json: async () => ({
-          questions: "questions",
+          firstNames: ["Awesome", "Cool", "Funny"],
+          secondNames: ["Apple", "Carrot", "Orange"],
         }),
       })) as Mock,
     );
@@ -27,7 +29,7 @@ describe("SignUpForm", async () => {
     );
   });
 
-  it("Should load security questions", async () => {
+  it("Should load usernames", async () => {
     expect(fetch).toHaveBeenCalledWith(
       "https://backend-dev.powerfullkids.ca/api/app/custom-username-choices/username-choices",
       {
@@ -43,6 +45,10 @@ describe("SignUpForm", async () => {
   });
 
   it("Should render without crash when the user is not a coordinator", async () => {
+    await waitFor(() => {
+      expect(screen.getByText("Awesome")).toBeTruthy();
+    });
+
     expect(screen.getByText("Sign Up")).toBeTruthy();
     expect(screen.getByTestId("year")).toBeTruthy();
     expect(screen.getByTestId("month")).toBeTruthy();
