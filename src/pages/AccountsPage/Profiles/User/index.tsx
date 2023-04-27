@@ -3,8 +3,8 @@ import styled from "styled-components";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 //should be deleted after api implementation
 import { useLocation } from "react-router-dom";
-import { Icon } from "../../../../components/Global/Icon";
 import { ArrowLeft, Group } from "../../../../components/Icons";
+import { Pagination } from "../../../../components/Pagination/pagination";
 import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
@@ -138,98 +138,9 @@ export const AccountsUserProfilePage = () => {
               ))}
             </tbody>
           </table>
-          <h3>Groups</h3>
-          <div className="groups-container">
-            <ul className="groups-list">
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Pagination />
         </article>
       </section>
-      <h3>Activity</h3>
-      <ul className="activities-list">
-        {userData.activities.map((activity, index) => (
-          <li className="activity-item" key={index}>
-            <div className="left">
-              <span className="icon-container">
-                <Icon name={activity.type} />
-              </span>
-              <p className="bold-text">User</p>
-              <p className="text">{activity.name}</p>
-              <p className="text">{activity.content}</p>
-            </div>
-            <p className="text date">{activity.date}</p>
-          </li>
-        ))}
-      </ul>
-      <h3>Lesson Accessment</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Lessons</th>
-            <th>Groups</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userData.lessonAssessment.map((lesson, index) => (
-            <tr key={index}>
-              <td>
-                <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
-                  {lesson.lessons}
-                </Link>
-              </td>
-              <td>{lesson.group}</td>
-              <td>{lesson.date}</td>
-              <td>{lesson.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </Style.Container>
   );
 };
@@ -237,6 +148,23 @@ export const AccountsUserProfilePage = () => {
 const Style = {
   Container: styled.div`
     padding-bottom: 50px;
+
+    .breadcrumb {
+      font-family: "Noir Std";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 24px;
+      color: var(--neutral-500);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 40px;
+
+      svg {
+        margin-right: 15px;
+      }
+    }
 
     h2 {
       font-weight: 600;
