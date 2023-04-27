@@ -10,19 +10,22 @@ const DynamicEnvironmentMapController: FC = () => {
     shallow,
   );
 
-  const handleFileConversion = useCallback((file: any) => {
-    const reader = new FileReader();
+  const handleFileConversion = useCallback(
+    (file: File) => {
+      const reader = new FileReader();
 
-    reader.addEventListener(
-      "load",
-      () => {
-        setDynamicEnvironmentMap(reader.result);
-      },
-      false,
-    );
+      reader.addEventListener(
+        "load",
+        () => {
+          setDynamicEnvironmentMap(reader.result as string);
+        },
+        false,
+      );
 
-    reader.readAsDataURL(file);
-  }, []);
+      reader.readAsDataURL(file);
+    },
+    [setDynamicEnvironmentMap],
+  );
 
   return (
     <FileUploader
