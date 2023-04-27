@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 /**
  * Store for global UI element states.
@@ -9,7 +9,7 @@ export const useUIStore = create<{
   setshowElement: (boolean: boolean) => void;
   language: string;
   setLanguage: (language: string) => void;
-}>((set) => ({
+}>()((set) => ({
   showElement: true,
   setshowElement: (boolean) => set({ showElement: boolean }),
   language: "english",

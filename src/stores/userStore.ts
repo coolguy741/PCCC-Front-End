@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput } from "../lib/api/api";
 
 /**
@@ -29,7 +29,7 @@ export const useUserStore = create<{
   setSecondQuestionAnswer: (answer: string) => void;
   thirdQuestionAnswer: string;
   setThirdQuestionAnswer: (answer: string) => void;
-}>((set) => ({
+}>()((set) => ({
   /** Our User/session object, null if not logged in */
   user: null,
   /** Update user object */

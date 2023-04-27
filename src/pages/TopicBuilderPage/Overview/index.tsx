@@ -160,7 +160,7 @@ const Style = {
         right: 0;
         transform: rotate(45deg) translate(calc(50% - 5px), calc(-50%));
         top: 50%;
-        clip-path: polygon(0% 30%, 100% 0%, 70% 100%, 0 30%);
+        clippath: polygon(0% 30%, 100% 0%, 70% 100%, 0 30%);
         background: #d9d9d9;
         content: "";
       }

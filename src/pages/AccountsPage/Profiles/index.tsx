@@ -27,14 +27,6 @@ const selectsGroup = [
 ];
 
 export const AccountsProfilesPage = () => {
-  const handleUserTypeChange = () => {
-    return "user type change";
-  };
-
-  const handleSortTypeChange = () => {
-    return "sort type change";
-  };
-
   const handleCardDelete = () => {
     return "card delete";
   };

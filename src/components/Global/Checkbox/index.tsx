@@ -14,7 +14,14 @@ export const Checkbox = ({
   colorOption = "primary",
   ...props
 }: CheckboxProps) => {
-  return <Style.Input type="radio" sizeOption={sizeOption} colorOption={colorOption}{...props} />;
+  return (
+    <Style.Input
+      type="radio"
+      sizeOption={sizeOption}
+      colorOption={colorOption}
+      {...props}
+    />
+  );
 };
 
 const Style = {
@@ -38,7 +45,8 @@ const Style = {
       display: grid;
       place-items: center;
       border: 2px solid
-        ${({ colorOption }) => colorOption === "primary" ? "var(--blue-300)" : "#A59176"};
+        ${({ colorOption }) =>
+          colorOption === "primary" ? "var(--blue-300)" : "#A59176"};
       border-radius: 4px;
 
       &:disabled {
@@ -55,7 +63,8 @@ const Style = {
       &:checked::before {
         opacity: 1;
         border-radius: 2px;
-        background: ${({ colorOption }) => colorOption === "primary" ? "var(--blue-400)" : "#D3BB90"};;
+        background: ${({ colorOption }) =>
+          colorOption === "primary" ? "var(--blue-400)" : "#D3BB90"};
       }
 
       &::before {
