@@ -97,6 +97,7 @@ export const SignInSecurity = () => {
             width="70%"
             onChange={(e) => _setFirstQuestionAnswer(e.target.value)}
             value={_firstQuestionAnswer}
+            data-testid="answer-1"
             required
           />
         </div>
@@ -112,6 +113,7 @@ export const SignInSecurity = () => {
             width="70%"
             onChange={(e) => _setSecondQuestionAnswer(e.target.value)}
             value={_secondQuestionAnswer}
+            data-testid="answer-2"
             required
           />
         </div>
@@ -127,11 +129,12 @@ export const SignInSecurity = () => {
             width="70%"
             onChange={(e) => _setThirdQuestionAnswer(e.target.value)}
             value={_thirdQuestionAnswer}
+            data-testid="answer-3"
             required
           />
         </div>
       </fieldset>
-      <Button type="submit" fullWidth>
+      <Button type="submit" fullWidth data-testid="submit">
         Submit
       </Button>
     </Style.Container>

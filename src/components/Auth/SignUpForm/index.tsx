@@ -90,22 +90,24 @@ export const SignUpForm = () => {
           {isCoordinator && (
             <>
               <fieldset>
-                <label>Name</label>
+                <label htmlFor="name">Name</label>
                 <Input
                   width="60%"
                   placeholder="John"
                   onChange={(e) => _setName(e.target.value)}
                   value={_name}
+                  id="name"
                   required
                 />
               </fieldset>
               <fieldset>
-                <label>Title</label>
+                <label htmlFor="title">Title</label>
                 <Input
                   width="60%"
                   placeholder="Student"
                   onChange={(e) => _setTitle(e.target.value)}
                   value={_title}
+                  id="title"
                   required
                 />
               </fieldset>
@@ -122,6 +124,7 @@ export const SignUpForm = () => {
                 type="number"
                 min="1"
                 max="12"
+                data-testid="month"
                 required
               />
               <Input
@@ -131,6 +134,7 @@ export const SignUpForm = () => {
                 value={_birthMonth}
                 required
                 type="number"
+                data-testid="day"
                 min="1"
                 max="31"
               />
@@ -140,6 +144,7 @@ export const SignUpForm = () => {
                 onChange={(e) => _setBirthYear(e.target.value)}
                 value={_birthYear}
                 required
+                data-testid="year"
                 type="number"
                 min="1900"
                 max="2023"
@@ -155,6 +160,7 @@ export const SignUpForm = () => {
                   placeholder="1234567890"
                   onChange={(e) => _setSchoolIdCode(e.target.value)}
                   value={_schoolIdCode}
+                  data-testid="school-code"
                   required
                 />
               </fieldset>
@@ -165,6 +171,7 @@ export const SignUpForm = () => {
                   placeholder="George Collage"
                   onChange={(e) => _setSchoolName(e.target.value)}
                   value={_schoolName}
+                  data-testid="school-name"
                   required
                 />
               </fieldset>
@@ -177,17 +184,19 @@ export const SignUpForm = () => {
               placeholder="Ontario"
               onChange={(e) => _setProvince(e.target.value)}
               value={_province}
+              data-testid="province"
               required
             />
           </fieldset>
           {isCoordinator && (
             <fieldset>
-              <label>Email Address</label>
+              <label htmlFor="email">Email Address</label>
               <Input
                 width="60%"
                 placeholder="Johndoe@gmail.com"
                 onChange={(e) => _setEmail(e.target.value)}
                 value={_email}
+                id="email"
                 required
               />
             </fieldset>
@@ -202,11 +211,12 @@ export const SignUpForm = () => {
             onChange={(e) => _setFirstUserName(e.target.value)}
             value={_firstUserName}
             className="username-select"
+            data-testid="first-username"
             required
           >
             {firstNames &&
               firstNames.map((name, index) => (
-                <option key={index}>{name}</option>
+                <option key={`firstName-${index}`}>{name}</option>
               ))}
           </Select>
           <Select
@@ -234,12 +244,19 @@ export const SignUpForm = () => {
           <label>Choose Avatar</label>
           <div className="avatars">
             {/* TODO: Improve avatar animations */}
-            {avatars_data.map((avatar) => (
-              <Style.Button className="avatar">{avatar.icon()}</Style.Button>
+            {avatars_data.map((avatar, index) => (
+              <Style.Button className="avatar" key={`avatar-${index}`}>
+                {avatar.icon()}
+              </Style.Button>
             ))}
           </div>
         </article>
-        <Button className="next" size="small" type="submit">
+        <Button
+          className="next"
+          size="small"
+          type="submit"
+          data-testid="submit"
+        >
           Next
           <ArrowRight />
         </Button>
