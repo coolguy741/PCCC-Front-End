@@ -43,7 +43,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             <Button variant="yellow" size="large">
               Delete
             </Button>
-            <Button variant="orange" size="large" rightIcon="add">
+            <Button variant="orange" size="large" icon="add">
               {title === "Mealtime Moments Editor"
                 ? "Mealtime Moments"
                 : "Create " + title}

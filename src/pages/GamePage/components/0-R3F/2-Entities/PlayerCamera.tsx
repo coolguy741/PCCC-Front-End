@@ -1,5 +1,5 @@
 import { PerspectiveCamera, Sphere } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 import {
   Fragment,
@@ -16,7 +16,6 @@ import {
   MathUtils,
   Mesh,
   MeshStandardMaterial,
-  Quaternion,
   TubeGeometry,
   Vector3,
 } from "three";
@@ -40,7 +39,8 @@ const PlayerCamera = () => {
     }),
     shallow,
   );
-  const { geo, mat, toolsGeo, shedGeo, utilityVector, q } = useMemo(() => {
+
+  const { geo, mat, toolsGeo, shedGeo } = useMemo(() => {
     const GardenToHive = new CubicBezierCurve3(
       new Vector3(-3.895013, 2.909739, 4.410319),
       new Vector3(-2.423339, 2.977311, 3.233827),
@@ -73,11 +73,9 @@ const PlayerCamera = () => {
     });
     const lA = new Vector3(0.882773, 0.355599, 0.807008);
 
-    const utilityVector = new Vector3();
+    // const q = new Quaternion();
 
-    const q = new Quaternion();
-
-    return { geo, mat, toolsGeo, lA, shedGeo, utilityVector, q };
+    return { geo, mat, toolsGeo, lA, shedGeo };
   }, []);
 
   const dampVector3 = useCallback(
@@ -105,8 +103,6 @@ const PlayerCamera = () => {
     }
   });
 
-  const camera = useThree((state) => state.camera);
-
   useEffect(() => {
     if (activeCamera === "PlayerCamera") {
       gsap.fromTo(
@@ -123,22 +119,29 @@ const PlayerCamera = () => {
         },
       );
     }
-  }, [camera, activeCamera]);
+  }, [activeCamera]);
+
   return (
     <Fragment>
       <mesh
+        castShadow
+        receiveShadow
         material={mat}
         geometry={shedGeo}
         visible={activeCamera === "OrbitControls" ? true : false}
       />
 
       <mesh
+        castShadow
+        receiveShadow
         material={mat}
         geometry={toolsGeo}
         visible={activeCamera === "OrbitControls" ? true : false}
       />
 
       <mesh
+        castShadow
+        receiveShadow
         ref={tubeRef}
         material={mat}
         geometry={geo}
