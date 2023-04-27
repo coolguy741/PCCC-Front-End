@@ -17,7 +17,7 @@ const TileData = {
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
   button: {
-    text: "Explore",
+    text: "Play",
     link: "/dashboard/cook-together",
   },
 };
@@ -79,6 +79,7 @@ const style = {
   `,
   TileContainer: styled.div`
     padding-left: 100px;
+    z-index: 20;
   `,
   Background: styled.div`
     position: absolute;

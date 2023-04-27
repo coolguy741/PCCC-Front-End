@@ -4,6 +4,7 @@ import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { GetState, GlobalStateTypes, SetState } from "./GlobalStateTypes";
 import { AchievementModule } from "./modules/AchievementModule/AchievementModule";
+import { CameraModule } from "./modules/CameraModule.tsx/CameraModule";
 import { DevelopmentModule } from "./modules/DevelopmentModule/DevelopmentModule";
 import { InventoryModule } from "./modules/InventoryModule/InventoryModule";
 import { LocationModule } from "./modules/LocationModule/LocationModule";
@@ -12,6 +13,7 @@ const storeModules = (
   set: SetState<GlobalStateTypes>,
   get: GetState<GlobalStateTypes>,
 ) => ({
+  ...CameraModule({ set, get }),
   ...LocationModule({ set, get }),
   ...InventoryModule({ set, get }),
   ...AchievementModule({ set, get }),

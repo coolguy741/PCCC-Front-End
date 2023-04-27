@@ -13,7 +13,7 @@ export interface ButtonProps
   size?: ButtonSize;
   to?: string;
   fullWidth?: boolean;
-  icon?: string;
+  icon?: string | JSX.Element;
   iconPosition?: string;
 }
 
@@ -32,9 +32,17 @@ function Button({
 
   return (
     <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
-      {iconPosition === "left" && icon && <Icon name={icon} />}
-      <p>{children}</p>
-      {iconPosition === "right" && icon && <Icon name={icon} />}
+      {icon && typeof icon === "string" && iconPosition === "left" ? (
+        <Icon name={icon} />
+      ) : (
+        icon
+      )}
+      <div className="btn-content">{children}</div>
+      {icon && typeof icon === "string" && iconPosition === "right" ? (
+        <Icon name={icon} />
+      ) : (
+        icon
+      )}
     </Style.Button>
   );
 }
@@ -52,6 +60,7 @@ const orangeVStyles = css`
 
   &:hover {
     box-shadow: 0px 9px 8px rgba(248, 124, 86, 0.4);
+    transform: translateY(-3px);
   }
 
   &:active {
@@ -80,6 +89,7 @@ const greenVStyles = css`
 
   &:hover {
     box-shadow: 0px 9px 8px var(--green-300);
+    transform: translateY(-3px);
   }
 
   &:active {
@@ -103,11 +113,12 @@ const yellowVStyles = css`
     var(--yellow-300) 2.47%,
     var(--yellow-600) 97.72%
   );
-  box-shadow: 0px 4px 5px rgba(255, 209, 54, 0.4);
+  box-shadow: 0px 4px 5px rgba(170, 137, 0, 0.3);
   color: var(--neutral-800);
 
   &:hover {
-    box-shadow: 0px 9px 8px rgba(255, 217, 89, 0.4);
+    box-shadow: 0px 9px 8px rgba(170, 137, 0, 0.3);
+    transform: translateY(-3px);
   }
 
   &:active {
@@ -116,7 +127,7 @@ const yellowVStyles = css`
       var(--yellow-500) 1.81%,
       #f19100 98.01%
     );
-    box-shadow: 0px 5px 15px rgba(255, 207, 47, 0.4);
+    box-shadow: 0px 5px 15px rgba(170, 137, 0, 0.3);
   }
 
   &:disabled {
@@ -144,12 +155,9 @@ const smallSStyles = css`
   font-size: 16px;
   line-height: 24px;
   padding: 10px 16px;
-  p {
+
+  .btn-content {
     padding: 0px 8px;
-  }
-  img {
-    width: 24px;
-    height: 24px;
   }
 `;
 
@@ -157,12 +165,9 @@ const mediumSStyles = css`
   font-size: 16px;
   line-height: 24px;
   padding: 12px 18px;
-  p {
+
+  .btn-content {
     padding: 0px 12px;
-  }
-  img {
-    width: 24px;
-    height: 24px;
   }
 `;
 
@@ -170,12 +175,9 @@ const largeSStyles = css`
   font-size: 18px;
   line-height: 24px;
   padding: 14px 20px;
-  p {
+
+  .btn-content {
     padding: 0px 16px;
-  }
-  img {
-    width: 24px;
-    height: 24px;
   }
 `;
 
@@ -216,41 +218,64 @@ function getButtonSize(props: ButtonProps) {
   }
 }
 
-export const Style = {
-  Button: styled.button`
-    font-family: "Noir Std";
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    border-radius: 80px;
+function getButtonSVGAnim(props: ButtonProps) {
+  const { iconPosition } = props;
+  let rotateAngle;
+
+  if (iconPosition === "left") {
+    rotateAngle = "45deg";
+  } else {
+    rotateAngle = "-45deg";
+  }
+
+  return css`
+    svg {
+      transform: rotate(${rotateAngle});
+      transition: transform 0.2s ease-out;
+    }
+  `;
+}
+
+const defaultButtonStyles = css`
+  font-family: "Noir Std";
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  border-radius: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s ease-out, color 0.3s ease-in,
+    background 0.3s linear, transform 0.2s ease-in-out;
+
+  .btn-content {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.3s ease-out, color 0.3s ease-in,
-      background 0.3s linear;
-    border: 0;
-    display: flex;
+  }
 
-    ${getButtonVariant}
-    ${getButtonSize}
-    ${checkFullWidth}
+  &:hover {
+    svg {
+      transform: rotate(0deg);
+    }
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  ${getButtonSVGAnim}
+  ${getButtonVariant}
+  ${getButtonSize}
+  ${checkFullWidth}
+`;
+
+export const Style = {
+  Button: styled.button`
+    ${defaultButtonStyles}
   `,
 
   Link: styled(Link)`
-    font-family: "Noir Std";
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    border-radius: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.3s ease-out, color 0.3s ease-in,
-      background 0.3s linear;
-    border: 0;
-
-    ${getButtonVariant}
-    ${getButtonSize}
-    ${checkFullWidth}
+    ${defaultButtonStyles}
   `,
 };

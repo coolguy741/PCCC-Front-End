@@ -110,7 +110,7 @@ export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
         </div>
       </div>
       <Button variant="orange" size="small" className="btn-logout">
-        <div>Logout</div>
+        <div className="logout-content">Logout</div>
         <img alt="logout" src="/images/icons/sign-out.svg" />
       </Button>
     </Style.MenuContainer>
@@ -172,6 +172,8 @@ const Style = {
     justify-content: space-between;
     box-shadow: 6px 0px 27px #0d452920;
     box-sizing: border-box;
+    /* position: fixed; */
+    // TODO: Sidebar position change location.
 
     & {
       ::-webkit-scrollbar {
@@ -198,7 +200,7 @@ const Style = {
         display: none;
       }
 
-      div {
+      div.logout-content {
         display: block;
       }
     }
@@ -227,7 +229,7 @@ const Style = {
         transition: all 0.2s ease-in-out;
         width: 48px;
 
-        div {
+        div.logout-content {
           display: none;
         }
 
@@ -271,7 +273,7 @@ const Style = {
             display: none;
           }
 
-          div {
+          div.logout-content {
             display: block;
           }
         }

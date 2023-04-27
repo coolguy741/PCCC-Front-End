@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import Button from "../../Button";
 import { Icon } from "../../Global/Icon";
-import { SmallButton } from "../../Global/SmallButton";
 
 interface GroupCardProps {
   data: {
     group: {
       name: string;
-      id: number;
+      id: string;
       lastModificationTime: string;
       owner: string;
       ownerRole: string;
@@ -26,10 +30,26 @@ interface GroupCardProps {
 
 export const GroupCard = ({ data }: GroupCardProps) => {
   const [isExpand, setIsExpand] = useState(false);
+  const { api } = useAPI();
+  const [cookies] = useCookies([STORAGE_KEY_JWT]);
 
   const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setIsExpand(!isExpand);
+  };
+
+  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    if (data.group.id) {
+      const response = await api.appCustomGroupsDelete(data.group.id, {
+        headers: {
+          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+        },
+      });
+
+      console.log(response);
+    }
   };
 
   return (
@@ -40,7 +60,9 @@ export const GroupCard = ({ data }: GroupCardProps) => {
             <div className="icon-container">
               <Icon name="group" />
             </div>
-            <p className="bold-big-text">{data.group.name}</p>
+            <Link to={`${data.group.id}`}>
+              <p className="bold-big-text">{data.group.name}</p>
+            </Link>
           </div>
           <div>
             <p className="text">Group ID: {data.group.id}</p>
@@ -71,9 +93,13 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           {isExpand === false ? "Expand" : "Collapse"}
         </button>
         <div className="buttons-group">
-          <SmallButton>Join</SmallButton>
-          <SmallButton>Edit</SmallButton>
-          <SmallButton>Delete</SmallButton>
+          <Button size="small">Join</Button>
+          <Link to={`${data.group.id}/edit`}>
+            <Button size="small">Edit</Button>
+          </Link>
+          <Button size="small" onClick={handleDelete}>
+            Delete
+          </Button>
         </div>
       </div>
     </Style.Container>
@@ -134,6 +160,16 @@ const Style = {
         p {
           padding-left: 10px;
         }
+      }
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+
+      .buttons-group {
+        display: flex;
+        gap: 10px;
       }
     }
 

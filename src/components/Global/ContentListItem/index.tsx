@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Input } from "../Input";
+import { Checkbox } from "../Checkbox";
 
 export interface ContentListItemData {
   id: number;
@@ -41,12 +41,9 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
       </Style.Content>
       {selectable && (
         <Style.InputContainer>
-          <Input
-            type="radio"
+          <Checkbox
             checked={isSelected}
             onChange={handleCheckBoxChange}
-            width="33px"
-            height="33px"
             onClick={(event) => event.stopPropagation()}
           />
         </Style.InputContainer>
@@ -72,11 +69,7 @@ const Style = {
     width: 100%;
 
     &: hover {
-      background: linear-gradient(
-        182.85deg,
-        rgba(255, 225, 102, 0.75) 2.47%,
-        rgba(234, 188, 0, 0.75) 97.72%
-      );
+      background: linear-gradient(182.85deg, #ffeb99 2.47%, #f3d03e 97.72%);
     }
 
     img {

@@ -1,4 +1,4 @@
 export interface DevelopmentModuleTypes {
-  dynamicEnvironmentMap: any;
-  setDynamicEnvironmentMap: (newEnvironmentMap: any) => void;
+  dynamicEnvironmentMap: string | null;
+  setDynamicEnvironmentMap: (newEnvironmentMap: string) => void;
 }
