@@ -83,9 +83,10 @@ export const AgeGate = () => {
             type="text"
             onChange={(e) => _setProvince(e.target.value)}
             value={_province}
-            width="67.5%"
+            width="100%"
             data-testid="province"
             placeholder="Ontario"
+            height="40px"
             required
           />
         </fieldset>
@@ -102,9 +103,8 @@ const Style = {
   Container: styled(motion.main)`
     display: flex;
     flex-direction: column;
-    height: 60vh;
     width: 500px;
-    height: 600px;
+    height: 560px;
     ${glassBackground}
 
     h1 {

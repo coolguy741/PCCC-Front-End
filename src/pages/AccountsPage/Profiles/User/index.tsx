@@ -1,22 +1,19 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 import styled from "styled-components";
-import MockData from "../../../../lib/mockData/accounts/userProfile.json";
-//should be deleted after api implementation
-import { useLocation } from "react-router-dom";
 import { ArrowLeft, Group } from "../../../../components/Icons";
 import { Pagination } from "../../../../components/Pagination/pagination";
-import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
+import { useAPI } from "../../../../hooks/useAPI";
+import { useUserStore } from "../../../../stores/userStore";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
+import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsUserProfilePage = () => {
-  //should be deleted after api implementation
-  const { pathname } = useLocation();
-  const userData = pathname.includes("Standard")
-    ? MockData[0]
-    : pathname.includes("Professional")
-    ? MockData[1]
-    : MockData[2];
+  const { api } = useAPI();
+  const [cookies] = useCookies([STORAGE_KEY_JWT]);
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleBack = () => {
     return "handle back";
@@ -26,6 +23,24 @@ export const AccountsUserProfilePage = () => {
     return "handle edit";
   };
 
+  const getProfile = async () => {
+    const response = await api.appUserUserProfileList({
+      headers: {
+        Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+      },
+    });
+
+    console.log(response);
+
+    if (response.data) {
+      setUser(response.data);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <Style.Container>
       <span className="breadcrumb">
@@ -34,112 +49,119 @@ export const AccountsUserProfilePage = () => {
       </span>
       <h2>Standard Profile</h2>
       <section className="content-container">
-        <article className="user-info">
-          <figure></figure>
-          {userData.role === "Standard" ? (
-            <div className="user-info-content">
-              <h3>{userData.userID}</h3>
-              <p>Birth year: {userData.birthYear}</p>
-              <p>Province: {userData.province}</p>
-              <p>Created: {userData.createdDate}</p>
-            </div>
-          ) : userData.role === "Professional" ? (
-            <div className="user-info-content">
-              <h3>{userData.userID}</h3>
-              <h4>{userData.name}</h4>
-              <p>Birth year: {userData.birthYear}</p>
-              <p>ID Code: {userData.idCode}</p>
-              <p>School: {userData.school}</p>
-              <p>Province: {userData.province}</p>
-              <p>{userData.email}</p>
-              <p>Created: {userData.createdDate}</p>
-            </div>
-          ) : (
-            <div className="user-info-content">
-              <h3>{userData.userID}</h3>
-              <h4>{userData.name}</h4>
-              <p>Birth year: {userData.birthYear}</p>
-              <p>Province: {userData.province}</p>
-              <p>{userData.email}</p>
-              <p>Created: {userData.createdDate}</p>
-            </div>
-          )}
-        </article>
-        <article className="badges">
-          <div className="header-view">
-            <h3>Badges</h3>
-            <button>View all</button>
-          </div>
-          <div className="bagdes-icons">
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-          </div>
-        </article>
-        <article className="groups">
-          <div className="header-view">
-            <h3>Groups</h3>
-            <button>View all</button>
-          </div>
-          <ul>
-            {userData.groups.map((group, index) => (
-              <li key={index}>
-                <Group />
-                <span>
-                  {group.name}
-                  &nbsp;
-                </span>
-                <span>{"(" + group.number + ")"}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="activity">
-          <h3>Activity</h3>
-          <ul>
-            {userData.activities.map((activity, index) => (
-              <li key={index}>
-                <p>
-                  <Group /> User {activity.name} {activity.content}
-                </p>
-                <span>{activity.date}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="lesson-assesment">
-          <h3>Lesson Assessment</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Lessons</th>
-                <th>Groups</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userData.lessonAssessment.map((lesson, index) => (
-                <tr key={index}>
-                  <td className="lesson-name">
-                    <span>GARDEN GUARDIAN</span>
-                    <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
-                      {trimStringByLength(lesson.lessons, 29)}
-                    </Link>
-                  </td>
-                  <td>{lesson.group}</td>
-                  <td>{lesson.date}</td>
-                  <td className="lesson-status">{lesson.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <Pagination />
-        </article>
+        {user && (
+          <>
+            <article className="user-info">
+              <figure></figure>
+              {user.role === "standard" ? (
+                <div className="user-info-content">
+                  <h3>{user.username}</h3>
+                  <p>Birth year: {user.birthYear}</p>
+                  <p>Province: {user.province}</p>
+                  <p>Created: {user.created}</p>
+                </div>
+              ) : user.role === "professional" ? (
+                <div className="user-info-content">
+                  <h3>{user.username}</h3>
+                  <h4>{user.name}</h4>
+                  <p>Birth year: {user.birthYear}</p>
+                  <p>ID Code: {user.schoolIdCode}</p>
+                  <p>School: {user.school}</p>
+                  <p>Province: {user.province}</p>
+                  <p>{user.email}</p>
+                  <p>Created: {user.created}</p>
+                </div>
+              ) : (
+                <div className="user-info-content">
+                  <h3>{user.username}</h3>
+                  <h4>{user.name}</h4>
+                  <p>Birth year: {user.birthYear}</p>
+                  <p>Province: {user.province}</p>
+                  <p>{user.email}</p>
+                  <p>Created: {user.created}</p>
+                </div>
+              )}
+            </article>
+            <article className="badges">
+              <div className="header-view">
+                <h3>Badges</h3>
+                <button>View all</button>
+              </div>
+              <div className="bagdes-icons">
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+              </div>
+            </article>
+            <article className="groups">
+              <div className="header-view">
+                <h3>Groups</h3>
+                <button>View all</button>
+              </div>
+              <ul>
+                {user.groups &&
+                  user.groups.map((group: any, index: number) => (
+                    <li key={index}>
+                      <Group />
+                      <span>
+                        {group.name}
+                        &nbsp;
+                      </span>
+                      <span>{"(" + group.number + ")"}</span>
+                    </li>
+                  ))}
+              </ul>
+            </article>
+            <article className="activity">
+              <h3>Activity</h3>
+              <ul>
+                {/* {user.activities &&
+                  user.activities.map((activity: any, index: number) => (
+                    <li key={index}>
+                      <p>
+                        <Group /> User {activity.name} {activity.content}
+                      </p>
+                      <span>{activity.date}</span>
+                    </li>
+                  ))} */}
+              </ul>
+            </article>
+            <article className="lesson-assesment">
+              <h3>Lesson Assessment</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Lessons</th>
+                    <th>Groups</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* {user.lessonAssessment &&
+                    user.lessonAssessment.map((lesson: any, index: number) => (
+                      <tr key={index}>
+                        <td className="lesson-name">
+                          <span>GARDEN GUARDIAN</span>
+                          <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
+                            {trimStringByLength(lesson.lessons, 29)}
+                          </Link>
+                        </td>
+                        <td>{lesson.group}</td>
+                        <td>{lesson.date}</td>
+                        <td className="lesson-status">{lesson.status}</td>
+                      </tr>
+                    ))} */}
+                </tbody>
+              </table>
+              <Pagination />
+            </article>
+          </>
+        )}
       </section>
     </Style.Container>
   );

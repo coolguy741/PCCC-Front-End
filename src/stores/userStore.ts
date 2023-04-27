@@ -1,19 +1,16 @@
 import { create } from "zustand";
-import { PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput } from "../lib/api/api";
-
+import {
+  PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
+  PccServer23UsersGetUserProfileDto,
+} from "../lib/api/api";
 /**
  * This is a store that contains user data.
  */
 
-/** Minimal representation of user */
-export type User = {
-  id: string;
-};
-
 /* A store that container user/auth/settings data, also includes data for storing avatar choice--but feel free to remove that if its not useful */
 export const useUserStore = create<{
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: PccServer23UsersGetUserProfileDto | null;
+  setUser: (user: PccServer23UsersGetUserProfileDto | null) => void;
   hasCheckedForUserThisSession: boolean;
   usernameForSecurityQuestions: string;
   setUsernameForSecurityQuestions: (username: string) => void;
@@ -67,7 +64,8 @@ export const getUser = () => useUserStore.getState().user;
 /**
  * Imperatively set the user object
  */
-export const setUser = (user: User | null) => useUserStore.setState({ user });
+export const setUser = (user: PccServer23UsersGetUserProfileDto | null) =>
+  useUserStore.setState({ user });
 /**
  * Imperatively set whether or not we have checked for a user this session
  */
