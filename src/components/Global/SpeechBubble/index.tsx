@@ -185,7 +185,7 @@ const Style = {
       top: 90%;
       left: 50%;
       transform: translate(-50%);
-      clippath: polygon(0% 0%, 100% 0%, 56% 96%, 50% 97%, 44% 96%, 0% 0%);
+      clip-path: polygon(0% 0%, 100% 0%, 56% 96%, 50% 97%, 44% 96%, 0% 0%);
     }
     ${getButtonVariant}
   `,
