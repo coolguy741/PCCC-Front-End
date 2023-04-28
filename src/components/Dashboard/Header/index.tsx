@@ -169,6 +169,7 @@ const Style = {
       ${({ scrollTop }) => (scrollTop - 50) / 200}
     );
     margin-left: -36px;
+    width: calc(100% + 36px - var(--dashboard-menu-width-large));
 
     @media screen and (max-width: 1920px) {
       width: calc(
