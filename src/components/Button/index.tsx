@@ -32,17 +32,13 @@ function Button({
 
   return (
     <Style.Button onClick={to ? handleNavigate : onClick} {...props}>
-      {icon && typeof icon === "string" && iconPosition === "left" ? (
-        <Icon name={icon} />
-      ) : (
-        icon
-      )}
+      {icon &&
+        typeof icon === "string" &&
+        (iconPosition === "left" || !iconPosition) && <Icon name={icon} />}
       <div className="btn-content">{children}</div>
-      {icon && typeof icon === "string" && iconPosition === "right" ? (
-        <Icon name={icon} />
-      ) : (
-        icon
-      )}
+      {icon &&
+        typeof icon === "string" &&
+        (iconPosition === "right" || !iconPosition) && <Icon name={icon} />}
     </Style.Button>
   );
 }

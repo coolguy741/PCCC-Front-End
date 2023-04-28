@@ -104,31 +104,5 @@ const Style = {
     height: 100%;
     padding-right: 16px;
     margin-right: -24px;
-
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 20px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      display: none;
-    }
-
-    ::-webkit-scrollbar-button {
-      display: none;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: #ffffff80;
-      border-radius: 8px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: #ffffff90;
-    }
   `,
 };
