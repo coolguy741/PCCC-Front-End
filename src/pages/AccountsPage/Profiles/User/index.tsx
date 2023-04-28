@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 //should be deleted after api implementation
 import { useLocation } from "react-router-dom";
-import { ArrowLeft, Group } from "../../../../components/Icons";
+import { ArrowLeft, Group, OrangeBG } from "../../../../components/Icons";
 import { Pagination } from "../../../../components/Pagination/pagination";
 import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
@@ -35,6 +35,9 @@ export const AccountsUserProfilePage = () => {
       <h2>Standard Profile</h2>
       <section className="content-container">
         <article className="user-info">
+          <div className="user-bg">
+            <OrangeBG width="261" height="251" />
+          </div>
           <figure></figure>
           {userData.role === "Standard" ? (
             <div className="user-info-content">
@@ -229,6 +232,14 @@ const Style = {
       grid-area: 1 / 1 / 3 / 2;
       ${() => animatedbackgroundGradient("#C4E8FF", "#A6EFCB")};
       display: flex;
+      position: relative;
+      overflow: hidden;
+
+      .user-bg {
+        position: absolute;
+        right: 0;
+        bottom: -150px;
+      }
 
       figure {
         height: 100%;
