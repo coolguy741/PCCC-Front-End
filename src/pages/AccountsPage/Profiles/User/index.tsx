@@ -1,26 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 //should be deleted after api implementation
 import { useLocation } from "react-router-dom";
-import { ArrowLeft, Group } from "../../../../components/Icons";
+import { BackButton } from "../../../../components/Global/BackButton";
+import { Group } from "../../../../components/Icons";
 import { Pagination } from "../../../../components/Pagination/pagination";
 import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
 
 export const AccountsUserProfilePage = () => {
-  //should be deleted after api implementation
-  const { pathname } = useLocation();
-  const userData = pathname.includes("Standard")
-    ? MockData[0]
-    : pathname.includes("Professional")
-    ? MockData[1]
-    : MockData[2];
+  const navigate = useNavigate();
 
   const handleBack = () => {
-    return "handle back";
+    navigate(-1);
   };
+  //should be deleted after api implementation
+  const { pathname } = useLocation();
+
+  // eslint-disable-next-line prettier/prettier
+  const userData = pathname.includes("Standard") ? MockData[0] : pathname.includes("Professional") ? MockData[1] : MockData[2];
 
   const handleEdit = () => {
     return "handle edit";
@@ -28,10 +28,9 @@ export const AccountsUserProfilePage = () => {
 
   return (
     <Style.Container>
-      <span className="breadcrumb">
-        <ArrowLeft />
-        Back
-      </span>
+      <Style.ButtonContainer>
+        <BackButton onClick={handleBack} />
+      </Style.ButtonContainer>
       <h2>Standard Profile</h2>
       <section className="content-container">
         <article className="user-info">
@@ -148,23 +147,6 @@ export const AccountsUserProfilePage = () => {
 const Style = {
   Container: styled.div`
     padding-bottom: 50px;
-
-    .breadcrumb {
-      font-family: "Noir Std";
-      font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 24px;
-      color: var(--neutral-500);
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      margin-bottom: 40px;
-
-      svg {
-        margin-right: 15px;
-      }
-    }
 
     h2 {
       font-weight: 600;
@@ -400,5 +382,11 @@ const Style = {
         }
       }
     }
+  `,
+  ButtonContainer: styled.div`
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   `,
 };
