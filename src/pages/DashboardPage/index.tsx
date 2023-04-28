@@ -11,7 +11,9 @@ interface DashboardPageProps {
 
 export const DashboardPage = ({ children }: DashboardPageProps) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (menuRef.current) {
@@ -20,13 +22,23 @@ export const DashboardPage = ({ children }: DashboardPageProps) => {
     }
   }, [menuRef]);
 
+  useEffect(() => {
+    if (container.current) {
+      container.current.onscroll = (event: Event) => {
+        const element = event.target as HTMLDivElement;
+
+        if (element.scrollTop <= 200) {
+          setScrollTop(() => element.scrollTop);
+        }
+      };
+    }
+  }, [container]);
+
   return (
-    <Style.PageContainer isHovering={isHovering}>
+    <Style.PageContainer isHovering={isHovering} ref={container}>
       <DashboardMenu ref={menuRef} />
       <div className="main-container">
-        <div className="relative">
-          <DashboardHeader />
-        </div>
+        <DashboardHeader isHovering={isHovering} scrollTop={scrollTop} />
         <div className="__content">{children}</div>
       </div>
     </Style.PageContainer>
@@ -38,9 +50,10 @@ const Style = {
     isHovering: props.isHovering || false,
   }))`
     width: 100%;
-    height: 100vh;
-    max-height: 100vh;
+    min-height: 100vh;
     display: flex;
+    height: 100vh;
+    overflow-y: auto;
     overflow-x: hidden;
     ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")};
 
