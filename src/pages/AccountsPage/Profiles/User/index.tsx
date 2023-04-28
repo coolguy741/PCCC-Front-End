@@ -29,7 +29,7 @@ export const AccountsUserProfilePage = () => {
   return (
     <Style.Container>
       <span className="breadcrumb">
-        <ArrowLeft />
+        <ArrowLeft width="10" />
         Back
       </span>
       <h2>Standard Profile</h2>
@@ -156,31 +156,31 @@ const Style = {
       font-family: "Noir Std";
       font-style: normal;
       font-weight: 500;
-      font-size: 18px;
-      line-height: 24px;
+      font-size: 12px;
+      line-height: 15px;
       color: var(--neutral-500);
       display: flex;
       align-items: center;
       cursor: pointer;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
 
       svg {
-        margin-right: 15px;
+        margin-right: 5px;
       }
     }
 
     h2 {
       font-weight: 600;
-      font-size: 33px;
-      line-height: 40px;
+      font-size: 25px;
+      line-height: 30px;
       color: var(--neutral-900);
       margin-bottom: 16px;
     }
 
     h3 {
       font-weight: 600;
-      font-size: 28px;
-      line-height: 32px;
+      font-size: 20px;
+      line-height: 25px;
       color: var(--neutral-800);
       margin-bottom: 15px;
     }
@@ -194,7 +194,7 @@ const Style = {
     .content-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(7, 90px);
+      grid-template-rows: repeat(7, 75px);
       grid-column-gap: 24px;
       grid-row-gap: 24px;
     }
@@ -222,8 +222,8 @@ const Style = {
 
       button {
         font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
+        font-size: 12px;
+        line-height: 16px;
         color: var(--neutral-600);
       }
     }
@@ -245,7 +245,7 @@ const Style = {
         height: 100%;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
         margin-right: 20px;
       }
     }
@@ -265,7 +265,7 @@ const Style = {
         width: 12%;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
       }
     }
 
