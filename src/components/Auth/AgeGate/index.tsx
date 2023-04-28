@@ -46,11 +46,31 @@ export const AgeGate = () => {
         <fieldset>
           <label>What year were you born?</label>
           <div className="birth-split">
-            <Input width="15%" placeholder="MM" required />
-            <Input width="15%" placeholder="DD" required />
+            <Input
+              width="15%"
+              placeholder="MM"
+              required
+              data-testid="month"
+              type="number"
+              min="1"
+              max="12"
+            />
+            <Input
+              width="15%"
+              placeholder="DD"
+              required
+              data-testid="day"
+              type="number"
+              min="1"
+              max="31"
+            />
             <Input
               width="18%"
               placeholder="YYYY"
+              type="number"
+              data-testid="year"
+              min="1900"
+              max="2023"
               onChange={(e) => _setBirthYear(e.target.value)}
               value={_birthYear}
               required
@@ -63,12 +83,14 @@ export const AgeGate = () => {
             type="text"
             onChange={(e) => _setProvince(e.target.value)}
             value={_province}
-            width="67.5%"
+            width="100%"
+            data-testid="province"
             placeholder="Ontario"
+            height="40px"
             required
           />
         </fieldset>
-        <Button size="small" fullWidth type="submit">
+        <Button size="small" fullWidth type="submit" data-testid="next">
           Continue to the next step
           <ArrowRight width="15" />
         </Button>
@@ -81,14 +103,18 @@ const Style = {
   Container: styled(motion.main)`
     display: flex;
     flex-direction: column;
-    height: 60vh;
     width: 500px;
-    height: 600px;
+    height: 560px;
     ${glassBackground}
+
+    h1 {
+      color: #3d3d3d;
+      font-weight: 700;
+    }
 
     label {
       font-size: 16px;
-      color: #505050;
+      color: var(--neutral-700);
       margin: 15px 0;
     }
 
@@ -101,7 +127,7 @@ const Style = {
       margin-top: 12px;
       font-size: 18px;
       line-height: 24px;
-      color: #505050;
+      color: var(--neutral-700);
     }
 
     fieldset {

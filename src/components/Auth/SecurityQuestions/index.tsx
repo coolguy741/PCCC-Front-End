@@ -117,9 +117,11 @@ export const SecurityQuestions = () => {
             <label>Create Password</label>
             <Input
               type="password"
+              id="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               width="65%"
+              data-testid="password"
               required
             />
           </fieldset>
@@ -130,6 +132,7 @@ export const SecurityQuestions = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               width="65%"
+              data-testid="confirm-password"
               required
             />
           </fieldset>
@@ -146,6 +149,7 @@ export const SecurityQuestions = () => {
               console.log(e.target.value);
             }}
             value={firstSecurityQuestionId}
+            data-testid="first-security-question"
             width="75%"
             required
           >
@@ -217,7 +221,7 @@ export const SecurityQuestions = () => {
             width="75%"
           />
         </fieldset>
-        <Button type="submit" size="large">
+        <Button type="submit" size="large" data-testid="submit">
           Submit
         </Button>
       </section>
@@ -244,7 +248,7 @@ const Style = {
       font-weight: 600;
       font-size: 25px;
       line-height: 30px;
-      color: #2e2e2e;
+      color: var(--neutral-900);
       margin-bottom: 24px;
     }
 
@@ -256,7 +260,7 @@ const Style = {
         display: flex;
         font-size: 16px;
         line-height: 24px;
-        color: #505050;
+        color: var(--neutral-700);
 
         svg {
           margin-right: 15px;
@@ -278,7 +282,7 @@ const Style = {
         margin-bottom: 15px;
 
         label {
-          color: #505050;
+          color: var(--neutral-700);
           font-weight: 400;
           font-size: 1rem;
           line-height: 25px;

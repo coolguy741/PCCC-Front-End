@@ -32,11 +32,16 @@ const style = {
     min-height: calc(100vh);
     display: flex;
     align-items: center;
-    padding-left: calc((100% - 1008px) * 0.4);
+    padding-left: 136px;
     margin-left: -136px;
   `,
   Content: styled.div`
-    margin-left: 136px;
+    width: 100%;
+    margin: 0px;
+    padding-left: 16.66%;
+    img {
+      width: 68.8%;
+    }
   `,
   Background: styled.div`
     position: absolute;
@@ -46,7 +51,7 @@ const style = {
     height: 100vh;
     z-index: -1;
     overflow: hidden;
-    ${() => animatedbackgroundGradient("#c4e8ff", "#fff9e0")}
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
   `,
   EllipseGroup: styled.div`
     position: absolute;
@@ -59,7 +64,7 @@ const style = {
     height: 1208.35px;
     left: -324.21px;
     top: -261.28px;
-    background: #a6efcb;
+    background: var(--green-200);
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
     transparent: 1%;
@@ -70,7 +75,7 @@ const style = {
     height: 1049.09px;
     left: -355.65px;
     top: 505.1px;
-    background: #79e7b0;
+    background: var(--green-300);
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
   `,
@@ -80,7 +85,7 @@ const style = {
     height: 962.16px;
     left: -544.64px;
     top: -301.06px;
-    background: #88d2ff;
+    background: var(--blue-300);
     opacity: 0.68;
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
@@ -91,7 +96,7 @@ const style = {
     height: 1115.82px;
     left: 709.14px;
     top: 251.17px;
-    background: #fff5cc;
+    background: var(--yellow-100);
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border-radius: 100%;
   `,
@@ -111,7 +116,7 @@ const style = {
     height: 100%;
     left: 0px;
     top: 0px;
-    background: #d2f7e5;
+    background: var(--green-100);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   `,
   Rectangle3: styled.div`
@@ -120,7 +125,7 @@ const style = {
     height: 100%;
     left: 0px;
     top: 0px;
-    background: #f3d03e;
+    background: var(--yellow-500);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   `,
 };

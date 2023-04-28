@@ -1,22 +1,45 @@
-import { HTMLAttributes } from "react";
+import { motion } from "framer-motion";
+import { BaseSyntheticEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { Color } from "../../../pages/types";
 
-interface SpeechBubbleProps extends HTMLAttributes<HTMLButtonElement> {
+interface SpeechBubbleProps {
   children: React.ReactNode;
   variant?: Color;
+  to?: string;
   left?: number;
   top?: number;
+  onClick?: (event: BaseSyntheticEvent) => void;
   position?: "fixed" | "absolute";
   unit?: "px" | "%";
 }
 
 export const SpeechBubble: React.FC<SpeechBubbleProps> = ({
   children,
+  to,
+  onClick,
   ...props
 }) => {
-  return <Style.Container {...props}>{children}</Style.Container>;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    to && navigate(to);
+  };
+
+  return (
+    <Style.Button
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={to ? handleClick : onClick}
+      {...props}
+    >
+      {children}
+    </Style.Button>
+  );
 };
 
 const greenVStyles = css`
@@ -108,11 +131,11 @@ const blueVStyles = css`
 `;
 
 const neutralVStyles = css`
-  background: #ffffff;
+  background: var(--white);
   filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.3));
 
   &:after {
-    background: #ffffff;
+    background: var(--white);
   }
 
   &:hover,
@@ -123,7 +146,7 @@ const neutralVStyles = css`
 
   &:active,
   &:active:after {
-    background: #ffffff;
+    background: var(--white);
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.3));
   }
 `;
@@ -145,7 +168,7 @@ function getButtonVariant(props: SpeechBubbleProps) {
 }
 
 const Style = {
-  Container: styled.button`
+  Button: styled(motion.button)`
     border-radius: 0.5rem;
     padding: 14px 1rem;
     white-space: nowrap;

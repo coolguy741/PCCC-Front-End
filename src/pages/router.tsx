@@ -81,11 +81,7 @@ import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <TempHomePage />,
-    errorElement: <ErrorBoundary />,
-  },
+  { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
   { path: "/landing", element: <TestLandingPage /> },
   {
     path: "/signin",

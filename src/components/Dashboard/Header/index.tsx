@@ -10,6 +10,11 @@ import { Col, GridContainer, Row } from "../../Global/Grid";
 import { Input } from "../../Global/Input";
 import { LanguageToggle } from "../../Global/LanguageToggle";
 
+interface Props {
+  isHovering: boolean;
+  scrollTop: number;
+}
+
 const fields = [
   "all",
   "topics",
@@ -19,7 +24,7 @@ const fields = [
   "foodways",
 ];
 
-export const DashboardHeader = () => {
+export const DashboardHeader: React.FC<Props> = ({ isHovering, scrollTop }) => {
   const [field, setField] = useState("all");
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUserStore();
@@ -42,8 +47,9 @@ export const DashboardHeader = () => {
   const handleClose = () => {
     setIsOpen(false);
   };
+
   return (
-    <Style.Container>
+    <Style.Container isHovering={isHovering} scrollTop={scrollTop}>
       <GridContainer>
         <Row>
           <Col>
@@ -129,7 +135,7 @@ export const DashboardHeader = () => {
                     Log in
                   </Button>
                   <Button variant="orange" to="/signup" size="small">
-                    <span>Sign up</span>
+                    Sign up
                   </Button>
                 </>
               )}
@@ -148,12 +154,38 @@ export const DashboardHeader = () => {
 };
 
 const Style = {
-  Container: styled.div`
-    position: absolute;
+  Container: styled.div.attrs(
+    (props: { isHovering: boolean; scrollTop: number }) => ({
+      isHovering: props.isHovering || false,
+      scrollTop: props.scrollTop || 0,
+    }),
+  )`
+    position: fixed;
     top: 0;
-    width: 100%;
+    background: rgba(
+      255,
+      255,
+      255,
+      ${({ scrollTop }) => (scrollTop - 50) / 200}
+    );
+    margin-left: -36px;
+    width: calc(100% + 36px - var(--dashboard-menu-width-large));
+
+    @media screen and (max-width: 1920px) {
+      width: calc(
+        100% + 36px -
+          ${({ isHovering }) =>
+            isHovering
+              ? "var(--dashboard-menu-width-large)"
+              : "var(--dashboard-menu-width-medium)"}
+      );
+
+      transition: width 0.1s ease-in-out;
+    }
+
     z-index: 10;
-    padding: calc(2 * var(--gutter-grid)) calc(1.5 * var(--gutter-grid));
+    padding: calc(2 * var(--gutter-grid)) calc(1.5 * var(--gutter-grid))
+      calc(2 * var(--gutter-grid)) calc(1.5 * var(--gutter-grid) + 36px);
   `,
   Header: styled.header`
     display: flex;
@@ -197,7 +229,7 @@ const Style = {
     isOpen: props.isOpen || false,
   }))`
     position: relative;
-    background: linear-gradient(#4cde96, #20ad67);
+    background: linear-gradient(var(--green-400), var(--green-600));
     z-index: 5;
     color: white;
     cursor: pointer;
@@ -233,11 +265,7 @@ const Style = {
         height: 20px;
       }
 
-      ${({ isOpen }) =>
-        isOpen &&
-        `img {
-         transform: rotate(-180deg);
-      }`};
+      ${({ isOpen }) => isOpen && "img { transform: rotate(-180deg);}"};
     }
   `,
   DropdownMenu: styled(motion.div)`
@@ -258,7 +286,7 @@ const Style = {
     gap: 10px;
 
     & input {
-      border: 2px solid #0084d5;
+      border: 2px solid var(--blue-500);
     }
 
     & div {

@@ -49,13 +49,15 @@ export const TileTemplate = ({
           )}
         </style.TitleContainer>
         <style.Description>{description}</style.Description>
-        <Button
-          variant={`${button.variant ? button.variant : "orange"}`}
-          onClick={goToPage}
-          size="large"
-        >
-          {button.text}
-        </Button>
+        <div>
+          <Button
+            variant={`${button.variant ? button.variant : "orange"}`}
+            onClick={goToPage}
+            size="large"
+          >
+            {button.text}
+          </Button>
+        </div>
       </style.Content>
     </style.PageContainer>
   );

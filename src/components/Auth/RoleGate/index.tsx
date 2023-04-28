@@ -66,8 +66,11 @@ export const RoleGate = () => {
               checked={isCoordinator === true}
               onChange={() => changeCoordinator(true)}
               required
+              name="role"
+              id="yes"
+              value="yes"
             />
-            <label>Yes</label>
+            <label htmlFor="yes">Yes</label>
           </fieldset>
 
           <fieldset>
@@ -76,8 +79,11 @@ export const RoleGate = () => {
               checked={isCoordinator === false}
               onChange={() => changeCoordinator(false)}
               required
+              name="role"
+              id="no"
+              value="no"
             />
-            <label>No</label>
+            <label htmlFor="no">No</label>
           </fieldset>
         </div>
         {isCoordinator && (
@@ -89,12 +95,14 @@ export const RoleGate = () => {
                 type="text"
                 onChange={(e) => _setSchoolId(e.target.value)}
                 value={_schoolId}
+                data-testid="school-id"
                 placeholder="1234"
               />
               <Input
                 type="text"
                 onChange={(e) => _setSchoolName(e.target.value)}
                 value={_schoolName}
+                data-testid="school-name"
                 placeholder="Enter Name Here"
               />
             </div>
@@ -104,7 +112,7 @@ export const RoleGate = () => {
           </section>
         )}
         {typeof isCoordinator === "boolean" && (
-          <Button size="small" fullWidth type="submit">
+          <Button size="small" fullWidth type="submit" data-testid="submit">
             Continue to the next step
             <ArrowRight width="15" />
           </Button>
@@ -131,7 +139,7 @@ const Style = {
     p {
       font-size: 20px;
       line-height: 24px;
-      color: #505050;
+      color: var(--neutral-700);
       margin-top: 12px;
     }
 
@@ -150,7 +158,7 @@ const Style = {
           margin-left: 10px;
           font-size: 18px;
           line-height: 24px;
-          color: #2e2e2e;
+          color: var(--neutral-900);
         }
       }
     }
@@ -161,7 +169,7 @@ const Style = {
 
     form {
       p {
-        color: #505050;
+        color: var(--neutral-700);
       }
 
       p:nth-of-type(2) {

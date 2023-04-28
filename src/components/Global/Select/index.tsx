@@ -8,10 +8,22 @@ interface SelectProps extends InputProps {
   value?: string;
 }
 
-export const Select = ({ children, width, onChange, value }: SelectProps) => {
+export const Select = ({
+  children,
+  width,
+  height,
+  onChange,
+  value,
+  ...props
+}: SelectProps) => {
   return (
-    <Style.Container width={width}>
-      <Style.Select onChange={onChange} value={value}>
+    <Style.Container width={width} height={height}>
+      <Style.Select
+        onChange={onChange}
+        value={value}
+        height={height}
+        {...props}
+      >
         {children}
       </Style.Select>
     </Style.Container>
@@ -21,7 +33,7 @@ export const Select = ({ children, width, onChange, value }: SelectProps) => {
 const Style = {
   Container: styled.fieldset<SelectProps>`
     width: ${({ width }) => (width ? width : "100%")};
-    height: 100%;
+    height: ${({ height }) => (height ? height : "100%")};
     position: relative;
 
     &::after {
@@ -35,7 +47,7 @@ const Style = {
       pointer-events: none;
     }
   `,
-  Select: styled.select`
+  Select: styled.select<SelectProps>`
     appearance: none;
     text-indent: 1px;
     text-overflow: "";
@@ -44,7 +56,7 @@ const Style = {
     -webkit-padding-start: 15px;
     -moz-padding-start: 15px;
     background-color: white;
-    height: 100%;
+    height: ${({ height }) => (height ? height : "100%")};
     width: 100%;
     box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     border-radius: 8px;

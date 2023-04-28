@@ -1,17 +1,16 @@
+import React from "react";
 import styled from "styled-components";
 
-interface IconProps {
+interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   name: string;
-  width?: string;
 }
 
-export const Icon = ({ name, width = "100%" }: IconProps) => {
+export const Icon = ({ name, ...props }: IconProps) => {
   return (
     <Style.Icon
-      src={`/images/${name}-icon.svg`}
-      className={name}
-      placeholder="icon"
-      width={width}
+      src={`/images/icons/${name}.svg`}
+      alt={name + "-icon"}
+      {...props}
     />
   );
 };

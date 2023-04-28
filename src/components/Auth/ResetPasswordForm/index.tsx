@@ -47,26 +47,28 @@ export const ResetPasswordForm = () => {
     <Style.Container onSubmit={submitHandler}>
       <h1>Password Reset</h1>
       <fieldset>
-        <label>New Password</label>
+        <label htmlFor="new-password">New Password</label>
         <Input
           type="password"
           width="55%"
+          id="new-password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           required
         />
       </fieldset>
       <fieldset>
-        <label>Retype Password</label>
+        <label htmlFor="password">Retype Password</label>
         <Input
           type="password"
           width="55%"
+          id="password"
           onChange={(e) => setConfirmPassword(e.target.value)}
           value={confirmPassword}
           required
         />
       </fieldset>
-      <Button type="submit" fullWidth>
+      <Button type="submit" fullWidth data-testid="submit">
         Reset
       </Button>
     </Style.Container>
@@ -83,7 +85,7 @@ const Style = {
       font-weight: 600;
       font-size: 33px;
       line-height: 40px;
-      color: #2e2e2e;
+      color: var(--neutral-900);
       margin-bottom: 32px;
     }
 
@@ -98,7 +100,7 @@ const Style = {
         font-weight: 500;
         font-size: 16px;
         line-height: 20px;
-        color: #505050;
+        color: var(--neutral-700);
       }
     }
 

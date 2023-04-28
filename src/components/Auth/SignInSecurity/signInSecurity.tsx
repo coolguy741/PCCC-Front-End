@@ -97,6 +97,7 @@ export const SignInSecurity = () => {
             width="70%"
             onChange={(e) => _setFirstQuestionAnswer(e.target.value)}
             value={_firstQuestionAnswer}
+            data-testid="answer-1"
             required
           />
         </div>
@@ -112,6 +113,7 @@ export const SignInSecurity = () => {
             width="70%"
             onChange={(e) => _setSecondQuestionAnswer(e.target.value)}
             value={_secondQuestionAnswer}
+            data-testid="answer-2"
             required
           />
         </div>
@@ -127,11 +129,12 @@ export const SignInSecurity = () => {
             width="70%"
             onChange={(e) => _setThirdQuestionAnswer(e.target.value)}
             value={_thirdQuestionAnswer}
+            data-testid="answer-3"
             required
           />
         </div>
       </fieldset>
-      <Button type="submit" fullWidth>
+      <Button type="submit" fullWidth data-testid="submit">
         Submit
       </Button>
     </Style.Container>
@@ -147,7 +150,7 @@ const Style = {
       font-weight: 600;
       font-size: 33px;
       line-height: 40px;
-      color: #2e2e2e;
+      color: var(--neutral-900);
       margin-bottom: 12px;
     }
 
@@ -156,7 +159,7 @@ const Style = {
       align-items: center;
       font-size: 16px;
       line-height: 20px;
-      color: #505050;
+      color: var(--neutral-700);
       margin-bottom: 32px;
 
       svg {
@@ -176,14 +179,14 @@ const Style = {
           font-weight: 500;
           font-size: 20px;
           line-height: 25px;
-          color: #505050;
+          color: var(--neutral-700);
         }
 
         span:last-of-type {
           font-weight: 500;
           font-size: 19px;
           line-height: 24px;
-          color: #505050;
+          color: var(--neutral-700);
           width: 70%;
         }
       }
@@ -198,7 +201,7 @@ const Style = {
         p {
           font-size: 20px;
           line-height: 25px;
-          color: #505050;
+          color: var(--neutral-700);
           font-weight: 500;
         }
       }

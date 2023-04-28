@@ -1,15 +1,13 @@
-// import { Sky } from "@react-three/drei";
-import { Fragment, memo } from "react";
+import { FC, Fragment, memo } from "react";
 import EnvironmentMap from "./EnvironmentMap";
 import Lighting from "./Lighting/Lighting";
 import Shadows from "./Shadows";
 
-const Environment = () => {
+const Environment: FC = () => {
   return (
     <Fragment>
-      {/* <Sky distance={50} /> */}
-      <Lighting />
       <Shadows />
+      <Lighting />
       <EnvironmentMap />
     </Fragment>
   );
