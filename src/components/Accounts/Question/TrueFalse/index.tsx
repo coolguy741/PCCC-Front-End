@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { Checkbox } from "../../../Global/Checkbox";
 
 export const TrueFalseQuestion = () => {
   const [selectedValue, setSelectedValue] = useState(true);
@@ -11,28 +12,22 @@ export const TrueFalseQuestion = () => {
 
   return (
     <Style.Container>
-      <div>
-        <input
-          type="radio"
-          id="true"
-          name="options"
+      <Style.LabeledCheckbox>
+        <Checkbox
           value="true"
           checked={selectedValue === true}
           onChange={handleValueChange}
         />
         <label htmlFor="true">True</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          id="false"
-          name="options"
-          value="false"
+      </Style.LabeledCheckbox>
+      <Style.LabeledCheckbox>
+        <Checkbox
+          value="true"
           checked={selectedValue === false}
           onChange={handleValueChange}
         />
         <label htmlFor="false">False</label>
-      </div>
+      </Style.LabeledCheckbox>
     </Style.Container>
   );
 };
@@ -40,9 +35,15 @@ export const TrueFalseQuestion = () => {
 const Style = {
   Container: styled.div`
     display: flex;
-
-    div {
-      margin-right: 20px;
-    }
+    flex-direction: column;
+    gap: 24px;
+  `,
+  LabeledCheckbox: styled.div`
+    display: flex;
+    gap: 15px;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 24px;
+    color: var(--neutral-700);
   `,
 };
