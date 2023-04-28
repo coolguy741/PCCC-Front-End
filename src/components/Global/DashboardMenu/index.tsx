@@ -1,9 +1,10 @@
 import { forwardRef, Ref, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 import { usePathName } from "../../../hooks/usePathName";
 import { MENUS } from "../../../pages/consts";
+import { useUserStore } from "../../../stores/userStore";
 import Button from "../../Button";
 
 type MenuState = {
@@ -12,6 +13,9 @@ type MenuState = {
 };
 
 export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["PCCC_TOKEN"]);
+  const [setUser] = useUserStore((state) => [state.setUser]);
+
   const [menuOpen, setMenuOpen] = useState({
     "user-tools": false,
     "content-builder": false,
@@ -39,6 +43,11 @@ export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
       ...menuOpen,
       [menu]: !menuOpen[menu as keyof MenuState],
     });
+  };
+
+  const logoutHandler = () => {
+    removeCookie("PCCC_TOKEN");
+    setUser(null);
   };
 
   return (
@@ -107,7 +116,12 @@ export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
           </Style.MenuItem>
         ))}
       </div>
-      <Button variant="orange" size="small" className="btn-logout">
+      <Button
+        variant="orange"
+        size="small"
+        className="btn-logout"
+        onClick={logoutHandler}
+      >
         <div className="logout-content">Logout</div>
         <img alt="logout" src="/images/icons/sign-out.svg" />
       </Button>

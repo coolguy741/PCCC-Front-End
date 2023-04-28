@@ -28,8 +28,6 @@ export const SignInForm = () => {
       client_id: "PccServer23_Web",
     });
 
-    console.log(data);
-
     if (data.access_token) {
       setCookie(STORAGE_KEY_JWT, data.access_token, {});
       navigate("/dashboard");
