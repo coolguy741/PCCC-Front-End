@@ -1,21 +1,14 @@
-import { OrbitControls } from "@react-three/drei";
+import { folder, useControls } from "leva";
 import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
+import PlayerCamera from "../2-Entities/0-Cameras/PlayerCamera";
 import Garden from "../2-Entities/Garden";
-import PlayerCamera from "../2-Entities/PlayerCamera";
 import Environment from "../3-Environment/Environment";
+import { GATE_POSITION } from "../4-Constants/0-Garden_Constants/GARDEN_POSITION";
 import SceneHelpers from "../5-Helpers/SceneHelpers";
 
 const GameStage: FC = () => {
-  // Hooks
-  // const camera = useThree((state) => state.camera);
-
-  // const handleInitializeCamera = useCallback(() => {
-  //   camera.position.set(-3.895013, 2.909739, 4.410319);
-  // }, []);
-
-  // useEffect(handleInitializeCamera, []);
   // Global State
   const { activeCamera } = useGlobalState(
     (state) => ({
@@ -24,16 +17,28 @@ const GameStage: FC = () => {
     shallow,
   );
 
+  // HOOKS
+  const { axes, perf, gizmo } = useControls({
+    debugHelpers: folder({
+      axes: true,
+      perf: true,
+      gizmo: true,
+    }),
+  });
+
   return (
     <Fragment>
       <Garden />
       <PlayerCamera />
-
       <Environment />
-      {activeCamera === "OrbitControls" && (
-        <OrbitControls makeDefault={activeCamera === "OrbitControls"} />
-      )}
-      <SceneHelpers perf gizmo />
+      <SceneHelpers
+        axes={axes}
+        perf={perf}
+        gizmo={gizmo}
+        hotspotDebug={true}
+        initOrbitPosition={GATE_POSITION}
+        orbit={activeCamera === "OrbitControls"}
+      />
     </Fragment>
   );
 };
