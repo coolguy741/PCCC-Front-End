@@ -1,12 +1,12 @@
-import { PerspectiveCamera, Sphere } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import gsap from "gsap";
+import { Sphere } from "@react-three/drei";
+// import { useFrame } from "@react-three/fiber";
+// import gsap from "gsap";
 import {
   Fragment,
   memo,
   MutableRefObject,
   useCallback,
-  useEffect,
+  // useEffect,
   useMemo,
   useRef,
 } from "react";
@@ -20,9 +20,9 @@ import {
   Vector3,
 } from "three";
 import { shallow } from "zustand/shallow";
-import { useGlobalState } from "../../../globalState/useGlobalState";
+import { useGlobalState } from "../../../../globalState/useGlobalState";
 
-const PlayerCamera = () => {
+const TestCamera = () => {
   // Refs
   const tubeRef: MutableRefObject<Mesh | null> = useRef(null);
   const ref: MutableRefObject<number> = useRef(0);
@@ -87,39 +87,39 @@ const PlayerCamera = () => {
     [],
   );
 
-  useFrame(({ camera, mouse }, delta) => {
-    if (laRef.current && activeCamera === "PlayerCamera") {
-      camera.lookAt(laRef.current.getWorldPosition(new Vector3()));
-      // const e = new Euler(mouse.y * 0.1, mouse.x * -0.1, 0);
-      // q.setFromEuler(e);
-      // camera.quaternion.multiply(q);
-    }
+  // useFrame(({ camera, mouse }, delta) => {
+  //   if (laRef.current && activeCamera === "PlayerCamera") {
+  //     camera.lookAt(laRef.current.getWorldPosition(new Vector3()));
+  //     // const e = new Euler(mouse.y * 0.1, mouse.x * -0.1, 0);
+  //     // q.setFromEuler(e);
+  //     // camera.quaternion.multiply(q);
+  //   }
 
-    if (activeCamera === "PlayerCamera") {
-      pos.current.copy(geo.parameters.path.getPointAt(ref.current));
-      if (camera.position !== pos.current) {
-        dampVector3(camera.position, pos.current, 2, delta);
-      }
-    }
-  });
+  //   if (activeCamera === "PlayerCamera") {
+  //     pos.current.copy(geo.parameters.path.getPointAt(ref.current));
+  //     if (camera.position !== pos.current) {
+  //       dampVector3(camera.position, pos.current, 2, delta);
+  //     }
+  //   }
+  // });
 
-  useEffect(() => {
-    if (activeCamera === "PlayerCamera") {
-      gsap.fromTo(
-        ref,
-        { current: 0 },
-        {
-          delay: 1,
-          current: 1,
-          duration: 5,
-          onComplete: () => {
-            done.current = true;
-          },
-          ease: "power3.inOut",
-        },
-      );
-    }
-  }, [activeCamera]);
+  // useEffect(() => {
+  //   if (activeCamera === "PlayerCamera") {
+  //     gsap.fromTo(
+  //       ref,
+  //       { current: 0 },
+  //       {
+  //         delay: 1,
+  //         current: 1,
+  //         duration: 5,
+  //         onComplete: () => {
+  //           done.current = true;
+  //         },
+  //         ease: "power3.inOut",
+  //       },
+  //     );
+  //   }
+  // }, [activeCamera]);
 
   return (
     <Fragment>
@@ -155,15 +155,8 @@ const PlayerCamera = () => {
       >
         <meshStandardMaterial color={"red"} />
       </Sphere>
-
-      {activeCamera === "PlayerCamera" && (
-        <PerspectiveCamera
-          makeDefault={activeCamera === "PlayerCamera"}
-          position={[-3.895013, 2.909739, 4.410319]}
-        />
-      )}
     </Fragment>
   );
 };
 
-export default memo(PlayerCamera);
+export default memo(TestCamera);
