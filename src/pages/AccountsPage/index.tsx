@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AccountsHeader } from "../../components/Accounts/AccountsHeader";
+import { AltGrapeBG } from "../../components/Icons";
 
 interface AccountsPageProps {
   children: JSX.Element;
@@ -8,9 +9,11 @@ interface AccountsPageProps {
 export const AccountsPage = ({ children }: AccountsPageProps) => {
   return (
     <Style.PageContainer>
-      <Style.Background />
       <AccountsHeader />
       <div className="content">{children}</div>
+      <div className="accounts-bg">
+        <AltGrapeBG />
+      </div>
     </Style.PageContainer>
   );
 };
@@ -19,24 +22,21 @@ const Style = {
   PageContainer: styled.div`
     padding: 118px 40px 0 40px;
     display: flex;
-    height: 100vh;
     flex-direction: column;
     position: relative;
-    max-height: 100vh;
+
+    .accounts-bg {
+      position: fixed;
+      z-index: 0;
+      bottom: -10px;
+      right: 0;
+    }
 
     .content {
-      overflow-y: hidden;
+      overflow-y: auto;
       margin-right: -24px;
       padding-right: 24px;
+      z-index: 1;
     }
-  `,
-  Background: styled.div`
-    position: absolute;
-    top: 0;
-    left: -32px;
-    width: calc(100% + 32px);
-    height: 100vh;
-    background: linear-gradient(270deg, #c4e8ff, #fff9e0);
-    z-index: -1;
   `,
 };

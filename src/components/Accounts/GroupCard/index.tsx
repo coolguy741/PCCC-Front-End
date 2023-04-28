@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { useUserStore } from "../../../stores/userStore";
 import Button from "../../Button";
 import { Icon } from "../../Global/Icon";
 
@@ -32,6 +33,7 @@ export const GroupCard = ({ data }: GroupCardProps) => {
   const [isExpand, setIsExpand] = useState(false);
   const { api } = useAPI();
   const [cookies] = useCookies([STORAGE_KEY_JWT]);
+  const user = useUserStore((state) => state.user);
 
   const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -47,6 +49,26 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
         },
       });
+
+      console.log(response);
+    }
+  };
+
+  const handleJoin = async () => {
+    console.log(user);
+
+    if (user) {
+      const response = await api.appCustomGroupsJoinCreate(
+        {
+          groupId: data.group.id,
+          userId: user.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+          },
+        },
+      );
 
       console.log(response);
     }
@@ -93,7 +115,9 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           {isExpand === false ? "Expand" : "Collapse"}
         </button>
         <div className="buttons-group">
-          <Button size="small">Join</Button>
+          <Button size="small" onClick={handleJoin}>
+            Join
+          </Button>
           <Link to={`${data.group.id}/edit`}>
             <Button size="small">Edit</Button>
           </Link>

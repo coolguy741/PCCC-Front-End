@@ -14,10 +14,16 @@ export const Select = ({
   height,
   onChange,
   value,
+  ...props
 }: SelectProps) => {
   return (
     <Style.Container width={width} height={height}>
-      <Style.Select onChange={onChange} value={value} height={height}>
+      <Style.Select
+        onChange={onChange}
+        value={value}
+        height={height}
+        {...props}
+      >
         {children}
       </Style.Select>
     </Style.Container>

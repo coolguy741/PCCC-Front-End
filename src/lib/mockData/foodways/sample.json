@@ -1,0 +1,43 @@
+{
+  "title": "Chocolate",
+  "stops": [
+    {
+      "description": "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
+      "year": "1200",
+      "image": "/images/chocolate.jpg",
+      "longitude": 120,
+      "latitude": 40
+    },
+    {
+      "location": "Mesoamerica",
+      "description": "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
+      "year": "1300",
+      "image": "/images/chocolate2.png",
+      "longitude": 120,
+      "latitude": 40
+    },
+    {
+      "location": "Europe",
+      "description": "Chocolate is made from the seeds of cacao trees, which are native to South America. The scientific name, Theobroma cacao, means “food of the gods”, but the Aztec word, “xocolatl” was probably the origin of the word chocolate. Xocolatl was a drink made from cacao beans that was prized among the upper class. In fact, in the Aztec culture, cacao beans were considered more valuable than gold and were used as currency.",
+      "year": "1400",
+      "image": "/images/chocolate.jpg",
+      "longitude": 120,
+      "latitude": 40
+    },
+    {
+      "location": "Britain",
+      "description": "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
+      "year": "1700",
+      "image": "/images/chocolate.jpg",
+      "longitude": 120,
+      "latitude": 40
+    },
+    {
+      "description": "Chocolate is made from the seeds of cacao trees, which are native to South America. The scientific name, Theobroma cacao, means “food of the gods”, but the Aztec word, “xocolatl” was probably the origin of the word chocolate. Xocolatl was a drink made from cacao beans that was prized among the upper class. In fact, in the Aztec culture, cacao beans were considered more valuable than gold and were used as currency.",
+      "year": "1850",
+      "image": "/images/chocolate2.png",
+      "longitude": 120,
+      "latitude": 40
+    }
+  ]
+}

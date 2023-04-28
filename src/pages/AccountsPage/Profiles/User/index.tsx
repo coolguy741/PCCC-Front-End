@@ -3,8 +3,8 @@ import styled from "styled-components";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 //should be deleted after api implementation
 import { useLocation } from "react-router-dom";
-import { Icon } from "../../../../components/Global/Icon";
-import { ArrowLeft, Group } from "../../../../components/Icons";
+import { ArrowLeft, Group, OrangeBG } from "../../../../components/Icons";
+import { Pagination } from "../../../../components/Pagination/pagination";
 import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
@@ -29,12 +29,15 @@ export const AccountsUserProfilePage = () => {
   return (
     <Style.Container>
       <span className="breadcrumb">
-        <ArrowLeft />
+        <ArrowLeft width="10" />
         Back
       </span>
       <h2>Standard Profile</h2>
       <section className="content-container">
         <article className="user-info">
+          <div className="user-bg">
+            <OrangeBG width="261" height="251" />
+          </div>
           <figure></figure>
           {userData.role === "Standard" ? (
             <div className="user-info-content">
@@ -90,7 +93,7 @@ export const AccountsUserProfilePage = () => {
               <li key={index}>
                 <Group />
                 <span>
-                  {group.name}
+                  {trimStringByLength(group.name, 15)}
                   &nbsp;
                 </span>
                 <span>{"(" + group.number + ")"}</span>
@@ -138,98 +141,9 @@ export const AccountsUserProfilePage = () => {
               ))}
             </tbody>
           </table>
-          <h3>Groups</h3>
-          <div className="groups-container">
-            <ul className="groups-list">
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-              {userData.groups.map((group, index) => (
-                <li className="group-item" key={index}>
-                  <span className="group-icon">
-                    <Icon name="group" />
-                  </span>
-                  <span className="bold-text">{group.name}</span>
-                  <span className="small-text">
-                    {"( " + group.number + " )"}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Pagination />
         </article>
       </section>
-      <h3>Activity</h3>
-      <ul className="activities-list">
-        {userData.activities.map((activity, index) => (
-          <li className="activity-item" key={index}>
-            <div className="left">
-              <span className="icon-container">
-                <Icon name={activity.type} />
-              </span>
-              <p className="bold-text">User</p>
-              <p className="text">{activity.name}</p>
-              <p className="text">{activity.content}</p>
-            </div>
-            <p className="text date">{activity.date}</p>
-          </li>
-        ))}
-      </ul>
-      <h3>Lesson Accessment</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Lessons</th>
-            <th>Groups</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userData.lessonAssessment.map((lesson, index) => (
-            <tr key={index}>
-              <td>
-                <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
-                  {lesson.lessons}
-                </Link>
-              </td>
-              <td>{lesson.group}</td>
-              <td>{lesson.date}</td>
-              <td>{lesson.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </Style.Container>
   );
 };
@@ -238,18 +152,35 @@ const Style = {
   Container: styled.div`
     padding-bottom: 50px;
 
+    .breadcrumb {
+      font-family: "Noir Std";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--neutral-500);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 20px;
+
+      svg {
+        margin-right: 5px;
+      }
+    }
+
     h2 {
       font-weight: 600;
-      font-size: 33px;
-      line-height: 40px;
+      font-size: 25px;
+      line-height: 30px;
       color: var(--neutral-900);
       margin-bottom: 16px;
     }
 
     h3 {
       font-weight: 600;
-      font-size: 28px;
-      line-height: 32px;
+      font-size: 20px;
+      line-height: 25px;
       color: var(--neutral-800);
       margin-bottom: 15px;
     }
@@ -263,7 +194,7 @@ const Style = {
     .content-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(7, 90px);
+      grid-template-rows: repeat(7, 75px);
       grid-column-gap: 24px;
       grid-row-gap: 24px;
     }
@@ -291,8 +222,8 @@ const Style = {
 
       button {
         font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
+        font-size: 12px;
+        line-height: 16px;
         color: var(--neutral-600);
       }
     }
@@ -301,12 +232,20 @@ const Style = {
       grid-area: 1 / 1 / 3 / 2;
       ${() => animatedbackgroundGradient("#C4E8FF", "#A6EFCB")};
       display: flex;
+      position: relative;
+      overflow: hidden;
+
+      .user-bg {
+        position: absolute;
+        right: 0;
+        bottom: -150px;
+      }
 
       figure {
         height: 100%;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
         margin-right: 20px;
       }
     }
@@ -326,7 +265,7 @@ const Style = {
         width: 12%;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
       }
     }
 
@@ -337,6 +276,7 @@ const Style = {
         list-style-type: none;
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
 
         li {
           display: flex;

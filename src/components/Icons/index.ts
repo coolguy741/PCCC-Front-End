@@ -1,3 +1,4 @@
+import AltGrapeBG from "./AltGrapeBG/altGrapeBG";
 import AppleBG from "./AppleBG/appleBG";
 import ArrowLeft from "./ArrowLeft/arrowLeft";
 import ArrowRight from "./ArrowRight/arrowRight";
@@ -24,4 +25,5 @@ export {
   ArrowLeft,
   Group,
   DirectionRight,
+  AltGrapeBG,
 };

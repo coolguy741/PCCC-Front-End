@@ -87,6 +87,7 @@ const style = {
   `,
   TileContainer: styled.div`
     padding-left: 100px;
+    z-index: 20;
   `,
   Background: styled.div`
     position: absolute;

@@ -110,8 +110,8 @@ export default function One(props: IconProps) {
           y2="-6.63678"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FEE5DD" />
-          <stop offset="1" stop-color="#FFF5CC" />
+          <stop stopColor="#FEE5DD" />
+          <stop offset="1" stopColor="#FFF5CC" />
         </linearGradient>
       </defs>
     </svg>

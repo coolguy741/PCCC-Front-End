@@ -32,11 +32,16 @@ const style = {
     min-height: calc(100vh);
     display: flex;
     align-items: center;
-    padding-left: calc((100% - 1008px) * 0.4);
+    padding-left: 136px;
     margin-left: -136px;
   `,
   Content: styled.div`
-    margin-left: 136px;
+    width: 100%;
+    margin: 0px;
+    padding-left: 16.66%;
+    img {
+      width: 68.8%;
+    }
   `,
   Background: styled.div`
     position: absolute;

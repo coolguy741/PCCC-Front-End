@@ -8,7 +8,7 @@ interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 export const Icon = ({ name, ...props }: IconProps) => {
   return (
     <Style.Icon
-      src={`/images/${name}-icon.svg`}
+      src={`/images/icons/${name}.svg`}
       alt={name + "-icon"}
       {...props}
     />

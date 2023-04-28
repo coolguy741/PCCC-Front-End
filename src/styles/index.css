@@ -141,3 +141,31 @@ textarea {
 .items-center {
   align-items: center;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffff80;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff90;
+}
+
+/* For Firefox */
+* {
+  scrollbar-color: #ffffff50 #ffffff70;
+  scrollbar-width: thin;
+}

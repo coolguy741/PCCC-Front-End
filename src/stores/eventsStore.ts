@@ -1,5 +1,5 @@
 import { EventInput, EventSourceInput } from "@fullcalendar/core";
-import create from "zustand";
+import { create } from "zustand";
 
 /**
  * This is a store that contains calendar events data.
@@ -61,7 +61,7 @@ export const useCalendarEventsStore = create<{
   events: EventInput[];
   addEvent: (event: EventInput) => void;
   getEvents: () => void;
-}>((set) => ({
+}>()((set) => ({
   events: [],
   addEvent: (event) => set((state) => ({ events: [...state.events, event] })),
   getEvents: () => set({ events: defaultEvents }),

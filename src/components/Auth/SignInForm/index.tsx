@@ -32,6 +32,7 @@ export const SignInForm = () => {
 
     if (data.access_token) {
       setCookie(STORAGE_KEY_JWT, data.access_token, {});
+      navigate("/dashboard");
     }
   };
 
@@ -50,18 +51,20 @@ export const SignInForm = () => {
       <form onSubmit={submitHandler}>
         <h1>Log in</h1>
         <fieldset>
-          <label>Username</label>
+          <label htmlFor="username">Username</label>
           <Input
             type="username"
+            id="username"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
             height="52px"
           />
         </fieldset>
         <fieldset>
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <Input
             type="password"
+            id="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             height="52px"
@@ -69,16 +72,16 @@ export const SignInForm = () => {
         </fieldset>
         <p className="forgot">
           Forgot your{" "}
-          <button onClick={forgotUsername}>
+          <button onClick={forgotUsername} data-testid="forgot-username">
             <u>username</u>
           </button>{" "}
           or{" "}
-          <button onClick={forgotPassword}>
+          <button onClick={forgotPassword} data-testid="forgot-password">
             <u>password</u>
           </button>
           ?
         </p>
-        <Button type="submit" fullWidth>
+        <Button type="submit" fullWidth data-testid="submit">
           Login
         </Button>
       </form>
