@@ -10,6 +10,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Question } from "../../../../components/Accounts/Question";
 
+const patterns = ["lemon", "peach", "brokolli", "apple", "grape"];
+
 export const AccountsUserLessonAssessmentPage = () => {
   const navigate = useNavigate();
 
@@ -48,7 +50,7 @@ export const AccountsUserLessonAssessmentPage = () => {
             <SwiperSlide>
               <Question
                 content={question}
-                pattern={"apple"}
+                pattern={patterns[index % patterns.length]}
                 count={mockData.questions.length}
                 order={index + 1}
               />
