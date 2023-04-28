@@ -90,7 +90,7 @@ export const AccountsUserProfilePage = () => {
               <li key={index}>
                 <Group />
                 <span>
-                  {group.name}
+                  {trimStringByLength(group.name, 15)}
                   &nbsp;
                 </span>
                 <span>{"(" + group.number + ")"}</span>
@@ -265,6 +265,7 @@ const Style = {
         list-style-type: none;
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
 
         li {
           display: flex;
