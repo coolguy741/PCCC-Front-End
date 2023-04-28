@@ -14,6 +14,8 @@ const MOCK_DATA = {
         "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
       year: "1200",
       image: "/images/chocolate.jpg",
+      latitude: 4.5709,
+      longitude: 74.2973,
     },
     {
       location: "Mesoamerica",
@@ -21,6 +23,8 @@ const MOCK_DATA = {
         "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
       year: "1300",
       image: "/images/chocolate2.png",
+      latitude: 44.5709,
+      longitude: 7.2973,
     },
     {
       location: "Europe",
@@ -28,19 +32,25 @@ const MOCK_DATA = {
         "Chocolate is made from the seeds of cacao trees, which are native to South America. The scientific name, Theobroma cacao, means “food of the gods”, but the Aztec word, “xocolatl” was probably the origin of the word chocolate. Xocolatl was a drink made from cacao beans that was prized among the upper class. In fact, in the Aztec culture, cacao beans were considered more valuable than gold and were used as currency.",
       year: "1400",
       image: "/images/chocolate.jpg",
+      latitude: 51.1657,
+      longitude: 10.4515,
     },
     {
       location: "Britain",
       description:
         "Chocolate cake and ice cream are some of the things that come to mind when we think of chocolate. Believe it or not, chocolate was first enjoyed as a bitter drink with no sugar added!",
       year: "1700",
-      image: "/images/chocolate.jpg",
+      image: "/images/chocolate2.png",
+      latitude: 51,
+      longitude: -0.1,
     },
     {
       description:
         "Chocolate is made from the seeds of cacao trees, which are native to South America. The scientific name, Theobroma cacao, means “food of the gods”, but the Aztec word, “xocolatl” was probably the origin of the word chocolate. Xocolatl was a drink made from cacao beans that was prized among the upper class. In fact, in the Aztec culture, cacao beans were considered more valuable than gold and were used as currency.",
       year: "1850",
-      image: "/images/chocolate2.png",
+      image: "/images/chocolate.jpg",
+      latitude: 4.5709,
+      longitude: 74.2973,
     },
   ],
 };
@@ -134,7 +144,10 @@ export const FoodwaysOverviewPage = () => {
             </div>
             <div className="content__body__right">
               <div className="content__body__right__globe">
-                <Globe />
+                <Globe
+                  latitude={MOCK_DATA.stops[nav].latitude}
+                  longitude={MOCK_DATA.stops[nav].longitude}
+                />
               </div>
               <div className="content__body__right__timeline">
                 {MOCK_DATA.stops.map((_, index) => (
