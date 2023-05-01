@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { Globe } from "../../../components/Foodways/Globe";
+import { BackButton } from "../../../components/Global/BackButton";
 import { CalendarModal } from "../../../components/Global/CalendarModal";
 
 const MOCK_DATA = {
@@ -84,7 +85,7 @@ export const FoodwaysOverviewPage = () => {
         <div className="content">
           <div className="content__header">
             <Link to="../">
-              <span>Back</span>
+              <BackButton />
             </Link>
             <div className="content__header__buttons">
               <Link to="edit">
