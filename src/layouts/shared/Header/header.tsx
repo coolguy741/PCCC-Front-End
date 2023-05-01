@@ -44,11 +44,14 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <Style.Container>
-      <img className="header-logo" src="/images/homepage/logo.svg" alt="logo" />
-      {/* {!!user && ( */}
-      {true && (
-        <>
+    <Style.Container userAvailable={!!user}>
+      <div className="header-left">
+        <img
+          className="header-logo"
+          src="/images/homepage/logo.svg"
+          alt="logo"
+        />
+        {!!user && (
           <form onSubmit={handleSearch}>
             <Style.Dropdown isOpen={isOpen}>
               {isOpen && <div className="dropdown" onClick={handleClose} />}
@@ -103,36 +106,39 @@ export const Header: React.FC = () => {
             />
             <Search className="search" />
           </form>
+        )}
+      </div>
+      <div className="header-right">
+        {!!user && (
           <Button variant="green" size="medium" className="header-alert">
             <img alt="logout" src="/images/icons/alert.svg" />
           </Button>
-        </>
-      )}
-      <div className="header-toggle">
-        <LanguageToggle />
+        )}
+        <div className="header-toggle">
+          <LanguageToggle />
+        </div>
+        {!user && (
+          <>
+            <Button variant="ghost" to="/signin" size="small">
+              Log in
+            </Button>
+            <Button variant="orange" to="/signup" size="small">
+              Sign up
+            </Button>
+          </>
+        )}
+        <img
+          className="header-powerfull-image"
+          src="/images/homepage/power-full-kids.svg"
+          alt="power full kids"
+        />
       </div>
-
-      {false && (
-        <>
-          <Button variant="ghost" to="/signin" size="small">
-            Log in
-          </Button>
-          <Button variant="orange" to="/signup" size="small">
-            Sign up
-          </Button>
-        </>
-      )}
-      <img
-        className="header-powerfull-image"
-        src="/images/homepage/power-full-kids.svg"
-        alt="power full kids"
-      />
     </Style.Container>
   );
 };
 
 const Style = {
-  Container: styled.header`
+  Container: styled.header<{ userAvailable: boolean }>`
     position: fixed;
     top: 0;
     width: calc(100% - var(--dashboard-menu-width-medium));
@@ -141,61 +147,77 @@ const Style = {
     padding: 2.5vh 32px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     z-index: 10;
     backdrop-filter: blur(5px);
 
-    .header-alert {
-      height: 100%;
-      aspect-ratio: 1 / 1;
-      margin-left: auto;
-    }
-
-    .header-powerfull-image {
-      height: 100%;
-      width: 25%;
-      margin-left: auto;
-    }
-
-    .header-toggle {
-      width: 7.5%;
+    .header-left,
+    .header-right {
+      display: flex;
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-left: auto;
     }
 
-    .header-logo {
-      height: 100%;
-      width: max-content;
-    }
+    .header-left {
+      width: ${({ userAvailable }) => (userAvailable ? "70%" : "30%")};
 
-    form {
-      display: flex;
-      width: 45%;
-      position: relative;
-      height: 100%;
-      align-items: center;
-      margin-left: 2.5%;
-
-      & > input {
-        width: 100%;
-        border-radius: 0px 8px 8px 0px;
-        background: rgba(255, 255, 255, 0.5);
-        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      .header-logo {
         height: 100%;
-        padding: 0 16px;
-
-        ::placeholder {
-          font-size: 16px;
-          line-height: 20px;
-          color: var(--neutral-500);
-        }
+        width: max-content;
       }
 
-      svg.search {
-        position: absolute;
-        right: 10px;
+      form {
+        display: flex;
+        width: 90%;
+        position: relative;
+        height: 100%;
+        align-items: center;
+        margin-left: 2.5%;
+
+        & > input {
+          width: 100%;
+          border-radius: 0px 8px 8px 0px;
+          background: rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+          height: 100%;
+          padding: 0 16px;
+
+          ::placeholder {
+            font-size: 16px;
+            line-height: 20px;
+            color: var(--neutral-500);
+          }
+        }
+
+        svg.search {
+          position: absolute;
+          right: 10px;
+        }
+      }
+    }
+
+    .header-right {
+      width: ${({ userAvailable }) => (userAvailable ? "30%" : "60%")};
+      justify-content: flex-end;
+
+      .header-alert {
+        height: 100%;
+        aspect-ratio: 1 / 1;
+      }
+
+      .header-powerfull-image {
+        height: 100%;
+        width: max-content;
+        margin-left: 2.5%;
+      }
+
+      .header-toggle {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 2.5%;
       }
     }
   `,
