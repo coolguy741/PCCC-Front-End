@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
+import { formatDate } from "../../../lib/util/formatDate";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
 import Button from "../../Button";
@@ -49,14 +50,10 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
         },
       });
-
-      console.log(response);
     }
   };
 
   const handleJoin = async () => {
-    console.log(user);
-
     if (user) {
       const response = await api.appCustomGroupsJoinCreate(
         {
@@ -69,36 +66,38 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           },
         },
       );
-
-      console.log(response);
     }
   };
 
   return (
     <Style.Container>
       <div className="row">
-        <div className="col-50">
-          <div className="group-name-container">
-            <div className="icon-container">
-              <Icon name="group" />
-            </div>
-            <Link to={`${data.group.id}`}>
-              <p className="bold-big-text">{data.group.name}</p>
-            </Link>
+        <div className="group-name-container">
+          <div className="icon-container">
+            <Icon name="group" />
           </div>
-          <div>
-            <p className="text">Group ID: {data.group.id}</p>
-          </div>
+          <Link to={`${data.group.id}`}>
+            <p className="bold-big-text">{data.group.name}</p>
+          </Link>
         </div>
-        <div className="col-50">
-          <p className="text">
-            Last modified:{" "}
-            {data.group.lastModificationTime || data.group.creationTime}
-          </p>
-          <p className="text">Owner: {data.owner.username}</p>
-          <p className="text">{"(" + data.owner.role + ")"}</p>
-        </div>
+        <p className="date">
+          Last modified:{" "}
+          {formatDate(
+            data.group.lastModificationTime || data.group.creationTime,
+          )}
+        </p>
+        <Link to={`${data.group.id}/edit`}>
+          <button>
+            <img src="/images/icons/edit.svg" />
+          </button>
+        </Link>
       </div>
+      <div>
+        <p className="text">Group ID: {data.group.id}</p>
+      </div>
+      <p className="text">
+        Owner: {data.owner.username} {"(" + data.owner.role + ")"}
+      </p>
       <div
         className={`members-container ${isExpand === true ? "show" : "hide"}`}
       >
@@ -115,14 +114,11 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           {isExpand === false ? "Expand" : "Collapse"}
         </button>
         <div className="buttons-group">
+          <button onClick={handleDelete}>
+            <img src="/images/icons/delete.svg" />
+          </button>
           <Button size="small" onClick={handleJoin}>
             Join
-          </Button>
-          <Link to={`${data.group.id}/edit`}>
-            <Button size="small">Edit</Button>
-          </Link>
-          <Button size="small" onClick={handleDelete}>
-            Delete
           </Button>
         </div>
       </div>
@@ -132,37 +128,46 @@ export const GroupCard = ({ data }: GroupCardProps) => {
 
 const Style = {
   Container: styled.div`
-    border: 1px black solid;
-    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 1.4rem;
+    border-radius: 16px;
+
+    .text {
+      color: var(--neutral-600);
+    }
 
     .row {
       width: 100%;
       display: flex;
       margin-bottom: 20px;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
 
-      .col-50 {
+      .date {
+        font-size: 0.75rem;
+      }
+
+      .group-name-container {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 50%;
-
-        .group-name-container {
-          display: flex;
-          align-items: center;
-          p {
-            padding-left: 10px;
-          }
-        }
-
-        .icon-container {
-          width: 30px;
-          height: 30px;
-        }
+        align-items: center;
 
         p {
-          margin: 0px;
-          padding: 0px;
+          padding-left: 5px;
+          font-size: 1.5rem;
+          color: var(--neutral-800);
         }
+      }
+
+      .icon-container {
+        width: 30px;
+        height: 30px;
+      }
+
+      p {
+        margin: 0px;
+        padding: 0px;
       }
     }
 
