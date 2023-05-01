@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Checkbox } from "../../../Global/Checkbox";
+import { Radio } from "../../../Global/Radio";
 
 export const TrueFalseQuestion = () => {
   const [selectedValue, setSelectedValue] = useState(true);
@@ -12,22 +12,22 @@ export const TrueFalseQuestion = () => {
 
   return (
     <Style.Container>
-      <Style.LabeledCheckbox>
-        <Checkbox
+      <Style.LabeledRadio>
+        <Radio
           value="true"
           checked={selectedValue === true}
           onChange={handleValueChange}
         />
         <label htmlFor="true">True</label>
-      </Style.LabeledCheckbox>
-      <Style.LabeledCheckbox>
-        <Checkbox
-          value="true"
+      </Style.LabeledRadio>
+      <Style.LabeledRadio>
+        <Radio
+          value="false"
           checked={selectedValue === false}
           onChange={handleValueChange}
         />
         <label htmlFor="false">False</label>
-      </Style.LabeledCheckbox>
+      </Style.LabeledRadio>
     </Style.Container>
   );
 };
@@ -38,7 +38,7 @@ const Style = {
     flex-direction: column;
     gap: 24px;
   `,
-  LabeledCheckbox: styled.div`
+  LabeledRadio: styled.div`
     display: flex;
     gap: 15px;
     font-weight: 600;
