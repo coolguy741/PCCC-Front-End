@@ -32,6 +32,9 @@ const Style = {
     width: 100%;
     display: flex;
     flex-direction: column;
+    height: 10%;
+    border: 1px solid red;
+    border-radius: 8px;
 
     h1 {
       font-weight: 600;
