@@ -26,6 +26,10 @@ body,
   outline: none;
 }
 
+#root {
+  overflow-x: hidden;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -140,10 +144,6 @@ textarea {
 }
 .items-center {
   align-items: center;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
 }
 
 ::-webkit-scrollbar-track {

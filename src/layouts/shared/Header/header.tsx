@@ -55,6 +55,7 @@ export const Header: React.FC = () => {
               <button
                 className="dropdown-trigger"
                 onClick={() => setIsOpen(true)}
+                type="button"
               >
                 <p>{field.replaceAll("-", " ")} </p>
                 <img src="/images/icons/arrow-down.svg" alt="arrow down" />
@@ -141,6 +142,7 @@ const Style = {
     display: flex;
     align-items: center;
     z-index: 10;
+    backdrop-filter: blur(5px);
 
     .header-alert {
       height: 100%;
@@ -208,7 +210,8 @@ const Style = {
     transition: all 0.3s ease-in-out;
     border-radius: 8px 0px 0px 8px;
     height: 100%;
-    width: 47.5%;
+    width: max-content;
+    padding: 0 30px;
     display: flex;
     align-items: center;
     justify-content: center;

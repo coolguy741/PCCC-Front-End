@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -12,7 +12,7 @@ type MenuState = {
   "content-builder": boolean;
 };
 
-export const SideMenu = forwardRef((props) => {
+export function SideMenu() {
   const [cookies, setCookie, removeCookie] = useCookies(["PCCC_TOKEN"]);
   const [setUser] = useUserStore((state) => [state.setUser]);
 
@@ -127,7 +127,7 @@ export const SideMenu = forwardRef((props) => {
       </Button>
     </Style.MenuContainer>
   );
-});
+}
 
 const Style = {
   MenuItem: styled.div`
@@ -182,13 +182,6 @@ const Style = {
     display: flex;
     flex-direction: column;
     filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
-    box-sizing: border-box;
-
-    & {
-      ::-webkit-scrollbar {
-        display: none;
-      }
-    }
 
     .username {
       line-height: 29px;
