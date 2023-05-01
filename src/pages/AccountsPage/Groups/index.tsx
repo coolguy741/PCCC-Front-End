@@ -56,19 +56,21 @@ export const AccountsGroupsPage = () => {
         <div className="group-container">
           <div className="label">
             <p>Group</p>
-            <Input type="text" />
+            <Input type="text" height="3rem" />
           </div>
           <div className="label">
             <p>Group ID</p>
-            <Input type="text" />
+            <Input type="text" height="3rem" />
           </div>
           <div className="label">
             <p>School</p>
-            <Input type="text" />
+            <Input type="text" height="3rem" />
           </div>
         </div>
         <div className="button-container">
-          <Button onClick={handleCreate}>Create Group</Button>
+          <Button variant="yellow" onClick={handleCreate}>
+            Create Group
+          </Button>
           <Button onClick={() => setVisibleModal(true)}>Join Group</Button>
         </div>
       </div>
@@ -82,7 +84,7 @@ export const AccountsGroupsPage = () => {
         </div>
         <div className="group-invitations-container">
           <p className="title-text">
-            {"Group Invitations ( " + mockData.groupInvitations.length + " )"}
+            {`Group Invitations (${mockData.groupInvitations.length})`}
           </p>
           <div className="group-invitations">
             {mockData.groupInvitations.map((group, index) => (
@@ -111,11 +113,13 @@ const Style = {
   PageContainer: styled.div`
     display: flex;
     flex-direction: column;
+    gap: 3rem;
 
     .header-container {
       margin-top: 10px;
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
 
       .group-container {
         display: flex;
@@ -144,7 +148,6 @@ const Style = {
         flex-wrap: wrap;
         gap: 20px;
         margin: 0px;
-        margin-top: 80px;
         padding: 0px;
 
         .group-card-container {
@@ -162,17 +165,19 @@ const Style = {
       .group-invitations-container {
         display: flex;
         flex-direction: column;
-        margin: 10px;
         width: 20%;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        padding: 1.4rem;
+        border-radius: 16px;
 
         .title-text {
           font-size: 1.2rem;
+          font-weight: 600;
+          color: var(--neutral-800);
         }
 
         .group-invitations {
-          border: 1px black solid;
-          padding: 10px;
-
           .bold-big-text {
             font-size: 1.1 rem;
             font-weight: 700;

@@ -71,55 +71,58 @@ export const GroupCard = ({ data }: GroupCardProps) => {
 
   return (
     <Style.Container>
-      <div className="row">
-        <div className="group-name-container">
-          <div className="icon-container">
-            <Icon name="group" />
+      <div className="card-content">
+        <div className="header">
+          <div className="group-name">
+            <div className="icon-container">
+              <Icon name="group" />
+            </div>
+            <Link to={`${data.group.id}`}>
+              <p className="bold-big-text">{data.group.name}</p>
+            </Link>
           </div>
-          <Link to={`${data.group.id}`}>
-            <p className="bold-big-text">{data.group.name}</p>
+          <p className="date">
+            Last modified:{" "}
+            {formatDate(
+              data.group.lastModificationTime || data.group.creationTime,
+            )}
+          </p>
+          <Link to={`${data.group.id}/edit`}>
+            <button>
+              <img src="/images/icons/edit.svg" />
+            </button>
           </Link>
         </div>
-        <p className="date">
-          Last modified:{" "}
-          {formatDate(
-            data.group.lastModificationTime || data.group.creationTime,
-          )}
-        </p>
-        <Link to={`${data.group.id}/edit`}>
-          <button>
-            <img src="/images/icons/edit.svg" />
+        <div className="body">
+          <p className="text">Group ID: {data.group.id}</p>
+          <p className="text">
+            Owner: {data.owner.username} {"(" + data.owner.role + ")"}
+          </p>
+        </div>
+        <div
+          className={`members-container ${isExpand === true ? "show" : "hide"}`}
+        >
+          {data.group.members &&
+            data.group.members.map((member, index) => (
+              <div className="member-container" key={index}>
+                <img src={member.img} alt="member" placeholder="image" />
+                <p className="bold-text">{member.name}</p>
+              </div>
+            ))}
+        </div>
+        <div className="row">
+          <button className="expand-button" onClick={handleExpand}>
+            {isExpand === false ? "Expand" : "Collapse"}
+            <img src="/images/icons/arrow-down-black.svg" />
           </button>
-        </Link>
-      </div>
-      <div>
-        <p className="text">Group ID: {data.group.id}</p>
-      </div>
-      <p className="text">
-        Owner: {data.owner.username} {"(" + data.owner.role + ")"}
-      </p>
-      <div
-        className={`members-container ${isExpand === true ? "show" : "hide"}`}
-      >
-        {data.group.members &&
-          data.group.members.map((member, index) => (
-            <div className="member-container" key={index}>
-              <img src={member.img} alt="member" placeholder="image" />
-              <p className="bold-text">{member.name}</p>
-            </div>
-          ))}
-      </div>
-      <div className="row">
-        <button className="expand-button" onClick={handleExpand}>
-          {isExpand === false ? "Expand" : "Collapse"}
-        </button>
-        <div className="buttons-group">
-          <button onClick={handleDelete}>
-            <img src="/images/icons/delete.svg" />
-          </button>
-          <Button size="small" onClick={handleJoin}>
-            Join
-          </Button>
+          <div className="buttons-group">
+            <button onClick={handleDelete}>
+              <img src="/images/icons/delete.svg" />
+            </button>
+            <Button size="small" onClick={handleJoin}>
+              Join
+            </Button>
+          </div>
         </div>
       </div>
     </Style.Container>
@@ -133,41 +136,43 @@ const Style = {
     padding: 1.4rem;
     border-radius: 16px;
 
-    .text {
-      color: var(--neutral-600);
-    }
-
-    .row {
+    .card-content {
       width: 100%;
       display: flex;
-      margin-bottom: 20px;
       justify-content: space-between;
-      align-items: center;
-      flex-direction: row;
+      flex-direction: column;
+      gap: 1.5rem;
 
-      .date {
-        font-size: 0.75rem;
+      .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .group-name {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 1.6rem;
+        }
+
+        .date {
+          font-size: 0.75rem;
+          color: var(--neutral-600);
+        }
       }
 
-      .group-name-container {
+      .body {
         display: flex;
-        align-items: center;
-
-        p {
-          padding-left: 5px;
-          font-size: 1.5rem;
-          color: var(--neutral-800);
-        }
+        flex-direction: column;
+        gap: 0.75rem;
+        color: var(--neutral-600);
       }
 
       .icon-container {
         width: 30px;
         height: 30px;
-      }
-
-      p {
-        margin: 0px;
-        padding: 0px;
       }
     }
 
@@ -195,6 +200,12 @@ const Style = {
     .row {
       display: flex;
       justify-content: space-between;
+
+      .expand-button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
 
       .buttons-group {
         display: flex;
