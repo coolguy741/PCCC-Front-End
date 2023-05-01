@@ -2,7 +2,8 @@ import { AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SignInForm } from "../../../components/Auth/SignInForm";
 import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
-import { AppleBG, ArrowLeft, OrangeBG } from "../../../components/Icons";
+import { BackButton } from "../../../components/Global/BackButton";
+import { AppleBG, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { useSignInStore } from "../../../stores/signInStore";
 import {
@@ -26,9 +27,8 @@ export const SignInPage = () => {
 
   return (
     <AuthLayout>
-      <span className="auth-breadcrumb" onClick={() => navigate("/")}>
-        <ArrowLeft />
-        Back
+      <span className="auth-breadcrumb">
+        <BackButton onClick={() => navigate("/")} />
       </span>
       <AnimatePresence mode="wait" initial={false}>
         <SignInForm key="login" />
