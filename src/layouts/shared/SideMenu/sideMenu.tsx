@@ -182,6 +182,7 @@ const Style = {
     display: flex;
     flex-direction: column;
     filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
+    /* display: none; */
 
     .username {
       line-height: 29px;

@@ -9,22 +9,16 @@ export const AccountsPage = ({ children }: AccountsPageProps) => {
   return (
     <Style.PageContainer>
       <AccountsHeader />
-      <div className="content">{children}</div>
+      <section className="content">{children}</section>
     </Style.PageContainer>
   );
 };
 
 const Style = {
   PageContainer: styled.div`
-    padding: 118px 40px 0 40px;
+    padding: 10vh 32px 0 64px;
     display: flex;
     flex-direction: column;
     position: relative;
-
-    .content {
-      overflow-y: auto;
-      margin-right: -24px;
-      padding-right: 24px;
-    }
   `,
 };

@@ -141,10 +141,10 @@ const Style = {
   Container: styled.header<{ userAvailable: boolean }>`
     position: fixed;
     top: 0;
-    width: calc(100% - var(--dashboard-menu-width-medium));
+    width: calc((100% + 32px) - var(--dashboard-menu-width-medium));
     right: 0;
     height: 10vh;
-    padding: 2.5vh 32px;
+    padding: 2.5vh 32px 2.5vh 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
