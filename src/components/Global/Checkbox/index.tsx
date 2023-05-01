@@ -16,7 +16,7 @@ export const Checkbox = ({
 }: CheckboxProps) => {
   return (
     <Style.Input
-      type="radio"
+      type="checkbox"
       sizeOption={sizeOption}
       colorOption={colorOption}
       {...props}
@@ -32,7 +32,7 @@ const Style = {
 
     scale: ${({ sizeOption }) => (sizeOption === "small" ? "1" : "1.6666")};
 
-    &[type="radio"] {
+    &[type="checkbox"] {
       -webkit-appearance: none;
       appearance: none;
       background-color: #fff;
