@@ -196,9 +196,15 @@ export interface PccServer23IdentityPublicIdentityUserDto {
 }
 
 export interface PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput {
-  firstSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
-  secondSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
-  thirdSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
+  firstSecurityQuestions?:
+    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
+    | null;
+  secondSecurityQuestions?:
+    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
+    | null;
+  thirdSecurityQuestions?:
+    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
+    | null;
 }
 
 export interface PccServer23SecurityQuestionChoicesSecurityQuestionChoiceCreateDto {
@@ -504,22 +510,32 @@ export interface VoloAbpAccountExternalProvidersExternalProviderDto {
 export interface VoloAbpAccountExternalProvidersExternalProviderItemDto {
   name?: string | null;
   enabled?: boolean;
-  properties?: VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[] | null;
+  properties?:
+    | VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[]
+    | null;
 }
 
 export interface VoloAbpAccountExternalProvidersExternalProviderItemWithSecretDto {
   success?: boolean;
   name?: string | null;
   enabled?: boolean;
-  properties?: VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[] | null;
-  secretProperties?: VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[] | null;
+  properties?:
+    | VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[]
+    | null;
+  secretProperties?:
+    | VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[]
+    | null;
 }
 
 export interface VoloAbpAccountExternalProvidersExternalProviderSettings {
   name?: string | null;
   enabled?: boolean;
-  properties?: VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[] | null;
-  secretProperties?: VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[] | null;
+  properties?:
+    | VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[]
+    | null;
+  secretProperties?:
+    | VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[]
+    | null;
 }
 
 export interface VoloAbpAccountExternalProvidersExternalProviderSettingsProperty {
@@ -699,8 +715,12 @@ export interface VoloAbpAccountUnLinkUserInput {
 export interface VoloAbpAccountUpdateExternalProviderDto {
   name?: string | null;
   enabled?: boolean;
-  properties?: VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[] | null;
-  secretProperties?: VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[] | null;
+  properties?:
+    | VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[]
+    | null;
+  secretProperties?:
+    | VoloAbpAccountExternalProvidersExternalProviderSettingsProperty[]
+    | null;
 }
 
 export interface VoloAbpAccountUpdateProfileDto {
@@ -904,7 +924,9 @@ export interface VoloAbpApplicationDtosPagedResultDto1VoloAbpOpenIddictScopesDto
 }
 
 export interface VoloAbpApplicationDtosPagedResultDto1VoloAbpTextTemplateManagementTextTemplatesTemplateDefinitionDtoVoloAbpTextTemplateManagementApplicationContractsVersion7100CultureNeutralPublicKeyTokenNull {
-  items?: VoloAbpTextTemplateManagementTextTemplatesTemplateDefinitionDto[] | null;
+  items?:
+    | VoloAbpTextTemplateManagementTextTemplatesTemplateDefinitionDto[]
+    | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -951,7 +973,10 @@ export interface VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationGlobalF
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocalizationConfigurationDto {
   values?: Record<string, Record<string, string>>;
-  resources?: Record<string, VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocalizationResourceDto>;
+  resources?: Record<
+    string,
+    VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocalizationResourceDto
+  >;
   languages?: VoloAbpLocalizationLanguageInfo[] | null;
   currentCulture?: VoloAbpAspNetCoreMvcApplicationConfigurationsCurrentCultureDto;
   defaultResourceName?: string | null;
@@ -960,7 +985,10 @@ export interface VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocaliz
 }
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocalizationDto {
-  resources?: Record<string, VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocalizationResourceDto>;
+  resources?: Record<
+    string,
+    VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocalizationResourceDto
+  >;
 }
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsApplicationLocalizationResourceDto {
@@ -1025,12 +1053,17 @@ export interface VoloAbpAspNetCoreMvcApplicationConfigurationsIanaTimeZone {
 }
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingEntityExtensionDto {
-  properties?: Record<string, VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionPropertyDto>;
+  properties?: Record<
+    string,
+    VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionPropertyDto
+  >;
   configuration?: Record<string, any>;
 }
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionEnumDto {
-  fields?: VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionEnumFieldDto[] | null;
+  fields?:
+    | VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionEnumFieldDto[]
+    | null;
   localizationResource?: string | null;
 }
 
@@ -1068,7 +1101,9 @@ export interface VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExt
   displayName?: VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingLocalizableStringDto;
   api?: VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionPropertyApiDto;
   ui?: VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionPropertyUiDto;
-  attributes?: VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionPropertyAttributeDto[] | null;
+  attributes?:
+    | VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionPropertyAttributeDto[]
+    | null;
   configuration?: Record<string, any>;
   defaultValue?: any;
 }
@@ -1102,13 +1137,22 @@ export interface VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingLoc
 }
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingModuleExtensionDto {
-  entities?: Record<string, VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingEntityExtensionDto>;
+  entities?: Record<
+    string,
+    VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingEntityExtensionDto
+  >;
   configuration?: Record<string, any>;
 }
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingObjectExtensionsDto {
-  modules?: Record<string, VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingModuleExtensionDto>;
-  enums?: Record<string, VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionEnumDto>;
+  modules?: Record<
+    string,
+    VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingModuleExtensionDto
+  >;
+  enums?: Record<
+    string,
+    VoloAbpAspNetCoreMvcApplicationConfigurationsObjectExtendingExtensionEnumDto
+  >;
 }
 
 export interface VoloAbpAspNetCoreMvcApplicationConfigurationsTimeZone {
@@ -1299,7 +1343,9 @@ export interface VoloAbpHttpModelingActionApiDescriptionModel {
   httpMethod?: string | null;
   url?: string | null;
   supportedVersions?: string[] | null;
-  parametersOnMethod?: VoloAbpHttpModelingMethodParameterApiDescriptionModel[] | null;
+  parametersOnMethod?:
+    | VoloAbpHttpModelingMethodParameterApiDescriptionModel[]
+    | null;
   parameters?: VoloAbpHttpModelingParameterApiDescriptionModel[] | null;
   returnValue?: VoloAbpHttpModelingReturnValueApiDescriptionModel;
   allowAnonymous?: boolean | null;
@@ -1318,7 +1364,9 @@ export interface VoloAbpHttpModelingControllerApiDescriptionModel {
   isIntegrationService?: boolean;
   apiVersion?: string | null;
   type?: string | null;
-  interfaces?: VoloAbpHttpModelingControllerInterfaceApiDescriptionModel[] | null;
+  interfaces?:
+    | VoloAbpHttpModelingControllerInterfaceApiDescriptionModel[]
+    | null;
   actions?: Record<string, VoloAbpHttpModelingActionApiDescriptionModel>;
 }
 
@@ -1330,7 +1378,9 @@ export interface VoloAbpHttpModelingControllerInterfaceApiDescriptionModel {
 
 export interface VoloAbpHttpModelingInterfaceMethodApiDescriptionModel {
   name?: string | null;
-  parametersOnMethod?: VoloAbpHttpModelingMethodParameterApiDescriptionModel[] | null;
+  parametersOnMethod?:
+    | VoloAbpHttpModelingMethodParameterApiDescriptionModel[]
+    | null;
   returnValue?: VoloAbpHttpModelingReturnValueApiDescriptionModel;
 }
 
@@ -1346,7 +1396,10 @@ export interface VoloAbpHttpModelingMethodParameterApiDescriptionModel {
 export interface VoloAbpHttpModelingModuleApiDescriptionModel {
   rootPath?: string | null;
   remoteServiceName?: string | null;
-  controllers?: Record<string, VoloAbpHttpModelingControllerApiDescriptionModel>;
+  controllers?: Record<
+    string,
+    VoloAbpHttpModelingControllerApiDescriptionModel
+  >;
 }
 
 export interface VoloAbpHttpModelingParameterApiDescriptionModel {
@@ -2367,16 +2420,22 @@ export interface FullRequestParams extends Omit<RequestInit, "body"> {
   cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<
+  FullRequestParams,
+  "body" | "method" | "query" | "path"
+>;
 
 export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string;
   baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
-  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
+  securityWorker?: (
+    securityData: SecurityDataType | null,
+  ) => Promise<RequestParams | void> | RequestParams | void;
   customFetch?: typeof fetch;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+export interface HttpResponse<D extends unknown, E extends unknown = unknown>
+  extends Response {
   data: D;
   error: E;
 }
@@ -2395,7 +2454,8 @@ export class HttpClient<SecurityDataType = unknown> {
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
+  private customFetch = (...fetchParams: Parameters<typeof fetch>) =>
+    fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
     credentials: "same-origin",
@@ -2414,7 +2474,9 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected encodeQueryParam(key: string, value: any) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(
+      typeof value === "number" ? value : `${value}`,
+    )}`;
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
@@ -2428,9 +2490,15 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
     const query = rawQuery || {};
-    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
+    const keys = Object.keys(query).filter(
+      (key) => "undefined" !== typeof query[key],
+    );
     return keys
-      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
+      .map((key) =>
+        Array.isArray(query[key])
+          ? this.addArrayQueryParam(query, key)
+          : this.addQueryParam(query, key),
+      )
       .join("&");
   }
 
@@ -2441,8 +2509,13 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
-    [ContentType.Text]: (input: any) => (input !== null && typeof input !== "string" ? JSON.stringify(input) : input),
+      input !== null && (typeof input === "object" || typeof input === "string")
+        ? JSON.stringify(input)
+        : input,
+    [ContentType.Text]: (input: any) =>
+      input !== null && typeof input !== "string"
+        ? JSON.stringify(input)
+        : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -2459,7 +2532,10 @@ export class HttpClient<SecurityDataType = unknown> {
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
   };
 
-  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
+  protected mergeRequestParams(
+    params1: RequestParams,
+    params2?: RequestParams,
+  ): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -2472,7 +2548,9 @@ export class HttpClient<SecurityDataType = unknown> {
     };
   }
 
-  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
+  protected createAbortSignal = (
+    cancelToken: CancelToken,
+  ): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
       const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
@@ -2516,15 +2594,27 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type || ContentType.Json];
     const responseFormat = format || requestParams.format;
 
-    return this.customFetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
-      ...requestParams,
-      headers: {
-        ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+    return this.customFetch(
+      `${baseUrl || this.baseUrl || ""}${path}${
+        queryString ? `?${queryString}` : ""
+      }`,
+      {
+        ...requestParams,
+        headers: {
+          ...(requestParams.headers || {}),
+          ...(type && type !== ContentType.FormData
+            ? { "Content-Type": type }
+            : {}),
+        },
+        signal: cancelToken
+          ? this.createAbortSignal(cancelToken)
+          : requestParams.signal,
+        body:
+          typeof body === "undefined" || body === null
+            ? null
+            : payloadFormatter(body),
       },
-      signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
-      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
-    }).then(async (response) => {
+    ).then(async (response) => {
       const r = response as HttpResponse<T, E>;
       r.data = null as unknown as T;
       r.error = null as unknown as E;
@@ -2559,7 +2649,9 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title PccServer23 API
  * @version v1
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown,
+> extends HttpClient<SecurityDataType> {
   api = {
     /**
      * No description
@@ -2570,8 +2662,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/custom-groups
      * @secure
      */
-    appCustomGroupsCreate: (data: PccServer23GroupsGroupCreateSelfDto, params: RequestParams = {}) =>
-      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appCustomGroupsCreate: (
+      data: PccServer23GroupsGroupCreateSelfDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23GroupsGroupDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/custom-groups`,
         method: "POST",
         body: data,
@@ -2590,8 +2688,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/api/app/custom-groups/{id}
      * @secure
      */
-    appCustomGroupsUpdate: (id: string, data: PccServer23GroupsGroupUpdateDto, params: RequestParams = {}) =>
-      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appCustomGroupsUpdate: (
+      id: string,
+      data: PccServer23GroupsGroupUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23GroupsGroupDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/custom-groups/${id}`,
         method: "PUT",
         body: data,
@@ -2627,7 +2732,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/custom-groups/join
      * @secure
      */
-    appCustomGroupsJoinCreate: (data: PccServer23GroupsGroupJoinDto, params: RequestParams = {}) =>
+    appCustomGroupsJoinCreate: (
+      data: PccServer23GroupsGroupJoinDto,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/join`,
         method: "POST",
@@ -2646,7 +2754,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/custom-groups/accept
      * @secure
      */
-    appCustomGroupsAcceptCreate: (data: PccServer23GroupsGroupAcceptDto, params: RequestParams = {}) =>
+    appCustomGroupsAcceptCreate: (
+      data: PccServer23GroupsGroupAcceptDto,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/accept`,
         method: "POST",
@@ -2665,7 +2776,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/custom-groups/reject
      * @secure
      */
-    appCustomGroupsRejectCreate: (data: PccServer23GroupsGroupRejectDto, params: RequestParams = {}) =>
+    appCustomGroupsRejectCreate: (
+      data: PccServer23GroupsGroupRejectDto,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/custom-groups/reject`,
         method: "POST",
@@ -2765,15 +2879,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Get list of security questions
      * @request GET:/api/app/custom-security-question-choices/security-questions
      */
-    appCustomSecurityQuestionChoicesSecurityQuestionsList: (params: RequestParams = {}) =>
-      this.request<PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput, VoloAbpHttpRemoteServiceErrorResponse>(
-        {
-          path: `/api/app/custom-security-question-choices/security-questions`,
-          method: "GET",
-          format: "json",
-          ...params,
-        },
-      ),
+    appCustomSecurityQuestionChoicesSecurityQuestionsList: (
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/custom-security-question-choices/security-questions`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
 
     /**
      * No description
@@ -2787,7 +2904,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       data: PccServer23UsernameChoicesCheckUsernameAvailabilityInput,
       params: RequestParams = {},
     ) =>
-      this.request<PccServer23UsernameChoicesCheckUsernameAvailabilityOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsernameChoicesCheckUsernameAvailabilityOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/custom-username-choices/check-username-availability`,
         method: "POST",
         body: data,
@@ -2805,7 +2925,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/custom-username-choices/username-choices
      */
     appCustomUsernameChoicesUsernameChoicesList: (params: RequestParams = {}) =>
-      this.request<PccServer23UsernameChoicesGetUsernameChoicesOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsernameChoicesGetUsernameChoicesOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/custom-username-choices/username-choices`,
         method: "GET",
         format: "json",
@@ -2821,7 +2944,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 To create new user with professional role use: api/app/user/professional
  * @request POST:/api/app/user
  */
-    appUserCreate: (data: PccServer23UsersCreateUserInput, params: RequestParams = {}) =>
+    appUserCreate: (
+      data: PccServer23UsersCreateUserInput,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user`,
         method: "POST",
@@ -2844,7 +2970,10 @@ To create new user with professional role use: api/app/user/professional
       },
       params: RequestParams = {},
     ) =>
-      this.request<PccServer23UsersGetQuestionIdsOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsersGetQuestionIdsOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/user/question-ids`,
         method: "GET",
         query: query,
@@ -2860,8 +2989,14 @@ To create new user with professional role use: api/app/user/professional
      * @summary Reset user password
      * @request POST:/api/app/user/reset-password
      */
-    appUserResetPasswordCreate: (data: PccServer23UsersResetPasswordInput, params: RequestParams = {}) =>
-      this.request<PccServer23UsersResetPasswordOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+    appUserResetPasswordCreate: (
+      data: PccServer23UsersResetPasswordInput,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23UsersResetPasswordOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/user/reset-password`,
         method: "POST",
         body: data,
@@ -2879,7 +3014,10 @@ To create new user with professional role use: api/app/user/professional
 To create new user with standard role use: api/app/user
  * @request POST:/api/app/user/professional
  */
-    appUserProfessionalCreate: (data: PccServer23UsersCreateProfessionalUserInput, params: RequestParams = {}) =>
+    appUserProfessionalCreate: (
+      data: PccServer23UsersCreateProfessionalUserInput,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user/professional`,
         method: "POST",
@@ -2938,7 +3076,10 @@ To create new user with standard role use: api/app/user
      * @secure
      */
     appUserUserProfileList: (params: RequestParams = {}) =>
-      this.request<PccServer23UsersGetUserProfileDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsersGetUserProfileDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/user/user-profile`,
         method: "GET",
         secure: true,
