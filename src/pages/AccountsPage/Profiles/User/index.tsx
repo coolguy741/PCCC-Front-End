@@ -175,13 +175,15 @@ export const AccountsUserProfilePage = () => {
 
   return (
     <Style.Container>
-      <span className="breadcrumb">
-        <ArrowLeft width="10" />
-        Back
-      </span>
-      <h2>Standard Profile</h2>
+      <article className="account-content-header">
+        <span className="breadcrumb">
+          <ArrowLeft />
+          Back
+        </span>
+        <h2>Standard Profile</h2>
+      </article>
       <section className="content-container">
-        {user && (
+        {true && (
           <>
             <article className="user-info">
               <div className="user-bg">
@@ -323,8 +325,38 @@ export const AccountsUserProfilePage = () => {
 };
 
 const Style = {
-  Container: styled.div`
-    padding-bottom: 50px;
+  Container: styled.section`
+    height: 100%;
+
+    .account-content-header {
+      height: 12.5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 100%;
+
+      .breadcrumb {
+        font-family: "Noir Std";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 0.85rem;
+        color: var(--neutral-500);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        svg {
+          width: 2.5%;
+        }
+      }
+
+      h3 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.75rem;
+        color: var(--neutral-800);
+      }
+    }
 
     .accounts-bg {
       position: fixed;
@@ -333,37 +365,11 @@ const Style = {
       right: 0;
     }
 
-    .breadcrumb {
-      font-family: "Noir Std";
-      font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
-      color: var(--neutral-500);
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      margin-bottom: 20px;
-
-      svg {
-        margin-right: 5px;
-      }
-    }
-
     h2 {
       font-weight: 600;
-      font-size: 25px;
-      line-height: 30px;
+      font-size: 1.5rem;
+      line-height: 1.75rem;
       color: var(--neutral-900);
-      margin-bottom: 16px;
-    }
-
-    h3 {
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 25px;
-      color: var(--neutral-800);
-      margin-bottom: 15px;
     }
 
     p {
@@ -377,9 +383,11 @@ const Style = {
       z-index: 1;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(7, 75px);
-      grid-column-gap: 24px;
-      grid-row-gap: 24px;
+      grid-template-rows: repeat(7, 1fr);
+      grid-column-gap: 2%;
+      grid-row-gap: 2%;
+      height: 87.5%;
+      overflow: hidden;
     }
 
     .user-info,

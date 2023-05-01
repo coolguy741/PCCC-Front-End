@@ -26,10 +26,8 @@ const Style = {
     overflow: hidden;
 
     section.accounts-content {
-      height: 85%;
+      height: 90%;
       width: 100%;
-      border: 1px solid red;
-      border-radius: 8px;
     }
 
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
