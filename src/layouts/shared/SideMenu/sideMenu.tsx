@@ -1,21 +1,20 @@
-import { forwardRef, Ref, useState } from "react";
+import { forwardRef, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Button from "../../../components/Button";
 import { usePathName } from "../../../hooks/usePathName";
 import { MENUS } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
-import Button from "../../Button";
 
 type MenuState = {
   "user-tools": boolean;
   "content-builder": boolean;
 };
 
-export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
+export const SideMenu = forwardRef((props) => {
   const [cookies, setCookie, removeCookie] = useCookies(["PCCC_TOKEN"]);
   const [setUser] = useUserStore((state) => [state.setUser]);
-  const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState({
     "user-tools": false,
@@ -49,12 +48,10 @@ export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
   const logoutHandler = () => {
     removeCookie("PCCC_TOKEN");
     setUser(null);
-
-    navigate("/");
   };
 
   return (
-    <Style.MenuContainer ref={ref}>
+    <Style.MenuContainer>
       <div>
         <Link to="/">
           <div className="logo-container">
@@ -172,11 +169,11 @@ const Style = {
       transform: rotate(${({ open }) => (open ? "0deg" : "-180deg")});
     }
   `,
-  MenuContainer: styled.div`
+  MenuContainer: styled.aside`
     z-index: 100;
     position: fixed;
     overflow-y: auto;
-    width: var(--dashboard-menu-width-large);
+    width: var(--dashboard-menu-width-medium);
     min-height: 100vh;
     height: 100%;
     background: linear-gradient(-90deg, var(--green-400), var(--green-600));

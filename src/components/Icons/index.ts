@@ -11,6 +11,7 @@ import LemonBG from "./LemonBG/lemonBG";
 import OrangeBG from "./OrangeBG/orangeBG";
 import PCCRed from "./PCCRed/pccRed";
 import PFKLogo from "./PFKLogo/PFKLogo";
+import Search from "./Search/search";
 
 export {
   PFKLogo,
@@ -26,4 +27,5 @@ export {
   Group,
   DirectionRight,
   AltGrapeBG,
+  Search,
 };

@@ -18,7 +18,7 @@ import "swiper/css/pagination";
 
 export const HomePage = () => {
   return (
-    <Style.PageContainer>
+    <Style.PageContainer className="dashboard-home">
       <Swiper
         slidesPerView={1}
         mousewheel={true}
@@ -68,6 +68,7 @@ export const HomePage = () => {
 const Style = {
   PageContainer: styled.div`
     margin: 0;
+    border: 10px solid green;
 
     .swiper {
       width: calc(100% + 32px);
@@ -75,6 +76,7 @@ const Style = {
       left: -32px;
       padding-left: 32px;
       position: relative;
+      border: 5px solid yellow;
     }
 
     .swiper-slide {

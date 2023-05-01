@@ -1,13 +1,122 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import MockData from "../../../../lib/mockData/accounts/userProfile.json";
-//should be deleted after api implementation
-import { useLocation } from "react-router-dom";
-import { ArrowLeft, Group, OrangeBG } from "../../../../components/Icons";
+
+import { AchievementsModal } from "../../../../components/Accounts/AchievementsModal";
+import { GroupsModal } from "../../../../components/Accounts/GroupsModal";
+import {
+  AltGrapeBG,
+  ArrowLeft,
+  Group,
+  OrangeBG,
+} from "../../../../components/Icons";
 import { Pagination } from "../../../../components/Pagination/pagination";
+import { useAPI } from "../../../../hooks/useAPI";
+import { PccServer23UsersUserInGroupDto } from "../../../../lib/api/api";
 import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
+import { useUserStore } from "../../../../stores/userStore";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
+//should be deleted after api implementation
+import MockData from "../../../../lib/mockData/accounts/userProfile.json";
+import { STORAGE_KEY_JWT } from "../../../consts";
+
+const groups: PccServer23UsersUserInGroupDto[] = [
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Cool Broccoli", memberCount: 6 },
+  { groupName: "Science Group", memberCount: 3 },
+  { groupName: "Cool Broccoli", memberCount: 8 },
+  { groupName: "Science Group", memberCount: 3 },
+  { groupName: "Science Group", memberCount: 3 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Science Group", memberCount: 3 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Science Group", memberCount: 3 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+  { groupName: "Cool Broccoli", memberCount: 9 },
+];
+
+export type Achievement = {
+  badge: string;
+  description: string;
+};
+
+const achievements: Achievement[] = [
+  {
+    badge: "badge1",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge3",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge2",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge4",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge5",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge6",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge1",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge2",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge3",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge4",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge5",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge6",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge3",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge2",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge4",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge5",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+  {
+    badge: "badge7",
+    description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+  },
+];
 
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
@@ -17,6 +126,12 @@ export const AccountsUserProfilePage = () => {
     : pathname.includes("Professional")
     ? MockData[1]
     : MockData[2];
+  const { api } = useAPI();
+  const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
+  const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
+  const [cookies] = useCookies([STORAGE_KEY_JWT]);
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleBack = () => {
     return "handle back";
@@ -26,6 +141,38 @@ export const AccountsUserProfilePage = () => {
     return "handle edit";
   };
 
+  const getProfile = async () => {
+    const response = await api.appUserUserProfileList({
+      headers: {
+        Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+      },
+    });
+
+    if (response.data) {
+      setUser(response.data);
+    }
+  };
+
+  const openGroupsModal = () => {
+    setIsOpenGroupsModal(() => true);
+  };
+
+  const closeGroupsModal = () => {
+    setIsOpenGroupsModal(() => false);
+  };
+
+  const openAchievementsModal = () => {
+    setIsOpenAchievementsModal(() => true);
+  };
+
+  const closeAchievementsModal = () => {
+    setIsOpenAchievementsModal(() => false);
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <Style.Container>
       <span className="breadcrumb">
@@ -34,116 +181,143 @@ export const AccountsUserProfilePage = () => {
       </span>
       <h2>Standard Profile</h2>
       <section className="content-container">
-        <article className="user-info">
-          <div className="user-bg">
-            <OrangeBG width="261" height="251" />
-          </div>
-          <figure></figure>
-          {userData.role === "Standard" ? (
-            <div className="user-info-content">
-              <h3>{userData.userID}</h3>
-              <p>Birth year: {userData.birthYear}</p>
-              <p>Province: {userData.province}</p>
-              <p>Created: {userData.createdDate}</p>
-            </div>
-          ) : userData.role === "Professional" ? (
-            <div className="user-info-content">
-              <h3>{userData.userID}</h3>
-              <h4>{userData.name}</h4>
-              <p>Birth year: {userData.birthYear}</p>
-              <p>ID Code: {userData.idCode}</p>
-              <p>School: {userData.school}</p>
-              <p>Province: {userData.province}</p>
-              <p>{userData.email}</p>
-              <p>Created: {userData.createdDate}</p>
-            </div>
-          ) : (
-            <div className="user-info-content">
-              <h3>{userData.userID}</h3>
-              <h4>{userData.name}</h4>
-              <p>Birth year: {userData.birthYear}</p>
-              <p>Province: {userData.province}</p>
-              <p>{userData.email}</p>
-              <p>Created: {userData.createdDate}</p>
-            </div>
-          )}
-        </article>
-        <article className="badges">
-          <div className="header-view">
-            <h3>Badges</h3>
-            <button>View all</button>
-          </div>
-          <div className="bagdes-icons">
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-            <figure></figure>
-          </div>
-        </article>
-        <article className="groups">
-          <div className="header-view">
-            <h3>Groups</h3>
-            <button>View all</button>
-          </div>
-          <ul>
-            {userData.groups.map((group, index) => (
-              <li key={index}>
-                <Group />
-                <span>
-                  {trimStringByLength(group.name, 15)}
-                  &nbsp;
-                </span>
-                <span>{"(" + group.number + ")"}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="activity">
-          <h3>Activity</h3>
-          <ul>
-            {userData.activities.map((activity, index) => (
-              <li key={index}>
-                <p>
-                  <Group /> User {activity.name} {activity.content}
-                </p>
-                <span>{activity.date}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="lesson-assesment">
-          <h3>Lesson Assessment</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Lessons</th>
-                <th>Groups</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userData.lessonAssessment.map((lesson, index) => (
-                <tr key={index}>
-                  <td className="lesson-name">
-                    <span>GARDEN GUARDIAN</span>
-                    <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
-                      {trimStringByLength(lesson.lessons, 29)}
-                    </Link>
-                  </td>
-                  <td>{lesson.group}</td>
-                  <td>{lesson.date}</td>
-                  <td className="lesson-status">{lesson.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <Pagination />
-        </article>
+        {user && (
+          <>
+            <article className="user-info">
+              <div className="user-bg">
+                <OrangeBG width="261" height="251" />
+              </div>
+              <figure></figure>
+              {userData.role === "Standard" ? (
+                <div className="user-info-content">
+                  <h3>{userData.userID}</h3>
+                  <p>Birth year: {userData.birthYear}</p>
+                  <p>Province: {userData.province}</p>
+                  <p>Created: {userData.createdDate}</p>
+                </div>
+              ) : userData.role === "Professional" ? (
+                <div className="user-info-content">
+                  <h3>{userData.userID}</h3>
+                  <h4>{userData.name}</h4>
+                  <p>Birth year: {userData.birthYear}</p>
+                  <p>ID Code: {userData.idCode}</p>
+                  <p>School: {userData.school}</p>
+                  <p>Province: {userData.province}</p>
+                  <p>{userData.email}</p>
+                  <p>Created: {userData.createdDate}</p>
+                </div>
+              ) : (
+                <div className="user-info-content">
+                  <h3>{userData.userID}</h3>
+                  <h4>{userData.name}</h4>
+                  <p>Birth year: {userData.birthYear}</p>
+                  <p>Province: {userData.province}</p>
+                  <p>{userData.email}</p>
+                  <p>Created: {userData.createdDate}</p>
+                </div>
+              )}
+            </article>
+            <article className="badges">
+              <div className="header-view">
+                <h3>Badges</h3>
+                <button onClick={openAchievementsModal}>View all</button>
+              </div>
+              <div className="bagdes-icons">
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+              </div>
+            </article>
+            <article className="groups">
+              <div className="header-view">
+                <h3>Groups</h3>
+                <button onClick={openGroupsModal}>View all</button>
+              </div>
+              <ul>
+                {userData.groups.map((group, index) => (
+                  <li key={index}>
+                    <Group />
+                    <span>
+                      {trimStringByLength(group.name, 15)}
+                      &nbsp;
+                    </span>
+                    <span>{"(" + group.number + ")"}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+            <article className="activity">
+              <h3>Activity</h3>
+              <ul>
+                {userData.activities.map((activity, index) => (
+                  <li key={index}>
+                    <p>
+                      <Group /> User {activity.name} {activity.content}
+                    </p>
+                    <span>{activity.date}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+            <article className="lesson-assesment">
+              <h3>Lesson Assessment</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Lessons</th>
+                    <th>Groups</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {userData.lessonAssessment.map((lesson, index) => (
+                    <tr key={index}>
+                      <td className="lesson-name">
+                        <span>GARDEN GUARDIAN</span>
+                        <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
+                          {trimStringByLength(lesson.lessons, 29)}
+                        </Link>
+                      </td>
+                      <td>{lesson.group}</td>
+                      <td>{lesson.date}</td>
+                      <td className="lesson-status">{lesson.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Pagination />
+            </article>
+          </>
+        )}
       </section>
+      <div className="accounts-bg">
+        <AltGrapeBG />
+      </div>
+      {!!user && (
+        <GroupsModal
+          isOpen={isOpenGroupsModal}
+          close={closeGroupsModal}
+          title="Groups"
+          groups={user.groups && user.groups.length > 0 ? user.groups : groups}
+        >
+          Modal
+        </GroupsModal>
+      )}
+      {!!user && (
+        <AchievementsModal
+          isOpen={isOpenAchievementsModal}
+          close={closeAchievementsModal}
+          title="Achievements"
+          achievements={achievements}
+        >
+          Modal
+        </AchievementsModal>
+      )}
     </Style.Container>
   );
 };
@@ -151,6 +325,13 @@ export const AccountsUserProfilePage = () => {
 const Style = {
   Container: styled.div`
     padding-bottom: 50px;
+
+    .accounts-bg {
+      position: fixed;
+      z-index: 0;
+      bottom: -10px;
+      right: 0;
+    }
 
     .breadcrumb {
       font-family: "Noir Std";
@@ -192,6 +373,8 @@ const Style = {
     }
 
     .content-container {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(7, 75px);
