@@ -16,8 +16,8 @@ export function Pagination() {
 const Style = {
   Container: styled.nav`
     width: 100%;
-    height: 72px;
-    padding-top: 30px;
+    height: auto;
+    padding-top: 24px;
     margin-top: auto;
     display: flex;
     align-items: center;

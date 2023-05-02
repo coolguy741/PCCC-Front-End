@@ -160,7 +160,7 @@ const Style = {
     }
 
     .header-left {
-      width: ${({ userAvailable }) => (userAvailable ? "70%" : "30%")};
+      width: ${({ userAvailable }) => (userAvailable ? "60%" : "30%")};
 
       .header-logo {
         height: 100%;
