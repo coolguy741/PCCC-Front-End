@@ -12,8 +12,6 @@ import { BackButton } from "../../../../components/Global/BackButton";
 import { PaginationTwo } from "../../../../components/PaginationTwo";
 import mockData from "../../../../lib/mockData/accounts/profileLessonAccessment.json";
 
-SwiperCore.use([Navigation, Pagination]);
-
 const patterns = ["lemon", "peach", "brokolli", "apple", "grape"];
 
 export const AccountsUserLessonAssessmentPage = () => {
@@ -45,7 +43,7 @@ export const AccountsUserLessonAssessmentPage = () => {
           onSlideChange={(swiper) => setCurrentPage(swiper.realIndex + 1)}
           speed={600}
           slidesPerView={"auto"}
-          spaceBetween={300}
+          spaceBetween={500}
           centeredSlides={true}
           pagination={{
             clickable: true,
