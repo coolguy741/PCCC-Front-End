@@ -5,8 +5,8 @@ export type gardenHotspotKeyType =
   | "ToolRack"
   | "PlantBox"
   | "Overview"
-  | "GardeningHose"
-  | "SoilBagCorner";
+  | "GardenHose"
+  | "SoilCorner";
 
 export type kitchenHotspotKeyType =
   | "Sink"
