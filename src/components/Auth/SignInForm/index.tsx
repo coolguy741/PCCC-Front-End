@@ -1,5 +1,5 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
@@ -15,7 +15,6 @@ export const SignInForm = () => {
 
   const { connect } = useAPI();
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
   const { setForgetType } = useUserStore();
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +30,7 @@ export const SignInForm = () => {
     console.log(data);
 
     if (data.access_token) {
-      setCookie(STORAGE_KEY_JWT, data.access_token, {});
+      Cookies.set(STORAGE_KEY_JWT, data.access_token, {});
       navigate("/dashboard");
     }
   };

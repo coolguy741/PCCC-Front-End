@@ -1,8 +1,9 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
+import { PccServer23GroupsGroupWithNavigationPropertiesDto } from "../../../lib/api/api";
 import { formatDate } from "../../../lib/util/formatDate";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
@@ -10,30 +11,12 @@ import Button from "../../Button";
 import { Icon } from "../../Global/Icon";
 
 interface GroupCardProps {
-  data: {
-    group: {
-      name: string;
-      id: string;
-      lastModificationTime: string;
-      owner: string;
-      ownerRole: string;
-      creationTime: string;
-      members: {
-        img: string;
-        name: string;
-      }[];
-    };
-    owner: {
-      username: string;
-      role: string;
-    };
-  };
+  data: PccServer23GroupsGroupWithNavigationPropertiesDto;
 }
 
 export const GroupCard = ({ data }: GroupCardProps) => {
   const [isExpand, setIsExpand] = useState(false);
   const { api } = useAPI();
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
   const user = useUserStore((state) => state.user);
 
   const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,10 +27,10 @@ export const GroupCard = ({ data }: GroupCardProps) => {
   const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (data.group.id) {
+    if (data?.group?.id) {
       const response = await api.appCustomGroupsDelete(data.group.id, {
         headers: {
-          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
         },
       });
     }
@@ -57,12 +40,12 @@ export const GroupCard = ({ data }: GroupCardProps) => {
     if (user) {
       const response = await api.appCustomGroupsJoinCreate(
         {
-          groupId: data.group.id,
+          groupId: data?.group?.id,
           userId: user.id,
         },
         {
           headers: {
-            Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
           },
         },
       );
@@ -77,38 +60,38 @@ export const GroupCard = ({ data }: GroupCardProps) => {
             <div className="icon-container">
               <Icon name="group" />
             </div>
-            <Link to={`${data.group.id}`}>
-              <p className="bold-big-text">{data.group.name}</p>
+            <Link to={`${data?.group?.id}`}>
+              <p className="bold-big-text">{data?.group?.name}</p>
             </Link>
           </div>
           <p className="date">
             Last modified:{" "}
             {formatDate(
-              data.group.lastModificationTime || data.group.creationTime,
+              data?.group?.lastModificationTime || data?.group?.creationTime,
             )}
           </p>
-          <Link to={`${data.group.id}/edit`}>
+          <Link to={`${data?.group?.id}/edit`}>
             <button>
               <img src="/images/icons/edit.svg" />
             </button>
           </Link>
         </div>
         <div className="body">
-          <p className="text">Group ID: {data.group.id}</p>
+          <p className="text">Group ID: {data?.group?.id}</p>
           <p className="text">
-            Owner: {data.owner.username} {"(" + data.owner.role + ")"}
+            Owner: {data?.owner?.username} {"(" + data?.owner?.role + ")"}
           </p>
         </div>
         <div
           className={`members-container ${isExpand === true ? "show" : "hide"}`}
         >
-          {data.group.members &&
+          {/* {data?.group?.members &&
             data.group.members.map((member, index) => (
               <div className="member-container" key={index}>
                 <img src={member.img} alt="member" placeholder="image" />
                 <p className="bold-text">{member.name}</p>
               </div>
-            ))}
+            ))} */}
         </div>
         <div className="row">
           <button className="expand-button" onClick={handleExpand}>

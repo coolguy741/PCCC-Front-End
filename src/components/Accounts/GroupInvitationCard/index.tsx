@@ -1,42 +1,34 @@
 import styled from "styled-components";
+import { PccServer23GroupsCustomGroupUserJoinRequestDto } from "../../../lib/api/api";
 import Button from "../../Button";
 
-interface GroupInvitationCardProps {
-  data: {
-    groupName: string;
-    creator: string;
-    creatorRole: string;
-    status: string;
-  };
-}
+export const GroupInvitationCard = (
+  group: PccServer23GroupsCustomGroupUserJoinRequestDto,
+) => {
+  console.log(group);
 
-export const GroupInvitationCard = ({ data }: GroupInvitationCardProps) => {
   return (
     <Style.Container>
       <div className="invitation-container">
         <div>
-          <p className="bold-big-text">{data.groupName}</p>
-          <p className="text">Creator: {data.creator}</p>
+          <p className="bold-big-text">{group.groupName}</p>
+          <p className="text">Creator: {group.userName}</p>
         </div>
         <div className="status-container">
-          {data.status === "free" && (
-            <>
-              <Button size="small" variant="yellow">
-                Accept
-              </Button>
-              <Button size="small">Deny</Button>
-            </>
-          )}
-          {data.status === "Accepted" && (
+          <Button size="small" variant="yellow">
+            Accept
+          </Button>
+          <Button size="small">Deny</Button>
+          {/* {group.status === "Accepted" && (
             <>
               <p className="bold-text">Accepted</p>
             </>
           )}
-          {data.status === "Denied" && (
+          {group.status === "Denied" && (
             <>
               <p className="bold-text">Denied</p>
             </>
-          )}
+          )} */}
         </div>
       </div>
     </Style.Container>

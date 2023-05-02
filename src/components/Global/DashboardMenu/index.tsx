@@ -1,9 +1,9 @@
+import Cookies from "js-cookie";
 import { forwardRef, Ref, useState } from "react";
-import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { usePathName } from "../../../hooks/usePathName";
-import { MENUS } from "../../../pages/consts";
+import { MENUS, STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
 import Button from "../../Button";
 
@@ -13,7 +13,6 @@ type MenuState = {
 };
 
 export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["PCCC_TOKEN"]);
   const [setUser] = useUserStore((state) => [state.setUser]);
   const navigate = useNavigate();
 
@@ -47,7 +46,7 @@ export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
   };
 
   const logoutHandler = () => {
-    removeCookie("PCCC_TOKEN");
+    Cookies.remove(STORAGE_KEY_JWT);
     setUser(null);
 
     navigate("/");

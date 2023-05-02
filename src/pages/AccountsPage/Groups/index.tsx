@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GroupCard } from "../../../components/Accounts/GroupCard";
 import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
@@ -8,16 +7,20 @@ import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import Button from "../../../components/Button";
 import { Input } from "../../../components/Global/Input";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
-import { useAPI } from "../../../hooks/useAPI";
-import mockData from "../../../lib/mockData/accounts/groups.json";
-import { STORAGE_KEY_JWT } from "../../consts";
+import {
+  PccServer23GroupsCustomGroupUserJoinRequestDto,
+  PccServer23GroupsGroupWithNavigationPropertiesDto,
+} from "../../../lib/api/api";
+
+interface IGroup {
+  groups: PccServer23GroupsGroupWithNavigationPropertiesDto[];
+  invitations: PccServer23GroupsCustomGroupUserJoinRequestDto[];
+}
 
 export const AccountsGroupsPage = () => {
   const [visibleModal, setVisibleModal] = useState(false);
-  const [groups, setGroups] = useState<any[]>([]);
   const navigate = useNavigate();
-  const { api } = useAPI();
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
+  const { groups, invitations } = useLoaderData() as IGroup;
 
   const handleCreate = () => {
     navigate("/dashboard/accounts/groups/create");
@@ -31,40 +34,21 @@ export const AccountsGroupsPage = () => {
     setVisibleModal(false);
   };
 
-  const getGroups = async () => {
-    const response = await api.appCustomGroupsMyCreatedGroupsList(
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
-        },
-      },
-    );
-
-    if (response.data.items) {
-      setGroups(response.data.items);
-    }
-  };
-
-  useEffect(() => {
-    getGroups();
-  }, []);
-
   return (
     <Style.PageContainer>
       <div className="header-container">
         <div className="group-container">
           <div className="label">
-            <p>Group</p>
-            <Input type="text" height="3rem" />
+            <span>Group</span>
+            <Input type="text" height="3.5rem" />
           </div>
           <div className="label">
-            <p>Group ID</p>
-            <Input type="text" height="3rem" />
+            <span>Group ID</span>
+            <Input type="text" height="3.5rem" />
           </div>
           <div className="label">
-            <p>School</p>
-            <Input type="text" height="3rem" />
+            <span>School</span>
+            <Input type="text" height="3.5rem" />
           </div>
         </div>
         <div className="button-container">
@@ -84,12 +68,19 @@ export const AccountsGroupsPage = () => {
         </div>
         <div className="group-invitations-container">
           <p className="title-text">
-            {`Group Invitations (${mockData.groupInvitations.length})`}
+            {`Group Invitations (${invitations?.length})`}
           </p>
           <div className="group-invitations">
-            {mockData.groupInvitations.map((group, index) => (
-              <GroupInvitationCard data={group} key={index} />
-            ))}
+            {invitations &&
+              invitations.map((invitation, index) => {
+                return (
+                  <GroupInvitationCard
+                    key={index}
+                    groupName={invitation.groupName}
+                    userName={invitation.userName}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
@@ -123,9 +114,13 @@ const Style = {
 
       .group-container {
         display: flex;
+        gap: 1.5rem;
 
         .label {
-          margin-right: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          color: var(--neutral-600);
         }
       }
 
@@ -165,11 +160,13 @@ const Style = {
       .group-invitations-container {
         display: flex;
         flex-direction: column;
+        align-items: center;
         width: 20%;
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-        padding: 1.4rem;
         border-radius: 16px;
+        max-height: 50vh;
+        padding-top: 1rem;
 
         .title-text {
           font-size: 1.2rem;
@@ -178,6 +175,10 @@ const Style = {
         }
 
         .group-invitations {
+          padding: 1.4rem;
+          overflow-y: scroll;
+          width: 100%;
+
           .bold-big-text {
             font-size: 1.1 rem;
             font-weight: 700;

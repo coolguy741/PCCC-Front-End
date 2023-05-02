@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-
 import { AchievementsModal } from "../../../../components/Accounts/AchievementsModal";
 import { GroupsModal } from "../../../../components/Accounts/GroupsModal";
 import {
@@ -19,6 +17,7 @@ import { useUserStore } from "../../../../stores/userStore";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
 //should be deleted after api implementation
+import Cookies from "js-cookie";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 import { STORAGE_KEY_JWT } from "../../../consts";
 
@@ -129,7 +128,6 @@ export const AccountsUserProfilePage = () => {
   const { api } = useAPI();
   const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
   const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
@@ -144,7 +142,7 @@ export const AccountsUserProfilePage = () => {
   const getProfile = async () => {
     const response = await api.appUserUserProfileList({
       headers: {
-        Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
       },
     });
 
