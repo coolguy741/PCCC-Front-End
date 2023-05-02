@@ -179,8 +179,7 @@ export const SecurityQuestions = () => {
               control={control}
               rules={{
                 required: true,
-                validate: (value: string, { password }) =>
-                  watch("password") === value,
+                validate: (value: string) => watch("password") === value,
               }}
               render={({ field }) => (
                 <Input
