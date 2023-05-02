@@ -31,6 +31,7 @@ const Style = {
     padding: 2px;
 
     scale: ${({ sizeOption }) => (sizeOption === "small" ? "1" : "1.6666")};
+    transform-origin: left center;
 
     &[type="checkbox"] {
       -webkit-appearance: none;
