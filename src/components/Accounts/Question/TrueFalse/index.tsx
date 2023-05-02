@@ -11,7 +11,7 @@ export const TrueFalseQuestion = () => {
 
   return (
     <Style.Container>
-      <div>
+      <fieldset>
         <input
           type="radio"
           id="true"
@@ -21,8 +21,8 @@ export const TrueFalseQuestion = () => {
           onChange={handleValueChange}
         />
         <label htmlFor="true">True</label>
-      </div>
-      <div>
+      </fieldset>
+      <fieldset>
         <input
           type="radio"
           id="false"
@@ -32,7 +32,7 @@ export const TrueFalseQuestion = () => {
           onChange={handleValueChange}
         />
         <label htmlFor="false">False</label>
-      </div>
+      </fieldset>
     </Style.Container>
   );
 };
@@ -41,7 +41,7 @@ const Style = {
   Container: styled.div`
     display: flex;
 
-    div {
+    fieldset {
       margin-right: 20px;
     }
   `,

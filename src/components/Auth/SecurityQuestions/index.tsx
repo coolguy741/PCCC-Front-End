@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { useSignUpStore } from "../../../stores/signUpStore";
@@ -43,6 +44,7 @@ export const SecurityQuestions = () => {
   const schoolIdCode = useSignUpStore((state) => state.schoolIdCode);
   const schoolName = useSignUpStore((state) => state.schoolName);
   const isCoordinator = useSignUpStore((state) => state.isCoordinator);
+  const navigate = useNavigate();
 
   const { api } = useAPI();
 
@@ -61,11 +63,11 @@ export const SecurityQuestions = () => {
     getSecurityQuestions();
   }, []);
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (isCoordinator) {
-      api.appUserProfessionalCreate({
+      const response = await api.appUserProfessionalCreate({
         birthYear: birthYear,
         province: province,
         username: `${firstUserName}${secondUserName}${thirdUserName}`,
@@ -82,8 +84,12 @@ export const SecurityQuestions = () => {
         thirdSecurityQuestionId: thirdSecurityQuestionId,
         thirdSecurityQuestionAnswer: thirdSecurityAnswer,
       });
+
+      if (response.status === 204) {
+        navigate("/signin");
+      }
     } else {
-      api.appUserCreate({
+      const response = await api.appUserCreate({
         birthYear: birthYear,
         province: province,
         username: `${firstUserName}${secondUserName}${thirdUserName}`,
@@ -95,6 +101,10 @@ export const SecurityQuestions = () => {
         thirdSecurityQuestionId: thirdSecurityQuestionId,
         thirdSecurityQuestionAnswer: thirdSecurityAnswer,
       });
+
+      if (response.status === 204) {
+        navigate("/signin");
+      }
     }
   };
 

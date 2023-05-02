@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
+import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -127,6 +128,11 @@ export const router = createBrowserRouter([
         <Outlet />
       </DashboardPage>
     ),
+    loader: async () => {
+      getAuthenticatedUser();
+
+      return null;
+    },
     children: [
       { path: "", element: <HomePage /> },
       { path: "search", element: <SearchPage /> },

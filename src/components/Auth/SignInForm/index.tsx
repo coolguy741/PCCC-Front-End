@@ -72,13 +72,13 @@ export const SignInForm = () => {
         </fieldset>
         <p className="forgot">
           Forgot your{" "}
-          <button onClick={forgotUsername} data-testid="forgot-username">
+          <a onClick={forgotUsername} data-testid="forgot-username">
             <u>username</u>
-          </button>{" "}
+          </a>{" "}
           or{" "}
-          <button onClick={forgotPassword} data-testid="forgot-password">
+          <a onClick={forgotPassword} data-testid="forgot-password">
             <u>password</u>
-          </button>
+          </a>
           ?
         </p>
         <Button type="submit" fullWidth data-testid="submit">

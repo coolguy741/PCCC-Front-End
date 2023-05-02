@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 interface ModalContainerProps {
   children: JSX.Element;
+  close?: () => void;
 }
 
-export const ModalContainer = ({ children }: ModalContainerProps) => {
-  return <Style.Container>{children}</Style.Container>;
+export const ModalContainer = ({ children, close }: ModalContainerProps) => {
+  return <Style.Container onClick={close}>{children}</Style.Container>;
 };
 
 const Style = {
@@ -15,6 +16,7 @@ const Style = {
     height: 100%;
     top: 0;
     right: 0;
+    z-index: 500;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
