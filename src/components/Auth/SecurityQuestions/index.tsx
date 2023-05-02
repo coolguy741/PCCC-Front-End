@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { useAPI } from "../../../hooks/useAPI";
 import { useSignUpStore } from "../../../stores/signUpStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
@@ -16,14 +18,6 @@ interface SecurityQuestion {
 }
 
 export const SecurityQuestions = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstSecurityAnswer, setFirstSecurityAnswer] = useState("");
-  const [secondSecurityAnswer, setSecondSecurityAnswer] = useState("");
-  const [thirdSecurityAnswer, setThirdSecurityAnswer] = useState("");
-  const [firstSecurityQuestionId, setFirstSecurityQuestionId] = useState("");
-  const [secondSecurityQuestionId, setSecondSecurityQuestionId] = useState("");
-  const [thirdSecurityQuestionId, setThirdSecurityQuestionId] = useState("");
   const [firstSecurityQuestions, setFirstSecurityQuestions] = useState<
     SecurityQuestion[] | null | undefined
   >([]);
@@ -33,17 +27,38 @@ export const SecurityQuestions = () => {
   const [thirdSecurityQuestions, setThirdSecurityQuestions] = useState<
     SecurityQuestion[] | null | undefined
   >([]);
-  const birthYear = useSignUpStore((state) => state.birthYear);
-  const email = useSignUpStore((state) => state.email);
-  const province = useSignUpStore((state) => state.province);
-  const firstUserName = useSignUpStore((state) => state.firstUserName);
-  const secondUserName = useSignUpStore((state) => state.secondUserName);
-  const thirdUserName = useSignUpStore((state) => state.thirdUserName);
-  const name = useSignUpStore((state) => state.name);
-  const title = useSignUpStore((state) => state.title);
-  const schoolIdCode = useSignUpStore((state) => state.schoolIdCode);
-  const schoolName = useSignUpStore((state) => state.schoolName);
-  const isCoordinator = useSignUpStore((state) => state.isCoordinator);
+  const {
+    birthYear,
+    email,
+    province,
+    firstUsername,
+    secondUsername,
+    thirdUsername,
+    name,
+    title,
+    schoolIdCode,
+    schoolName,
+    isCoordinator,
+  } = useSignUpStore();
+
+  const {
+    control,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+      firstSecurityAnswer: "",
+      secondSecurityAnswer: "",
+      thirdSecurityAnswer: "",
+      firstSecurityQuestionId: "",
+      secondSecurityQuestionId: "",
+      thirdSecurityQuestionId: "",
+    },
+  });
+
   const navigate = useNavigate();
 
   const { api } = useAPI();
@@ -63,25 +78,39 @@ export const SecurityQuestions = () => {
     getSecurityQuestions();
   }, []);
 
-  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const submitHandler = async ({
+    password,
+    firstSecurityQuestionId,
+    firstSecurityAnswer,
+    secondSecurityQuestionId,
+    secondSecurityAnswer,
+    thirdSecurityQuestionId,
+    thirdSecurityAnswer,
+  }: {
+    password: string;
+    firstSecurityQuestionId: string;
+    firstSecurityAnswer: string;
+    secondSecurityQuestionId: string;
+    secondSecurityAnswer: string;
+    thirdSecurityQuestionId: string;
+    thirdSecurityAnswer: string;
+  }) => {
     if (isCoordinator) {
       const response = await api.appUserProfessionalCreate({
-        birthYear: birthYear,
-        province: province,
-        username: `${firstUserName}${secondUserName}${thirdUserName}`,
-        password: password,
-        email: email,
-        name: name,
-        title: title,
-        schoolIdCode: schoolIdCode,
+        birthYear,
+        province,
+        username: `${firstUsername}${secondUsername}${thirdUsername}`,
+        password,
+        email,
+        name,
+        title,
+        schoolIdCode,
         school: schoolName,
-        firstSecurityQuestionId: firstSecurityQuestionId,
+        firstSecurityQuestionId,
         firstSecurityQuestionAnswer: firstSecurityAnswer,
-        secondSecurityQuestionId: secondSecurityQuestionId,
+        secondSecurityQuestionId,
         secondSecurityQuestionAnswer: secondSecurityAnswer,
-        thirdSecurityQuestionId: thirdSecurityQuestionId,
+        thirdSecurityQuestionId,
         thirdSecurityQuestionAnswer: thirdSecurityAnswer,
       });
 
@@ -90,15 +119,15 @@ export const SecurityQuestions = () => {
       }
     } else {
       const response = await api.appUserCreate({
-        birthYear: birthYear,
-        province: province,
-        username: `${firstUserName}${secondUserName}${thirdUserName}`,
-        password: password,
-        firstSecurityQuestionId: firstSecurityQuestionId,
+        birthYear,
+        province,
+        username: `${firstUsername}${secondUsername}${thirdUsername}`,
+        password,
+        firstSecurityQuestionId,
         firstSecurityQuestionAnswer: firstSecurityAnswer,
-        secondSecurityQuestionId: secondSecurityQuestionId,
+        secondSecurityQuestionId,
         secondSecurityQuestionAnswer: secondSecurityAnswer,
-        thirdSecurityQuestionId: thirdSecurityQuestionId,
+        thirdSecurityQuestionId,
         thirdSecurityQuestionAnswer: thirdSecurityAnswer,
       });
 
@@ -110,7 +139,7 @@ export const SecurityQuestions = () => {
 
   return (
     <Style.Container
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit(submitHandler)}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -125,25 +154,43 @@ export const SecurityQuestions = () => {
           <h2>Password</h2>
           <fieldset>
             <label>Create Password</label>
-            <Input
-              type="password"
-              id="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              width="65%"
-              data-testid="password"
-              required
+            <Controller
+              name="password"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => (
+                <Input
+                  width="65%"
+                  type="password"
+                  data-testid="password"
+                  id="password"
+                  className={errors.password ? "has-error" : ""}
+                  {...field}
+                />
+              )}
             />
           </fieldset>
           <fieldset>
             <label>Retype Password</label>
-            <Input
-              type="password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              value={confirmPassword}
-              width="65%"
-              data-testid="confirm-password"
-              required
+            <Controller
+              name="confirmPassword"
+              control={control}
+              rules={{
+                required: true,
+                validate: (value: string, { password }) =>
+                  watch("password") === value,
+              }}
+              render={({ field }) => (
+                <Input
+                  width="65%"
+                  type="password"
+                  data-testid="confirm-password"
+                  className={errors.confirmPassword ? "has-error" : ""}
+                  {...field}
+                />
+              )}
             />
           </fieldset>
         </article>
@@ -153,82 +200,137 @@ export const SecurityQuestions = () => {
         <h2>Security Questions</h2>
         <fieldset>
           <label>Question 1:</label>
-          <Select
-            onChange={(e) => {
-              setFirstSecurityQuestionId(e.target.value);
-              console.log(e.target.value);
+          <Controller
+            name="firstSecurityQuestionId"
+            control={control}
+            rules={{
+              required: true,
             }}
-            value={firstSecurityQuestionId}
-            data-testid="first-security-question"
-            width="75%"
-            required
-          >
-            <option></option>
-            {firstSecurityQuestions &&
-              firstSecurityQuestions.map((question) => (
-                <option key={question.id} value={question.id}>
-                  {question.question}
-                </option>
-              ))}
-          </Select>
+            render={({ field }) => (
+              <Select
+                width="75%"
+                data-testid="first-security-question"
+                className={errors.firstSecurityQuestionId ? "has-error" : ""}
+                {...field}
+              >
+                <option></option>
+                {firstSecurityQuestions &&
+                  firstSecurityQuestions.map((question) => (
+                    <option key={question.id} value={question.id}>
+                      {question.question}
+                    </option>
+                  ))}
+              </Select>
+            )}
+          />
         </fieldset>
         <fieldset>
           <label>Answer</label>
-          <Input
-            type="text"
-            onChange={(e) => setFirstSecurityAnswer(e.target.value)}
-            value={firstSecurityAnswer}
-            width="75%"
+          <Controller
+            name="firstSecurityAnswer"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                width="75%"
+                className={errors.firstSecurityAnswer ? "has-error" : ""}
+                type="text"
+                data-testid="first-security-answer"
+                {...field}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
           <label>Question 2:</label>
-          <Select
-            onChange={(e) => setSecondSecurityQuestionId(e.target.value)}
-            value={secondSecurityQuestionId}
-            width="75%"
-          >
-            <option></option>
-            {secondSecurityQuestions &&
-              secondSecurityQuestions.map((question) => (
-                <option key={question.id} value={question.id}>
-                  {question.question}
-                </option>
-              ))}
-          </Select>
+          <Controller
+            name="secondSecurityQuestionId"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Select
+                width="75%"
+                data-testid="second-security-question"
+                className={errors.secondSecurityQuestionId ? "has-error" : ""}
+                {...field}
+              >
+                <option></option>
+                {secondSecurityQuestions &&
+                  secondSecurityQuestions.map((question) => (
+                    <option key={question.id} value={question.id}>
+                      {question.question}
+                    </option>
+                  ))}
+              </Select>
+            )}
+          />
         </fieldset>
         <fieldset>
           <label>Answer</label>
-          <Input
-            type="text"
-            onChange={(e) => setSecondSecurityAnswer(e.target.value)}
-            value={secondSecurityAnswer}
-            width="75%"
+          <Controller
+            name="secondSecurityAnswer"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                width="75%"
+                className={errors.secondSecurityAnswer ? "has-error" : ""}
+                type="text"
+                data-testid="second-security-answer"
+                {...field}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
           <label>Question 3:</label>
-          <Select
-            onChange={(e) => setThirdSecurityQuestionId(e.target.value)}
-            value={thirdSecurityQuestionId}
-            width="75%"
-          >
-            <option></option>
-            {thirdSecurityQuestions &&
-              thirdSecurityQuestions.map((question) => (
-                <option key={question.id} value={question.id}>
-                  {question.question}
-                </option>
-              ))}
-          </Select>
+          <Controller
+            name="thirdSecurityQuestionId"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Select
+                width="75%"
+                data-testid="third-security-question"
+                className={errors.thirdSecurityQuestionId ? "has-error" : ""}
+                {...field}
+              >
+                <option></option>
+                {thirdSecurityQuestions &&
+                  thirdSecurityQuestions.map((question) => (
+                    <option key={question.id} value={question.id}>
+                      {question.question}
+                    </option>
+                  ))}
+              </Select>
+            )}
+          />
         </fieldset>
         <fieldset>
           <label>Answer</label>
-          <Input
-            type="text"
-            onChange={(e) => setThirdSecurityAnswer(e.target.value)}
-            value={thirdSecurityAnswer}
-            width="75%"
+          <Controller
+            name="thirdSecurityAnswer"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                width="75%"
+                className={errors.thirdSecurityAnswer ? "has-error" : ""}
+                type="text"
+                data-testid="third-security-answer"
+                {...field}
+              />
+            )}
           />
         </fieldset>
         <Button type="submit" size="large" data-testid="submit">

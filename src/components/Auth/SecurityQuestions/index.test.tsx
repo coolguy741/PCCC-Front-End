@@ -19,6 +19,12 @@ describe("Sign up form", async () => {
           firstSecurityQuestions: [
             { id: 1, question: "What is your favorite color?" },
           ],
+          secondSecurityQuestions: [
+            { id: 1, question: "What is your favorite food?" },
+          ],
+          thirdSecurityQuestions: [
+            { id: 1, question: "What is your favorite fruit?" },
+          ],
         }),
       })) as Mock,
     );
@@ -63,23 +69,38 @@ describe("Sign up form", async () => {
     expect(screen.getByText(/Sign Up/)).toBeDefined();
 
     const password = "123456789";
+    const answer = "chocolate";
     const option = 1;
     const passwordInput = screen.getByTestId("password");
     const passwordConfirmationInput = screen.getByTestId("confirm-password");
     const firstSecurityQuestion = screen.getByTestId("first-security-question");
+    const secondSecurityQuestion = screen.getByTestId(
+      "second-security-question",
+    );
+    const thirdSecurityQuestion = screen.getByTestId("third-security-question");
+    const firstSecurityAnswer = screen.getByTestId("first-security-answer");
+    const secondSecurityAnswer = screen.getByTestId("second-security-answer");
+    const thirdSecurityAnswer = screen.getByTestId("third-security-answer");
     const submit = screen.getByTestId("submit");
 
     act(() => {
       userEvent.type(passwordInput, `{backspace}${password}`);
       userEvent.type(passwordConfirmationInput, `{backspace}${password}`);
       userEvent.selectOptions(firstSecurityQuestion, `${1}`);
+      userEvent.selectOptions(secondSecurityQuestion, `${1}`);
+      userEvent.selectOptions(thirdSecurityQuestion, `${1}`);
+      userEvent.type(firstSecurityAnswer, `{backspace}${answer}`);
+      userEvent.type(secondSecurityAnswer, `{backspace}${answer}`);
+      userEvent.type(thirdSecurityAnswer, `{backspace}${answer}`);
+    });
+    await act(() => {
       userEvent.click(submit);
     });
 
     expect(fetch).toHaveBeenLastCalledWith(
       "https://backend-dev.powerfullkids.ca/api/app/user",
       {
-        body: `{"province":"","username":"","password":"${password}","firstSecurityQuestionId":"${option}","firstSecurityQuestionAnswer":"","secondSecurityQuestionId":"","secondSecurityQuestionAnswer":"","thirdSecurityQuestionId":"","thirdSecurityQuestionAnswer":""}`,
+        body: `{"province":"","username":"","password":"${password}","firstSecurityQuestionId":"${option}","firstSecurityQuestionAnswer":"${answer}","secondSecurityQuestionId":"${option}","secondSecurityQuestionAnswer":"${answer}","thirdSecurityQuestionId":"${option}","thirdSecurityQuestionAnswer":"${answer}"}`,
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",

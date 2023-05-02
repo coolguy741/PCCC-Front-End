@@ -1,93 +1,157 @@
 import { motion } from "framer-motion";
-import { FormEvent, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
+
 import { useSignUpStore } from "../../../stores/signUpStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
 
+type AgeGateForm = {
+  year: string | number;
+  month: string | number;
+  date: string | number;
+  province: string;
+};
+
 export const AgeGate = () => {
-  const [_birthYear, _setBirthYear] = useState("");
-  const [_province, _setProvince] = useState("");
-  const setBirthYear = useSignUpStore((state) => state.setBirthYear);
-  const setProvince = useSignUpStore((state) => state.setProvince);
-  const over18 = useSignUpStore((state) => state.over18);
-  const setOver18 = useSignUpStore((state) => state.setOver18);
-  const changeStep = useSignUpStore((state) => state.changeStep);
+  const {
+    setBirthYear,
+    setBirthMonth,
+    setBirthDate,
+    setProvince,
+    birthYear,
+    birthDate,
+    birthMonth,
+    province,
+    over18,
+    changeStep,
+    setOver18,
+  } = useSignUpStore();
 
-  const submitHandler = (event: FormEvent<HTMLElement>) => {
-    event.preventDefault();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      year: birthYear ?? "",
+      month: birthMonth ?? "",
+      date: birthDate ?? "",
+      province: province ?? "",
+    },
+  });
 
+  const submitHandler = ({ year, month, date, province }: AgeGateForm) => {
     const currentYear = new Date().getFullYear();
 
-    if (_birthYear !== null && _province !== null) {
-      if (currentYear - parseInt(_birthYear) >= 18) {
-        setOver18(true);
-        changeStep(1);
-        console.log("OVER 18", currentYear - parseInt(_birthYear));
-      } else {
-        setOver18(false);
-        changeStep(2);
-        console.log("UNDER 18", currentYear - parseInt(_birthYear));
-      }
-
-      setBirthYear(parseInt(_birthYear));
-      setProvince(_province);
+    if (currentYear - parseInt(year.toString()) >= 18) {
+      setOver18(true);
+      changeStep(1);
+    } else {
+      setOver18(false);
+      changeStep(2);
     }
+
+    setBirthYear(parseInt(year.toString()));
+    setBirthMonth(parseInt(month.toString()));
+    setBirthDate(parseInt(date.toString()));
+    setProvince(province);
   };
 
   return (
     <Style.Container animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <h1>Welcome</h1>
       <p>We will need some basic information to setup your account</p>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <h2>Sign up</h2>
         <fieldset>
           <label>What year were you born?</label>
           <div className="birth-split">
-            <Input
-              width="15%"
-              placeholder="MM"
-              required
-              data-testid="month"
-              type="number"
-              min="1"
-              max="12"
+            <Controller
+              name="month"
+              control={control}
+              rules={{
+                required: true,
+                min: "1",
+                max: "12",
+              }}
+              render={({ field }) => (
+                <Input
+                  width="15%"
+                  placeholder="MM"
+                  data-testid="month"
+                  type="number"
+                  className={errors.month ? "has-error" : ""}
+                  {...field}
+                />
+              )}
             />
-            <Input
-              width="15%"
-              placeholder="DD"
-              required
-              data-testid="day"
-              type="number"
-              min="1"
-              max="31"
+            <Controller
+              name="date"
+              rules={{
+                required: true,
+                min: "1",
+                max: "31",
+                validate: (value, { year, month, date }) =>
+                  parseInt(value.toString()) ===
+                  new Date(`${year}-${month}-${date}`).getDate(),
+              }}
+              control={control}
+              render={({ field }) => (
+                <Input
+                  width="15%"
+                  placeholder="DD"
+                  className={errors.date ? "has-error" : ""}
+                  data-testid="date"
+                  type="number"
+                  {...field}
+                />
+              )}
             />
-            <Input
-              width="18%"
-              placeholder="YYYY"
-              type="number"
-              data-testid="year"
-              min="1900"
-              max="2023"
-              onChange={(e) => _setBirthYear(e.target.value)}
-              value={_birthYear}
-              required
+            <Controller
+              name="year"
+              control={control}
+              rules={{
+                required: true,
+                min: "1900",
+                max: "2023",
+              }}
+              render={({ field }) => (
+                <Input
+                  width="18%"
+                  placeholder="YYYY"
+                  type="number"
+                  data-testid="year"
+                  className={errors.year ? "has-error" : ""}
+                  {...field}
+                />
+              )}
             />
           </div>
         </fieldset>
         <fieldset>
           <label>What is your province?</label>
-          <Input
-            type="text"
-            onChange={(e) => _setProvince(e.target.value)}
-            value={_province}
-            width="100%"
-            data-testid="province"
-            placeholder="Ontario"
-            height="40px"
-            required
+          <Controller
+            name="province"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                type="text"
+                className={errors.province ? "has-error" : ""}
+                width="100%"
+                placeholder="Ontario"
+                data-testid="province"
+                height="40px"
+                {...field}
+                min="1900"
+                max="2023"
+              />
+            )}
           />
         </fieldset>
         <Button size="small" fullWidth type="submit" data-testid="next">
