@@ -36,11 +36,11 @@ const Style = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
   `,
   LabeledRadio: styled.div`
     display: flex;
-    gap: 15px;
+    gap: 32px;
     font-weight: 600;
     font-size: 19px;
     line-height: 24px;
