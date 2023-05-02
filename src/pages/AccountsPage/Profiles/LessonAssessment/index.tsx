@@ -1,19 +1,25 @@
+/* eslint-disable quotes */
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Button from "../../../../components/Button";
-import { BackButton } from "../../../../components/Global/BackButton";
-import mockData from "../../../../lib/mockData/accounts/profileLessonAccessment.json";
-
+import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Question } from "../../../../components/Accounts/Question";
+import Button from "../../../../components/Button";
+import { BackButton } from "../../../../components/Global/BackButton";
+import { PaginationTwo } from "../../../../components/PaginationTwo";
+import mockData from "../../../../lib/mockData/accounts/profileLessonAccessment.json";
+
+SwiperCore.use([Navigation, Pagination]);
 
 const patterns = ["lemon", "peach", "brokolli", "apple", "grape"];
 
 export const AccountsUserLessonAssessmentPage = () => {
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperCore>();
 
   const handleBack = () => {
     navigate(-1);
@@ -35,12 +41,15 @@ export const AccountsUserLessonAssessmentPage = () => {
       <Style.Lesson>{mockData.lesson}</Style.Lesson>
       <Style.Questions>
         <Swiper
+          onSwiper={setSwiperInstance}
+          onSlideChange={(swiper) => setCurrentPage(swiper.realIndex + 1)}
           speed={600}
           slidesPerView={"auto"}
           spaceBetween={300}
           centeredSlides={true}
           pagination={{
             clickable: true,
+            type: "custom",
           }}
           navigation={true}
           modules={[Pagination, Navigation]}
@@ -58,6 +67,18 @@ export const AccountsUserLessonAssessmentPage = () => {
           ))}
         </Swiper>
       </Style.Questions>
+      <Style.PaginationContainer>
+        <PaginationTwo
+          currentPage={currentPage}
+          totalCount={mockData.questions.length}
+          pageSize={1}
+          siblingCount={0}
+          onPageChange={async (page) => {
+            setCurrentPage(page);
+            swiperInstance?.slideTo(page - 1);
+          }}
+        />
+      </Style.PaginationContainer>
     </Style.PageContainer>
   );
 };
@@ -122,5 +143,13 @@ const Style = {
       align-items: center;
       filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
     }
+  `,
+  PaginationContainer: styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 17px;
   `,
 };
