@@ -7,7 +7,7 @@ interface AxesHelperControllerPropTypes {
 const AxesHelperController: FC<AxesHelperControllerPropTypes> = ({
   axesArgs,
 }) => {
-  return <axesHelper args={axesArgs as [number]} position={[0, +0.01, 0]} />;
+  return <axesHelper args={axesArgs as [number]} position={[0, +0.05, 0]} />;
 };
 
 export default memo(AxesHelperController);

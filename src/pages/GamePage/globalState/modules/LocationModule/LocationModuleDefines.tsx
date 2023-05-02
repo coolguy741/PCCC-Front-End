@@ -12,8 +12,8 @@ const gardenHotspotKeys: gardenHotspotKeyType[] = [
   "BigTree",
   "ToolRack",
   "PlantBox",
-  "GardeningHose",
-  "SoilBagCorner",
+  "GardenHose",
+  "SoilCorner",
 ];
 
 const initGardenHotSpotKey: gardenHotspotKeyType = gardenHotspotKeys[0];
