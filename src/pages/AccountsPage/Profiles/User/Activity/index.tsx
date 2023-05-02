@@ -34,6 +34,7 @@ const Style = {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+      width: 100%;
 
       li {
         display: flex;
@@ -41,19 +42,21 @@ const Style = {
         justify-content: space-between;
         border-bottom: 1px solid var(--neutral-300);
         height: 25%;
+        width: 100%;
 
         p {
           display: flex;
           color: var(--neutral-600);
-          font-size: 85%;
           align-items: center;
+          font-size: 1.75vh;
+          min-width: 80%;
         }
 
         span {
           text-align: right;
           letter-spacing: 0.02em;
           color: var(--neutral-600);
-          font-size: 75%;
+          font-size: 1.4vh;
         }
 
         &:last-of-type {
@@ -62,7 +65,8 @@ const Style = {
       }
 
       svg {
-        margin-right: 10px;
+        margin-right: 2.5%;
+        height: 3vh;
       }
     }
   `,

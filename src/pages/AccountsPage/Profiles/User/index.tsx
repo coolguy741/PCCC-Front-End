@@ -137,11 +137,13 @@ const Style = {
     h2 {
       font-weight: 600;
       color: var(--neutral-900);
+      font-size: 3vh;
     }
 
     h3 {
       font-weight: 600;
       color: var(--neutral-800);
+      font-size: 2.5vh;
     }
 
     p {
@@ -180,7 +182,7 @@ const Style = {
       button {
         font-weight: 500;
         color: var(--neutral-600);
-        font-size: clamp(0.8rem, 0.75vh, 1vh);
+        font-size: 1.5vh;
       }
     }
 

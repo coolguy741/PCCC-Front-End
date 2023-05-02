@@ -50,18 +50,16 @@ const Style = {
         align-items: center;
         width: 32%;
         height: 40%;
-        overflow: hidden;
         font-weight: 500;
         color: var(--neutral-600);
-        font-size: 95%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-size: 1.75vh;
       }
 
       svg {
         height: 100%;
-        aspect-ratio: 1 / 1;
         margin-right: 2.5%;
       }
     }

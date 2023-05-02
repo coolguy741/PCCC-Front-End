@@ -72,15 +72,17 @@ const Style = {
       th {
         font-weight: 500;
         color: var(--neutral-600);
-        font-size: 100%;
+        font-size: 1.75vh;
       }
 
       td {
-        font-weight: 500;
+        font-weight: 400;
         color: #646464;
         transition: color 0.2s ease-out;
         display: flex;
         align-items: flex-end;
+        color: var(--neutral-600);
+        font-size: 1.75vh;
       }
 
       // TODO: Fix for complete and incomplete status hovers.
@@ -101,11 +103,7 @@ const Style = {
         span {
           text-transform: uppercase;
           font-weight: 500;
-          font-size: 50%;
-        }
-
-        a {
-          font-size: 100%;
+          font-size: 1.25vh;
         }
       }
 

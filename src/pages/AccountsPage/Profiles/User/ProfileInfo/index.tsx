@@ -63,6 +63,11 @@ const Style = {
     display: flex;
     position: relative;
 
+    p {
+      font-size: 1.75vh;
+      margin-right: 1vw;
+    }
+
     .user-bg {
       position: absolute;
       right: 0;
@@ -82,7 +87,6 @@ const Style = {
     .user-info-content {
       width: 100%;
       display: flex;
-      height: 50%;
       flex-direction: column;
       flex-wrap: wrap;
       justify-content: flex-end;
