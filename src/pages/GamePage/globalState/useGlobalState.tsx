@@ -37,6 +37,6 @@ const persistWrapper = persist(immerWrapper, {
 
 const devtoolsWrapper = devtools(persistWrapper);
 
-const useGlobalState = create(devtoolsWrapper);
+const useGlobalState = create(immerWrapper);
 
 export { useGlobalState };

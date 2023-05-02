@@ -1,23 +1,74 @@
 import { PerspectiveCamera } from "@react-three/drei";
-import { FC, memo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { FC, memo, useCallback, useRef } from "react";
+import { PerspectiveCamera as PerspectiveCameraType } from "three";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
-import { GATE_POSITION } from "../../4-Constants/0-Garden_Constants/GARDEN_POSITION";
+import { RefPerspectiveCameraType } from "../../7-Types/RefTypes";
+import { DampVector3 } from "../../8-Utility/UtilityFunctions";
 
 const PlayerCamera: FC = () => {
+  // Refs
+  const playerCameraRef: RefPerspectiveCameraType = useRef(null);
+
   // Global State
-  const { activeCamera } = useGlobalState(
+  const {
+    activeCamera,
+    playerCameraActiveFov,
+    playerCameraActiveLookAt,
+    playerCameraActivePosition,
+  } = useGlobalState(
     (state) => ({
       activeCamera: state.activeCamera,
+      playerCameraActiveFov: state.playerCameraActiveFov,
+      playerCameraActiveLookAt: state.playerCameraActiveLookAt,
+      playerCameraActivePosition: state.playerCameraActivePosition,
     }),
     shallow,
   );
 
+  const updatePlayerCameraLookAt = useCallback(
+    (playerCameraReference: PerspectiveCameraType) => {
+      playerCameraReference.lookAt(playerCameraActiveLookAt);
+    },
+    [playerCameraActiveLookAt],
+  );
+
+  const updatePlayerCameraPosition = useCallback(
+    (playerCameraReference: PerspectiveCameraType, delta: number) => {
+      if (!playerCameraReference.position.equals(playerCameraActivePosition)) {
+        DampVector3(
+          playerCameraReference.position,
+          playerCameraActivePosition,
+          1,
+          delta,
+        );
+      }
+    },
+    [playerCameraActivePosition],
+  );
+
+  const updatePlayerCameraFov = useCallback(
+    (playerCameraReference: PerspectiveCameraType, delta: number) => {
+      if (playerCameraReference.fov !== playerCameraActiveFov.x)
+        playerCameraReference.fov = playerCameraActiveFov.x;
+    },
+    [playerCameraActiveFov],
+  );
+
+  useFrame((state, delta) => {
+    if (playerCameraRef.current) {
+      updatePlayerCameraLookAt(playerCameraRef.current);
+      updatePlayerCameraFov(playerCameraRef.current, delta);
+      updatePlayerCameraPosition(playerCameraRef.current, delta);
+      playerCameraRef.current.updateProjectionMatrix();
+    }
+  });
+
   return (
     <PerspectiveCamera
-      fov={43}
-      position={GATE_POSITION}
-      makeDefault={activeCamera === "PlayerCamera" ? true : false}
+      ref={playerCameraRef}
+      makeDefault={activeCamera === "PlayerCamera"}
     />
   );
 };
