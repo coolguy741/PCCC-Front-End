@@ -39,14 +39,14 @@ const Style = {
 
     h1 {
       font-weight: 600;
-      font-size: 4vh;
+      font-size: 3vh;
       color: var(--orange-500);
       display: flex;
       align-items: center;
 
       svg {
-        margin-right: 0.4vw;
-        height: 4vh;
+        margin-right: 0.5vw;
+        height: 2.5vh;
       }
     }
 
