@@ -46,7 +46,7 @@ const Style = {
       /* height: 62px; */
       width: 100%;
       display: flex;
-      margin-bottom: 25px;
+      margin-bottom: 40px;
 
       .tag {
         width: 50%;

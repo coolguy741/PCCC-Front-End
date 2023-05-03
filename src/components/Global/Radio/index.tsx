@@ -1,22 +1,22 @@
 /* eslint-disable prettier/prettier */
 import styled from "styled-components";
 
-export type CheckboxSize = "small" | "large";
-export type CheckboxColor = "primary" | "book";
+export type RadioSize = "small" | "large";
+export type RadioColor = "primary" | "book";
 
-export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  sizeOption?: CheckboxSize;
-  colorOption?: CheckboxColor;
+export type RadioProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  sizeOption?: RadioSize;
+  colorOption?: RadioColor;
 };
 
-export const Checkbox = ({
+export const Radio = ({
   sizeOption = "large",
   colorOption = "primary",
   ...props
-}: CheckboxProps) => {
+}: RadioProps) => {
   return (
     <Style.Input
-      type="checkbox"
+      type="radio"
       sizeOption={sizeOption}
       colorOption={colorOption}
       {...props}
@@ -25,7 +25,7 @@ export const Checkbox = ({
 };
 
 const Style = {
-  Input: styled.input<CheckboxProps>`
+  Input: styled.input<RadioProps>`
     width: 24px;
     height: 24px;
     padding: 2px;
@@ -33,7 +33,7 @@ const Style = {
     scale: ${({ sizeOption }) => (sizeOption === "small" ? "1" : "1.6666")};
     transform-origin: left center;
 
-    &[type="checkbox"] {
+    &[type="radio"] {
       -webkit-appearance: none;
       appearance: none;
       background-color: #fff;

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ResetPasswordForm } from "../../../components/Auth/ResetPasswordForm";
-import { ArrowLeft } from "../../../components/Icons";
+import { BackButton } from "../../../components/Global/BackButton";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 
 export const ResetPasswordPage = () => {
@@ -9,8 +9,7 @@ export const ResetPasswordPage = () => {
   return (
     <AuthLayout>
       <span className="auth-breadcrumb">
-        <ArrowLeft />
-        Back
+        <BackButton />
       </span>
       <ResetPasswordForm />
     </AuthLayout>
