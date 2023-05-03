@@ -25,7 +25,7 @@ const Style = {
     max-height: 100vh;
 
     .content {
-      overflow-y: hidden;
+      overflow: visible;
       margin-right: -24px;
       padding-right: 24px;
     }
