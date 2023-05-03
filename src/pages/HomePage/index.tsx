@@ -15,8 +15,11 @@ import { PowerFullKidsTile } from "./PowerFullKidsTile";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import { useUserStore } from "../../stores/userStore";
 
 export const HomePage = () => {
+  const user = useUserStore((state) => state.user);
+
   return (
     <Style.PageContainer>
       <Swiper
@@ -51,9 +54,11 @@ export const HomePage = () => {
         <SwiperSlide>
           <MealtimeMomentsTile />
         </SwiperSlide>
-        <SwiperSlide>
-          <MealPlannerTile />
-        </SwiperSlide>
+        {!!user && (
+          <SwiperSlide>
+            <MealPlannerTile />
+          </SwiperSlide>
+        )}
         <SwiperSlide>
           <FooterTile />
         </SwiperSlide>

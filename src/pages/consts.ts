@@ -1,11 +1,14 @@
+import { Menu } from "./types";
+
 export const STORAGE_KEY_PREFIX = "PCCC_";
 export const STORAGE_KEY_JWT = STORAGE_KEY_PREFIX + "TOKEN";
-export const MENUS = [
+export const MENUS: Menu[] = [
   { label: "Home", to: "/dashboard", icon: "home" },
-  { label: "Accounts", to: "accounts", icon: "user" },
+  { label: "Accounts", to: "accounts", icon: "user", auth: true },
   {
     label: "User Tools",
     to: "user-tools",
+    auth: true,
     icon: "tool",
     subMenus: [
       { label: "Calendar", to: "calendar", icon: "calendar" },
@@ -16,8 +19,9 @@ export const MENUS = [
     label: "Content Builder",
     icon: "content-builder",
     to: "content-builder",
+
     subMenus: [
-      { label: "Topics", to: "topics", icon: "topic" },
+      { label: "Topics", to: "topics", icon: "topic", auth: true },
       { label: "Activities", to: "activities", icon: "activities" },
       { label: "Recipes", to: "recipes", icon: "recipe" },
       {
@@ -30,5 +34,5 @@ export const MENUS = [
   },
   { label: "Games", to: "games", icon: "game" },
   { label: "Reports", to: "reports", icon: "reports" },
-  { label: "Cloud drive", to: "cloud-drive", icon: "cloud" },
+  { label: "Cloud drive", to: "cloud-drive", icon: "cloud", auth: true },
 ];

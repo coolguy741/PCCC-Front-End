@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -65,7 +66,12 @@ export const SignInForm = () => {
   }
 
   return (
-    <Container>
+    <Container
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <form onSubmit={handleSubmit(submitHandler)}>
         <h1>Log in</h1>
         <fieldset>
@@ -136,7 +142,7 @@ export const SignInForm = () => {
   );
 };
 
-const Container = styled.main`
+const Container = styled(motion.main)`
   ${glassBackground}
   width: 500px;
 

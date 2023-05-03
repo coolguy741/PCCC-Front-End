@@ -216,7 +216,7 @@ export const SignUpForm = () => {
                   max: "31",
                   validate: (value, { year, month, date }) =>
                     parseInt(value.toString()) ===
-                    new Date(`${year}-${month}-${date}`).getDate(),
+                    new Date(`${year}-${month}-${date} 00:00:00.000`).getDate(),
                 }}
                 control={control}
                 render={({ field }) => (

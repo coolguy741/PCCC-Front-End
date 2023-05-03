@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
@@ -6,11 +7,15 @@ interface Props {
 }
 
 export function AuthLayout({ children }: Props) {
-  return <Style.Container>{children}</Style.Container>;
+  return (
+    <Style.Container layout layoutRoot>
+      {children}
+    </Style.Container>
+  );
 }
 
 const Style = {
-  Container: styled.div`
+  Container: styled(motion.div)`
     width: 100%;
     height: 100%;
     display: grid;

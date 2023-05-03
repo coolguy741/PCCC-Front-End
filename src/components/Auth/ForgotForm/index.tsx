@@ -90,7 +90,12 @@ export const ForgotForm = () => {
   }, []);
 
   return (
-    <Style.Container>
+    <Style.Container
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      layout
+    >
       <h1>{title}</h1>
       <p>{subtitle}</p>
       <form onSubmit={handleSubmit(submitHandler)}>
