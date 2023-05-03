@@ -85,11 +85,15 @@ const Style = {
     }
 
     .user-info-content {
-      width: 100%;
+      width: 80%;
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
       justify-content: flex-end;
+      max-height: 50%;
+      p {
+        width: 50%;
+      }
     }
 
     figure {
