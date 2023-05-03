@@ -32,6 +32,12 @@ export const useUserStore = create<{
   setSecondQuestionAnswer: (answer: string) => void;
   thirdQuestionAnswer: string;
   setThirdQuestionAnswer: (answer: string) => void;
+  firstQuestionId: string;
+  setFirstQuestionId: (answer: string) => void;
+  secondQuestionId: string;
+  setSecondQuestionId: (answer: string) => void;
+  thirdQuestionId: string;
+  setThirdQuestionId: (answer: string) => void;
 }>()((set) => ({
   /** Our User/session object, null if not logged in */
   user: null,
@@ -58,6 +64,12 @@ export const useUserStore = create<{
   thirdQuestionAnswer: "",
   setThirdQuestionAnswer: (answer: string) =>
     set({ thirdQuestionAnswer: answer }),
+  firstQuestionId: "",
+  setFirstQuestionId: (id: string) => set({ firstQuestionId: id }),
+  secondQuestionId: "",
+  setSecondQuestionId: (id: string) => set({ secondQuestionId: id }),
+  thirdQuestionId: "",
+  setThirdQuestionId: (id: string) => set({ thirdQuestionId: id }),
 }));
 
 // Imperative getter/setter/computed-value functions

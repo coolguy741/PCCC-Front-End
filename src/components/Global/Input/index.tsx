@@ -1,21 +1,24 @@
+import { forwardRef, Ref } from "react";
 import styled from "styled-components";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ width, height, ...props }: InputProps) => {
-  return <Style.Input width={width} height={height} {...props} />;
-};
+export const Input = forwardRef(
+  ({ width, height, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
+    return <Style.Input ref={ref} width={width} height={height} {...props} />;
+  },
+);
 
 const Style = {
   Input: styled.input<InputProps>`
     width: ${({ width }) => (width ? width : "100%")};
     height: ${({ height }) => (height ? height : "100%")};
     background: var(--white);
-    box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 5px 15px;
-    border: 2px solid white;
-    transition: box-shadow 0.3s ease-out, border 0.3s ease-in;
+    border: 1px solid white;
+    transition: box-shadow 0.3s ease-out, border-color 0.3s ease-in;
     font-size: 16px;
     line-height: 24px;
     color: #1d2433;
@@ -23,7 +26,7 @@ const Style = {
 
     &:focus {
       border: 2px solid var(--blue-500);
-      box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1),
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1),
         0px 0px 0px 4px rgba(31, 81, 229, 0.08);
     }
 
@@ -40,7 +43,21 @@ const Style = {
     &:disabled {
       background: var(--neutral-100);
       border: 1px solid #e1e6ef;
-      box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    &.has-error {
+      border-color: var(--red-300);
+      padding: 6px 16px;
+      border-width: 1px;
+      outline-color: transparent;
+
+      &:focus,
+      &:active {
+        padding: 5px 15px;
+        border-color: var(--red-500);
+        border-width: 2px;
+      }
     }
 
     &[type="radio"] {
@@ -52,6 +69,7 @@ const Style = {
       width: 20px;
       height: 20px;
       border-radius: 4px;
+      border: 3px solid var(--blue-300);
       position: relative;
       display: grid;
       place-items: center;

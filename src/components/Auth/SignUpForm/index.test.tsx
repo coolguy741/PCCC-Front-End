@@ -52,7 +52,7 @@ describe("SignUpForm", async () => {
     expect(screen.getByText("Sign Up")).toBeTruthy();
     expect(screen.getByTestId("year")).toBeTruthy();
     expect(screen.getByTestId("month")).toBeTruthy();
-    expect(screen.getByTestId("day")).toBeTruthy();
+    expect(screen.getByTestId("date")).toBeTruthy();
     expect(screen.getByTestId("province")).toBeTruthy();
     expect(screen.getByTestId("submit")).toBeTruthy();
   });

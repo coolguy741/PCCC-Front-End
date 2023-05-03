@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
+
 import { useSignUpStore } from "../../../stores/signUpStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
@@ -8,22 +10,39 @@ import { Input } from "../../Global/Input";
 import { ArrowRight } from "../../Icons";
 
 export const RoleGate = () => {
-  const [_schoolId, _setSchoolId] = useState("");
-  const [_schoolName, _setSchoolName] = useState("");
-  const setIsCoordinator = useSignUpStore((state) => state.setIsCoordinator);
-  const isCoordinator = useSignUpStore((state) => state.isCoordinator);
-  const changeStep = useSignUpStore((state) => state.changeStep);
-  const setSchoolId = useSignUpStore((state) => state.setSchoolId);
-  const setSchoolName = useSignUpStore((state) => state.setSchoolName);
+  const {
+    setIsCoordinator,
+    changeStep,
+    setSchoolIdCode,
+    isCoordinator,
+    schoolIdCode,
+    schoolName,
+    setSchoolName,
+  } = useSignUpStore();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      schoolIdCode,
+      schoolName,
+      role: isCoordinator,
+    },
+  });
 
   const [height, setHeight] = useState("368px");
 
-  const submitHandler = (event: FormEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    if (_schoolId) setSchoolId(_schoolId);
-    if (_schoolName) setSchoolName(_schoolName);
-
+  const submitHandler = ({
+    schoolIdCode,
+    schoolName,
+  }: {
+    schoolIdCode: string;
+    schoolName: string;
+  }) => {
+    schoolIdCode && setSchoolIdCode(schoolIdCode);
+    schoolName && setSchoolName(schoolName);
     changeStep(2);
   };
 
@@ -57,31 +76,40 @@ export const RoleGate = () => {
         Are you a teacher or food coordinator who is part of of a school
         currently running a power full kids program
       </p>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <div className="radio-buttons">
           <fieldset>
-            {" "}
-            <Input
-              type="radio"
-              checked={isCoordinator === true}
-              onChange={() => changeCoordinator(true)}
-              required
+            <Controller
               name="role"
-              id="yes"
-              value="yes"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  type="radio"
+                  id="yes"
+                  {...field}
+                  checked={!!isCoordinator}
+                  onChange={() => changeCoordinator(true)}
+                  value="yes"
+                />
+              )}
             />
             <label htmlFor="yes">Yes</label>
           </fieldset>
 
           <fieldset>
-            <Input
-              type="radio"
-              checked={isCoordinator === false}
-              onChange={() => changeCoordinator(false)}
-              required
+            <Controller
               name="role"
-              id="no"
-              value="no"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  type="radio"
+                  id="no"
+                  {...field}
+                  checked={isCoordinator !== null && !isCoordinator}
+                  onChange={() => changeCoordinator(false)}
+                  value="no"
+                />
+              )}
             />
             <label htmlFor="no">No</label>
           </fieldset>
@@ -91,19 +119,37 @@ export const RoleGate = () => {
             <p className="school-id">Please enter your School ID Code</p>
 
             <div className="rc-split">
-              <Input
-                type="text"
-                onChange={(e) => _setSchoolId(e.target.value)}
-                value={_schoolId}
-                data-testid="school-id"
-                placeholder="1234"
+              <Controller
+                name="schoolIdCode"
+                control={control}
+                rules={{
+                  required: !!isCoordinator,
+                }}
+                render={({ field }) => (
+                  <Input
+                    placeholder="1234"
+                    data-testid="school-id"
+                    type="text"
+                    className={errors.schoolIdCode ? "has-error" : ""}
+                    {...field}
+                  />
+                )}
               />
-              <Input
-                type="text"
-                onChange={(e) => _setSchoolName(e.target.value)}
-                value={_schoolName}
-                data-testid="school-name"
-                placeholder="Enter Name Here"
+              <Controller
+                name="schoolName"
+                control={control}
+                rules={{
+                  required: !!isCoordinator,
+                }}
+                render={({ field }) => (
+                  <Input
+                    placeholder="School Name Here"
+                    data-testid="school-name"
+                    type="text"
+                    className={errors.schoolName ? "has-error" : ""}
+                    {...field}
+                  />
+                )}
               />
             </div>
             <p className="forgot-code" onClick={() => changeStep(4)}>
@@ -112,7 +158,13 @@ export const RoleGate = () => {
           </section>
         )}
         {typeof isCoordinator === "boolean" && (
-          <Button size="small" fullWidth type="submit" data-testid="submit">
+          <Button
+            size="small"
+            fullWidth
+            type="submit"
+            data-testid="submit"
+            className="btn-submit"
+          >
             Continue to the next step
             <ArrowRight width="15" />
           </Button>

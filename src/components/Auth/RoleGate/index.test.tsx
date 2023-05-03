@@ -48,7 +48,7 @@ describe("Role gate", async () => {
 
     expect(submit).toBeTruthy();
 
-    act(() => {
+    await act(() => {
       userEvent.click(submit);
     });
 
@@ -89,13 +89,13 @@ describe("Role gate", async () => {
     });
     expect(schoolId).toHaveValue(schoolIdValue);
     expect(schoolName).toHaveValue(schoolNameValue);
-    act(() => {
+    await act(() => {
       userEvent.click(submit);
     });
 
     const {
       currentStep,
-      schoolId: schoolIdInStore,
+      schoolIdCode: schoolIdInStore,
       schoolName: schoolNameInStore,
     } = useSignUpStore.getState();
 
