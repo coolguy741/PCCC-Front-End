@@ -12,3 +12,18 @@ export interface Grocery {
   id: number;
   materials: Material[];
 }
+
+export interface MenuItem {
+  label: string;
+  to: string;
+  icon: string;
+  auth?: boolean;
+}
+
+export interface Menu {
+  label: string;
+  to: string;
+  icon: string;
+  auth?: boolean;
+  subMenus?: MenuItem[];
+}

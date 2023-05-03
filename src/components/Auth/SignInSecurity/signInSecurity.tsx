@@ -51,6 +51,7 @@ export const SignInSecurity = () => {
   return (
     <Style.Container
       onSubmit={handleSubmit(submitHandler)}
+      layout
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

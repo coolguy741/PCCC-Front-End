@@ -14,7 +14,7 @@ type MenuState = {
 
 export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
   const [cookies, setCookie, removeCookie] = useCookies(["PCCC_TOKEN"]);
-  const [setUser] = useUserStore((state) => [state.setUser]);
+  const { setUser, user } = useUserStore();
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState({
@@ -64,60 +64,68 @@ export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
         </Link>
       </div>
       <div className="item-container">
-        {MENUS.map((menu) => (
-          <Style.MenuItem key={`menu-${menu.to}`}>
-            {menu.subMenus ? (
-              <>
-                <Style.SubMenuItem
-                  className="menu-item"
-                  open={menuOpen[menu.to as keyof MenuState]}
-                  onClick={() => handleMenuClick(menu.to)}
-                >
-                  <img
-                    src={`/images/icons/${menu.icon}.svg`}
-                    className="menu-icon"
-                    alt={menu.label}
-                  />
-                  <div className="menu-content">{menu.label}</div>
-                  <img
-                    src="/images/icons/arrow-up.svg"
-                    className="arrow"
-                    alt={menu.label}
-                  />
-                </Style.SubMenuItem>
-                <Style.DropDown
-                  open={menuOpen[menu.to as keyof MenuState]}
-                  count={menu.subMenus.length}
-                  className="drop-down"
-                >
-                  {menu.subMenus.map((subMenu) => (
-                    <Link
-                      to={subMenu.to}
+        {MENUS.map(
+          (menu) =>
+            (!menu.auth || (menu.auth && !!user)) && (
+              <Style.MenuItem key={`menu-${menu.to}`}>
+                {menu.subMenus ? (
+                  <>
+                    <Style.SubMenuItem
                       className="menu-item"
-                      key={subMenu.label}
+                      open={menuOpen[menu.to as keyof MenuState]}
+                      onClick={() => handleMenuClick(menu.to)}
                     >
                       <img
-                        src={`/images/icons/${subMenu.icon}.svg`}
-                        alt={subMenu.label}
+                        src={`/images/icons/${menu.icon}.svg`}
                         className="menu-icon"
+                        alt={menu.label}
                       />
-                      <div className="menu-content">{subMenu.label}</div>
-                    </Link>
-                  ))}
-                </Style.DropDown>
-              </>
-            ) : (
-              <Link to={menu.to} className="menu-item" key={menu.label}>
-                <img
-                  src={`/images/icons/${menu.icon}.svg`}
-                  className="menu-icon"
-                  alt={menu.label}
-                />
-                <div className="menu-content">{menu.label}</div>
-              </Link>
-            )}
-          </Style.MenuItem>
-        ))}
+                      <div className="menu-content">{menu.label}</div>
+                      <img
+                        src="/images/icons/arrow-up.svg"
+                        className="arrow"
+                        alt={menu.label}
+                      />
+                    </Style.SubMenuItem>
+                    <Style.DropDown
+                      open={menuOpen[menu.to as keyof MenuState]}
+                      count={menu.subMenus.length}
+                      className="drop-down"
+                    >
+                      {menu.subMenus.map(
+                        (subMenu) =>
+                          (!subMenu.auth || (subMenu.auth && !!user)) && (
+                            <Link
+                              to={subMenu.to}
+                              className="menu-item"
+                              key={subMenu.label}
+                            >
+                              <img
+                                src={`/images/icons/${subMenu.icon}.svg`}
+                                alt={subMenu.label}
+                                className="menu-icon"
+                              />
+                              <div className="menu-content">
+                                {subMenu.label}
+                              </div>
+                            </Link>
+                          ),
+                      )}
+                    </Style.DropDown>
+                  </>
+                ) : (
+                  <Link to={menu.to} className="menu-item" key={menu.label}>
+                    <img
+                      src={`/images/icons/${menu.icon}.svg`}
+                      className="menu-icon"
+                      alt={menu.label}
+                    />
+                    <div className="menu-content">{menu.label}</div>
+                  </Link>
+                )}
+              </Style.MenuItem>
+            ),
+        )}
       </div>
       <Button
         variant="orange"
@@ -323,6 +331,16 @@ const Style = {
       margin-bottom: auto;
       overflow-y: auto;
       flex-direction: column;
+      &::-webkit-scrollbar-thumb {
+        display: none;
+      }
+    }
+    &:hover {
+      .item-container {
+        &::-webkit-scrollbar-thumb {
+          display: block;
+        }
+      }
     }
   `,
 };

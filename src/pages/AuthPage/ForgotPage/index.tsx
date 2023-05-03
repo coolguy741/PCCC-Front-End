@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ForgotForm } from "../../../components/Auth/ForgotForm";
 import { ResetPasswordForm } from "../../../components/Auth/ResetPasswordForm";
@@ -9,14 +8,14 @@ import { useSignInStore } from "../../../stores/signInStore";
 import { rightSideAnimationProps } from "../../../styles/animations/auth";
 
 const FORGOT_VIEW_ARR = [
-  <ForgotForm />,
-  <SignInSecurity />,
+  <ForgotForm key="forgot" />,
+  <SignInSecurity key="security" />,
   <ResetPasswordForm />,
 ];
 
 const FORGOT_BG_ARR = [
-  <OrangeBG key="login" {...rightSideAnimationProps} />,
-  <AppleBG />,
+  <OrangeBG key="login" layout {...rightSideAnimationProps} />,
+  <AppleBG key="forgot" layout />,
   <OrangeBG />,
 ];
 
@@ -41,11 +40,7 @@ export const ForgotPasswordPage = () => {
       </span>
       {FORGOT_VIEW_ARR[currentStep]}
 
-      <div className="auth-image">
-        <AnimatePresence mode="wait" initial={false}>
-          {FORGOT_BG_ARR[currentStep]}
-        </AnimatePresence>
-      </div>
+      <div className="auth-image">{FORGOT_BG_ARR[currentStep]}</div>
     </AuthLayout>
   );
 };

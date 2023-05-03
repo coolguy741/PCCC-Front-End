@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SignInForm } from "../../../components/Auth/SignInForm";
 import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
@@ -30,14 +29,10 @@ export const SignInPage = () => {
         <ArrowLeft />
         Back
       </span>
-      <AnimatePresence mode="wait" initial={false}>
-        <SignInForm key="login" />
-      </AnimatePresence>
+      <SignInForm key="login" />
 
       <div className="auth-image">
-        <AnimatePresence mode="wait" initial={false}>
-          <OrangeBG key="login" {...rightSideAnimationProps} />
-        </AnimatePresence>
+        <OrangeBG key="login" layout {...rightSideAnimationProps} />
       </div>
     </AuthLayout>
   );

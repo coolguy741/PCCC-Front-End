@@ -57,7 +57,13 @@ export const ResetPasswordForm = () => {
   };
 
   return (
-    <Style.Container onSubmit={handleSubmit(submitHandler)}>
+    <Style.Container
+      onSubmit={handleSubmit(submitHandler)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      layout
+    >
       <h1>Password Reset</h1>
       <fieldset>
         <label htmlFor="new-password">New Password</label>
