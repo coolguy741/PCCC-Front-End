@@ -1,3 +1,4 @@
+import Account from "./Account/account";
 import AltGrapeBG from "./AltGrapeBG/altGrapeBG";
 import AppleBG from "./AppleBG/appleBG";
 import ArrowLeft from "./ArrowLeft/arrowLeft";
@@ -28,4 +29,5 @@ export {
   DirectionRight,
   AltGrapeBG,
   Search,
+  Account,
 };

@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { AchievementsModal } from "../../../../components/Accounts/AchievementsModal";
 import { GroupsModal } from "../../../../components/Accounts/GroupsModal";
-import { AltGrapeBG, ArrowLeft } from "../../../../components/Icons";
+import { AltGrapeBG } from "../../../../components/Icons";
 import { useAPI } from "../../../../hooks/useAPI";
 import { useUserStore } from "../../../../stores/userStore";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
@@ -82,10 +82,10 @@ export const AccountsUserProfilePage = () => {
   return (
     <Style.Container>
       <article className="account-content-header">
-        <span className="breadcrumb">
+        {/* <span className="breadcrumb">
           <ArrowLeft />
           Back
-        </span>
+        </span> */}
         <h2>Standard Profile</h2>
       </article>
       <section className="content-container">
@@ -151,7 +151,7 @@ const Style = {
     }
 
     .account-content-header {
-      height: 12.5%;
+      height: 10%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -201,7 +201,7 @@ const Style = {
       grid-template-rows: repeat(7, 1fr);
       grid-column-gap: 2%;
       grid-row-gap: 2%;
-      height: 87.5%;
+      height: 90%;
     }
 
     .user-info,

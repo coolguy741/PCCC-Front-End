@@ -143,7 +143,7 @@ const Style = {
     top: 0;
     width: calc((100% + 32px) - var(--dashboard-menu-width-medium));
     right: 0;
-    height: 10vh;
+    height: 9vh;
     padding: 2.5vh 32px 2.5vh 64px;
     display: flex;
     align-items: center;
