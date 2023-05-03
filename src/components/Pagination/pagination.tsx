@@ -17,7 +17,7 @@ const Style = {
   Container: styled.nav`
     width: 100%;
     height: auto;
-    padding-top: 24px;
+    padding-top: 2vh;
     margin-top: auto;
     display: flex;
     align-items: center;
@@ -25,27 +25,25 @@ const Style = {
 
     span {
       font-weight: 400;
-      font-size: 12px;
-      line-height: 14px;
+      font-size: 1.25vh;
       display: flex;
       align-items: center;
       text-align: center;
       color: var(--neutral-600);
-      margin: 0px 5px;
+      margin: 0 0.5vw;
     }
 
     p.pagination-p {
-      width: 30px;
-      height: 30px;
+      width: 4vh;
+      height: 4vh;
       border: 1px solid red;
       display: grid;
       place-items: center;
       border-radius: 50%;
-      margin: 0 10px;
+      margin: 0 0.5vw;
       color: var(--blue-500);
       border: 1px solid var(--blue-500);
-      font-size: 12px;
-      line-height: 14px;
+      font-size: 1.5vh;
 
       &.pagination-active {
         background: var(--blue-500);
