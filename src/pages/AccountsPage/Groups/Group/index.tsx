@@ -1,18 +1,17 @@
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Photo } from "../../../../components/Accounts/Photo";
 import Button from "../../../../components/Button";
-import { SmallButton } from "../../../../components/Global/SmallButton";
 import { useAPI } from "../../../../hooks/useAPI";
+import { formatDate } from "../../../../lib/util/formatDate";
 import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsGroupPage = () => {
   const [group, setGroup] = useState<any>(null);
   const navigate = useNavigate();
   const { api } = useAPI();
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
   const params = useParams();
 
   const handleBack = () => {
@@ -32,12 +31,10 @@ export const AccountsGroupPage = () => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
         },
       },
     );
-
-    console.log(response);
 
     if (response.data.items) {
       response.data.items.find((item: any) => {
@@ -57,20 +54,21 @@ export const AccountsGroupPage = () => {
     <Style.PageContainer>
       <div className="buttons-container">
         <Button onClick={handleBack}>Back</Button>
-        <Button onClick={handleEdit}>Edit</Button>
+        <Button onClick={handleViewGroupCalender}>View Group calendar</Button>
       </div>
       {group && (
         <>
           <div className="group-info-container">
             <div>
               <h2>{group.group.name}</h2>
-              <p className="text">{"Group ID : " + group.group.id}</p>
+              <span className="group-id">{"Group ID : " + group.group.id}</span>
+              <span className="modified">
+                {`Last modified: ${formatDate(
+                  group.group.lastModificationTime || group.group.creationTime,
+                )}`}
+              </span>
             </div>
-            <div>
-              <p>
-                {"Last modified: " + group.group.lastModificationTime ||
-                  group.group.creationTime}
-              </p>
+            {/* <div>
               <p>
                 {"Owner: " +
                   group.owner.username +
@@ -78,19 +76,7 @@ export const AccountsGroupPage = () => {
                   group.owner.role +
                   " ) "}
               </p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="sort-container">
-              <p>Sort: </p>
-              <select>
-                <option>A-Z</option>
-                <option>Z-A</option>
-              </select>
-            </div>
-            <SmallButton onClick={handleViewGroupCalender}>
-              View Group Calender
-            </SmallButton>
+            </div> */}
           </div>
           <div className="members-container">
             {group.group.members &&
@@ -144,6 +130,28 @@ const Style = {
     .group-info-container {
       display: flex;
       justify-content: space-between;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        h2 {
+          margin-bottom: 1rem;
+          color: var(--neutral-900);
+        }
+
+        .group-id {
+          font-weight: 500;
+          font-size: 1.1rem;
+          color: var(--neutral-600);
+        }
+
+        .modified {
+          font-size: 0.9rem;
+          color: var(--neutral-600);
+        }
+      }
     }
 
     .row {

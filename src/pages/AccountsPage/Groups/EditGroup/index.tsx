@@ -1,5 +1,5 @@
+import Cookies from "js-cookie";
 import { FormEvent, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
@@ -14,7 +14,6 @@ export const AccountsEditGroupPage = () => {
   const [groupName, setGroupName] = useState("");
   const navigate = useNavigate();
   const params = useParams();
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
   const { api } = useAPI();
 
   const handleBack = () => {
@@ -36,12 +35,10 @@ export const AccountsEditGroupPage = () => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
         },
       },
     );
-
-    console.log(response);
 
     if (response.data.items) {
       response.data.items.find((item: any) => {
@@ -68,12 +65,10 @@ export const AccountsEditGroupPage = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
           },
         },
       );
-
-      console.log(response);
     }
   };
 

@@ -1,31 +1,11 @@
 import styled from "styled-components";
-import { Input } from "../../../../components/Global/Input";
 import mockData from "../../../../lib/mockData/accounts/profileLessonAccessment.json";
 
 export const AccountsUserLessonAssessmentPrintPage = () => {
   return (
     <Style.PageContainer>
-      <p className="topic-text">Topic : {mockData.topic}</p>
+      <p>Topic : {mockData.topic}</p>
       <h2 className="title-text">{mockData.lesson}</h2>
-      <article className="print-graphic">
-        <figure />
-        <div className="print-questions">
-          {/* {mockData.questions.map((question, index) => (
-            <Question content={question} key={index} />
-          ))} */}
-          <h3>Question 4 of 20</h3>
-          <p className="print-question">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor?
-          </p>
-          <fieldset>
-            <Input type="radio" />
-            <Input type="radio" />
-            <Input type="radio" />
-            <Input type="radio" />
-          </fieldset>
-        </div>
-      </article>
     </Style.PageContainer>
   );
 };

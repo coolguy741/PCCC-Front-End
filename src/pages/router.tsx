@@ -3,6 +3,8 @@ import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
+import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
+import { getGroups } from "../lib/api/helpers/getGroups";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -154,6 +156,12 @@ export const router = createBrowserRouter([
           {
             path: "groups",
             element: <AccountsGroupsPage />,
+            loader: async () => {
+              const groups = await getGroups();
+              const invitations = await getGroupInvitations();
+
+              return { invitations, groups };
+            },
           },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },

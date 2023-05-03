@@ -3,8 +3,6 @@ import { useLocation } from "react-router-dom";
 export const usePathName = () => {
   const { pathname } = useLocation();
 
-  console.log(pathname);
-
   const isDashboard = pathname === "/dashboard" || pathname === "/dashboard/";
   const isAccounts = pathname.includes("accounts");
   const isReports = pathname.includes("reports");

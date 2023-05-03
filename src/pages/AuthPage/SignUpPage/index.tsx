@@ -5,13 +5,8 @@ import { EducatorRecovery } from "../../../components/Auth/EducatorRecovery";
 import { RoleGate } from "../../../components/Auth/RoleGate";
 import { SecurityQuestions } from "../../../components/Auth/SecurityQuestions";
 import { SignUpForm } from "../../../components/Auth/SignUpForm";
-import {
-  AppleBG,
-  ArrowLeft,
-  GrapeBG,
-  LemonBG,
-  OrangeBG,
-} from "../../../components/Icons";
+import { BackButton } from "../../../components/Global/BackButton";
+import { AppleBG, GrapeBG, LemonBG, OrangeBG } from "../../../components/Icons";
 import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { useSignUpStore } from "../../../stores/signUpStore";
 import {
@@ -54,9 +49,8 @@ export const SignUpPage = () => {
 
   return (
     <AuthLayout>
-      <span className="auth-breadcrumb" onClick={clickHandler}>
-        <ArrowLeft />
-        Back
+      <span className="auth-breadcrumb">
+        <BackButton onClick={clickHandler} />
       </span>
       <AnimatePresence mode="wait" initial={false}>
         {SIGN_UP_VIEW_ARR[currentStep]}

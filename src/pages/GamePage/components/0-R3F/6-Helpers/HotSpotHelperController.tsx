@@ -7,9 +7,9 @@ import {
   HOTSPOT_POSITION_HELPER_MATERIAL,
   HOTSPOT_ROUTE_GEO_DATA,
   HOTSPOT_ROUTE_HELPER_MATERIAL,
-} from "../4-Constants/0-Garden_Constants/GARDEN_DEBUG_DEFINES";
-import { HOTSPOT_LOOKAT_INSTANCE_DATA } from "../4-Constants/0-Garden_Constants/GARDEN_LOOKAT_POSITION";
-import { HOTSPOT_POSITION_INSTANCE_DATA } from "../4-Constants/0-Garden_Constants/GARDEN_POSITION";
+} from "../5-Constants/0-Garden/GARDEN_DEBUG_DEFINES";
+import { HOTSPOT_LOOKAT_INSTANCE_DATA } from "../5-Constants/0-Garden/GARDEN_LOOKAT_POSITION";
+import { HOTSPOT_POSITION_INSTANCE_DATA } from "../5-Constants/0-Garden/GARDEN_POSITION";
 
 const HotSpotHelperController: FC = () => {
   // HOOKS

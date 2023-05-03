@@ -3,28 +3,55 @@
   "topic": "garden guardian",
   "questions": [
     {
-      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
-      "inputType": "textarea",
-      "numberOfLines": 4
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "text"
     },
     {
       "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
-      "inputType": "radioBox",
-      "content": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing"
-      ]
+      "type": "true-false"
     },
     {
       "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
-      "inputType": "trueFalse"
+      "type": "multiple-selection",
+      "list": ["Lemon", "Lemon", "Lemon","Lemon"]
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "text"
     },
     {
       "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
-      "inputType": "textarea",
-      "numberOfLines": 1
+      "type": "true-false"
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "multiple-selection",
+      "list": ["Lemon", "Lemon", "Lemon","Lemon"]
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "text"
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "true-false"
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "multiple-selection",
+      "list": ["Lemon", "Lemon", "Lemon","Lemon"]
+    },{
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "text"
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "true-false"
+    },
+    {
+      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+      "type": "multiple-selection",
+      "list": ["Lemon", "Lemon", "Lemon","Lemon"]
     }
   ]
 }

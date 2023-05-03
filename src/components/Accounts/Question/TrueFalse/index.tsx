@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { Radio } from "../../../Global/Radio";
 
 export const TrueFalseQuestion = () => {
   const [selectedValue, setSelectedValue] = useState(true);
@@ -11,28 +12,22 @@ export const TrueFalseQuestion = () => {
 
   return (
     <Style.Container>
-      <fieldset>
-        <input
-          type="radio"
-          id="true"
-          name="options"
+      <Style.LabeledRadio>
+        <Radio
           value="true"
           checked={selectedValue === true}
           onChange={handleValueChange}
         />
         <label htmlFor="true">True</label>
-      </fieldset>
-      <fieldset>
-        <input
-          type="radio"
-          id="false"
-          name="options"
+      </Style.LabeledRadio>
+      <Style.LabeledRadio>
+        <Radio
           value="false"
           checked={selectedValue === false}
           onChange={handleValueChange}
         />
         <label htmlFor="false">False</label>
-      </fieldset>
+      </Style.LabeledRadio>
     </Style.Container>
   );
 };
@@ -40,9 +35,15 @@ export const TrueFalseQuestion = () => {
 const Style = {
   Container: styled.div`
     display: flex;
-
-    fieldset {
-      margin-right: 20px;
-    }
+    flex-direction: column;
+    gap: 32px;
+  `,
+  LabeledRadio: styled.div`
+    display: flex;
+    gap: 32px;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 24px;
+    color: var(--neutral-700);
   `,
 };

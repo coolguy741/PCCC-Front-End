@@ -22,22 +22,9 @@ const Style = {
     z-index: 0;
 
     .auth-breadcrumb {
-      font-family: "Noir Std";
       position: absolute;
       left: 32px;
       top: 162px;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 24px;
-      color: var(--neutral-500);
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-
-      svg {
-        margin-right: 15px;
-      }
     }
 
     p {

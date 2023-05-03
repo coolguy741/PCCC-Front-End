@@ -36,7 +36,7 @@ describe("ResetPasswordForm", async () => {
       })) as Mock,
     );
 
-    act(() => {
+    await act(() => {
       userEvent.type(newPasswordInput, `{backspace}${password}`);
       userEvent.type(passwordInput, `{backspace}${password}`);
       userEvent.click(submit);

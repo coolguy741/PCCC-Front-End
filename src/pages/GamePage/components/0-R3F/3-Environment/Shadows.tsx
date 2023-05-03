@@ -8,7 +8,7 @@ const Shadows: FC = () => {
       softShadows: folder({
         enableSS: true,
         samples: 16,
-        focus: 0.25,
+        focus: 0,
         size: 20,
       }),
       bakeShadows: folder({

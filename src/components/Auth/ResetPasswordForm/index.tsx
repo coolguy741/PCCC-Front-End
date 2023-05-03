@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
+
 import { useAPI } from "../../../hooks/useAPI";
 import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
@@ -10,23 +12,34 @@ import { Input } from "../../Global/Input";
 export const ResetPasswordForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const usernameForSecurityQuestions = useUserStore(
-    (state) => state.usernameForSecurityQuestions,
-  );
-  const firstQuestionAnswer = useUserStore(
-    (state) => state.firstQuestionAnswer,
-  );
-  const secondQuestionAnswer = useUserStore(
-    (state) => state.secondQuestionAnswer,
-  );
-  const thirdQuestionAnswer = useUserStore(
-    (state) => state.thirdQuestionAnswer,
-  );
+  const {
+    usernameForSecurityQuestions,
+    firstQuestionAnswer,
+    secondQuestionAnswer,
+    thirdQuestionAnswer,
+  } = useUserStore();
+
+  const {
+    control,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
   const { api } = useAPI();
 
-  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const submitHandler = async ({
+    password,
+    confirmPassword,
+  }: {
+    password: string;
+    confirmPassword: string;
+  }) => {
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
@@ -44,28 +57,46 @@ export const ResetPasswordForm = () => {
   };
 
   return (
-    <Style.Container onSubmit={submitHandler}>
+    <Style.Container onSubmit={handleSubmit(submitHandler)}>
       <h1>Password Reset</h1>
       <fieldset>
         <label htmlFor="new-password">New Password</label>
-        <Input
-          type="password"
-          width="55%"
-          id="new-password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          required
+        <Controller
+          name="password"
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field }) => (
+            <Input
+              width="55%"
+              type="password"
+              id="new-password"
+              data-testid="password"
+              className={errors.password ? "has-error" : ""}
+              {...field}
+            />
+          )}
         />
       </fieldset>
       <fieldset>
         <label htmlFor="password">Retype Password</label>
-        <Input
-          type="password"
-          width="55%"
-          id="password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          value={confirmPassword}
-          required
+        <Controller
+          name="confirmPassword"
+          control={control}
+          rules={{
+            required: true,
+            validate: (value: string) => watch("password") === value,
+          }}
+          render={({ field }) => (
+            <Input
+              width="55%"
+              type="password"
+              id="password"
+              className={errors.confirmPassword ? "has-error" : ""}
+              {...field}
+            />
+          )}
         />
       </fieldset>
       <Button type="submit" fullWidth data-testid="submit">

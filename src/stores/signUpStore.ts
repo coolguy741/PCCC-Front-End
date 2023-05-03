@@ -9,6 +9,10 @@ interface State {
   setProvince: (province: string) => void;
   birthYear: number | undefined;
   setBirthYear: (birthYear: number) => void;
+  birthMonth: number | undefined;
+  setBirthMonth: (birthMonth: number) => void;
+  birthDate: number | undefined;
+  setBirthDate: (birthDate: number) => void;
   email: string;
   setEmail: (email: string) => void;
   name: string;
@@ -17,12 +21,12 @@ interface State {
   setTitle: (title: string) => void;
   schoolIdCode: string;
   setSchoolIdCode: (schoolIdCode: string) => void;
-  firstUserName: string;
-  setFirstUserName: (firstUserName: string) => void;
-  secondUserName: string;
-  setSecondUserName: (secondUserName: string) => void;
-  thirdUserName: string;
-  setThirdUserName: (thirdUserName: string) => void;
+  firstUsername: string;
+  setFirstUsername: (firstUsername: string) => void;
+  secondUsername: string;
+  setSecondUsername: (secondUsername: string) => void;
+  thirdUsername: string;
+  setThirdUsername: (thirdUsername: string) => void;
   isCoordinator: boolean | null;
   setIsCoordinator: (isCoordinator: boolean | null) => void;
   schoolId: string;
@@ -44,6 +48,12 @@ export const useSignUpStore = create<State>()((set) => ({
   birthYear: undefined,
   setBirthYear: (birthYear) => set(() => ({ birthYear: birthYear })),
 
+  birthMonth: undefined,
+  setBirthMonth: (birthMonth) => set(() => ({ birthMonth: birthMonth })),
+
+  birthDate: undefined,
+  setBirthDate: (birthDate) => set(() => ({ birthDate: birthDate })),
+
   email: "",
   setEmail: (email) => set(() => ({ email: email })),
 
@@ -57,17 +67,17 @@ export const useSignUpStore = create<State>()((set) => ({
   setSchoolIdCode: (schoolIdCode) =>
     set(() => ({ schoolIdCode: schoolIdCode })),
 
-  firstUserName: "",
-  setFirstUserName: (firstUserName) =>
-    set(() => ({ firstUserName: firstUserName })),
+  firstUsername: "",
+  setFirstUsername: (firstUsername) =>
+    set(() => ({ firstUsername: firstUsername })),
 
-  secondUserName: "",
-  setSecondUserName: (secondUserName) =>
-    set(() => ({ secondUserName: secondUserName })),
+  secondUsername: "",
+  setSecondUsername: (secondUsername) =>
+    set(() => ({ secondUsername: secondUsername })),
 
-  thirdUserName: "",
-  setThirdUserName: (thirdUserName) =>
-    set(() => ({ thirdUserName: thirdUserName })),
+  thirdUsername: "",
+  setThirdUsername: (thirdUsername) =>
+    set(() => ({ thirdUsername: thirdUsername })),
 
   isCoordinator: null,
   setIsCoordinator: (isCoordinator) =>

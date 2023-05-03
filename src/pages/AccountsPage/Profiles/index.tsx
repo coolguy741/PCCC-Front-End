@@ -91,6 +91,7 @@ const Style = {
     .filters-container {
       display: flex;
       padding-bottom: 40px;
+      padding-top: 5px;
     }
 
     .users {

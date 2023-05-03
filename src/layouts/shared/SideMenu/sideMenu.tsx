@@ -1,10 +1,10 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { usePathName } from "../../../hooks/usePathName";
-import { MENUS } from "../../../pages/consts";
+import { MENUS, STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
 
 type MenuState = {
@@ -13,7 +13,6 @@ type MenuState = {
 };
 
 export function SideMenu() {
-  const [cookies, setCookie, removeCookie] = useCookies(["PCCC_TOKEN"]);
   const [setUser] = useUserStore((state) => [state.setUser]);
 
   const [menuOpen, setMenuOpen] = useState({
@@ -46,7 +45,7 @@ export function SideMenu() {
   };
 
   const logoutHandler = () => {
-    removeCookie("PCCC_TOKEN");
+    Cookies.remove(STORAGE_KEY_JWT);
     setUser(null);
   };
 
