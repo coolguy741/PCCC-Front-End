@@ -62,7 +62,7 @@ export const AccountsGroupsPage = () => {
         <div className="groups-container">
           {groups.map((group, index) => (
             <div className="group-card-container" key={index}>
-              <GroupCard data={group} />
+              <GroupCard data={group} invitations={invitations} />
             </div>
           ))}
         </div>
@@ -78,6 +78,8 @@ export const AccountsGroupsPage = () => {
                     key={index}
                     groupName={invitation.groupName}
                     userName={invitation.userName}
+                    groupUserId={invitation.groupUserId}
+                    userRole={invitation.userRole}
                   />
                 );
               })}
@@ -136,17 +138,16 @@ const Style = {
 
     .row {
       display: flex;
+      gap: 20px;
 
       .groups-container {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        margin: 0px;
-        padding: 0px;
 
         .group-card-container {
-          width: 45%;
+          width: 100%;
 
           a {
             &:hover,
@@ -167,6 +168,7 @@ const Style = {
         border-radius: 16px;
         max-height: 50vh;
         padding-top: 1rem;
+        position: sticky;
 
         .title-text {
           font-size: 1.2rem;

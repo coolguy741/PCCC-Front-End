@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface PhotoProps {
   src: string;
-  role: string;
+  role: string | undefined | null;
   alt?: string;
   width?: string;
 }
