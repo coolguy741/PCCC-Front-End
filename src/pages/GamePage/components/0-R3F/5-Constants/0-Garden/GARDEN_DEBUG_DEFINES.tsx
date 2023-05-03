@@ -45,8 +45,8 @@ const HOTSPOT_HELPER_GEO = new SphereGeometry(
   Math.PI,
 );
 
-const HOTSPOT_POSITION_HELPER_MATERIAL = new MeshStandardMaterial({
-  color: "green",
+const HOTSPOT_ROUTE_HELPER_MATERIAL = new MeshStandardMaterial({
+  color: "red",
   side: DoubleSide,
 });
 
@@ -55,8 +55,8 @@ const HOTSPOT_LOOKAT_HELPER_MATERIAL = new MeshStandardMaterial({
   side: DoubleSide,
 });
 
-const HOTSPOT_ROUTE_HELPER_MATERIAL = new MeshStandardMaterial({
-  color: "red",
+const HOTSPOT_POSITION_HELPER_MATERIAL = new MeshStandardMaterial({
+  color: "green",
   side: DoubleSide,
 });
 
