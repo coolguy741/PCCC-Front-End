@@ -17,10 +17,12 @@ interface QuestionProps {
 export const Question = ({ pattern, content, order, count }: QuestionProps) => {
   return (
     <Style.Container>
-      <Style.Image
-        src={"/images/testQuestionPatterns/" + pattern + ".svg"}
-        alt={pattern + "-pattern"}
-      />
+      <Style.ImageContainer>
+        <img
+          src={"/images/testQuestionPatterns/" + pattern + ".svg"}
+          alt={pattern + "-pattern"}
+        />
+      </Style.ImageContainer>
       <Style.ContentContainer>
         <Style.Content>
           <Style.Order>{"Question " + order + " of " + count}</Style.Order>
@@ -49,12 +51,23 @@ const Style = {
     overflow: hidden;
     font-family: "Noir Std";
     font-style: normal;
+    filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
+    backdrop-filter: blur(59.2764px);
   `,
-  Image: styled.img``,
+  ImageContainer: styled.div`
+    height: 100%;
+    width: 35%;
+    overflow: hidden;
+    img {
+      min-width: 100%;
+      min-height: 100%;
+    }
+  `,
   ContentContainer: styled.div`
     background: rgba(255, 255, 255, 0.5);
     border-radius: 0px 32px 32px 0px;
     height: 100%;
+    width: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
