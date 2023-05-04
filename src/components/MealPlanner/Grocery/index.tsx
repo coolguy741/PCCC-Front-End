@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 import { Grocery } from "../../../pages/types";
+import { Checkbox } from "../../Global/Checkbox";
+import { Icon } from "../../Global/Icon";
+import { Input } from "../../Global/Input";
+import { TrashButton } from "../../Global/TrashButton";
 
 interface Props {
   grocery?: Grocery;
@@ -9,56 +13,89 @@ interface Props {
 export const GroceryItem: React.FC<Props> = ({ grocery }) => {
   return (
     <Style.Container>
-      <div>{grocery?.name}</div>
-      <div className="material-list">
+      <Style.Title>
+        {grocery?.icon && (
+          <Icon name={grocery.icon} width={"24px"} height={"24px"} />
+        )}
+        <span>{grocery?.name}</span>
+      </Style.Title>
+      <Style.MaterialList>
         {grocery?.materials.map((material) => (
-          <div key={material.name} className="material">
-            <input type="checkbox" />
-            <span>{material.amount}</span>
-            <div className="material-spec">
-              <span className="unit">{material.unit}</span>
+          <Style.Material key={material.name}>
+            <Checkbox sizeOption="small" />
+            <Input
+              type="text"
+              id={material.name}
+              value={material.amount + " " + material.unit}
+            />
+            <div className="material-name">
               <span>{material.name}</span>
             </div>
-          </div>
+            <TrashButton />
+          </Style.Material>
         ))}
-      </div>
+      </Style.MaterialList>
     </Style.Container>
   );
 };
 
 const Style = {
   Container: styled.div`
-    border: 2px solid #d9d9d9;
-    grid-template-rows: 1fr;
-    align-items: end;
-    gap: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(59.2764px);
+  `,
+  Title: styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 32px;
+    color: var(--neutral-800);
+    padding: 0px;
 
-    & > div {
-      padding: 10px;
+    span {
+      padding-left: 18px;
+    }
+  `,
+  MaterialList: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 0px;
+    width: 100%;
+  `,
+  Material: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+    .material-name {
+      font-weight: 500;
+      font-size: 23px;
+      line-height: 28px;
+      color: var(--neutral-600);
+      flex-grow: 1;
     }
 
-    .material-list {
-      border-top: 2px solid #d9d9d9;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      .material {
-        display: grid;
-        grid-template-columns: 1fr 1fr 5fr;
-        text-align: center;
-
-        .material-spec {
-          text-align: left;
-
-          .unit {
-            background: #d9d9d9;
-            padding: 5px;
-            font-size: 0.75rem;
-            margin-right: 5px;
-          }
-        }
-      }
+    input {
+      max-width: 128px;
+      width: 30%;
+      flex-shrink: 1;
+      text-align: center;
+      font-weight: 500;
+      font-size: 19px;
+      line-height: 24px;
+      color: var(--neutral-600);
     }
   `,
 };
