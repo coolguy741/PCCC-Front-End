@@ -3,13 +3,13 @@ import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { Api } from "../api";
 import { BASE_API_URL } from "./consts";
 
-export const getGroupInvitations = async () => {
+export const getJoinedUsers = async (groupId: string) => {
   const { api } = new Api({
     baseUrl: BASE_API_URL,
   });
 
-  const response = await api.appCustomGroupsMyGroupsJoinRequestsList(
-    {},
+  const response = await api.appCustomGroupsJoinedGroupUsersList(
+    { GroupId: groupId },
     {
       headers: {
         Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,

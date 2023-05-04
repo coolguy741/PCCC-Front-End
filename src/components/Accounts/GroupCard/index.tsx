@@ -1,9 +1,14 @@
 import Cookies from "js-cookie";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
-import { PccServer23GroupsGroupWithNavigationPropertiesDto } from "../../../lib/api/api";
+import {
+  PccServer23GroupsCustomGetJoinedGroupUsersDto,
+  PccServer23GroupsCustomGroupUserJoinRequestDto,
+  PccServer23GroupsGroupWithNavigationPropertiesDto,
+} from "../../../lib/api/api";
+import { capitalize } from "../../../lib/util/capitalize";
 import { formatDate } from "../../../lib/util/formatDate";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
@@ -12,12 +17,17 @@ import { Icon } from "../../Global/Icon";
 
 interface GroupCardProps {
   data: PccServer23GroupsGroupWithNavigationPropertiesDto;
+  invitations: PccServer23GroupsCustomGroupUserJoinRequestDto[];
 }
 
-export const GroupCard = ({ data }: GroupCardProps) => {
+export const GroupCard = ({ data, invitations }: GroupCardProps) => {
   const [isExpand, setIsExpand] = useState(false);
   const { api } = useAPI();
+  const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
+  const [joinedUsers, setJoinedUsers] = useState<
+    PccServer23GroupsCustomGetJoinedGroupUsersDto[] | null | undefined
+  >([]);
 
   const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -33,6 +43,8 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
         },
       });
+
+      if (response.status === 204) navigate("/dashboard/accounts/groups");
     }
   };
 
@@ -49,8 +61,32 @@ export const GroupCard = ({ data }: GroupCardProps) => {
           },
         },
       );
+
+      if (response.status === 204) {
+        navigate("/dashboard/accounts/groups");
+      }
     }
   };
+
+  useEffect(() => {
+    const getJoinedUsers = async (groupId: string) => {
+      const response = await api.appCustomGroupsJoinedGroupUsersList(
+        { GroupId: groupId },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        console.log(response);
+        setJoinedUsers(response.data.items);
+      }
+    };
+
+    if (data?.group?.id) getJoinedUsers(data?.group?.id);
+  }, [invitations]);
 
   return (
     <Style.Container>
@@ -85,13 +121,21 @@ export const GroupCard = ({ data }: GroupCardProps) => {
         <div
           className={`members-container ${isExpand === true ? "show" : "hide"}`}
         >
-          {/* {data?.group?.members &&
-            data.group.members.map((member, index) => (
+          {joinedUsers &&
+            joinedUsers.map((member, index) => (
               <div className="member-container" key={index}>
-                <img src={member.img} alt="member" placeholder="image" />
-                <p className="bold-text">{member.name}</p>
+                <img
+                  src="/images/avatars/avatar.svg"
+                  alt="member"
+                  placeholder="image"
+                  width="50"
+                />
+                <div>
+                  <span className="user">{member.userName || "UserName"}</span>
+                  <span className="role">{capitalize(member.userRole)}</span>
+                </div>
               </div>
-            ))} */}
+            ))}
         </div>
         <div className="row">
           <button className="expand-button" onClick={handleExpand}>
@@ -170,12 +214,24 @@ const Style = {
 
         img {
           border-radius: 50%;
-          width: 40px;
-          height: 40px;
+          width: 80px;
+          height: 80px;
         }
 
-        p {
-          padding-left: 10px;
+        div {
+          display: flex;
+          flex-direction: column;
+
+          .user {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--neutral-800);
+          }
+
+          .role {
+            font-size: 0.8rem;
+            color: var(--neutral-700);
+          }
         }
       }
     }

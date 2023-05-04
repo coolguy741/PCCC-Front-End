@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Icon } from "../../Global/Icon";
 
 interface GroupActivityProps {
-  activities: {
+  activities?: {
     type: string;
     date: string;
     userActivity?: {
@@ -20,48 +20,49 @@ interface GroupActivityProps {
 export const GroupActivity = ({ activities }: GroupActivityProps) => {
   return (
     <Style.Container>
-      <h3>Activity</h3>
+      <h2>Activity</h2>
       <ul className="activities-list">
-        {activities.map((activity, index) => (
-          <li className="activity-item" key={index}>
-            <div className="left">
-              {activity.type === "user" && (
-                <>
-                  <span className="icon-container">
-                    <Icon name="badge" />
-                  </span>
-                  {activity.userActivity && (
-                    <>
-                      <p className="bold-text">
-                        {activity.userActivity.userName}
-                      </p>
-                      <p className="text">{activity.userActivity.action}</p>
-                      <p className="text">
-                        {": " + activity.userActivity.activityName}
-                      </p>
-                    </>
-                  )}
-                </>
-              )}
-              {activity.type === "topic" && (
-                <>
-                  <span className="icon-container">
-                    <Icon name="message" />
-                  </span>
-                  {activity.topicActivity && (
-                    <>
-                      <p className="text">{activity.topicActivity.action}</p>
-                      <p className="text">
-                        {": " + activity.topicActivity.topicName}
-                      </p>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
-            <p className="text-date">{activity.date}</p>
-          </li>
-        ))}
+        {activities &&
+          activities.map((activity, index) => (
+            <li className="activity-item" key={index}>
+              <div className="left">
+                {activity.type === "user" && (
+                  <>
+                    <span className="icon-container">
+                      <Icon name="badge" />
+                    </span>
+                    {activity.userActivity && (
+                      <>
+                        <p className="bold-text">
+                          {activity.userActivity.userName}
+                        </p>
+                        <p className="text">{activity.userActivity.action}</p>
+                        <p className="text">
+                          {": " + activity.userActivity.activityName}
+                        </p>
+                      </>
+                    )}
+                  </>
+                )}
+                {activity.type === "topic" && (
+                  <>
+                    <span className="icon-container">
+                      <Icon name="message" />
+                    </span>
+                    {activity.topicActivity && (
+                      <>
+                        <p className="text">{activity.topicActivity.action}</p>
+                        <p className="text">
+                          {": " + activity.topicActivity.topicName}
+                        </p>
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+              <p className="text-date">{activity.date}</p>
+            </li>
+          ))}
       </ul>
     </Style.Container>
   );
@@ -69,6 +70,12 @@ export const GroupActivity = ({ activities }: GroupActivityProps) => {
 
 const Style = {
   Container: styled.div`
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 1.4rem;
+    border-radius: 16px;
+    width: calc(100% * (7 / 12));
+
     .activities-list {
       padding: 0px;
 
