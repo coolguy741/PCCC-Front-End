@@ -1,4 +1,4 @@
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import { Mock, vi } from "vitest";
@@ -93,7 +93,7 @@ describe("Sign in form", async () => {
       },
     );
     await waitFor(async () => {
-      expect(new Cookies().get(STORAGE_KEY_JWT)).toBe(token);
+      expect(Cookies.get(STORAGE_KEY_JWT)).toBe(token);
     });
   });
 });

@@ -10,6 +10,11 @@ import { trimStringByLength } from "../../../../lib/util/trimStringByLength";
 import { animatedbackgroundGradient } from "../../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
 
+export type Achievement = {
+  badge: string;
+  description: string;
+};
+
 export const AccountsUserProfilePage = () => {
   const navigate = useNavigate();
 
