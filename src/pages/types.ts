@@ -10,6 +10,7 @@ export interface Material {
 export interface Grocery {
   name: string;
   id: number;
+  icon?: string;
   materials: Material[];
 }
 

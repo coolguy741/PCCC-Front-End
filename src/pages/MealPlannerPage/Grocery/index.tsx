@@ -2,13 +2,15 @@ import styled from "styled-components";
 import { LinkButton } from "../../../components/Global/Button/Link";
 import { GroceryItem } from "../../../components/MealPlanner/Grocery";
 
+import { BackButton } from "../../../components/Global/BackButton";
 import { MealPlanHeader } from "../../../components/MealPlanner/Header";
 import { Grocery } from "../../types";
 
 const groceries: Grocery[] = [
   {
     id: 1,
-    name: "Produce",
+    name: "Fresh Produce",
+    icon: "carrot",
     materials: [
       {
         name: "Photatoes",
@@ -34,7 +36,8 @@ const groceries: Grocery[] = [
   },
   {
     id: 2,
-    name: "Diary",
+    name: "Dairy",
+    icon: "dairy",
     materials: [
       {
         name: "Milk",
@@ -61,6 +64,7 @@ const groceries: Grocery[] = [
   {
     id: 3,
     name: "Meet",
+    icon: "meet",
     materials: [
       {
         name: "Chicken",
@@ -82,6 +86,7 @@ const groceries: Grocery[] = [
   {
     id: 4,
     name: "Meet",
+    icon: "meet",
     materials: [
       {
         name: "Chicken",
@@ -103,6 +108,7 @@ const groceries: Grocery[] = [
   {
     id: 5,
     name: "Meet",
+    icon: "meet",
     materials: [
       {
         name: "Chicken",
@@ -122,9 +128,9 @@ const groceries: Grocery[] = [
     ],
   },
   {
-    name: "Meet",
-
     id: 6,
+    name: "Meet",
+    icon: "meet",
     materials: [
       {
         name: "Chicken",
@@ -153,18 +159,22 @@ export const MealPlannerGroceryPage = () => {
         description="Plan your meal ahead of time for teh entire team."
       />
       <div className="grocery-container">
-        <LinkButton to="/dashboard/meal-planner/edit">Back</LinkButton>
+        <BackButton />
         <div className="print-link-container">
           <LinkButton to="/dashboard/meal-planner/grocery-list/print">
             Print
           </LinkButton>
         </div>
         <h3>Grocery List</h3>
-        <div className="grocery-list">
-          {groceries.map((grocery) => (
-            <GroceryItem key={grocery.id} grocery={grocery} />
-          ))}
-        </div>
+        <Style.ScrollContainer>
+          <Style.GroceryList>
+            {groceries.map((grocery) => (
+              <div className="grocery-item-container">
+                <GroceryItem key={grocery.id} grocery={grocery} />
+              </div>
+            ))}
+          </Style.GroceryList>
+        </Style.ScrollContainer>
       </div>
     </Style.PageContainer>
   );
@@ -174,7 +184,6 @@ const Style = {
   PageContainer: styled.div`
     width: 100%;
     height: 100%;
-    max-width: 810px;
 
     .grocery-container {
       position: relative;
@@ -186,12 +195,6 @@ const Style = {
         font-family: "Noir Std";
         line-height: 3.125rem;
         margin: 0.25rem 0;
-      }
-
-      .grocery-list {
-        display: grid;
-        gap: 20px;
-        grid-template-columns: repeat(3, 1fr);
       }
 
       .print-link-container {
@@ -206,5 +209,30 @@ const Style = {
     ::after {
       box-sizing: border-box;
     }
+  `,
+  GroceryList: styled.section`
+    // margin: 20px;
+    line-height: 0;
+
+    // -webkit-column-count: 3;
+    // -webkit-column-gap: 24px;
+    // -moz-column-count: 3;
+    // -moz-column-gap: 24px;
+    // column-count: 3;
+    // column-gap: 24px;
+
+    // .grocery-item-container {
+    //   padding-bottom: 24px;
+    // }
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  `,
+  ScrollContainer: styled.div`
+    overflow-y: auto;
+    height: 100%;
+    padding-right: 16px;
+    margin-right: -24px;
   `,
 };

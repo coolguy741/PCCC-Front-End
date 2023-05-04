@@ -62,6 +62,14 @@
   --neutral-800: #3d3d3d;
   --neutral-900: #2e2e2e;
 
+  --book-50: #FFF4E6;
+  --book-100: #EADAB6;
+  --book-200: #D3BB90;
+  --book-300: #A59176;
+  --book-400: #8D6542;
+  --book-500: #725338;
+
+
   /* Global spacing variables */
   --spacing-1: 4px;
   --spacing-2: 8px;
