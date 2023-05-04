@@ -89,6 +89,7 @@ const Style = {
     align-items: flex-start;
     font-family: "Noir Std";
     font-style: normal;
+    overflow: visible;
   `,
   ButtonContainer: styled.div`
     width: 100%;
@@ -122,24 +123,43 @@ const Style = {
   `,
   Questions: styled.div`
     width: 100%;
-    height: calc(100vh - 600px);
+    height: calc(100vh - 612px);
     .swiper {
       width: 100%;
       height: 100%;
+      overflow: visible;
     }
     .swiper-slide {
       width: 84%;
     }
+    .swiper-button-prev {
+      position: absolute;
+      left: 0px;
+    }
+    .swiper-button-next {
+      position: absolute;
+      right: 0px;
+    }
     .swiper-button-prev,
     .swiper-button-next {
-      width: 77px;
-      height: 77px;
+      width: 76px;
+      height: 76px;
       border-radius: 50%;
       background-color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
+      transition: filter 0.3s ease-out 0s, color 0.3s ease-in 0s,
+        background 0.3s linear 0s, transform 0.2s ease-in-out 0s;
+
+      &:after {
+        font-size: 33px;
+      }
+      &:hover {
+        filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.2));
+        transform: translateY(-3px);
+      }
     }
   `,
   PaginationContainer: styled.div`
@@ -148,6 +168,6 @@ const Style = {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 17px;
+    margin-top: 39px;
   `,
 };
