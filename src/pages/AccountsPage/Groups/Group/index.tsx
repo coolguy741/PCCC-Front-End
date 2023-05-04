@@ -28,10 +28,6 @@ export const AccountsGroupPage = () => {
     navigate(-1);
   };
 
-  const handleEdit = () => {
-    navigate(`/dashboard/accounts/groups/${params.group}/edit`);
-  };
-
   const handleViewGroupCalender = () => {
     navigate("/dashboard/accounts/groups/group/calendar");
   };
@@ -48,7 +44,6 @@ export const AccountsGroupPage = () => {
 
     if (response.data.items) {
       response.data.items.find((item: any) => {
-        console.log(item.group.id, params.group);
         if (item.group.id === params.group) {
           setGroup(item);
         }

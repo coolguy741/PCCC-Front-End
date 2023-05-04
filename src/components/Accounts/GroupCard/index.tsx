@@ -1,14 +1,11 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import {
-  PccServer23GroupsCustomGetJoinedGroupUsersDto,
   PccServer23GroupsCustomGroupUserJoinRequestDto,
   PccServer23GroupsGroupWithNavigationPropertiesDto,
 } from "../../../lib/api/api";
-import { capitalize } from "../../../lib/util/capitalize";
 import { formatDate } from "../../../lib/util/formatDate";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
@@ -21,18 +18,9 @@ interface GroupCardProps {
 }
 
 export const GroupCard = ({ data, invitations }: GroupCardProps) => {
-  const [isExpand, setIsExpand] = useState(false);
   const { api } = useAPI();
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
-  const [joinedUsers, setJoinedUsers] = useState<
-    PccServer23GroupsCustomGetJoinedGroupUsersDto[] | null | undefined
-  >([]);
-
-  const handleExpand = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    setIsExpand(!isExpand);
-  };
 
   const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -68,26 +56,6 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
     }
   };
 
-  useEffect(() => {
-    const getJoinedUsers = async (groupId: string) => {
-      const response = await api.appCustomGroupsJoinedGroupUsersList(
-        { GroupId: groupId },
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-          },
-        },
-      );
-
-      if (response.status === 200) {
-        console.log(response);
-        setJoinedUsers(response.data.items);
-      }
-    };
-
-    if (data?.group?.id) getJoinedUsers(data?.group?.id);
-  }, [invitations]);
-
   return (
     <Style.Container>
       <div className="card-content">
@@ -118,30 +86,7 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
             Owner: {data?.owner?.username} {"(" + data?.owner?.role + ")"}
           </p>
         </div>
-        <div
-          className={`members-container ${isExpand === true ? "show" : "hide"}`}
-        >
-          {joinedUsers &&
-            joinedUsers.map((member, index) => (
-              <div className="member-container" key={index}>
-                <img
-                  src="/images/avatars/avatar.svg"
-                  alt="member"
-                  placeholder="image"
-                  width="50"
-                />
-                <div>
-                  <span className="user">{member.userName || "UserName"}</span>
-                  <span className="role">{capitalize(member.userRole)}</span>
-                </div>
-              </div>
-            ))}
-        </div>
         <div className="row">
-          <button className="expand-button" onClick={handleExpand}>
-            {isExpand === false ? "Expand" : "Collapse"}
-            <img src="/images/icons/arrow-down-black.svg" />
-          </button>
           <div className="buttons-group">
             <button onClick={handleDelete}>
               <img src="/images/icons/delete.svg" />
@@ -203,42 +148,9 @@ const Style = {
       }
     }
 
-    .members-container {
-      display: flex;
-      flex-wrap: wrap;
-
-      .member-container {
-        display: flex;
-        width: 50%;
-        align-items: center;
-
-        img {
-          border-radius: 50%;
-          width: 80px;
-          height: 80px;
-        }
-
-        div {
-          display: flex;
-          flex-direction: column;
-
-          .user {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--neutral-800);
-          }
-
-          .role {
-            font-size: 0.8rem;
-            color: var(--neutral-700);
-          }
-        }
-      }
-    }
-
     .row {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
 
       .expand-button {
         display: flex;
