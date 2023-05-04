@@ -211,23 +211,20 @@ const Style = {
     }
   `,
   GroceryList: styled.section`
-    // margin: 20px;
+    margin: 20px;
     line-height: 0;
 
-    // -webkit-column-count: 3;
-    // -webkit-column-gap: 24px;
-    // -moz-column-count: 3;
-    // -moz-column-gap: 24px;
-    // column-count: 3;
-    // column-gap: 24px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 24px;
+    -moz-column-count: 3;
+    -moz-column-gap: 24px;
+    column-count: 3;
+    column-gap: 24px;
 
-    // .grocery-item-container {
-    //   padding-bottom: 24px;
-    // }
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    .grocery-item-container {
+      margin-bottom: 24px;
+      break-inside: avoid;
+    }
   `,
   ScrollContainer: styled.div`
     overflow-y: auto;
