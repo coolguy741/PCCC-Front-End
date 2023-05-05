@@ -1,8 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { LinkButton } from "../../../components/Global/Button/Link";
-import { GroceryItem } from "../../../components/MealPlanner/Grocery";
-
+import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
+import { GroceryItem } from "../../../components/MealPlanner/Grocery";
 import { MealPlanHeader } from "../../../components/MealPlanner/Header";
 import { Grocery } from "../../types";
 
@@ -152,6 +152,11 @@ const groceries: Grocery[] = [
 ];
 
 export const MealPlannerGroceryPage = () => {
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Style.PageContainer>
       <MealPlanHeader
@@ -159,12 +164,10 @@ export const MealPlannerGroceryPage = () => {
         description="Plan your meal ahead of time for teh entire team."
       />
       <div className="grocery-container">
-        <BackButton />
-        <div className="print-link-container">
-          <LinkButton to="/dashboard/meal-planner/grocery-list/print">
-            Print
-          </LinkButton>
-        </div>
+        <Style.ButtonContainer>
+          <BackButton onClick={handleBack} />
+          <Button size="large">Print</Button>
+        </Style.ButtonContainer>
         <h3>Grocery List</h3>
         <Style.ScrollContainer>
           <Style.GroceryList>
@@ -187,14 +190,15 @@ const Style = {
 
     .grocery-container {
       position: relative;
-      padding-top: 1.25rem;
+      padding-top: 1.5rem;
+      margin: 0px 40px;
 
       h3 {
         font-weight: 700;
         font-size: 2rem;
         font-family: "Noir Std";
         line-height: 3.125rem;
-        margin: 0.25rem 0;
+        margin: 1rem 0;
       }
 
       .print-link-container {
@@ -210,8 +214,13 @@ const Style = {
       box-sizing: border-box;
     }
   `,
+  ButtonContainer: styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `,
   GroceryList: styled.section`
-    margin: 20px;
     line-height: 0;
 
     -webkit-column-count: 3;
