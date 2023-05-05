@@ -15,6 +15,9 @@ export const MealPlannerPrintPage = () => {
           <span>Number of people: 12</span>
         </div>
       </div>
+      <a href="example.docx">
+        <b> download </b>
+      </a>
       <MealPlan match={match?.pathname} />
     </Style.PageContainer>
   );
