@@ -1,10 +1,21 @@
+import { AnimatePresence } from "framer-motion";
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import { useMealPlannerStore } from "../../../stores/mealPlannerStore";
+import { ClosedPlateFullPlannerBook } from "./ClosedBook";
+import { MealPlans } from "./MealPlans";
+import { MealPlanGenerator } from "./MealPlans/generator";
 
 interface Props {
   match?: string;
 }
+
+const COMPONENTS = [
+  <ClosedPlateFullPlannerBook />,
+  <MealPlanGenerator />,
+  <MealPlans />,
+];
 
 const weekDays = [
   "",
@@ -19,51 +30,54 @@ const weekDays = [
 
 export const MealPlan: React.FC<Props> = ({ match = "" }) => {
   const isPrint = useMemo(() => match.includes("print"), [match]);
+  const { currentStep } = useMealPlannerStore();
 
   return (
-    <Style.Container isPrint={isPrint}>
-      <div>
-        {weekDays.map((weekDay) => (
-          <div key={`weekday-${weekDay}`}>{weekDay}</div>
-        ))}
-      </div>
-      {Array.from({ length: 5 })
-        .fill(1)
-        .map((value, index) => (
-          <div key={`meal-${index}`}>
-            {weekDays.map((weekDay, dayIndex) => (
-              <>
-                {dayIndex === 0 ? (
-                  <div>Meal {index + 1}</div>
-                ) : (
-                  <div key={`${dayIndex}-${weekDay}`}>
-                    {/* TODO: Look into redundant double negation */}
-                    {match ? (
-                      <Style.Meal>
-                        <div>
-                          <div className="meal-image"></div>
-                          {!isPrint && (
-                            <Link to="/dashboard/meal-planner/1">
-                              <img
-                                src="/images/circle-minus.svg"
-                                alt="circle minus"
-                                width="15"
-                              />
-                            </Link>
-                          )}
-                          <p>Meal</p>
-                        </div>
-                      </Style.Meal>
-                    ) : (
-                      <Style.Meal />
-                    )}
-                  </div>
-                )}
-              </>
-            ))}
-          </div>
-        ))}
-    </Style.Container>
+    <AnimatePresence>
+      {COMPONENTS[currentStep]}
+      {/* <Style.Container isPrint={isPrint}>
+        <div>
+          {weekDays.map((weekDay) => (
+            <div key={`weekday-${weekDay}`}>{weekDay}</div>
+          ))}
+        </div>
+        {Array.from({ length: 5 })
+          .fill(1)
+          .map((value, index) => (
+            <div key={`meal-${index}`}>
+              {weekDays.map((weekDay, dayIndex) => (
+                <>
+                  {dayIndex === 0 ? (
+                    <div>Meal {index + 1}</div>
+                  ) : (
+                    <div key={`${dayIndex}-${weekDay}`}>
+                      {match ? (
+                        <Style.Meal>
+                          <div>
+                            <div className="meal-image"></div>
+                            {!isPrint && (
+                              <Link to="/dashboard/meal-planner/1">
+                                <img
+                                  src="/images/circle-minus.svg"
+                                  alt="circle minus"
+                                  width="15"
+                                />
+                              </Link>
+                            )}
+                            <p>Meal</p>
+                          </div>
+                        </Style.Meal>
+                      ) : (
+                        <Style.Meal />
+                      )}
+                    </div>
+                  )}
+                </>
+              ))}
+            </div>
+          ))}
+      </Style.Container> */}
+    </AnimatePresence>
   );
 };
 

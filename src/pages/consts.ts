@@ -8,7 +8,6 @@ export const MENUS: Menu[] = [
   {
     label: "User Tools",
     to: "user-tools",
-    auth: true,
     icon: "tool",
     subMenus: [
       { label: "Calendar", to: "calendar", icon: "calendar" },

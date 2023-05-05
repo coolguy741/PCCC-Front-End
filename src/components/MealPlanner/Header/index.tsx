@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Icon } from "../../Global/Icon";
+import { Typography } from "../../Global/Typography";
 
 interface MealPlanHeaderProps {
   title: string;
@@ -8,26 +10,21 @@ interface MealPlanHeaderProps {
 export const MealPlanHeader = ({ title, description }: MealPlanHeaderProps) => {
   return (
     <Style.Container>
-      <h1>{title}</h1>
-      {!!description && <p>{description}</p>}
+      <Icon name="plate-full-planner-orange" className="mr-5" />
+      <Typography variant="h1" weight="semi-bold" color="orange-500">
+        {title}
+      </Typography>
     </Style.Container>
   );
 };
 
 const Style = {
   Container: styled.div`
-    padding-top: 0.75rem;
-    h1 {
-      font-weight: 700;
-      font-size: 3rem;
-      font-family: "Noir Std";
-      line-height: 3.125rem;
-      margin: 0.25rem 0;
-    }
-    p {
-      margin: 0;
-      font-weight: 700;
-      font-family: "Noir Std";
+    display: flex;
+    padding-top: 0.675rem;
+
+    .mr-5 {
+      margin-right: 1.25rem;
     }
   `,
 };
