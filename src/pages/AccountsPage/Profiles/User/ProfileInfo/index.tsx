@@ -85,14 +85,13 @@ const Style = {
     }
 
     .user-info-content {
-      width: 80%;
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
       justify-content: flex-end;
-      max-height: 50%;
+
       p {
-        width: 50%;
+        text-overflow: ellipsis;
       }
     }
 
