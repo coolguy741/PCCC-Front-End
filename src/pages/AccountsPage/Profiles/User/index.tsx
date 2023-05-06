@@ -24,11 +24,6 @@ export type Achievement = {
   description: string;
 };
 
-export type Achievement = {
-  badge: string;
-  description: string;
-};
-
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
   const { pathname } = useLocation();
