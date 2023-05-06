@@ -26,6 +26,10 @@ body,
   outline: none;
 }
 
+#root {
+  overflow-x: hidden;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -35,10 +39,8 @@ select:focus {
 body,
 p {
   margin: 0;
-  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Noir Std";
 }
 
 *,
@@ -48,6 +50,7 @@ p {
   border: 0;
   padding: 0;
   margin: 0;
+  font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
 h1,
@@ -140,10 +143,6 @@ textarea {
 }
 .items-center {
   align-items: center;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
 }
 
 ::-webkit-scrollbar-track {

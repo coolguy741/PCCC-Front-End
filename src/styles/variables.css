@@ -101,6 +101,6 @@
   /* Spaces for grid system */
   --gutter-grid: 1rem;
   --gutter-spacing: 0.25rem;
-  --dashboard-menu-width-large: 320px;
-  --dashboard-menu-width-medium: 136px;
+  --dashboard-menu-width-large: 20vw;
+  --dashboard-menu-width-medium: 7.5vw;
 }
