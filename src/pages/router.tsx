@@ -165,7 +165,10 @@ export const router = createBrowserRouter([
           },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
-          { path: "groups/:group/edit", element: <AccountsEditGroupPage /> },
+          {
+            path: "groups/:group/edit",
+            element: <AccountsEditGroupPage />,
+          },
           {
             path: "groups/:group/calendar",
             element: <AccountsGroupCalendarPage />,

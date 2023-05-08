@@ -3,14 +3,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
+import { BackButton } from "../../../../components/Global/BackButton";
 import { Input } from "../../../../components/Global/Input";
-import { SmallButton } from "../../../../components/Global/SmallButton";
+import { Select } from "../../../../components/Global/Select";
 import { useAPI } from "../../../../hooks/useAPI";
-import mockData from "../../../../lib/mockData/accounts/createGroup.json";
+import { PccServer23GroupsCustomGetJoinedGroupUsersDto } from "../../../../lib/api/api";
+import { capitalize } from "../../../../lib/util/capitalize";
 import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsCreateGroupPage = () => {
-  const [members, setMembers] = useState<string[]>([]);
+  const [members, setMembers] = useState<
+    PccServer23GroupsCustomGetJoinedGroupUsersDto[]
+  >([]);
   const [groupName, setGroupName] = useState("");
   const navigate = useNavigate();
   const { api } = useAPI();
@@ -19,21 +23,10 @@ export const AccountsCreateGroupPage = () => {
     navigate(-1);
   };
 
-  const handleAdd = (name: string) => {
-    setMembers((mem) => [...mem, name]);
-  };
-
-  const handleRemove = (index: number) => {
-    const local = [...members];
-    local.splice(index, 1);
-    setMembers(local);
-  };
-
   const handleCreate = async () => {
     const response = await api.appCustomGroupsCreate(
       {
         name: groupName,
-        description: "Test description",
       },
       {
         headers: {
@@ -42,75 +35,73 @@ export const AccountsCreateGroupPage = () => {
       },
     );
 
-    console.log(response);
+    if (response.status === 200) navigate("/dashboard/accounts/groups");
   };
 
   return (
     <Style.Container>
       <div className="buttons-container">
-        <Button onClick={handleBack}>Back</Button>
+        <BackButton onClick={handleBack} />
       </div>
-      <h1>Create Group Page</h1>
-      <div className="group-data-container">
-        <div className="container">
-          <p className="text">{"Last modified: " + mockData.lastModified}</p>
-          <div className="owner-container">
-            <p className="text">Owner : </p>
-            <select>
-              {mockData.professionals.map((professional, index) => (
-                <option value={professional} key={index}>
-                  {professional}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </div>
-      <p className="user-name-title-container">Username</p>
-      <input type="text" className="user-name-search-input" />
-      <div className="add-remove-container">
-        <div className="add-container">
-          {mockData.users.map((user, index) => (
-            <div className="user-container" key={index}>
-              <div className="image-name-container">
-                <img src={user.img} placeholder="image" alt="user" />
-                <p className="name">{user.name}</p>
-              </div>
-              <SmallButton onClick={() => handleAdd(user.name)}>
-                Add
-              </SmallButton>
-            </div>
-          ))}
-        </div>
-        <div className="remove-container">
-          <div className="group-data-container">
-            <div className="col">
+      <h2>Create Group</h2>
+      <div className="content">
+        <div className="group-container">
+          <div className="group-header">
+            <div className="group-name">
+              <h3>Group Name</h3>
               <Input
-                type="text"
-                placeholder="Group Name"
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
+                placeholder="Enter your group name"
+                height="3.5rem"
               />
             </div>
-            {/* <div className="col">
-              <p className="text">Group ID</p>
-              <p className="text">{mockData.groupID}</p>
-            </div> */}
+            <div className="group-owner">
+              <h3>Owner:</h3>
+              <Select height="3.5rem">
+                <option value="1">Owner</option>
+              </Select>
+            </div>
           </div>
-          <div className="members-container">
-            {members.map((member, index) => (
-              <div className="member-container" key={index}>
-                <p className="text">{member}</p>
-                <></>
-                <SmallButton onClick={() => handleRemove(index)}>
-                  Remove
-                </SmallButton>
-              </div>
-            ))}
+          <div className="group-body">
+            <h3>Group members</h3>
+            <div className="group-body-members">
+              {members.map((member, index) => (
+                <div className="member-container-row" key={index}>
+                  <div className="member-container">
+                    <img
+                      src="/images/avatars/avatar.svg"
+                      alt="member"
+                      placeholder="image"
+                      width="50"
+                    />
+                    <div>
+                      <span className="user">
+                        {member.userName || "UserName"}
+                      </span>
+                      <span className="role">
+                        {capitalize(member.userRole)}
+                      </span>
+                    </div>
+                  </div>
+                  <Button size="small" variant="yellow">
+                    Remove
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="user-container">
+          <div className="user-header">
+            <h3>Username</h3>
+            <Input placeholder="Search by username" height="3.5rem" />
+            <div className="users-body"></div>
           </div>
         </div>
       </div>
-      <div className="create-button-container">
+
+      <div className="edit-button-container">
         <Button onClick={handleCreate}>Create</Button>
       </div>
     </Style.Container>
@@ -125,114 +116,155 @@ const Style = {
       justify-content: space-between;
     }
 
-    .text {
-      padding: 0px;
-      margin: 0px;
-      line-height: 150%;
-    }
-
-    .group-data-container {
+    .content {
       display: flex;
-      justify-content: flex-end;
+      gap: 2rem;
+      height: 55vh;
 
-      .container {
+      h3 {
+        color: var(--neutral-600);
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .group-container {
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
+        gap: 30px;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        padding: 1.4rem;
+        border-radius: 16px;
+        width: calc(100% * (8 / 12));
+        margin-top: 1.5rem;
 
-        .owner-container {
+        .group-header {
           display: flex;
-          align-items: center;
-
-          .text {
-            padding: 0px;
-            margin: 0px;
-          }
-
-          select {
-            margin-left: 10px;
-            height: 40px;
-            width: 150px;
-          }
-        }
-      }
-    }
-
-    .user-name-title-container {
-    }
-
-    .user-name-search-input {
-    }
-
-    .add-remove-container {
-      display: flex;
-      gap: 20px;
-      margin-top: 40px;
-
-      .add-container {
-        height: 300px;
-        width: 300px;
-        overflow-y: scroll;
-
-        .user-container {
-          padding: 0px;
-          margin: 0px;
-          width: 100%;
-          display: flex;
+          flex-direction: row;
           justify-content: space-between;
-          align-items: center;
+          gap: 2rem;
 
-          .image-name-container {
+          .group-name,
+          .group-owner {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+          }
 
-            img {
-              border-radius: 50%;
-              width: 30px;
-              height: 30px;
-            }
+          .group-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 60%;
+            color: var(--neutral-600);
+          }
+        }
 
-            p {
-              padding-left: 10px;
+        .group-body {
+          .group-body-members {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 2rem;
+
+            .member-container-row {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+
+              .member-container {
+                display: flex;
+                width: 50%;
+                align-items: center;
+
+                img {
+                  border-radius: 50%;
+                  width: 80px;
+                  height: 80px;
+                }
+
+                div {
+                  display: flex;
+                  flex-direction: column;
+
+                  .user {
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    color: var(--neutral-800);
+                  }
+
+                  .role {
+                    font-size: 0.8rem;
+                    color: var(--neutral-700);
+                  }
+                }
+              }
             }
           }
         }
       }
 
-      .remove-container {
-        width: 70%;
+      .user-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 30px;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        padding: 1.4rem;
+        border-radius: 16px;
+        width: calc(100% * (4 / 12));
+        margin-top: 1.5rem;
 
-        .group-data-container {
-          justify-content: left;
+        .user-header {
           display: flex;
-
-          .col {
-            margin-right: 20px;
-          }
+          flex-direction: column;
+          gap: 0.75rem;
         }
+      }
 
-        .members-container {
+      .member-container-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .member-container {
           display: flex;
-          flex-wrap: wrap;
-          gap: 20px;
-          margin-top: 20px;
-          padding: 30px;
-          background-color: #d9d9d9;
+          width: 50%;
+          align-items: center;
 
-          .member-container {
-            width: 45%;
-            margin-right: 20px;
+          img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+          }
+
+          div {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+
+            .user {
+              font-weight: 600;
+              font-size: 1.1rem;
+              color: var(--neutral-800);
+            }
+
+            .role {
+              font-size: 0.8rem;
+              color: var(--neutral-700);
+            }
           }
         }
       }
     }
-
-    .create-button-container {
+    .edit-button-container {
       display: flex;
-      margin: 20px 0px;
       justify-content: flex-end;
+      width: 100%;
+      margin-top: 2rem;
     }
   `,
 };
