@@ -63,6 +63,7 @@ export const SignUpForm = () => {
     control,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -87,9 +88,23 @@ export const SignUpForm = () => {
     const { data } = await api.appCustomUsernameChoicesUsernameChoicesList();
 
     setFirstNames(data.firstNames);
-    setValue("firstUsername", firstUsername ?? data.firstNames?.[0] ?? "");
     setSecondNames(data.secondNames);
-    setValue("secondUsername", secondUsername ?? data.secondNames?.[0] ?? "");
+    setValue(
+      "firstUsername",
+      firstUsername !== "" ? firstUsername : data.secondNames?.[0] ?? "",
+      {
+        shouldValidate: true,
+        shouldDirty: true,
+      },
+    );
+    setValue(
+      "secondUsername",
+      secondUsername !== "" ? secondUsername : data.secondNames?.[0] ?? "",
+      {
+        shouldValidate: true,
+        shouldDirty: true,
+      },
+    );
 
     return data;
   };
@@ -352,7 +367,9 @@ export const SignUpForm = () => {
             render={({ field }) => (
               <Select
                 data-testid="first-username"
-                className={`${errors.email ? "has-error" : ""} username-select`}
+                className={`${
+                  errors.firstUsername ? "has-error" : ""
+                } username-select`}
                 {...field}
               >
                 {firstNames &&
@@ -374,7 +391,9 @@ export const SignUpForm = () => {
             render={({ field }) => (
               <Select
                 data-testid="second-username"
-                className={`${errors.email ? "has-error" : ""} username-select`}
+                className={`${
+                  errors.secondUsername ? "has-error" : ""
+                } username-select`}
                 {...field}
               >
                 {secondNames &&

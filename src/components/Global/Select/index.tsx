@@ -63,5 +63,18 @@ const Style = {
     color: rgba(29, 36, 51, 0.8);
     position: relative;
     font-family: "Noir Std";
+
+    &.has-error {
+      border: 1px solid var(--red-300);
+      padding: 6px 16px;
+      outline-color: transparent;
+
+      &:focus,
+      &:active {
+        padding: 5px 15px;
+        border-color: var(--red-500);
+        border-width: 2px;
+      }
+    }
   `,
 };
