@@ -5,14 +5,14 @@ import {
   gardenHotspotKeyType,
   kitchenHotspotKeyType,
   locationKeyType,
-} from "../../../../globalState/modules/LocationModule/LocationModuleTypes";
-import { useGlobalState } from "../../../../globalState/useGlobalState";
+} from "../../../globalState/modules/LocationModule/LocationModuleTypes";
+import { useGlobalState } from "../../../globalState/useGlobalState";
+import { RefNumberType } from "../../../shared/Types/RefTypes";
 import {
   animateRouteFov,
   animateRouteLookAt,
   animateRouteProgress,
-} from "../../5-Constants/2-Animation/RouteAnimations";
-import { RefNumberType } from "../../7-Types/RefTypes";
+} from "../5-Constants/2-Animation/RouteAnimations";
 
 interface HotSpotRoutePropTypes {
   fov: number;
@@ -78,7 +78,7 @@ const useHotSpotRoute = ({
 
   const handleRouteLookAt = useCallback(() => {
     animateRouteLookAt(playerCameraActiveLookAt, lookAt, duration);
-  }, [playerCameraActiveLookAt, duration]);
+  }, [lookAt, duration, playerCameraActiveLookAt]);
 
   const handleRouteTransistion = useCallback(() => {
     if (newLocation !== activeLocation) {
@@ -95,13 +95,15 @@ const useHotSpotRoute = ({
     handleRouteLookAt();
     handleRoutePosition();
   }, [
+    hotspot,
     newLocation,
     activeLocation,
+    handleRouteFov,
+    handleRouteLookAt,
     setActiveLocation,
+    handleRoutePosition,
     setActiveGardenHotSpot,
     setActiveKitchenHotSpot,
-    playerCameraActiveLookAt,
-    playerCameraActivePosition,
   ]);
 
   return {

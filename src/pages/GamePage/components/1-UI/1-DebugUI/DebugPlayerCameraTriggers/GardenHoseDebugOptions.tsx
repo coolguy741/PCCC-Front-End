@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { useHotSpotRoute } from "../../../0-R3F/4-Hooks/0-PlayerCameraRouteHooks/useHotSpotRoute";
+import { useHotSpotRoute } from "../../../0-R3F/4-Hooks/useHotSpotRoute";
 import {
   BIGTREE_FOV,
   GARDENHOSE_FOV,
