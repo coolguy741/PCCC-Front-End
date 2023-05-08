@@ -28,3 +28,8 @@ export interface Menu {
   auth?: boolean;
   subMenus?: MenuItem[];
 }
+
+export interface Filter {
+  label: string;
+  value: string;
+}

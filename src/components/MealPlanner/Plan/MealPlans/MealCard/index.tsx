@@ -1,0 +1,75 @@
+import styled from "styled-components";
+
+import { Icon } from "../../../../Global/Icon";
+import { Typography } from "../../../../Global/Typography";
+
+interface MealCardProps {
+  meal: {
+    description: string | null;
+    image?: string;
+  };
+  label: string | null;
+}
+
+export const MealCard: React.FC<MealCardProps> = ({ meal, label }) => {
+  return (
+    <Style.Container hasPlan={!!meal.description}>
+      {meal.description ? (
+        <Style.Meal>
+          <Style.MealPicture src={meal.image} alt={meal.description} />
+          <Style.Description>
+            <Typography>{meal.description}</Typography>
+          </Style.Description>
+        </Style.Meal>
+      ) : (
+        <Icon name="food" />
+      )}
+      {!!label ?? (
+        <Style.Label>
+          hello
+          <img
+            src={`/images/plate-full-planner/labels/${label}.svg`}
+            alt="label"
+          />
+        </Style.Label>
+      )}
+    </Style.Container>
+  );
+};
+
+const Style = {
+  Container: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({
+    hasPlan: hasPlan ?? false,
+  }))`
+    max-height: 20%;
+    position: relative;
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: ${({ hasPlan }) => (hasPlan ? "white" : "var(--book-50)")};
+    transform: rotate(
+      ${({ hasPlan }) => (hasPlan ? (Math.random() - 0.5) * 6 : 0)}deg
+    );
+  `,
+  Meal: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+    padding: 10%;
+    height: 100%;
+    width: 100%;
+  `,
+  Description: styled.div`
+    flex: auto;
+    display: flex;
+    overflow: hidden;
+  `,
+  MealPicture: styled.img`
+    width: 100%;
+  `,
+  Label: styled.div`
+    position: absolute;
+  `,
+};

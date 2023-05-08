@@ -2,12 +2,8 @@ import { useState } from "react";
 import { useMatch } from "react-router-dom";
 import styled from "styled-components";
 
-import { CalendarModal } from "../../components/Global/CalendarModal";
-import { MealPlannerActions } from "../../components/MealPlanner/Actions";
-import { MealFilter } from "../../components/MealPlanner/Filter";
 import { MealPlanHeader } from "../../components/MealPlanner/Header";
 import { MealPlan } from "../../components/MealPlanner/Plan";
-import { MealType } from "../../components/MealPlanner/Type";
 
 export const MealPlannerPage = () => {
   const match = useMatch("/dashboard/meal-planner/edit");
@@ -21,37 +17,22 @@ export const MealPlannerPage = () => {
 
   return (
     <Style.PageContainer>
-      <MealPlanHeader
-        title="Meal Planner"
-        description="Plan your meal ahead of time for teh entire team."
-      />
-      <div className="meal-container">
-        <div className="meal-plan-container">
-          <div className="meal-plan">
-            {!!match && (
-              <button onClick={open} className="link-to-calendar">
-                Add to calendar
-              </button>
-            )}
-            <MealFilter match={!!match} />
-            <MealPlan match={match?.pathname} />
-          </div>
-          <MealPlannerActions match={!!match} />
-        </div>
-        <MealType />
-      </div>
-      <CalendarModal isOpen={isOpen} close={close} type="plan" />
+      <MealPlanHeader title="Plate Full Planner" />
+      <MealPlan match={match?.pathname} />
     </Style.PageContainer>
   );
 };
 
 const Style = {
   PageContainer: styled.div`
+    padding: 108px 40px 0 40px;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
     position: relative;
-    width: 100%;
-    height: 100%;
-    margin-right: 50px;
-    overflow-y: auto;
+    overflow: overlay;
+    max-height: 100vh;
+
     & .link-to-calendar {
       position: absolute;
       top: -30px;

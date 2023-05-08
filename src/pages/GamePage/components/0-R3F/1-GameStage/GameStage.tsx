@@ -3,6 +3,7 @@ import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import PlayerCamera from "../2-Entities/0-Cameras/PlayerCamera";
+import InteractiveGameEntity from "../2-Entities/2-HOCEntity/InteractiveGameEntity";
 import Garden from "../2-Entities/Garden";
 import Environment from "../3-Environment/Environment";
 import { GATE_POSITION } from "../5-Constants/0-Garden/GARDEN_POSITION";
@@ -20,7 +21,7 @@ const GameStage: FC = () => {
   // HOOKS
   const { axes, perf, gizmo } = useControls({
     debugHelpers: folder({
-      axes: true,
+      axes: false,
       perf: true,
       gizmo: true,
     }),
@@ -29,7 +30,13 @@ const GameStage: FC = () => {
   return (
     <Fragment>
       <Garden />
+      <InteractiveGameEntity name={"Berries"} tempOffset={0} />
+      <InteractiveGameEntity name={"Branches"} tempOffset={0.15} />
+      <InteractiveGameEntity name={"Bee Hive Top"} tempOffset={-0.15} />
+
       <PlayerCamera />
+      {/* <RigTest /> */}
+      {/* <Bee /> */}
       <Environment />
       <SceneHelpers
         axes={axes}
