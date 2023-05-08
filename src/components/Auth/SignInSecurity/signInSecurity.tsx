@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { useAPI } from "../../../hooks/useAPI";
+
 import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
@@ -10,74 +10,48 @@ import { Input } from "../../Global/Input";
 import { Info } from "../../Icons";
 
 export const SignInSecurity = () => {
-  const [_firstQuestionAnswer, _setFirstQuestionAnswer] = useState("");
-  const [_secondQuestionAnswer, _setSecondQuestionAnswer] = useState("");
-  const [_thirdQuestionAnswer, _setThirdQuestionAnswer] = useState("");
-  const [firstSecurityQuestion, setFirstSecuirtyQuestion] = useState<any>();
-  const [secondSecurityQuestion, setSecondSecuirtyQuestion] = useState<any>();
-  const [thirdSecurityQuestion, setThirdSecuirtyQuestion] = useState<any>();
-  const { securityQuestions, usernameForSecurityQuestions } = useUserStore();
-  const changeStep = useSignInStore((state) => state.changeStep);
-  const setFirstQuestionAnswer = useUserStore(
-    (state) => state.setFirstQuestionAnswer,
-  );
-  const setSecondQuestionAnswer = useUserStore(
-    (state) => state.setSecondQuestionAnswer,
-  );
-  const setThirdQuestionAnswer = useUserStore(
-    (state) => state.setThirdQuestionAnswer,
-  );
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstQuestionAnswer: "",
+      secondQuestionAnswer: "",
+      thirdQuestionAnswer: "",
+    },
+  });
+  const {
+    securityQuestions,
+    firstQuestionId,
+    secondQuestionId,
+    thirdQuestionId,
+    setFirstQuestionAnswer,
+    setSecondQuestionAnswer,
+    setThirdQuestionAnswer,
+  } = useUserStore();
+  const { changeStep } = useSignInStore();
 
-  const { api } = useAPI();
-
-  const getUserSecurityQuestions = async () => {
-    const { data } = await api.appUserQuestionIdsList({
-      Username: usernameForSecurityQuestions,
-    });
-
-    if (securityQuestions) {
-      if (securityQuestions.firstSecurityQuestions) {
-        const question = securityQuestions.firstSecurityQuestions.find(
-          (question) => question.id === data.firstQuestionId,
-        );
-        if (question) setFirstSecuirtyQuestion(question.question);
-      }
-
-      if (securityQuestions.secondSecurityQuestions) {
-        const question = securityQuestions.secondSecurityQuestions.find(
-          (question) => question.id === data.secondQuestionId,
-        );
-        if (question) setSecondSecuirtyQuestion(question.question);
-      }
-
-      if (securityQuestions.thirdSecurityQuestions) {
-        const question = securityQuestions.thirdSecurityQuestions.find(
-          (question) => question.id === data.thirdQuestionId,
-        );
-        if (question) setThirdSecuirtyQuestion(question.question);
-      }
-    }
-
-    return data;
-  };
-
-  useEffect(() => {
-    getUserSecurityQuestions();
-  }, []);
-
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    setFirstQuestionAnswer(_firstQuestionAnswer);
-    setSecondQuestionAnswer(_secondQuestionAnswer);
-    setThirdQuestionAnswer(_thirdQuestionAnswer);
+  const submitHandler = ({
+    firstQuestionAnswer,
+    secondQuestionAnswer,
+    thirdQuestionAnswer,
+  }: {
+    firstQuestionAnswer: string;
+    secondQuestionAnswer: string;
+    thirdQuestionAnswer: string;
+  }) => {
+    setFirstQuestionAnswer(firstQuestionAnswer);
+    setSecondQuestionAnswer(secondQuestionAnswer);
+    setThirdQuestionAnswer(thirdQuestionAnswer);
 
     changeStep(2);
   };
 
   return (
     <Style.Container
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit(submitHandler)}
+      layout
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -89,48 +63,93 @@ export const SignInSecurity = () => {
       <fieldset>
         <label>
           <span>Question 1:</span>
-          <span>{firstSecurityQuestion}</span>
+          <span>
+            {
+              securityQuestions?.firstSecurityQuestions?.find(
+                (question) => question.id === firstQuestionId,
+              )?.question
+            }
+          </span>
         </label>
         <div>
           <p>Answer</p>
-          <Input
-            width="70%"
-            onChange={(e) => _setFirstQuestionAnswer(e.target.value)}
-            value={_firstQuestionAnswer}
-            data-testid="answer-1"
-            required
+          <Controller
+            name="firstQuestionAnswer"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                width="70%"
+                data-testid="answer-1"
+                className={errors.firstQuestionAnswer ? "has-error" : ""}
+                type="text"
+                {...field}
+              />
+            )}
           />
         </div>
       </fieldset>
       <fieldset>
         <label>
-          <span>Question 1:</span>
-          <span>{secondSecurityQuestion}</span>
+          <span>Question 2:</span>
+          <span>
+            {
+              securityQuestions?.secondSecurityQuestions?.find(
+                (question) => question.id === secondQuestionId,
+              )?.question
+            }
+          </span>
         </label>
         <div>
           <p>Answer</p>
-          <Input
-            width="70%"
-            onChange={(e) => _setSecondQuestionAnswer(e.target.value)}
-            value={_secondQuestionAnswer}
-            data-testid="answer-2"
-            required
+          <Controller
+            name="secondQuestionAnswer"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                width="70%"
+                data-testid="answer-2"
+                className={errors.secondQuestionAnswer ? "has-error" : ""}
+                type="text"
+                {...field}
+              />
+            )}
           />
         </div>
       </fieldset>
       <fieldset>
         <label>
-          <span>Question 1:</span>
-          <span>{thirdSecurityQuestion}</span>
+          <span>Question 3:</span>
+          <span>
+            {
+              securityQuestions?.thirdSecurityQuestions?.find(
+                (question) => question.id === thirdQuestionId,
+              )?.question
+            }
+          </span>
         </label>
         <div>
           <p>Answer</p>
-          <Input
-            width="70%"
-            onChange={(e) => _setThirdQuestionAnswer(e.target.value)}
-            value={_thirdQuestionAnswer}
-            data-testid="answer-3"
-            required
+          <Controller
+            name="thirdQuestionAnswer"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                width="70%"
+                data-testid="answer-3"
+                className={errors.thirdQuestionAnswer ? "has-error" : ""}
+                type="text"
+                {...field}
+              />
+            )}
           />
         </div>
       </fieldset>

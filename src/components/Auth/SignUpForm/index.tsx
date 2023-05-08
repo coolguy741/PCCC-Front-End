@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
+
 import { useAPI } from "../../../hooks/useAPI";
 import { avatars_data } from "../../../lib/avatars/data";
 import { useSignUpStore } from "../../../stores/signUpStore";
@@ -10,35 +12,74 @@ import { Input } from "../../Global/Input";
 import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
+type TSignUpForm = {
+  name: string;
+  title: string;
+  date: string;
+  year: string;
+  month: string;
+  province: string;
+  schoolIdCode: string;
+  schoolName: string;
+  email: string;
+  firstUsername: string;
+  secondUsername: string;
+  thirdUsername: string;
+};
+
 export const SignUpForm = () => {
-  const [_name, _setName] = useState("");
-  const [_title, _setTitle] = useState("");
-  const [_email, _setEmail] = useState("");
-  const [_birthDay, _setBirthDay] = useState("");
-  const [_province, _setProvince] = useState("");
-  const [_birthYear, _setBirthYear] = useState("");
-  const [_birthMonth, _setBirthMonth] = useState("");
-  const [_schoolName, _setSchoolName] = useState("");
-  const [_schoolIdCode, _setSchoolIdCode] = useState("");
-  const [_thirdUserName, _setThirdUserName] = useState("");
-  const [_firstUserName, _setFirstUserName] = useState("Awesome");
-  const [_secondUserName, _setSecondUserName] = useState("Apple");
   const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
   const [secondNames, setSecondNames] = useState<string[] | null | undefined>(
     [],
   );
-  const setName = useSignUpStore((state) => state.setName);
-  const setTitle = useSignUpStore((state) => state.setTitle);
-  const changeStep = useSignUpStore((state) => state.changeStep);
-  const setBirthYear = useSignUpStore((state) => state.setBirthYear);
-  const isCoordinator = useSignUpStore((state) => state.isCoordinator);
-  const setFirstUserName = useSignUpStore((state) => state.setFirstUserName);
-  const setSecondUserName = useSignUpStore((state) => state.setSecondUserName);
-  const setThirdUserName = useSignUpStore((state) => state.setThirdUserName);
-  const setSchoolIdCode = useSignUpStore((state) => state.setSchoolIdCode);
-  const setSchoolName = useSignUpStore((state) => state.setSchoolName);
-  const setProvince = useSignUpStore((state) => state.setProvince);
-  const setEmail = useSignUpStore((state) => state.setEmail);
+  const {
+    setName,
+    setTitle,
+    changeStep,
+    isCoordinator,
+    birthDate,
+    birthMonth,
+    birthYear,
+    province,
+    schoolIdCode,
+    schoolName,
+    firstUsername,
+    secondUsername,
+    thirdUsername,
+    email,
+    setBirthDate,
+    setBirthMonth,
+    setBirthYear,
+    setProvince,
+    setFirstUsername,
+    setSecondUsername,
+    setThirdUsername,
+    setSchoolIdCode,
+    setSchoolName,
+    setEmail,
+  } = useSignUpStore();
+
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      title: "",
+      date: birthDate?.toString() ?? "",
+      year: birthYear?.toString() ?? "",
+      month: birthMonth?.toString() ?? "",
+      province: province ?? "",
+      schoolIdCode,
+      schoolName,
+      email,
+      firstUsername,
+      secondUsername,
+      thirdUsername,
+    },
+  });
 
   const { api } = useAPI();
 
@@ -46,7 +87,9 @@ export const SignUpForm = () => {
     const { data } = await api.appCustomUsernameChoicesUsernameChoicesList();
 
     setFirstNames(data.firstNames);
+    setValue("firstUsername", firstUsername ?? data.firstNames?.[0] ?? "");
     setSecondNames(data.secondNames);
+    setValue("secondUsername", secondUsername ?? data.secondNames?.[0] ?? "");
 
     return data;
   };
@@ -55,29 +98,41 @@ export const SignUpForm = () => {
     getUsernames();
   }, []);
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("submitted");
-    event.preventDefault();
+  const submitHandler = ({
+    name,
+    title,
+    schoolIdCode,
+    schoolName,
+    email,
+    province,
+    year,
+    month,
+    date,
+    firstUsername,
+    secondUsername,
+    thirdUsername,
+  }: TSignUpForm) => {
     if (isCoordinator) {
-      setName(_name);
-      setTitle(_title);
-      setSchoolIdCode(_schoolIdCode);
-      setSchoolIdCode(_schoolIdCode);
-      setSchoolName(_schoolName);
-      setEmail(_email);
+      setName(name);
+      setTitle(title);
+      setSchoolIdCode(schoolIdCode);
+      setSchoolName(schoolName);
+      setEmail(email);
     }
 
-    setProvince(_province);
-    setBirthYear(parseInt(_birthYear));
-    setFirstUserName(_firstUserName);
-    setSecondUserName(_secondUserName);
-    setThirdUserName(_thirdUserName);
+    setProvince(province);
+    setBirthYear(parseInt(year));
+    setBirthMonth(parseInt(month));
+    setBirthDate(parseInt(date));
+    setFirstUsername(firstUsername);
+    setSecondUsername(secondUsername);
+    setThirdUsername(thirdUsername);
     changeStep(3);
   };
 
   return (
     <Style.Container
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit(submitHandler)}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -91,24 +146,42 @@ export const SignUpForm = () => {
             <>
               <fieldset>
                 <label htmlFor="name">Name</label>
-                <Input
-                  width="60%"
-                  placeholder="John"
-                  onChange={(e) => _setName(e.target.value)}
-                  value={_name}
-                  id="name"
-                  required
+                <Controller
+                  name="name"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="John"
+                      type="text"
+                      id="name"
+                      className={errors.name ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
                 />
               </fieldset>
               <fieldset>
                 <label htmlFor="title">Title</label>
-                <Input
-                  width="60%"
-                  placeholder="Student"
-                  onChange={(e) => _setTitle(e.target.value)}
-                  value={_title}
-                  id="title"
-                  required
+                <Controller
+                  name="title"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="Student"
+                      type="text"
+                      id="title"
+                      className={errors.title ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
                 />
               </fieldset>
             </>
@@ -116,38 +189,65 @@ export const SignUpForm = () => {
           <fieldset>
             <label>Date of Birth</label>
             <div className="birth-split">
-              <Input
-                width="25%"
-                placeholder="MM"
-                onChange={(e) => _setBirthDay(e.target.value)}
-                value={_birthDay}
-                type="number"
-                min="1"
-                max="12"
-                data-testid="day"
-                required
+              <Controller
+                name="month"
+                control={control}
+                rules={{
+                  required: true,
+                  min: "1",
+                  max: "12",
+                }}
+                render={({ field }) => (
+                  <Input
+                    width="25%"
+                    placeholder="MM"
+                    data-testid="month"
+                    type="number"
+                    className={errors.month ? "has-error" : ""}
+                    {...field}
+                  />
+                )}
               />
-              <Input
-                width="25%"
-                placeholder="DD"
-                onChange={(e) => _setBirthMonth(e.target.value)}
-                value={_birthMonth}
-                required
-                type="number"
-                data-testid="month"
-                min="1"
-                max="31"
+              <Controller
+                name="date"
+                rules={{
+                  required: true,
+                  min: "1",
+                  max: "31",
+                  validate: (value, { year, month, date }) =>
+                    parseInt(value.toString()) ===
+                    new Date(`${year}-${month}-${date} 00:00:00.000`).getDate(),
+                }}
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    width="25%"
+                    placeholder="DD"
+                    className={errors.date ? "has-error" : ""}
+                    data-testid="date"
+                    type="number"
+                    {...field}
+                  />
+                )}
               />
-              <Input
-                width="40%"
-                placeholder="YYYY"
-                onChange={(e) => _setBirthYear(e.target.value)}
-                value={_birthYear}
-                required
-                data-testid="year"
-                type="number"
-                min="1900"
-                max="2023"
+              <Controller
+                name="year"
+                control={control}
+                rules={{
+                  required: true,
+                  min: "1900",
+                  max: "2023",
+                }}
+                render={({ field }) => (
+                  <Input
+                    width="40%"
+                    placeholder="YYYY"
+                    type="number"
+                    data-testid="year"
+                    className={errors.year ? "has-error" : ""}
+                    {...field}
+                  />
+                )}
               />
             </div>
           </fieldset>
@@ -155,49 +255,85 @@ export const SignUpForm = () => {
             <>
               <fieldset>
                 <label>School ID Code</label>
-                <Input
-                  width="60%"
-                  placeholder="1234567890"
-                  onChange={(e) => _setSchoolIdCode(e.target.value)}
-                  value={_schoolIdCode}
-                  data-testid="school-code"
-                  required
+                <Controller
+                  name="schoolIdCode"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="1234567890"
+                      type="text"
+                      data-testid="school-code"
+                      className={errors.schoolIdCode ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
                 />
               </fieldset>
               <fieldset>
                 <label>School</label>
-                <Input
-                  width="60%"
-                  placeholder="George Collage"
-                  onChange={(e) => _setSchoolName(e.target.value)}
-                  value={_schoolName}
-                  data-testid="school-name"
-                  required
+                <Controller
+                  name="schoolName"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="George Collage"
+                      type="text"
+                      data-testid="school-name"
+                      className={errors.schoolName ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
                 />
               </fieldset>
             </>
           )}
           <fieldset>
             <label>Province</label>
-            <Input
-              width="60%"
-              placeholder="Ontario"
-              onChange={(e) => _setProvince(e.target.value)}
-              value={_province}
-              data-testid="province"
-              required
+            <Controller
+              name="province"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => (
+                <Input
+                  width="60%"
+                  placeholder="Ontario"
+                  type="text"
+                  data-testid="province"
+                  className={errors.province ? "has-error" : ""}
+                  {...field}
+                />
+              )}
             />
           </fieldset>
           {isCoordinator && (
             <fieldset>
               <label htmlFor="email">Email Address</label>
-              <Input
-                width="60%"
-                placeholder="Johndoe@gmail.com"
-                onChange={(e) => _setEmail(e.target.value)}
-                value={_email}
-                id="email"
-                required
+              <Controller
+                name="email"
+                control={control}
+                rules={{
+                  required: isCoordinator,
+                }}
+                render={({ field }) => (
+                  <Input
+                    width="60%"
+                    placeholder="Johndoe@gmail.com"
+                    type="email"
+                    id="email"
+                    className={errors.email ? "has-error" : ""}
+                    {...field}
+                  />
+                )}
               />
             </fieldset>
           )}
@@ -207,43 +343,60 @@ export const SignUpForm = () => {
         <h2>Avatar Selection</h2>
         <article className="username-selection">
           <label>Username</label>
-          <Select
-            onChange={(e) => _setFirstUserName(e.target.value)}
-            value={_firstUserName}
-            className="username-select"
-            data-testid="first-username"
-            required
-          >
-            {firstNames &&
-              firstNames.map((name, index) => (
-                <option key={`firstName-${index}`} value={name}>
-                  {name}
-                </option>
-              ))}
-          </Select>
-          <Select
-            onChange={(e) => {
-              console.log(e.target.value);
-              _setSecondUserName(e.target.value);
+          <Controller
+            name="firstUsername"
+            control={control}
+            rules={{
+              required: true,
             }}
-            value={_secondUserName}
-            className="username-select"
-            data-testid="second-username"
-            required
-          >
-            {secondNames &&
-              secondNames.map((name, index) => (
-                <option key={`secondName-${index}`} value={name}>
-                  {name}
-                </option>
-              ))}
-          </Select>
-          <Input
-            type="text"
-            onChange={(e) => _setThirdUserName(e.target.value)}
-            value={_thirdUserName}
-            data-testid="third-username"
-            placeholder="12345"
+            render={({ field }) => (
+              <Select
+                data-testid="first-username"
+                className={`${errors.email ? "has-error" : ""} username-select`}
+                {...field}
+              >
+                {firstNames &&
+                  firstNames.map((name, index) => (
+                    <option key={`firstName-${index}`} value={name}>
+                      {name}
+                    </option>
+                  ))}
+              </Select>
+            )}
+          />
+
+          <Controller
+            name="secondUsername"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Select
+                data-testid="second-username"
+                className={`${errors.email ? "has-error" : ""} username-select`}
+                {...field}
+              >
+                {secondNames &&
+                  secondNames.map((name, index) => (
+                    <option key={`secondName-${index}`} value={name}>
+                      {name}
+                    </option>
+                  ))}
+              </Select>
+            )}
+          />
+          <Controller
+            name="thirdUsername"
+            control={control}
+            render={({ field }) => (
+              <Input
+                placeholder="12345"
+                type="text"
+                data-testid="third-username"
+                {...field}
+              />
+            )}
           />
         </article>
         <article className="choose-avatar">

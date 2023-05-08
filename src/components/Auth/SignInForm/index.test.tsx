@@ -1,6 +1,5 @@
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import { act } from "react-dom/test-utils";
-import * as router from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import { Mock, vi } from "vitest";
 
@@ -14,12 +13,8 @@ import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
 import { SignInForm } from "../SignInForm";
 
-const navigate = vi.fn();
-
 describe("Sign in form", async () => {
   beforeEach(() => {
-    vi.spyOn(router, "useNavigate").mockImplementation(() => navigate);
-
     render(
       <MemoryRouter>
         <SignInForm />
@@ -39,26 +34,24 @@ describe("Sign in form", async () => {
   it("Should redirect to forgot username when clicking 'forgot username'", async () => {
     const forgotUsername = screen.getByTestId("forgot-username");
 
-    act(() => {
+    await act(() => {
       userEvent.click(forgotUsername);
     });
 
     const { forgetType } = useUserStore.getState();
 
     expect(forgetType).toBe("username");
-    expect(navigate).toHaveBeenCalledWith("forgot-password");
   });
 
   it("Should redirect to forgot password when clicking 'forgot password'", async () => {
     const forgotPassword = screen.getByTestId("forgot-password");
 
-    act(() => {
+    await act(() => {
       userEvent.click(forgotPassword);
     });
     const { forgetType } = useUserStore.getState();
 
     expect(forgetType).toBe("password");
-    expect(navigate).toHaveBeenCalledWith("forgot-password");
   });
 
   it("Should send the request with the username and password", async () => {
@@ -80,7 +73,7 @@ describe("Sign in form", async () => {
       })) as Mock,
     );
 
-    act(() => {
+    await act(() => {
       userEvent.type(usernameInput, `{backspace}${username}`);
       userEvent.type(passwordInput, `{backspace}${password}`);
       userEvent.click(submit);
@@ -100,7 +93,7 @@ describe("Sign in form", async () => {
       },
     );
     await waitFor(async () => {
-      expect(new Cookies().get(STORAGE_KEY_JWT)).toBe(token);
+      expect(Cookies.get(STORAGE_KEY_JWT)).toBe(token);
     });
   });
 });

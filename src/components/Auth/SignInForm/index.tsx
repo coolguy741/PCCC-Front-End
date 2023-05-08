@@ -1,84 +1,137 @@
-import { useState } from "react";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import Cookies from "js-cookie";
+import { Controller, useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { MessageBox } from "../../Global/MessageBox";
 
 export const SignInForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
   const { connect } = useAPI();
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies([STORAGE_KEY_JWT]);
   const { setForgetType } = useUserStore();
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      password: "",
+      username: "",
+    },
+  });
 
-  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const { data } = await connect.tokenCreate({
-      username,
-      password,
-      grant_type: "password",
-      client_id: "PccServer23_Web",
-    });
-
-    console.log(data);
-
-    if (data.access_token) {
-      setCookie(STORAGE_KEY_JWT, data.access_token, {});
-      navigate("/dashboard");
-    }
+  const submitHandler = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    connect
+      .tokenCreate({
+        username,
+        password,
+        grant_type: "password",
+        client_id: "PccServer23_Web",
+      })
+      .then(({ data }) => {
+        if (data.access_token) {
+          Cookies.set(STORAGE_KEY_JWT, data.access_token, {});
+          navigate("/dashboard");
+        }
+      })
+      .catch(({ error }) => {
+        setError("username", { type: "custom", message: "" });
+        setError("password", {
+          type: "custom",
+          message: error.error_description,
+        });
+      });
   };
 
   function forgotPassword() {
     setForgetType("password");
-    navigate("forgot-password");
   }
 
   function forgotUsername() {
     setForgetType("username");
-    navigate("forgot-password");
   }
 
   return (
-    <Container>
-      <form onSubmit={submitHandler}>
+    <Container
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <form onSubmit={handleSubmit(submitHandler)}>
         <h1>Log in</h1>
         <fieldset>
           <label htmlFor="username">Username</label>
-          <Input
-            type="username"
-            id="username"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
-            height="52px"
+          <Controller
+            name="username"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                height="52px"
+                className={errors.username ? "has-error" : ""}
+                type="text"
+                id="username"
+                {...field}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
           <label htmlFor="password">Password</label>
-          <Input
-            type="password"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            height="52px"
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => (
+              <Input
+                type="password"
+                id="password"
+                {...field}
+                height="52px"
+                className={errors.password ? "has-error" : ""}
+              />
+            )}
           />
+          {errors.password?.type === "custom" && (
+            <MessageBox text={errors.password?.message ?? ""} />
+          )}
         </fieldset>
         <p className="forgot">
           Forgot your{" "}
-          <a onClick={forgotUsername} data-testid="forgot-username">
+          <Link
+            to="forgot-password"
+            onClick={forgotUsername}
+            data-testid="forgot-username"
+          >
             <u>username</u>
-          </a>{" "}
+          </Link>{" "}
           or{" "}
-          <a onClick={forgotPassword} data-testid="forgot-password">
+          <Link
+            to="forgot-password"
+            onClick={forgotPassword}
+            data-testid="forgot-password"
+          >
             <u>password</u>
-          </a>
+          </Link>
           ?
         </p>
         <Button type="submit" fullWidth data-testid="submit">
@@ -89,7 +142,7 @@ export const SignInForm = () => {
   );
 };
 
-const Container = styled.main`
+const Container = styled(motion.main)`
   ${glassBackground}
   width: 500px;
 
@@ -107,6 +160,11 @@ const Container = styled.main`
   }
 
   fieldset {
+    margin-bottom: 32px;
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
+
     label {
       font-weight: 500;
       font-size: 16px;
@@ -115,14 +173,14 @@ const Container = styled.main`
     }
 
     input {
-      margin: 15px 0;
-      margin-top: 7.5px;
+      margin-top: 15px;
     }
   }
 
   p.forgot {
     font-size: 15px;
     line-height: 20px;
+    margin-top: 15px;
     width: 100%;
     color: var(--neutral-600);
     cursor: pointer;

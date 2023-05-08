@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GroupCard } from "../../../components/Accounts/GroupCard";
 import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitationCard";
@@ -8,16 +7,20 @@ import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import Button from "../../../components/Button";
 import { Input } from "../../../components/Global/Input";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
-import { useAPI } from "../../../hooks/useAPI";
-import mockData from "../../../lib/mockData/accounts/groups.json";
-import { STORAGE_KEY_JWT } from "../../consts";
+import {
+  PccServer23GroupsCustomGroupUserJoinRequestDto,
+  PccServer23GroupsGroupWithNavigationPropertiesDto,
+} from "../../../lib/api/api";
+
+interface IGroup {
+  groups: PccServer23GroupsGroupWithNavigationPropertiesDto[];
+  invitations: PccServer23GroupsCustomGroupUserJoinRequestDto[];
+}
 
 export const AccountsGroupsPage = () => {
   const [visibleModal, setVisibleModal] = useState(false);
-  const [groups, setGroups] = useState<any[]>([]);
   const navigate = useNavigate();
-  const { api } = useAPI();
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
+  const { groups, invitations } = useLoaderData() as IGroup;
 
   const handleCreate = () => {
     navigate("/dashboard/accounts/groups/create");
@@ -31,44 +34,27 @@ export const AccountsGroupsPage = () => {
     setVisibleModal(false);
   };
 
-  const getGroups = async () => {
-    const response = await api.appCustomGroupsMyCreatedGroupsList(
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
-        },
-      },
-    );
-
-    if (response.data.items) {
-      setGroups(response.data.items);
-    }
-  };
-
-  useEffect(() => {
-    getGroups();
-  }, []);
-
   return (
     <Style.PageContainer>
       <div className="header-container">
         <div className="group-container">
           <div className="label">
-            <p>Group</p>
-            <Input type="text" />
+            <span>Group</span>
+            <Input type="text" height="3.5rem" />
           </div>
           <div className="label">
-            <p>Group ID</p>
-            <Input type="text" />
+            <span>Group ID</span>
+            <Input type="text" height="3.5rem" />
           </div>
           <div className="label">
-            <p>School</p>
-            <Input type="text" />
+            <span>School</span>
+            <Input type="text" height="3.5rem" />
           </div>
         </div>
         <div className="button-container">
-          <Button onClick={handleCreate}>Create Group</Button>
+          <Button variant="yellow" onClick={handleCreate}>
+            Create Group
+          </Button>
           <Button onClick={() => setVisibleModal(true)}>Join Group</Button>
         </div>
       </div>
@@ -76,18 +62,27 @@ export const AccountsGroupsPage = () => {
         <div className="groups-container">
           {groups.map((group, index) => (
             <div className="group-card-container" key={index}>
-              <GroupCard data={group} />
+              <GroupCard data={group} invitations={invitations} />
             </div>
           ))}
         </div>
         <div className="group-invitations-container">
           <p className="title-text">
-            {"Group Invitations ( " + mockData.groupInvitations.length + " )"}
+            {`Group Invitations (${invitations?.length})`}
           </p>
           <div className="group-invitations">
-            {mockData.groupInvitations.map((group, index) => (
-              <GroupInvitationCard data={group} key={index} />
-            ))}
+            {invitations &&
+              invitations.map((invitation, index) => {
+                return (
+                  <GroupInvitationCard
+                    key={index}
+                    groupName={invitation.groupName}
+                    userName={invitation.userName}
+                    groupUserId={invitation.groupUserId}
+                    userRole={invitation.userRole}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
@@ -111,17 +106,23 @@ const Style = {
   PageContainer: styled.div`
     display: flex;
     flex-direction: column;
+    gap: 3rem;
 
     .header-container {
       margin-top: 10px;
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
 
       .group-container {
         display: flex;
+        gap: 1.5rem;
 
         .label {
-          margin-right: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          color: var(--neutral-600);
         }
       }
 
@@ -137,18 +138,16 @@ const Style = {
 
     .row {
       display: flex;
+      gap: 20px;
 
       .groups-container {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        margin: 0px;
-        margin-top: 80px;
-        padding: 0px;
 
         .group-card-container {
-          width: 45%;
+          width: 100%;
 
           a {
             &:hover,
@@ -162,16 +161,25 @@ const Style = {
       .group-invitations-container {
         display: flex;
         flex-direction: column;
-        margin: 10px;
+        align-items: center;
         width: 20%;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        max-height: 50vh;
+        padding-top: 1rem;
+        position: sticky;
 
         .title-text {
           font-size: 1.2rem;
+          font-weight: 600;
+          color: var(--neutral-800);
         }
 
         .group-invitations {
-          border: 1px black solid;
-          padding: 10px;
+          padding: 1.4rem;
+          overflow-y: scroll;
+          width: 100%;
 
           .bold-big-text {
             font-size: 1.1 rem;

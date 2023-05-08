@@ -22,7 +22,7 @@ const Style = {
     position: relative;
 
     .content {
-      overflow-y: auto;
+      overflow: visible;
       margin-right: -24px;
       padding-right: 24px;
     }

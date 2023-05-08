@@ -1,31 +1,70 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
+
 import { useAPI } from "../../../hooks/useAPI";
 import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { MessageBox } from "../../Global/MessageBox";
 
 export const ForgotForm = () => {
-  const [input, setInput] = useState("");
   const { changeStep } = useSignInStore();
-  const { forgetType, setUsernameForSecurityQuestions, setSecurityQuestions } =
-    useUserStore();
+  const {
+    forgetType,
+    setUsernameForSecurityQuestions,
+    setSecurityQuestions,
+    setFirstQuestionId,
+    setSecondQuestionId,
+    setThirdQuestionId,
+  } = useUserStore();
   const { api } = useAPI();
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      username: "",
+    },
+  });
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const submitHandler = ({
+    email,
+    username,
+  }: {
+    email?: string;
+    username?: string;
+  }) => {
     if (forgetType === "username") {
-      console.log(`Send email to ${input} with password reset link`);
+      console.log(`Send email to ${email} with password reset link`);
     }
 
     if (forgetType === "password") {
-      setUsernameForSecurityQuestions(input);
+      setUsernameForSecurityQuestions(username ?? "");
+      api
+        .appUserQuestionIdsList({
+          Username: username,
+        })
+        .then(({ data }) => {
+          const { firstQuestionId, secondQuestionId, thirdQuestionId } = data;
 
-      changeStep(1);
+          setFirstQuestionId(firstQuestionId ?? "");
+          setSecondQuestionId(secondQuestionId ?? "");
+          setThirdQuestionId(thirdQuestionId ?? "");
+          changeStep(1);
+        })
+        .catch(({ error: { error } }) => {
+          setError("username", {
+            type: "custom",
+            message: error.details,
+          });
+        });
     }
   };
 
@@ -51,18 +90,57 @@ export const ForgotForm = () => {
   }, []);
 
   return (
-    <Style.Container>
+    <Style.Container
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      layout
+    >
       <h1>{title}</h1>
       <p>{subtitle}</p>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <fieldset>
           <label>{label}</label>
-          <Input
-            height="52px"
-            onChange={(e) => setInput(e.target.value)}
-            value={input}
-            required
-          />
+          {forgetType === "password" ? (
+            <Controller
+              name="username"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => (
+                <Input
+                  height="52px"
+                  className={errors.username ? "has-error" : ""}
+                  type="text"
+                  id="username"
+                  {...field}
+                />
+              )}
+            />
+          ) : (
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => (
+                <Input
+                  height="52px"
+                  className={errors.email ? "has-error" : ""}
+                  type="email"
+                  id="email"
+                  {...field}
+                />
+              )}
+            />
+          )}
+          {(errors.username?.type ?? errors.email?.type) === "custom" && (
+            <MessageBox
+              text={errors.username?.message ?? errors.email?.message ?? ""}
+            />
+          )}
         </fieldset>
         {forgetType === "username" && (
           <span>
@@ -106,7 +184,7 @@ const Style = {
       }
 
       input {
-        margin: 12px 0;
+        margin-top: 12px;
       }
     }
 
@@ -118,7 +196,7 @@ const Style = {
     }
 
     button {
-      margin-top: 32px;
+      margin-top: 56px;
     }
   `,
 };

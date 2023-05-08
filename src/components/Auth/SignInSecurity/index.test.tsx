@@ -1,6 +1,5 @@
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
-import { Mock, vi } from "vitest";
 
 import { render, screen, userEvent } from "../../../lib/util/test-utils";
 import { useSignInStore } from "../../../stores/signInStore";
@@ -9,33 +8,10 @@ import { SignInSecurity } from "../SignInSecurity/signInSecurity";
 
 describe("SignInSecurity", async () => {
   beforeEach(() => {
-    vi.spyOn(global, "fetch").mockImplementation(
-      vi.fn(async () => ({
-        ok: true,
-        json: async () => ({
-          questions: "questions",
-        }),
-      })) as Mock,
-    );
     render(
       <MemoryRouter>
         <SignInSecurity />
       </MemoryRouter>,
-    );
-  });
-
-  it("Should load security questions", async () => {
-    expect(fetch).toHaveBeenCalledWith(
-      "https://backend-dev.powerfullkids.ca/api/app/user/question-ids?Username=",
-      {
-        body: null,
-        credentials: "same-origin",
-        headers: {},
-        method: "GET",
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        signal: undefined,
-      },
     );
   });
 
@@ -56,7 +32,7 @@ describe("SignInSecurity", async () => {
     const answerInput3 = screen.getByTestId("answer-3");
     const submit = screen.getByTestId("submit");
 
-    act(() => {
+    await act(() => {
       userEvent.type(answerInput1, `{backspace}${answer1}`);
       userEvent.type(answerInput2, `{backspace}${answer2}`);
       userEvent.type(answerInput3, `{backspace}${answer3}`);

@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import { Header } from "../../components/Global/Header";
 
@@ -9,7 +10,7 @@ export const AuthPage = ({ children }: DashboardPageProps) => {
   return (
     <Style.Container>
       <Header />
-      {children}
+      <AnimatePresence>{children}</AnimatePresence>
     </Style.Container>
   );
 };

@@ -1,18 +1,27 @@
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Photo } from "../../../../components/Accounts/Photo";
+import { GroupActivity } from "../../../../components/Accounts/GroupActivity";
 import Button from "../../../../components/Button";
-import { SmallButton } from "../../../../components/Global/SmallButton";
+import { BackButton } from "../../../../components/Global/BackButton";
 import { useAPI } from "../../../../hooks/useAPI";
+import {
+  PccServer23GroupsCustomGetJoinedGroupUsersDto,
+  PccServer23GroupsGroupWithNavigationPropertiesDto,
+} from "../../../../lib/api/api";
+import { capitalize } from "../../../../lib/util/capitalize";
+import { formatDate } from "../../../../lib/util/formatDate";
 import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsGroupPage = () => {
-  const [group, setGroup] = useState<any>(null);
+  const [group, setGroup] =
+    useState<PccServer23GroupsGroupWithNavigationPropertiesDto>();
+  const [members, setMembers] = useState<
+    PccServer23GroupsCustomGetJoinedGroupUsersDto[]
+  >([]);
   const navigate = useNavigate();
   const { api } = useAPI();
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
   const params = useParams();
 
   const handleBack = () => {
@@ -32,12 +41,10 @@ export const AccountsGroupPage = () => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
         },
       },
     );
-
-    console.log(response);
 
     if (response.data.items) {
       response.data.items.find((item: any) => {
@@ -49,61 +56,72 @@ export const AccountsGroupPage = () => {
     }
   };
 
+  const getMembers = async () => {
+    if (params.group) {
+      const response = await api.appCustomGroupsJoinedGroupUsersList(
+        { GroupId: params.group },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.data.items) {
+        setMembers(response.data.items);
+      }
+    }
+  };
+
   useEffect(() => {
     getGroup();
+    getMembers();
   }, []);
 
   return (
     <Style.PageContainer>
       <div className="buttons-container">
-        <Button onClick={handleBack}>Back</Button>
-        <Button onClick={handleEdit}>Edit</Button>
+        <BackButton onClick={handleBack} />
+        <Button onClick={handleViewGroupCalender}>View Group calendar</Button>
       </div>
       {group && (
         <>
           <div className="group-info-container">
             <div>
-              <h2>{group.group.name}</h2>
-              <p className="text">{"Group ID : " + group.group.id}</p>
-            </div>
-            <div>
-              <p>
-                {"Last modified: " + group.group.lastModificationTime ||
-                  group.group.creationTime}
-              </p>
-              <p>
-                {"Owner: " +
-                  group.owner.username +
-                  " ( " +
-                  group.owner.role +
-                  " ) "}
-              </p>
+              <h2>{group?.group?.name}</h2>
+              <span className="group-id">
+                {"Group ID : " + group?.group?.id}
+              </span>
+              <span className="modified">
+                {`Last modified: ${formatDate(
+                  group?.group?.lastModificationTime ||
+                    group?.group?.creationTime,
+                )}`}
+              </span>
             </div>
           </div>
-          <div className="row">
-            <div className="sort-container">
-              <p>Sort: </p>
-              <select>
-                <option>A-Z</option>
-                <option>Z-A</option>
-              </select>
+          <div className="content">
+            <div className="members-container">
+              <h2>Owner: {group?.owner?.username}</h2>
+              <div className="members-container-content">
+                {members &&
+                  members.map((member, index) => (
+                    <div className="member-container">
+                      <img src="/images/avatars/avatar.svg" alt="user-icon" />
+                      <div>
+                        <span className="user">
+                          {member.userName || "UserName"}
+                        </span>
+                        <span className="role">
+                          {`${capitalize(member.userRole)} User`}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
-            <SmallButton onClick={handleViewGroupCalender}>
-              View Group Calender
-            </SmallButton>
+            <GroupActivity />
           </div>
-          <div className="members-container">
-            {group.group.members &&
-              group.group.members.map((member: any, index: any) => (
-                <div className="member-container">
-                  <div className="photo-container">
-                    <Photo role={member.role} src={member.image} />
-                  </div>
-                  <p className="text">{member.name}</p>
-                </div>
-              ))}
-          </div>
-          {/* <GroupActivity activities={group.group.activities} /> */}
         </>
       )}
     </Style.PageContainer>
@@ -121,43 +139,91 @@ const Style = {
       justify-content: space-between;
     }
 
-    .members-container {
+    .group-info-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
+      justify-content: space-between;
+      flex-direction: column;
 
-      .member-container {
+      div {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
 
-        .photo-container {
-          width: 70px;
-          height: 70px;
+        h2 {
+          font-size: 1.7rem;
+          margin-bottom: 1rem;
+          color: var(--neutral-900);
         }
 
-        .text {
-          margin-left: 20px;
+        .group-id {
+          font-weight: 500;
+          font-size: 1.1rem;
+          color: var(--neutral-600);
+        }
+
+        .modified {
+          font-size: 0.9rem;
+          color: var(--neutral-600);
         }
       }
     }
 
-    .group-info-container {
+    .content {
+      margin-top: 2rem;
       display: flex;
-      justify-content: space-between;
-    }
+      gap: 2rem;
 
-    .row {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-
-      .sort-container {
+      .members-container {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 30px;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        padding: 1.4rem;
+        border-radius: 16px;
+        width: calc(100% * (5 / 12));
 
-        select {
-          margin-left: 20px;
-          padding: 5px;
+        .members-container-content {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+
+          .member-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            div {
+              display: flex;
+              flex-direction: column;
+              color: var(--neutral-800);
+
+              .user {
+                font-size: 1.2rem;
+                font-weight: 600;
+              }
+
+              .role {
+                font-size: 0.9rem;
+              }
+            }
+          }
+        }
+      }
+
+      .row {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+
+        .sort-container {
+          display: flex;
+          align-items: center;
+
+          select {
+            margin-left: 20px;
+            padding: 5px;
+          }
         }
       }
     }

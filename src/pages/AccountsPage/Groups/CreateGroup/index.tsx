@@ -1,5 +1,5 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
@@ -14,7 +14,6 @@ export const AccountsCreateGroupPage = () => {
   const [groupName, setGroupName] = useState("");
   const navigate = useNavigate();
   const { api } = useAPI();
-  const [cookies] = useCookies([STORAGE_KEY_JWT]);
 
   const handleBack = () => {
     navigate(-1);
@@ -31,8 +30,6 @@ export const AccountsCreateGroupPage = () => {
   };
 
   const handleCreate = async () => {
-    console.log("Cookies", cookies);
-
     const response = await api.appCustomGroupsCreate(
       {
         name: groupName,
@@ -40,7 +37,7 @@ export const AccountsCreateGroupPage = () => {
       },
       {
         headers: {
-          Authorization: `Bearer ${cookies.PCCC_TOKEN}`,
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
         },
       },
     );

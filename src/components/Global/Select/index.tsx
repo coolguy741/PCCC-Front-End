@@ -1,3 +1,4 @@
+import { forwardRef, Ref } from "react";
 import styled from "styled-components";
 
 type InputProps = React.InputHTMLAttributes<HTMLSelectElement>;
@@ -8,27 +9,25 @@ interface SelectProps extends InputProps {
   value?: string;
 }
 
-export const Select = ({
-  children,
-  width,
-  height,
-  onChange,
-  value,
-  ...props
-}: SelectProps) => {
-  return (
-    <Style.Container width={width} height={height}>
-      <Style.Select
-        onChange={onChange}
-        value={value}
-        height={height}
-        {...props}
-      >
-        {children}
-      </Style.Select>
-    </Style.Container>
-  );
-};
+export const Select = forwardRef(
+  (
+    { children, width, height, onChange, value, ...props }: SelectProps,
+    ref: Ref<HTMLFieldSetElement>,
+  ) => {
+    return (
+      <Style.Container width={width} height={height} ref={ref}>
+        <Style.Select
+          onChange={onChange}
+          value={value}
+          height={height}
+          {...props}
+        >
+          {children}
+        </Style.Select>
+      </Style.Container>
+    );
+  },
+);
 
 const Style = {
   Container: styled.fieldset<SelectProps>`
