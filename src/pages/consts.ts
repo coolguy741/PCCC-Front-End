@@ -2,6 +2,15 @@ import { Menu } from "./types";
 
 export const STORAGE_KEY_PREFIX = "PCCC_";
 export const STORAGE_KEY_JWT = STORAGE_KEY_PREFIX + "TOKEN";
+export const WEEK_DAYS = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
 export const MENUS: Menu[] = [
   { label: "Home", to: "/dashboard", icon: "home" },
   { label: "Accounts", to: "accounts", icon: "user", auth: true },

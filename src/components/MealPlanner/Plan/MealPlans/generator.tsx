@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
+import { WEEK_DAYS } from "../../../../pages/consts";
 import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
 import Button from "../../../Button";
+import { Checkbox } from "../../../Global/Checkbox";
 import { Typography } from "../../../Global/Typography";
 import { BookFilter } from "../Filter";
 
@@ -79,6 +81,7 @@ export const MealPlanGenerator = () => {
             <Typography variant="paragraph3" color="book-300" weight="medium">
               Days of the week
             </Typography>
+
             <Style.AppleSticker>
               <img
                 src="/images/plate-full-planner/apple-sticker.svg"
@@ -91,6 +94,16 @@ export const MealPlanGenerator = () => {
                 src="/images/plate-full-planner/paper.svg"
                 alt="week paper"
               />
+              <div className="week-group">
+                {WEEK_DAYS.map((day) => {
+                  return (
+                    <Style.Checkbox key={day}>
+                      <Checkbox colorOption="book" sizeOption="small" />
+                      <label>{day}</label>
+                    </Style.Checkbox>
+                  );
+                })}
+              </div>
             </Style.Paper>
           </div>
           <Button
@@ -146,6 +159,18 @@ const Style = {
       margin: 16% 10% 42% 5%;
     }
 
+    .week-group {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      grid: 5%;
+      top: 50%;
+      left: 0;
+      transform: rotate(-2.51deg) translate(0, -40%);
+      padding: 5%;
+      position: absolute;
+    }
+
     .filter-container {
       position: relative;
       display: grid;
@@ -199,15 +224,20 @@ const Style = {
     position: absolute;
     right: 0;
     top: 0;
+    width: 23%;
     transform: translate(25%, -42%);
+
+    & > img {
+      width: 100%;
+    }
 
     &:before {
       position: absolute;
       content: "";
-      width: 60px;
+      width: 40%;
       right: 0;
       transform: rotate(45deg) translateX(20%);
-      height: 35px;
+      height: 20%;
       opacity: 0.4;
       background: #ffba3a;
       z-index: 2;
@@ -215,16 +245,21 @@ const Style = {
   `,
   LemonSticker: styled.div`
     position: absolute;
+    width: 35%;
     right: 0;
     bottom: 0;
     transform: translate(-10%, -10%);
+
+    & > img {
+      width: 100%;
+    }
     &:before {
       position: absolute;
       content: "";
-      width: 60px;
+      width: 24%;
       right: 0;
       transform: rotate(70deg) translate(40%, 100%);
-      height: 35px;
+      height: 13%;
       opacity: 0.4;
       background: #ffba3a;
       z-index: 3;
@@ -261,13 +296,18 @@ const Style = {
     transform: translate(-60%, -107%);
   `,
   Paper: styled.div`
+    width: 100%;
+    & > img {
+      width: 100%;
+    }
+
     &:before {
       position: absolute;
       content: "";
-      width: 60px;
+      width: 10%;
       left: 0;
-      transform: rotate(85deg) translate(120%, 90%);
-      height: 35px;
+      transform: rotate(85deg) translate(100%, 90%);
+      height: 15%;
       opacity: 0.4;
       background: #ffba3a;
       z-index: 2;
@@ -291,6 +331,16 @@ const Style = {
     }
     & > img {
       width: 100%;
+    }
+  `,
+  Checkbox: styled.div`
+    display: flex;
+    width: 25%;
+    gap: 8%;
+    padding: 2% 0;
+    & > label {
+      text-transform: capitalize;
+      color: var(--book-300);
     }
   `,
 };

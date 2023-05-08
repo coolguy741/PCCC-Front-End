@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-import { Typography } from "../../../Global/Typography";
 import { Tag } from "../Tag";
+import { WeeklyMealPlan } from "./WeeklyMealPlan";
 
 export const MealPlans = () => {
   return (
@@ -36,33 +36,23 @@ export const MealPlans = () => {
       />
       <Style.Pages>
         <Style.LeftPage>
-          <div className="meal-planner-details">
-            <div>12 Total Students</div>
-            <div>04 meals per day</div>
-            <Style.DateLabel>
-              <div className="label-container">
-                <Typography variant="h2" color="book-400" weight="semi-bold">
-                  08/19/2023
-                </Typography>
-              </div>
-              <img
-                src="/images/plate-full-planner/date-label.svg"
-                alt="date label"
-              />
-              <div className="week-mark">
-                <img
-                  src="/images/plate-full-planner/week-mark.svg"
-                  alt="week-mark"
-                />
-              </div>
-            </Style.DateLabel>
-          </div>
+          <WeeklyMealPlan />
         </Style.LeftPage>
         <Style.Page>
           <Style.CoffeeStain
             src="/images/plate-full-planner/coffee-stain.svg"
             alt="coffee stainer on paper"
           />
+          <Style.Fruit
+            src="/images/plate-full-planner/fruits.svg"
+            alt="fruit on paper"
+          />
+          <Style.BrownPaper>
+            <img
+              src="/images/plate-full-planner/brown-paper.png"
+              alt="brown-paper"
+            />
+          </Style.BrownPaper>
         </Style.Page>
       </Style.Pages>
     </Style.Container>
@@ -87,24 +77,16 @@ const Style = {
     right: 0;
     bottom: 0;
     position: absolute;
-    padding: 3% 5% 4% 4%;
+    padding: 3% 4% 4% 3%;
     grid-template-columns: 1fr 1fr;
     gap: 4%;
   `,
   LeftPage: styled.section`
-    position: relative;
-
-    .meal-planner-details {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-    }
+    margin-right: -2%;
+    height: 100%;
   `,
   Page: styled.div`
-    background-image: linear-gradient(to right, #eadab650 0%, #eadab680 100%);
-    border-radius: 16px;
     position: relative;
-
     img.omate-line {
       position: absolute;
       left: 50%;
@@ -123,10 +105,6 @@ const Style = {
       grid-template-columns: 1.5fr 1fr;
       gap: 3%;
       margin: 16% 10%;
-
-      div {
-        background: gray;
-      }
     }
 
     .btn-create {
@@ -134,158 +112,26 @@ const Style = {
       margin-right: 7%;
     }
   `,
-  Corner: styled.div.attrs(
-    ({
-      top,
-      bottom,
-      left,
-      right,
-      angle,
-    }: {
-      top: string;
-      bottom: string;
-      right: string;
-      left: string;
-      angle: string;
-    }) => ({
-      top,
-      bottom,
-      right,
-      left,
-      angle,
-    }),
-  )`
-    background: var(--book-200);
-    width: 8%;
-    position: absolute;
-    ${({ top }) => !!top && `top: ${top};`}
-    ${({ left }) => !!left && `left: ${left};`}
-    ${({ right }) => !!right && `right: ${right};`}
-    ${({ bottom }) => !!bottom && `bottom: ${bottom};`}
-    ${({ angle }) => !!angle && `transform: rotate(${angle});`}
-    height: 8%;
-    clip-path: polygon(0% 0%, 100% 0%, 0% 100%, 0% 0%);
-  `,
-  AppleSticker: styled.div`
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translate(25%, -42%);
-
-    &:before {
-      position: absolute;
-      content: "";
-      width: 60px;
-      right: 0;
-      transform: rotate(45deg) translateX(20%);
-      height: 35px;
-      opacity: 0.4;
-      background: #ffba3a;
-      z-index: 2;
-    }
-  `,
-  LemonSticker: styled.div`
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    transform: translate(-10%, -10%);
-    &:before {
-      position: absolute;
-      content: "";
-      width: 60px;
-      right: 0;
-      transform: rotate(70deg) translate(40%, 100%);
-      height: 35px;
-      opacity: 0.4;
-      background: #ffba3a;
-      z-index: 3;
-    }
-  `,
   CoffeeStain: styled.img`
     position: absolute;
-    width: 84%;
-    transform: rotate(-11.75deg) translate(-10%, 15%);
-    opacity: 0.8;
-    mix-blend-mode: color-burn;
-  `,
-  Arrow: styled.img`
-    position: absolute;
-    width: 14%;
-    right: 0;
-    bottom: 0;
-    transform: translate(-45%, -85%);
-  `,
-  Scribble: styled.img`
-    position: absolute;
-    width: 50%;
+    width: 70%;
+    transform: rotate(-200.75deg) translate(-15%, 3%);
     left: 0;
-    mix-blend-mode: color-burn;
     bottom: 0;
-    transform: translate(-10%, -7%);
-  `,
-  SmallScribble: styled.img`
-    position: absolute;
-    width: 25%;
-    left: 50%;
     mix-blend-mode: color-burn;
-    bottom: 0;
-    transform: translate(-60%, -107%);
   `,
-  Paper: styled.div`
-    &:before {
-      position: absolute;
-      content: "";
-      width: 60px;
-      left: 0;
-      transform: rotate(85deg) translate(120%, 90%);
-      height: 35px;
-      opacity: 0.4;
-      background: #ffba3a;
-      z-index: 2;
-    }
-  `,
-  DateLabel: styled.div`
+  Fruit: styled.img`
     position: absolute;
-    top: 0;
-    width: 50%;
-    left: 50%;
-    transform: translate(-50%);
+    width: 30%;
+    left: 0;
+    bottom: 0;
+    transform: translate(10%, -15%);
+  `,
+  BrownPaper: styled.div`
+    position: absolute;
+    left: 0;
 
-    display: flex;
-    justify-content: center;
-
-    .week-mark {
-      position: absolute;
-      width: 30%;
-      left: 0;
-      transform: translate(30%, -25%);
-      display: flex;
-      align-items: center;
-
-      &:after {
-        position: absolute;
-        color: white;
-        left: 0;
-        content: "WEEK OF";
-        font-size: 16px;
-        font-family: Noir Std;
-        font-weight: 600;
-        width: 100%;
-        vertical-align: middle;
-        text-align: center;
-        transform: rotate(-7.38deg);
-      }
-    }
-
-    & > div.label-container {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      top: 50%;
-      transform: rotate(-1.85deg) translate(0, -50%);
-    }
+    bottom: 30%;
     & > img {
       width: 100%;
     }
