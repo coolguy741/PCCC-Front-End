@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 import { Vector2, Vector3 } from "three";
-import { RefNumberType } from "../../7-Types/RefTypes";
-import { POWER_1_INOUT } from "./Eases";
+import { POWER_1_INOUT } from "../../../../shared/Eases/Eases";
+import { RefNumberType } from "../../../../shared/Types/RefTypes";
 
 const animateRouteProgress = (
   targetRef: RefNumberType,

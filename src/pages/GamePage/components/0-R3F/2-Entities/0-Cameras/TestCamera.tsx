@@ -5,7 +5,6 @@ import {
   Fragment,
   memo,
   MutableRefObject,
-  useCallback,
   // useEffect,
   useMemo,
   useRef,
@@ -13,7 +12,6 @@ import {
 import {
   CubicBezierCurve3,
   DoubleSide,
-  MathUtils,
   Mesh,
   MeshStandardMaterial,
   TubeGeometry,
@@ -25,11 +23,6 @@ import { useGlobalState } from "../../../../globalState/useGlobalState";
 const TestCamera = () => {
   // Refs
   const tubeRef: MutableRefObject<Mesh | null> = useRef(null);
-  const ref: MutableRefObject<number> = useRef(0);
-  const pos: MutableRefObject<Vector3> = useRef(
-    new Vector3(-3.895013, 2.909739, 4.410319),
-  );
-  const done: MutableRefObject<boolean> = useRef(false);
   const laRef: MutableRefObject<Mesh | null> = useRef(null);
 
   // Global State
@@ -77,15 +70,6 @@ const TestCamera = () => {
 
     return { geo, mat, toolsGeo, lA, shedGeo };
   }, []);
-
-  const dampVector3 = useCallback(
-    (target: Vector3, to: Vector3, step: number, delta: number) => {
-      target.x = MathUtils.damp(target.x, to.x, step, delta);
-      target.y = MathUtils.damp(target.y, to.y, step, delta);
-      target.z = MathUtils.damp(target.z, to.z, step, delta);
-    },
-    [],
-  );
 
   // useFrame(({ camera, mouse }, delta) => {
   //   if (laRef.current && activeCamera === "PlayerCamera") {
