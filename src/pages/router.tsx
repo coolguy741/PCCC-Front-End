@@ -318,11 +318,16 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "profile-settings",
-        element: <ProfileSettingsPage />,
+        element: (
+          <ContentListPageLayout
+            title="Your profile"
+            icon="profile-orange-outlined"
+          />
+        ),
+        children: [
+          { path: "", element: <ProfilePage /> },
+          { path: "settings", element: <ProfileSettingsPage /> },
+        ],
       },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
