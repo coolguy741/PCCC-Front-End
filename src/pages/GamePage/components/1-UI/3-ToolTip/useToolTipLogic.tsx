@@ -8,10 +8,12 @@ import useMouseMove from "../4-Hooks/useMouseMove";
 import { animateToolTipIn, animateToolTipOut } from "./ToolTipAnimations";
 import {
   toolTipBoundingRectDimensions,
+  toolTipBoundingRectDivisor,
   toolTipCenterXOffset,
   toolTipCenterYOffset,
+  toolTipDampedFollowLocation,
+  toolTipDampedFollowLocationStep,
   toolTipFollowLocation,
-  toolTipLerpedFollowLocation,
 } from "./ToolTipDefines";
 
 const useToolTipLogic = () => {
@@ -31,10 +33,10 @@ const useToolTipLogic = () => {
   const handleSetToolTipLocation = useCallback((event: MouseEvent) => {
     toolTipFollowLocation.set(
       event.clientX -
-        toolTipBoundingRectDimensions.x / 2 +
+        toolTipBoundingRectDimensions.x / toolTipBoundingRectDivisor +
         toolTipCenterXOffset,
       event.clientY -
-        toolTipBoundingRectDimensions.y / 2 +
+        toolTipBoundingRectDimensions.y / toolTipBoundingRectDivisor +
         toolTipCenterYOffset,
     );
   }, []);
@@ -45,14 +47,14 @@ const useToolTipLogic = () => {
       if (!toolTipRef.current) return;
 
       DampVector2(
-        toolTipLerpedFollowLocation,
+        toolTipDampedFollowLocation,
         toolTipFollowLocation,
-        0.01,
+        toolTipDampedFollowLocationStep,
         delta,
       );
 
-      toolTipRef.current.style.left = `${toolTipLerpedFollowLocation.x}px`;
-      toolTipRef.current.style.top = `${toolTipLerpedFollowLocation.y}px`;
+      toolTipRef.current.style.left = `${toolTipDampedFollowLocation.x}px`;
+      toolTipRef.current.style.top = `${toolTipDampedFollowLocation.y}px`;
     },
     [isHoveringEntity],
   );
@@ -61,7 +63,7 @@ const useToolTipLogic = () => {
     if (!toolTipRef.current) return;
 
     if (isHoveringEntity) {
-      toolTipLerpedFollowLocation.copy(toolTipFollowLocation);
+      toolTipDampedFollowLocation.copy(toolTipFollowLocation);
       animateToolTipIn(toolTipRef.current);
     } else {
       animateToolTipOut(toolTipRef.current);
