@@ -4,6 +4,7 @@ import {
   PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
   PccServer23UsersGetUserProfileDto,
 } from "../lib/api/api";
+import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 
 export const useUserStore = create<{
   user: PccServer23UsersGetUserProfileDto | null;
@@ -38,6 +39,7 @@ export const useUserStore = create<{
   setSecondQuestionId: (answer: string) => void;
   thirdQuestionId: string;
   setThirdQuestionId: (answer: string) => void;
+  hasCheckedForUserThisSession: boolean;
 }>()((set) => ({
   /** Our User/session object, null if not logged in */
   user: null,
@@ -70,6 +72,7 @@ export const useUserStore = create<{
   setSecondQuestionId: (id: string) => set({ secondQuestionId: id }),
   thirdQuestionId: "",
   setThirdQuestionId: (id: string) => set({ thirdQuestionId: id }),
+  hasCheckedForUserThisSession: false,
 }));
 
 // Imperative getter/setter/computed-value functions
@@ -108,4 +111,36 @@ export const useUser = () => {
     user,
     setUser,
   };
+};
+
+export const getHasCheckedForUserThisSession = () =>
+  useUserStore.getState().hasCheckedForUserThisSession;
+
+export const setHasCheckedForUserThisSession = (val: true) =>
+  useUserStore.setState({ hasCheckedForUserThisSession: val });
+
+/**
+ * This is an imperative function that will fetch the user if we have not already done so this session.
+ * @returns User | null
+ */
+export const getUserOrFetchUserIfFirstLoad = async () => {
+  // See if the store already has a user
+  let user = getUser();
+
+  // If not, and if we haven't checked this session
+  if (!user && !getHasCheckedForUserThisSession()) {
+    // Try to get a user.  If this worked, it will populate the userStore.
+    try {
+      await getAuthenticatedUser();
+    } catch (err) {
+      console.warn("Failed to fetch user on page load", err);
+    }
+
+    // We have checked for the user, so we shouldn't use this approach to check again--this session.
+    setHasCheckedForUserThisSession(true);
+
+    // Get the user from the store (might be null still, but maybe we got a user!)
+    user = getUser();
+  }
+  return user;
 };
