@@ -190,7 +190,7 @@ export const router = createBrowserRouter([
       },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
       {
-        path: "meal-planner",
+        path: "plate-full-planner",
         element: (
           <>
             <Outlet />
@@ -347,7 +347,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "dashboard/meal-planner",
+        path: "dashboard/plate-full-planner",
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
 
