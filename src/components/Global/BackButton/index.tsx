@@ -14,7 +14,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
 };
 
 const Style = {
-  Container: styled.div`
+  Container: styled.button`
     display: flex;
     align-items: center;
     font-family: "Noir Std";

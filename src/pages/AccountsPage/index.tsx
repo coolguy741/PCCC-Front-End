@@ -21,12 +21,12 @@ const Style = {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 100vh;
+    height: auto;
     justify-content: space-between;
     overflow: hidden;
 
     section.accounts-content {
-      height: 90%;
+      min-height: 90vh;
       width: 100%;
     }
 

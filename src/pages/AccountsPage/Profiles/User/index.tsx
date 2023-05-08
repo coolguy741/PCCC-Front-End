@@ -81,10 +81,6 @@ export const AccountsUserProfilePage = () => {
   return (
     <Style.Container>
       <article className="account-content-header">
-        {/* <span className="breadcrumb">
-          <ArrowLeft />
-          Back
-        </span> */}
         <h2>Standard Profile</h2>
       </article>
       <section className="content-container">
@@ -127,7 +123,7 @@ export const AccountsUserProfilePage = () => {
 
 const Style = {
   Container: styled.section`
-    height: 100%;
+    height: 90vh;
 
     hgroup {
       margin-bottom: 1vh;
@@ -155,22 +151,6 @@ const Style = {
       flex-direction: column;
       justify-content: center;
       width: 100%;
-
-      .breadcrumb {
-        font-family: "Noir Std";
-        font-style: normal;
-        font-weight: 500;
-        font-size: 0.85rem;
-        color: var(--neutral-500);
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        margin-bottom: 0.5vh;
-
-        svg {
-          width: 2.5%;
-        }
-      }
     }
 
     .header-view {
@@ -209,7 +189,7 @@ const Style = {
     .activity,
     .lesson-assesment {
       ${glassBackground};
-      padding: 1.5rem;
+      padding: 3vh 2vw;
       border-radius: 1rem;
       box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
       overflow: hidden;
