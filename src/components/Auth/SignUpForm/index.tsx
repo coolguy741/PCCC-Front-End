@@ -63,7 +63,6 @@ export const SignUpForm = () => {
     control,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
