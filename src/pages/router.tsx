@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
+import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
@@ -32,7 +33,6 @@ import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { CloudDrivePage } from "./CloudDrivePage";
 import { CookTogetherPage } from "./CookTogetherPage";
-import { DashboardPage } from "./DashboardPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
@@ -126,9 +126,9 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <DashboardPage>
+      <DashboardLayout>
         <Outlet />
-      </DashboardPage>
+      </DashboardLayout>
     ),
     loader: async () => {
       getAuthenticatedUser();
