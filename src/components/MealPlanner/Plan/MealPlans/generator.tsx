@@ -6,7 +6,6 @@ import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
 import Button from "../../../Button";
 import { Checkbox } from "../../../Global/Checkbox";
 import { Typography } from "../../../Global/Typography";
-import { BookFilter } from "../Filter";
 
 export const MealPlanGenerator = () => {
   const { changeStep } = useMealPlannerStore();
@@ -53,9 +52,7 @@ export const MealPlanGenerator = () => {
             src="/images/plate-full-planner/scribble-small.svg"
             alt="small scribble on paper"
           />
-          <div className="filter-container">
-            <BookFilter />
-          </div>
+          <div className="filter-container"></div>
         </Style.Page>
         <Style.Page>
           <Style.Corner top="-1%" left="-1%" />

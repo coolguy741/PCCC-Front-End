@@ -18,6 +18,7 @@ export const MENUS: Menu[] = [
     label: "User Tools",
     to: "user-tools",
     icon: "tool",
+    auth: true,
     subMenus: [
       { label: "Calendar", to: "calendar", icon: "calendar" },
       { label: "Meal Planner", to: "meal-planner", icon: "meal-planner" },
