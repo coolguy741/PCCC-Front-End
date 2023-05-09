@@ -5,6 +5,7 @@ import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
+import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -131,7 +132,7 @@ export const router = createBrowserRouter([
       </DashboardLayout>
     ),
     loader: async () => {
-      getAuthenticatedUser();
+      await getAuthenticatedUser();
 
       return null;
     },
@@ -145,6 +146,11 @@ export const router = createBrowserRouter([
             <Outlet />
           </AccountsPage>
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <Navigate to="./profiles" /> },
           { path: "profiles", element: <AccountsProfilesPage /> },
@@ -190,7 +196,7 @@ export const router = createBrowserRouter([
       },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
       {
-        path: "meal-planner",
+        path: "plate-full-planner",
         element: (
           <>
             <Outlet />
@@ -352,7 +358,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "dashboard/meal-planner",
+        path: "dashboard/plate-full-planner",
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
 

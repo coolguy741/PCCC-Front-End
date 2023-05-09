@@ -1,9 +1,8 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
-import { usePathName } from "../../../hooks/usePathName";
 import { MENUS, STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
 
@@ -13,29 +12,13 @@ type MenuState = {
 };
 
 export function SideMenu() {
-  const [setUser] = useUserStore((state) => [state.setUser]);
+  const { user, setUser } = useUserStore();
+  const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState({
     "user-tools": false,
     "content-builder": false,
   });
-
-  const {
-    isDashboard,
-    isAccounts,
-    isReports,
-    isGroupOrganizer,
-    isMealPlanner,
-    isTopicEditor,
-    isMealTimeMoments,
-    isActivitiesBuilder,
-    isAchievements,
-    isFoodwaysEditor,
-    isRecipeBuilder,
-    isCalendar,
-    isGames,
-    isCloudDrive,
-  } = usePathName();
 
   const handleMenuClick = (menu: string) => {
     setMenuOpen({
@@ -47,6 +30,8 @@ export function SideMenu() {
   const logoutHandler = () => {
     Cookies.remove(STORAGE_KEY_JWT);
     setUser(null);
+
+    navigate("/");
   };
 
   return (
@@ -55,7 +40,7 @@ export function SideMenu() {
         <Link to="/">
           <div className="logo-container">
             <img src="/images/avatars/avatar.svg" alt="avatar" />
-            <div className="username">Dale Carman</div>
+            <div className="username">{user?.username}</div>
           </div>
         </Link>
       </div>
