@@ -123,6 +123,7 @@ export const AccountsUserProfilePage = () => {
 
 const Style = {
   Container: styled.section`
+    height: 100%;
     hgroup {
       margin-bottom: 1vh;
     }
@@ -176,8 +177,8 @@ const Style = {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(7, 1fr);
-      grid-column-gap: 2%;
-      grid-row-gap: 2%;
+      grid-column-gap: 1.5vh;
+      grid-row-gap: 1.5vh;
       height: 90%;
     }
 
@@ -187,7 +188,7 @@ const Style = {
     .activity,
     .lesson-assesment {
       ${glassBackground};
-      padding: 3vh 2vw;
+      padding: 2vh 1.5vw;
       border-radius: 1rem;
       box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
       overflow: hidden;
