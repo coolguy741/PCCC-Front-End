@@ -49,7 +49,7 @@ export const ClosedPlateFullPlannerBook = () => {
         />
       </div>
       <Style.SwipeButton>
-        <Typography variant="paragraph3" color="book-200">
+        <Typography variant="p3" color="book-200">
           Swipe left to open
         </Typography>
         <Style.SwipeTrack ref={ref}>
@@ -86,7 +86,7 @@ export const ClosedPlateFullPlannerBook = () => {
 };
 
 const Style = {
-  Container: styled(motion.main)`
+  Container: styled(motion.section)`
     width: 50%;
     padding-top: 1.25rem;
     margin: 0 auto;
@@ -104,6 +104,7 @@ const Style = {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    margin-bottom: 40px;
   `,
   SwipeTrack: styled.div`
     width: fit-content;

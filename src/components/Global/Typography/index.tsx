@@ -23,6 +23,18 @@ export type TypographyWeight =
   | "bold"
   | "heavy";
 
+export type TypographyComponent =
+  | "div"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "span"
+  | "label"
+  | "p";
+
 export type TypographyProps = {
   className?: string;
   children: React.ReactNode;
@@ -42,6 +54,7 @@ export type TypographyProps = {
   pr?: number;
   variant?: TypographyVariant;
   weight?: TypographyWeight;
+  as?: TypographyComponent;
   color?: string;
 };
 
@@ -162,8 +175,8 @@ function getTypographyVariant(props: TypographyProps) {
   return variantVStyles(variant);
 }
 
-export const Style = {
-  Container: styled.div`
+function getTypographyStyle() {
+  return css`
     font-family: "Noir Std";
     ${({ m }) => m && `margin: calc(${m} * var(--gutter-spacing));`}
     ${({ mt }) => mt && `margin-top: calc(${mt} * var(--gutter-spacing));`}
@@ -182,5 +195,11 @@ export const Style = {
     ${({ color = "neutral-800" }) => `color: var(--${color});`}
     ${getTypographyWeight}
     ${getTypographyVariant}
+  `;
+}
+
+export const Style = {
+  Container: styled("div")`
+    ${getTypographyStyle}
   `,
 };
