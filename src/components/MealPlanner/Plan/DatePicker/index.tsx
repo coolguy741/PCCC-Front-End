@@ -5,8 +5,6 @@ import styled from "styled-components";
 
 import { Icon } from "../../../Global/Icon";
 
-import "rsuite/dist/rsuite.min.css";
-
 export interface DatePickerProps extends InputHTMLAttributes<HTMLInputElement> {
   dates: [Date, Date] | null;
   setDates: (dates: [Date, Date]) => void;
