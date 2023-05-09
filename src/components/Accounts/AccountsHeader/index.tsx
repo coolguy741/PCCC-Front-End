@@ -38,26 +38,26 @@ const Style = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 0.5vh;
 
     h1 {
       font-weight: 600;
-      font-size: 2.5vh;
+      font-size: 3vh;
       color: var(--orange-500);
       display: flex;
       align-items: center;
 
       svg {
         margin-right: 0.5vw;
-        height: 2vh;
+        height: 2.75vh;
       }
     }
 
     .tags-container {
-      border-bottom: 1px solid var(--blue-500);
+      border-bottom: 2px solid var(--blue-500);
       width: 100%;
       display: flex;
-      /* flex-grow: 1; */
-      height: 4vh;
+      height: 5vh;
 
       .tag {
         width: 50%;
@@ -67,13 +67,13 @@ const Style = {
         justify-content: center;
         font-weight: 500;
         color: var(--blue-500);
-        border-bottom: 1px solid transparent;
+        border-bottom: 2px solid transparent;
         transition: border 0.3s linear;
-        font-size: 2vh;
+        font-size: 3vh;
       }
 
       .active {
-        border-bottom: 1px solid var(--blue-500);
+        border-bottom: 2px solid var(--blue-500);
       }
     }
 
@@ -81,14 +81,19 @@ const Style = {
     button {
       margin: 1vh 0;
       background: rgba(255, 255, 255, 0.65);
-      width: 100px;
-      padding: 7.5px 5px;
+      width: 85px;
+      padding: 5px 5px;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
       border-radius: 80px;
       font-size: 1.5vh;
+
+      svg {
+        margin-right: 0.5vw;
+        height: 1.5vh;
+      }
     }
   `,
 };

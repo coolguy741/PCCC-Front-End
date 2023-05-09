@@ -124,9 +124,9 @@ export const AccountsUserProfilePage = () => {
 const Style = {
   Container: styled.section`
     height: 100%;
-    hgroup {
-      margin-bottom: 1vh;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     h2 {
       font-weight: 600;
@@ -140,12 +140,16 @@ const Style = {
       font-size: 2.5vh;
     }
 
+    hgroup {
+      margin-bottom: 1vh;
+    }
+
     p {
       color: var(--neutral-800);
     }
 
     .account-content-header {
-      height: 10%;
+      height: 5%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -179,7 +183,7 @@ const Style = {
       grid-template-rows: repeat(7, 1fr);
       grid-column-gap: 1.5vh;
       grid-row-gap: 1.5vh;
-      height: 90%;
+      height: 92.5%;
     }
 
     .user-info,
