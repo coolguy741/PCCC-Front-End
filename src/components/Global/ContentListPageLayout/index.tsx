@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../Icon";
@@ -19,7 +19,9 @@ export const ContentListPageLayout: React.FC<ContentListPageLayoutProps> = ({
         {icon && <Icon name={icon} width="48px" height="48px" />}
         <Style.Title>{title}</Style.Title>
       </Style.TitleLine>
-      <Outlet />
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
     </Style.PageContainer>
   );
 };
