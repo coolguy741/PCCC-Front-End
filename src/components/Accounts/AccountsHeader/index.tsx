@@ -7,7 +7,7 @@ export const AccountsHeader = () => {
   const { pathname } = useLocation();
 
   return (
-    <Style.Container>
+    <Style.Container className="accounts-header">
       <h1>
         <Account /> Accounts
       </h1>
@@ -37,7 +37,6 @@ const Style = {
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 15vh;
     justify-content: space-between;
 
     h1 {
