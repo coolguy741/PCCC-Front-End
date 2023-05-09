@@ -42,7 +42,7 @@ const Style = {
 
     h1 {
       font-weight: 600;
-      font-size: 3vh;
+      font-size: 4vh;
       color: var(--orange-500);
       display: flex;
       align-items: center;
@@ -69,20 +69,20 @@ const Style = {
         color: var(--blue-500);
         border-bottom: 2px solid transparent;
         transition: border 0.3s linear;
-        font-size: 3vh;
+        font-size: 2.4vh;
       }
 
       .active {
-        border-bottom: 2px solid var(--blue-500);
+        border-bottom: 4px solid var(--blue-500);
       }
     }
 
     // TODO: ask about global back button
     button {
-      margin: 1vh 0;
+      margin: 1.2vh 0;
       background: rgba(255, 255, 255, 0.65);
-      width: 85px;
-      padding: 5px 5px;
+      width: 110px;
+      padding: 10px 10px;
       display: flex;
       align-items: center;
       justify-content: center;
