@@ -35,7 +35,7 @@ import { CalendarPrintPage } from "./CalendarPage/Print";
 import { CloudDrivePage } from "./CloudDrivePage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
-import { FoodwaysPage } from "./FoodwaysPage";
+import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
@@ -274,6 +274,7 @@ export const router = createBrowserRouter([
             icon="foodways-orange-outlined"
           />
         ),
+        loader: foodwaysPageLoader,
         children: [
           { path: "", element: <FoodwaysPage /> },
           {
