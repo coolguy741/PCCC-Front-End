@@ -123,7 +123,7 @@ export const AccountsUserProfilePage = () => {
 
 const Style = {
   Container: styled.section`
-    height: 90vh;
+    flex-grow: 1;
 
     hgroup {
       margin-bottom: 1vh;
