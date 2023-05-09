@@ -26,12 +26,12 @@ const Style = {
     overflow: hidden;
 
     .accounts-header {
-      height: 20vh;
+      height: 11vh;
     }
 
     section.accounts-content {
       width: 100%;
-      height: 70vh;
+      height: 77vh;
     }
 
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}

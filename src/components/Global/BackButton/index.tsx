@@ -15,18 +15,21 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
 
 const Style = {
   Container: styled.button`
+    margin: 1.2vh 0;
+    background: rgba(255, 255, 255, 0.65);
+    width: 110px;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
-    font-family: "Noir Std";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 24px;
-    color: var(--neutral-500);
-    cursor: pointer;
+    justify-content: center;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 80px;
+    font-size: 1.5vh;
+    color: var(--neutral-700);
 
     svg {
-      margin-right: 15px;
+      margin-right: 0.5vw;
+      height: 1.5vh;
     }
   `,
 };

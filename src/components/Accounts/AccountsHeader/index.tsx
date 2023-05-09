@@ -1,10 +1,14 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BackButton } from "../../Global/BackButton";
 import { Account } from "../../Icons";
 
 export const AccountsHeader = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <Style.Container className="accounts-header">
@@ -27,7 +31,7 @@ export const AccountsHeader = () => {
           Groups
         </Link>
       </nav>
-      <BackButton />
+      {/* <BackButton onClick={handleBack} /> */}
     </Style.Container>
   );
 };

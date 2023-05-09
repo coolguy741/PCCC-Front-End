@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { AchievementsModal } from "../../../../components/Accounts/AchievementsModal";
@@ -10,6 +10,7 @@ import { useUserStore } from "../../../../stores/userStore";
 import { glassBackground } from "../../../../styles/helpers/glassBackground";
 //should be deleted after api implementation
 import Cookies from "js-cookie";
+import { BackButton } from "../../../../components/Global/BackButton";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 import { STORAGE_KEY_JWT } from "../../../consts";
 import { UserAchievements } from "./Achievements";
@@ -26,6 +27,7 @@ export type Achievement = {
 
 export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const userData = pathname.includes("Standard")
     ? MockData[0]
@@ -80,6 +82,7 @@ export const AccountsUserProfilePage = () => {
 
   return (
     <Style.Container>
+      <BackButton onClick={() => navigate(-1)} />
       <article className="account-content-header">
         <h2>Standard Profile</h2>
       </article>
@@ -132,6 +135,7 @@ const Style = {
       font-weight: 600;
       color: var(--neutral-900);
       font-size: 3vh;
+      margin-bottom: 1vh;
     }
 
     h3 {
@@ -149,7 +153,7 @@ const Style = {
     }
 
     .account-content-header {
-      height: 5%;
+      height: 6%;
       display: flex;
       flex-direction: column;
       justify-content: center;
