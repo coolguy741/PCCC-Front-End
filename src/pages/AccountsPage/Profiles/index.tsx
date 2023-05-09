@@ -85,7 +85,7 @@ export const AccountsProfilesPage = () => {
 const Style = {
   PageContainer: styled.div`
     display: flex;
-    height: 100%;
+    height: auto;
     flex-direction: column;
 
     .filters-container {
@@ -96,7 +96,6 @@ const Style = {
 
     .users {
       display: grid;
-      overflow-y: scroll;
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       padding-right: 16px;

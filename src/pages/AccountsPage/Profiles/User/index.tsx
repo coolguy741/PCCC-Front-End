@@ -81,10 +81,6 @@ export const AccountsUserProfilePage = () => {
   return (
     <Style.Container>
       <article className="account-content-header">
-        {/* <span className="breadcrumb">
-          <ArrowLeft />
-          Back
-        </span> */}
         <h2>Standard Profile</h2>
       </article>
       <section className="content-container">
@@ -128,10 +124,9 @@ export const AccountsUserProfilePage = () => {
 const Style = {
   Container: styled.section`
     height: 100%;
-
-    hgroup {
-      margin-bottom: 1vh;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     h2 {
       font-weight: 600;
@@ -145,32 +140,20 @@ const Style = {
       font-size: 2.5vh;
     }
 
+    hgroup {
+      margin-bottom: 1vh;
+    }
+
     p {
       color: var(--neutral-800);
     }
 
     .account-content-header {
-      height: 10%;
+      height: 5%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       width: 100%;
-
-      .breadcrumb {
-        font-family: "Noir Std";
-        font-style: normal;
-        font-weight: 500;
-        font-size: 0.85rem;
-        color: var(--neutral-500);
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        margin-bottom: 0.5vh;
-
-        svg {
-          width: 2.5%;
-        }
-      }
     }
 
     .header-view {
@@ -198,9 +181,9 @@ const Style = {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(7, 1fr);
-      grid-column-gap: 2%;
-      grid-row-gap: 2%;
-      height: 90%;
+      grid-column-gap: 1.5vh;
+      grid-row-gap: 1.5vh;
+      height: 92.5%;
     }
 
     .user-info,
@@ -209,7 +192,7 @@ const Style = {
     .activity,
     .lesson-assesment {
       ${glassBackground};
-      padding: 1.5rem;
+      padding: 2vh 1.5vw;
       border-radius: 1rem;
       box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
       overflow: hidden;

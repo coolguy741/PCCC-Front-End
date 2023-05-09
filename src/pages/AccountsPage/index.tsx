@@ -17,7 +17,7 @@ export const AccountsPage = ({ children }: AccountsPageProps) => {
 
 const Style = {
   PageContainer: styled.div`
-    padding: 10vh 32px 2.5vh 64px;
+    padding: 9vh 32px 2.5vh 64px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -25,9 +25,13 @@ const Style = {
     justify-content: space-between;
     overflow: hidden;
 
+    .accounts-header {
+      height: 20vh;
+    }
+
     section.accounts-content {
-      height: 90%;
       width: 100%;
+      height: 70vh;
     }
 
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}

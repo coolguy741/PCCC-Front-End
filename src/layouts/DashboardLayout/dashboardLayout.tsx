@@ -19,7 +19,6 @@ export function DashboardLayout({ children }: Props) {
 const Style = {
   Container: styled.div`
     width: 100%;
-    height: 100%;
 
     main {
       width: calc((100% + 32px) - var(--dashboard-menu-width-medium));
