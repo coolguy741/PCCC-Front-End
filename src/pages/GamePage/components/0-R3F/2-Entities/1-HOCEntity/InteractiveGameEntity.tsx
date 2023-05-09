@@ -1,6 +1,7 @@
 import { Box } from "@react-three/drei";
 import { ThreeEvent } from "@react-three/fiber";
 import { FC, memo, useCallback, useEffect, useRef } from "react";
+import { Vector3 } from "three";
 import { shallow } from "zustand/shallow";
 import { InteractiveGameEntityTypes } from "../../../../globalState/modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
@@ -8,24 +9,28 @@ import { RefMeshType } from "../../../../shared/Types/RefTypes";
 
 interface InteractiveGameEntityPropTypes {
   name: InteractiveGameEntityTypes;
-  tempOffset: number;
+  pos: Vector3;
 }
 
 const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   name,
-  tempOffset,
+  pos,
 }) => {
   // Refs
   const interactiveMeshRef: RefMeshType = useRef(null);
 
   // Global State
   const {
+    menuActive,
+    setMenuActive,
     isHoveringEntity,
     activeHoveredEntity,
     setIsHoveringEntity,
     setActiveHoveredEntity,
   } = useGlobalState(
     (state) => ({
+      menuActive: state.menuActive,
+      setMenuActive: state.setMenuActive,
       isHoveringEntity: state.isHoveringEntity,
       activeHoveredEntity: state.activeHoveredEntity,
       setIsHoveringEntity: state.setIsHoveringEntity,
@@ -48,13 +53,20 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   const handlePointerOverEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
+      if (menuActive) return;
       if (name === activeHoveredEntity) {
         setIsHoveringEntity(true);
       } else {
         setActiveHoveredEntity(name);
       }
     },
-    [name, setActiveHoveredEntity, setIsHoveringEntity, activeHoveredEntity],
+    [
+      name,
+      setActiveHoveredEntity,
+      setIsHoveringEntity,
+      activeHoveredEntity,
+      menuActive,
+    ],
   );
 
   const handleActiveHoveredEntityStateChange = useCallback(() => {
@@ -62,6 +74,14 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
       setIsHoveringEntity(true);
     }
   }, [name, activeHoveredEntity, setIsHoveringEntity]);
+
+  const handlemenuActive = useCallback(() => {
+    if (menuActive) {
+      setMenuActive(false);
+    } else {
+      setMenuActive(true);
+    }
+  }, [setMenuActive, menuActive]);
 
   // Listeners
   useEffect(() => {
@@ -73,7 +93,8 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
       scale={0.1}
       ref={interactiveMeshRef}
       userData={{ name: name }}
-      position={[tempOffset, 0.1, 0.3]}
+      onClick={handlemenuActive}
+      position={pos}
       onPointerOut={handlePointerOutEvent}
       onPointerOver={handlePointerOverEvent}
     >

@@ -12,6 +12,11 @@ const InteractiveGameEntityModule = ({ set, get }: globalStateApiType) => {
     setActiveHoveredEntity: (newHoveredEntity: InteractiveGameEntityTypes) => {
       set({ activeHoveredEntity: newHoveredEntity });
     },
+
+    menuActive: false,
+    setMenuActive: (menuActive: boolean) => {
+      set({ menuActive });
+    },
   };
 };
 

@@ -4,7 +4,7 @@ import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import { RefDivType } from "../../../shared/Types/RefTypes";
 import { DampVector2 } from "../../../shared/Utility/UtilityFunctions";
-import useMouseMove from "../4-Hooks/useMouseMove";
+import useMouseMove from "../5-Hooks/useMouseMove";
 import { animateToolTipIn, animateToolTipOut } from "./ToolTipAnimations";
 import {
   toolTipBoundingRectDimensions,
@@ -71,24 +71,26 @@ const useToolTipLogic = () => {
   }, [isHoveringEntity]);
 
   const handleUpdateToolTipBoundingRect = useCallback(() => {
-    if (toolTipRef.current) {
-      const toolTipBoundingRect = toolTipRef.current.getBoundingClientRect();
+    if (!toolTipRef.current) return;
 
-      toolTipBoundingRectDimensions.set(
-        toolTipBoundingRect.width,
-        toolTipBoundingRect.height,
-      );
-    }
+    const toolTipBoundingRect = toolTipRef.current.getBoundingClientRect();
+
+    toolTipBoundingRectDimensions.set(
+      toolTipBoundingRect.width,
+      toolTipBoundingRect.height,
+    );
   }, []);
 
   // Listeners
-  useEffect(() => {
-    handleRevealHideToolTip();
-  }, [isHoveringEntity, handleRevealHideToolTip]);
+  useEffect(handleRevealHideToolTip, [
+    isHoveringEntity,
+    handleRevealHideToolTip,
+  ]);
 
-  useLayoutEffect(() => {
-    handleUpdateToolTipBoundingRect();
-  }, [activeHoveredEntity, handleUpdateToolTipBoundingRect]);
+  useLayoutEffect(handleUpdateToolTipBoundingRect, [
+    activeHoveredEntity,
+    handleUpdateToolTipBoundingRect,
+  ]);
 
   // Hooks
   useMouseMove(handleSetToolTipLocation);

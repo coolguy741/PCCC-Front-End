@@ -13,4 +13,7 @@ export interface InteractiveGameEntityModuleTypes {
   setActiveHoveredEntity: (
     newHoveredEntity: InteractiveGameEntityTypes,
   ) => void;
+
+  menuActive: boolean;
+  setMenuActive: (menuActive: boolean) => void;
 }

@@ -1,5 +1,6 @@
 import { FC, Fragment, memo } from "react";
 import ActiveStateController from "./ActiveStateController/ActiveStateController";
+import CursorDebug from "./CursorDebug";
 import DebugPlayerCameraTriggers from "./DebugPlayerCameraTriggers/DebugPlayerCameraTriggers";
 import DynamicEnvironmentMapController from "./DynamicEnvironmentMapController";
 import LevaController from "./LevaController";
@@ -13,6 +14,7 @@ const DebugUIContainer: FC = () => {
       <DynamicEnvironmentMapController />
       <ActiveStateController />
       <DebugPlayerCameraTriggers />
+      <CursorDebug />
     </Fragment>
   );
 };

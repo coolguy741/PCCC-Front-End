@@ -3,9 +3,14 @@ import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import PlayerCamera from "../2-Entities/0-Cameras/PlayerCamera";
-import InteractiveGameEntity from "../2-Entities/2-HOCEntity/InteractiveGameEntity";
+import InteractiveGameEntity from "../2-Entities/1-HOCEntity/InteractiveGameEntity";
 import Garden from "../2-Entities/Garden";
 import Environment from "../3-Environment/Environment";
+import {
+  BIGTREE_LOOKAT_POSITION,
+  PLANTBOX_LOOKAT_POSITION,
+  TOOLRACK_LOOKAT_POSITION,
+} from "../5-Constants/0-Garden/GARDEN_LOOKAT_POSITION";
 import { GATE_POSITION } from "../5-Constants/0-Garden/GARDEN_POSITION";
 import SceneHelpers from "../6-Helpers/SceneHelpers";
 
@@ -30,9 +35,12 @@ const GameStage: FC = () => {
   return (
     <Fragment>
       <Garden />
-      <InteractiveGameEntity name={"Berries"} tempOffset={0} />
-      <InteractiveGameEntity name={"Branches"} tempOffset={0.15} />
-      <InteractiveGameEntity name={"Bee Hive Top"} tempOffset={-0.15} />
+      <InteractiveGameEntity name={"Berries"} pos={BIGTREE_LOOKAT_POSITION} />
+      <InteractiveGameEntity name={"Branches"} pos={TOOLRACK_LOOKAT_POSITION} />
+      <InteractiveGameEntity
+        name={"Bee Hive Top"}
+        pos={PLANTBOX_LOOKAT_POSITION}
+      />
 
       <PlayerCamera />
       {/* <RigTest /> */}

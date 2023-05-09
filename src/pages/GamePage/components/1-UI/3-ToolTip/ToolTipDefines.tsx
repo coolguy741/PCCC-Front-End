@@ -1,7 +1,7 @@
 import { Vector2 } from "three";
 
-const toolTipCenterXOffset = 11;
-const toolTipCenterYOffset = 50;
+const toolTipCenterXOffset = 10;
+const toolTipCenterYOffset = 110;
 const toolTipBoundingRectDivisor = 2;
 const toolTipDampedFollowLocationStep = 0.01;
 

@@ -14,13 +14,13 @@ const PlayerCamera: FC = () => {
   // Global State
   const {
     activeCamera,
-    // playerCameraActiveFov,
+    playerCameraActiveFov,
     playerCameraActiveLookAt,
     playerCameraActivePosition,
   } = useGlobalState(
     (state) => ({
       activeCamera: state.activeCamera,
-      // playerCameraActiveFov: state.playerCameraActiveFov,
+      playerCameraActiveFov: state.playerCameraActiveFov,
       playerCameraActiveLookAt: state.playerCameraActiveLookAt,
       playerCameraActivePosition: state.playerCameraActivePosition,
     }),
@@ -48,18 +48,19 @@ const PlayerCamera: FC = () => {
     [playerCameraActivePosition],
   );
 
-  // const updatePlayerCameraFov = useCallback(
-  //   (playerCameraReference: PerspectiveCameraType, delta: number) => {
-  //     // if (playerCameraReference.fov !== playerCameraActiveFov.x)
-  //     // playerCameraReference.fov = playerCameraActiveFov.x;
-  //   },
-  //   [playerCameraActiveFov],
-  // );
+  const updatePlayerCameraFov = useCallback(
+    (playerCameraReference: PerspectiveCameraType, delta: number) => {
+      if (playerCameraReference.fov !== playerCameraActiveFov.x) {
+        playerCameraReference.fov = playerCameraActiveFov.x;
+      }
+    },
+    [playerCameraActiveFov],
+  );
 
   useFrame((state, delta) => {
     if (playerCameraRef.current) {
       updatePlayerCameraLookAt(playerCameraRef.current);
-      // updatePlayerCameraFov(playerCameraRef.current, delta);
+      updatePlayerCameraFov(playerCameraRef.current, delta);
       updatePlayerCameraPosition(playerCameraRef.current, delta);
       playerCameraRef.current.updateProjectionMatrix();
     }
