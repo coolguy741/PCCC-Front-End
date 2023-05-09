@@ -6,9 +6,19 @@ import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
 import Button from "../../../Button";
 import { Checkbox } from "../../../Global/Checkbox";
 import { Typography } from "../../../Global/Typography";
+import { DatePicker } from "../DatePicker";
+import { BookPicker } from "../Picker";
 
 export const MealPlanGenerator = () => {
-  const { changeStep } = useMealPlannerStore();
+  const {
+    changeStep,
+    dates,
+    mealsPerDay,
+    childrenCount,
+    changeDates,
+    changeChildrenCount,
+    changeMealsPerDay,
+  } = useMealPlannerStore();
 
   const handleCreate = () => {
     changeStep(2);
@@ -52,7 +62,30 @@ export const MealPlanGenerator = () => {
             src="/images/plate-full-planner/scribble-small.svg"
             alt="small scribble on paper"
           />
-          <div className="filter-container"></div>
+          <div className="filter-container">
+            <DatePicker
+              dates={dates}
+              setDates={changeDates}
+              placeholder="17.05.2023 - 21.05.2023"
+            />
+            <BookPicker
+              label="Meals per day"
+              placeholder="4"
+              number={mealsPerDay}
+              setNumber={changeMealsPerDay}
+            />
+            <BookPicker
+              label="Meals per day"
+              number={mealsPerDay}
+              setNumber={changeMealsPerDay}
+            />
+            <BookPicker
+              label="For how many"
+              placeholder="5"
+              number={childrenCount}
+              setNumber={changeChildrenCount}
+            />
+          </div>
         </Style.Page>
         <Style.Page>
           <Style.Corner top="-1%" left="-1%" />
@@ -118,7 +151,7 @@ export const MealPlanGenerator = () => {
 };
 
 const Style = {
-  Container: styled(motion.main)`
+  Container: styled(motion.section)`
     padding-top: 10px;
     position: relative;
   `,
@@ -172,12 +205,10 @@ const Style = {
       position: relative;
       display: grid;
       grid-template-columns: 1.5fr 1fr;
-      gap: 3%;
+      row-gap: 33%;
+      vertical-align: baseline;
+      column-gap: 7%;
       margin: 16% 10%;
-
-      div {
-        background: gray;
-      }
     }
 
     .btn-create {

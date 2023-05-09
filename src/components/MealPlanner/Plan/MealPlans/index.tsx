@@ -60,7 +60,7 @@ export const MealPlans = () => {
 };
 
 const Style = {
-  Container: styled(motion.main)`
+  Container: styled(motion.section)`
     margin-top: 10px;
     position: relative;
   `,
