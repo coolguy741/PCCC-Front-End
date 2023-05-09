@@ -26,14 +26,11 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
     event.preventDefault();
 
     if (data?.group?.id) {
-      const response = await api.appGroupsDelete(
-        { GroupId: data.group.id },
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-          },
+      const response = await api.appGroupsDelete2(data.group.id, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
         },
-      );
+      });
 
       if (response.status === 204) navigate("/dashboard/accounts/groups");
     }

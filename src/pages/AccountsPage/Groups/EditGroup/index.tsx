@@ -25,6 +25,23 @@ export const AccountsEditGroupPage = () => {
   const params = useParams();
   const { api } = useAPI();
 
+  const getMembers = async () => {
+    if (params.group) {
+      const response = await api.appGroupsJoinedGroupUsersList(
+        { GroupId: params.group },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.data.items) {
+        setMembers(response.data.items);
+      }
+    }
+  };
+
   const handleBack = () => {
     navigate(-1);
   };
@@ -50,6 +67,21 @@ export const AccountsEditGroupPage = () => {
     }
   };
 
+  const handleDelete = async (userId: string | undefined) => {
+    if (userId) {
+      const response = await api.appGroupsDelete(
+        { GroupId: params.group, UserId: userId },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      getMembers();
+    }
+  };
+
   const getGroup = async () => {
     const response = await api.appGroupsMyCreatedGroupsList(
       {},
@@ -66,23 +98,6 @@ export const AccountsEditGroupPage = () => {
           setGroup(item);
         }
       });
-    }
-  };
-
-  const getMembers = async () => {
-    if (params.group) {
-      const response = await api.appGroupsJoinedGroupUsersList(
-        { GroupId: params.group },
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-          },
-        },
-      );
-
-      if (response.data.items) {
-        setMembers(response.data.items);
-      }
     }
   };
 
@@ -141,7 +156,11 @@ export const AccountsEditGroupPage = () => {
                       </span>
                     </div>
                   </div>
-                  <Button size="small" variant="yellow">
+                  <Button
+                    size="small"
+                    variant="yellow"
+                    onClick={() => handleDelete(member.userId)}
+                  >
                     Remove
                   </Button>
                 </div>
