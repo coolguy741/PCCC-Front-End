@@ -1,6 +1,6 @@
 import { MathUtils, OrthographicCamera, Vector2 } from "three";
 
-const cursorCameraMaxRotation = 1.75;
+const cursorCameraMaxRotation = 1.5;
 const cursorCameraMinRotation = -0.25;
 const haltInterpolationThreshold = 0.0001;
 

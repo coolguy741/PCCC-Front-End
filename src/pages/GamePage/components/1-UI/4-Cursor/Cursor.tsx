@@ -7,11 +7,25 @@ import CursorCanvas from "./0-CursorCanvas/CursorCanvas";
 import { handleSetCursorCanvasLocation } from "./0-CursorCanvas/CursorCanvasDefines";
 import CursorCamera from "./1-CursorCamera/CursorCamera";
 import CursorMesh from "./2-CursorMesh/CursorMesh";
-import CursorMenuOption from "./3-CursorMenuOptions/0-CursorMenuOption/CursorMenuOption";
+import CursorMenuOption from "./3-CursorMenuOption/CursorMenuOption";
+import {
+  actionOneBoundingRectVector,
+  actionOneMenuPositionDriver,
+  actionOneMenuPositionEnd,
+  actionOneMenuPositionOffset,
+  actionOneTempCopyCurrentLocation,
+  actionTwoBoundingRectVector,
+  actionTwoMenuPositionDriver,
+  actionTwoMenuPositionEnd,
+  actionTwoMenuPositionOffset,
+  actionTwoTempCopyCurrentLocation,
+  inspectBoundingRectVector,
+  inspectMenuPositionDriver,
+  inspectMenuPositionEnd,
+  inspectMenuPositionOffset,
+  inspectTempCopyCurrentLocation,
+} from "./3-CursorMenuOption/CursorMenuOptionDefines";
 import { onWindowBlur, onWindowFocus } from "./CursorDefines";
-// import InspectOption from "./3-CursorMenuOptions/1-InspectOption/InspectOption";
-// import PickUpOption from "./3-CursorMenuOptions/2-PickUpOption.tsx/PickUpOption";
-// import ActionOption from "./3-CursorMenuOptions/3-ActionOption.tsx/ActionOption";
 
 const Cursor: FC = () => {
   // Global State
@@ -37,13 +51,42 @@ const Cursor: FC = () => {
 
   return (
     <Fragment>
-      {/* <ActionOption />
-      <PickUpOption />
-      <InspectOption /> */}
       <CursorMenuOption
-        label={"Inspect"}
-        iconURL={"/game_assets/ui_images/gj.webp"}
+        label="Inspect"
+        color="#30d5c8"
+        animOffset={0}
+        iconURL="/game_assets/ui_images/gj.webp"
+        menuPositionEnd={inspectMenuPositionEnd}
+        boundingRectVector={inspectBoundingRectVector}
+        menuPositionOffset={inspectMenuPositionOffset}
+        menuPositionDriver={inspectMenuPositionDriver}
+        tempCursorLocationCopy={inspectTempCopyCurrentLocation}
       />
+
+      <CursorMenuOption
+        label="Pick Up"
+        color="#0096ff"
+        animOffset={0.1}
+        iconURL="/game_assets/ui_images/gj.webp"
+        menuPositionEnd={actionOneMenuPositionEnd}
+        boundingRectVector={actionOneBoundingRectVector}
+        menuPositionOffset={actionOneMenuPositionOffset}
+        menuPositionDriver={actionOneMenuPositionDriver}
+        tempCursorLocationCopy={actionOneTempCopyCurrentLocation}
+      />
+
+      <CursorMenuOption
+        label="Use"
+        color="#fee12b"
+        animOffset={0.2}
+        iconURL="/game_assets/ui_images/gj.webp"
+        menuPositionEnd={actionTwoMenuPositionEnd}
+        boundingRectVector={actionTwoBoundingRectVector}
+        menuPositionOffset={actionTwoMenuPositionOffset}
+        menuPositionDriver={actionTwoMenuPositionDriver}
+        tempCursorLocationCopy={actionTwoTempCopyCurrentLocation}
+      />
+
       <CursorCanvas>
         <CursorCamera />
         <CursorMesh />
