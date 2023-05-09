@@ -24,7 +24,7 @@ export const AccountsCreateGroupPage = () => {
   };
 
   const handleCreate = async () => {
-    const response = await api.appCustomGroupsCreate(
+    const response = await api.appGroupsCreate(
       {
         name: groupName,
       },

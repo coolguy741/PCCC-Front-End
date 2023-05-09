@@ -33,7 +33,7 @@ export const AccountsGroupPage = () => {
   };
 
   const getGroup = async () => {
-    const response = await api.appCustomGroupsMyCreatedGroupsList(
+    const response = await api.appGroupsMyCreatedGroupsList(
       {},
       {
         headers: {
@@ -53,7 +53,7 @@ export const AccountsGroupPage = () => {
 
   const getMembers = async () => {
     if (params.group) {
-      const response = await api.appCustomGroupsJoinedGroupUsersList(
+      const response = await api.appGroupsJoinedGroupUsersList(
         { GroupId: params.group },
         {
           headers: {

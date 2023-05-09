@@ -78,7 +78,7 @@ export const ForgotForm = () => {
 
   const getSecurityQuestions = async () => {
     const { data } =
-      await api.appCustomSecurityQuestionChoicesSecurityQuestionsList();
+      await api.appSecurityQuestionChoicesSecurityQuestionsList();
 
     setSecurityQuestions(data);
 

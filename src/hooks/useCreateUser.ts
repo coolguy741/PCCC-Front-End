@@ -7,7 +7,7 @@ export const useCreateUser = () => {
 
   const getQuestions = async () => {
     const questions =
-      await api.appCustomSecurityQuestionChoicesSecurityQuestionsList();
+      await api.appSecurityQuestionChoicesSecurityQuestionsList();
 
     console.log(questions);
 
@@ -15,7 +15,7 @@ export const useCreateUser = () => {
   };
 
   const getUserNames = async () => {
-    const usernames = await api.appCustomUsernameChoicesUsernameChoicesList();
+    const usernames = await api.appUsernameChoicesUsernameChoicesList();
 
     console.log(usernames);
 

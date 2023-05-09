@@ -31,7 +31,7 @@ export const AccountsEditGroupPage = () => {
 
   const handleEdit = async () => {
     if (params.group) {
-      const response = await api.appCustomGroupsUpdate(
+      const response = await api.appGroupsUpdate(
         params.group,
         {
           name: groupName,
@@ -51,7 +51,7 @@ export const AccountsEditGroupPage = () => {
   };
 
   const getGroup = async () => {
-    const response = await api.appCustomGroupsMyCreatedGroupsList(
+    const response = await api.appGroupsMyCreatedGroupsList(
       {},
       {
         headers: {
@@ -71,7 +71,7 @@ export const AccountsEditGroupPage = () => {
 
   const getMembers = async () => {
     if (params.group) {
-      const response = await api.appCustomGroupsJoinedGroupUsersList(
+      const response = await api.appGroupsJoinedGroupUsersList(
         { GroupId: params.group },
         {
           headers: {

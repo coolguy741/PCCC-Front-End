@@ -49,7 +49,7 @@ export const ClosedPlateFullPlannerBook = () => {
         />
       </div>
       <Style.SwipeButton>
-        <Typography variant="p3" color="book-200">
+        <Typography variant="paragraph3" color="book-200">
           Swipe left to open
         </Typography>
         <Style.SwipeTrack ref={ref}>

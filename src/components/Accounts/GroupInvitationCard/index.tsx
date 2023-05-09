@@ -13,7 +13,7 @@ export const GroupInvitationCard = (
   const navigate = useNavigate();
 
   const acceptHandler = async () => {
-    const response = await api.appCustomGroupsAcceptCreate(
+    const response = await api.appGroupsAcceptCreate(
       {
         groupUserId: group.groupUserId,
       },
@@ -30,7 +30,7 @@ export const GroupInvitationCard = (
   };
 
   const denyHandler = async () => {
-    const response = await api.appCustomGroupsRejectCreate(
+    const response = await api.appGroupsRejectCreate(
       {
         groupUserId: group.groupUserId,
       },

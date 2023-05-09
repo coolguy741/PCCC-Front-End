@@ -26,11 +26,14 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
     event.preventDefault();
 
     if (data?.group?.id) {
-      const response = await api.appCustomGroupsDelete(data.group.id, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+      const response = await api.appGroupsDelete(
+        { GroupId: data.group.id },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
         },
-      });
+      );
 
       if (response.status === 204) navigate("/dashboard/accounts/groups");
     }
@@ -38,7 +41,7 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
 
   const handleJoin = async () => {
     if (user) {
-      const response = await api.appCustomGroupsJoinCreate(
+      const response = await api.appGroupsJoinCreate(
         {
           groupId: data?.group?.id,
           userId: user.id,
