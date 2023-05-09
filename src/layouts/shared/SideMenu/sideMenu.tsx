@@ -268,6 +268,8 @@ const Style = {
           padding: 20px 36px;
           transition: all 0.1s ease-in-out;
 
+          text-decoration: none;
+
           .arrow {
             margin-left: auto;
             display: block;
@@ -276,6 +278,8 @@ const Style = {
           .menu-content {
             transition: all 0.3s ease-in-out;
             font-size: 19px;
+            color: var(--white);
+            text-decoration: none !important;
           }
         }
 
