@@ -75,13 +75,17 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     }
   }, [name, activeHoveredEntity, setIsHoveringEntity]);
 
-  const handlemenuActive = useCallback(() => {
-    if (menuActive) {
-      setMenuActive(false);
-    } else {
-      setMenuActive(true);
-    }
-  }, [setMenuActive, menuActive]);
+  const handlemenuActive = useCallback(
+    (event: ThreeEvent<MouseEvent>) => {
+      event.stopPropagation();
+      if (menuActive) {
+        setMenuActive(false);
+      } else {
+        setMenuActive(true);
+      }
+    },
+    [setMenuActive, menuActive],
+  );
 
   // Listeners
   useEffect(() => {
