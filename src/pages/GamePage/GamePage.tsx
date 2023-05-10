@@ -6,23 +6,6 @@ import GamePageStyleContainer from "./styles/Containers/GamePageStyleContainer";
 import StyleProvider from "./styles/StyleProvider";
 
 const GamePage = () => {
-  // useEffect(() => {
-  //   const onFocus = () => {
-  //     document.body.style.cursor = "none";
-  //   };
-
-  //   const onBlur = () => {
-  //     document.body.style.cursor = "default";
-  //   };
-
-  //   window.addEventListener("focus", onFocus);
-  //   window.addEventListener("blur", onBlur);
-  //   return () => {
-  //     window.removeEventListener("focus", onFocus);
-  //     window.removeEventListener("blur", onBlur);
-  //   };
-  // }, []);
-
   return (
     <StyleProvider>
       <GamePageStyleContainer>

@@ -1,10 +1,11 @@
 // import { mergeDeepLeft } from "ramda";
-import { create } from "zustand";
+import create from "zustand";
 // import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { GetState, GlobalStateTypes, SetState } from "./GlobalStateTypes";
 import { AchievementModule } from "./modules/AchievementModule/AchievementModule";
 import { CameraModule } from "./modules/CameraModule.tsx/CameraModule";
+import { CursorModule } from "./modules/CursorModule.tsx/CursorModule";
 import { DevelopmentModule } from "./modules/DevelopmentModule/DevelopmentModule";
 import { InteractiveGameEntityModule } from "./modules/InteractiveGameEntityModule/InteractiveGameEntityModule";
 import { InventoryModule } from "./modules/InventoryModule/InventoryModule";
@@ -14,6 +15,7 @@ const storeModules = (
   set: SetState<GlobalStateTypes>,
   get: GetState<GlobalStateTypes>,
 ) => ({
+  ...CursorModule({ set, get }),
   ...CameraModule({ set, get }),
   ...LocationModule({ set, get }),
   ...InventoryModule({ set, get }),

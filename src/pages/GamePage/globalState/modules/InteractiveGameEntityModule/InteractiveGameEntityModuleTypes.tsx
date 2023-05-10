@@ -13,4 +13,10 @@ export interface InteractiveGameEntityModuleTypes {
   setActiveHoveredEntity: (
     newHoveredEntity: InteractiveGameEntityTypes,
   ) => void;
+
+  menuActive: boolean;
+  setMenuActive: (menuActive: boolean) => void;
+
+  hoveredSection: null | string;
+  setHoveredSection: (hoveredSection: string | null) => void;
 }
