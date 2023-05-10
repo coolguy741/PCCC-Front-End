@@ -110,7 +110,12 @@ export const Header: React.FC = () => {
       </div>
       <div className="header-right">
         {!!user && (
-          <Button variant="green" size="medium" className="header-alert">
+          <Button
+            variant="green"
+            size="medium"
+            className="header-alert"
+            onClick={() => navigate("/dashboard/notifications")}
+          >
             <img alt="logout" src="/images/icons/alert.svg" />
           </Button>
         )}
@@ -150,6 +155,7 @@ const Style = {
     justify-content: space-between;
     z-index: 10;
     backdrop-filter: blur(5px);
+    gap: 2rem;
 
     .header-left,
     .header-right {
@@ -160,7 +166,7 @@ const Style = {
     }
 
     .header-left {
-      width: ${({ userAvailable }) => (userAvailable ? "60%" : "30%")};
+      width: ${({ userAvailable }) => (userAvailable ? "68%" : "30%")};
 
       .header-logo {
         height: 100%;
@@ -198,8 +204,8 @@ const Style = {
     }
 
     .header-right {
-      width: ${({ userAvailable }) => (userAvailable ? "30%" : "60%")};
-      justify-content: flex-end;
+      width: ${({ userAvailable }) => (userAvailable ? "32%" : "60%")};
+      justify-content: space-between;
 
       .header-alert {
         height: 100%;
