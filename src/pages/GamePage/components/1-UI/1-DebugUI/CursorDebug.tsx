@@ -71,6 +71,7 @@ const CursorDebugStyleContainer = styled.div`
   position: fixed;
   border-radius: 100%;
   background-color: red;
+  opacity: 0.25;
   ${UserSelectNone};
   ${MarginPaddingNone};
   ${DisableTouchPointerEvents};

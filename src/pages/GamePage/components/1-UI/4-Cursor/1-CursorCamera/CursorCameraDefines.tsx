@@ -4,6 +4,12 @@ const cursorCameraMaxRotation = 1.5;
 const cursorCameraMinRotation = -0.25;
 const haltInterpolationThreshold = 0.0001;
 
+const range = cursorCameraMaxRotation - cursorCameraMinRotation;
+const thirdOfRange = range / 3;
+
+const cursorCameraBreakpoint1 = cursorCameraMinRotation + thirdOfRange;
+const cursorCameraBreakpoint2 = cursorCameraMinRotation + 2 * thirdOfRange;
+
 const cursorCameraInitRotation: Vector2 = new Vector2();
 const cursorCameraDampedRotation: Vector2 = new Vector2();
 const cursorCameraFinalRotation: Vector2 = new Vector2();
@@ -40,6 +46,8 @@ const handleHaltInterpolationCheck = (
 };
 
 export {
+  cursorCameraBreakpoint1,
+  cursorCameraBreakpoint2,
   cursorCameraMaxRotation,
   cursorCameraMinRotation,
   cursorCameraInitRotation,

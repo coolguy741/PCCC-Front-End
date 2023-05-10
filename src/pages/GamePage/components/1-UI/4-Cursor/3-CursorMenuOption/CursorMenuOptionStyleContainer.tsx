@@ -13,11 +13,18 @@ const CursorMenuOptionStyleContainer = styled.div`
   justify-content: center;
   opacity: 0;
 
-  .icon {
+  .body-bg {
     width: 7.5rem;
     height: 7.5rem;
     border-radius: 100%;
-    border: 0.65rem solid var(--icon-border-color, #30d5c8);
+    background: linear-gradient(to right, #d4c1b0, #ebd6c3 25%, #ebd6c3);
+    border: 0.75rem solid var(--icon-border-color, #30d5c8);
+  }
+
+  .icon {
+    position: absolute;
+    width: 6.5rem;
+    height: 6.5rem;
   }
 
   .label {
@@ -30,6 +37,7 @@ const CursorMenuOptionStyleContainer = styled.div`
     border-top-left-radius: 1.1rem;
     border-top-right-radius: 1.1rem;
     color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 
     &::before {
       content: "";

@@ -9,7 +9,7 @@ const inspectMenuPositionDriver: Vector2 = new Vector2();
 
 // Action One Menu Option
 const actionOneBoundingRectVector: Vector2 = new Vector2();
-const actionOneMenuPositionOffset: Vector2 = new Vector2(10, -160);
+const actionOneMenuPositionOffset: Vector2 = new Vector2(14, -160);
 const actionOneTempCopyCurrentLocation: Vector2 = new Vector2();
 const actionOneMenuPositionEnd: Vector2 = new Vector2();
 const actionOneMenuPositionDriver: Vector2 = new Vector2();

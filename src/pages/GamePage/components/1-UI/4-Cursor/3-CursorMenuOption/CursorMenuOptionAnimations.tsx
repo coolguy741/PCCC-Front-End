@@ -2,30 +2,6 @@ import gsap from "gsap";
 import { Vector2 } from "three";
 import { BACK_1_OUT, POWER_1_INOUT } from "../../../../shared/Eases/Eases";
 
-const animateCursorOptionsIn = (
-  cursorMenuOptionElement: HTMLDivElement,
-): void => {
-  gsap.to(cursorMenuOptionElement, {
-    scale: 0.95,
-    opacity: 1,
-    overwrite: true,
-    duration: 0.5,
-    ease: BACK_1_OUT,
-  });
-};
-
-const animateCursorOptionsOut = (
-  cursorMenuOptionElement: HTMLDivElement,
-): void => {
-  gsap.to(cursorMenuOptionElement, {
-    scale: 0,
-    opacity: 0,
-    overwrite: true,
-    duration: 0.3,
-    ease: BACK_1_OUT,
-  });
-};
-
 const animateCursorOptionsHoverIn = (
   cursorMenuOptionElement: HTMLDivElement,
 ): void => {
@@ -48,34 +24,6 @@ const animateCursorOptionsHoverOut = (
   });
 };
 
-const animateCursorToMenuLocation = (
-  cursorMenuOptionElement: HTMLDivElement,
-  targetX: number,
-  targetY: number,
-): void => {
-  gsap.to(cursorMenuOptionElement, {
-    x: targetX,
-    y: targetY,
-    overwrite: true,
-    duration: 0.3,
-    ease: BACK_1_OUT,
-  });
-};
-
-const animateCursorToCenterLocation = (
-  cursorMenuOptionElement: HTMLDivElement,
-  targetX: number,
-  targetY: number,
-): void => {
-  gsap.to(cursorMenuOptionElement, {
-    x: targetX,
-    y: targetY,
-    overwrite: true,
-    duration: 0.3,
-    ease: BACK_1_OUT,
-  });
-};
-
 const animateCursorMenuOptionIn = (
   cursorMenuOptionElement: HTMLDivElement,
   cursorMenuOptionPositionFinal: Vector2,
@@ -83,6 +31,7 @@ const animateCursorMenuOptionIn = (
   cursorMenuOptionPositionEnd: Vector2,
   onUpdate: () => void,
   animDelay: number,
+  onComplete: () => void,
 ): void => {
   gsap.fromTo(
     cursorMenuOptionElement,
@@ -94,6 +43,7 @@ const animateCursorMenuOptionIn = (
       duration: 0.5,
       ease: BACK_1_OUT,
       delay: 0.5 + animDelay,
+      onComplete: onComplete,
     },
   );
 
@@ -126,7 +76,6 @@ const animateCursorMenuOptionOut = (
   gsap.to(cursorMenuOptionElement, {
     scale: 0,
     opacity: 0,
-    overwrite: true,
     duration: 0.25,
     ease: POWER_1_INOUT,
     delay: animDelay - 0.05,
@@ -142,7 +91,7 @@ const animateCursorMenuOptionOut = (
       x: cursorMenuOptionPositionEnd.x,
       y: cursorMenuOptionPositionEnd.y,
       overwrite: true,
-      duration: 0.5,
+      duration: 0.3,
       ease: POWER_1_INOUT,
       onUpdate: onUpdate,
       delay: animDelay - 0.05,
@@ -151,12 +100,8 @@ const animateCursorMenuOptionOut = (
 };
 
 export {
-  animateCursorOptionsIn,
-  animateCursorOptionsOut,
   animateCursorMenuOptionIn,
   animateCursorMenuOptionOut,
   animateCursorOptionsHoverIn,
-  animateCursorToMenuLocation,
   animateCursorOptionsHoverOut,
-  animateCursorToCenterLocation,
 };

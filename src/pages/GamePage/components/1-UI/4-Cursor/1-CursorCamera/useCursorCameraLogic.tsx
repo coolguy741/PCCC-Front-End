@@ -12,6 +12,8 @@ import {
   animateCursorCameraToMenuRotation,
 } from "./CursorCameraAnimations";
 import {
+  cursorCameraBreakpoint1,
+  cursorCameraBreakpoint2,
   cursorCameraInitRotation,
   cursorCameraMaxRotation,
   cursorCameraMinRotation,
@@ -22,17 +24,21 @@ import {
 } from "./CursorCameraDefines";
 
 const useCursorCameraLogic = () => {
+  // Refs
   const cursorCameraRef: RefOrthographicCameraType = useRef(null);
   const cursorCameraDampedFollowStepRef: RefNumberType = useRef(0);
 
   // Global Stated
-  const { menuActive, cursorLocation } = useGlobalState(
-    (state) => ({
-      menuActive: state.menuActive,
-      cursorLocation: state.cursorLocation,
-    }),
-    shallow,
-  );
+  const { menuActive, cursorLocation, setHoveredSection, hoveredSection } =
+    useGlobalState(
+      (state) => ({
+        menuActive: state.menuActive,
+        cursorLocation: state.cursorLocation,
+        hoveredSection: state.hoveredSection,
+        setHoveredSection: state.setHoveredSection,
+      }),
+      shallow,
+    );
 
   // Handlers
   const handleUpdateCursorCameraInitRotation = useCallback(() => {
@@ -62,9 +68,38 @@ const useCursorCameraLogic = () => {
     animateCursorCameraToFollowRotation(cursorCameraInitRotation);
   }, [menuActive]);
 
+  const handleSetHoveredSection = useCallback(() => {
+    if (!menuActive || !cursorCameraRef.current) return;
+
+    const sectionMap = [
+      {
+        section: "left",
+        condition: cursorCameraRef.current.rotation.z < cursorCameraBreakpoint1,
+      },
+      {
+        section: "center",
+        condition:
+          cursorCameraRef.current.rotation.z > cursorCameraBreakpoint1 &&
+          cursorCameraRef.current.rotation.z < cursorCameraBreakpoint2,
+      },
+      {
+        section: "right",
+        condition: cursorCameraRef.current.rotation.z > cursorCameraBreakpoint2,
+      },
+    ];
+
+    sectionMap.forEach(({ section, condition }) => {
+      if (hoveredSection !== section && condition) {
+        setHoveredSection(section);
+      }
+    });
+  }, [menuActive, hoveredSection, setHoveredSection]);
+
   const handleCursorCameraOnFrame = useCallback(
     (state: RootState, delta: number) => {
       if (!cursorCameraRef.current) return;
+
+      handleSetHoveredSection();
 
       handleUpdateCursorCameraInitRotation();
 
@@ -82,7 +117,7 @@ const useCursorCameraLogic = () => {
 
       handleUpdateCursorCameraFinalRotation(cursorCameraRef.current);
     },
-    [handleUpdateCursorCameraInitRotation],
+    [handleUpdateCursorCameraInitRotation, handleSetHoveredSection],
   );
 
   // Listeners

@@ -29,9 +29,10 @@ import { onWindowBlur, onWindowFocus } from "./CursorDefines";
 
 const Cursor: FC = () => {
   // Global State
-  const { cursorLocation } = useGlobalState(
+  const { cursorLocation, hoveredSection } = useGlobalState(
     (state) => ({
       cursorLocation: state.cursorLocation,
+      hoveredSection: state.hoveredSection,
     }),
     shallow,
   );
@@ -53,9 +54,10 @@ const Cursor: FC = () => {
     <Fragment>
       <CursorMenuOption
         label="Inspect"
-        color="#30d5c8"
+        color="#26d07c"
         animOffset={0}
-        iconURL="/game_assets/ui_images/gj.webp"
+        hoverTrigger={hoveredSection === "left"}
+        iconURL="/game_assets/ui_images/inspect.webp"
         menuPositionEnd={inspectMenuPositionEnd}
         boundingRectVector={inspectBoundingRectVector}
         menuPositionOffset={inspectMenuPositionOffset}
@@ -65,9 +67,10 @@ const Cursor: FC = () => {
 
       <CursorMenuOption
         label="Pick Up"
-        color="#0096ff"
+        color="#ffcd00"
         animOffset={0.1}
-        iconURL="/game_assets/ui_images/gj.webp"
+        iconURL="/game_assets/ui_images/pickup.webp"
+        hoverTrigger={hoveredSection === "center"}
         menuPositionEnd={actionOneMenuPositionEnd}
         boundingRectVector={actionOneBoundingRectVector}
         menuPositionOffset={actionOneMenuPositionOffset}
@@ -77,9 +80,10 @@ const Cursor: FC = () => {
 
       <CursorMenuOption
         label="Use"
-        color="#fee12b"
+        color="#0084d5"
         animOffset={0.2}
-        iconURL="/game_assets/ui_images/gj.webp"
+        iconURL="/game_assets/ui_images/use.webp"
+        hoverTrigger={hoveredSection === "right"}
         menuPositionEnd={actionTwoMenuPositionEnd}
         boundingRectVector={actionTwoBoundingRectVector}
         menuPositionOffset={actionTwoMenuPositionOffset}

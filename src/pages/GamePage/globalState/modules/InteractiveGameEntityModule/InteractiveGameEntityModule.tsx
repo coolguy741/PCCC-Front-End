@@ -17,6 +17,11 @@ const InteractiveGameEntityModule = ({ set, get }: globalStateApiType) => {
     setMenuActive: (menuActive: boolean) => {
       set({ menuActive });
     },
+
+    hoveredSection: null,
+    setHoveredSection: (hoveredSection: string | null) => {
+      set({ hoveredSection });
+    },
   };
 };
 
