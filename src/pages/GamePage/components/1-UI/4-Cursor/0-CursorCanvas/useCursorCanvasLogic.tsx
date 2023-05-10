@@ -12,8 +12,7 @@ import {
   animateCursorCanvasToMenuPosition,
 } from "./CursorCanvasAnimations";
 import {
-  cursorCanvasCenterXOffset,
-  cursorCanvasCenterYOffset,
+  cursorCanvasCenterOffset,
   cursorCanvasDampedFollowLocation,
   cursorCanvasFollowLocation,
   cursorCanvasTempCopyCurrentLocation,
@@ -64,8 +63,8 @@ const useCursorCanvasLogic = () => {
       cursorCanvasTempCopyCurrentLocation.copy(cursorLocation);
 
     cursorCanvasFollowLocation.set(
-      currentCursorLocation.x - cursorCanvasCenterXOffset,
-      currentCursorLocation.y - cursorCanvasCenterYOffset,
+      currentCursorLocation.x - cursorCanvasCenterOffset.x,
+      currentCursorLocation.y - cursorCanvasCenterOffset.y,
     );
 
     animateCursorCanvasToFollowPosition(cursorCanvasDampedFollowStepRef);

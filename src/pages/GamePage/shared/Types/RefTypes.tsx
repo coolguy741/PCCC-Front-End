@@ -28,18 +28,3 @@ export type RefCanvasType = MutableRefObject<HTMLCanvasElement | null>;
 export type RefTimeoutType = MutableRefObject<ReturnType<
   typeof setTimeout
 > | null>;
-
-// const handleToolTipAnimationFrame = useCallback(
-//   (time: number, delta: number) => {
-//     if (!toolTipRef.current) return;
-
-//     handleSetToolTipInitLocation();
-
-//     if ((isHoveringEntity || menuActive) && allowToolTipUpdateRef.current) {
-//       handleDampToolTipLocation(delta);
-//       handleUpdateToolTipFinalLocation();
-//       handleUpdateToolTipElementLocation(toolTipRef.current);
-//     }
-//   },
-//   [isHoveringEntity, menuActive, handleSetToolTipInitLocation],
-// );

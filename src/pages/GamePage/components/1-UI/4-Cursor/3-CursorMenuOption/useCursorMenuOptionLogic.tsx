@@ -102,6 +102,7 @@ const useCursorMenuOptionLogic = ({
         tempCursorLocationCopy.x + menuPositionOffset.x,
         tempCursorLocationCopy.y + menuPositionOffset.y,
       );
+
       animateCursorMenuOptionIn(
         cursorMenuOptionRef.current,
         menuPositionDriver,
@@ -137,13 +138,13 @@ const useCursorMenuOptionLogic = ({
   ]);
 
   // Listeners
-  useLayoutEffect(handleCursorMenuOptionBoundingRect, [
-    handleCursorMenuOptionBoundingRect,
-  ]);
-
   useEffect(handleRevealHideCursorMenuOption, [
     menuActive,
     handleRevealHideCursorMenuOption,
+  ]);
+
+  useLayoutEffect(handleCursorMenuOptionBoundingRect, [
+    handleCursorMenuOptionBoundingRect,
   ]);
 
   useEffect(handleHoverTrigger, [menuActive, hoverTrigger, handleHoverTrigger]);

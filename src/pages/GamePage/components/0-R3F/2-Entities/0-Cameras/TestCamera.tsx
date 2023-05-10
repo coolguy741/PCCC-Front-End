@@ -144,3 +144,15 @@ const TestCamera = () => {
 };
 
 export default memo(TestCamera);
+
+// useFrame(({ camera, mouse }, delta) => {
+//   const q = new Quaternion();
+//   const v = new Vector2();
+//   const nv = new Vector2();
+//   if (menuActive || isActivelyTraveling) return;
+//   v.set(mouse.y * 0.1, mouse.x * -0.1);
+//   DampVector2(nv, v, 1, delta);
+//   const e = new Euler(nv.x, nv.y, 0);
+//   q.setFromEuler(e);
+//   camera.quaternion.multiply(q);
+// });

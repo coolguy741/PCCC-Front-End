@@ -40,7 +40,7 @@ const PlayerCamera: FC = () => {
         DampVector3(
           playerCameraReference.position,
           playerCameraActivePosition,
-          3,
+          1,
           delta,
         );
       }
@@ -68,7 +68,6 @@ const PlayerCamera: FC = () => {
 
   return (
     <PerspectiveCamera
-      fov={70}
       ref={playerCameraRef}
       makeDefault={activeCamera === "PlayerCamera"}
     />

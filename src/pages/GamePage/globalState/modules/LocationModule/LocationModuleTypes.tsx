@@ -33,4 +33,7 @@ export interface LocationModuleTypes {
 
   activeKitchenHotSpot: kitchenHotspotKeyType;
   setActiveKitchenHotSpot: (newKitchenHotSpot: kitchenHotspotKeyType) => void;
+
+  isActivelyTraveling: boolean;
+  setIsActivelyTraveling: (isActivelyTraveling: boolean) => void;
 }

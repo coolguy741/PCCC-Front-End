@@ -9,8 +9,9 @@ const CursorCanvasStyleContainer = styled.div`
   ${MarginPaddingNone};
   ${DisableTouchPointerEvents};
   position: fixed;
-  width: 8rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
 `;
 
 export default memo(CursorCanvasStyleContainer);

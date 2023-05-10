@@ -1,23 +1,36 @@
 import gsap from "gsap";
 import { Vector2 } from "three";
-import { POWER_1_INOUT } from "../../../shared/Eases/Eases";
+import {
+  BACK_1_OUT,
+  POWER_1_INOUT,
+  POWER_2_INOUT,
+} from "../../../shared/Eases/Eases";
 
 const animateToolTipIn = (toolTipElement: HTMLDivElement): void => {
-  gsap.to(toolTipElement, {
-    y: 0,
-    delay: 0.1,
-    opacity: 1,
-    duration: 0.15,
-    overwrite: true,
-  });
+  gsap.fromTo(
+    toolTipElement,
+    {
+      y: 15,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      delay: 0.1,
+      duration: 0.25,
+      overwrite: true,
+      ease: BACK_1_OUT,
+    },
+  );
 };
 
 const animateToolTipOut = (toolTipElement: HTMLDivElement): void => {
   gsap.to(toolTipElement, {
     y: 15,
     opacity: 0,
-    duration: 0.15,
+    duration: 0.25,
     overwrite: true,
+    ease: POWER_2_INOUT,
   });
 };
 

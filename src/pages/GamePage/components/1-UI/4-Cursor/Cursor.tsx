@@ -7,6 +7,7 @@ import CursorCanvas from "./0-CursorCanvas/CursorCanvas";
 import { handleSetCursorCanvasLocation } from "./0-CursorCanvas/CursorCanvasDefines";
 import CursorCamera from "./1-CursorCamera/CursorCamera";
 import CursorMesh from "./2-CursorMesh/CursorMesh";
+import CursorTapBurst from "./2-CursorMesh/CursorTapBurst";
 import CursorMenuOption from "./3-CursorMenuOption/CursorMenuOption";
 import {
   actionOneBoundingRectVector,
@@ -94,6 +95,7 @@ const Cursor: FC = () => {
       <CursorCanvas>
         <CursorCamera />
         <CursorMesh />
+        <CursorTapBurst />
       </CursorCanvas>
     </Fragment>
   );

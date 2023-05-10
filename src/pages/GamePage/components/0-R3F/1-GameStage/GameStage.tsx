@@ -35,6 +35,7 @@ const GameStage: FC = () => {
   return (
     <Fragment>
       <Garden />
+      {/* <Kitchen /> */}
       <InteractiveGameEntity name={"Berries"} pos={BIGTREE_LOOKAT_POSITION} />
       <InteractiveGameEntity name={"Branches"} pos={TOOLRACK_LOOKAT_POSITION} />
       <InteractiveGameEntity
