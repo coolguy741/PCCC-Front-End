@@ -8,7 +8,7 @@ export const getGroups = async () => {
     baseUrl: BASE_API_URL,
   });
 
-  const response = await api.appCustomGroupsMyCreatedGroupsList(
+  const response = await api.appGroupsMyCreatedGroupsList(
     {},
     {
       headers: {

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
+import Button from "../../../components/Button";
+import { BackButton } from "../../../components/Global/BackButton";
 import { Input } from "../../../components/Global/Input";
 import { TextArea } from "../../../components/Global/TextArea";
 
@@ -15,11 +16,10 @@ const TAGS = [
 export const CreateFoodwaysPage = () => {
   return (
     <Style.Container>
-      <h1>Foodways</h1>
       <div className="content">
         <div className="content__header">
           <Link to="../">
-            <Button>Back</Button>
+            <BackButton />
           </Link>
           <div className="content__header__lang-buttons">
             <Button>English</Button>

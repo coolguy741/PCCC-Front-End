@@ -60,23 +60,24 @@ export const AccountsProfilesPage = () => {
           ))}
         </Style.SelectGroup>
       </div>
-      <div className="users">
+      <section className="users">
         {UserCards.map((Card, index) => {
           return (
-            <div key={`user-${index}`}>
-              <Link to="/dashboard/accounts/profiles/Standard">
-                <AccountCard
-                  img={avatars_data[index]}
-                  name={Card.name}
-                  role={Card.role}
-                  onClick={handleCardDelete}
-                  key={index}
-                />
-              </Link>
-            </div>
+            <Link
+              to="/dashboard/accounts/profiles/Standard"
+              key={`user-${index}`}
+            >
+              <AccountCard
+                img={avatars_data[index]}
+                name={Card.name}
+                role={Card.role}
+                onClick={handleCardDelete}
+                key={index}
+              />
+            </Link>
           );
         })}
-      </div>
+      </section>
     </Style.PageContainer>
   );
 };
@@ -84,7 +85,7 @@ export const AccountsProfilesPage = () => {
 const Style = {
   PageContainer: styled.div`
     display: flex;
-    height: 100%;
+    height: auto;
     flex-direction: column;
 
     .filters-container {
@@ -95,7 +96,6 @@ const Style = {
 
     .users {
       display: grid;
-      overflow-y: auto;
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       padding-right: 16px;

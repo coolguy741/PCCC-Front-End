@@ -18,11 +18,12 @@ const Style = {
     height: 44px;
     border-radius: 50%;
     transition: box-shadow 0.3s ease-out 0s, color 0.3s ease-in 0s,
-      background 0.3s linear 0s;
+      background 0.3s linear 0s, transform 0.3s ease-out 0s;
 
     &:hover {
       background: rgba(255, 255, 255, 0.65);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      transform: translateY(-3px);
     }
   `,
 };

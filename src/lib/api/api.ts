@@ -99,10 +99,19 @@ export interface PccServer23DynamicPermissionsDynamicPermissionUpdateDto {
   concurrencyStamp?: string | null;
 }
 
-export interface PccServer23FoodwayStopsCustomAddFoodwayStopTranslationDto {
-  language: string;
+export interface PccServer23FoodwayStopsCustomFoodwayStopUpdateDto {
   timePeriod: string;
   description?: string | null;
+}
+
+export interface PccServer23FoodwayStopsCustomMultiLingualFoodwayStopUpdateDto {
+  english: PccServer23FoodwayStopsCustomFoodwayStopUpdateDto;
+  french: PccServer23FoodwayStopsCustomFoodwayStopUpdateDto;
+  /** @format int32 */
+  order?: number;
+  /** @format uuid */
+  foodwayId?: string;
+  concurrencyStamp?: string | null;
 }
 
 export interface PccServer23FoodwayStopsFoodwayStopCreateDto {
@@ -142,12 +151,6 @@ export interface PccServer23FoodwayStopsFoodwayStopWithNavigationPropertiesDto {
   foodway?: PccServer23FoodwaysFoodwayDto;
 }
 
-export interface PccServer23FoodwaysCustomAddFoodwayTranslationDto {
-  language: string;
-  title: string;
-  info?: string | null;
-}
-
 export interface PccServer23FoodwaysFoodwayCreateDto {
   title: string;
   info?: string | null;
@@ -180,6 +183,11 @@ export interface PccServer23FoodwaysFoodwayUpdateDto {
   title: string;
   info?: string | null;
   concurrencyStamp?: string | null;
+}
+
+export interface PccServer23FoodwaysMultiLingualFoodwayUpdateDto {
+  english: PccServer23FoodwaysFoodwayUpdateDto;
+  french: PccServer23FoodwaysFoodwayUpdateDto;
 }
 
 export interface PccServer23GroupUsersGroupUserCreateDto {
@@ -317,6 +325,99 @@ export interface PccServer23GroupsGroupWithNavigationPropertiesDto {
 export interface PccServer23IdentityPublicIdentityUserDto {
   username?: string | null;
   role?: string | null;
+}
+
+export interface PccServer23RecipeMediasRecipeMediaCreateDto {
+  mediaType?: PccServer23RecipeMediasRecipeMediaType;
+  fileType: string;
+  fileName: string;
+  filePath: string;
+  /** @format uuid */
+  recipeId?: string;
+}
+
+export interface PccServer23RecipeMediasRecipeMediaDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  mediaType?: PccServer23RecipeMediasRecipeMediaType;
+  fileType?: string | null;
+  fileName?: string | null;
+  filePath?: string | null;
+  /** @format uuid */
+  recipeId?: string;
+  concurrencyStamp?: string | null;
+}
+
+/** @format int32 */
+export enum PccServer23RecipeMediasRecipeMediaType {
+  Value0 = 0,
+  Value1 = 1,
+}
+
+export interface PccServer23RecipeMediasRecipeMediaUpdateDto {
+  mediaType?: PccServer23RecipeMediasRecipeMediaType;
+  fileType: string;
+  fileName: string;
+  filePath: string;
+  /** @format uuid */
+  recipeId?: string;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23RecipeMediasRecipeMediaWithNavigationPropertiesDto {
+  recipeMedia?: PccServer23RecipeMediasRecipeMediaDto;
+  recipe?: PccServer23RecipesRecipeDto;
+}
+
+export interface PccServer23RecipesRecipeCreateDto {
+  name: string;
+  goodFor?: string | null;
+  servingSize?: string | null;
+  tags?: string | null;
+  directions?: string | null;
+}
+
+export interface PccServer23RecipesRecipeDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  name?: string | null;
+  goodFor?: string | null;
+  servingSize?: string | null;
+  tags?: string | null;
+  directions?: string | null;
+  concurrencyStamp?: string | null;
+  language?: string | null;
+  medias?: PccServer23RecipeMediasRecipeMediaDto[] | null;
+}
+
+export interface PccServer23RecipesRecipeUpdateDto {
+  name: string;
+  goodFor?: string | null;
+  servingSize?: string | null;
+  tags?: string | null;
+  directions?: string | null;
+  concurrencyStamp?: string | null;
 }
 
 export interface PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput {
@@ -497,6 +598,12 @@ export interface PccServer23UsersUserInGroupDto {
 }
 
 export type SystemVoid = object;
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23FoodwaysFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23FoodwaysFoodwayDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
+}
 
 export interface VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsCustomGetJoinedGroupUsersDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   items?: PccServer23GroupsCustomGetJoinedGroupUsersDto[] | null;
@@ -758,15 +865,168 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags CustomGroups
-     * @name AppCustomGroupsCreate
-     * @summary Create new group.
-     * @request POST:/api/app/custom-groups
+     * @tags CustomFoodways
+     * @name AppFoodwaysList
+     * @summary Get list of foodway with list of foodwaystop
+     * @request GET:/api/app/foodways
+     */
+    appFoodwaysList: (
+      query?: {
+        FilterText?: string;
+        Title?: string;
+        Info?: string;
+        LanguageCode?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23FoodwaysFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/foodways`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodways
+     * @name AppFoodwaysCreate
+     * @summary Create a new foodway record
+     * @request POST:/api/app/foodways
+     */
+    appFoodwaysCreate: (data: PccServer23BooksCustomMultiLingualFoodwayCreateDto, params: RequestParams = {}) =>
+      this.request<PccServer23FoodwaysFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodways`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodways
+     * @name AppFoodwaysDetail
+     * @summary Get a foodway record
+     * @request GET:/api/app/foodways/{id}
+     */
+    appFoodwaysDetail: (id: string, params: RequestParams = {}) =>
+      this.request<PccServer23FoodwaysFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodways/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodways
+     * @name AppFoodwaysDelete
+     * @summary Delete a foodway record with id
+     * @request DELETE:/api/app/foodways/{id}
+     */
+    appFoodwaysDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodways/${id}`,
+        method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodways
+     * @name AppFoodwaysUpdate
+     * @summary Update an existing foodway record's details
+     * @request PUT:/api/app/foodways/{id}
+     */
+    appFoodwaysUpdate: (
+      id: string,
+      data: PccServer23FoodwaysMultiLingualFoodwayUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23FoodwaysFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodways/${id}`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodwayStops
+     * @name AppFoodwayStopsDelete
+     * @summary Delete a foodwaystop record with id
+     * @request DELETE:/api/app/foodway-stops/{id}
      * @secure
      */
-    appCustomGroupsCreate: (data: PccServer23GroupsGroupCreateSelfDto, params: RequestParams = {}) =>
-      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-groups`,
+    appFoodwayStopsDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodway-stops/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodwayStops
+     * @name AppFoodwayStopsUpdate
+     * @summary Update an existing foodwaystop record's details
+     * @request PUT:/api/app/foodway-stops/{id}
+     * @secure
+     */
+    appFoodwayStopsUpdate: (
+      id: string,
+      data: PccServer23FoodwayStopsCustomMultiLingualFoodwayStopUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23FoodwayStopsFoodwayStopDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodway-stops/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodwayStops
+     * @name AppFoodwayStopsCreate
+     * @summary Create a new foodwaystop record
+     * @request POST:/api/app/foodway-stops
+     * @secure
+     */
+    appFoodwayStopsCreate: (data: PccServer23BooksCustomMultiLingualFoodwayStopCreateDto, params: RequestParams = {}) =>
+      this.request<PccServer23FoodwayStopsFoodwayStopDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodway-stops`,
         method: "POST",
         body: data,
         secure: true,
@@ -779,14 +1039,60 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsUpdate
-     * @summary Update group details
-     * @request PUT:/api/app/custom-groups/{id}
+     * @name AppGroupsCreate
+     * @summary Create new group.
+     * @request POST:/api/app/groups
      * @secure
      */
-    appCustomGroupsUpdate: (id: string, data: PccServer23GroupsGroupUpdateDto, params: RequestParams = {}) =>
+    appGroupsCreate: (data: PccServer23GroupsGroupCreateSelfDto, params: RequestParams = {}) =>
       this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-groups/${id}`,
+        path: `/api/app/groups`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomGroups
+     * @name AppGroupsDelete
+     * @summary Remove user from group
+     * @request DELETE:/api/app/groups
+     * @secure
+     */
+    appGroupsDelete: (
+      query?: {
+        /** @format uuid */
+        GroupId?: string;
+        /** @format uuid */
+        UserId?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/groups`,
+        method: "DELETE",
+        query: query,
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomGroups
+     * @name AppGroupsUpdate
+     * @summary Update group details
+     * @request PUT:/api/app/groups/{id}
+     * @secure
+     */
+    appGroupsUpdate: (id: string, data: PccServer23GroupsGroupUpdateDto, params: RequestParams = {}) =>
+      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/groups/${id}`,
         method: "PUT",
         body: data,
         secure: true,
@@ -799,14 +1105,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsDelete
+     * @name AppGroupsDelete2
      * @summary Delete a group
-     * @request DELETE:/api/app/custom-groups/{id}
+     * @request DELETE:/api/app/groups/{id}
+     * @originalName appGroupsDelete
+     * @duplicate
      * @secure
      */
-    appCustomGroupsDelete: (id: string, params: RequestParams = {}) =>
+    appGroupsDelete2: (id: string, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-groups/${id}`,
+        path: `/api/app/groups/${id}`,
         method: "DELETE",
         secure: true,
         ...params,
@@ -816,14 +1124,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsJoinCreate
+     * @name AppGroupsJoinCreate
      * @summary Join a group.
-     * @request POST:/api/app/custom-groups/join
+     * @request POST:/api/app/groups/join
      * @secure
      */
-    appCustomGroupsJoinCreate: (data: PccServer23GroupsGroupJoinDto, params: RequestParams = {}) =>
+    appGroupsJoinCreate: (data: PccServer23GroupsGroupJoinDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-groups/join`,
+        path: `/api/app/groups/join`,
         method: "POST",
         body: data,
         secure: true,
@@ -835,14 +1143,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsAcceptCreate
+     * @name AppGroupsAcceptCreate
      * @summary Accept a group user join request
-     * @request POST:/api/app/custom-groups/accept
+     * @request POST:/api/app/groups/accept
      * @secure
      */
-    appCustomGroupsAcceptCreate: (data: PccServer23GroupsGroupAcceptDto, params: RequestParams = {}) =>
+    appGroupsAcceptCreate: (data: PccServer23GroupsGroupAcceptDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-groups/accept`,
+        path: `/api/app/groups/accept`,
         method: "POST",
         body: data,
         secure: true,
@@ -854,14 +1162,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsRejectCreate
+     * @name AppGroupsRejectCreate
      * @summary Reject a group user join request
-     * @request POST:/api/app/custom-groups/reject
+     * @request POST:/api/app/groups/reject
      * @secure
      */
-    appCustomGroupsRejectCreate: (data: PccServer23GroupsGroupRejectDto, params: RequestParams = {}) =>
+    appGroupsRejectCreate: (data: PccServer23GroupsGroupRejectDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-groups/reject`,
+        path: `/api/app/groups/reject`,
         method: "POST",
         body: data,
         secure: true,
@@ -873,12 +1181,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsMyCreatedGroupsList
+     * @name AppGroupsMyCreatedGroupsList
      * @summary Get list of groups created by authenticated user
-     * @request GET:/api/app/custom-groups/my-created-groups
+     * @request GET:/api/app/groups/my-created-groups
      * @secure
      */
-    appCustomGroupsMyCreatedGroupsList: (
+    appGroupsMyCreatedGroupsList: (
       query?: {
         FilterText?: string;
         Name?: string;
@@ -903,7 +1211,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/custom-groups/my-created-groups`,
+        path: `/api/app/groups/my-created-groups`,
         method: "GET",
         query: query,
         secure: true,
@@ -915,12 +1223,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsMyJoinedGroupsList
+     * @name AppGroupsMyJoinedGroupsList
      * @summary Get list of groups joined by authenticated user
-     * @request GET:/api/app/custom-groups/my-joined-groups
+     * @request GET:/api/app/groups/my-joined-groups
      * @secure
      */
-    appCustomGroupsMyJoinedGroupsList: (
+    appGroupsMyJoinedGroupsList: (
       query?: {
         FilterText?: string;
         Sorting?: string;
@@ -943,7 +1251,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/custom-groups/my-joined-groups`,
+        path: `/api/app/groups/my-joined-groups`,
         method: "GET",
         query: query,
         secure: true,
@@ -955,12 +1263,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsMyGroupsJoinRequestsList
+     * @name AppGroupsMyGroupsJoinRequestsList
      * @summary Get list of groups join requests of authenticated user's groups
-     * @request GET:/api/app/custom-groups/my-groups-join-requests
+     * @request GET:/api/app/groups/my-groups-join-requests
      * @secure
      */
-    appCustomGroupsMyGroupsJoinRequestsList: (
+    appGroupsMyGroupsJoinRequestsList: (
       query?: {
         Sorting?: string;
         /**
@@ -982,7 +1290,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsCustomGroupUserJoinRequestDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/custom-groups/my-groups-join-requests`,
+        path: `/api/app/groups/my-groups-join-requests`,
         method: "GET",
         query: query,
         secure: true,
@@ -994,12 +1302,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomGroups
-     * @name AppCustomGroupsJoinedGroupUsersList
+     * @name AppGroupsJoinedGroupUsersList
      * @summary Get list of group joined users
-     * @request GET:/api/app/custom-groups/joined-group-users
+     * @request GET:/api/app/groups/joined-group-users
      * @secure
      */
-    appCustomGroupsJoinedGroupUsersList: (
+    appGroupsJoinedGroupUsersList: (
       query: {
         /** @format uuid */
         GroupId: string;
@@ -1023,7 +1331,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsCustomGetJoinedGroupUsersDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/custom-groups/joined-group-users`,
+        path: `/api/app/groups/joined-group-users`,
         method: "GET",
         query: query,
         secure: true,
@@ -1034,15 +1342,52 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags CustomSecurityQuestionChoices
-     * @name AppCustomSecurityQuestionChoicesSecurityQuestionsList
-     * @summary Get list of security questions
-     * @request GET:/api/app/custom-security-question-choices/security-questions
+     * @tags CustomRecipeMedias
+     * @name AppRecipeMediasDelete
+     * @summary Delete a recipe media with Id
+     * @request DELETE:/api/app/recipe-medias/{id}
+     * @secure
      */
-    appCustomSecurityQuestionChoicesSecurityQuestionsList: (params: RequestParams = {}) =>
+    appRecipeMediasDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/recipe-medias/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomRecipeMedias
+     * @name AppRecipeMediasCreate
+     * @summary Create new recipe media
+     * @request POST:/api/app/recipe-medias
+     * @secure
+     */
+    appRecipeMediasCreate: (data: PccServer23RecipeMediasRecipeMediaCreateDto, params: RequestParams = {}) =>
+      this.request<PccServer23RecipeMediasRecipeMediaDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/recipe-medias`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomSecurityQuestionChoices
+     * @name AppSecurityQuestionChoicesSecurityQuestionsList
+     * @summary Get list of security questions
+     * @request GET:/api/app/security-question-choices/security-questions
+     */
+    appSecurityQuestionChoicesSecurityQuestionsList: (params: RequestParams = {}) =>
       this.request<PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput, VoloAbpHttpRemoteServiceErrorResponse>(
         {
-          path: `/api/app/custom-security-question-choices/security-questions`,
+          path: `/api/app/security-question-choices/security-questions`,
           method: "GET",
           format: "json",
           ...params,
@@ -1053,16 +1398,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomUsernameChoices
-     * @name AppCustomUsernameChoicesCheckUsernameAvailabilityCreate
+     * @name AppUsernameChoicesCheckUsernameAvailabilityCreate
      * @summary Check a username is taken up by existing users
-     * @request POST:/api/app/custom-username-choices/check-username-availability
+     * @request POST:/api/app/username-choices/check-username-availability
      */
-    appCustomUsernameChoicesCheckUsernameAvailabilityCreate: (
+    appUsernameChoicesCheckUsernameAvailabilityCreate: (
       data: PccServer23UsernameChoicesCheckUsernameAvailabilityInput,
       params: RequestParams = {},
     ) =>
       this.request<PccServer23UsernameChoicesCheckUsernameAvailabilityOutput, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-username-choices/check-username-availability`,
+        path: `/api/app/username-choices/check-username-availability`,
         method: "POST",
         body: data,
         type: ContentType.Json,
@@ -1074,13 +1419,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomUsernameChoices
-     * @name AppCustomUsernameChoicesUsernameChoicesList
+     * @name AppUsernameChoicesUsernameChoicesList
      * @summary Get list of username for new user selection
-     * @request GET:/api/app/custom-username-choices/username-choices
+     * @request GET:/api/app/username-choices/username-choices
      */
-    appCustomUsernameChoicesUsernameChoicesList: (params: RequestParams = {}) =>
+    appUsernameChoicesUsernameChoicesList: (params: RequestParams = {}) =>
       this.request<PccServer23UsernameChoicesGetUsernameChoicesOutput, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/custom-username-choices/username-choices`,
+        path: `/api/app/username-choices/username-choices`,
         method: "GET",
         format: "json",
         ...params,

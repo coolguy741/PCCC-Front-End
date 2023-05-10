@@ -5,31 +5,35 @@ import { PrintLogo } from "../Logo/Print";
 export const PrintHeader = () => {
   return (
     <Style.Header>
-      <PrintLogo />
-      <div>POWER FULL KIDS</div>
+      <PrintLogo type="white" width={144} />
+      <Style.Img src="/images/powerfullkids-white.svg" alt="power full kids" />
     </Style.Header>
   );
 };
 
 const Style = {
   Header: styled.header`
-    width: 100%;
-    padding: 24px 41px 18px 33px;
     display: flex;
     justify-content: space-between;
-    align-items: start;
-    background: #d9d9d9;
-    pointer-events: none;
-    box-sizing: border-box;
+    background: linear-gradient(177.73deg, #4cde96 1.85%, #20ad67 98.05%);
 
-    & > svg {
-      height: 25.77px;
+    @media screen {
+      border-radius: 18px;
+      height: 120px;
+      padding: 0px 72px;
     }
-    div {
-      color: var(--white);
-      font-weight: 800;
-      font-size: 19px;
-      font-family: "Open Sans";
+    @media print {
+      border-radius: 6px;
+      height: 40px;
+      padding: 0px 24px;
+    }
+  `,
+  Img: styled.img`
+    @media screen {
+      width: 318px;
+    }
+    @media print {
+      width: 106px;
     }
   `,
 };

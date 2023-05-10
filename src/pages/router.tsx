@@ -1,9 +1,11 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
+import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
+import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
 import { AccountsPage } from "./AccountsPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
@@ -32,9 +34,8 @@ import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { CloudDrivePage } from "./CloudDrivePage";
 import { CookTogetherPage } from "./CookTogetherPage";
-import { DashboardPage } from "./DashboardPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
-import { FoodwaysPage } from "./FoodwaysPage";
+import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
@@ -126,12 +127,12 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <DashboardPage>
+      <DashboardLayout>
         <Outlet />
-      </DashboardPage>
+      </DashboardLayout>
     ),
     loader: async () => {
-      getAuthenticatedUser();
+      await getAuthenticatedUser();
 
       return null;
     },
@@ -145,6 +146,11 @@ export const router = createBrowserRouter([
             <Outlet />
           </AccountsPage>
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <Navigate to="./profiles" /> },
           { path: "profiles", element: <AccountsProfilesPage /> },
@@ -165,7 +171,10 @@ export const router = createBrowserRouter([
           },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
           { path: "groups/:group", element: <AccountsGroupPage /> },
-          { path: "groups/:group/edit", element: <AccountsEditGroupPage /> },
+          {
+            path: "groups/:group/edit",
+            element: <AccountsEditGroupPage />,
+          },
           {
             path: "groups/:group/calendar",
             element: <AccountsGroupCalendarPage />,
@@ -187,7 +196,7 @@ export const router = createBrowserRouter([
       },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
       {
-        path: "meal-planner",
+        path: "plate-full-planner",
         element: (
           <>
             <Outlet />
@@ -265,6 +274,7 @@ export const router = createBrowserRouter([
             icon="foodways-orange-outlined"
           />
         ),
+        loader: foodwaysPageLoader,
         children: [
           { path: "", element: <FoodwaysPage /> },
           {
@@ -318,11 +328,16 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "profile-settings",
-        element: <ProfileSettingsPage />,
+        element: (
+          <ContentListPageLayout
+            title="Your profile"
+            icon="profile-orange-outlined"
+          />
+        ),
+        children: [
+          { path: "", element: <ProfilePage /> },
+          { path: "settings", element: <ProfileSettingsPage /> },
+        ],
       },
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
@@ -344,7 +359,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "dashboard/meal-planner",
+        path: "dashboard/plate-full-planner",
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
 

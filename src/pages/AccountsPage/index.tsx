@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AccountsHeader } from "../../components/Accounts/AccountsHeader";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
 interface AccountsPageProps {
   children: JSX.Element;
@@ -9,22 +10,30 @@ export const AccountsPage = ({ children }: AccountsPageProps) => {
   return (
     <Style.PageContainer>
       <AccountsHeader />
-      <div className="content">{children}</div>
+      <section className="accounts-content">{children}</section>
     </Style.PageContainer>
   );
 };
 
 const Style = {
   PageContainer: styled.div`
-    padding: 118px 40px 0 40px;
+    padding: 9vh 32px 2.5vh 64px;
     display: flex;
     flex-direction: column;
     position: relative;
+    height: 100vh;
+    justify-content: space-between;
+    overflow: hidden;
 
-    .content {
-      overflow: visible;
-      margin-right: -24px;
-      padding-right: 24px;
+    .accounts-header {
+      height: 11vh;
     }
+
+    section.accounts-content {
+      width: 100%;
+      height: 77vh;
+    }
+
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
   `,
 };

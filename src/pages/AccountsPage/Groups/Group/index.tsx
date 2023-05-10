@@ -28,16 +28,12 @@ export const AccountsGroupPage = () => {
     navigate(-1);
   };
 
-  const handleEdit = () => {
-    navigate(`/dashboard/accounts/groups/${params.group}/edit`);
-  };
-
   const handleViewGroupCalender = () => {
     navigate("/dashboard/accounts/groups/group/calendar");
   };
 
   const getGroup = async () => {
-    const response = await api.appCustomGroupsMyCreatedGroupsList(
+    const response = await api.appGroupsMyCreatedGroupsList(
       {},
       {
         headers: {
@@ -48,7 +44,6 @@ export const AccountsGroupPage = () => {
 
     if (response.data.items) {
       response.data.items.find((item: any) => {
-        console.log(item.group.id, params.group);
         if (item.group.id === params.group) {
           setGroup(item);
         }
@@ -58,7 +53,7 @@ export const AccountsGroupPage = () => {
 
   const getMembers = async () => {
     if (params.group) {
-      const response = await api.appCustomGroupsJoinedGroupUsersList(
+      const response = await api.appGroupsJoinedGroupUsersList(
         { GroupId: params.group },
         {
           headers: {

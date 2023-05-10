@@ -65,7 +65,7 @@ export const SecurityQuestions = () => {
 
   const getSecurityQuestions = async () => {
     const { data } =
-      await api.appCustomSecurityQuestionChoicesSecurityQuestionsList();
+      await api.appSecurityQuestionChoicesSecurityQuestionsList();
 
     setFirstSecurityQuestions(data.firstSecurityQuestions);
     setSecondSecurityQuestions(data.secondSecurityQuestions);

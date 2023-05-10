@@ -1,3 +1,4 @@
+import Account from "./Account/account";
 import AltGrapeBG from "./AltGrapeBG/altGrapeBG";
 import AppleBG from "./AppleBG/appleBG";
 import ArrowLeft from "./ArrowLeft/arrowLeft";
@@ -11,6 +12,7 @@ import LemonBG from "./LemonBG/lemonBG";
 import OrangeBG from "./OrangeBG/orangeBG";
 import PCCRed from "./PCCRed/pccRed";
 import PFKLogo from "./PFKLogo/PFKLogo";
+import Search from "./Search/search";
 
 export {
   PFKLogo,
@@ -26,4 +28,6 @@ export {
   Group,
   DirectionRight,
   AltGrapeBG,
+  Search,
+  Account,
 };

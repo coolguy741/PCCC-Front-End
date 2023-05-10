@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Typography } from "../../Global/Typography";
 
 interface AccountCardProps {
   img: { icon: any; bg: string };
@@ -11,77 +10,57 @@ interface AccountCardProps {
 export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Style.Container>
-      <div className="avatar">{img.icon()}</div>
+      <figure className="avatar">{img.icon()}</figure>
       <div className="account-info">
         <div>
-          <Typography variant="h5" weight="semi-bold" mb={2}>
-            {name}
-          </Typography>
-          <Typography variant="paragraph3">{role} User</Typography>
+          <h5>{name}</h5>
+          <p>{role} User</p>
         </div>
-        <div className="button-layout">
-          <button onClick={onClick}>
-            <img src="/images/icons/trash.svg" alt={`delete user ${name}`} />
-          </button>
-        </div>
+        <button onClick={onClick} className="avatar-delete">
+          <img src="/images/icons/trash.svg" alt={`delete user ${name}`} />
+        </button>
       </div>
     </Style.Container>
   );
 };
 
 const Style = {
-  Container: styled.div`
-    padding: 16px;
+  Container: styled.article`
+    height: 13vh;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(59.2764px);
+    width: 100%;
     border-radius: 16px;
-    position: relative;
-    background: #ffffff50;
-    filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
-    backdrop-filter: blur(119px);
+    padding: 24px;
     display: flex;
-    gap: 16px;
+    align-items: center;
+    position: relative;
+    transition: background 0.3s ease-in, box-shadow 0.3s ease-out;
 
     .avatar {
-      margin-top: 5px;
-      width: 116px;
-      height: 116px;
-      min-width: 116px;
-      border-radius: 100%;
-      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-      transition: all 0.1s ease-in;
-
-      svg {
-        width: 116px;
-        height: 116px;
-      }
-    }
-
-    .icon-container {
-      position: absolute;
-      left: 10px;
-      top: 48px;
+      margin-right: 15px;
     }
 
     .account-info {
       display: flex;
-      width: 100%;
       flex-direction: column;
-      justify-content: space-between;
+    }
 
-      .button-layout {
-        visibility: hidden;
-        text-align: right;
-      }
+    .avatar-delete {
+      position: absolute;
+      bottom: 2.5%;
+      right: 2.5%;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
     }
 
     &:hover {
       background: linear-gradient(182.85deg, #ffeb99, #f3d03e);
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
 
-      .button-layout {
-        visibility: visible;
-      }
-
-      .avatar {
-        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.3);
+      .avatar-delete {
+        opacity: 1;
       }
     }
   `,
