@@ -313,7 +313,7 @@ const Style = {
         label {
           width: 30%;
           font-weight: 500;
-          font-size: 23px;
+          font-size: 1rem;
           line-height: 28px;
           color: var(--neutral-700);
         }
@@ -350,11 +350,10 @@ const Style = {
       }
     }
 
-    ,
     .choose-avatar {
       label {
         font-weight: 500;
-        font-size: 23px;
+        font-size: 1rem;
         line-height: 28px;
         color: var(--neutral-700);
       }
@@ -407,7 +406,7 @@ const Style = {
           width: 35%;
           color: var(--neutral-600);
           font-weight: 500;
-          font-size: 19px;
+          font-size: 1rem;
           line-height: 24px;
         }
 
