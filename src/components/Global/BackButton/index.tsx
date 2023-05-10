@@ -15,21 +15,31 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
 
 const Style = {
   Container: styled.button`
-    margin: 1.2vh 0;
-    background: rgba(255, 255, 255, 0.65);
-    width: 110px;
-    padding: 10px 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 80px;
-    font-size: 1.5vh;
+    font-family: "Noir Std";
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
     color: var(--neutral-700);
+    margin: 1.2vh 0;
+    cursor: pointer;
+    width: 110px;
+    padding: 10px 10px;
+    font-size: 1.5vh;
+    justify-content: center;
+    border-radius: 80px;
+    transition: 0.2s all ease-in-out;
 
     svg {
       margin-right: 0.5vw;
       height: 1.5vh;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      transition: 0.2s all ease-in-out;
     }
   `,
 };
