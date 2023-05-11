@@ -46,10 +46,10 @@ const Style = {
       line-height: 24px;
     }
 
-    .auth-image {
+    .auth-image,
+    .auth-image-right {
       position: absolute;
       bottom: 0;
-      left: 0;
       z-index: 0;
       max-width: 30%;
       perspective: 500px;
@@ -60,8 +60,11 @@ const Style = {
       }
     }
 
+    .auth-image {
+      left: 0;
+    }
+
     .auth-image-right {
-      left: unset;
       right: 0;
     }
 

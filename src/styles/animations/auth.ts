@@ -27,5 +27,5 @@ export const rightSideAnimationProps = {
   },
   exit: { opacity: 0, x: "105%", scale: 0.75 },
   transition: { ease: "linear" },
-  className: "auth-image auth-image-right",
+  className: "auth-image-right",
 };
