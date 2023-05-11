@@ -37,7 +37,7 @@ export function SideMenu() {
   return (
     <Style.MenuContainer>
       <div>
-        <Link to="/">
+        <Link to="profile">
           <div className="logo-container">
             <img src="/images/avatars/avatar.svg" alt="avatar" />
             <div className="username">{user?.username}</div>

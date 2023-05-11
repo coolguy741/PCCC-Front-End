@@ -204,8 +204,9 @@ const Style = {
     }
 
     .header-right {
-      width: ${({ userAvailable }) => (userAvailable ? "32%" : "47.5%")};
-      justify-content: space-between;
+      width: ${({ userAvailable }) => (userAvailable ? "32%" : "60%")};
+      justify-content: ${({ userAvailable }) =>
+        userAvailable ? "space-between" : "flex-end"};
 
       .header-alert {
         height: 100%;
