@@ -3,12 +3,12 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../Icon";
 
-interface ContentListPageLayoutProps {
+interface PageTitleLayoutProps {
   icon?: string;
   title: string;
 }
 
-export const ContentListPageLayout: React.FC<ContentListPageLayoutProps> = ({
+export const PageTitleLayout: React.FC<PageTitleLayoutProps> = ({
   icon,
   title,
 }) => {

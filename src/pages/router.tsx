@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
-import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
+import { PageTitleLayout } from "../components/Global/PageTitleLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
@@ -215,9 +215,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "topics",
-        element: (
-          <ContentListPageLayout title="Topic" icon="topic-orange-outlined" />
-        ),
+        element: <PageTitleLayout title="Topic" icon="topic-orange-outlined" />,
         children: [
           { path: "", element: <Topics /> },
           { path: "create/:slug", element: <TopicCreatePage /> },
@@ -250,7 +248,7 @@ export const router = createBrowserRouter([
       {
         path: "activities",
         element: (
-          <ContentListPageLayout
+          <PageTitleLayout
             title="Activities"
             icon="activities-orange-outlined"
           />
@@ -269,10 +267,7 @@ export const router = createBrowserRouter([
       {
         path: "foodways",
         element: (
-          <ContentListPageLayout
-            title="Foodways"
-            icon="foodways-orange-outlined"
-          />
+          <PageTitleLayout title="Foodways" icon="foodways-orange-outlined" />
         ),
         loader: foodwaysPageLoader,
         children: [
@@ -294,10 +289,7 @@ export const router = createBrowserRouter([
       {
         path: "recipes",
         element: (
-          <ContentListPageLayout
-            title="Recipes"
-            icon="Recipes-orange-outlined"
-          />
+          <PageTitleLayout title="Recipes" icon="Recipes-orange-outlined" />
         ),
         children: [
           { path: "", element: <RecipesPage /> },
@@ -329,7 +321,7 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: (
-          <ContentListPageLayout
+          <PageTitleLayout
             title="Your profile"
             icon="profile-orange-outlined"
           />
