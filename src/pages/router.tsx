@@ -3,6 +3,7 @@ import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
 import { AuthLayout } from "../layouts/AuthLayout/authLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
+import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
@@ -132,7 +133,7 @@ export const router = createBrowserRouter([
       </DashboardLayout>
     ),
     loader: async () => {
-      // await getAuthenticatedUser();
+      await getAuthenticatedUser();
       return null;
     },
     children: [

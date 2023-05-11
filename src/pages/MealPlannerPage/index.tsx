@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { MealPlanHeader } from "../../components/MealPlanner/Header";
 import { MealPlan } from "../../components/MealPlanner/Plan";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
 export const MealPlannerPage = () => {
   const match = useMatch("/dashboard/meal-planner/edit");
@@ -33,6 +34,7 @@ const Style = {
     position: relative;
     overflow: overlay;
     max-height: 100vh;
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
 
     & .link-to-calendar {
       position: absolute;
