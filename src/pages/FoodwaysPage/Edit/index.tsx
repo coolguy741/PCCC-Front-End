@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useState } from "react";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
+import Button from "../../../components/Button";
+import { BackButton } from "../../../components/Global/BackButton";
 import { Input } from "../../../components/Global/Input";
 import { TextArea } from "../../../components/Global/TextArea";
+import { useAPI } from "../../../hooks/useAPI";
+import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
+import { STORAGE_KEY_JWT } from "../../consts";
 
 const TAGS = [
   "vegan",
@@ -13,13 +19,44 @@ const TAGS = [
 ];
 
 export const EditFoodwaysPage = () => {
+  const { api } = useAPI();
+  const params = useParams();
+  const navigate = useNavigate();
+  const foodway = useLoaderData() as PccServer23FoodwaysFoodwayDto;
+
+  const [title, setTitle] = useState(foodway.title);
+
+  const handleEdit = async () => {
+    if (params.id && title) {
+      const response = await api.appFoodwaysUpdate(
+        params.id,
+        {
+          english: {
+            title: title,
+            concurrencyStamp: foodway.concurrencyStamp || "test",
+          },
+          french: {
+            title: title,
+            concurrencyStamp: foodway.concurrencyStamp || "test",
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.status === 200) navigate("/dashboard/accounts/groups");
+    }
+  };
+
   return (
     <Style.Container>
-      <h1>Foodways</h1>
       <div className="content">
         <div className="content__header">
           <Link to="../">
-            <Button>Back</Button>
+            <BackButton />
           </Link>
           <div className="content__header__lang-buttons">
             <Button>English</Button>
@@ -35,7 +72,11 @@ export const EditFoodwaysPage = () => {
             <div className="content__body__form__inputs">
               <label>
                 <span>Title:</span>
-                <Input type="text" />
+                <Input
+                  type="text"
+                  value={title as string}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
               </label>
               <label>
                 <span>Intro:</span>
@@ -79,7 +120,7 @@ export const EditFoodwaysPage = () => {
           </div>
           <div className="content__body__buttons">
             <Button>Add a Stop</Button>
-            <Button>Create</Button>
+            <Button onClick={handleEdit}>Create</Button>
           </div>
         </div>
       </div>

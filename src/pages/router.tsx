@@ -3,6 +3,7 @@ import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
+import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
 import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
@@ -274,18 +275,38 @@ export const router = createBrowserRouter([
             icon="foodways-orange-outlined"
           />
         ),
-        loader: foodwaysPageLoader,
         children: [
-          { path: "", element: <FoodwaysPage /> },
+          {
+            path: "",
+            element: <FoodwaysPage />,
+            loader: foodwaysPageLoader,
+          },
           {
             path: "create",
             element: <CreateFoodwaysPage />,
           },
           {
-            path: ":foodway",
+            path: ":id",
             children: [
-              { path: "", element: <FoodwaysOverviewPage /> },
-              { path: "edit", element: <EditFoodwaysPage /> },
+              {
+                path: "",
+                element: <FoodwaysOverviewPage />,
+                id: "foodway",
+                loader: async ({ params }) => {
+                  const foodway = await getFoodway(params.id);
+
+                  return foodway;
+                },
+              },
+              {
+                path: "edit",
+                element: <EditFoodwaysPage />,
+                loader: async ({ params }) => {
+                  const foodway = await getFoodway(params.id);
+
+                  return foodway;
+                },
+              },
               { path: "preview", element: <FoodwaysPreviewPage /> },
             ],
           },
