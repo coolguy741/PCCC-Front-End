@@ -42,7 +42,7 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
       {selectable && (
         <Style.InputContainer>
           <Checkbox
-            sizeOption="small"
+            sizeOption="large"
             checked={isSelected}
             onChange={handleCheckBoxChange}
             onClick={(event) => event.stopPropagation()}
