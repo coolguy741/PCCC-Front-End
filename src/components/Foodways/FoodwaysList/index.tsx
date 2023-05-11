@@ -7,24 +7,30 @@ interface FoodwaysListProps {
   listData: PccServer23FoodwaysFoodwayDto[];
   selectable?: boolean;
   onSelectionChange?: (id: string, isSelected: boolean) => void;
+  isSelected: boolean;
+  setIsSelected: (isSelected: boolean) => void;
 }
 
 export const FoodwaysList: React.FC<FoodwaysListProps> = ({
   listData,
   selectable,
   onSelectionChange,
+  isSelected,
+  setIsSelected,
 }) => {
   return (
     <Style.Container>
       {listData.map((item) => (
-        <StyledLink to={`${item.id}`}>
-          <FoodwaysListItem
-            key={item.id}
-            data={item}
-            selectable={selectable}
-            onSelectedChange={onSelectionChange}
-          />
-        </StyledLink>
+        // <StyledLink to={`${item.id}`}>
+        <FoodwaysListItem
+          key={item.id}
+          data={item}
+          selectable={selectable}
+          onSelectedChange={onSelectionChange}
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
+        />
+        // </StyledLink>
       ))}
     </Style.Container>
   );
@@ -38,6 +44,10 @@ const Style = {
     align-items: flex-start;
     padding: 0px;
     gap: 40px;
+
+    div {
+      flex-basis: calc(50% - 20px);
+    }
   `,
   ItemContainer: styled.div`
     flex-basis: calc(50% - 20px);

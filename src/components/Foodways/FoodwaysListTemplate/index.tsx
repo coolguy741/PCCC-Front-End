@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
+import Cookies from "js-cookie";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import Button from "../../Button";
 import { Select } from "../../Global/Select";
 import { FoodwaysList } from "../FoodwaysList";
@@ -12,10 +16,35 @@ interface ContentListAdminPageTemplateProps {
   selectsGroup: SelectOption[];
   listData: PccServer23FoodwaysFoodwayDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
+  isSelected: boolean;
+  setIsSelected: (isSelected: boolean) => void;
+  selectedId: string;
 }
 
 export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
-  ({ title, selectsGroup, listData, onSelectionChange }) => {
+  ({
+    title,
+    selectsGroup,
+    listData,
+    onSelectionChange,
+    isSelected,
+    setIsSelected,
+    selectedId,
+  }) => {
+    const { api } = useAPI();
+    const navigate = useNavigate();
+
+    const handleDelete = async () => {
+      const response = await api.appFoodwaysDelete(selectedId, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      });
+
+      if (response.status === 204) {
+        navigate("/dashboard/foodways");
+      }
+    };
     return (
       <>
         <Style.InputGroup>
@@ -40,7 +69,7 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             ))}
           </Style.SelectGroup>
           <Style.ButtonGroup>
-            <Button variant="yellow" size="large">
+            <Button variant="yellow" size="large" onClick={handleDelete}>
               Delete
             </Button>
             <Button
@@ -60,6 +89,8 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             listData={listData}
             selectable={true}
             onSelectionChange={onSelectionChange}
+            isSelected={isSelected}
+            setIsSelected={setIsSelected}
           />
         </Style.ScrollContainer>
       </>
