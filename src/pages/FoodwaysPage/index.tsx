@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { FoodwaysListTemplate } from "../../components/Foodways/FoodwaysListTemplate";
 import { Api, PccServer23FoodwaysFoodwayDto } from "../../lib/api/api";
@@ -32,8 +33,17 @@ export const foodwaysPageLoader = async () => {
 
 export const FoodwaysPage = () => {
   const foodways = useLoaderData() as PccServer23FoodwaysFoodwayDto[];
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const handleSelectionChange = (id: string, isSelected: boolean) => {
+    if (isSelected) {
+      setSelectedIds((selelectedIds) => [...selelectedIds, id]);
+    } else {
+      setSelectedIds((selelectedIds) =>
+        selelectedIds.filter((selectedId) => selectedId !== id),
+      );
+    }
+
     return;
   };
 
@@ -43,6 +53,7 @@ export const FoodwaysPage = () => {
       selectsGroup={["Sort"]}
       listData={foodways}
       onSelectionChange={handleSelectionChange}
+      selectedIds={selectedIds}
     />
   );
 };
