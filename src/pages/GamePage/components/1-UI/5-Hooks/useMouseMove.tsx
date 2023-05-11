@@ -1,12 +1,17 @@
 import { useCallback, useEffect } from "react";
 
 const useMouseMove = (callback: (event: MouseEvent) => void) => {
-  const onMouseMove = useCallback(callback, [callback]);
+  // Handlers
+  const handleMouseMoveCallback = useCallback(callback, [callback]);
 
-  useEffect(() => {
-    window.addEventListener("mousemove", onMouseMove);
-    return () => window.removeEventListener("mousemove", onMouseMove);
-  }, [onMouseMove]);
+  // Listeners
+  useEffect((): (() => void) => {
+    window.addEventListener("mousemove", handleMouseMoveCallback);
+
+    return (): void => {
+      window.removeEventListener("mousemove", handleMouseMoveCallback);
+    };
+  }, [handleMouseMoveCallback]);
 };
 
 export default useMouseMove;

@@ -15,10 +15,10 @@ const cursorCanvasStyles: CSSProperties = { pointerEvents: "none" };
 
 const devicePixelRatio: number = MathUtils.clamp(window.devicePixelRatio, 1, 2);
 
-const handleSetCursorCanvasLocation = (event: MouseEvent): void => {
+const handleSetCursorCanvasLocation = (cursorLocation: Vector2): void => {
   cursorCanvasFollowLocation.set(
-    event.clientX - cursorCanvasCenterOffset.x,
-    event.clientY - cursorCanvasCenterOffset.y,
+    cursorLocation.x - cursorCanvasCenterOffset.x,
+    cursorLocation.y - cursorCanvasCenterOffset.y,
   );
 };
 

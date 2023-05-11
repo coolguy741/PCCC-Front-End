@@ -75,7 +75,7 @@ const tapBurstFragmentShader = `
 `;
 
 const uniforms = {
-  uTime: { value: 2 },
+  uTime: { value: -3 },
 };
 
 const tapBurstGeometry = new CircleGeometry(0.5, 8, 0, Math.PI * 2);

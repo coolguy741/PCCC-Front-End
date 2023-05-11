@@ -2,11 +2,11 @@ import { RootState, useFrame } from "@react-three/fiber";
 import { useCallback, useEffect, useRef } from "react";
 import { MathUtils } from "three";
 import { shallow } from "zustand/shallow";
-import { useGlobalState } from "../../../../globalState/useGlobalState";
+import { useGlobalState } from "../../../../../globalState/useGlobalState";
 import {
   RefNumberType,
   RefOrthographicCameraType,
-} from "../../../../shared/Types/RefTypes";
+} from "../../../../../shared/Types/RefTypes";
 import {
   animateCursorCameraToFollowRotation,
   animateCursorCameraToMenuRotation,
@@ -29,25 +29,31 @@ const useCursorCameraLogic = () => {
   const cursorCameraDampedFollowStepRef: RefNumberType = useRef(0);
 
   // Global Stated
-  const { menuActive, cursorLocation, setHoveredSection, hoveredSection } =
-    useGlobalState(
-      (state) => ({
-        menuActive: state.menuActive,
-        cursorLocation: state.cursorLocation,
-        hoveredSection: state.hoveredSection,
-        setHoveredSection: state.setHoveredSection,
-      }),
-      shallow,
-    );
+  const {
+    menuActive,
+    windowSize,
+    cursorLocation,
+    hoveredSection,
+    setHoveredSection,
+  } = useGlobalState(
+    (state) => ({
+      menuActive: state.menuActive,
+      windowSize: state.windowSize,
+      cursorLocation: state.cursorLocation,
+      hoveredSection: state.hoveredSection,
+      setHoveredSection: state.setHoveredSection,
+    }),
+    shallow,
+  );
 
   // Handlers
-  const handleUpdateCursorCameraInitRotation = useCallback(() => {
+  const handleUpdateCursorCameraInitRotation = useCallback((): void => {
     if (!menuActive) return;
     const menuRotation = MathUtils.clamp(
       MathUtils.mapLinear(
         cursorLocation.x,
-        window.innerWidth / 3,
-        (window.innerWidth / 3) * 2,
+        windowSize.x / 3,
+        (windowSize.x / 3) * 2,
         cursorCameraMinRotation,
         cursorCameraMaxRotation,
       ),
@@ -56,19 +62,19 @@ const useCursorCameraLogic = () => {
     );
 
     cursorCameraInitRotation.setX(menuRotation);
-  }, [menuActive, cursorLocation]);
+  }, [windowSize, menuActive, cursorLocation]);
 
-  const handleAnimateCursorToMenuRotation = useCallback(() => {
+  const handleAnimateCursorToMenuRotation = useCallback((): void => {
     if (!menuActive) return;
     animateCursorCameraToMenuRotation(cursorCameraDampedFollowStepRef);
   }, [menuActive]);
 
-  const handleAnimateCursorToFollowRotation = useCallback(() => {
+  const handleAnimateCursorToFollowRotation = useCallback((): void => {
     if (menuActive) return;
     animateCursorCameraToFollowRotation(cursorCameraInitRotation);
   }, [menuActive]);
 
-  const handleSetHoveredSection = useCallback(() => {
+  const handleSetHoveredSection = useCallback((): void => {
     if (!menuActive || !cursorCameraRef.current) return;
 
     const sectionMap = [
@@ -96,7 +102,7 @@ const useCursorCameraLogic = () => {
   }, [menuActive, hoveredSection, setHoveredSection]);
 
   const handleCursorCameraOnFrame = useCallback(
-    (state: RootState, delta: number) => {
+    (state: RootState, delta: number): void => {
       if (!cursorCameraRef.current) return;
 
       handleSetHoveredSection();
@@ -121,7 +127,7 @@ const useCursorCameraLogic = () => {
   );
 
   // Listeners
-  useEffect(() => {
+  useEffect((): void => {
     handleAnimateCursorToMenuRotation();
     handleAnimateCursorToFollowRotation();
   }, [

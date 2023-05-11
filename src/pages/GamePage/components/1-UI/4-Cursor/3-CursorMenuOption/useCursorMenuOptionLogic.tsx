@@ -27,6 +27,11 @@ interface UseCursorMenuOptionLogicPropTypes {
   tempCursorLocationCopy: Vector2;
 }
 
+interface StyleObjectReturnType {
+  "--icon-border-color": string;
+  "--label-background-color": string;
+}
+
 const useCursorMenuOptionLogic = ({
   color,
   animOffset,
@@ -51,7 +56,7 @@ const useCursorMenuOptionLogic = ({
   );
 
   // Defines
-  const styleObject = useMemo(() => {
+  const styleObject = useMemo((): StyleObjectReturnType => {
     return {
       "--icon-border-color": color,
       "--label-background-color": color,
@@ -59,7 +64,7 @@ const useCursorMenuOptionLogic = ({
   }, [color]);
 
   // Handlers
-  const handleCursorMenuOptionBoundingRect = useCallback(() => {
+  const handleCursorMenuOptionBoundingRect = useCallback((): void => {
     if (!cursorMenuOptionRef.current) return;
     if (boundingRectVector.x > 0 || boundingRectVector.y > 0) return;
 
@@ -72,7 +77,7 @@ const useCursorMenuOptionLogic = ({
     );
   }, [boundingRectVector]);
 
-  const handleUpdateCursorMenuOptionElementPosition = useCallback(() => {
+  const handleUpdateCursorMenuOptionElementPosition = useCallback((): void => {
     if (!cursorMenuOptionRef.current) return;
     cursorMenuOptionRef.current.style.left = `${menuPositionDriver.x}px`;
     cursorMenuOptionRef.current.style.top = `${menuPositionDriver.y}px`;
@@ -89,7 +94,7 @@ const useCursorMenuOptionLogic = ({
     }
   }, [menuActive, hoverTrigger]);
 
-  const handleRevealHideCursorMenuOption = useCallback(() => {
+  const handleRevealHideCursorMenuOption = useCallback((): void => {
     if (!cursorMenuOptionRef.current) return;
 
     if (menuActive) {

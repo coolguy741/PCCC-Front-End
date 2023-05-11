@@ -8,7 +8,7 @@ const animateCursorCanvasToMenuPosition = (
   affectedVector: Vector2,
   targetVector: Vector2,
   onComplete: () => void,
-) => {
+): void => {
   gsap.to(affectedVector, {
     x: targetVector.x - cursorCanvasToMenuOffset.x,
     y: targetVector.y - cursorCanvasToMenuOffset.y,
@@ -19,7 +19,7 @@ const animateCursorCanvasToMenuPosition = (
   });
 };
 
-const animateCursorCanvasToFollowPosition = (step: RefNumberType) => {
+const animateCursorCanvasToFollowPosition = (step: RefNumberType): void => {
   gsap.to(step, {
     current: 0.01,
     duration: 1,

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 type FocusBlurHandler = () => void;
 
@@ -6,20 +6,28 @@ const useWindowFocusBlur = (
   onFocus: FocusBlurHandler,
   onBlur: FocusBlurHandler,
 ): void => {
-  useEffect(() => {
+  const handleWindowFocus = useCallback(() => {
     if (document.hasFocus()) {
       onFocus();
-    } else {
+    }
+  }, [onFocus]);
+
+  const handleWindowBlur = useCallback(() => {
+    if (!document.hasFocus()) {
       onBlur();
     }
+  }, [onBlur]);
 
-    window.addEventListener("focus", onFocus);
-    window.addEventListener("blur", onBlur);
+  useEffect(() => {
+    handleWindowFocus();
+    window.addEventListener("focus", handleWindowFocus);
+    window.addEventListener("blur", handleWindowBlur);
+
     return () => {
-      window.removeEventListener("focus", onFocus);
-      window.removeEventListener("blur", onBlur);
+      window.removeEventListener("focus", handleWindowFocus);
+      window.removeEventListener("blur", handleWindowBlur);
     };
-  }, [onFocus, onBlur]);
+  }, [handleWindowFocus, handleWindowBlur]);
 };
 
 export default useWindowFocusBlur;
