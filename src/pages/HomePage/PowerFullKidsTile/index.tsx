@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
@@ -5,24 +6,16 @@ export const PowerFullKidsTile = () => {
   return (
     <style.PageContainer>
       <style.Content>
-        <img
+        <motion.img
+          key="modal"
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ ease: "easeOut", duration: 0.8 }}
           src="/images/powerfullkids.svg"
           alt="powerfullkids"
-          width="1008px"
-          height="128px"
         />
       </style.Content>
       <style.Background />
-      {/* <style.Rectangle3 />
-        <style.Rectangle2 />
-        <style.EllipseGroup>
-          <style.Ellipse4 />
-          <style.Ellipse3 />
-          <style.Ellipse2 />
-          <style.Ellipse1 />
-        </style.EllipseGroup>
-        <style.Rectangle1 /> */}
-      {/* </style.Background> */}
     </style.PageContainer>
   );
 };
@@ -39,6 +32,7 @@ const style = {
     width: 100%;
     margin: 0px;
     padding-left: 16.66%;
+
     img {
       width: 68.8%;
     }
