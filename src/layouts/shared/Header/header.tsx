@@ -204,7 +204,7 @@ const Style = {
     }
 
     .header-right {
-      width: ${({ userAvailable }) => (userAvailable ? "32%" : "60%")};
+      width: ${({ userAvailable }) => (userAvailable ? "32%" : "47.5%")};
       justify-content: space-between;
 
       .header-alert {
@@ -215,7 +215,6 @@ const Style = {
       .header-powerfull-image {
         height: 100%;
         width: max-content;
-        margin-left: 2.5%;
       }
 
       .header-toggle {
@@ -223,7 +222,6 @@ const Style = {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 2.5%;
       }
     }
   `,

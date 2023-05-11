@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
+import { AuthLayout } from "../layouts/AuthLayout/authLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
@@ -24,7 +25,6 @@ import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
-import { AuthPage } from "./AuthPage";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { SecurityQuestionsPage } from "./AuthPage/SecurityQuestionsPage";
@@ -89,9 +89,9 @@ export const router = createBrowserRouter([
   {
     path: "/signin",
     element: (
-      <AuthPage>
+      <AuthLayout>
         <Outlet />
-      </AuthPage>
+      </AuthLayout>
     ),
     children: [
       {
@@ -117,9 +117,9 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: (
-      <AuthPage>
+      <AuthLayout>
         <Outlet />
-      </AuthPage>
+      </AuthLayout>
     ),
 
     children: [{ path: "", element: <SignUpPage /> }],
