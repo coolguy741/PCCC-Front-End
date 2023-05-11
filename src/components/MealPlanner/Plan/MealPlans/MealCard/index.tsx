@@ -13,35 +13,41 @@ interface MealCardProps {
 
 export const MealCard: React.FC<MealCardProps> = ({ meal, label }) => {
   return (
-    <Style.Container hasPlan={!!meal.description}>
-      {meal.description ? (
-        <Style.Meal>
-          <Style.MealPicture src={meal.image} alt={meal.description} />
-          <Style.Description>
-            <Typography>{meal.description}</Typography>
-          </Style.Description>
-        </Style.Meal>
-      ) : (
-        <Icon name="food" />
-      )}
-      {!!label ?? (
-        <Style.Label>
-          hello
-          <img
-            src={`/images/plate-full-planner/labels/${label}.svg`}
-            alt="label"
-          />
-        </Style.Label>
-      )}
+    <Style.Container>
+      <Style.Card hasPlan={!!meal.description}>
+        {meal.description ? (
+          <Style.Meal>
+            <Style.MealPicture src={meal.image} alt={meal.description} />
+            <Style.Description>
+              <Typography as="p">{meal.description}</Typography>
+            </Style.Description>
+          </Style.Meal>
+        ) : (
+          <Icon name="food" />
+        )}
+        {!!label ?? (
+          <Style.Label>
+            hello
+            <img
+              src={`/images/plate-full-planner/labels/${label}.svg`}
+              alt="label"
+            />
+          </Style.Label>
+        )}
+      </Style.Card>
     </Style.Container>
   );
 };
 
 const Style = {
-  Container: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({
+  Container: styled.section`
+    padding: 5% 0;
+    overflow: hidden;
+    height: 100%;
+  `,
+  Card: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({
     hasPlan: hasPlan ?? false,
   }))`
-    max-height: 20%;
     position: relative;
     height: 100%;
     border-radius: 8px;
@@ -62,9 +68,17 @@ const Style = {
     width: 100%;
   `,
   Description: styled.div`
-    flex: auto;
-    display: flex;
+    flex: 1;
     overflow: hidden;
+    p {
+      height: 42px;
+      line-height: 14px;
+      width: 100%;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   `,
   MealPicture: styled.img`
     width: 100%;
