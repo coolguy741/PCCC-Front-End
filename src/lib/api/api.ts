@@ -421,9 +421,15 @@ export interface PccServer23RecipesRecipeUpdateDto {
 }
 
 export interface PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput {
-  firstSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
-  secondSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
-  thirdSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
+  firstSecurityQuestions?:
+    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
+    | null;
+  secondSecurityQuestions?:
+    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
+    | null;
+  thirdSecurityQuestions?:
+    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
+    | null;
 }
 
 export interface PccServer23SecurityQuestionChoicesSecurityQuestionChoiceCreateDto {
@@ -668,16 +674,22 @@ export interface FullRequestParams extends Omit<RequestInit, "body"> {
   cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<
+  FullRequestParams,
+  "body" | "method" | "query" | "path"
+>;
 
 export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string;
   baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
-  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
+  securityWorker?: (
+    securityData: SecurityDataType | null,
+  ) => Promise<RequestParams | void> | RequestParams | void;
   customFetch?: typeof fetch;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+export interface HttpResponse<D extends unknown, E extends unknown = unknown>
+  extends Response {
   data: D;
   error: E;
 }
@@ -696,7 +708,8 @@ export class HttpClient<SecurityDataType = unknown> {
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
+  private customFetch = (...fetchParams: Parameters<typeof fetch>) =>
+    fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
     credentials: "same-origin",
@@ -715,7 +728,9 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected encodeQueryParam(key: string, value: any) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(
+      typeof value === "number" ? value : `${value}`,
+    )}`;
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
@@ -729,9 +744,15 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
     const query = rawQuery || {};
-    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
+    const keys = Object.keys(query).filter(
+      (key) => "undefined" !== typeof query[key],
+    );
     return keys
-      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
+      .map((key) =>
+        Array.isArray(query[key])
+          ? this.addArrayQueryParam(query, key)
+          : this.addQueryParam(query, key),
+      )
       .join("&");
   }
 
@@ -742,8 +763,13 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
-    [ContentType.Text]: (input: any) => (input !== null && typeof input !== "string" ? JSON.stringify(input) : input),
+      input !== null && (typeof input === "object" || typeof input === "string")
+        ? JSON.stringify(input)
+        : input,
+    [ContentType.Text]: (input: any) =>
+      input !== null && typeof input !== "string"
+        ? JSON.stringify(input)
+        : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -760,7 +786,10 @@ export class HttpClient<SecurityDataType = unknown> {
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
   };
 
-  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
+  protected mergeRequestParams(
+    params1: RequestParams,
+    params2?: RequestParams,
+  ): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -773,7 +802,9 @@ export class HttpClient<SecurityDataType = unknown> {
     };
   }
 
-  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
+  protected createAbortSignal = (
+    cancelToken: CancelToken,
+  ): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
       const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
@@ -817,15 +848,27 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type || ContentType.Json];
     const responseFormat = format || requestParams.format;
 
-    return this.customFetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
-      ...requestParams,
-      headers: {
-        ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+    return this.customFetch(
+      `${baseUrl || this.baseUrl || ""}${path}${
+        queryString ? `?${queryString}` : ""
+      }`,
+      {
+        ...requestParams,
+        headers: {
+          ...(requestParams.headers || {}),
+          ...(type && type !== ContentType.FormData
+            ? { "Content-Type": type }
+            : {}),
+        },
+        signal: cancelToken
+          ? this.createAbortSignal(cancelToken)
+          : requestParams.signal,
+        body:
+          typeof body === "undefined" || body === null
+            ? null
+            : payloadFormatter(body),
       },
-      signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
-      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
-    }).then(async (response) => {
+    ).then(async (response) => {
       const r = response as HttpResponse<T, E>;
       r.data = null as unknown as T;
       r.error = null as unknown as E;
@@ -860,7 +903,9 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title PccServer23 API
  * @version v1
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown,
+> extends HttpClient<SecurityDataType> {
   api = {
     /**
      * No description
@@ -911,8 +956,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Create a new foodway record
      * @request POST:/api/app/foodways
      */
-    appFoodwaysCreate: (data: PccServer23BooksCustomMultiLingualFoodwayCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23FoodwaysFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appFoodwaysCreate: (
+      data: PccServer23BooksCustomMultiLingualFoodwayCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23FoodwaysFoodwayDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/foodways`,
         method: "POST",
         body: data,
@@ -930,7 +981,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/foodways/{id}
      */
     appFoodwaysDetail: (id: string, params: RequestParams = {}) =>
-      this.request<PccServer23FoodwaysFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23FoodwaysFoodwayDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/foodways/${id}`,
         method: "GET",
         format: "json",
@@ -965,7 +1019,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       data: PccServer23FoodwaysMultiLingualFoodwayUpdateDto,
       params: RequestParams = {},
     ) =>
-      this.request<PccServer23FoodwaysFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23FoodwaysFoodwayDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/foodways/${id}`,
         method: "PUT",
         body: data,
@@ -1005,7 +1062,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       data: PccServer23FoodwayStopsCustomMultiLingualFoodwayStopUpdateDto,
       params: RequestParams = {},
     ) =>
-      this.request<PccServer23FoodwayStopsFoodwayStopDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23FoodwayStopsFoodwayStopDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/foodway-stops/${id}`,
         method: "PUT",
         body: data,
@@ -1024,8 +1084,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/foodway-stops
      * @secure
      */
-    appFoodwayStopsCreate: (data: PccServer23BooksCustomMultiLingualFoodwayStopCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23FoodwayStopsFoodwayStopDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appFoodwayStopsCreate: (
+      data: PccServer23BooksCustomMultiLingualFoodwayStopCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23FoodwayStopsFoodwayStopDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/foodway-stops`,
         method: "POST",
         body: data,
@@ -1044,8 +1110,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/groups
      * @secure
      */
-    appGroupsCreate: (data: PccServer23GroupsGroupCreateSelfDto, params: RequestParams = {}) =>
-      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appGroupsCreate: (
+      data: PccServer23GroupsGroupCreateSelfDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23GroupsGroupDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/groups`,
         method: "POST",
         body: data,
@@ -1090,8 +1162,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/api/app/groups/{id}
      * @secure
      */
-    appGroupsUpdate: (id: string, data: PccServer23GroupsGroupUpdateDto, params: RequestParams = {}) =>
-      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appGroupsUpdate: (
+      id: string,
+      data: PccServer23GroupsGroupUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23GroupsGroupDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/groups/${id}`,
         method: "PUT",
         body: data,
@@ -1129,7 +1208,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/groups/join
      * @secure
      */
-    appGroupsJoinCreate: (data: PccServer23GroupsGroupJoinDto, params: RequestParams = {}) =>
+    appGroupsJoinCreate: (
+      data: PccServer23GroupsGroupJoinDto,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups/join`,
         method: "POST",
@@ -1148,7 +1230,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/groups/accept
      * @secure
      */
-    appGroupsAcceptCreate: (data: PccServer23GroupsGroupAcceptDto, params: RequestParams = {}) =>
+    appGroupsAcceptCreate: (
+      data: PccServer23GroupsGroupAcceptDto,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups/accept`,
         method: "POST",
@@ -1167,7 +1252,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/groups/reject
      * @secure
      */
-    appGroupsRejectCreate: (data: PccServer23GroupsGroupRejectDto, params: RequestParams = {}) =>
+    appGroupsRejectCreate: (
+      data: PccServer23GroupsGroupRejectDto,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups/reject`,
         method: "POST",
@@ -1365,8 +1453,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/recipe-medias
      * @secure
      */
-    appRecipeMediasCreate: (data: PccServer23RecipeMediasRecipeMediaCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23RecipeMediasRecipeMediaDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appRecipeMediasCreate: (
+      data: PccServer23RecipeMediasRecipeMediaCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23RecipeMediasRecipeMediaDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/recipe-medias`,
         method: "POST",
         body: data,
@@ -1384,15 +1478,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Get list of security questions
      * @request GET:/api/app/security-question-choices/security-questions
      */
-    appSecurityQuestionChoicesSecurityQuestionsList: (params: RequestParams = {}) =>
-      this.request<PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput, VoloAbpHttpRemoteServiceErrorResponse>(
-        {
-          path: `/api/app/security-question-choices/security-questions`,
-          method: "GET",
-          format: "json",
-          ...params,
-        },
-      ),
+    appSecurityQuestionChoicesSecurityQuestionsList: (
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/security-question-choices/security-questions`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
 
     /**
      * No description
@@ -1406,7 +1503,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       data: PccServer23UsernameChoicesCheckUsernameAvailabilityInput,
       params: RequestParams = {},
     ) =>
-      this.request<PccServer23UsernameChoicesCheckUsernameAvailabilityOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsernameChoicesCheckUsernameAvailabilityOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/username-choices/check-username-availability`,
         method: "POST",
         body: data,
@@ -1424,7 +1524,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/username-choices/username-choices
      */
     appUsernameChoicesUsernameChoicesList: (params: RequestParams = {}) =>
-      this.request<PccServer23UsernameChoicesGetUsernameChoicesOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsernameChoicesGetUsernameChoicesOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/username-choices/username-choices`,
         method: "GET",
         format: "json",
@@ -1440,7 +1543,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 To create new user with professional role use: api/app/user/professional
  * @request POST:/api/app/user
  */
-    appUserCreate: (data: PccServer23UsersCreateUserInput, params: RequestParams = {}) =>
+    appUserCreate: (
+      data: PccServer23UsersCreateUserInput,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user`,
         method: "POST",
@@ -1463,7 +1569,10 @@ To create new user with professional role use: api/app/user/professional
       },
       params: RequestParams = {},
     ) =>
-      this.request<PccServer23UsersGetQuestionIdsOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsersGetQuestionIdsOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/user/question-ids`,
         method: "GET",
         query: query,
@@ -1479,8 +1588,14 @@ To create new user with professional role use: api/app/user/professional
      * @summary Reset user password
      * @request POST:/api/app/user/reset-password
      */
-    appUserResetPasswordCreate: (data: PccServer23UsersResetPasswordInput, params: RequestParams = {}) =>
-      this.request<PccServer23UsersResetPasswordOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+    appUserResetPasswordCreate: (
+      data: PccServer23UsersResetPasswordInput,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23UsersResetPasswordOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/user/reset-password`,
         method: "POST",
         body: data,
@@ -1498,7 +1613,10 @@ To create new user with professional role use: api/app/user/professional
 To create new user with standard role use: api/app/user
  * @request POST:/api/app/user/professional
  */
-    appUserProfessionalCreate: (data: PccServer23UsersCreateProfessionalUserInput, params: RequestParams = {}) =>
+    appUserProfessionalCreate: (
+      data: PccServer23UsersCreateProfessionalUserInput,
+      params: RequestParams = {},
+    ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user/professional`,
         method: "POST",
@@ -1557,7 +1675,10 @@ To create new user with standard role use: api/app/user
      * @secure
      */
     appUserUserProfileList: (params: RequestParams = {}) =>
-      this.request<PccServer23UsersGetUserProfileDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23UsersGetUserProfileDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/user/user-profile`,
         method: "GET",
         secure: true,

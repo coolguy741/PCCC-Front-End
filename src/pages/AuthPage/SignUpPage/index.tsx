@@ -7,7 +7,6 @@ import { SecurityQuestions } from "../../../components/Auth/SecurityQuestions";
 import { SignUpForm } from "../../../components/Auth/SignUpForm";
 import { BackButton } from "../../../components/Global/BackButton";
 import { AppleBG, GrapeBG, LemonBG, OrangeBG } from "../../../components/Icons";
-import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { useSignUpStore } from "../../../stores/signUpStore";
 import {
   animationProps,
@@ -48,19 +47,17 @@ export const SignUpPage = () => {
   };
 
   return (
-    <AuthLayout>
+    <>
       <span className="auth-breadcrumb">
         <BackButton onClick={clickHandler} />
       </span>
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="wait">
         {SIGN_UP_VIEW_ARR[currentStep]}
       </AnimatePresence>
 
-      <div className="auth-image">
-        <AnimatePresence mode="wait" initial={false}>
-          {SIGN_UP_BG_ARR[currentStep]}
-        </AnimatePresence>
-      </div>
-    </AuthLayout>
+      <AnimatePresence mode="wait">
+        {SIGN_UP_BG_ARR[currentStep]}
+      </AnimatePresence>
+    </>
   );
 };

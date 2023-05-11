@@ -148,32 +148,37 @@ const ghostVStyles = css`
 `;
 
 const smallSStyles = css`
-  font-size: 16px;
-  line-height: 24px;
-  padding: 10px 16px;
+  font-size: 1.94vh;
+  padding: 1.59vh 1.62vw;
+  min-height: 3.35vh;
+  min-width: 6.16vw;
 
   .btn-content {
-    padding: 0px 8px;
+    padding: 0px 1.3vw;
   }
 `;
 
 const mediumSStyles = css`
-  font-size: 16px;
-  line-height: 24px;
-  padding: 12px 18px;
+  font-size: 2vh;
+  line-height: 125%;
+  padding: 1.71vh 1.7vw;
+  min-height: 3.59vh;
+  min-width: 7.1vw;
 
   .btn-content {
-    padding: 0px 12px;
+    padding: 0 1.47vw;
   }
 `;
 
 const largeSStyles = css`
-  font-size: 18px;
-  line-height: 24px;
-  padding: 14px 20px;
+  font-size: 2.06vh;
+  line-height: 125%;
+  padding: 1.82vh 1.78vw;
+  min-height: 4.06vh;
+  min-width: 8.03vw;
 
   .btn-content {
-    padding: 0px 16px;
+    padding: 0 1.63vw;
   }
 `;
 
@@ -237,7 +242,8 @@ const defaultButtonStyles = css`
   font-style: normal;
   font-weight: 500;
   letter-spacing: -0.02em;
-  border-radius: 80px;
+  line-height: 125%;
+  border-radius: 4.7vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -256,8 +262,8 @@ const defaultButtonStyles = css`
   }
 
   img {
-    width: 24px;
-    height: 24px;
+    height: 1.4vh;
+    aspect-ratio: 1 / 1;
   }
 
   ${getButtonSVGAnim}
