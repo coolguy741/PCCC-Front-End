@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Pagination } from "../../../../../components/Pagination/pagination";
-import { trimStringByLength } from "../../../../../lib/util/trimStringByLength";
+import { trimStringByLength } from "../../../lib/util/trimStringByLength";
+import { Pagination } from "../../Pagination/pagination";
 
 export function UserLessonAssesment({ userData }: any) {
   return (

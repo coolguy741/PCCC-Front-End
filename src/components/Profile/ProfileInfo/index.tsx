@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { OrangeBG } from "../../../../../components/Icons";
-import { animatedbackgroundGradient } from "../../../../../styles/helpers/animatedBackgroundGradient";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+import { OrangeBG } from "../../Icons";
 
 export function UserProfileInfo({ userData }: any) {
   return (
