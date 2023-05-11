@@ -28,7 +28,7 @@ export const ContentListPageLayout: React.FC<ContentListPageLayoutProps> = ({
 
 const Style = {
   PageContainer: styled.div`
-    padding: 118px 40px 0 40px;
+    padding: 118px 70px 0 70px;
     display: flex;
     height: 100vh;
     flex-direction: column;

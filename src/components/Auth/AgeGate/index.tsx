@@ -80,6 +80,7 @@ export const AgeGate = () => {
               render={({ field }) => (
                 <Input
                   width="15%"
+                  height="4vh"
                   placeholder="MM"
                   data-testid="month"
                   type="number"
@@ -102,6 +103,7 @@ export const AgeGate = () => {
               render={({ field }) => (
                 <Input
                   width="15%"
+                  height="4vh"
                   placeholder="DD"
                   className={errors.date ? "has-error" : ""}
                   data-testid="date"
@@ -121,6 +123,7 @@ export const AgeGate = () => {
               render={({ field }) => (
                 <Input
                   width="18%"
+                  height="4vh"
                   placeholder="YYYY"
                   type="number"
                   data-testid="year"
@@ -146,7 +149,7 @@ export const AgeGate = () => {
                 width="100%"
                 placeholder="Ontario"
                 data-testid="province"
-                height="40px"
+                height="4vh"
                 {...field}
                 min="1900"
                 max="2023"
@@ -167,54 +170,56 @@ const Style = {
   Container: styled(motion.main)`
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 560px;
+    width: 35vw;
+    height: 65vh;
     ${glassBackground}
 
     h1 {
       color: #3d3d3d;
       font-weight: 700;
+      font-size: 5vh;
     }
 
     label {
-      font-size: 16px;
+      font-size: 2vh;
       color: var(--neutral-700);
-      margin: 15px 0;
+      margin: 1vh 0;
     }
 
     input {
-      margin: 15px 0;
-      margin-right: 15px;
+      margin: 1.5vh 0;
+      margin-right: 1vw;
     }
 
     p {
-      margin-top: 12px;
-      font-size: 18px;
-      line-height: 24px;
+      margin-top: 1vh;
+      font-size: 2.5vh;
+      line-height: 125%;
       color: var(--neutral-700);
     }
 
     fieldset {
-      margin-bottom: 15px;
+      margin-bottom: 1vh;
+      height: 10vh;
     }
 
     h2 {
-      margin-top: 24px;
-      margin-bottom: 12px;
+      margin-top: 1.75vh;
+      margin-bottom: 1.25vh;
     }
 
     form {
       padding: 0;
-      height: 400px;
+      flex-grow: 1;
       display: flex;
-      margin-top: 15px;
+      margin-top: 1vh;
       flex-direction: column;
     }
 
     button {
       margin-top: auto;
       svg {
-        margin-left: 10px;
+        margin-left: 0.5vw;
       }
     }
   `,
