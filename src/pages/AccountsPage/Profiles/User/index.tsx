@@ -11,14 +11,14 @@ import { glassBackground } from "../../../../styles/helpers/glassBackground";
 //should be deleted after api implementation
 import Cookies from "js-cookie";
 import { BackButton } from "../../../../components/Global/BackButton";
+import { UserAchievements } from "../../../../components/Profile/Achievements";
+import { UserActivity } from "../../../../components/Profile/Activity";
+import { UserGroups } from "../../../../components/Profile/Groups";
+import { UserLessonAssesment } from "../../../../components/Profile/LessonAssesment";
+import { UserProfileInfo } from "../../../../components/Profile/ProfileInfo";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 import { STORAGE_KEY_JWT } from "../../../consts";
-import { UserAchievements } from "./Achievements";
-import { UserActivity } from "./Activity";
 import { achievements, groups } from "./dummy_data";
-import { UserGroups } from "./Groups";
-import { UserLessonAssesment } from "./LessonAssesment";
-import { UserProfileInfo } from "./ProfileInfo";
 
 export type Achievement = {
   badge: string;
