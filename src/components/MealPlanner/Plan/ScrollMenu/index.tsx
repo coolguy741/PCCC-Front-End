@@ -59,9 +59,9 @@ const Style = {
     index: index ?? 0,
   }))`
     border-radius: 4px;
-    background: white;
-    padding: 8px;
     img {
+      background: white;
+      padding: 8px;
       width: 100%;
     }
 
