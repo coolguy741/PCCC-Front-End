@@ -1,71 +1,205 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Photo } from "../../components/Accounts/Photo";
-import { Button } from "../../components/Global/Button";
-import mockData from "../../lib/mockData/profile/profile.json";
+
+//should be deleted after api implementation
+import Cookies from "js-cookie";
+import { AchievementsModal } from "../../components/Accounts/AchievementsModal";
+import { GroupsModal } from "../../components/Accounts/GroupsModal";
+import { BackButton } from "../../components/Global/BackButton";
+import { AltGrapeBG } from "../../components/Icons";
+import { UserAchievements } from "../../components/Profile/Achievements";
+import { UserActivity } from "../../components/Profile/Activity";
+import { UserGroups } from "../../components/Profile/Groups";
+import { UserLessonAssesment } from "../../components/Profile/LessonAssesment";
+import { UserProfileInfo } from "../../components/Profile/ProfileInfo";
+import { useAPI } from "../../hooks/useAPI";
+import MockData from "../../lib/mockData/profile/profile.json";
+import { useUserStore } from "../../stores/userStore";
+import { glassBackground } from "../../styles/helpers/glassBackground";
+import { STORAGE_KEY_JWT } from "../consts";
+import { achievements, groups } from "./dummy_data";
+
+export type Achievement = {
+  badge: string;
+  description: string;
+};
 
 export const ProfilePage = () => {
+  //should be deleted after api implementation
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const userData = pathname.includes("Standard")
+    ? MockData[0]
+    : pathname.includes("Professional")
+    ? MockData[1]
+    : MockData[2];
+  const { api } = useAPI();
+  const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
+  const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
 
-  const toProfileSettings = () => {
-    navigate("./../profile-settings");
+  const handleBack = () => {
+    return "handle back";
   };
+
+  const handleEdit = () => {
+    return "handle edit";
+  };
+
+  const getProfile = async () => {
+    const response = await api.appUserUserProfileList({
+      headers: {
+        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+      },
+    });
+
+    if (response.data) {
+      setUser(response.data);
+    }
+  };
+
+  const openGroupsModal = () => {
+    setIsOpenGroupsModal(() => true);
+  };
+
+  const closeGroupsModal = () => {
+    setIsOpenGroupsModal(() => false);
+  };
+
+  const openAchievementsModal = () => {
+    setIsOpenAchievementsModal(() => true);
+  };
+
+  const closeAchievementsModal = () => {
+    setIsOpenAchievementsModal(() => false);
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
-    <Style.PageContainer>
-      <Style.Header>
-        <h1>Your Profile</h1>
-        <Button onClick={toProfileSettings}>Profile Settings</Button>
-      </Style.Header>
-      <Style.Content>
-        <Photo src={mockData[1].image} role={mockData[1].role} width="100px" />
-        {mockData[1].role === "Standard" ? (
-          <div className="user-info">
-            <p className="bold-big-text">{mockData[1].userID}</p>
-            <p className="text">Birth year: {mockData[1].birthYear}</p>
-            <p className="text">Province: {mockData[1].province}</p>
-            <p className="text">Created: {mockData[1].createdDate}</p>
-          </div>
-        ) : mockData[1].role === "Professional" ? (
-          <div className="user-info">
-            <p className="bold-big-text">{mockData[1].userID}</p>
-            <p className="bold-text">{mockData[1].name}</p>
-            <p className="text">Birth year: {mockData[1].birthYear}</p>
-            <p className="text">ID Code: {mockData[1].idCode}</p>
-            <p className="text">School: {mockData[1].school}</p>
-            <p className="text">Province: {mockData[1].province}</p>
-            <p className="text">{mockData[1].email}</p>
-            <p className="text">Created: {mockData[1].createdDate}</p>
-          </div>
-        ) : (
-          <div className="user-info">
-            <p className="bold-big-text">{mockData[1].userID}</p>
-            <p className="bold-text">{mockData[1].name}</p>
-            <p className="text">Birth year: {mockData[1].birthYear}</p>
-            <p className="text">Province: {mockData[1].province}</p>
-            <p className="text">{mockData[1].email}</p>
-            <p className="text">Created: {mockData[1].createdDate}</p>
-          </div>
+    <Style.Container>
+      <BackButton onClick={() => navigate(-1)} />
+      <article className="account-content-header">
+        <h2>Standard Profile</h2>
+      </article>
+      <section className="content-container">
+        {true && (
+          <>
+            <UserProfileInfo userData={userData} />
+            <UserLessonAssesment userData={userData} />
+            <UserGroups userData={userData} openGroupsModal={openGroupsModal} />
+            <UserActivity userData={userData} />
+            <UserAchievements openAchievementsModal={openAchievementsModal} />
+          </>
         )}
-      </Style.Content>
-    </Style.PageContainer>
+      </section>
+      <div className="accounts-bg">
+        <AltGrapeBG />
+      </div>
+      {!!user && (
+        <GroupsModal
+          isOpen={isOpenGroupsModal}
+          close={closeGroupsModal}
+          title="Groups"
+          groups={user.groups && user.groups.length > 0 ? user.groups : groups}
+        >
+          Modal
+        </GroupsModal>
+      )}
+      {!!user && (
+        <AchievementsModal
+          isOpen={isOpenAchievementsModal}
+          close={closeAchievementsModal}
+          title="Achievements"
+          achievements={achievements}
+        >
+          Modal
+        </AchievementsModal>
+      )}
+    </Style.Container>
   );
 };
 
 const Style = {
-  PageContainer: styled.div`
+  Container: styled.section`
+    height: 100%;
     display: flex;
     flex-direction: column;
-  `,
-  Header: styled.div`
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-  `,
-  Content: styled.div`
-    display: flex;
 
-    .user-info {
-      margin-left: 40px;
+    h2 {
+      font-weight: 600;
+      color: var(--neutral-900);
+      font-size: 3vh;
+      margin-bottom: 1vh;
+    }
+
+    h3 {
+      font-weight: 600;
+      color: var(--neutral-800);
+      font-size: 2.5vh;
+    }
+
+    hgroup {
+      margin-bottom: 1vh;
+    }
+
+    p {
+      color: var(--neutral-800);
+    }
+
+    .account-content-header {
+      height: 6%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .header-view {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+        font-weight: 500;
+        color: var(--neutral-600);
+        font-size: 1.5vh;
+      }
+    }
+
+    .accounts-bg {
+      position: fixed;
+      z-index: 0;
+      bottom: -10px;
+      right: 0;
+    }
+
+    .content-container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      grid-column-gap: 1.5vh;
+      grid-row-gap: 1.5vh;
+      height: 92.5%;
+    }
+
+    .user-info,
+    .achievements,
+    .groups,
+    .activity,
+    .lesson-assesment {
+      ${glassBackground};
+      padding: 2vh 1.5vw;
+      border-radius: 1rem;
+      box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+      overflow: hidden;
     }
   `,
 };

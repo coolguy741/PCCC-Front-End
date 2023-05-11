@@ -205,7 +205,8 @@ const Style = {
 
     .header-right {
       width: ${({ userAvailable }) => (userAvailable ? "32%" : "60%")};
-      justify-content: space-between;
+      justify-content: ${({ userAvailable }) =>
+        userAvailable ? "space-between" : "flex-end"};
 
       .header-alert {
         height: 100%;
@@ -223,7 +224,6 @@ const Style = {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 2.5%;
       }
     }
   `,
