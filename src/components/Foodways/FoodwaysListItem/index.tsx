@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
@@ -8,18 +8,15 @@ interface FoodwaysListItemProps {
   data: PccServer23FoodwaysFoodwayDto;
   selectable?: boolean;
   onSelectedChange?: (id: string, isSelected: boolean) => void;
-  isSelected: boolean;
-  setIsSelected: (isSelected: boolean) => void;
 }
 
 export const FoodwaysListItem: React.FC<FoodwaysListItemProps> = ({
   data,
   selectable = false,
   onSelectedChange,
-  isSelected,
-  setIsSelected,
 }) => {
   const navigate = useNavigate();
+  const [isSelected, setIsSelected] = useState(false);
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsSelected(!isSelected);
@@ -35,7 +32,7 @@ export const FoodwaysListItem: React.FC<FoodwaysListItemProps> = ({
       <Style.Content>
         {/* {data.date && <Style.Date>{"Feature date: " + data.date}</Style.Date>} */}
         <Style.Title>{data.title}</Style.Title>
-        {/* <Style.Description>{data.description}</Style.Description> */}
+        <Style.Description>{data.info}</Style.Description>
       </Style.Content>
       {selectable && (
         <Style.InputContainer>

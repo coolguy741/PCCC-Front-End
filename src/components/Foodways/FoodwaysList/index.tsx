@@ -7,16 +7,12 @@ interface FoodwaysListProps {
   listData: PccServer23FoodwaysFoodwayDto[];
   selectable?: boolean;
   onSelectionChange?: (id: string, isSelected: boolean) => void;
-  isSelected: boolean;
-  setIsSelected: (isSelected: boolean) => void;
 }
 
 export const FoodwaysList: React.FC<FoodwaysListProps> = ({
   listData,
   selectable,
   onSelectionChange,
-  isSelected,
-  setIsSelected,
 }) => {
   return (
     <Style.Container>
@@ -27,8 +23,6 @@ export const FoodwaysList: React.FC<FoodwaysListProps> = ({
           data={item}
           selectable={selectable}
           onSelectedChange={onSelectionChange}
-          isSelected={isSelected}
-          setIsSelected={setIsSelected}
         />
         // </StyledLink>
       ))}

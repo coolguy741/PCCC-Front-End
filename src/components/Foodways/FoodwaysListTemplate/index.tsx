@@ -1,8 +1,7 @@
-import styled from "styled-components";
-
 import Cookies from "js-cookie";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
@@ -16,35 +15,26 @@ interface ContentListAdminPageTemplateProps {
   selectsGroup: SelectOption[];
   listData: PccServer23FoodwaysFoodwayDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
-  isSelected: boolean;
-  setIsSelected: (isSelected: boolean) => void;
-  selectedId: string;
+  selectedIds: string[];
 }
 
 export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
-  ({
-    title,
-    selectsGroup,
-    listData,
-    onSelectionChange,
-    isSelected,
-    setIsSelected,
-    selectedId,
-  }) => {
+  ({ title, selectsGroup, listData, onSelectionChange, selectedIds }) => {
     const { api } = useAPI();
     const navigate = useNavigate();
 
     const handleDelete = async () => {
-      const response = await api.appFoodwaysDelete(selectedId, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      });
-
-      if (response.status === 204) {
-        navigate("/dashboard/foodways");
+      for (const id of selectedIds) {
+        await api.appFoodwaysDelete(id, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        });
       }
+
+      navigate("/dashboard/foodways");
     };
+
     return (
       <>
         <Style.InputGroup>
@@ -72,16 +62,18 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             <Button variant="yellow" size="large" onClick={handleDelete}>
               Delete
             </Button>
-            <Button
-              variant="orange"
-              size="large"
-              icon="add"
-              iconPosition="right"
-            >
-              {title === "Mealtime Moments Editor"
-                ? "Mealtime Moments"
-                : "Create " + title}
-            </Button>
+            <Link to="create">
+              <Button
+                variant="orange"
+                size="large"
+                icon="add"
+                iconPosition="right"
+              >
+                {title === "Mealtime Moments Editor"
+                  ? "Mealtime Moments"
+                  : "Create " + title}
+              </Button>
+            </Link>
           </Style.ButtonGroup>
         </Style.InputGroup>
         <Style.ScrollContainer>
@@ -89,8 +81,6 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             listData={listData}
             selectable={true}
             onSelectionChange={onSelectionChange}
-            isSelected={isSelected}
-            setIsSelected={setIsSelected}
           />
         </Style.ScrollContainer>
       </>

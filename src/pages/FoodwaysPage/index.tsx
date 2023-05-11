@@ -33,11 +33,16 @@ export const foodwaysPageLoader = async () => {
 
 export const FoodwaysPage = () => {
   const foodways = useLoaderData() as PccServer23FoodwaysFoodwayDto[];
-  const [isSelected, setIsSelected] = useState(false);
-  const [selectedId, setSelectedId] = useState("");
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const handleSelectionChange = (id: string, isSelected: boolean) => {
-    setSelectedId(id);
+    if (isSelected) {
+      setSelectedIds((selelectedIds) => [...selelectedIds, id]);
+    } else {
+      setSelectedIds((selelectedIds) =>
+        selelectedIds.filter((selectedId) => selectedId !== id),
+      );
+    }
 
     return;
   };
@@ -48,9 +53,7 @@ export const FoodwaysPage = () => {
       selectsGroup={["Sort"]}
       listData={foodways}
       onSelectionChange={handleSelectionChange}
-      isSelected={isSelected}
-      setIsSelected={setIsSelected}
-      selectedId={selectedId}
+      selectedIds={selectedIds}
     />
   );
 };
