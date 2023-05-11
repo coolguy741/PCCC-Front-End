@@ -12,6 +12,8 @@ import { STORAGE_KEY_JWT } from "../../consts";
 export const CreateFoodwaysPage = () => {
   const { api } = useAPI();
   const [title, setTitle] = useState("");
+  const [stopTimePeriod, setStopTimePeriod] = useState("");
+  const [stopDescription, setStopDescription] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
 
@@ -35,7 +37,28 @@ export const CreateFoodwaysPage = () => {
     );
 
     if (response.status === 200) {
-      navigate("/dashboard/foodways");
+      const _response = await api.appFoodwayStopsCreate(
+        {
+          foodwayId: response.data.id,
+          english: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+          },
+          french: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (_response.status === 200) {
+        navigate("/dashboard/foodways");
+      }
     }
   };
 
@@ -86,18 +109,20 @@ export const CreateFoodwaysPage = () => {
           <div className="content__body__form">
             <div className="content__body__form__inputs--first-stop">
               <label>
-                <Input type="text" placeholder="Title" height="3.5rem" />
+                <Input
+                  type="text"
+                  placeholder="Time period"
+                  height="3.5rem"
+                  value={stopTimePeriod}
+                  onChange={(event) => setStopTimePeriod(event.target.value)}
+                />
               </label>
               <label>
-                <TextArea placeholder="Description" />
-              </label>
-            </div>
-            <div className="content__body__form__inputs--first-stop">
-              <label>
-                <Input type="text" placeholder="Location" height="3.5rem" />
-              </label>
-              <label>
-                <TextArea placeholder="Media" />
+                <TextArea
+                  placeholder="Description"
+                  value={stopDescription}
+                  onChange={(event) => setStopDescription(event.target.value)}
+                />
               </label>
             </div>
           </div>
