@@ -24,7 +24,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          left: "prev,title,next",
+          left: "prev,next today",
+          center: "title",
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         {...props}
@@ -38,9 +39,11 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         }}
         initialDate={new Date()}
         dayMaxEvents={true}
+        fixedWeekCount={false}
         eventContent={renderEventContent}
         allDaySlot={false}
         editable={true}
+        height="100%"
       />
     </Style.Container>
   );
@@ -49,51 +52,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
 const Style = {
   Container: styled.div`
     width: 100%;
-
-    .fc-toolbar-chunk {
-      background: #2c3e50;
-
-      .fc-button {
-        &.fc-prev-button,
-        &.fc-next-button {
-          &:focus {
-            box-shadow: none;
-          }
-          margin-bottom: 10px;
-          span {
-            &:hover {
-              background: #999999;
-            }
-            border-radius: 100%;
-            background: #d9d9d9;
-            color: var(--black);
-          }
-        }
-
-        &:hover {
-          border-color: #2c3e50;
-          background: #2c3e50;
-        }
-      }
-      .fc-toolbar-title {
-        color: white;
-        display: inline-block;
-        margin: 0;
-        padding: 20px;
-      }
-    }
-
-    .fc-daygrid-day:hover {
-      background: #bce0f5;
-    }
-
-    @media only screen and (max-width: 1440px) {
-      .fc-header-toolbar.fc-toolbar {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-      }
-    }
+    height: 100%;
   `,
   CustomEventTitle: styled.div`
     display: block;
