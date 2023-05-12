@@ -6,6 +6,7 @@ import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
 import { Input } from "../../../components/Global/Input";
 import { Select } from "../../../components/Global/Select";
+import { OrangeBG } from "../../../components/Icons";
 import { useAPI } from "../../../hooks/useAPI";
 import { avatars_data } from "../../../lib/avatars/data";
 
@@ -42,6 +43,9 @@ export const ProfileSettingsPage = () => {
 
   return (
     <Style.PageContainer>
+      <div className="accounts-bg">
+        <OrangeBG width="41vh" height="40vh" />
+      </div>
       <div className="back-button-container">
         <BackButton onClick={handleBack} />
       </div>
@@ -274,6 +278,12 @@ const Style = {
       justify-content: space-between;
       align-items: center;
     }
+    .accounts-bg {
+      position: fixed;
+      z-index: 0;
+      bottom: -10vh;
+      right: -5vh;
+    }
   `,
   Content: styled.div`
     margin-top: 1.25vh;
@@ -429,20 +439,19 @@ const Style = {
     margin-right: -24px;
   `,
   AvatarButton: styled.button`
-    width: 75px;
-    height: 75px;
+    width: 6.66vh;
+    height: 6.66vh;
     display: grid;
     place-items: center;
     background: none;
     border: 4px solid white;
     border-radius: 50%;
-    margin-bottom: 20px;
     transition: border 0.25s ease-in;
 
     svg {
       position: absolute;
-      width: 69px;
-      height: 69px;
+      width: 6vh;
+      height: 6vh;
       transition: width 0.25s linear, height 0.25s linear,
         transform 0.3s ease-out;
     }
@@ -450,8 +459,8 @@ const Style = {
     &:hover {
       border: 4px solid rgba(0, 0, 0, 0.75);
       svg {
-        width: 75px;
-        height: 75px;
+        width: 6.3vh;
+        height: 6.3vh;
         transform: translate(2px, -2px);
       }
     }
