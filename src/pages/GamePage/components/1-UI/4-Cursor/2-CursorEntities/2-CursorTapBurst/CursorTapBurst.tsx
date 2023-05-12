@@ -1,45 +1,40 @@
-import { gsap } from "gsap";
-import { FC, memo, useCallback, useEffect } from "react";
+import { FC, memo, useCallback, useEffect, useRef } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
+import { RefBooleanType } from "../../../../../shared/Types/RefTypes";
+import { animateCursorTapBurst } from "./CursorTapBurstAnimations";
 import { tapBurstGeometry, tapBurstMaterial } from "./CursorTapBurstDefines";
 
-const tL = gsap.timeline();
-
 const CursorTapBurst: FC = () => {
+  // Refs
+  const tapBurstAnimAllowedRef: RefBooleanType = useRef(false);
   // Global State
-  const { isCursorDown } = useGlobalState(
+  const { isCursorDown, isHoveringEntity } = useGlobalState(
     (state) => ({
       isCursorDown: state.isCursorDown,
+      isHoveringEntity: state.isHoveringEntity,
     }),
     shallow,
   );
 
   // Handlers
   const handleTapBurstOnClick = useCallback((): void => {
-    if (isCursorDown) {
-      tL.fromTo(
-        tapBurstMaterial.uniforms.uTime,
-        { value: -3 },
-        {
-          value: 0.4,
-          duration: 0.15,
-          overwrite: true,
-        },
-      );
-      tL.to(tapBurstMaterial.uniforms.uTime, {
-        value: -3,
-        duration: 0.15,
-      });
+    if (isCursorDown && isHoveringEntity) {
+      tapBurstAnimAllowedRef.current = true;
     }
-  }, [isCursorDown]);
+
+    if (!isCursorDown && tapBurstAnimAllowedRef.current) {
+      animateCursorTapBurst(tapBurstMaterial);
+      tapBurstAnimAllowedRef.current = false;
+    }
+  }, [isCursorDown, isHoveringEntity]);
 
   // Listeners
   useEffect(handleTapBurstOnClick, [isCursorDown, handleTapBurstOnClick]);
 
   return (
     <mesh
-      scale={0.5}
+      scale={0.7}
       rotation={[0, 0, 0.14]}
       material={tapBurstMaterial}
       geometry={tapBurstGeometry}

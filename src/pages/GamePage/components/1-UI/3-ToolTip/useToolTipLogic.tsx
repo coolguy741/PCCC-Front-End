@@ -44,7 +44,7 @@ const useToolTipLogic = () => {
     );
 
   // Handlers
-  const handleSetToolTipInitLocation = useCallback(() => {
+  const handleSetToolTipInitLocation = useCallback((): void => {
     if (!isHoveringEntity || menuActive) return;
 
     toolTipInitFollowLocation.set(
@@ -57,7 +57,7 @@ const useToolTipLogic = () => {
     );
   }, [menuActive, cursorLocation, isHoveringEntity]);
 
-  const handleRevealHideToolTip = useCallback(() => {
+  const handleRevealHideToolTip = useCallback((): void => {
     if (menuActive || !toolTipRef.current) return;
 
     if (isHoveringEntity) {
@@ -69,17 +69,17 @@ const useToolTipLogic = () => {
     }
   }, [menuActive, isHoveringEntity]);
 
-  const handleToolTipMenuPositionDelay = useCallback(() => {
+  const handleToolTipMenuPositionDelay = useCallback((): void => {
     if (menuTransistionTimeoutRef.current) {
       clearTimeout(menuTransistionTimeoutRef.current);
     }
 
-    menuTransistionTimeoutRef.current = setTimeout(() => {
+    menuTransistionTimeoutRef.current = setTimeout((): void => {
       allowToolTipUpdateRef.current = false;
     }, 700);
   }, []);
 
-  const handleUpdateToolTipMenuPosition = useCallback(() => {
+  const handleUpdateToolTipMenuPosition = useCallback((): void => {
     if (!menuActive || !toolTipRef.current) return;
 
     allowToolTipUpdateRef.current = true;
@@ -100,7 +100,7 @@ const useToolTipLogic = () => {
     );
   }, [menuActive, cursorLocation, handleToolTipMenuPositionDelay]);
 
-  const handleUpdateToolTipBoundingRect = useCallback(() => {
+  const handleUpdateToolTipBoundingRect = useCallback((): void => {
     if (!toolTipRef.current) return;
 
     const toolTipBoundingRect = toolTipRef.current.getBoundingClientRect();
@@ -134,7 +134,7 @@ const useToolTipLogic = () => {
   ]);
 
   // Hooks
-  useAnimationFrame((time, delta) => {
+  useAnimationFrame((time, delta): void => {
     if (!toolTipRef.current) return;
 
     handleSetToolTipInitLocation();
