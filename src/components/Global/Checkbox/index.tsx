@@ -26,13 +26,6 @@ export const Checkbox = ({
 
 const Style = {
   Input: styled.input<CheckboxProps>`
-    width: 24px;
-    height: 24px;
-    padding: 2px;
-
-    scale: ${({ sizeOption }) => (sizeOption === "small" ? "1" : "1.6666")};
-    transform-origin: left center;
-
     &[type="checkbox"] {
       -webkit-appearance: none;
       appearance: none;
@@ -41,6 +34,8 @@ const Style = {
       margin: 0;
       width: 20px;
       height: 20px;
+      transform-origin: left center;
+      scale: ${({ sizeOption }) => (sizeOption === "small" ? "1" : "1.6666")};
       border-radius: 4px;
       position: relative;
       display: grid;
@@ -57,21 +52,21 @@ const Style = {
 
       &:disabled:checked::before {
         opacity: 1;
-        border-radius: 2px;
+        transition: opacity 0.3s linear;
         background: var(--neutral-400);
       }
 
       &:checked::before {
         opacity: 1;
-        border-radius: 2px;
         background: ${({ colorOption }) =>
-          colorOption === "primary" ? "var(--blue-400)" : "#D3BB90"};
+        colorOption === "primary" ? "var(--blue-400)" : "#D3BB90"};
       }
-
+      
       &::before {
         content: "";
         width: 12px;
         height: 12px;
+        border-radius: 2px;
         background: white;
         position: absolute;
         opacity: 0;

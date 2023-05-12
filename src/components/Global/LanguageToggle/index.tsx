@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export const LanguageToggle = () => {
   const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
@@ -46,11 +47,11 @@ export const LanguageToggle = () => {
 
 const Style = {
   Toggle: styled.div`
-    font-size: 0.75rem;
+    font-size: ${convertToRelativeUnit(12, "vh")};
     display: flex;
     position: relative;
-    height: 28px;
-    width: 72px;
+    height: ${convertToRelativeUnit(28, "vh")};
+    width: ${convertToRelativeUnit(72, "vw")};
     background: var(--blue-500);
     cursor: pointer;
     border-radius: 24px;
@@ -59,7 +60,7 @@ const Style = {
     justify-content: space-between;
     filter: drop-shadow(0px 10px 17px rgba(17, 165, 255, 0.3));
     align-items: center;
-    padding: 0 10px;
+    padding: 0 ${convertToRelativeUnit(10, "vw")};
 
     &:hover {
       filter: drop-shadow(0px 10px 10px rgba(17, 165, 255, 0.3));
@@ -70,7 +71,7 @@ const Style = {
       position: absolute;
       top: 0;
       left: 0;
-      width: 42px;
+      width: ${convertToRelativeUnit(42, "vh")};
       height: 100%;
       background: var(--white);
       border-radius: 24px;
