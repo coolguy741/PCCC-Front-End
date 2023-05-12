@@ -205,7 +205,8 @@ const Style = {
 
     .header-right {
       width: ${({ userAvailable }) => (userAvailable ? "32%" : "60%")};
-      justify-content: space-between;
+      justify-content: end;
+      gap: 2.66vh;
 
       .header-alert {
         height: 100%;
