@@ -28,6 +28,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           center: "title",
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
+        buttonIcons={{ prev: "chevron-left", next: "chevron-right" }}
+        buttonText={{ today: "bla" }}
         {...props}
         longPressDelay={1000}
         eventLongPressDelay={1000}
@@ -51,8 +53,55 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
 
 const Style = {
   Container: styled.div`
-    width: 100%;
+    width: 75%;
     height: 100%;
+
+    .fc {
+      .fc-scrollgrid {
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(59.2764px);
+        border-radius: 1.2rem;
+      }
+
+      thead div {
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+      }
+
+      .fc-button-group,
+      .fc-today-button {
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .fc-today-button {
+        background-color: var(--yellow-500);
+        opacity: 1;
+      }
+
+      .fc-daygrid-day {
+        a {
+          width: 2rem;
+          height: 2rem;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0.3rem;
+        }
+      }
+
+      & .fc-day-today {
+        a {
+          background-color: var(--yellow-500);
+          border-radius: 20px;
+        }
+      }
+    }
   `,
   CustomEventTitle: styled.div`
     display: block;
