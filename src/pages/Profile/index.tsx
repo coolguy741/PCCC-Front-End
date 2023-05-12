@@ -6,7 +6,6 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { AchievementsModal } from "../../components/Accounts/AchievementsModal";
 import { GroupsModal } from "../../components/Accounts/GroupsModal";
-import { BackButton } from "../../components/Global/BackButton";
 import { AltGrapeBG } from "../../components/Icons";
 import { UserAchievements } from "../../components/Profile/Achievements";
 import { UserActivity } from "../../components/Profile/Activity";
@@ -82,10 +81,6 @@ export const ProfilePage = () => {
 
   return (
     <Style.Container>
-      <BackButton onClick={() => navigate(-1)} />
-      <article className="account-content-header">
-        <h2>Standard Profile</h2>
-      </article>
       <section className="content-container">
         {true && (
           <>
@@ -187,7 +182,7 @@ const Style = {
       grid-template-rows: repeat(7, 1fr);
       grid-column-gap: 1.5vh;
       grid-row-gap: 1.5vh;
-      height: 92.5%;
+      height: 100%;
     }
 
     .user-info,
