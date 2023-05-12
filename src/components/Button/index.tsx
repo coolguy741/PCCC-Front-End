@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { Icon } from "../Global/Icon";
 
 export type ButtonVariant = "orange" | "yellow" | "ghost" | "green";
@@ -148,32 +149,29 @@ const ghostVStyles = css`
 `;
 
 const smallSStyles = css`
-  font-size: 16px;
-  line-height: 24px;
-  padding: 10px 16px;
+  font-size: ${convertToRelativeUnit(16, "vh")};
+  padding: ${convertToRelativeUnit(10, "vh")} ${convertToRelativeUnit(16, "vw")};
 
   .btn-content {
-    padding: 0px 8px;
+    padding: 0px ${convertToRelativeUnit(8, "vw")};
   }
 `;
 
 const mediumSStyles = css`
-  font-size: 16px;
-  line-height: 24px;
-  padding: 12px 18px;
+  font-size: ${convertToRelativeUnit(16, "vh")};
+  padding: ${convertToRelativeUnit(12, "vh")} ${convertToRelativeUnit(18, "vw")};
 
   .btn-content {
-    padding: 0px 12px;
+    padding: 0px ${convertToRelativeUnit(12, "vw")};
   }
 `;
 
 const largeSStyles = css`
-  font-size: 18px;
-  line-height: 24px;
-  padding: 14px 20px;
+  font-size: ${convertToRelativeUnit(18, "vh")};
+  padding: ${convertToRelativeUnit(14, "vh")} ${convertToRelativeUnit(20, "vw")};
 
   .btn-content {
-    padding: 0px 16px;
+    padding: 0px ${convertToRelativeUnit(16, "vw")};
   }
 `;
 
@@ -237,6 +235,7 @@ const defaultButtonStyles = css`
   font-style: normal;
   font-weight: 500;
   letter-spacing: -0.02em;
+  line-height: 125%;
   border-radius: 80px;
   display: flex;
   align-items: center;
@@ -256,8 +255,8 @@ const defaultButtonStyles = css`
   }
 
   img {
-    width: 24px;
-    height: 24px;
+    width: ${convertToRelativeUnit(24, "vw")};
+    height: ${convertToRelativeUnit(24, "vh")};
   }
 
   ${getButtonSVGAnim}

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { ArrowLeft } from "../../Icons";
 
 interface BackButtonProps {
@@ -24,8 +25,8 @@ const Style = {
     color: var(--neutral-700);
     margin: 1.2vh 0;
     cursor: pointer;
-    width: 110px;
-    padding: 10px 10px;
+    width: ${conv(110, "vw")};
+    padding: ${conv(10, "vh")} ${conv(10, "vw")};
     font-size: 1.5vh;
     justify-content: center;
     border-radius: 80px;

@@ -9,6 +9,7 @@ import { LanguageToggle } from "../../../components/Global/LanguageToggle";
 import { Search } from "../../../components/Icons";
 import { useSearchResultsStore } from "../../../stores/searchResultsStore";
 import { useUserStore } from "../../../stores/userStore";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 const fields = [
   "all",
@@ -146,7 +147,9 @@ const Style = {
   Container: styled.header<{ userAvailable: boolean }>`
     position: fixed;
     top: 0;
-    width: calc((100% + 32px) - var(--dashboard-menu-width-medium));
+    width: calc(
+      (100% + ${conv(32, "vw")}) - var(--dashboard-menu-width-medium)
+    );
     right: 0;
     height: 7vh;
     padding: 1.66vh 32px 1.66vh 64px;
@@ -187,18 +190,17 @@ const Style = {
           background: rgba(255, 255, 255, 0.5);
           box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
           height: 100%;
-          padding: 0 16px;
+          padding: 0 ${conv(16, "vw")};
 
           ::placeholder {
-            font-size: 16px;
-            line-height: 20px;
+            font-size: ${conv(16, "vh")};
             color: var(--neutral-500);
           }
         }
 
         svg.search {
           position: absolute;
-          right: 10px;
+          right: ${conv(10, "vh")};
         }
       }
     }
@@ -239,7 +241,7 @@ const Style = {
     border-radius: 8px 0px 0px 8px;
     height: 100%;
     width: max-content;
-    padding: 0 30px;
+    padding: 0 ${conv(30, "vw")};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,7 +268,7 @@ const Style = {
 
       p {
         white-space: nowrap;
-        margin-right: 4px;
+        margin-right: ${conv(4, "vw")};
       }
 
       ${({ isOpen }) => isOpen && "img { transform: rotate(-180deg);}"};
@@ -284,7 +286,7 @@ const Style = {
   `,
   DropdownItem: styled.div`
     text-transform: capitalize;
-    padding: 8px 16px;
+    padding: ${conv(8, "vh")} ${conv(16, "vw")};
     position: relative;
     display: flex;
     gap: 10px;
