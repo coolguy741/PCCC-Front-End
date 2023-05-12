@@ -33,7 +33,6 @@ const Style = {
     height: 100vh;
     flex-direction: column;
     position: relative;
-    overflow: overlay;
     max-height: 100vh;
     font-family: "Noir Std";
     font-style: normal;
