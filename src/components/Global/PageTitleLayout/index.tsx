@@ -53,7 +53,7 @@ const Style = {
     padding: 0px;
     gap: 0.5vw;
     color: var(--orange-500);
-    padding-bottom: 20px;
+    padding-bottom: 2.5vh;
 
     img {
       height: 4vh;
