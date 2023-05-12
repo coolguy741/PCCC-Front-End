@@ -37,7 +37,7 @@ const CursorUIStage: FC = () => {
         color="#26d07c"
         animOffset={0}
         hoverTrigger={hoveredSection === "left"}
-        iconURL="/game_assets/ui_images/inspect.webp"
+        iconURL="/game_assets/ui_images/cursor/inspect.webp"
         menuPositionEnd={inspectMenuPositionEnd}
         boundingRectVector={inspectBoundingRectVector}
         menuPositionOffset={inspectMenuPositionOffset}
@@ -48,7 +48,7 @@ const CursorUIStage: FC = () => {
         label="Pick Up"
         color="#ffcd00"
         animOffset={0.1}
-        iconURL="/game_assets/ui_images/pickup.webp"
+        iconURL="/game_assets/ui_images/cursor/pickup.webp"
         hoverTrigger={hoveredSection === "center"}
         menuPositionEnd={actionOneMenuPositionEnd}
         boundingRectVector={actionOneBoundingRectVector}
@@ -60,7 +60,7 @@ const CursorUIStage: FC = () => {
         label="Use"
         color="#0084d5"
         animOffset={0.2}
-        iconURL="/game_assets/ui_images/use.webp"
+        iconURL="/game_assets/ui_images/cursor/use.webp"
         hoverTrigger={hoveredSection === "right"}
         menuPositionEnd={actionTwoMenuPositionEnd}
         boundingRectVector={actionTwoBoundingRectVector}

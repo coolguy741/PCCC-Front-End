@@ -58,12 +58,11 @@ const PlayerCamera: FC = () => {
   );
 
   useFrame((state, delta) => {
-    if (playerCameraRef.current) {
-      updatePlayerCameraLookAt(playerCameraRef.current);
-      updatePlayerCameraFov(playerCameraRef.current, delta);
-      updatePlayerCameraPosition(playerCameraRef.current, delta);
-      playerCameraRef.current.updateProjectionMatrix();
-    }
+    if (!playerCameraRef.current) return;
+    updatePlayerCameraLookAt(playerCameraRef.current);
+    updatePlayerCameraFov(playerCameraRef.current, delta);
+    updatePlayerCameraPosition(playerCameraRef.current, delta);
+    playerCameraRef.current.updateProjectionMatrix();
   });
 
   return (

@@ -27,8 +27,8 @@ const GameStage: FC = () => {
   const { axes, perf, gizmo } = useControls({
     debugHelpers: folder({
       axes: false,
-      perf: true,
-      gizmo: true,
+      perf: false,
+      gizmo: false,
     }),
   });
 

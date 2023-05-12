@@ -1,7 +1,7 @@
 import { FC, Fragment, memo, useCallback } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
-import useMouseMove from "../5-Hooks/useMouseMove";
+import useMouseMove from "../10-Hooks/useMouseMove";
 import CursorCanvas from "./0-CursorCanvas/CursorCanvas";
 import CursorR3FStage from "./1-CursorR3FStage/CursorR3FStage";
 import CursorUIStage from "./4-CursorUIStage.tsx/CursorUIStage";
