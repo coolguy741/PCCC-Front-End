@@ -1,8 +1,10 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import ErrorBoundary from "../components/ErrorBoundary/errorBoundary";
 import { ContentListPageLayout } from "../components/Global/ContentListPageLayout";
+import { AuthLayout } from "../layouts/AuthLayout/authLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
+import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
 import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
@@ -24,7 +26,6 @@ import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
-import { AuthPage } from "./AuthPage";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { SecurityQuestionsPage } from "./AuthPage/SecurityQuestionsPage";
@@ -89,9 +90,9 @@ export const router = createBrowserRouter([
   {
     path: "/signin",
     element: (
-      <AuthPage>
+      <AuthLayout>
         <Outlet />
-      </AuthPage>
+      </AuthLayout>
     ),
     children: [
       {
@@ -117,9 +118,9 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: (
-      <AuthPage>
+      <AuthLayout>
         <Outlet />
-      </AuthPage>
+      </AuthLayout>
     ),
 
     children: [{ path: "", element: <SignUpPage /> }],
@@ -133,7 +134,6 @@ export const router = createBrowserRouter([
     ),
     loader: async () => {
       await getAuthenticatedUser();
-
       return null;
     },
     children: [
@@ -274,18 +274,38 @@ export const router = createBrowserRouter([
             icon="foodways-orange-outlined"
           />
         ),
-        loader: foodwaysPageLoader,
         children: [
-          { path: "", element: <FoodwaysPage /> },
+          {
+            path: "",
+            element: <FoodwaysPage />,
+            loader: foodwaysPageLoader,
+          },
           {
             path: "create",
             element: <CreateFoodwaysPage />,
           },
           {
-            path: ":foodway",
+            path: ":id",
             children: [
-              { path: "", element: <FoodwaysOverviewPage /> },
-              { path: "edit", element: <EditFoodwaysPage /> },
+              {
+                path: "",
+                element: <FoodwaysOverviewPage />,
+                id: "foodway",
+                loader: async ({ params }) => {
+                  const foodway = await getFoodway(params.id);
+
+                  return foodway;
+                },
+              },
+              {
+                path: "edit",
+                element: <EditFoodwaysPage />,
+                loader: async ({ params }) => {
+                  const foodway = await getFoodway(params.id);
+
+                  return foodway;
+                },
+              },
               { path: "preview", element: <FoodwaysPreviewPage /> },
             ],
           },

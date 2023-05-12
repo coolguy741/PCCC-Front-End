@@ -6,7 +6,62 @@
     "image": "/photos/1.png",
     "birthYear": 2010,
     "province": "British Colombia",
-    "createdDate": "January 10, 2023"
+    "createdDate": "January 10, 2023",
+    "badges": 6,
+    "groups": [
+      {
+        "name": "Cool Broccoli's",
+        "number": 9
+      },
+      {
+        "name": "Science Group 3",
+        "number": 5
+      },
+      {
+        "name": "Super Magic Awesome Squad",
+        "number": 3
+      }
+    ],
+    "activities": [
+      {
+        "type": "activity",
+        "content": "Tools of the Trade to Group A",
+        "date": "30 mins ago",
+        "name": "assigneed Activiy : "
+      },
+      {
+        "type": "group",
+        "content": "Group Name",
+        "date": "30 mins ago",
+        "name": "deleted a group"
+      },
+      {
+        "type": "activity",
+        "content": "Tools of the Trade for Group B",
+        "date": "2 days ago",
+        "name": "completed Activiy :"
+      }
+    ],
+    "lessonAssessment": [
+      {
+        "lessons": "Tools of the Trade - Assessment",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      },
+      {
+        "lessons": "Task B: Kitchen Champ",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      },
+      {
+        "lessons": "Task C: Over the Grain-bow",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      }
+    ]
   },
   {
     "userID": "Crazy Carrot #321",
@@ -19,7 +74,62 @@
     "school": "Lorem Ipsum",
     "province": "British Colombia",
     "email": "educator@pccc.mail",
-    "createdDate": "January 10, 2023"
+    "createdDate": "January 10, 2023",
+    "badges": 6,
+    "groups": [
+      {
+        "name": "Cool Broccoli's",
+        "number": 9
+      },
+      {
+        "name": "Science Group 3",
+        "number": 5
+      },
+      {
+        "name": "Super Magic Awesome Squad",
+        "number": 3
+      }
+    ],
+    "activities": [
+      {
+        "type": "activity",
+        "content": "Tools of the Trade to Group A",
+        "date": "30 mins ago",
+        "name": "assigned Activity :"
+      },
+      {
+        "type": "group",
+        "content": "Group Name",
+        "date": "30 mins ago",
+        "name": "created a group"
+      },
+      {
+        "type": "activity",
+        "content": "Tools of the Trade for Group B",
+        "date": "2 days ago",
+        "name": "deleted activity :"
+      }
+    ],
+    "lessonAssessment": [
+      {
+        "lessons": "Tools of the Trade - Assessment",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      },
+      {
+        "lessons": "Task B: Kitchen Champ",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      },
+      {
+        "lessons": "Task C: Over the Grain-bow",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      }
+    ]
   },
   {
     "userID": "Curious Apple #321",
@@ -30,6 +140,61 @@
     "birthYear": 1988,
     "province": "British Colombia",
     "email": "admin@pccc.mail",
-    "createdDate": "January 10, 2023"
+    "createdDate": "January 10, 2023",
+    "badges": 6,
+    "groups": [
+      {
+        "name": "Cool Broccoli's",
+        "number": 9
+      },
+      {
+        "name": "Science Group 3",
+        "number": 5
+      },
+      {
+        "name": "Super Magic Awesome Squad",
+        "number": 3
+      }
+    ],
+    "activities": [
+      {
+        "type": "group",
+        "content": "Group Name",
+        "date": "30 mins ago",
+        "name": "deleted a group"
+      },
+      {
+        "type": "group",
+        "content": "Group Name",
+        "date": "2 days ago",
+        "name": "created a group"
+      },
+      {
+        "type": "topic",
+        "content": "Topic Name",
+        "date": "30 mins ago",
+        "name": "created a topic :"
+      }
+    ],
+    "lessonAssessment": [
+      {
+        "lessons": "Tools of the Trade - Assessment",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      },
+      {
+        "lessons": "Task B: Kitchen Champ",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      },
+      {
+        "lessons": "Task C: Over the Grain-bow",
+        "group": "Group A",
+        "date": "January 10, 2022",
+        "status": "Complete"
+      }
+    ]
   }
 ]

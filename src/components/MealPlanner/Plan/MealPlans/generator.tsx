@@ -7,6 +7,7 @@ import Button from "../../../Button";
 import { Checkbox } from "../../../Global/Checkbox";
 import { Typography } from "../../../Global/Typography";
 import { DatePicker } from "../DatePicker";
+import { PlateFullPlanFilter } from "../Filter";
 import { BookPicker } from "../Picker";
 
 export const MealPlanGenerator = () => {
@@ -14,10 +15,13 @@ export const MealPlanGenerator = () => {
     changeStep,
     dates,
     mealsPerDay,
+    selectedFilters,
+    filters,
     childrenCount,
     changeDates,
     changeChildrenCount,
     changeMealsPerDay,
+    changeSelectedFilters,
   } = useMealPlannerStore();
 
   const handleCreate = () => {
@@ -65,6 +69,7 @@ export const MealPlanGenerator = () => {
           <div className="filter-container">
             <DatePicker
               dates={dates}
+              label="Dates"
               setDates={changeDates}
               placeholder="17.05.2023 - 21.05.2023"
             />
@@ -74,10 +79,10 @@ export const MealPlanGenerator = () => {
               number={mealsPerDay}
               setNumber={changeMealsPerDay}
             />
-            <BookPicker
-              label="Meals per day"
-              number={mealsPerDay}
-              setNumber={changeMealsPerDay}
+            <PlateFullPlanFilter
+              filters={filters}
+              selectedFilters={selectedFilters}
+              setFilters={changeSelectedFilters}
             />
             <BookPicker
               label="For how many"

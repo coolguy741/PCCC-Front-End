@@ -8,23 +8,23 @@ const mealPlans = [
     day: "sunday",
     plans: [
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-0.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-1.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-2.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-3.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-4.png",
       },
     ],
@@ -33,20 +33,20 @@ const mealPlans = [
     day: "monday",
     plans: [
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-5.png",
       },
       { description: null },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-6.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-7.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-8.png",
       },
     ],
@@ -55,23 +55,23 @@ const mealPlans = [
     day: "tuesday",
     plans: [
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-10.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-11.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-12.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-13.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-14.png",
       },
     ],
@@ -80,23 +80,23 @@ const mealPlans = [
     day: "wednesday",
     plans: [
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-15.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-16.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-17.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-19.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-20.png",
       },
     ],
@@ -105,17 +105,17 @@ const mealPlans = [
     day: "thursday",
     plans: [
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-21.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-22.png",
       },
       { description: null },
       { description: null },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-23.png",
       },
     ],
@@ -124,23 +124,23 @@ const mealPlans = [
     day: "friday",
     plans: [
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-24.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-26.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-27.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-28.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-29.png",
       },
     ],
@@ -149,23 +149,23 @@ const mealPlans = [
     day: "saturday",
     plans: [
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-30.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-31.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-32.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-33.png",
       },
       {
-        description: "Roasted red pepper hummus...",
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
         image: "/images/plate-full-planner/meals/image-0.png",
       },
     ],
@@ -211,23 +211,25 @@ export const WeeklyMealPlan = () => {
           </div>
         </Style.DateLabel>
       </div>
-      <Style.MealPlans>
-        {mealPlans.map((dailyPlan, dayIndex) => (
-          <Style.DailyMealPlans key={dailyPlan.day}>
-            <div className="meal-plan-day">{dailyPlan.day}</div>
-            <div className="daily-plans">
-              {dailyPlan.plans.map((meal, index) => (
-                <MealCard
-                  key={`${dailyPlan.day}-${index}`}
-                  meal={meal}
-                  label={dayIndex === 0 ? `meal-${index + 1}` : null}
-                />
-              ))}
-            </div>
-          </Style.DailyMealPlans>
-        ))}
-        <div className="cleaner" />
-      </Style.MealPlans>
+      <div className="plate-full-planner-container">
+        <Style.MealPlans>
+          {mealPlans.map((dailyPlan, dayIndex) => (
+            <Style.DailyMealPlans key={dailyPlan.day}>
+              <div className="meal-plan-day">{dailyPlan.day}</div>
+              <div className="daily-plans">
+                {dailyPlan.plans.map((meal, index) => (
+                  <MealCard
+                    key={`${dailyPlan.day}-${index}`}
+                    meal={meal}
+                    label={dayIndex === 0 ? `meal-${index + 1}` : null}
+                  />
+                ))}
+              </div>
+            </Style.DailyMealPlans>
+          ))}
+          <div className="cleaner" />
+        </Style.MealPlans>
+      </div>
       <Style.Labels>
         <img src="/images/plate-full-planner/labels/meal-1.svg" alt="meal-1" />
         <img src="/images/plate-full-planner/labels/meal-2.svg" alt="meal-2" />
@@ -262,6 +264,10 @@ const Style = {
           white-space: nowrap;
         }
       }
+    }
+    .plate-full-planner-container {
+      height: 40vw;
+      overflow: hidden;
     }
   `,
   DateLabel: styled.div`
@@ -318,7 +324,7 @@ const Style = {
     width: 100%;
     height: 100%;
     position: relative;
-    flex: auto;
+    flex: 1;
     padding: 2%;
     border-radius: 16px;
     background-image: linear-gradient(to right, #eadab650 0%, #eadab680 100%);
@@ -345,12 +351,12 @@ const Style = {
     gap: 2%;
 
     & .daily-plans {
-      flex: auto;
+      flex: 1;
       width: 100%;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      gap: 1.5%;
+      margin: -5% 0;
     }
 
     & .meal-plan-day {

@@ -19,8 +19,8 @@ const Style = {
     padding: 5px 15px;
     border: 1px solid white;
     transition: box-shadow 0.3s ease-out, border-color 0.3s ease-in;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 1em;
+    line-height: 125%;
     color: #1d2433;
     cursor: pointer;
 
@@ -31,8 +31,8 @@ const Style = {
     }
 
     &::placeholder {
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 100%;
+      line-height: 125%;
       color: rgba(29, 36, 51, 0.8);
     }
 

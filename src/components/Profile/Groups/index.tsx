@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Group } from "../../../../../components/Icons";
-import { trimStringByLength } from "../../../../../lib/util/trimStringByLength";
+import { trimStringByLength } from "../../../lib/util/trimStringByLength";
+import { Group } from "../../Icons";
 
 export function UserGroups({ openGroupsModal, userData }: any) {
   return (

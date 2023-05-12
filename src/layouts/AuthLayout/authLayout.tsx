@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
+import { Header } from "../shared/Header/header";
 
 interface Props {
   children: React.ReactNode;
@@ -9,7 +10,8 @@ interface Props {
 export function AuthLayout({ children }: Props) {
   return (
     <Style.Container layout layoutRoot>
-      {children}
+      <Header />
+      <AnimatePresence mode="wait">{children}</AnimatePresence>
     </Style.Container>
   );
 }
@@ -26,6 +28,11 @@ const Style = {
     perspective: 1000px;
     z-index: 0;
 
+    /* setting header to full width, no side menu for auth pages */
+    header {
+      width: 100%;
+    }
+
     .auth-breadcrumb {
       position: absolute;
       left: 32px;
@@ -39,17 +46,26 @@ const Style = {
       line-height: 24px;
     }
 
-    .auth-image {
+    .auth-image,
+    .auth-image-right {
       position: absolute;
-      bottom: -10px;
-      left: 0;
+      bottom: 0;
       z-index: 0;
       max-width: 30%;
       perspective: 500px;
 
       svg {
         width: 100%;
+        position: absolute;
       }
+    }
+
+    .auth-image {
+      left: 0;
+    }
+
+    .auth-image-right {
+      right: 0;
     }
 
     main,

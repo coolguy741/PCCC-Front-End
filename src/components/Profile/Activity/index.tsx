@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Group } from "../../../../../components/Icons";
+import { Group } from "../../Icons";
 
 export function UserActivity({ userData }: any) {
   return (

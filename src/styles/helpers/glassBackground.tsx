@@ -6,6 +6,6 @@ export function glassBackground() {
     box-shadow: 0px 7.78814px 19.4703px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(59.2764px);
     border-radius: 32px;
-    padding: 40px;
+    padding: 4.7vh 3vw;
   `;
 }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { OrangeBG } from "../../../../../components/Icons";
-import { animatedbackgroundGradient } from "../../../../../styles/helpers/animatedBackgroundGradient";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+import { OrangeBG } from "../../Icons";
 
 export function UserProfileInfo({ userData }: any) {
   return (
@@ -27,8 +27,6 @@ export function UserProfileInfo({ userData }: any) {
             <h3>{userData.userID}</h3>
             <h4>{userData.name}</h4>
           </hgroup>
-          <h3>{userData.userID}</h3>
-          <h4>{userData.name}</h4>
           <div className="user-info-content">
             <p>Birth year: {userData.birthYear}</p>
             <p>ID Code: {userData.idCode}</p>
