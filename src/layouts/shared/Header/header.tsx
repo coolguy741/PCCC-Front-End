@@ -152,7 +152,6 @@ const Style = {
     padding: 1.66vh 32px 1.66vh 64px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     z-index: 10;
     backdrop-filter: blur(5px);
     gap: 2rem;
@@ -166,7 +165,7 @@ const Style = {
     }
 
     .header-left {
-      width: ${({ userAvailable }) => (userAvailable ? "68%" : "30%")};
+      flex-grow: 1;
 
       .header-logo {
         height: 100%;
@@ -174,6 +173,7 @@ const Style = {
       }
 
       form {
+        flex-grow: 1;
         display: flex;
         width: 90%;
         position: relative;
@@ -204,9 +204,7 @@ const Style = {
     }
 
     .header-right {
-      width: ${({ userAvailable }) => (userAvailable ? "32%" : "60%")};
-      justify-content: end;
-      gap: 2.66vh;
+      gap: 2rem;
 
       .header-alert {
         height: 100%;
@@ -216,7 +214,6 @@ const Style = {
       .header-powerfull-image {
         height: 100%;
         width: max-content;
-        margin-left: 2.5%;
       }
 
       .header-toggle {
@@ -224,7 +221,6 @@ const Style = {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 2.5%;
       }
     }
   `,
