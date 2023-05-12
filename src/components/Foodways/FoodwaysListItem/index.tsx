@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 import { Checkbox } from "../../Global/Checkbox";
@@ -14,20 +15,24 @@ export const FoodwaysListItem: React.FC<FoodwaysListItemProps> = ({
   selectable = false,
   onSelectedChange,
 }) => {
+  const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState(false);
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsSelected(!isSelected);
-    // onSelectedChange && onSelectedChange(data.id, event.target.checked);
+
+    if (data.id) {
+      onSelectedChange && onSelectedChange(data.id, event.target.checked);
+    }
   };
 
   return (
-    <Style.Container>
+    <Style.Container onClick={() => navigate(`${data.id}`)}>
       {/* <img src={data.image} alt={data.title} /> */}
       <Style.Content>
         {/* {data.date && <Style.Date>{"Feature date: " + data.date}</Style.Date>} */}
         <Style.Title>{data.title}</Style.Title>
-        {/* <Style.Description>{data.description}</Style.Description> */}
+        <Style.Description>{data.info}</Style.Description>
       </Style.Content>
       {selectable && (
         <Style.InputContainer>

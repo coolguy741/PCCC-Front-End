@@ -33,11 +33,11 @@ export const EditFoodwaysPage = () => {
         {
           english: {
             title: title,
-            concurrencyStamp: foodway.concurrencyStamp || "test",
+            concurrencyStamp: foodway.concurrencyStamp,
           },
           french: {
             title: title,
-            concurrencyStamp: foodway.concurrencyStamp || "test",
+            concurrencyStamp: foodway.concurrencyStamp,
           },
         },
         {

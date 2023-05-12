@@ -1,7 +1,10 @@
-import styled from "styled-components";
-
+import Cookies from "js-cookie";
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import Button from "../../Button";
 import { Select } from "../../Global/Select";
 import { FoodwaysList } from "../FoodwaysList";
@@ -12,10 +15,26 @@ interface ContentListAdminPageTemplateProps {
   selectsGroup: SelectOption[];
   listData: PccServer23FoodwaysFoodwayDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
+  selectedIds: string[];
 }
 
 export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
-  ({ title, selectsGroup, listData, onSelectionChange }) => {
+  ({ title, selectsGroup, listData, onSelectionChange, selectedIds }) => {
+    const { api } = useAPI();
+    const navigate = useNavigate();
+
+    const handleDelete = async () => {
+      for (const id of selectedIds) {
+        await api.appFoodwaysDelete(id, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        });
+      }
+
+      navigate("/dashboard/foodways");
+    };
+
     return (
       <>
         <Style.InputGroup>
@@ -40,19 +59,21 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             ))}
           </Style.SelectGroup>
           <Style.ButtonGroup>
-            <Button variant="yellow" size="large">
+            <Button variant="yellow" size="large" onClick={handleDelete}>
               Delete
             </Button>
-            <Button
-              variant="orange"
-              size="large"
-              icon="add"
-              iconPosition="right"
-            >
-              {title === "Mealtime Moments Editor"
-                ? "Mealtime Moments"
-                : "Create " + title}
-            </Button>
+            <Link to="create">
+              <Button
+                variant="orange"
+                size="large"
+                icon="add"
+                iconPosition="right"
+              >
+                {title === "Mealtime Moments Editor"
+                  ? "Mealtime Moments"
+                  : "Create " + title}
+              </Button>
+            </Link>
           </Style.ButtonGroup>
         </Style.InputGroup>
         <Style.ScrollContainer>

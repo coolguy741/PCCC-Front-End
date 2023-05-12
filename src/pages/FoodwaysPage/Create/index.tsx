@@ -1,19 +1,44 @@
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
 import { Input } from "../../../components/Global/Input";
 import { TextArea } from "../../../components/Global/TextArea";
-
-const TAGS = [
-  "vegan",
-  "vegetarian",
-  "gluten-free",
-  "dairy-free",
-  "pescatarian",
-];
+import { useAPI } from "../../../hooks/useAPI";
+import { STORAGE_KEY_JWT } from "../../consts";
 
 export const CreateFoodwaysPage = () => {
+  const { api } = useAPI();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const navigate = useNavigate();
+
+  const handleCreate = async () => {
+    const response = await api.appFoodwaysCreate(
+      {
+        english: {
+          title: title,
+          info: description,
+        },
+        french: {
+          title: title,
+          info: description,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      navigate("/dashboard/foodways");
+    }
+  };
+
   return (
     <Style.Container>
       <div className="content">
@@ -34,52 +59,51 @@ export const CreateFoodwaysPage = () => {
           <div className="content__body__form">
             <div className="content__body__form__inputs">
               <label>
-                <span>Title:</span>
-                <Input type="text" />
+                <Input
+                  type="text"
+                  placeholder="Title"
+                  height="3.5rem"
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
+                />
               </label>
               <label>
-                <span>Intro:</span>
-                <TextArea />
+                <TextArea
+                  placeholder="Description"
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                />
               </label>
             </div>
-            <div className="content__body__form__tags">
+            {/* <div className="content__body__form__tags">
               <h3>Add tags</h3>
               <div className="content__body__form__tags__list">
                 <Input type="text" />
-                {TAGS.map((tag) => (
-                  <div className="content__body__form__tags__list__item">
-                    {tag}
-                  </div>
-                ))}
               </div>
-            </div>
+            </div> */}
           </div>
           <h2>First Stop</h2>
           <div className="content__body__form">
             <div className="content__body__form__inputs--first-stop">
               <label>
-                <span>Title:</span>
-                <Input type="text" />
+                <Input type="text" placeholder="Title" height="3.5rem" />
               </label>
               <label>
-                <span>Intro:</span>
-                <TextArea />
+                <TextArea placeholder="Description" />
               </label>
             </div>
             <div className="content__body__form__inputs--first-stop">
               <label>
-                <span>Location:</span>
-                <Input type="text" />
+                <Input type="text" placeholder="Location" height="3.5rem" />
               </label>
               <label>
-                <span>Media:</span>
-                <TextArea />
+                <TextArea placeholder="Media" />
               </label>
             </div>
           </div>
           <div className="content__body__buttons">
             <Button>Add a Stop</Button>
-            <Button>Create</Button>
+            <Button onClick={handleCreate}>Create</Button>
           </div>
         </div>
       </div>

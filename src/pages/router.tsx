@@ -134,7 +134,6 @@ export const router = createBrowserRouter([
     ),
     loader: async () => {
       await getAuthenticatedUser();
-
       return null;
     },
     children: [

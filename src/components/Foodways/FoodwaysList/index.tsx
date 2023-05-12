@@ -17,14 +17,14 @@ export const FoodwaysList: React.FC<FoodwaysListProps> = ({
   return (
     <Style.Container>
       {listData.map((item) => (
-        <StyledLink to={`${item.id}`}>
-          <FoodwaysListItem
-            key={item.id}
-            data={item}
-            selectable={selectable}
-            onSelectedChange={onSelectionChange}
-          />
-        </StyledLink>
+        // <StyledLink to={`${item.id}`}>
+        <FoodwaysListItem
+          key={item.id}
+          data={item}
+          selectable={selectable}
+          onSelectedChange={onSelectionChange}
+        />
+        // </StyledLink>
       ))}
     </Style.Container>
   );
@@ -38,6 +38,10 @@ const Style = {
     align-items: flex-start;
     padding: 0px;
     gap: 40px;
+
+    div {
+      flex-basis: calc(50% - 20px);
+    }
   `,
   ItemContainer: styled.div`
     flex-basis: calc(50% - 20px);

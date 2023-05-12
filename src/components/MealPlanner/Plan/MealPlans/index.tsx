@@ -1,10 +1,19 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
+import { Icon } from "../../../Global/Icon";
+import { Typography } from "../../../Global/Typography";
+import { PlateFullPlanFilter } from "../Filter";
+import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
+import { PlateFullPlanSearch } from "../Search";
 
 import { Tag } from "../Tag";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
 
 export const MealPlans = () => {
+  const { selectedFilters, filters, changeSelectedFilters } =
+    useMealPlannerStore();
+
   return (
     <Style.Container
       initial={{ opacity: 0 }}
@@ -39,6 +48,43 @@ export const MealPlans = () => {
           <WeeklyMealPlan />
         </Style.LeftPage>
         <Style.Page>
+          <div className="page-title">
+            <img
+              src="/images/plate-full-planner/ribbon-label.svg"
+              alt="label"
+            />
+            <Typography
+              variant="h4"
+              weight="semi-bold"
+              color="book-400"
+              as="h4"
+            >
+              Customize your meal plan
+            </Typography>
+          </div>
+          <div className="main-content">
+            <Style.BorderScroll>
+              <img
+                src="/images/plate-full-planner/scroll-border.svg"
+                alt="scroll border"
+              />
+            </Style.BorderScroll>
+            <Style.BorderScroll position="bottom">
+              <img
+                src="/images/plate-full-planner/scroll-border.svg"
+                alt="scroll border"
+              />
+            </Style.BorderScroll>
+            <div>
+              <PlateFullPlanSearch />
+              <PlateFullPlanFilter
+                filters={filters}
+                selectedFilters={selectedFilters}
+                setFilters={changeSelectedFilters}
+              />
+            </div>
+            <PlateFullPlannerScrollMenu />
+          </div>
           <Style.CoffeeStain
             src="/images/plate-full-planner/coffee-stain.svg"
             alt="coffee stainer on paper"
@@ -48,6 +94,12 @@ export const MealPlans = () => {
             alt="fruit on paper"
           />
           <Style.BrownPaper>
+            <div className="brown-paper-content">
+              <Icon name="food" />
+              <Typography variant="h6" weight="semi-bold" color="book-50">
+                Roasted red pepper hummus with vegetables{" "}
+              </Typography>
+            </div>
             <img
               src="/images/plate-full-planner/brown-paper.png"
               alt="brown-paper"
@@ -87,29 +139,38 @@ const Style = {
   `,
   Page: styled.div`
     position: relative;
-    img.omate-line {
-      position: absolute;
-      left: 50%;
-      width: 50%;
-      transform: translate(-50%, -200%);
-    }
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding: 10px 0;
+    overflow: hidden;
 
-    .week-container {
+    & .main-content {
+      flex: 1;
       position: relative;
-      margin: 16% 10% 42% 5%;
-    }
-
-    .filter-container {
-      position: relative;
+      height: 100%;
+      overflow-y: hidden;
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 3%;
-      margin: 16% 10%;
+      grid-template-columns: 1fr 1.2fr;
+      padding: 2% 2%;
+      gap: 1%;
     }
 
-    .btn-create {
-      float: right;
-      margin-right: 7%;
+    .page-title {
+      position: relative;
+
+      img {
+        width: 70%;
+        margin: 0 15%;
+      }
+
+      h4 {
+        position: absolute;
+        width: 100%;
+        transform: rotate(1.09deg) translateY(50%);
+        top: 0;
+        text-align: center;
+      }
     }
   `,
   CoffeeStain: styled.img`
@@ -129,11 +190,63 @@ const Style = {
   `,
   BrownPaper: styled.div`
     position: absolute;
+    width: 60%;
     left: 0;
+    z-index: 5;
+    bottom: 35%;
 
-    bottom: 30%;
+    .brown-paper-content {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      top: 50%;
+      margin: 0 20%;
+      transform: translateY(-80%);
+    }
+
     & > img {
       width: 100%;
+    }
+  `,
+  BorderScroll: styled.div.attrs(
+    ({ position }: { position: "top" | "bottom" }) => ({
+      position: position ?? "top",
+    }),
+  )`
+    position: absolute;
+    z-index: 20;
+    width: 50%;
+    ${({ position }) => position}: 0;
+    right: 2%;
+    transform: translate(
+      0,
+      ${({ position }) => (position === "top" ? "-" : "")}20%
+    );
+
+    & img {
+      width: 100%;
+    }
+
+    &:before {
+      content: "";
+      background-image: linear-gradient(
+        ${({ position }) =>
+          position === "top"
+            ? "rgba(234, 218, 182, 0.8),rgba(255, 240, 232, 0)"
+            : "rgba(255, 240, 232, 0),rgba(234, 218, 182, 0.8)"}
+      );
+      position: absolute;
+      z-index: 19;
+      width: 89%;
+      ${({ position }) => position}: 0;
+      left: 50%;
+      transform: translate(
+        -50%,
+        ${({ position }) => (position === "top" ? "" : "-")}12%
+      );
+      height: 400%;
     }
   `,
 };
