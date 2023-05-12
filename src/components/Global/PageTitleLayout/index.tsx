@@ -3,12 +3,12 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../Icon";
 
-interface ContentListPageLayoutProps {
+interface PageTitleLayoutProps {
   icon?: string;
   title: string;
 }
 
-export const ContentListPageLayout: React.FC<ContentListPageLayoutProps> = ({
+export const PageTitleLayout: React.FC<PageTitleLayoutProps> = ({
   icon,
   title,
 }) => {
@@ -16,7 +16,7 @@ export const ContentListPageLayout: React.FC<ContentListPageLayoutProps> = ({
     <Style.PageContainer>
       <Style.Background />
       <Style.TitleLine>
-        {icon && <Icon name={icon} width="48px" height="48px" />}
+        {icon && <Icon name={icon} />}
         <Style.Title>{title}</Style.Title>
       </Style.TitleLine>
       <Suspense fallback={null}>
@@ -28,12 +28,11 @@ export const ContentListPageLayout: React.FC<ContentListPageLayoutProps> = ({
 
 const Style = {
   PageContainer: styled.div`
-    padding: 118px 70px 0 70px;
+    padding: 7vh 32px 2.5vh 64px;
     display: flex;
     height: 100vh;
     flex-direction: column;
     position: relative;
-    overflow: overlay;
     max-height: 100vh;
     font-family: "Noir Std";
     font-style: normal;
@@ -52,17 +51,16 @@ const Style = {
     flex-direction: row;
     align-items: center;
     padding: 0px;
-    gap: 12px;
+    gap: 0.5vw;
     color: var(--orange-500);
-    padding-bottom: 20px;
+    padding-bottom: 2.5vh;
 
-    img: {
-      color: var(--orange-500);
+    img {
+      height: 4vh;
     }
   `,
   Title: styled.p`
     font-weight: 600;
-    font-size: 48px;
-    line-height: 56px;
+    font-size: 4vh;
   `,
 };

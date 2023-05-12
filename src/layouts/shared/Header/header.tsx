@@ -148,8 +148,8 @@ const Style = {
     top: 0;
     width: calc((100% + 32px) - var(--dashboard-menu-width-medium));
     right: 0;
-    height: 9vh;
-    padding: 2.5vh 32px 2.5vh 64px;
+    height: 7vh;
+    padding: 1.66vh 32px 1.66vh 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 //should be deleted after api implementation
 import Cookies from "js-cookie";
 import { AchievementsModal } from "../../components/Accounts/AchievementsModal";
 import { GroupsModal } from "../../components/Accounts/GroupsModal";
-import { BackButton } from "../../components/Global/BackButton";
-import { AltGrapeBG } from "../../components/Icons";
+import { OrangeBG } from "../../components/Icons";
 import { UserAchievements } from "../../components/Profile/Achievements";
 import { UserActivity } from "../../components/Profile/Activity";
 import { UserGroups } from "../../components/Profile/Groups";
@@ -27,7 +26,6 @@ export type Achievement = {
 
 export const ProfilePage = () => {
   //should be deleted after api implementation
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const userData = pathname.includes("Standard")
     ? MockData[0]
@@ -39,14 +37,6 @@ export const ProfilePage = () => {
   const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-
-  const handleBack = () => {
-    return "handle back";
-  };
-
-  const handleEdit = () => {
-    return "handle edit";
-  };
 
   const getProfile = async () => {
     const response = await api.appUserUserProfileList({
@@ -82,10 +72,6 @@ export const ProfilePage = () => {
 
   return (
     <Style.Container>
-      <BackButton onClick={() => navigate(-1)} />
-      <article className="account-content-header">
-        <h2>Standard Profile</h2>
-      </article>
       <section className="content-container">
         {true && (
           <>
@@ -98,7 +84,7 @@ export const ProfilePage = () => {
         )}
       </section>
       <div className="accounts-bg">
-        <AltGrapeBG />
+        <OrangeBG width="41vh" height="40vh" />
       </div>
       {!!user && (
         <GroupsModal
@@ -175,8 +161,8 @@ const Style = {
     .accounts-bg {
       position: fixed;
       z-index: 0;
-      bottom: -10px;
-      right: 0;
+      bottom: -10vh;
+      right: -5vh;
     }
 
     .content-container {
@@ -187,7 +173,7 @@ const Style = {
       grid-template-rows: repeat(7, 1fr);
       grid-column-gap: 1.5vh;
       grid-row-gap: 1.5vh;
-      height: 92.5%;
+      height: 100%;
     }
 
     .user-info,
