@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CalendarFilter = () => {
   return (
     <Style.Container>
-      <div className="filter-group">
+      <Style.GroupsFilter>
         <div>
           <input type="checkbox" defaultChecked={true} />
           <label>Mealtime Moments</label>
@@ -12,43 +12,172 @@ export const CalendarFilter = () => {
           <input type="checkbox" defaultChecked={true} />
           <label>Foodways</label>
         </div>
-      </div>
-      <div className="event-groups">
-        <select>
-          <option value="group-a">Group A</option>
-        </select>
-      </div>
-      <div className="filter-group">
         <div>
-          <input type="checkbox" />
-          <label>Meal Plan</label>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
         </div>
         <div>
           <input type="checkbox" defaultChecked={true} />
-          <label>Activities</label>
+          <label>Foodways</label>
         </div>
         <div>
           <input type="checkbox" defaultChecked={true} />
-          <label>Recipes</label>
+          <label>Mealtime Moments</label>
         </div>
-      </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Mealtime Moments</label>
+        </div>
+        <div>
+          <input type="checkbox" defaultChecked={true} />
+          <label>Foodways</label>
+        </div>
+      </Style.GroupsFilter>
+      <Style.SubjectsFilter>
+        <div className="filter-group">
+          <div>
+            <input type="checkbox" />
+            <label>Meal Plan</label>
+          </div>
+          <div>
+            <input type="checkbox" defaultChecked={true} />
+            <label>Activities</label>
+          </div>
+          <div>
+            <input type="checkbox" defaultChecked={true} />
+            <label>Recipes</label>
+          </div>
+          <div>
+            <input type="checkbox" />
+            <label>Meal Plan</label>
+          </div>
+          <div>
+            <input type="checkbox" defaultChecked={true} />
+            <label>Activities</label>
+          </div>
+          <div>
+            <input type="checkbox" defaultChecked={true} />
+            <label>Recipes</label>
+          </div>
+        </div>
+      </Style.SubjectsFilter>
     </Style.Container>
   );
 };
 
 const Style = {
-  Container: styled.div`
+  Container: styled.section`
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 1rem;
-
-    & .filter-group {
-      padding: 10px;
-      background: #d9d9d9;
-    }
+    overflow: hidden;
+    height: 100%;
 
     & .event-groups {
       text-align: right;
     }
+  `,
+  GroupsFilter: styled.fieldset`
+    border-radius: 8px;
+    background: #ffffff50;
+    overflow: auto;
+    flex: 1;
+  `,
+  SubjectsFilter: styled.fieldset`
+    border-radius: 8px;
+    background: #ffffff50;
   `,
 };
