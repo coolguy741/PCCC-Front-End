@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { ForgotForm } from "../../../components/Auth/ForgotForm";
 import { BackButton } from "../../../components/Global/BackButton";
 import { AppleBG } from "../../../components/Icons";
-import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
 import { useSignInStore } from "../../../stores/signInStore";
 import { animationProps } from "../../../styles/animations/auth";
 
@@ -20,13 +19,13 @@ export const ForgotPasswordPage = () => {
   };
 
   return (
-    <AuthLayout>
+    <>
       <span className="auth-breadcrumb">
         <BackButton onClick={clickHandler} />
       </span>
 
       <ForgotForm key="forgot" />
       <AppleBG key="forgot" layout {...animationProps} />
-    </AuthLayout>
+    </>
   );
 };
