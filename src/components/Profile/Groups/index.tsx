@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { trimStringByLength } from "../../../lib/util/trimStringByLength";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 import { Group } from "../../Icons";
 
 export function UserGroups({ openGroupsModal, userData }: any) {
@@ -37,6 +38,7 @@ const Style = {
     height: 100%;
     display: flex;
     flex-direction: column;
+    ${glassBackground};
 
     ul {
       list-style-type: none;

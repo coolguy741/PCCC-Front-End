@@ -9,7 +9,10 @@ import { LanguageToggle } from "../../../components/Global/LanguageToggle";
 import { Search } from "../../../components/Icons";
 import { useSearchResultsStore } from "../../../stores/searchResultsStore";
 import { useUserStore } from "../../../stores/userStore";
-import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
+import {
+  convertToRelativeUnit as conv,
+  convertToRelativeUnit,
+} from "../../../styles/helpers/convertToRelativeUnits";
 
 const fields = [
   "all",
@@ -152,7 +155,8 @@ const Style = {
     );
     right: 0;
     height: 7vh;
-    padding: 1.66vh 32px 1.66vh 64px;
+    padding: 1.66vh ${convertToRelativeUnit(32, "vw")} 1.66vh
+      ${convertToRelativeUnit(64, "vw")};
     display: flex;
     align-items: center;
     justify-content: space-between;

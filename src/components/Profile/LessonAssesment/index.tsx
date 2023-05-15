@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { trimStringByLength } from "../../../lib/util/trimStringByLength";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 import { Pagination } from "../../Pagination/pagination";
 
 export function UserLessonAssesment({ userData }: any) {
@@ -44,6 +45,7 @@ const Style = {
     grid-area: 3 / 2 / 8 / 3;
     display: flex;
     flex-direction: column;
+    ${glassBackground};
 
     table {
       text-align: left;
