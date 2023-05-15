@@ -334,7 +334,11 @@ export const router = createBrowserRouter([
       { path: "calendar", element: <CalendarPage /> },
       { path: "achievements", element: <AchievementsPage /> },
       { path: "games", element: <GamesPage /> },
-      { path: "cloud-drive", element: <CloudDrivePage /> },
+      {
+        path: "cloud-drive",
+        element: <PageTitleLayout title="Cloud Drive" />,
+        children: [{ path: "", element: <CloudDrivePage /> }],
+      },
       { path: "discover-together", element: <DiscoverTogetherPage /> },
       { path: "grow-together", element: <GrowTogetherPage /> },
       { path: "cook-together", element: <CookTogetherPage /> },
