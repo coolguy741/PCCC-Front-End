@@ -29,9 +29,11 @@ const Style = {
     perspective: 1000px;
     z-index: 0;
 
-    /* setting header to full width, no side menu for auth pages */
+    /* setting header to full width, no side menu for auth pages
+    fixing the margin to a consistent 32px */
     header {
       width: 100%;
+      padding: 1.66vh ${conv(32, "vw")};
     }
 
     .auth-breadcrumb {

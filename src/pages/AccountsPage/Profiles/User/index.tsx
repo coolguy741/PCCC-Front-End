@@ -7,7 +7,6 @@ import { GroupsModal } from "../../../../components/Accounts/GroupsModal";
 import { AltGrapeBG } from "../../../../components/Icons";
 import { useAPI } from "../../../../hooks/useAPI";
 import { useUserStore } from "../../../../stores/userStore";
-import { glassBackground } from "../../../../styles/helpers/glassBackground";
 //should be deleted after api implementation
 import Cookies from "js-cookie";
 import { BackButton } from "../../../../components/Global/BackButton";
@@ -195,7 +194,6 @@ const Style = {
     .groups,
     .activity,
     .lesson-assesment {
-      ${glassBackground};
       padding: 2vh 1.5vw;
       border-radius: 1rem;
       box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);

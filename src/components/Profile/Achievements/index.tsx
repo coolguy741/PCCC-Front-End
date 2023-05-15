@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 
 export function UserAchievements({ openAchievementsModal }: any) {
   return (
@@ -26,6 +27,7 @@ const Style = {
     display: flex;
     position: relative;
     flex-direction: column;
+    ${glassBackground};
 
     .achievements-icons {
       display: flex;

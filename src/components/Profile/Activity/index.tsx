@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { glassBackground } from "../../../styles/helpers/glassBackground";
 import { Group } from "../../Icons";
 
 export function UserActivity({ userData }: any) {
@@ -28,6 +29,7 @@ const Style = {
     height: 100%;
     display: flex;
     flex-direction: column;
+    ${glassBackground};
 
     ul {
       list-style-type: none;
