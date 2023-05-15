@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Button from "../../../components/Button";
 import { MENUS, STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 type MenuState = {
   "user-tools": boolean;
@@ -119,7 +120,7 @@ const Style = {
 
     .menu-item {
       display: flex;
-      padding: 20px 36px;
+      padding: ${conv(20, "vh")} ${conv(36, "vw")};
       cursor: pointer;
 
       .menu-icon {
@@ -131,9 +132,9 @@ const Style = {
       }
 
       .menu-content {
-        line-height: 24px;
         font-weight: 600;
-        font-size: 19px;
+        font-size: ${conv(19, "vh")};
+        line-height: 125%;
       }
     }
   `,
@@ -162,25 +163,25 @@ const Style = {
     height: 100%;
     background: linear-gradient(-90deg, var(--green-400), var(--green-600));
     border-radius: 0 32px 32px 0;
-    padding: 36px 0;
+    padding: ${conv(36, "vh")} 0;
     display: flex;
     flex-direction: column;
     filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
 
     .username {
-      line-height: 29px;
+      line-height: ${conv(29, "vh")};
       font-weight: 700;
-      font-size: 24px;
+      font-size: ${conv(24, "vh")};
       transition: all 0.2s ease-in-out;
     }
 
     .btn-logout {
       position: relative;
-      height: 48px;
-      min-height: 48px;
-      margin-top: 40px;
+      height: ${conv(48, "vh")};
+      min-height: ${conv(48, "vh")};
+      margin-top: ${conv(40, "vh")};
       margin-left: calc(2 * var(--gutter-grid));
-      width: 124px;
+      width: ${conv(124, "vh")};
 
       img {
         display: none;
@@ -192,15 +193,15 @@ const Style = {
     }
 
     .logo-container {
-      padding-left: 20px;
+      padding-left: ${conv(20, "vw")};
       display: flex;
       color: white;
       align-items: center;
-      margin-bottom: 42px;
+      margin-bottom: ${conv(42, "vh")};
     }
 
     .drop-down {
-      padding-left: 40px;
+      padding-left: ${conv(40, "vw")};
     }
 
     @media screen {
@@ -211,9 +212,9 @@ const Style = {
       }
 
       .btn-logout {
-        margin-left: 44px;
+        margin-left: ${conv(44, "vw")};
         transition: all 0.2s ease-in-out;
-        width: 48px;
+        width: ${conv(48, "vw")};
 
         div.logout-content {
           display: none;
@@ -225,7 +226,7 @@ const Style = {
       }
 
       .menu-item {
-        padding: 20px 56px;
+        padding: ${conv(20, "vh")} ${conv(56, "vw")};
         transition: padding 0.4s ease-in-out;
 
         .arrow {
@@ -247,12 +248,12 @@ const Style = {
         transition: width 0.1s ease-in-out;
 
         .drop-down {
-          padding-left: 40px;
+          padding-left: ${conv(40, "vw")};
         }
 
         .btn-logout {
           margin-left: calc(2 * var(--gutter-grid));
-          width: 124px;
+          width: ${conv(124, "vw")};
           transition: all 0.2s ease-in-out;
 
           img {
@@ -265,7 +266,7 @@ const Style = {
         }
 
         .menu-item {
-          padding: 20px 36px;
+          padding: ${conv(20, "vh")} ${conv(36, "vw")};
           transition: all 0.1s ease-in-out;
 
           text-decoration: none;
@@ -277,19 +278,19 @@ const Style = {
 
           .menu-content {
             transition: all 0.3s ease-in-out;
-            font-size: 19px;
+            font-size: ${conv(19, "vh")};
             color: var(--white);
             text-decoration: none !important;
           }
         }
 
         .username {
-          font-size: 24px;
+          font-size: ${conv(24, "vh")};
         }
       }
 
       .logo-container {
-        margin-bottom: 22px;
+        margin-bottom: ${conv(22, "vh")};
       }
 
       transition: width 0.2s ease-in-out;
@@ -297,7 +298,7 @@ const Style = {
 
     .item-container {
       display: flex;
-      margin-top: 10px;
+      margin-top: ${conv(10, "vh")};
       margin-bottom: auto;
       overflow-y: auto;
       flex-direction: column;
