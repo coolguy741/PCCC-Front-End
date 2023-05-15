@@ -9,10 +9,7 @@ import { LanguageToggle } from "../../../components/Global/LanguageToggle";
 import { Search } from "../../../components/Icons";
 import { useSearchResultsStore } from "../../../stores/searchResultsStore";
 import { useUserStore } from "../../../stores/userStore";
-import {
-  convertToRelativeUnit as conv,
-  convertToRelativeUnit,
-} from "../../../styles/helpers/convertToRelativeUnits";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 const fields = [
   "all",
@@ -155,8 +152,7 @@ const Style = {
     );
     right: 0;
     height: 7vh;
-    padding: 1.66vh ${convertToRelativeUnit(32, "vw")} 1.66vh
-      ${convertToRelativeUnit(64, "vw")};
+    padding: 1.66vh ${conv(32, "vw")} 1.66vh ${conv(64, "vw")};
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -280,12 +276,11 @@ const Style = {
   `,
   DropdownMenu: styled(motion.div)`
     position: absolute;
-    top: 100%;
+    top: 115%;
     left: 0;
-    background: #ffffff50;
+    background: #ffffffeb;
     z-index: 20;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-radius: 8px;
     filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
   `,
   DropdownItem: styled.div`
