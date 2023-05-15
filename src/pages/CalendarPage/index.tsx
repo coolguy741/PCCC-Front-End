@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import Button from "../../components/Button";
 import { CalendarFilter } from "../../components/Calendar/Filter/Index";
 import { CalendarPopup } from "../../components/Calendar/Popup";
-import { LinkButton } from "../../components/Global/Button/Link";
 import { Calendar } from "../../components/Global/Calendar";
+import { Typography } from "../../components/Global/Typography";
 import { useCalendarEventsStore } from "../../stores/eventsStore";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
 export const CalendarPage = () => {
   const { events, getEvents } = useCalendarEventsStore((state) => state);
@@ -38,22 +40,30 @@ export const CalendarPage = () => {
   return (
     <>
       <Style.Container>
-        <Calendar
-          events={events}
-          height="750px"
-          dateClick={handleDateClick}
-          buttonText={{
-            month: "Month",
-            week: "Week",
-            day: "Day",
-          }}
-        />
-        <Style.CalendarSideMenu>
-          <LinkButton to="print">Print</LinkButton>
-          <div>
-            <CalendarFilter />
-          </div>
-        </Style.CalendarSideMenu>
+        <Typography as="h1" variant="h1" weight="semi-bold" color="orange-500">
+          Calendar
+        </Typography>
+
+        <Style.CalendarContainer>
+          <Calendar
+            events={events}
+            height="750px"
+            dateClick={handleDateClick}
+            buttonText={{
+              month: "Month",
+              week: "Week",
+              day: "Day",
+            }}
+          />
+          <Style.CalendarSideMenu>
+            <Button to="print" variant="orange">
+              Print
+            </Button>
+            <div>
+              <CalendarFilter />
+            </div>
+          </Style.CalendarSideMenu>
+        </Style.CalendarContainer>
       </Style.Container>
       <CalendarPopup
         position={position}
@@ -66,24 +76,42 @@ export const CalendarPage = () => {
 };
 
 const Style = {
-  Container: styled.div`
+  Container: styled.section`
     padding: 20px;
-    display: flex;
     gap: 40px;
-  `,
-  CalendarSideMenu: styled.div`
-    width: 250px;
+    height: 100vh;
+    margin-left: -32px;
+    padding: 88px 40px 0 104px;
     display: flex;
+    flex-direction: column;
     overflow: hidden;
+
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
+  `,
+  CalendarContainer: styled.div`
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    padding-bottom: 1vw;
+  `,
+  CalendarSideMenu: styled.aside`
+    padding-top: 1%;
+    margin-top: -1%;
+    overflow: hidden;
+    width: 25%;
+    display: flex;
     flex-direction: column;
     align-items: end;
-    row-gap: 64px;
+    row-gap: 3%;
 
     & > div {
-      flex: auto;
+      width: 90%;
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: end;
+      overflow: hidden;
       row-gap: 20px;
     }
   `,

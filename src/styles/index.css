@@ -12,6 +12,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --fc-button-active-bg-color: var(--yellow-500);
+  --fc-button-bg-color: rgba(255, 255, 255, 0.5);
+  --fc-today-bg-color: rgba(255, 255, 255, 0);
 }
 
 html,
