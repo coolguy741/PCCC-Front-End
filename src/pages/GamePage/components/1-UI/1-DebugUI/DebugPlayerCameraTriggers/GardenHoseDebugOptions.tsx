@@ -24,7 +24,7 @@ import {
   SOILCORNER_GARDENHOSE_ROUTE,
   TOOLRACK_GARDENHOSE_ROUTE,
 } from "../../../0-R3F/5-Constants/0-Garden/GARDEN_ROUTES";
-import DebugButton from "../DebugButton";
+import DebugButton from "../0-DebugButton/DebugButton";
 import DebugPlayerCameraTriggersStyleContainer from "./DebugPlayerCameraTriggersStyleContainer";
 
 const GardenHoseDebugOptions: FC = () => {

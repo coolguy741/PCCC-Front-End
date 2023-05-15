@@ -1,54 +1,32 @@
-import { FC, memo, useCallback, useRef } from "react";
-import { RefDivType, RefImageType } from "../../../../shared/Types/RefTypes";
-import {
-  animateHUDMenuOptionBGIn,
-  animateHUDMenuOptionBGOut,
-  animateHUDMenuOptionIconIn,
-  animateHUDMenuOptionIconOut,
-} from "./HUDMenuOptionAnimations";
+import { FC, memo } from "react";
 import { HUDMenuOptionDataType } from "./HUDMenuOptionData";
 import HUDMenuOptionStyleContainer from "./HUDMenuOptionStyleContainer";
+import { useHUDMenuOptionLogic } from "./useHUDMenuOptionLogic";
 
-interface HUDMenuOptionPropTypes {
+export interface HUDMenuOptionPropTypes {
   menuActive: boolean;
   optionData: HUDMenuOptionDataType;
+  setActiveHoveredHudMenuOption: (
+    activeHoveredHudMenuOption: string | null,
+  ) => void;
 }
 
 const HUDMenuOption: FC<HUDMenuOptionPropTypes> = ({
   optionData,
   menuActive,
+  setActiveHoveredHudMenuOption,
 }) => {
-  // Refs
-  const hudMenuOptionBGRef: RefDivType = useRef(null);
-  const hudMenuOptionIconRef: RefImageType = useRef(null);
-
-  // Handlers
-  const handlePointerOver = useCallback(() => {
-    if (
-      menuActive ||
-      !hudMenuOptionBGRef.current ||
-      !hudMenuOptionIconRef.current
-    ) {
-      return;
-    }
-    animateHUDMenuOptionBGIn(hudMenuOptionBGRef.current);
-    animateHUDMenuOptionIconIn(
-      hudMenuOptionIconRef.current,
-      optionData.animIconLanding,
-    );
-  }, [menuActive, optionData]);
-
-  const handlePointerOut = useCallback(() => {
-    if (
-      menuActive ||
-      !hudMenuOptionBGRef.current ||
-      !hudMenuOptionIconRef.current
-    ) {
-      return;
-    }
-    animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
-    animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
-  }, [menuActive]);
+  // Hooks
+  const {
+    handlePointerOut,
+    handlePointerOver,
+    hudMenuOptionBGRef,
+    hudMenuOptionIconRef,
+  } = useHUDMenuOptionLogic({
+    menuActive,
+    optionData,
+    setActiveHoveredHudMenuOption,
+  });
 
   return (
     <HUDMenuOptionStyleContainer

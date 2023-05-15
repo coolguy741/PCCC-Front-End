@@ -6,6 +6,11 @@ const DevelopmentModule = ({ set, get }: globalStateApiType) => {
     setDynamicEnvironmentMap: (newEnvironmentMap: string) => {
       set({ dynamicEnvironmentMap: newEnvironmentMap });
     },
+
+    isDebugUIVisible: false,
+    setIsDebugUIVisible: (isDebugUIVisible: boolean) => {
+      set({ isDebugUIVisible });
+    },
   };
 };
 

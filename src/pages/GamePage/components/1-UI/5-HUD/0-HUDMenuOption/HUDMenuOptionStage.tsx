@@ -12,9 +12,10 @@ import {
 
 const HUDMenuOptionStage: FC = () => {
   // Global State
-  const { menuActive } = useGlobalState(
+  const { menuActive, setActiveHoveredHudMenuOption } = useGlobalState(
     (state) => ({
       menuActive: state.menuActive,
+      setActiveHoveredHudMenuOption: state.setActiveHoveredHudMenuOption,
     }),
     shallow,
   );
@@ -24,18 +25,22 @@ const HUDMenuOptionStage: FC = () => {
       <HUDMenuOption
         menuActive={menuActive}
         optionData={InventoryHUDMenuOptionData}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
       />
       <HUDMenuOption
         menuActive={menuActive}
         optionData={RecipeBookHUDMenuOptionData}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
       />
       <HUDMenuOption
         menuActive={menuActive}
         optionData={SettingsHUDMenuOptionData}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
       />
       <HUDMenuOption
         menuActive={menuActive}
         optionData={GoalListHUDMenuOptionData}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
       />
     </Fragment>
   );
