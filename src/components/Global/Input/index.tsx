@@ -1,5 +1,6 @@
 import { forwardRef, Ref } from "react";
 import styled from "styled-components";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -12,14 +13,14 @@ export const Input = forwardRef(
 const Style = {
   Input: styled.input<InputProps>`
     width: ${({ width }) => (width ? width : "100%")};
-    height: ${({ height }) => (height ? height : "100%")};
+    height: ${({ height }) => (height ? height : "5vh")};
     background: var(--white);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 5px 15px;
+    padding: ${conv(5, "vh")} ${conv(15, "vw")};
     border: 1px solid white;
     transition: box-shadow 0.3s ease-out, border-color 0.3s ease-in;
-    font-size: 1em;
+    font-size: 2vh;
     line-height: 125%;
     color: #1d2433;
     cursor: pointer;
@@ -31,7 +32,7 @@ const Style = {
     }
 
     &::placeholder {
-      font-size: 100%;
+      font-size: 2vh;
       line-height: 125%;
       color: rgba(29, 36, 51, 0.8);
     }
@@ -43,7 +44,7 @@ const Style = {
     &:disabled {
       background: var(--neutral-100);
       border: 1px solid #e1e6ef;
-      box-shadow: 0px4px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     }
 
     &.has-error {

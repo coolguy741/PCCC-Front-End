@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -144,13 +145,14 @@ export const SignInForm = () => {
 
 const Container = styled(motion.main)`
   ${glassBackground}
-  width: 500px;
+  width: ${convertToRelativeUnit(500, "vw")};
+  height: 60vh;
 
   h1 {
     font-weight: 600;
-    font-size: 33px;
-    line-height: 40px;
-    margin-bottom: 32px;
+    font-size: ${convertToRelativeUnit(33, "vh")};
+    line-height: 125%;
+    margin-bottom: ${convertToRelativeUnit(32, "vh")};
   }
 
   form {
@@ -160,33 +162,33 @@ const Container = styled(motion.main)`
   }
 
   fieldset {
-    margin-bottom: 32px;
+    margin-bottom: ${convertToRelativeUnit(32, "vh")};
     &:last-of-type {
       margin-bottom: 0px;
     }
 
     label {
       font-weight: 500;
-      font-size: 16px;
-      line-height: 28px;
+      font-size: ${convertToRelativeUnit(16, "vh")};
+      line-height: 125%;
       color: var(--neutral-700);
     }
 
     input {
-      margin-top: 15px;
+      margin-top: ${convertToRelativeUnit(15, "vh")};
     }
   }
 
   p.forgot {
-    font-size: 15px;
-    line-height: 20px;
-    margin-top: 15px;
+    font-size: ${convertToRelativeUnit(15, "vh")};
+    line-height: 125%;
+    margin-top: ${convertToRelativeUnit(15, "vh")};
     width: 100%;
     color: var(--neutral-600);
     cursor: pointer;
   }
 
   button[type="submit"] {
-    margin-top: 56px;
+    margin-top: ${convertToRelativeUnit(56, "vh")};
   }
 `;
