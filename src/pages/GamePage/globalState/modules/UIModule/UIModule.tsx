@@ -11,6 +11,11 @@ const UIModule = ({ set, get }: globalStateApiType) => {
     },
 
     windowSize: new Vector2(),
+
+    activeHoveredHudMenuOption: null,
+    setActiveHoveredHudMenuOption: (newHoveredHudMenuOption: string | null) => {
+      set({ activeHoveredHudMenuOption: newHoveredHudMenuOption });
+    },
   };
 };
 

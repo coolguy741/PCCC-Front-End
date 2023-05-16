@@ -1,16 +1,12 @@
 import { FC, Fragment, memo } from "react";
-import InventoryHUDIcon from "../6-Inventory/InventoryHUDIcon";
-import RecipeBookHUDIcon from "../7-RecipeBook/RecipeBookHUDIcon";
-import SettingsHUDIcon from "../8-Settings/SettingsHUDIcon";
-import GoalListHUDIcon from "../9-GoalList/GoalListHUDIcon";
+import HUDMenuOptionStage from "./0-HUDMenuOption/HUDMenuOptionStage";
+import Inventory from "./1-Inventory/Inventory";
 
 const HUD: FC = () => {
   return (
     <Fragment>
-      <InventoryHUDIcon />
-      <RecipeBookHUDIcon />
-      <SettingsHUDIcon />
-      <GoalListHUDIcon />
+      <HUDMenuOptionStage />
+      <Inventory />
     </Fragment>
   );
 };

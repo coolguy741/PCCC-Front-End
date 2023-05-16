@@ -2,8 +2,7 @@ import { FC, Fragment, memo, useCallback, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { AchievementKeyType } from "../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
-import ActiveStateControllerButtonStyle from "./ActiveStateControllerButtonStyle";
-import ActiveStateControllerButtonStyleRun from "./ActiveStateControllerButtonStyleRun";
+import DebugButton from "../0-DebugButton/DebugButton";
 import ActiveStateControllerStyleContainer from "./ActiveStateControllerStyleContainer";
 import { InventoryTable } from "./InventoryTable";
 
@@ -20,7 +19,6 @@ const ActiveStateController: FC = () => {
     activeAchievements,
     activeGardenHotSpot,
     activeKitchenHotSpot,
-    // setUpdateActiveInventory,
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
@@ -30,7 +28,6 @@ const ActiveStateController: FC = () => {
       activeKitchenHotSpot: state.activeKitchenHotSpot,
       activeCamera: state.activeCamera,
       setActiveCamera: state.setActiveCamera,
-      // setUpdateActiveInventory: state.setUpdateActiveInventory,
     }),
     shallow,
   );
@@ -41,7 +38,6 @@ const ActiveStateController: FC = () => {
   }, []);
 
   const handleSetUpdateActiveInventory = useCallback(() => {
-    // setUpdateActiveInventory("Rake", true);
     if (activeCamera === "OrbitControls") {
       setActiveCamera("PlayerCamera");
     } else {
@@ -100,17 +96,27 @@ const ActiveStateController: FC = () => {
         </ActiveStateControllerStyleContainer>
       )}
 
-      <ActiveStateControllerButtonStyle
-        onClick={handleSetGlobalStateVisibility}
-      >
-        {activeStateVisible ? "Hide Active State" : "Show Active State"}
-      </ActiveStateControllerButtonStyle>
+      <DebugButton
+        debugButtonStyleObject={{
+          "--debug-button-right": "0",
+          "--debug-button-bottom": "0",
+          "--debug-button-position": "fixed",
+          "--debug-button-margin-bottom": "24rem",
+        }}
+        btnContent={activeStateVisible ? "HIDE STATE" : "SHOW STATE"}
+        btnAction={handleSetGlobalStateVisibility}
+      />
 
-      <ActiveStateControllerButtonStyleRun
-        onClick={handleSetUpdateActiveInventory}
-      >
-        Swap Cam
-      </ActiveStateControllerButtonStyleRun>
+      <DebugButton
+        debugButtonStyleObject={{
+          "--debug-button-right": "0",
+          "--debug-button-bottom": "0",
+          "--debug-button-position": "fixed",
+          "--debug-button-margin-bottom": "21rem",
+        }}
+        btnContent={"SWAP CAM"}
+        btnAction={handleSetUpdateActiveInventory}
+      />
     </Fragment>
   );
 };

@@ -16,9 +16,10 @@ import SceneHelpers from "../6-Helpers/SceneHelpers";
 
 const GameStage: FC = () => {
   // Global State
-  const { activeCamera } = useGlobalState(
+  const { activeCamera, isDebugUIVisible } = useGlobalState(
     (state) => ({
       activeCamera: state.activeCamera,
+      isDebugUIVisible: state.isDebugUIVisible,
     }),
     shallow,
   );
@@ -27,8 +28,8 @@ const GameStage: FC = () => {
   const { axes, perf, gizmo } = useControls({
     debugHelpers: folder({
       axes: false,
-      perf: false,
-      gizmo: false,
+      perf: true,
+      gizmo: true,
     }),
   });
 
@@ -49,9 +50,9 @@ const GameStage: FC = () => {
       <Environment />
       <SceneHelpers
         axes={axes}
-        perf={perf}
-        gizmo={gizmo}
         hotspotDebug={true}
+        perf={perf && isDebugUIVisible}
+        gizmo={gizmo && isDebugUIVisible}
         initOrbitPosition={GATE_POSITION}
         orbit={activeCamera === "OrbitControls"}
       />

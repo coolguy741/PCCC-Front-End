@@ -24,7 +24,7 @@ import {
   KITCHENVIEW_BIGTREE_ROUTE,
   PLANTBOX_BIGTREE_ROUTE,
 } from "../../../0-R3F/5-Constants/0-Garden/GARDEN_ROUTES";
-import DebugButton from "../DebugButton";
+import DebugButton from "../0-DebugButton/DebugButton";
 import DebugPlayerCameraTriggersStyleContainer from "./DebugPlayerCameraTriggersStyleContainer";
 
 const BigTreeDebugOptions: FC = () => {
