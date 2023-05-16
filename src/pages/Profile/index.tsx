@@ -15,7 +15,6 @@ import { UserProfileInfo } from "../../components/Profile/ProfileInfo";
 import { useAPI } from "../../hooks/useAPI";
 import MockData from "../../lib/mockData/profile/profile.json";
 import { useUserStore } from "../../stores/userStore";
-import { glassBackground } from "../../styles/helpers/glassBackground";
 import { STORAGE_KEY_JWT } from "../consts";
 import { achievements, groups } from "./dummy_data";
 
@@ -75,7 +74,7 @@ export const ProfilePage = () => {
       <section className="content-container">
         {true && (
           <>
-            <UserProfileInfo userData={userData} />
+            <UserProfileInfo userData={userData} settings={true} />
             <UserLessonAssesment userData={userData} />
             <UserGroups userData={userData} openGroupsModal={openGroupsModal} />
             <UserActivity userData={userData} />
@@ -181,7 +180,6 @@ const Style = {
     .groups,
     .activity,
     .lesson-assesment {
-      ${glassBackground};
       padding: 2vh 1.5vw;
       border-radius: 1rem;
       box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);

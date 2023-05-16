@@ -19,13 +19,7 @@ export function animatedbackgroundGradient(
   right2: string = right,
 ) {
   return css`
-    background: linear-gradient(
-      -45deg,
-      ${left},
-      ${right},
-      ${left2},
-      ${right2}
-    ) !important;
+    background: linear-gradient(-45deg, ${left}, ${right}, ${left2}, ${right2});
     background-size: 400% 400%;
     animation: ${animatedBackground} 15s ease infinite;
   `;

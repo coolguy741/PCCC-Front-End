@@ -24,9 +24,12 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          left: "prev,title,next",
+          left: "prev,next today",
+          center: "title",
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
+        buttonIcons={{ prev: "chevron-left", next: "chevron-right" }}
+        buttonText={{ today: "bla" }}
         {...props}
         longPressDelay={1000}
         eventLongPressDelay={1000}
@@ -38,9 +41,11 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         }}
         initialDate={new Date()}
         dayMaxEvents={true}
+        fixedWeekCount={false}
         eventContent={renderEventContent}
         allDaySlot={false}
         editable={true}
+        height="100%"
       />
     </Style.Container>
   );
@@ -48,50 +53,53 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
 
 const Style = {
   Container: styled.div`
-    width: 100%;
+    width: 75%;
+    height: 100%;
 
-    .fc-toolbar-chunk {
-      background: #2c3e50;
-
-      .fc-button {
-        &.fc-prev-button,
-        &.fc-next-button {
-          &:focus {
-            box-shadow: none;
-          }
-          margin-bottom: 10px;
-          span {
-            &:hover {
-              background: #999999;
-            }
-            border-radius: 100%;
-            background: #d9d9d9;
-            color: var(--black);
-          }
-        }
-
-        &:hover {
-          border-color: #2c3e50;
-          background: #2c3e50;
-        }
+    .fc {
+      .fc-scrollgrid {
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(59.2764px);
+        border-radius: 1.2rem;
       }
-      .fc-toolbar-title {
-        color: white;
-        display: inline-block;
-        margin: 0;
-        padding: 20px;
-      }
-    }
 
-    .fc-daygrid-day:hover {
-      background: #bce0f5;
-    }
-
-    @media only screen and (max-width: 1440px) {
-      .fc-header-toolbar.fc-toolbar {
+      thead div {
+        height: 2.5rem;
         display: flex;
-        gap: 10px;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+      }
+
+      .fc-button-group,
+      .fc-today-button {
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .fc-today-button {
+        background-color: var(--yellow-500);
+        opacity: 1;
+      }
+
+      .fc-daygrid-day {
+        a {
+          width: 2rem;
+          height: 2rem;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0.3rem;
+        }
+      }
+
+      & .fc-day-today {
+        a {
+          background-color: var(--yellow-500);
+          border-radius: 20px;
+        }
       }
     }
   `,

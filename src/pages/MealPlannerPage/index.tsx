@@ -26,8 +26,8 @@ export const MealPlannerPage = () => {
 
 const Style = {
   PageContainer: styled.div`
-    margin-left: 32px;
-    padding: 108px 40px 0 40px;
+    margin-left: -32px;
+    padding: 88px 40px 0 104px;
     display: flex;
     height: 100vh;
     flex-direction: column;
