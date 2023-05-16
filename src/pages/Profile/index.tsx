@@ -74,7 +74,7 @@ export const ProfilePage = () => {
       <section className="content-container">
         {true && (
           <>
-            <UserProfileInfo userData={userData} />
+            <UserProfileInfo userData={userData} settings={true} />
             <UserLessonAssesment userData={userData} />
             <UserGroups userData={userData} openGroupsModal={openGroupsModal} />
             <UserActivity userData={userData} />

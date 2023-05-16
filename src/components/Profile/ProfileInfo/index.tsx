@@ -1,13 +1,28 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+import { Icon } from "../../Global/Icon";
 import { OrangeBG } from "../../Icons";
 
-export function UserProfileInfo({ userData }: any) {
+export function UserProfileInfo({
+  userData,
+  settings = false,
+}: {
+  userData: any;
+  settings?: boolean;
+}) {
   return (
     <Style.Container className="user-info">
       <div className="user-bg">
         <OrangeBG width="261" height="251" />
       </div>
+      {settings && (
+        <div className="settings-icon">
+          <Link to="./settings">
+            <Icon name="settings" />
+          </Link>
+        </div>
+      )}
       <figure></figure>
       {userData.role === "Standard" ? (
         <div className="user-content">
@@ -99,6 +114,13 @@ const Style = {
       border-radius: 50%;
       border: 2px solid white;
       margin-right: 5%;
+    }
+
+    .settings-icon {
+      position: absolute;
+      right: 2.66vh;
+      top: 2.66vh;
+      z-index: 2;
     }
   `,
 };

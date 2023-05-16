@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { MathUtils, Vector2 } from "three";
+import { Vector2 } from "three";
 import { DampVector2 } from "../../../../shared/Utility/UtilityFunctions";
 
 const cursorCanvasCenterOffset = new Vector2(50, 35);
@@ -12,8 +12,6 @@ const cursorCanvasFinalFollowLocation: Vector2 = new Vector2();
 const cursorCanvasDampedFollowLocation: Vector2 = new Vector2();
 const cursorCanvasTempCopyCurrentLocation: Vector2 = new Vector2();
 const cursorCanvasStyles: CSSProperties = { pointerEvents: "none" };
-
-const devicePixelRatio: number = MathUtils.clamp(window.devicePixelRatio, 1, 2);
 
 const handleSetCursorCanvasLocation = (cursorLocation: Vector2): void => {
   cursorCanvasFollowLocation.set(
@@ -43,7 +41,6 @@ const handleUpdateCursorCanvasElementLocation = (
 };
 
 export {
-  devicePixelRatio,
   cursorCanvasStyles,
   cursorCanvasCenterOffset,
   cursorCanvasToMenuOffset,

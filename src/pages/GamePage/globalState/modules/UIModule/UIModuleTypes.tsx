@@ -5,4 +5,8 @@ export interface UIModuleTypes {
   isCursorDown: boolean;
   cursorLocation: Vector2;
   setIsCursorDown: (isCursorDown: boolean) => void;
+  activeHoveredHudMenuOption: null | string;
+  setActiveHoveredHudMenuOption: (
+    newHoveredHudMenuOption: string | null,
+  ) => void;
 }

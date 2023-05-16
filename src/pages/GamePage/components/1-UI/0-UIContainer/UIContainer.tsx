@@ -1,5 +1,6 @@
-import { FC, Fragment, memo, useState } from "react";
-import DebugButton from "../1-DebugUI/DebugButton";
+import { FC, Fragment, memo } from "react";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../globalState/useGlobalState";
 import DebugUIContainer from "../1-DebugUI/DebugUIContainer";
 import useWindowFocusBlur from "../10-Hooks/useWindowFocusBlur";
 import useWindowResize from "../10-Hooks/useWindowResize";
@@ -9,37 +10,22 @@ import { onWindowBlur, onWindowFocus } from "../4-Cursor/CursorDefines";
 import HUD from "../5-HUD/HUD";
 
 const UIContainer: FC = () => {
-  // Local State
-  const [isDebugUIVisible, setIsDebugUIVisible] = useState(false);
-
+  // Global State
+  const { isDebugUIVisible } = useGlobalState(
+    (state) => ({
+      isDebugUIVisible: state.isDebugUIVisible,
+    }),
+    shallow,
+  );
   // Hooks
   useWindowResize();
   useWindowFocusBlur(onWindowFocus, onWindowBlur);
 
   return (
     <Fragment>
+      {!isDebugUIVisible && <HUD />}
+      <DebugUIContainer />
       <ToolTip />
-
-      <div
-        style={{
-          position: "fixed",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          bottom: 0,
-          right: 0,
-          marginBottom: "2.5rem",
-        }}
-      >
-        <DebugButton
-          btnContent={isDebugUIVisible ? "SHOW HUD" : "SHOW DEBUG"}
-          btnAction={() => setIsDebugUIVisible((prev) => !prev)}
-        />
-      </div>
-
-      {isDebugUIVisible ? <DebugUIContainer /> : <HUD />}
-
       <Cursor />
     </Fragment>
   );
