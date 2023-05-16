@@ -206,13 +206,9 @@ const Style = {
     }
 
     .header-right {
-<<<<<<< HEAD
-      gap: 2rem;
-=======
       width: ${({ userAvailable }) => (userAvailable ? "32%" : "60%")};
       justify-content: ${({ userAvailable }) =>
         userAvailable ? "space-between" : "flex-end"};
->>>>>>> dev
 
       .header-alert {
         height: 100%;
