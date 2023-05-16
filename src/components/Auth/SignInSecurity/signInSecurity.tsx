@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -163,31 +164,31 @@ export const SignInSecurity = () => {
 const Style = {
   Container: styled(motion.form)`
     ${glassBackground};
-    width: 650px;
+    width: ${convertToRelativeUnit(650, "vw")};
 
     h1 {
       font-weight: 600;
-      font-size: 33px;
-      line-height: 40px;
+      font-size: ${convertToRelativeUnit(32, "vh")};
+      line-height: 125%;
       color: var(--neutral-900);
-      margin-bottom: 12px;
+      margin-bottom: ${convertToRelativeUnit(12, "vh")};
     }
 
     p.security-info {
       display: flex;
       align-items: center;
-      font-size: 16px;
-      line-height: 20px;
+      font-size: ${convertToRelativeUnit(16, "vh")};
+      line-height: 125%;
       color: var(--neutral-700);
-      margin-bottom: 32px;
+      margin-bottom: ${convertToRelativeUnit(32, "vh")};
 
       svg {
-        margin-right: 12px;
+        margin-right: ${convertToRelativeUnit(12, "vh")};
       }
     }
 
     fieldset {
-      margin-bottom: 20px;
+      margin-bottom: ${convertToRelativeUnit(20, "vh")};
 
       label {
         display: flex;
@@ -196,15 +197,15 @@ const Style = {
 
         span:first-of-type {
           font-weight: 500;
-          font-size: 20px;
-          line-height: 25px;
+          font-size: ${convertToRelativeUnit(20, "vh")};
+          line-height: 125%;
           color: var(--neutral-700);
         }
 
         span:last-of-type {
           font-weight: 500;
-          font-size: 19px;
-          line-height: 24px;
+          font-size: ${convertToRelativeUnit(19, "vh")};
+          line-height: 125%;
           color: var(--neutral-700);
           width: 70%;
         }
@@ -214,12 +215,12 @@ const Style = {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-top: 12px;
-        height: 52px;
+        margin-top: ${convertToRelativeUnit(12, "vh")};
+        height: ${convertToRelativeUnit(52, "vh")};
 
         p {
-          font-size: 20px;
-          line-height: 25px;
+          font-size: ${convertToRelativeUnit(20, "vh")};
+          line-height: 125%;
           color: var(--neutral-700);
           font-weight: 500;
         }
@@ -227,7 +228,7 @@ const Style = {
     }
 
     button {
-      margin-top: 30px;
+      margin-top: ${convertToRelativeUnit(30, "vh")};
     }
   `,
 };

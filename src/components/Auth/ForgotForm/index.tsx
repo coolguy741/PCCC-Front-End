@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -110,7 +111,6 @@ export const ForgotForm = () => {
               }}
               render={({ field }) => (
                 <Input
-                  height="52px"
                   className={errors.username ? "has-error" : ""}
                   type="text"
                   id="username"
@@ -127,7 +127,6 @@ export const ForgotForm = () => {
               }}
               render={({ field }) => (
                 <Input
-                  height="52px"
                   className={errors.email ? "has-error" : ""}
                   type="email"
                   id="email"
@@ -157,46 +156,45 @@ export const ForgotForm = () => {
 const Style = {
   Container: styled(motion.main)`
     ${glassBackground};
-    width: 550px;
+    width: ${convertToRelativeUnit(550, "vw")};
 
     h1 {
       font-weight: 600;
-      font-size: 25px;
-      line-height: 30px;
+      font-size: ${convertToRelativeUnit(25, "vh")};
       color: var(--neutral-900);
-      margin-bottom: 24px;
+      margin-bottom: ${convertToRelativeUnit(24, "vh")};
     }
 
     p {
       font-weight: 500;
-      font-size: 16px;
-      line-height: 20px;
+      font-size: ${convertToRelativeUnit(16, "vh")};
+      line-height: 125%;
       color: var(--neutral-700);
-      margin-bottom: 32px;
+      margin-bottom: ${convertToRelativeUnit(32, "vh")};
     }
 
     fieldset {
       label {
         font-weight: 500;
-        font-size: 15px;
-        line-height: 20px;
+        font-size: ${convertToRelativeUnit(15, "vh")};
+        line-height: 125%;
         color: var(--neutral-700);
       }
 
       input {
-        margin-top: 12px;
+        margin: ${convertToRelativeUnit(12, "vh")} 0;
       }
     }
 
     span {
-      font-size: 15px;
-      line-height: 20px;
-      margin-top: 12px;
+      font-size: ${convertToRelativeUnit(15, "vh")};
+      line-height: 125%;
+      margin-top: ${convertToRelativeUnit(12, "vh")};
       color: var(--neutral-600);
     }
 
     button {
-      margin-top: 56px;
+      margin-top: ${convertToRelativeUnit(56, "vh")};
     }
   `,
 };

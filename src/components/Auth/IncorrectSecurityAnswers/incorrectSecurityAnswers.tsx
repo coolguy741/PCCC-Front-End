@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 
@@ -23,25 +24,25 @@ export const IncorrectSecurityAnswers = () => {
 const Style = {
   Container: styled(motion.main)`
     ${glassBackground};
-    width: 500px;
+    width: ${convertToRelativeUnit(500, "vw")};
     height: auto;
 
     h1 {
       font-weight: 600;
-      font-size: 25px;
-      line-height: 30px;
-      margin-bottom: 24px;
+      font-size: ${convertToRelativeUnit(25, "vh")};
+      line-height: 125%;
+      margin-bottom: ${convertToRelativeUnit(24, "vh")};
     }
 
     p {
       font-weight: 500;
-      font-size: 16px;
-      line-height: 20px;
+      font-size: ${convertToRelativeUnit(16, "vh")};
+      line-height: 125%;
       color: var(--neutral-700);
     }
 
     button {
-      margin-top: 40px;
+      margin-top: ${convertToRelativeUnit(40, "vh")};
     }
   `,
 };
