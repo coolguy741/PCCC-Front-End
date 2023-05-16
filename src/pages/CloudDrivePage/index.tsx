@@ -112,43 +112,48 @@ export const CloudDrivePage = () => {
             </Button>
           </div>
           <div className="content">
-            <Style.Table>
-              <thead>
-                <tr>
-                  <th className="name">Name</th>
-                  <th className="sharing">Sharing</th>
-                  <th className="size">Size</th>
-                  <th className="date">Date</th>
-                  <th className="actions"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {Files.map((file: any, index: number) => (
-                  <tr key={index}>
-                    <td className="name">
-                      <div className="icon-container">
-                        <Icon name={file.icon + "-dark-outlined"} />
-                      </div>
-                      <p>
-                        <b>{file.name}</b>
-                        {"." + file.fileNameExtension}
-                      </p>
-                    </td>
-                    <td className="sharing">{file.sharing}</td>
-                    <td className="size">{file.size}</td>
-                    <td className="date">{file.date}</td>
-                    <td className="actions">
-                      <SharingIcon fill={"var(--neutral-600)"} width={"20px"} />
-                      <DownloadIcon
-                        fill={"var(--neutral-600)"}
-                        width={"20px"}
-                      />
-                      <TrashIcon fill={"var(--neutral-600)"} width={"20px"} />
-                    </td>
+            <Style.ScrollContainer>
+              <Style.Table>
+                <thead>
+                  <tr>
+                    <th className="name">Name</th>
+                    <th className="sharing">Sharing</th>
+                    <th className="size">Size</th>
+                    <th className="date">Date</th>
+                    <th className="actions"></th>
                   </tr>
-                ))}
-              </tbody>
-            </Style.Table>
+                </thead>
+                <tbody>
+                  {Files.map((file: any, index: number) => (
+                    <tr key={index}>
+                      <td className="name">
+                        <div className="icon-container">
+                          <Icon name={file.icon + "-dark-outlined"} />
+                        </div>
+                        <p>
+                          <b>{file.name}</b>
+                          {"." + file.fileNameExtension}
+                        </p>
+                      </td>
+                      <td className="sharing">{file.sharing}</td>
+                      <td className="size">{file.size}</td>
+                      <td className="date">{file.date}</td>
+                      <td className="actions">
+                        <SharingIcon
+                          fill={"var(--neutral-600)"}
+                          width={"20px"}
+                        />
+                        <DownloadIcon
+                          fill={"var(--neutral-600)"}
+                          width={"20px"}
+                        />
+                        <TrashIcon fill={"var(--neutral-600)"} width={"20px"} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Style.Table>
+            </Style.ScrollContainer>
           </div>
         </Style.Files>
       </div>
@@ -194,7 +199,6 @@ const Style = {
 
     .folders-files-container {
       width: 75%;
-      height: 100%;
       display: flex;
       flex-direction: column;
       gap: 2.66vh;
@@ -212,11 +216,36 @@ const Style = {
       justify-content: space-between;
     }
   `,
+
+  Files: styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.33vh;
+    .title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .content {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(59.2764px);
+      padding: 2vh;
+      padding-right: 3vh;
+      overflow: hidden;
+    }
+  `,
   Table: styled.table`
     width: 100%;
     font-weight: 500;
     color: var(--neutral-400);
     border-collapse: collapse;
+    padding-right: 2vh;
 
     thead {
       font-weight: 1.5vh;
@@ -309,27 +338,11 @@ const Style = {
       }
     }
   `,
-  Files: styled.div`
+  ScrollContainer: styled.div`
+    overflow-y: auto;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.33vh;
-
-    .title-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .content {
-      width: 100%;
-      height: 100%;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.5);
-      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(59.2764px);
-      padding: 2vh;
-    }
+    padding-right: 1.33vh;
+    margin-right: -2vh;
   `,
   CloudStorage: styled.div`
     flex-grow: 1;
