@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import { useAPI } from "../../../hooks/useAPI";
 import { useSignUpStore } from "../../../stores/signUpStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -350,17 +351,21 @@ const Style = {
 
     h1 {
       font-weight: 600;
-      font-size: 36px;
-      line-height: 44px;
-      margin-bottom: 24px;
+      font-size: ${convertToRelativeUnit(36, "vh")};
+      margin-bottom: ${convertToRelativeUnit(24, "vh")};
     }
 
     h2 {
       font-weight: 600;
-      font-size: 25px;
-      line-height: 30px;
+      font-size: ${convertToRelativeUnit(25, "vh")};
       color: var(--neutral-900);
-      margin-bottom: 24px;
+      margin-bottom: ${convertToRelativeUnit(24, "vh")};
+    }
+
+    label {
+      color: var(--neutral-700);
+      font-weight: 400;
+      font-size: ${convertToRelativeUnit(16, "vh")};
     }
 
     .sign-up-password {
@@ -369,35 +374,31 @@ const Style = {
 
       p {
         display: flex;
-        font-size: 16px;
-        line-height: 24px;
+        font-size: ${convertToRelativeUnit(16, "vh")};
         color: var(--neutral-700);
+        position: relative;
+        align-items: center;
 
         svg {
-          margin-right: 15px;
+          margin-right: ${convertToRelativeUnit(15, "vw")};
+          width: ${convertToRelativeUnit(24, "vh")};
+          aspect-ratio: 1 / 1;
         }
       }
 
       .password {
         ${glassBackground};
-        margin-top: 35px;
+        margin-top: ${convertToRelativeUnit(35, "vh")};
       }
 
       // TODO: Make unique component, avoid repetition.
       fieldset {
         width: 100%;
-        height: 52px;
+        height: ${convertToRelativeUnit(52, "vh")};
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 15px;
-
-        label {
-          color: var(--neutral-700);
-          font-weight: 400;
-          font-size: 1rem;
-          line-height: 25px;
-        }
+        margin-bottom: ${convertToRelativeUnit(15, "vh")};
       }
     }
 
@@ -408,21 +409,20 @@ const Style = {
 
       h2 {
         font-weight: 600;
-        font-size: 33px;
-        line-height: 40px;
+        font-size: ${convertToRelativeUnit(33, "vh")};
       }
 
       & > fieldset {
         display: flex;
-        height: 52px;
-        margin-bottom: 24px;
+        height: ${convertToRelativeUnit(52, "vh")};
+        margin-bottom: ${convertToRelativeUnit(24, "vh")};
         align-items: center;
         justify-content: space-between;
       }
 
       button {
         margin-left: auto;
-        margin-top: 52px;
+        height: ${convertToRelativeUnit(52, "vh")};
       }
     }
   `,
