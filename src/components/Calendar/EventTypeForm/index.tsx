@@ -1,5 +1,7 @@
 import { ChangeEvent } from "react";
 
+import styled from "styled-components";
+import { Select } from "../../Global/Select";
 import { EventType } from "../Popup";
 
 interface IEventTypeForm {
@@ -19,30 +21,48 @@ export const EventTypeForm: React.FC<IEventTypeForm> = ({ setEventType }) => {
   };
 
   return (
-    <>
-      <div>
+    <Style.Container>
+      <div className="row">
         <div>
           <label>Add</label>
         </div>
-        <select name="activity" onChange={handleChange}>
+        <Select name="activity" onChange={handleChange} height="2.5rem">
           <option value="">-</option>
           <option value="activity">Activity</option>
           <option value="recipe">Recipe</option>
           <option value="assessment">Assessment</option>
           <option value="mealtime-moments">Mealtime Moments</option>
           <option value="foodways">Foodways</option>
-        </select>
+        </Select>
       </div>
-      <div>
+      <div className="row">
         <div>
           <label>Publish</label>
         </div>
-        <select name="publish" onChange={handleChange}>
+        <Select name="publish" onChange={handleChange} height="2.5rem">
           <option value="">-</option>
           <option value="mealtime-moments">Mealtime Moments</option>
           <option value="foodways">Foodways</option>
-        </select>
+        </Select>
       </div>
-    </>
+    </Style.Container>
   );
+};
+
+const Style = {
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .row {
+      label {
+        font-size: 1.1rem;
+      }
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  `,
 };
