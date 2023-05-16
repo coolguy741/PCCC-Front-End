@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
-import Button from "../../Button";
+import { ButtonRow } from "../../Global/ButtonRow";
 import { AddNoteForm } from "../AddNoteForm";
 
 export interface EventType {
@@ -66,6 +66,8 @@ export const CalendarPopup: React.FC<Props> = ({
     setType("");
   };
 
+  console.log(type);
+
   return (
     <Style.Container
       isOpen={isOpen}
@@ -78,10 +80,22 @@ export const CalendarPopup: React.FC<Props> = ({
       <div className="popup-container">
         <div className="popup">
           <div className="btn-container">
-            <Button onClick={() => setType("note")}>Add note</Button>
-            <Button onClick={() => setType("publish")}>Publish</Button>
+            <ButtonRow>
+              <button
+                className={type === "note" ? "active" : ""}
+                onClick={() => setType("note")}
+              >
+                Add note
+              </button>
+              <button
+                className={type === "publish" ? "active" : ""}
+                onClick={() => setType("publish")}
+              >
+                Publish
+              </button>
+            </ButtonRow>
           </div>
-          {type === "note" && <AddNoteForm />}
+          {type === "note" && <AddNoteForm selectedDate={selectedDate} />}
           {/* {type && <EventTypeForm setEventType={setEventType} />}
           {eventType && (
             <EventForm eventType={eventType} addEvent={handleAddEvent} />
@@ -135,7 +149,7 @@ const Style = {
           position?.xPos === "right" ? width - position?.x : position?.x
         }px;
       `}
-      width: ${({ popupSize }) => `${popupSize === "sm" ? 300 : 500}px;`};
+      width: ${({ popupSize }) => `${popupSize === "sm" ? 450 : 500}px;`};
       position: fixed;
       z-index: 10;
 
