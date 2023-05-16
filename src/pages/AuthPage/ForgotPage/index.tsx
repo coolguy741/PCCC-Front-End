@@ -1,24 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { ForgotForm } from "../../../components/Auth/ForgotForm";
-import { ResetPasswordForm } from "../../../components/Auth/ResetPasswordForm";
-import { SignInSecurity } from "../../../components/Auth/SignInSecurity/signInSecurity";
 import { BackButton } from "../../../components/Global/BackButton";
-import { AppleBG, OrangeBG } from "../../../components/Icons";
-import { AuthLayout } from "../../../layouts/AuthLayout/authLayout";
+import { AppleBG } from "../../../components/Icons";
 import { useSignInStore } from "../../../stores/signInStore";
-import { rightSideAnimationProps } from "../../../styles/animations/auth";
-
-const FORGOT_VIEW_ARR = [
-  <ForgotForm key="forgot" />,
-  <SignInSecurity key="security" />,
-  <ResetPasswordForm />,
-];
-
-const FORGOT_BG_ARR = [
-  <OrangeBG key="login" layout {...rightSideAnimationProps} />,
-  <AppleBG key="forgot" layout />,
-  <OrangeBG />,
-];
+import { animationProps } from "../../../styles/animations/auth";
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate();
@@ -34,13 +19,13 @@ export const ForgotPasswordPage = () => {
   };
 
   return (
-    <AuthLayout>
+    <>
       <span className="auth-breadcrumb">
         <BackButton onClick={clickHandler} />
       </span>
-      {FORGOT_VIEW_ARR[currentStep]}
 
-      <div className="auth-image">{FORGOT_BG_ARR[currentStep]}</div>
-    </AuthLayout>
+      <ForgotForm key="forgot" />
+      <AppleBG key="forgot" layout {...animationProps} />
+    </>
   );
 };

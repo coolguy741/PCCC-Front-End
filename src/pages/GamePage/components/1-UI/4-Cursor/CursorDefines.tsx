@@ -1,8 +1,8 @@
-const onWindowFocus = () => {
+const onWindowFocus = (): void => {
   document.body.style.cursor = "none";
 };
 
-const onWindowBlur = () => {
+const onWindowBlur = (): void => {
   document.body.style.cursor = "default";
 };
 

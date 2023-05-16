@@ -80,7 +80,7 @@ export const AgeGate = () => {
               render={({ field }) => (
                 <Input
                   width="15%"
-                  height="4vh"
+                  height="5vh"
                   placeholder="MM"
                   data-testid="month"
                   type="number"
@@ -103,7 +103,7 @@ export const AgeGate = () => {
               render={({ field }) => (
                 <Input
                   width="15%"
-                  height="4vh"
+                  height="5vh"
                   placeholder="DD"
                   className={errors.date ? "has-error" : ""}
                   data-testid="date"
@@ -123,7 +123,7 @@ export const AgeGate = () => {
               render={({ field }) => (
                 <Input
                   width="18%"
-                  height="4vh"
+                  height="5vh"
                   placeholder="YYYY"
                   type="number"
                   data-testid="year"
@@ -149,7 +149,7 @@ export const AgeGate = () => {
                 width="100%"
                 placeholder="Ontario"
                 data-testid="province"
-                height="4vh"
+                height="5vh"
                 {...field}
                 min="1900"
                 max="2023"
@@ -206,6 +206,7 @@ const Style = {
     h2 {
       margin-top: 1.75vh;
       margin-bottom: 1.25vh;
+      font-size: 3vh;
     }
 
     form {

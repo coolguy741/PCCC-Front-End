@@ -16,9 +16,10 @@ import SceneHelpers from "../6-Helpers/SceneHelpers";
 
 const GameStage: FC = () => {
   // Global State
-  const { activeCamera } = useGlobalState(
+  const { activeCamera, isDebugUIVisible } = useGlobalState(
     (state) => ({
       activeCamera: state.activeCamera,
+      isDebugUIVisible: state.isDebugUIVisible,
     }),
     shallow,
   );
@@ -35,6 +36,7 @@ const GameStage: FC = () => {
   return (
     <Fragment>
       <Garden />
+      {/* <Kitchen /> */}
       <InteractiveGameEntity name={"Berries"} pos={BIGTREE_LOOKAT_POSITION} />
       <InteractiveGameEntity name={"Branches"} pos={TOOLRACK_LOOKAT_POSITION} />
       <InteractiveGameEntity
@@ -48,9 +50,9 @@ const GameStage: FC = () => {
       <Environment />
       <SceneHelpers
         axes={axes}
-        perf={perf}
-        gizmo={gizmo}
         hotspotDebug={true}
+        perf={perf && isDebugUIVisible}
+        gizmo={gizmo && isDebugUIVisible}
         initOrbitPosition={GATE_POSITION}
         orbit={activeCamera === "OrbitControls"}
       />

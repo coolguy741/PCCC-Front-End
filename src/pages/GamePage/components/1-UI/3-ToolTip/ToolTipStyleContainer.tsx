@@ -8,7 +8,7 @@ const ToolTipStyleContainer = styled.div`
   ${UserSelectNone};
   ${MarginPaddingNone};
   ${DisableTouchPointerEvents}
-  // opacity: 0;
+  opacity: 0;
   color: white;
   position: fixed;
   font-weight: bold;

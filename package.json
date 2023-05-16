@@ -16,6 +16,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@amir04lm26/react-modern-calendar-date-picker": "^1.0.1",
     "@fullcalendar/core": "^6.1.5",
     "@fullcalendar/daygrid": "^6.1.5",
     "@fullcalendar/interaction": "^6.1.5",
@@ -40,7 +41,6 @@
     "react-fps-stats": "^0.3.1",
     "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.8.1",
-    "rsuite": "^5.33.0",
     "styled-components": "^5.3.10",
     "swagger-typescript-api": "^12.0.4",
     "swiper": "^9.2.3",

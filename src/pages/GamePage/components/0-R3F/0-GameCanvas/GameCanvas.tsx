@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
-import { FC, memo, ReactNode, Suspense, useMemo } from "react";
-import { MathUtils } from "three";
+import { FC, memo, ReactNode, Suspense } from "react";
+import { devicePixelRatio } from "../../../shared/Consts/CanvasParams";
 import { GLParameters } from "../../../shared/Consts/GLParameters";
 
 interface GameCanvasPropTypes {
@@ -8,10 +8,6 @@ interface GameCanvasPropTypes {
 }
 
 const GameCanvas: FC<GameCanvasPropTypes> = ({ children }) => {
-  const devicePixelRatio = useMemo(() => {
-    return MathUtils.clamp(window.devicePixelRatio, 1, 2);
-  }, []);
-
   return (
     <Canvas shadows gl={GLParameters} dpr={devicePixelRatio}>
       <Suspense fallback={null}>{children}</Suspense>

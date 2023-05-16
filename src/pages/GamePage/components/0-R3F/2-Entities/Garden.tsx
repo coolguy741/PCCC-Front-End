@@ -4,9 +4,11 @@ Command: npx gltfjsx@6.1.3 pccc_garden_merged_v003.glb --transform --precision=1
 */
 
 import { useGLTF } from "@react-three/drei";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../globalState/useGlobalState";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -59,8 +61,21 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
   const { nodes, materials } = useGLTF(
     "/game_assets/models/pccc_garden_merged_v003-transformed.glb",
   ) as GLTFResult;
+
+  // Global State
+  const { setMenuActive } = useGlobalState(
+    (state) => ({
+      setMenuActive: state.setMenuActive,
+    }),
+    shallow,
+  );
+
+  const handleTempMenuExit = useCallback(() => {
+    setMenuActive(false);
+  }, [setMenuActive]);
+
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} onClick={handleTempMenuExit}>
       <group
         name="MergedEnvironment001"
         rotation={[Math.PI / 2, 0, 0]}

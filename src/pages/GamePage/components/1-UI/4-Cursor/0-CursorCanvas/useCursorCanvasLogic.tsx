@@ -12,12 +12,12 @@ import {
   animateCursorCanvasToMenuPosition,
 } from "./CursorCanvasAnimations";
 import {
-  cursorCanvasCenterXOffset,
-  cursorCanvasCenterYOffset,
+  cursorCanvasCenterOffset,
   cursorCanvasDampedFollowLocation,
   cursorCanvasFollowLocation,
   cursorCanvasTempCopyCurrentLocation,
   handleDampCursorCanvasLocation,
+  handleSetCursorCanvasLocation,
   handleUpdateCursorCanvasElementLocation,
   handleUpdateCursorCanvasFinalLocation,
 } from "./CursorCanvasDefines";
@@ -38,7 +38,7 @@ const useCursorCanvasLogic = () => {
   );
 
   // Handlers
-  const handleAnimateCursorToMenuPosition = useCallback(() => {
+  const handleAnimateCursorToMenuPosition = useCallback((): void => {
     if (!menuActive || !enableOnFrameFollow.current) return;
 
     enableOnFrameFollow.current = false;
@@ -55,7 +55,7 @@ const useCursorCanvasLogic = () => {
     );
   }, [menuActive, cursorLocation]);
 
-  const handleAnimateCursorToFollowPosition = useCallback(() => {
+  const handleAnimateCursorToFollowPosition = useCallback((): void => {
     if (menuActive || enableOnFrameFollow.current) return;
 
     enableOnFrameFollow.current = true;
@@ -64,18 +64,20 @@ const useCursorCanvasLogic = () => {
       cursorCanvasTempCopyCurrentLocation.copy(cursorLocation);
 
     cursorCanvasFollowLocation.set(
-      currentCursorLocation.x - cursorCanvasCenterXOffset,
-      currentCursorLocation.y - cursorCanvasCenterYOffset,
+      currentCursorLocation.x - cursorCanvasCenterOffset.x,
+      currentCursorLocation.y - cursorCanvasCenterOffset.y,
     );
 
     animateCursorCanvasToFollowPosition(cursorCanvasDampedFollowStepRef);
   }, [menuActive, cursorLocation]);
 
   const handleCursorCanvasAnimationFrame = useCallback(
-    (time: number, delta: number) => {
+    (time: number, delta: number): void => {
       if (!cursorCanvasRef.current) return;
 
       if (enableOnFrameFollow.current) {
+        handleSetCursorCanvasLocation(cursorLocation);
+
         handleDampCursorCanvasLocation(
           delta,
           cursorCanvasDampedFollowStepRef.current,
@@ -86,7 +88,7 @@ const useCursorCanvasLogic = () => {
 
       handleUpdateCursorCanvasElementLocation(cursorCanvasRef.current);
     },
-    [],
+    [cursorLocation],
   );
 
   // Listeners

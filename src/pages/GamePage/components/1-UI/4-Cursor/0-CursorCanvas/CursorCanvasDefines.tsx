@@ -1,12 +1,11 @@
 import { CSSProperties } from "react";
-import { MathUtils, Vector2 } from "three";
+import { Vector2 } from "three";
 import { DampVector2 } from "../../../../shared/Utility/UtilityFunctions";
 
-const cursorCanvasCenterXOffset = 35;
-const cursorCanvasCenterYOffset = 20;
-const cursorCanvasToMenuXOffset = 50;
-const cursorCanvasToMenuYOffset = 70;
-const cursorCanvasDampedFollowLocationStep = 0.01;
+const cursorCanvasCenterOffset = new Vector2(50, 35);
+const cursorCanvasToMenuOffset = new Vector2(65, 90);
+
+const cursorCanvasDampedFollowLocationStep = 0.1;
 
 const cursorCanvasFollowLocation: Vector2 = new Vector2();
 const cursorCanvasFinalFollowLocation: Vector2 = new Vector2();
@@ -14,12 +13,10 @@ const cursorCanvasDampedFollowLocation: Vector2 = new Vector2();
 const cursorCanvasTempCopyCurrentLocation: Vector2 = new Vector2();
 const cursorCanvasStyles: CSSProperties = { pointerEvents: "none" };
 
-const devicePixelRatio: number = MathUtils.clamp(window.devicePixelRatio, 1, 2);
-
-const handleSetCursorCanvasLocation = (event: MouseEvent): void => {
+const handleSetCursorCanvasLocation = (cursorLocation: Vector2): void => {
   cursorCanvasFollowLocation.set(
-    event.clientX - cursorCanvasCenterXOffset,
-    event.clientY - cursorCanvasCenterYOffset,
+    cursorLocation.x - cursorCanvasCenterOffset.x,
+    cursorLocation.y - cursorCanvasCenterOffset.y,
   );
 };
 
@@ -44,12 +41,9 @@ const handleUpdateCursorCanvasElementLocation = (
 };
 
 export {
-  devicePixelRatio,
   cursorCanvasStyles,
-  cursorCanvasCenterXOffset,
-  cursorCanvasCenterYOffset,
-  cursorCanvasToMenuXOffset,
-  cursorCanvasToMenuYOffset,
+  cursorCanvasCenterOffset,
+  cursorCanvasToMenuOffset,
   cursorCanvasFollowLocation,
   handleSetCursorCanvasLocation,
   handleDampCursorCanvasLocation,

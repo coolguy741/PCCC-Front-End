@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
-import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
-import { Api } from "../../lib/api/api";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { FoodwaysListTemplate } from "../../components/Foodways/FoodwaysListTemplate";
+import { Api, PccServer23FoodwaysFoodwayDto } from "../../lib/api/api";
 import { BASE_API_URL } from "../../lib/api/helpers/consts";
-import mockData from "../../lib/mockData/foodways/foodways.json";
 import { STORAGE_KEY_JWT } from "../consts";
 
 export const foodwaysPageLoader = async () => {
@@ -20,7 +21,9 @@ export const foodwaysPageLoader = async () => {
       },
     );
 
-    console.log("Foodways", response);
+    if (response.status === 200) {
+      return response.data.items;
+    }
   } catch (error: any) {
     console.warn(error);
   }
@@ -29,16 +32,28 @@ export const foodwaysPageLoader = async () => {
 };
 
 export const FoodwaysPage = () => {
-  const handleSelectionChange = (id: number, isSelected: boolean) => {
+  const foodways = useLoaderData() as PccServer23FoodwaysFoodwayDto[];
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const handleSelectionChange = (id: string, isSelected: boolean) => {
+    if (isSelected) {
+      setSelectedIds((selelectedIds) => [...selelectedIds, id]);
+    } else {
+      setSelectedIds((selelectedIds) =>
+        selelectedIds.filter((selectedId) => selectedId !== id),
+      );
+    }
+
     return;
   };
 
   return (
-    <ContentListAdminPageTemplate
+    <FoodwaysListTemplate
       title={"Foodways"}
       selectsGroup={["Sort"]}
-      listData={mockData.foodways}
+      listData={foodways}
       onSelectionChange={handleSelectionChange}
+      selectedIds={selectedIds}
     />
   );
 };

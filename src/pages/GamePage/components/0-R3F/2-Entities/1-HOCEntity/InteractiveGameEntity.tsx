@@ -22,7 +22,9 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   // Global State
   const {
     menuActive,
+    isCursorDown,
     setMenuActive,
+    setIsCursorDown,
     isHoveringEntity,
     activeHoveredEntity,
     setIsHoveringEntity,
@@ -30,7 +32,9 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   } = useGlobalState(
     (state) => ({
       menuActive: state.menuActive,
+      isCursorDown: state.isCursorDown,
       setMenuActive: state.setMenuActive,
+      setIsCursorDown: state.setIsCursorDown,
       isHoveringEntity: state.isHoveringEntity,
       activeHoveredEntity: state.activeHoveredEntity,
       setIsHoveringEntity: state.setIsHoveringEntity,
@@ -46,8 +50,12 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
       if (isHoveringEntity) {
         setIsHoveringEntity(false);
       }
+
+      if (isCursorDown) {
+        setIsCursorDown(false);
+      }
     },
-    [isHoveringEntity, setIsHoveringEntity],
+    [isCursorDown, setIsCursorDown, isHoveringEntity, setIsHoveringEntity],
   );
 
   const handlePointerOverEvent = useCallback(
@@ -62,11 +70,27 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     },
     [
       name,
-      setActiveHoveredEntity,
+      menuActive,
       setIsHoveringEntity,
       activeHoveredEntity,
-      menuActive,
+      setActiveHoveredEntity,
     ],
+  );
+
+  const handlePointerDownEvent = useCallback(
+    (event: ThreeEvent<MouseEvent>) => {
+      event.stopPropagation();
+      setIsCursorDown(true);
+    },
+    [setIsCursorDown],
+  );
+
+  const handlePointerUpEvent = useCallback(
+    (event: ThreeEvent<MouseEvent>) => {
+      event.stopPropagation();
+      setIsCursorDown(false);
+    },
+    [setIsCursorDown],
   );
 
   const handleActiveHoveredEntityStateChange = useCallback(() => {
@@ -75,28 +99,32 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     }
   }, [name, activeHoveredEntity, setIsHoveringEntity]);
 
-  const handlemenuActive = useCallback(() => {
-    if (menuActive) {
-      setMenuActive(false);
-    } else {
+  const handleOnClickEvent = useCallback(
+    (event: ThreeEvent<MouseEvent>) => {
+      event.stopPropagation();
+      if (menuActive) return;
       setMenuActive(true);
-    }
-  }, [setMenuActive, menuActive]);
+    },
+    [setMenuActive, menuActive],
+  );
 
   // Listeners
-  useEffect(() => {
-    handleActiveHoveredEntityStateChange();
-  }, [activeHoveredEntity, handleActiveHoveredEntityStateChange]);
+  useEffect(handleActiveHoveredEntityStateChange, [
+    activeHoveredEntity,
+    handleActiveHoveredEntityStateChange,
+  ]);
 
   return (
     <Box
       scale={0.1}
+      position={pos}
       ref={interactiveMeshRef}
       userData={{ name: name }}
-      onClick={handlemenuActive}
-      position={pos}
+      onClick={handleOnClickEvent}
+      onPointerUp={handlePointerUpEvent}
       onPointerOut={handlePointerOutEvent}
       onPointerOver={handlePointerOverEvent}
+      onPointerDown={handlePointerDownEvent}
     >
       <meshStandardMaterial color={"blue"} />
     </Box>

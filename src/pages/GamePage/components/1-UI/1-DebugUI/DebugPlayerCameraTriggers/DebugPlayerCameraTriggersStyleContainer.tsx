@@ -8,10 +8,12 @@ const DebugPlayerCameraTriggersStyleContainer = styled.div`
   ${MarginPaddingNone};
   position: fixed;
   bottom: 0;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
 `;
 
 export default memo(DebugPlayerCameraTriggersStyleContainer);
