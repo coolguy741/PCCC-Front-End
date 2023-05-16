@@ -1,5 +1,6 @@
 import { forwardRef, Ref } from "react";
 import styled from "styled-components";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 type InputProps = React.InputHTMLAttributes<HTMLSelectElement>;
 interface SelectProps extends InputProps {
@@ -32,48 +33,51 @@ export const Select = forwardRef(
 const Style = {
   Container: styled.fieldset<SelectProps>`
     width: ${({ width }) => (width ? width : "100%")};
-    height: ${({ height }) => (height ? height : "100%")};
+    height: ${({ height }) => (height ? height : conv(48, "vh"))};
     position: relative;
+    display: flex;
+    align-items: center;
 
     &::after {
       content: url("/icons/downSelect.svg");
       position: absolute;
-      right: 15px;
-      top: calc(21%);
+      right: ${conv(15, "vw")};
       background-color: white;
       border-radius: 50%;
-      padding: 5px;
+      padding: ${conv(5, "vw")};
       pointer-events: none;
+      height: 55%;
+      aspect-ratio: 1 / 1;
     }
   `,
   Select: styled.select<SelectProps>`
     appearance: none;
-    text-indent: 1px;
+    text-indent: ${conv(1, "vw")};
     text-overflow: "";
-    -webkit-padding-end: 20px;
-    -moz-padding-end: 20px;
-    -webkit-padding-start: 15px;
-    -moz-padding-start: 15px;
+    -webkit-padding-end: ${conv(20, "vw")};
+    -moz-padding-end: ${conv(20, "vw")};
+    -webkit-padding-start: ${conv(15, "vw")};
+    -moz-padding-start: ${conv(15, "vw")};
     background-color: white;
     height: ${({ height }) => (height ? height : "100%")};
     width: 100%;
     box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: ${conv(8, "vw")};
+    font-size: ${conv(16, "vh")};
     color: rgba(29, 36, 51, 0.8);
     position: relative;
     font-family: "Noir Std";
 
     &.has-error {
       border: 1px solid var(--red-300);
-      padding: 6px 16px;
+      padding: ${conv(6, "vh")} ${conv(16, "vw")};
       outline-color: transparent;
 
       &:focus,
       &:active {
-        padding: 5px 15px;
+        padding: ${conv(5, "vh")} ${conv(15, "vw")};
         border-color: var(--red-500);
-        border-width: 2px;
+        border-width: ${conv(2, "vw")};
       }
     }
   `,

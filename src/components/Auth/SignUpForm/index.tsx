@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { avatars_data } from "../../../lib/avatars/data";
 import { useSignUpStore } from "../../../stores/signUpStore";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -418,7 +419,7 @@ export const SignUpForm = () => {
           />
         </article>
         <article className="choose-avatar">
-          <label>Choose Avatar</label>
+          <label>Choose Profile Picture</label>
           <div className="avatars">
             {/* TODO: Improve avatar animations */}
             {avatars_data.map((avatar, index) => (
@@ -449,13 +450,12 @@ const Style = {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding-top: calc(- (108px / 2));
+    padding-top: calc(- (${conv(108, "vh")} / 2));
 
     h1 {
       font-weight: 600;
-      font-size: 30px;
-      line-height: 35px;
-      margin-bottom: 20px;
+      font-size: ${conv(30, "vh")};
+      margin-bottom: ${conv(20, "vh")};
     }
 
     .sign-up {
@@ -469,34 +469,39 @@ const Style = {
       align-self: flex-end;
       display: flex;
       flex-direction: column;
-      padding-top: 100px;
+      padding-top: ${conv(100, "vh")};
 
       h2 {
         font-weight: 600;
-        font-size: 20px;
-        line-height: 30px;
+        font-size: ${conv(20, "vh")};
+        color: var(--neutral-900);
+      }
+
+      label {
+        font-weight: 400;
+        font-size: ${conv(16, "vh")};
+        color: var(--neutral-700);
       }
     }
 
     .form {
       ${glassBackground};
-      padding: 40px 20px;
+      padding: ${conv(40, "vh")} ${conv(20, "vw")};
       height: auto;
 
       legend {
         font-weight: 600;
-        font-size: 20px;
-        line-height: 30px;
-        margin-bottom: 25px;
+        font-size: ${conv(20, "vh")};
+        margin-bottom: ${conv(25, "vh")};
       }
 
       fieldset {
         width: 100%;
-        height: 2.4rem;
+        height: ${conv(45, "vh")};
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: ${conv(10, "vh")};
 
         .birth-split {
           width: 60%;
@@ -509,26 +514,24 @@ const Style = {
           width: 35%;
           color: var(--neutral-700);
           font-weight: 400;
-          font-size: 1rem;
-          line-height: 25px;
+          font-size: ${conv(16, "vh")};
         }
       }
     }
 
     .avatars {
+      margin-top: ${conv(20, "vh")};
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       justify-content: space-between;
-      margin-top: 20px;
     }
 
     .username-selection {
       display: flex;
-      margin: 15px 0;
+      margin: ${conv(15, "vh")} 0;
       align-items: center;
       justify-content: space-between;
-      height: 52px;
+      height: ${conv(52, "vh")};
 
       label {
         width: 20%;
@@ -544,40 +547,41 @@ const Style = {
     }
 
     button.next {
-      margin-top: 20px;
+      margin-top: ${conv(52, "vh")};
       margin-left: auto;
-      width: 237px;
+      width: ${conv(237, "vw")};
 
       svg {
-        margin-left: 10px;
+        margin-left: ${conv(10, "vh")};
       }
     }
   `,
   Button: styled.button`
-    width: 75px;
-    height: 75px;
+    width: 12.75%;
+    aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
     background: none;
-    border: 4px solid white;
     border-radius: 50%;
-    margin-bottom: 20px;
+    margin-bottom: ${conv(20, "vh")};
     transition: border 0.25s ease-in;
+    border: ${conv(4, "vh")} solid white;
+    position: relative;
 
     svg {
       position: absolute;
-      width: 69px;
-      height: 69px;
+      width: calc(100% + ${conv(2, "vw")});
+      aspect-ratio: 1 / 1;
       transition: width 0.25s linear, height 0.25s linear,
         transform 0.3s ease-out;
     }
 
     &:hover {
-      border: 4px solid rgba(0, 0, 0, 0.75);
+      border: ${conv(4, "vh")} solid rgba(0, 0, 0, 0.75);
+
       svg {
-        width: 75px;
-        height: 75px;
-        transform: translate(2px, -2px);
+        width: calc(100% + ${conv(4, "vw")});
+        transform: translate(${conv(1, "vh")}, ${conv(-1, "vw")});
       }
     }
   `,
