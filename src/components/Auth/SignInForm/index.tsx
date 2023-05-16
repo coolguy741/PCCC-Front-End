@@ -146,7 +146,6 @@ export const SignInForm = () => {
 const Container = styled(motion.main)`
   ${glassBackground}
   width: ${convertToRelativeUnit(500, "vw")};
-  height: 60vh;
 
   h1 {
     font-weight: 600;

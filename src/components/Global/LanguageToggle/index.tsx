@@ -71,7 +71,7 @@ const Style = {
       position: absolute;
       top: 0;
       left: 0;
-      width: ${convertToRelativeUnit(42, "vh")};
+      width: ${convertToRelativeUnit(42, "vw")};
       height: 100%;
       background: var(--white);
       border-radius: 24px;
@@ -106,7 +106,7 @@ const Style = {
       }
 
       & .slider {
-        transform: translateX(32px);
+        transform: translateX(${convertToRelativeUnit(32, "vw")});
       }
     }
   `,

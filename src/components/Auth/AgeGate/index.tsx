@@ -171,7 +171,6 @@ const Style = {
     display: flex;
     flex-direction: column;
     width: 35vw;
-    height: 65vh;
     ${glassBackground}
 
     h1 {
