@@ -2,6 +2,7 @@ import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import DebugUIContainer from "../1-DebugUI/DebugUIContainer";
+import TestVideo from "../1-DebugUI/TestVideo";
 import useWindowFocusBlur from "../10-Hooks/useWindowFocusBlur";
 import useWindowResize from "../10-Hooks/useWindowResize";
 import ToolTip from "../3-ToolTip/ToolTip";
@@ -17,6 +18,7 @@ const UIContainer: FC = () => {
     }),
     shallow,
   );
+
   // Hooks
   useWindowResize();
   useWindowFocusBlur(onWindowFocus, onWindowBlur);
@@ -25,8 +27,9 @@ const UIContainer: FC = () => {
     <Fragment>
       {!isDebugUIVisible && <HUD />}
       <DebugUIContainer />
-      <ToolTip />
       <Cursor />
+      <ToolTip />
+      <TestVideo />
     </Fragment>
   );
 };

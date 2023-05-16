@@ -11,6 +11,16 @@ const DevelopmentModule = ({ set, get }: globalStateApiType) => {
     setIsDebugUIVisible: (isDebugUIVisible: boolean) => {
       set({ isDebugUIVisible });
     },
+
+    pgVideo: null,
+    setPGVideo: (newPGVideo: HTMLVideoElement) => {
+      set({ pgVideo: newPGVideo });
+    },
+
+    pgVideoLoaded: false,
+    setPGVideoLoaded: (pgVideoLoaded: boolean) => {
+      set({ pgVideoLoaded });
+    },
   };
 };
 

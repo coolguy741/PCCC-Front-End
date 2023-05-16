@@ -4,6 +4,7 @@ import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import PlayerCamera from "../2-Entities/0-Cameras/PlayerCamera";
 import InteractiveGameEntity from "../2-Entities/1-HOCEntity/InteractiveGameEntity";
+import ScreenSpace from "../2-Entities/2-ScreenSpace/ScreenSpace";
 import Garden from "../2-Entities/Garden";
 import Environment from "../3-Environment/Environment";
 import {
@@ -43,7 +44,7 @@ const GameStage: FC = () => {
         name={"Bee Hive Top"}
         pos={PLANTBOX_LOOKAT_POSITION}
       />
-
+      <ScreenSpace />
       <PlayerCamera />
       {/* <RigTest /> */}
       {/* <Bee /> */}

@@ -1,7 +1,7 @@
 import { FC, Fragment, memo } from "react";
-import EnvironmentMap from "./EnvironmentMap";
-import Lighting from "./Lighting/Lighting";
-import Shadows from "./Shadows";
+import Lighting from "./0-Lighting/Lighting";
+import EnvironmentMap from "./1-EnvironmentMap/EnvironmentMap";
+import Shadows from "./2-Shadows/Shadows";
 
 const Environment: FC = () => {
   return (
