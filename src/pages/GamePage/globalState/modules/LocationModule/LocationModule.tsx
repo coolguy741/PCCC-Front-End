@@ -37,6 +37,11 @@ const LocationModule = ({ set, get }: globalStateApiType) => {
     setActiveKitchenHotSpot: (newKitchenHotSpot: kitchenHotspotKeyType) => {
       set({ activeKitchenHotSpot: newKitchenHotSpot });
     },
+
+    isActivelyTraveling: false,
+    setIsActivelyTraveling: (isActivelyTraveling: boolean) => {
+      set({ isActivelyTraveling });
+    },
   };
 };
 

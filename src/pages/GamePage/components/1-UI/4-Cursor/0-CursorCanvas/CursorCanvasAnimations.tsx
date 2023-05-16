@@ -2,19 +2,16 @@ import { gsap } from "gsap";
 import { Vector2 } from "three";
 import { POWER_1_INOUT, POWER_3_INOUT } from "../../../../shared/Eases/Eases";
 import { RefNumberType } from "../../../../shared/Types/RefTypes";
-import {
-  cursorCanvasToMenuXOffset,
-  cursorCanvasToMenuYOffset,
-} from "./CursorCanvasDefines";
+import { cursorCanvasToMenuOffset } from "./CursorCanvasDefines";
 
 const animateCursorCanvasToMenuPosition = (
   affectedVector: Vector2,
   targetVector: Vector2,
   onComplete: () => void,
-) => {
+): void => {
   gsap.to(affectedVector, {
-    x: targetVector.x - cursorCanvasToMenuXOffset,
-    y: targetVector.y - cursorCanvasToMenuYOffset,
+    x: targetVector.x - cursorCanvasToMenuOffset.x,
+    y: targetVector.y - cursorCanvasToMenuOffset.y,
     duration: 0.85,
     overwrite: true,
     ease: POWER_3_INOUT,
@@ -22,7 +19,7 @@ const animateCursorCanvasToMenuPosition = (
   });
 };
 
-const animateCursorCanvasToFollowPosition = (step: RefNumberType) => {
+const animateCursorCanvasToFollowPosition = (step: RefNumberType): void => {
   gsap.to(step, {
     current: 0.01,
     duration: 1,

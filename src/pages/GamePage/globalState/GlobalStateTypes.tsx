@@ -1,14 +1,14 @@
 import { AchievementModuleTypes } from "./modules/AchievementModule/AchievementModuleTypes";
 import { CameraModuleTypes } from "./modules/CameraModule.tsx/CameraModuleTypes";
-import { CursorModuleTypes } from "./modules/CursorModule.tsx/CursorModuleTypes";
 import { DevelopmentModuleTypes } from "./modules/DevelopmentModule/DevelopmentModuleTypes";
 import { InteractiveGameEntityModuleTypes } from "./modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
 import { InventoryModuleTypes } from "./modules/InventoryModule/InventoryModuleTypes";
 import { LocationModuleTypes } from "./modules/LocationModule/LocationModuleTypes";
+import { UIModuleTypes } from "./modules/UIModule/UIModuleTypes";
 
 export interface GlobalStateTypes
-  extends LocationModuleTypes,
-    CursorModuleTypes,
+  extends UIModuleTypes,
+    LocationModuleTypes,
     CameraModuleTypes,
     InventoryModuleTypes,
     DevelopmentModuleTypes,
