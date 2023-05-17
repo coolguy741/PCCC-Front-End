@@ -69,6 +69,7 @@ const Style = {
     justify-content: space-between;
     align-items: center;
     padding: 0 5vw;
+    padding-left: 7.5vw;
     ${({ start, end }) => animatedbackgroundGradient(start, end)};
 
     article {

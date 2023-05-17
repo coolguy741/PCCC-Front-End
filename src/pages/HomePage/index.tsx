@@ -61,7 +61,6 @@ const Style = {
     .swiper {
       width: 100%;
       height: 100vh;
-      padding-left: 32px;
       position: relative;
     }
 
