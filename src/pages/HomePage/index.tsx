@@ -3,19 +3,16 @@ import { Mousewheel, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Icon } from "../../components/Global/Icon";
-import { CookTogetherTile } from "./CookTogetherTile";
-import { DiscoverTogetherTile } from "./DiscoverTogetherTile";
-import { FoodwaysTile } from "./FoodwaysTile";
 import { FooterTile } from "./FooterTile";
-import { GrowTogetherTile } from "./GrowTogetherTile";
-import { MadKitchenTile } from "./MadKitchenTile";
 import { MealPlannerTile } from "./MealPlannerTile";
-import { MealtimeMomentsTile } from "./MealtimeMomentsTile";
 import { PowerFullKidsTile } from "./PowerFullKidsTile";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import { useUserStore } from "../../stores/userStore";
+import { dashboardScrollAnimation } from "../../styles/animations/dashboardScroll";
+import { AnimatedTile } from "./AnimatedTile";
+import { dummy_tiles } from "./tile_data";
 
 export const HomePage = () => {
   const user = useUserStore((state) => state.user);
@@ -36,24 +33,11 @@ export const HomePage = () => {
         <SwiperSlide>
           <PowerFullKidsTile />
         </SwiperSlide>
-        <SwiperSlide>
-          <DiscoverTogetherTile />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GrowTogetherTile />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CookTogetherTile />
-        </SwiperSlide>
-        <SwiperSlide>
-          <MadKitchenTile />
-        </SwiperSlide>
-        <SwiperSlide>
-          <FoodwaysTile />
-        </SwiperSlide>
-        <SwiperSlide>
-          <MealtimeMomentsTile />
-        </SwiperSlide>
+        {dummy_tiles.map((tile) => (
+          <SwiperSlide>
+            <AnimatedTile key={tile.titleFirstLine} tile={tile} />
+          </SwiperSlide>
+        ))}
         {!!user && (
           <SwiperSlide>
             <MealPlannerTile />
@@ -82,19 +66,21 @@ const Style = {
     }
 
     .swiper-slide {
-      & .image-container.tile-image {
-        transform: scale(0.7) translate(0, -50%);
-        transition: transform 1s ease-in-out;
+      & .image-container {
+        transform: scale(0.7) translate(0, -5%);
+        transition: transform 1.5s ease-in;
       }
-      &.swiper-slide-active .image-container.tile-image {
-        transform: scale(1) translate(0, -50%);
-        transition: transform 1s ease-in-out;
+
+      &.swiper-slide-active .image-container {
+        transform: scale(1) translate(0, -5%);
+        transition: transform 1.5s ease-in;
       }
     }
 
     .swiper-pagination {
       right: 36px;
       width: 16px;
+
       .swiper-pagination-bullet {
         background: var(--neutral-900);
         opacity: 1;
@@ -102,7 +88,7 @@ const Style = {
         height: 8px;
         margin: 16px;
         transform: translate(-50%);
-        transition: all 0.2s ease-in-out;
+        transition: all 0.5s ease-out;
 
         &.swiper-pagination-bullet-active {
           width: 16px;
@@ -129,5 +115,7 @@ const Style = {
     left: calc((100% - 42px) / 2);
     bottom: 45px;
     z-index: 10;
+    opacity: 0;
+    ${() => dashboardScrollAnimation(2.5, 15, 3)};
   `,
 };

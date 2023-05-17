@@ -13,91 +13,83 @@ import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
-const TileData = {
-  title: {
-    firstLine: {
-      text: "Discover",
-      color: "orange-600",
-    },
-    secondLine: {
-      text: "Together",
-    },
-  },
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
-  button: {
-    text: "Let's go!",
-    link: "/dashboard/discover-together",
-  },
-};
-
-export const AnimatedTile = () => {
+export const AnimatedTile = (props: any) => {
   const [isShowingBubble, setIsShowingBubble] = useState(false);
+  const { tile } = props;
 
   const handleClick = () => {
     setIsShowingBubble(true);
   };
 
   return (
-    <Style.PageContainer>
-      <section>
+    <Style.PageContainer color={tile.titleColor}>
+      <article>
         <h2>
-          <span className={TileData.title.firstLine.color}>
-            {TileData.title.firstLine.text}
-          </span>
+          <span>{tile.titleFirstLine}</span>
           <br />
-          {TileData.title.secondLine.text}
+          {tile.titleSecondLine}
         </h2>
-        <p>{TileData.description}</p>
-        <Button>{TileData.button.text}</Button>
-      </section>
+        {tile.subtitle && <h3>{tile.subtitle}</h3>}
+        <p>{tile.description}</p>
+        <Button to={tile.buttonLink}>{tile.buttonText}</Button>
+      </article>
 
-      <div className="image-container" onClick={handleClick}>
+      <article className="image-container" onClick={handleClick}>
         {isShowingBubble && (
           <div className="bubble-container">
             <SpeechBubble
-              left={500}
-              top={90}
-              variant="orange"
-              to="discover-together"
+              left={tile.speechBubble.left}
+              top={tile.speechBubble.top}
+              variant={tile.speechBubble.variant as any}
+              to={tile.speechBubble.link}
             >
-              Discover more
+              {tile.speechBubble.text}
             </SpeechBubble>
           </div>
         )}
-        <img src="/images/homepage/discover-together.png" alt="discover" />
-      </div>
+        <img
+          src={tile.image}
+          alt={`${tile.titleFirstLine} ${tile.titleSecondLine}`}
+        />
+      </article>
     </Style.PageContainer>
   );
 };
 
 const Style = {
-  PageContainer: styled.div`
-    min-height: 100vh;
+  PageContainer: styled.section<{ color: string }>`
+    height: 100vh;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5vw;
 
-    section {
-      .orange-600 {
-        color: var(--orange-600);
-      }
-      max-width: 45%;
+    article {
+      width: 40%;
 
       h2 {
         font-weight: 900;
-        font-size: 10vh;
+        font-size: 7.5vh;
         line-height: 90%;
         letter-spacing: 110%;
         text-transform: uppercase;
-        margin-bottom: ${convertToRelativeUnit(40, "vh")};
+        margin-bottom: 2vh;
+
+        span {
+          color: ${({ color }) => `var(--${color})`};
+        }
+      }
+
+      h3 {
+        font-weight: 700;
+        font-size: 4vh;
+        color: var(--neutral-800);
       }
 
       p {
         font-weight: 500;
-        font-size: ${convertToRelativeUnit(23, "vh")};
+        font-size: 2.25vh;
         line-height: 115%;
         margin-bottom: ${convertToRelativeUnit(48, "vh")};
         color: var(--neutral-700);
@@ -105,7 +97,8 @@ const Style = {
     }
 
     .image-container {
-      max-width: 45%;
+      width: 50%;
+      margin-top: 5%;
 
       .bubble-container {
         position: relative;
