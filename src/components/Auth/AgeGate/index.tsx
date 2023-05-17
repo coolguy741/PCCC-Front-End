@@ -86,7 +86,7 @@ export const AgeGate = () => {
               render={({ field }) => (
                 <Input
                   width="100%"
-                  height="5vh"
+                  height="4vh"
                   placeholder="YYYY"
                   type="number"
                   data-testid="year"
