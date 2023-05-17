@@ -108,6 +108,7 @@ const Style = {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
     p {
       margin: 0;
       &.event-title {
