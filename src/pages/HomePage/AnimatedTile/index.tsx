@@ -11,6 +11,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export const AnimatedTile = (props: any) => {
@@ -22,7 +23,11 @@ export const AnimatedTile = (props: any) => {
   };
 
   return (
-    <Style.PageContainer color={tile.titleColor}>
+    <Style.PageContainer
+      color={tile.titleColor}
+      start={tile.gradientStart}
+      end={tile.gradientEnd}
+    >
       <article>
         <h2>
           <span>{tile.titleFirstLine}</span>
@@ -57,13 +62,14 @@ export const AnimatedTile = (props: any) => {
 };
 
 const Style = {
-  PageContainer: styled.section<{ color: string }>`
+  PageContainer: styled.section<{ color: string; start: string; end: string }>`
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5vw;
+    ${({ start, end }) => animatedbackgroundGradient(start, end)};
 
     article {
       width: 40%;
