@@ -1,178 +1,15 @@
 import styled from "styled-components";
 
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import { FullMealPlan } from "..";
 import { Typography } from "../../../../Global/Typography";
 import { MealCard } from "../MealCard";
 
-const mealPlans = [
-  {
-    day: "sunday",
-    plans: [
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-0.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-1.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-2.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-3.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-4.png",
-      },
-    ],
-  },
-  {
-    day: "monday",
-    plans: [
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-5.png",
-      },
-      { description: null },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-6.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-7.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-8.png",
-      },
-    ],
-  },
-  {
-    day: "tuesday",
-    plans: [
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-10.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-11.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-12.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-13.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-14.png",
-      },
-    ],
-  },
-  {
-    day: "wednesday",
-    plans: [
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-15.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-16.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-17.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-19.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-20.png",
-      },
-    ],
-  },
-  {
-    day: "thursday",
-    plans: [
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-21.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-22.png",
-      },
-      { description: null },
-      { description: null },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-23.png",
-      },
-    ],
-  },
-  {
-    day: "friday",
-    plans: [
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-24.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-26.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-27.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-28.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-29.png",
-      },
-    ],
-  },
-  {
-    day: "saturday",
-    plans: [
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-30.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-31.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-32.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-33.png",
-      },
-      {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/meals/image-0.png",
-      },
-    ],
-  },
-];
+interface WeeklyMealPlanProps {
+  mealPlans: FullMealPlan[];
+}
 
-export const WeeklyMealPlan = () => {
+export const WeeklyMealPlan = ({ mealPlans }: WeeklyMealPlanProps) => {
   return (
     <Style.Container>
       <div className="meal-planner-details">
@@ -214,22 +51,53 @@ export const WeeklyMealPlan = () => {
       <div className="plate-full-planner-container">
         <Style.MealPlans>
           {mealPlans.map((dailyPlan, dayIndex) => (
-            <Style.DailyMealPlans key={dailyPlan.day}>
-              <div className="meal-plan-day">{dailyPlan.day}</div>
-              <div className="daily-plans">
-                {dailyPlan.plans.map((meal, index) => (
-                  <MealCard
-                    key={`${dailyPlan.day}-${index}`}
-                    meal={meal}
-                    label={dayIndex === 0 ? `meal-${index + 1}` : null}
-                  />
-                ))}
-              </div>
-            </Style.DailyMealPlans>
+            <Droppable
+              droppableId={`droppable-weekly-meal-plan-${dayIndex}`}
+              key={`droppable-weekly-meal-plan-${dayIndex}`}
+            >
+              {(provided, dropSnapshot) => (
+                <Style.DailyMealPlans
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <div className="meal-plan-day">{dailyPlan.day}</div>
+                  <div className="daily-plans">
+                    {dailyPlan.plans.map((meal, index) => (
+                      <Draggable
+                        key={`draggable-weekly-meal-plan-${dayIndex}-${index}`}
+                        draggableId={`draggable-weekly-meal-plan-${dayIndex}-${index}`}
+                        index={index}
+                      >
+                        {(provided, snapshot) => (
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                            style={{
+                              ...provided.draggableProps.style,
+                              height: "100%",
+                            }}
+                          >
+                            <MealCard
+                              meal={meal}
+                              label={
+                                dayIndex === 0 ? `meal-${index + 1}` : null
+                              }
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                </Style.DailyMealPlans>
+              )}
+            </Droppable>
           ))}
           <div className="cleaner" />
         </Style.MealPlans>
       </div>
+
       <Style.Labels>
         <img src="/images/plate-full-planner/labels/meal-1.svg" alt="meal-1" />
         <img src="/images/plate-full-planner/labels/meal-2.svg" alt="meal-2" />

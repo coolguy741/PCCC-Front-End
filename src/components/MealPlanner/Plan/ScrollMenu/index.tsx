@@ -1,45 +1,82 @@
 import { motion } from "framer-motion";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import { MealPlan } from "../MealPlans";
+import { MealCard } from "../MealPlans/MealCard";
 
-const images = [
-  "/images/plate-full-planner/scroll-menu/image-1.svg",
-  "/images/plate-full-planner/scroll-menu/image-2.svg",
-  "/images/plate-full-planner/scroll-menu/image-3.svg",
-  "/images/plate-full-planner/scroll-menu/image-1.svg",
-];
+interface PlateFullPlannerScrollMenuProps {
+  mealPlanMenu: MealPlan[];
+}
 
-export const PlateFullPlannerScrollMenu = () => {
+export const PlateFullPlannerScrollMenu = ({
+  mealPlanMenu,
+}: PlateFullPlannerScrollMenuProps) => {
   return (
-    <Style.Container style={{ overflow: "scroll" }}>
-      {images.map((image, index) => {
-        return (
-          <Style.Item
-            key={`image-${index}`}
-            variants={{
-              offscreen: {
-                scale: 0.5,
-                rotate: -2.01 * Math.pow(-1, index),
-              },
-              onscreen: {
-                scale: 1.2,
-                rotate: -2.01 * Math.pow(-1, index),
-                transition: {
-                  type: "spring",
-                  bounce: 0.4,
-                  duration: 0.8,
-                },
-              },
-            }}
-            initial="offscreen"
-            whileInView="onscreen"
-            index={index}
-            viewport={{ once: false, amount: 0.611 }}
-          >
-            <img src={image} alt="fruits" />
-          </Style.Item>
-        );
-      })}
-    </Style.Container>
+    <Droppable droppableId="droppable-meal-menu">
+      {(provided, snapshot) => (
+        <Style.Container
+          style={{ overflow: "scroll" }}
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+        >
+          {mealPlanMenu.map(({ image, description }, index) => {
+            return (
+              <Draggable
+                key={`draggable-meal-menu-${index}`}
+                draggableId={`draggable-meal-menu-${index}`}
+                index={index}
+              >
+                {(provided, snapshot) => (
+                  <div
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef}
+                  >
+                    {snapshot.isDragging ? (
+                      <MealCard
+                        key={`image-mealcard-${index}`}
+                        meal={{
+                          description,
+                          image,
+                        }}
+                        fixed
+                        label={null}
+                      />
+                    ) : (
+                      <Style.Item
+                        key={`image-${index}`}
+                        variants={{
+                          offscreen: {
+                            scale: 0.5,
+                            rotate: -2.01 * Math.pow(-1, index),
+                          },
+                          onscreen: {
+                            scale: 1.2,
+                            rotate: -2.01 * Math.pow(-1, index),
+                            transition: {
+                              type: "spring",
+                              bounce: 0.4,
+                              duration: 0.8,
+                            },
+                          },
+                        }}
+                        initial="offscreen"
+                        whileInView="onscreen"
+                        index={index}
+                        viewport={{ once: false, amount: 0.611 }}
+                      >
+                        <img src={image} alt="fruits" />
+                      </Style.Item>
+                    )}
+                  </div>
+                )}
+              </Draggable>
+            );
+          })}
+          {provided.placeholder}
+        </Style.Container>
+      )}
+    </Droppable>
   );
 };
 

@@ -7,12 +7,51 @@ import { PlateFullPlanFilter } from "../Filter";
 import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
 import { PlateFullPlanSearch } from "../Search";
 
+import { useState } from "react";
+import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { Tag } from "../Tag";
+import { mockMealPlanMenu, mockMealPlans } from "./mocks";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
+export interface FullMealPlan {
+  day: string;
+  plans: MealPlan[];
+}
+
+export interface MealPlan {
+  description: string | null;
+  image?: string;
+}
 
 export const MealPlans = () => {
   const { selectedFilters, filters, changeSelectedFilters } =
     useMealPlannerStore();
+
+  const [mealPlans, setMealPlans] = useState(mockMealPlans);
+  const [mealPlanMenu, setMealPlanMenu] = useState(mockMealPlanMenu);
+
+  const onDragEnd: OnDragEndResponder = (result) => {
+    const sourceIndex = result.source.index;
+    const destinationIndex = result?.destination?.index;
+    const dayIndex = Number(result.destination?.droppableId.slice(-1));
+
+    if (
+      sourceIndex === undefined ||
+      destinationIndex === undefined ||
+      dayIndex === undefined
+    ) {
+      return;
+    }
+    const selectedMealPlan = mealPlanMenu[sourceIndex];
+    const updatedMealPlans = mealPlans;
+    if (!isNaN(dayIndex)) {
+      updatedMealPlans[dayIndex].plans[destinationIndex] = selectedMealPlan;
+      setMealPlanMenu((mealPlanMenu) => {
+        mealPlanMenu.splice(sourceIndex, 1);
+        return mealPlanMenu;
+      });
+      setMealPlans([...updatedMealPlans]);
+    }
+  };
 
   return (
     <Style.Container
@@ -44,68 +83,70 @@ export const MealPlans = () => {
         translateY="-37%"
       />
       <Style.Pages>
-        <Style.LeftPage>
-          <WeeklyMealPlan />
-        </Style.LeftPage>
-        <Style.Page>
-          <div className="page-title">
-            <img
-              src="/images/plate-full-planner/ribbon-label.svg"
-              alt="label"
-            />
-            <Typography
-              variant="h4"
-              weight="semi-bold"
-              color="book-400"
-              as="h4"
-            >
-              Customize your meal plan
-            </Typography>
-          </div>
-          <div className="main-content">
-            <Style.BorderScroll>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Style.LeftPage>
+            <WeeklyMealPlan mealPlans={mealPlans} />
+          </Style.LeftPage>
+          <Style.Page>
+            <div className="page-title">
               <img
-                src="/images/plate-full-planner/scroll-border.svg"
-                alt="scroll border"
+                src="/images/plate-full-planner/ribbon-label.svg"
+                alt="label"
               />
-            </Style.BorderScroll>
-            <Style.BorderScroll position="bottom">
-              <img
-                src="/images/plate-full-planner/scroll-border.svg"
-                alt="scroll border"
-              />
-            </Style.BorderScroll>
-            <div>
-              <PlateFullPlanSearch />
-              <PlateFullPlanFilter
-                filters={filters}
-                selectedFilters={selectedFilters}
-                setFilters={changeSelectedFilters}
-              />
-            </div>
-            <PlateFullPlannerScrollMenu />
-          </div>
-          <Style.CoffeeStain
-            src="/images/plate-full-planner/coffee-stain.svg"
-            alt="coffee stainer on paper"
-          />
-          <Style.Fruit
-            src="/images/plate-full-planner/fruits.svg"
-            alt="fruit on paper"
-          />
-          <Style.BrownPaper>
-            <div className="brown-paper-content">
-              <Icon name="food" />
-              <Typography variant="h6" weight="semi-bold" color="book-50">
-                Roasted red pepper hummus with vegetables{" "}
+              <Typography
+                variant="h4"
+                weight="semi-bold"
+                color="book-400"
+                as="h4"
+              >
+                Customize your meal plan
               </Typography>
             </div>
-            <img
-              src="/images/plate-full-planner/brown-paper.png"
-              alt="brown-paper"
+            <div className="main-content">
+              <Style.BorderScroll>
+                <img
+                  src="/images/plate-full-planner/scroll-border.svg"
+                  alt="scroll border"
+                />
+              </Style.BorderScroll>
+              <Style.BorderScroll position="bottom">
+                <img
+                  src="/images/plate-full-planner/scroll-border.svg"
+                  alt="scroll border"
+                />
+              </Style.BorderScroll>
+              <div>
+                <PlateFullPlanSearch />
+                <PlateFullPlanFilter
+                  filters={filters}
+                  selectedFilters={selectedFilters}
+                  setFilters={changeSelectedFilters}
+                />
+              </div>
+              <PlateFullPlannerScrollMenu mealPlanMenu={mealPlanMenu} />
+            </div>
+            <Style.CoffeeStain
+              src="/images/plate-full-planner/coffee-stain.svg"
+              alt="coffee stainer on paper"
             />
-          </Style.BrownPaper>
-        </Style.Page>
+            <Style.Fruit
+              src="/images/plate-full-planner/fruits.svg"
+              alt="fruit on paper"
+            />
+            <Style.BrownPaper>
+              <div className="brown-paper-content">
+                <Icon name="food" />
+                <Typography variant="h6" weight="semi-bold" color="book-50">
+                  Roasted red pepper hummus with vegetables{" "}
+                </Typography>
+              </div>
+              <img
+                src="/images/plate-full-planner/brown-paper.png"
+                alt="brown-paper"
+              />
+            </Style.BrownPaper>
+          </Style.Page>
+        </DragDropContext>
       </Style.Pages>
     </Style.Container>
   );
