@@ -9,11 +9,12 @@ interface MealCardProps {
     image?: string;
   };
   label: string | null;
+  fixed?: boolean;
 }
 
-export const MealCard: React.FC<MealCardProps> = ({ meal, label }) => {
+export const MealCard: React.FC<MealCardProps> = ({ meal, label, fixed }) => {
   return (
-    <Style.Container>
+    <Style.Container fixed={fixed}>
       <Style.Card hasPlan={!!meal.description}>
         {meal.description ? (
           <Style.Meal>
@@ -40,10 +41,13 @@ export const MealCard: React.FC<MealCardProps> = ({ meal, label }) => {
 };
 
 const Style = {
-  Container: styled.section`
+  Container: styled.section.attrs(({ fixed }: { fixed: boolean }) => ({
+    fixed: fixed ?? false,
+  }))`
     padding: 5% 0;
     overflow: hidden;
     height: 100%;
+    width: ${({ fixed }) => (fixed ? "90px" : "100%")};
   `,
   Card: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({
     hasPlan: hasPlan ?? false,
