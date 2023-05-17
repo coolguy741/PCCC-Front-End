@@ -39,10 +39,8 @@ const Style = {
       content: url("/icons/downSelect.svg");
       position: absolute;
       right: 15px;
-      top: calc(21%);
-      background-color: white;
-      border-radius: 50%;
-      padding: 5px;
+      top: 50%;
+      transform: translate(0, -50%);
       pointer-events: none;
     }
   `,
