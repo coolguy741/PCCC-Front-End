@@ -1,18 +1,15 @@
 import { memo } from "react";
-import GameCanvas from "./components/0-R3F/0-GameCanvas/GameCanvas";
-import GameStage from "./components/0-R3F/1-GameStage/GameStage";
+import GameCanvas from "./components/0-Game/0-Canvas/GameCanvas";
+import GameStage from "./components/0-Game/1-Stage/GameStage";
 import UIContainer from "./components/1-UI/0-UIContainer/UIContainer";
-import GamePageStyleContainer from "./styles/Containers/GamePageStyleContainer";
 import StyleProvider from "./styles/StyleProvider";
 
 const GamePage = () => {
   return (
     <StyleProvider>
-      <GamePageStyleContainer>
-        <GameCanvas>
-          <GameStage />
-        </GameCanvas>
-      </GamePageStyleContainer>
+      <GameCanvas>
+        <GameStage />
+      </GameCanvas>
       <UIContainer />
     </StyleProvider>
   );

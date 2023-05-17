@@ -1,14 +1,14 @@
 import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
-import DebugUIContainer from "../1-DebugUI/DebugUIContainer";
-import TestVideo from "../1-DebugUI/TestVideo";
-import useWindowFocusBlur from "../10-Hooks/useWindowFocusBlur";
-import useWindowResize from "../10-Hooks/useWindowResize";
+import HUD from "../1-HUD/HUD";
+import Cursor from "../2-Cursor/Cursor";
+import { onWindowBlur, onWindowFocus } from "../2-Cursor/CursorDefines";
 import ToolTip from "../3-ToolTip/ToolTip";
-import Cursor from "../4-Cursor/Cursor";
-import { onWindowBlur, onWindowFocus } from "../4-Cursor/CursorDefines";
-import HUD from "../5-HUD/HUD";
+import DebugUIContainer from "../4-Debug/DebugUIContainer";
+import TestVideo from "../4-Debug/TestVideo";
+import useWindowFocusBlur from "../7-Hooks/useWindowFocusBlur";
+import useWindowResize from "../7-Hooks/useWindowResize";
 
 const UIContainer: FC = () => {
   // Global State

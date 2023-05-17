@@ -30,7 +30,6 @@ const GlobalStyle = createGlobalStyle`
     embed,
     object {
         display: block;
-        vertical-align: middle;
         ${UserSelectNone};
         ${MarginPaddingNone};
     }
