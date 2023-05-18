@@ -11,6 +11,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export const AnimatedTile = (props: any) => {
@@ -22,7 +23,11 @@ export const AnimatedTile = (props: any) => {
   };
 
   return (
-    <Style.PageContainer color={tile.titleColor}>
+    <Style.PageContainer
+      color={tile.titleColor}
+      start={tile.gradientStart}
+      end={tile.gradientEnd}
+    >
       <article>
         <h2>
           <span>{tile.titleFirstLine}</span>
@@ -57,24 +62,26 @@ export const AnimatedTile = (props: any) => {
 };
 
 const Style = {
-  PageContainer: styled.section<{ color: string }>`
+  PageContainer: styled.section<{ color: string; start: string; end: string }>`
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5vw;
+    padding-left: 7.5vw;
+    ${({ start, end }) => animatedbackgroundGradient(start, end)};
 
     article {
-      width: 40%;
+      width: 42.5%;
 
       h2 {
         font-weight: 900;
-        font-size: 7.5vh;
+        font-size: 8vh;
         line-height: 90%;
         letter-spacing: 110%;
         text-transform: uppercase;
-        margin-bottom: 2vh;
+        margin-bottom: 1.5vh;
 
         span {
           color: ${({ color }) => `var(--${color})`};
@@ -83,8 +90,10 @@ const Style = {
 
       h3 {
         font-weight: 700;
-        font-size: 4vh;
+        font-size: 4.5vh;
+        line-height: 110%;
         color: var(--neutral-800);
+        margin-bottom: 1vh;
       }
 
       p {
@@ -97,7 +106,7 @@ const Style = {
     }
 
     .image-container {
-      width: 50%;
+      width: 55%;
       margin-top: 5%;
 
       .bubble-container {
