@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import Button from "../../components/Button";
 import { CalendarFilter } from "../../components/Calendar/Filter/Index";
 import { CalendarPopup } from "../../components/Calendar/Popup";
@@ -28,8 +27,6 @@ export const CalendarPage = () => {
   const handleDateClick = (info: any) => {
     setSelectedDate(info.dateStr);
     const rectDOM = info.dayEl.getBoundingClientRect();
-
-    console.log(info.dayEl.getBoundingClientRect());
 
     let xPos = "";
     let yPos = "";

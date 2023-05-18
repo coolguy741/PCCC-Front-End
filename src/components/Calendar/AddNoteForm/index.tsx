@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { formatDate } from "../../../lib/util/formatDate";
 import Button from "../../Button";
@@ -9,9 +10,18 @@ import { TimeSelect } from "../TimeSelect";
 interface AddNoteFormProps {
   selectedDate: string | undefined;
   yPos: string;
+  isOpen: boolean;
+  modalOpen: boolean;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AddNoteForm = ({ selectedDate, yPos }: AddNoteFormProps) => {
+export const AddNoteForm = ({
+  selectedDate,
+  yPos,
+  isOpen,
+  modalOpen,
+  setModalOpen,
+}: AddNoteFormProps) => {
   return (
     <Style.Container>
       <div className="row">
@@ -33,7 +43,12 @@ export const AddNoteForm = ({ selectedDate, yPos }: AddNoteFormProps) => {
         <div className="group">
           <label>Add to</label>
           <div className="group-row">
-            <FitleredSelect position={yPos} />
+            <FitleredSelect
+              position={yPos}
+              isOpen={isOpen}
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+            />
             <Button>Add</Button>
           </div>
         </div>
