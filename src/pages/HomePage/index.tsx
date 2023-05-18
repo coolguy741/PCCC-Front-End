@@ -18,7 +18,7 @@ export const HomePage = () => {
   const user = useUserStore((state) => state.user);
 
   return (
-    <Style.PageContainer className="dashboard-home">
+    <Style.Container className="dashboard-home">
       <Swiper
         slidesPerView={1}
         mousewheel={true}
@@ -47,15 +47,15 @@ export const HomePage = () => {
           <FooterTile />
         </SwiperSlide>
       </Swiper>
-      <Style.ScrollIconContainer>
+      <Style.ScrollIcon>
         <Icon name="scroll" />
-      </Style.ScrollIconContainer>
-    </Style.PageContainer>
+      </Style.ScrollIcon>
+    </Style.Container>
   );
 };
 
 const Style = {
-  PageContainer: styled.div`
+  Container: styled.div`
     margin: 0;
 
     .swiper {
@@ -98,7 +98,7 @@ const Style = {
       }
     }
   `,
-  ScrollIconContainer: styled.div`
+  ScrollIcon: styled.div`
     position: absolute;
     left: calc((100% - ${convertToRelativeUnit(42, "vw")}) / 2);
     bottom: ${convertToRelativeUnit(45, "vh")};
