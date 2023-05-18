@@ -73,7 +73,7 @@ const Style = {
     ${({ start, end }) => animatedbackgroundGradient(start, end)};
 
     article {
-      width: 40%;
+      width: 42.5%;
 
       h2 {
         font-weight: 900;
@@ -81,7 +81,7 @@ const Style = {
         line-height: 90%;
         letter-spacing: 110%;
         text-transform: uppercase;
-        margin-bottom: 2vh;
+        margin-bottom: 1.5vh;
 
         span {
           color: ${({ color }) => `var(--${color})`};
@@ -91,7 +91,9 @@ const Style = {
       h3 {
         font-weight: 700;
         font-size: 4vh;
+        line-height: 110%;
         color: var(--neutral-800);
+        margin-bottom: 1vh;
       }
 
       p {
@@ -104,7 +106,7 @@ const Style = {
     }
 
     .image-container {
-      width: 50%;
+      width: 55%;
       margin-top: 5%;
 
       .bubble-container {
