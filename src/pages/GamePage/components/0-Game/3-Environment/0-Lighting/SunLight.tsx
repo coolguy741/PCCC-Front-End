@@ -1,12 +1,12 @@
 import { TransformControls } from "@react-three/drei";
 import { folder, useControls } from "leva";
-import { FC, memo, MutableRefObject, useCallback, useRef } from "react";
-import { DirectionalLight } from "three";
+import { FC, memo, useCallback, useRef } from "react";
+import { RefDirectionalLightType } from "../../../../shared/Types/RefTypes";
 import { sunLightWorldPos } from "./LightingDefines";
 
 const SunLight: FC = () => {
   // Refs
-  const sunLightRef: MutableRefObject<DirectionalLight | null> = useRef(null);
+  const sunLightRef: RefDirectionalLightType = useRef(null);
 
   // Hooks
   const { size, color, intensity } = useControls({
@@ -25,13 +25,14 @@ const SunLight: FC = () => {
   const handleLogLightPos = useCallback(() => {
     if (sunLightRef.current) {
       const newPos = sunLightRef.current.getWorldPosition(sunLightWorldPos);
+      console.clear();
       console.log("lightPosition:", newPos);
     }
   }, []);
 
   return (
     <TransformControls
-      onChange={handleLogLightPos}
+      onMouseUp={handleLogLightPos}
       position={[3.386257562668803, 4.710346678759947, 2.662153116199844]}
     >
       <directionalLight
