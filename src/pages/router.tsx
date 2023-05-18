@@ -191,9 +191,9 @@ export const router = createBrowserRouter([
           </ReportsPage>
         ),
         children: [
+          { path: "", element: <Navigate to="./lesson-assessment" /> },
           { path: "lesson-assessment", element: <LessonAssessmentPage /> },
           { path: "impact-reporting", element: <ImpactReportingPage /> },
-          { path: "", element: <Navigate to="./assessment" /> },
         ],
       },
       { path: "group-organizer", element: <GroupOrganizerPage /> },
