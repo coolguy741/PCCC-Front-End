@@ -7,9 +7,13 @@ import { MealCard } from "../MealCard";
 
 interface WeeklyMealPlanProps {
   mealPlans: FullMealPlan[];
+  onMealRemove: (dayIndex: number, index: number) => void;
 }
 
-export const WeeklyMealPlan = ({ mealPlans }: WeeklyMealPlanProps) => {
+export const WeeklyMealPlan = ({
+  mealPlans,
+  onMealRemove,
+}: WeeklyMealPlanProps) => {
   return (
     <Style.Container>
       <div className="meal-planner-details">
@@ -55,10 +59,10 @@ export const WeeklyMealPlan = ({ mealPlans }: WeeklyMealPlanProps) => {
               droppableId={`droppable-weekly-meal-plan-${dayIndex}`}
               key={`droppable-weekly-meal-plan-${dayIndex}`}
             >
-              {(provided, dropSnapshot) => (
+              {(dropProvided, dropSnapshot) => (
                 <Style.DailyMealPlans
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
+                  {...dropProvided.droppableProps}
+                  ref={dropProvided.innerRef}
                 >
                   <div className="meal-plan-day">{dailyPlan.day}</div>
                   <div className="daily-plans">
@@ -75,11 +79,12 @@ export const WeeklyMealPlan = ({ mealPlans }: WeeklyMealPlanProps) => {
                             ref={provided.innerRef}
                             style={{
                               ...provided.draggableProps.style,
-                              height: "100%",
+                              height: snapshot.isDragging ? undefined : "100%",
                             }}
                           >
                             <MealCard
                               meal={meal}
+                              onMealRemove={() => onMealRemove(dayIndex, index)}
                               label={
                                 dayIndex === 0 ? `meal-${index + 1}` : null
                               }
@@ -88,7 +93,7 @@ export const WeeklyMealPlan = ({ mealPlans }: WeeklyMealPlanProps) => {
                         )}
                       </Draggable>
                     ))}
-                    {provided.placeholder}
+                    {dropProvided.placeholder}
                   </div>
                 </Style.DailyMealPlans>
               )}
