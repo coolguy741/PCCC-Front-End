@@ -10,15 +10,33 @@ interface MealCardProps {
   };
   label: string | null;
   fixed?: boolean;
+  onMealRemove?: () => void;
 }
 
-export const MealCard: React.FC<MealCardProps> = ({ meal, label, fixed }) => {
+export const MealCard: React.FC<MealCardProps> = ({
+  meal,
+  label,
+  fixed,
+  onMealRemove,
+}) => {
   return (
     <Style.Container fixed={fixed}>
       <Style.Card hasPlan={!!meal.description}>
+        <Style.ActionButtons className="button-actions">
+          <Style.ActionbuttonWrapper onClick={onMealRemove}>
+            <Icon name="trash" width="100%" height="100%" />
+          </Style.ActionbuttonWrapper>
+          <Style.ActionbuttonWrapper>
+            <Icon name="red-heart" />
+          </Style.ActionbuttonWrapper>
+        </Style.ActionButtons>
         {meal.description ? (
           <Style.Meal>
-            <Style.MealPicture src={meal.image} alt={meal.description} />
+            <Style.MealPicture
+              className="meal-picture"
+              src={meal.image}
+              alt={meal.description}
+            />
             <Style.Description>
               <Typography as="p">{meal.description}</Typography>
             </Style.Description>
@@ -47,6 +65,7 @@ const Style = {
     padding: 5% 0;
     overflow: hidden;
     height: 100%;
+    min-height: 105px;
     width: ${({ fixed }) => (fixed ? "90px" : "100%")};
   `,
   Card: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({
@@ -62,6 +81,21 @@ const Style = {
     transform: rotate(
       ${({ hasPlan }) => (hasPlan ? (Math.random() - 0.5) * 6 : 0)}deg
     );
+    &:hover {
+      background: var(--orange-500);
+      p {
+        color: white;
+      }
+      .button-actions {
+        opacity: 1;
+      }
+      .meal-picture {
+        opacity: 0.2;
+      }
+    }
+    .button-actions {
+      opacity: 0;
+    }
   `,
   Meal: styled.div`
     display: flex;
@@ -89,5 +123,23 @@ const Style = {
   `,
   Label: styled.div`
     position: absolute;
+  `,
+  ActionButtons: styled.div`
+    position: absolute;
+    top: 10px;
+    width: 80%;
+    display: flex;
+    gap: 2px;
+  `,
+  ActionbuttonWrapper: styled.button`
+    display: flex;
+    z-index: 10;
+    flex: 1;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    justify-content: center;
+    align-items: center;
   `,
 };

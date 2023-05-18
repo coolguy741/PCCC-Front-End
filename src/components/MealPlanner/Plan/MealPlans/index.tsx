@@ -32,25 +32,42 @@ export const MealPlans = () => {
   const onDragEnd: OnDragEndResponder = (result) => {
     const sourceIndex = result.source.index;
     const destinationIndex = result?.destination?.index;
-    const dayIndex = Number(result.destination?.droppableId.slice(-1));
+    const destinationDayIndex = Number(
+      result.destination?.droppableId.slice(-1),
+    );
 
     if (
       sourceIndex === undefined ||
       destinationIndex === undefined ||
-      dayIndex === undefined
+      destinationDayIndex === undefined
     ) {
       return;
     }
-    const selectedMealPlan = mealPlanMenu[sourceIndex];
     const updatedMealPlans = mealPlans;
-    if (!isNaN(dayIndex)) {
-      updatedMealPlans[dayIndex].plans[destinationIndex] = selectedMealPlan;
-      setMealPlanMenu((mealPlanMenu) => {
-        mealPlanMenu.splice(sourceIndex, 1);
-        return mealPlanMenu;
-      });
-      setMealPlans([...updatedMealPlans]);
+    if (result.source.droppableId === "droppable-meal-menu") {
+      const selectedMealPlan = mealPlanMenu[sourceIndex];
+      if (!isNaN(destinationDayIndex)) {
+        updatedMealPlans[destinationDayIndex].plans[destinationIndex] =
+          selectedMealPlan;
+      }
+    } else {
+      const sourceDayIndex = Number(result.source?.droppableId.slice(-1));
+      if (!isNaN(sourceDayIndex)) {
+        const temp = updatedMealPlans[sourceDayIndex].plans[sourceIndex];
+        updatedMealPlans[sourceDayIndex].plans[sourceIndex] =
+          updatedMealPlans[destinationDayIndex].plans[destinationIndex];
+        updatedMealPlans[destinationDayIndex].plans[destinationIndex] = temp;
+      }
     }
+    setMealPlans([...updatedMealPlans]);
+  };
+
+  const onMealRemove = (dayIndex: number, index: number) => {
+    const updatedMealPlans = mealPlans;
+    updatedMealPlans[dayIndex].plans[index] = {
+      description: null,
+    };
+    setMealPlans([...updatedMealPlans]);
   };
 
   return (
@@ -85,7 +102,7 @@ export const MealPlans = () => {
       <Style.Pages>
         <DragDropContext onDragEnd={onDragEnd}>
           <Style.LeftPage>
-            <WeeklyMealPlan mealPlans={mealPlans} />
+            <WeeklyMealPlan mealPlans={mealPlans} onMealRemove={onMealRemove} />
           </Style.LeftPage>
           <Style.Page>
             <div className="page-title">
