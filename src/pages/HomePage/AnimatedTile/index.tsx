@@ -77,7 +77,7 @@ const Style = {
 
       h2 {
         font-weight: 900;
-        font-size: 7.5vh;
+        font-size: 8vh;
         line-height: 90%;
         letter-spacing: 110%;
         text-transform: uppercase;
@@ -90,7 +90,7 @@ const Style = {
 
       h3 {
         font-weight: 700;
-        font-size: 4vh;
+        font-size: 4.5vh;
         line-height: 110%;
         color: var(--neutral-800);
         margin-bottom: 1vh;
