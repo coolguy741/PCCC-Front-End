@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../../components/Global/Icon";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export const FooterTile = () => {
@@ -51,6 +52,7 @@ const Style = {
     padding: 0 5vw;
     padding-left: 7.5vw;
     position: relative;
+    ${() => animatedbackgroundGradient("#D2F7E5", "#FFF5CC")};
 
     h2 {
       color: var(--neutral-900);
