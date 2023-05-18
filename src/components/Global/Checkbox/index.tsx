@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 export type CheckboxSize = "small" | "large";
-export type CheckboxColor = "primary" | "book";
+export type CheckboxColor = "primary" | "book" | "green" | "orange" | "yellow";
 
 export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
   sizeOption?: CheckboxSize;
@@ -14,6 +14,7 @@ export const Checkbox = ({
   colorOption = "primary",
   ...props
 }: CheckboxProps) => {
+  console.log(colorOption);
   return (
     <Style.Input
       type="checkbox"
@@ -42,7 +43,15 @@ const Style = {
       place-items: center;
       border: 2px solid
         ${({ colorOption }) =>
-          colorOption === "primary" ? "var(--blue-300)" : "#A59176"};
+          colorOption === "primary"
+            ? "var(--blue-300)"
+            : colorOption === "green"
+            ? "var(--green-400)"
+            : colorOption === "orange"
+            ? "var(--orange-400)"
+            : colorOption === "yellow"
+            ? "var(--yellow-400)"
+            : "#A59176"};
       border-radius: 4px;
 
       &:disabled {
@@ -59,9 +68,17 @@ const Style = {
       &:checked::before {
         opacity: 1;
         background: ${({ colorOption }) =>
-        colorOption === "primary" ? "var(--blue-400)" : "#D3BB90"};
+          colorOption === "primary"
+            ? "var(--blue-300)"
+            : colorOption === "green"
+            ? "var(--green-400)"
+            : colorOption === "orange"
+            ? "var(--orange-400)"
+            : colorOption === "yellow"
+            ? "var(--yellow-400)"
+            : "#A59176"};
       }
-      
+
       &::before {
         content: "";
         width: 12px;

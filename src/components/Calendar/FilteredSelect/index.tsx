@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import styled from "styled-components";
 import { Checkbox } from "../../Global/Checkbox";
 import { Input } from "../../Global/Input";
 
 interface FilteredSelectProps {
   position: string;
+  isOpen: boolean;
+  modalOpen: boolean;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const MOCK_GROUPS = [
@@ -18,18 +21,30 @@ const MOCK_GROUPS = [
   "Group H",
 ];
 
-export const FitleredSelect = ({ position }: FilteredSelectProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
+export const FitleredSelect = ({
+  position,
+  isOpen,
+  modalOpen,
+  setModalOpen,
+}: FilteredSelectProps) => {
+  useEffect(() => {
+    if (!isOpen) setModalOpen(false);
+  }, [isOpen]);
 
   return (
     <>
-      <Style.Input onClick={() => setModalOpen((modalOpen) => !modalOpen)}>
+      <Style.Input
+        onClick={(e) => {
+          e.stopPropagation();
+          setModalOpen((modalOpen: boolean) => !modalOpen);
+        }}
+      >
         <span>—</span>
         <span>
           <img src="/icons/downSelect.svg" />{" "}
         </span>
         {modalOpen && (
-          <Style.Modal position={position}>
+          <Style.Modal position={position} onClick={(e) => e.stopPropagation()}>
             <Input placeholder="Search" height="3rem" />
             <div className="groups">
               {MOCK_GROUPS.map((group) => (

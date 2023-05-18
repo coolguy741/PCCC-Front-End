@@ -41,7 +41,8 @@ export const CalendarPopup: React.FC<Props> = ({
   selectedDate,
   close,
 }) => {
-  const [type, setType] = useState<string>("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [type, setType] = useState<string>("note");
   const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
@@ -64,7 +65,7 @@ export const CalendarPopup: React.FC<Props> = ({
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType("");
+    setType("note");
   };
 
   return (
@@ -74,6 +75,7 @@ export const CalendarPopup: React.FC<Props> = ({
       popupSize={popupSize}
       width={window.innerWidth}
       height={window.innerHeight}
+      onClick={() => setModalOpen(false)}
     >
       <div className="popup-background" onClick={handleClose}></div>
       <div className="popup-container">
@@ -95,15 +97,17 @@ export const CalendarPopup: React.FC<Props> = ({
             </ButtonRow>
           </div>
           {type === "note" && (
-            <AddNoteForm yPos={position.yPos} selectedDate={selectedDate} />
+            <AddNoteForm
+              yPos={position.yPos}
+              selectedDate={selectedDate}
+              isOpen={isOpen}
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+            />
           )}
           {type === "publish" && (
             <PublishForm yPos={position.yPos} selectedDate={selectedDate} />
           )}
-          {/* {type && <EventTypeForm setEventType={setEventType} />}
-          {eventType && (
-            <EventForm eventType={eventType} addEvent={handleAddEvent} />
-          )} */}
         </div>
       </div>
     </Style.Container>
@@ -158,12 +162,13 @@ const Style = {
       z-index: 10;
 
       .popup {
+        background: none;
         border-radius: 1rem;
         position: relative;
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(59.2764px);
-        z-index: 1;
+        z-index: auto;
         display: flex;
         flex-direction: column;
 
@@ -176,19 +181,19 @@ const Style = {
 
         &:before {
           content: "";
+          position: absolute;
+          z-index: -1;
           width: 20px;
+          height: 20px;
           ${({ position }) => `${position.xPos}: 0;`}
+          ${({ position }) => `${position.yPos}: 33px;`}
           transform: ${({ position }) =>
             position.xPos === "right"
               ? "translate(50%) rotate(45deg)"
               : "translate(-50%) rotate(45deg)"};
-          position: absolute;
-          z-index: -1;
-          height: 20px;
-          ${({ position }) => `${position.yPos}: 33px;`}
           border-top-left-radius: 5px;
           background: rgba(255, 255, 255, 0.5);
-          box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(59.2764px);
         }
       }
     }

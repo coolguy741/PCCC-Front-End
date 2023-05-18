@@ -4,14 +4,16 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import styled from "styled-components";
+import { capitalize } from "../../../lib/util/capitalize";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (
       <Style.CustomEventTitle>
-        <p className="event-title">{eventInfo.event?.title}</p>
+        <p className="event-title">
+          {capitalize(eventInfo.event?.extendedProps.type)}
+        </p>
         <p className="event-content">
-          {eventInfo.event?.extendedProps.type.toUpperCase()} -{" "}
           {eventInfo.event?.extendedProps.description}
         </p>
       </Style.CustomEventTitle>
@@ -40,6 +42,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           },
         }}
         initialDate={new Date()}
+        dayMaxEventRows={2}
         dayMaxEvents={true}
         fixedWeekCount={false}
         eventContent={renderEventContent}
@@ -64,6 +67,9 @@ const Style = {
         border-radius: 1.2rem;
       }
 
+      .fc-icon {
+      }
+
       thead div {
         height: 2.5rem;
         display: flex;
@@ -72,18 +78,30 @@ const Style = {
         font-weight: 500;
       }
 
+      .fc-button-active {
+        background: linear-gradient(
+          182.85deg,
+          rgba(255, 215, 96, 0.8) 2.47%,
+          rgba(255, 191, 0, 0.8) 97.72%
+        );
+      }
+
       .fc-button-group,
       .fc-today-button {
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
       }
 
       .fc-today-button {
-        background-color: var(--yellow-500);
+        background: linear-gradient(
+          182.85deg,
+          rgba(255, 215, 96, 0.8) 2.47%,
+          rgba(255, 191, 0, 0.8) 97.72%
+        );
         opacity: 1;
       }
 
       .fc-daygrid-day {
-        a {
+        .fc-daygrid-day-number {
           width: 2rem;
           height: 2rem;
           margin: 0;
@@ -94,10 +112,28 @@ const Style = {
           margin: 0.3rem;
         }
       }
+      .fc-event-main,
+      .fc-event {
+        padding: 0.1rem 0.25rem;
+        box-shadow: none;
+
+        .event-title {
+          font-size: 0.9rem;
+        }
+
+        .event-content {
+          color: var(--black);
+          font-size: 0.8rem;
+        }
+      }
 
       & .fc-day-today {
-        a {
-          background-color: var(--yellow-500);
+        .fc-daygrid-day-number {
+          background: linear-gradient(
+            182.85deg,
+            rgba(255, 215, 96, 0.8) 2.47%,
+            rgba(255, 191, 0, 0.8) 97.72%
+          );
           border-radius: 20px;
         }
       }
