@@ -38,6 +38,7 @@ const Style = {
     &::after {
       content: url("/icons/downSelect.svg");
       position: absolute;
+      height: 16px;
       right: 15px;
       top: 50%;
       transform: translate(0, -50%);
