@@ -126,3 +126,25 @@ export const dummy_tiles = [
     },
   },
 ];
+
+export const meal_planner_tile = {
+  titleFirstLine: "Meal",
+  titleSecondLine: "Planner",
+  titleColor: "orange-600",
+  subtitle: "Lettuce help you build a meal plan",
+  gradientStart: "#FEE5DD",
+  gradientEnd: "#FFF5CC",
+  image: "/images/homepage/meal-planner.png",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Lorem ipsum do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
+  buttonText: "Let's go!",
+  buttonLink: "/dashboard/mealtime-moments",
+  buttonAction: "link",
+  speechBubble: {
+    left: 500,
+    top: 90,
+    variant: "orange",
+    link: "meal-planner",
+    text: "Explore more Meal Planner",
+  },
+};

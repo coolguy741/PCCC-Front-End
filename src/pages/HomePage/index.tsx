@@ -4,7 +4,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Icon } from "../../components/Global/Icon";
 import { FooterTile } from "./FooterTile";
-import { MealPlannerTile } from "./MealPlannerTile";
 import { PowerFullKidsTile } from "./PowerFullKidsTile";
 
 import "swiper/css";
@@ -12,7 +11,7 @@ import "swiper/css/pagination";
 import { useUserStore } from "../../stores/userStore";
 import { dashboardScrollAnimation } from "../../styles/animations/dashboardScroll";
 import { AnimatedTile } from "./AnimatedTile";
-import { dummy_tiles } from "./tile_data";
+import { dummy_tiles, meal_planner_tile } from "./tile_data";
 
 export const HomePage = () => {
   const user = useUserStore((state) => state.user);
@@ -40,7 +39,7 @@ export const HomePage = () => {
         ))}
         {!!user && (
           <SwiperSlide>
-            <MealPlannerTile />
+            <AnimatedTile tile={meal_planner_tile} />
           </SwiperSlide>
         )}
         <SwiperSlide>
