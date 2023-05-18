@@ -211,7 +211,7 @@ const Style = {
         userAvailable ? "space-between" : "flex-end"};
 
       .header-alert {
-        height: 125%;
+        height: 100%;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         position: relative;
