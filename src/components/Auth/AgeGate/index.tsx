@@ -6,26 +6,36 @@ import { useSignUpStore } from "../../../stores/signUpStore";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
 type AgeGateForm = {
   year: string | number;
-  month: string | number;
-  date: string | number;
   province: string;
 };
+
+const PROVINCES = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Northwest Territories",
+  "Nunavut",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Yukon",
+];
 
 export const AgeGate = () => {
   const {
     setBirthYear,
-    setBirthMonth,
-    setBirthDate,
     setProvince,
     birthYear,
-    birthDate,
-    birthMonth,
     province,
-    over18,
     changeStep,
     setOver18,
   } = useSignUpStore();
@@ -37,13 +47,11 @@ export const AgeGate = () => {
   } = useForm({
     defaultValues: {
       year: birthYear ?? "",
-      month: birthMonth ?? "",
-      date: birthDate ?? "",
       province: province ?? "",
     },
   });
 
-  const submitHandler = ({ year, month, date, province }: AgeGateForm) => {
+  const submitHandler = ({ year, province }: AgeGateForm) => {
     const currentYear = new Date().getFullYear();
 
     if (currentYear - parseInt(year.toString()) >= 18) {
@@ -55,8 +63,6 @@ export const AgeGate = () => {
     }
 
     setBirthYear(parseInt(year.toString()));
-    setBirthMonth(parseInt(month.toString()));
-    setBirthDate(parseInt(date.toString()));
     setProvince(province);
   };
 
@@ -67,51 +73,8 @@ export const AgeGate = () => {
       <form onSubmit={handleSubmit(submitHandler)}>
         <h2>Sign up</h2>
         <fieldset>
-          <label>What year were you born?</label>
+          <label>What year were you born in?</label>
           <div className="birth-split">
-            <Controller
-              name="month"
-              control={control}
-              rules={{
-                required: true,
-                min: "1",
-                max: "12",
-              }}
-              render={({ field }) => (
-                <Input
-                  width="15%"
-                  height="5vh"
-                  placeholder="MM"
-                  data-testid="month"
-                  type="number"
-                  className={errors.month ? "has-error" : ""}
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="date"
-              rules={{
-                required: true,
-                min: "1",
-                max: "31",
-                validate: (value, { year, month, date }) =>
-                  parseInt(value.toString()) ===
-                  new Date(`${year}-${month}-${date} 00:00:00.000`).getDate(),
-              }}
-              control={control}
-              render={({ field }) => (
-                <Input
-                  width="15%"
-                  height="5vh"
-                  placeholder="DD"
-                  className={errors.date ? "has-error" : ""}
-                  data-testid="date"
-                  type="number"
-                  {...field}
-                />
-              )}
-            />
             <Controller
               name="year"
               control={control}
@@ -122,8 +85,7 @@ export const AgeGate = () => {
               }}
               render={({ field }) => (
                 <Input
-                  width="18%"
-                  height="5vh"
+                  width="100%"
                   placeholder="YYYY"
                   type="number"
                   data-testid="year"
@@ -136,26 +98,29 @@ export const AgeGate = () => {
         </fieldset>
         <fieldset>
           <label>What is your province?</label>
-          <Controller
-            name="province"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => (
-              <Input
-                type="text"
-                className={errors.province ? "has-error" : ""}
-                width="100%"
-                placeholder="Ontario"
-                data-testid="province"
-                height="5vh"
-                {...field}
-                min="1900"
-                max="2023"
-              />
-            )}
-          />
+          <div className="province-select-container">
+            <Controller
+              name="province"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => (
+                <Select
+                  data-testid="province"
+                  className={`${errors.province ? "has-error" : ""}`}
+                  {...field}
+                >
+                  {PROVINCES &&
+                    PROVINCES.map((name, index) => (
+                      <option key={`province-${index}`} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                </Select>
+              )}
+            />
+          </div>
         </fieldset>
         <Button size="small" fullWidth type="submit" data-testid="next">
           Continue to the next step
@@ -171,42 +136,42 @@ const Style = {
     display: flex;
     flex-direction: column;
     width: 35vw;
-    height: 65vh;
     ${glassBackground}
 
     h1 {
-      color: #3d3d3d;
+      color: var(--neutral-800);
       font-weight: 700;
-      font-size: 5vh;
+      font-size: 4vh;
     }
 
     label {
       font-size: 2vh;
-      color: var(--neutral-700);
+      color: var(--neutral-600);
       margin: 1vh 0;
     }
 
     input {
-      margin: 1.5vh 0;
+      margin: 2vh 0;
       margin-right: 1vw;
     }
 
     p {
       margin-top: 1vh;
-      font-size: 2.5vh;
+      font-size: 1.8vh;
       line-height: 125%;
-      color: var(--neutral-700);
+      color: var(--neutral-600);
     }
 
-    fieldset {
-      margin-bottom: 1vh;
+    form > fieldset {
+      margin-bottom: 2.666vh;
       height: 10vh;
     }
 
     h2 {
-      margin-top: 1.75vh;
-      margin-bottom: 1.25vh;
-      font-size: 3vh;
+      margin-top: 3vh;
+      margin-bottom: 2vh;
+      font-size: 2.666vh;
+      color: var(--neutral-800);
     }
 
     form {
@@ -218,10 +183,16 @@ const Style = {
     }
 
     button {
-      margin-top: auto;
+      margin-top: 4.66vh;
       svg {
         margin-left: 0.5vw;
       }
+    }
+
+    .province-select-container {
+      width: 100%;
+      height: 4vh;
+      margin-top: 2vh;
     }
   `,
 };

@@ -1,5 +1,6 @@
 import { forwardRef, Ref } from "react";
 import styled from "styled-components";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -12,20 +13,20 @@ export const Input = forwardRef(
 const Style = {
   Input: styled.input<InputProps>`
     width: ${({ width }) => (width ? width : "100%")};
-    height: ${({ height }) => (height ? height : "100%")};
+    height: ${({ height }) => (height ? height : conv(48, "vh"))};
     background: var(--white);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 5px 15px;
+    padding: ${conv(5, "vh")} ${conv(15, "vh")};
     border: 1px solid white;
     transition: box-shadow 0.3s ease-out, border-color 0.3s ease-in;
-    font-size: 1em;
+    font-size: ${conv(16, "vh")};
     line-height: 125%;
     color: #1d2433;
     cursor: pointer;
 
     &:focus {
-      border: 2px solid var(--blue-500);
+      border: ${conv(2, "vh")} solid var(--blue-500);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1),
         0px 0px 0px 4px rgba(31, 81, 229, 0.08);
     }
@@ -37,26 +38,26 @@ const Style = {
     }
 
     &:active {
-      border: 2px solid var(--blue-500);
+      border: ${conv(2, "vh")} solid var(--blue-500);
     }
 
     &:disabled {
       background: var(--neutral-100);
-      border: 1px solid #e1e6ef;
-      box-shadow: 0px4px 16px rgba(0, 0, 0, 0.1);
+      border: ${conv(1, "vh")} solid #e1e6ef;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     }
 
     &.has-error {
       border-color: var(--red-300);
-      padding: 6px 16px;
-      border-width: 1px;
+      padding: ${conv(6, "vh")} ${conv(16, "vw")};
+      border-width: ${conv(1, "vw")};
       outline-color: transparent;
 
       &:focus,
       &:active {
-        padding: 5px 15px;
+        padding: ${conv(5, "vh")} ${conv(15, "vw")};
         border-color: var(--red-500);
-        border-width: 2px;
+        border-width: ${conv(2, "vw")};
       }
     }
 
@@ -66,10 +67,10 @@ const Style = {
       background-color: #fff;
       padding: 0;
       margin: 0;
-      width: 20px;
-      height: 20px;
+      width: ${conv(20, "vw")};
+      height: ${conv(20, "vh")};
       border-radius: 4px;
-      border: 3px solid var(--blue-300);
+      border: ${conv(3, "vh")} solid var(--blue-300);
       position: relative;
       display: grid;
       place-items: center;
@@ -80,8 +81,8 @@ const Style = {
 
       &::before {
         content: "";
-        width: 12px;
-        height: 12px;
+        width: ${conv(12, "vw")};
+        height: ${conv(12, "vh")};
         background: var(--blue-500);
         position: absolute;
         opacity: 0;
@@ -89,7 +90,7 @@ const Style = {
       }
 
       &:focus {
-        border: 2px solid white;
+        border: ${conv(2, "vh")} solid white;
         outline: max(2px, 0.15em) solid var(--blue-500);
         outline-offset: max(2px, 0.15em);
       }

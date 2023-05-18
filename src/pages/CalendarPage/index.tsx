@@ -14,6 +14,9 @@ export const CalendarPage = () => {
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
+    xPos: "",
+    yPos: "",
+    height: 0,
   });
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
@@ -26,9 +29,28 @@ export const CalendarPage = () => {
     setSelectedDate(info.dateStr);
     const rectDOM = info.dayEl.getBoundingClientRect();
 
+    console.log(info.dayEl.getBoundingClientRect());
+
+    let xPos = "";
+    let yPos = "";
+    if (info.jsEvent.pageY / window.innerHeight > 0.5) {
+      yPos = "bottom";
+    } else {
+      yPos = "top";
+    }
+
+    if (info.jsEvent.pageX / window.innerWidth > 0.5) {
+      xPos = "right";
+    } else {
+      xPos = "left";
+    }
+
     setPosition({
       x: rectDOM.x + rectDOM.width / 2,
-      y: rectDOM.y + rectDOM.height / 2,
+      y: rectDOM.y + rectDOM.height / 2 - (yPos === "top" ? 45 : -45),
+      xPos: xPos,
+      yPos: yPos,
+      height: rectDOM.height,
     });
     setIsOpen(true);
   };
@@ -64,13 +86,13 @@ export const CalendarPage = () => {
             </div>
           </Style.CalendarSideMenu>
         </Style.CalendarContainer>
+        <CalendarPopup
+          position={position}
+          isOpen={isOpen}
+          selectedDate={selectedDate}
+          close={handleClosePopup}
+        />
       </Style.Container>
-      <CalendarPopup
-        position={position}
-        isOpen={isOpen}
-        selectedDate={selectedDate}
-        close={handleClosePopup}
-      />
     </>
   );
 };
@@ -85,6 +107,7 @@ const Style = {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
 
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
   `,

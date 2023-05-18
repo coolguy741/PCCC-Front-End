@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import { useSignUpStore } from "../../../stores/signUpStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -32,7 +33,7 @@ export const RoleGate = () => {
     },
   });
 
-  const [height, setHeight] = useState("368px");
+  const [height, setHeight] = useState(convertToRelativeUnit(368, "vh"));
 
   const submitHandler = ({
     schoolIdCode,
@@ -49,18 +50,18 @@ export const RoleGate = () => {
   function changeCoordinator(coor: boolean) {
     if (coor) {
       setIsCoordinator(true);
-      setHeight("540px");
+      setHeight(convertToRelativeUnit(540, "vh"));
     } else {
       setIsCoordinator(false);
-      setHeight("410px");
+      setHeight(convertToRelativeUnit(410, "vh"));
     }
   }
 
   useEffect(() => {
     if (isCoordinator === true) {
-      setHeight("540px");
+      setHeight(convertToRelativeUnit(540, "vh"));
     } else if (isCoordinator === false) {
-      setHeight("410px");
+      setHeight(convertToRelativeUnit(410, "vh"));
     }
   }, [isCoordinator]);
 
@@ -177,29 +178,32 @@ export const RoleGate = () => {
 const Style = {
   Container: styled(motion.main)<{ height: string }>`
     ${glassBackground}
-    padding: 40px;
-    width: 500px;
+    padding: ${convertToRelativeUnit(40, "vh")} ${convertToRelativeUnit(
+      40,
+      "vw",
+    )};
+    width: ${convertToRelativeUnit(500, "vw")};
     height: ${({ height }) => height};
     transition: height 0.2s linear;
     position: relative;
 
     h1 {
       font-weight: 600;
-      font-size: 30px;
+      font-size: ${convertToRelativeUnit(30, "vh")};
     }
 
     p {
-      font-size: 20px;
-      line-height: 24px;
+      font-size: ${convertToRelativeUnit(20, "vh")};
+      line-height: 125%;
       color: var(--neutral-700);
-      margin-top: 12px;
+      margin-top: ${convertToRelativeUnit(12, "vh")};
     }
 
     .radio-buttons {
       display: flex;
       flex-direction: column;
-      height: 70px;
-      margin: 30px 0;
+      height: ${convertToRelativeUnit(70, "vh")};
+      margin: ${convertToRelativeUnit(30, "vh")} 0;
       justify-content: space-between;
 
       fieldset {
@@ -207,16 +211,16 @@ const Style = {
         align-items: center;
 
         label {
-          margin-left: 10px;
-          font-size: 18px;
-          line-height: 24px;
+          margin-left: ${convertToRelativeUnit(10, "vw")};
+          font-size: ${convertToRelativeUnit(18, "vh")};
+          line-height: 125%;
           color: var(--neutral-900);
         }
       }
     }
 
     .school-id {
-      margin-bottom: 12px;
+      margin-bottom: ${convertToRelativeUnit(12, "vh")};
     }
 
     form {
@@ -229,9 +233,9 @@ const Style = {
       }
 
       button {
-        margin-top: 50px;
+        margin-top: ${convertToRelativeUnit(50, "vh")};
         svg {
-          margin-left: 10px;
+          margin-left: ${convertToRelativeUnit(10, "vw")};
         }
       }
     }
@@ -251,7 +255,7 @@ const Style = {
     }
 
     p.forgot-code {
-      font-size: 15px;
+      font-size: ${convertToRelativeUnit(15, "vh")};
     }
   `,
 };

@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { useAPI } from "../../../hooks/useAPI";
 import { useUserStore } from "../../../stores/userStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
@@ -115,34 +116,34 @@ export const ResetPasswordForm = () => {
 const Style = {
   Container: styled(motion.form)`
     ${glassBackground};
-    width: 650px;
+    width: ${convertToRelativeUnit(650, "vw")};
     height: auto;
 
     h1 {
       font-weight: 600;
-      font-size: 33px;
-      line-height: 40px;
+      font-size: ${convertToRelativeUnit(33, "vh")};
+      line-height: 125%;
       color: var(--neutral-900);
-      margin-bottom: 32px;
+      margin-bottom: ${convertToRelativeUnit(32, "vh")};
     }
 
     fieldset {
       display: flex;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: ${convertToRelativeUnit(24, "vh")};
       justify-content: space-between;
-      height: 52px;
+      height: ${convertToRelativeUnit(52, "vh")};
 
       label {
         font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
+        font-size: ${convertToRelativeUnit(16, "vh")};
+        line-height: 125%;
         color: var(--neutral-700);
       }
     }
 
     button {
-      margin-top: 40px;
+      margin-top: ${convertToRelativeUnit(40, "vh")};
     }
   `,
 };

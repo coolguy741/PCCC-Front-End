@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export function EducatorRecovery() {
   return (
@@ -22,17 +23,17 @@ const Style = {
 
     h1 {
       font-weight: 600;
-      font-size: 36px;
-      line-height: 44px;
+      font-size: ${convertToRelativeUnit(36, "vh")};
+      line-height: 125%;
       color: var(--neutral-900);
-      margin-bottom: 24px;
+      margin-bottom: ${convertToRelativeUnit(24, "vh")};
     }
 
     p {
-      font-size: 24px;
-      line-height: 32px;
+      font-size: ${convertToRelativeUnit(24, "vh")};
+      line-height: 125%;
       color: var(--neutral-700);
-      margin-bottom: 12px;
+      margin-bottom: ${convertToRelativeUnit(12, "vh")};
     }
   `,
 };
