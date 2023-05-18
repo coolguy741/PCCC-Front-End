@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useUserStore } from "../../stores/userStore";
 import { dashboardScrollAnimation } from "../../styles/animations/dashboardScroll";
+import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { AnimatedTile } from "./AnimatedTile";
 import { dummy_tiles, meal_planner_tile } from "./tile_data";
 
@@ -76,42 +77,31 @@ const Style = {
     }
 
     .swiper-pagination {
-      right: 36px;
-      width: 16px;
+      right: ${convertToRelativeUnit(36, "vw")};
+      width: ${convertToRelativeUnit(16, "vw")};
 
       .swiper-pagination-bullet {
         background: var(--neutral-900);
         opacity: 1;
-        width: 8px;
-        height: 8px;
-        margin: 16px;
+        width: ${convertToRelativeUnit(8, "vw")};
+        height: ${convertToRelativeUnit(8, "vh")};
+        margin: ${convertToRelativeUnit(16, "vh")};
         transform: translate(-50%);
         transition: all 0.5s ease-out;
 
         &.swiper-pagination-bullet-active {
-          width: 16px;
-          height: 16px;
-          margin: 16px;
+          width: ${convertToRelativeUnit(16, "vw")};
+          height: ${convertToRelativeUnit(16, "vh")};
+          margin: ${convertToRelativeUnit(16, "vh")};
           transform: translate(-50%);
         }
       }
     }
   `,
-  MainContent: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  `,
-  BigText: styled.p`
-    font-family: "Open Sans";
-    margin: -108px 0px 0px 0px;
-    font-family: "Noir Std";
-    font-style: normal;
-  `,
   ScrollIconContainer: styled.div`
     position: absolute;
-    left: calc((100% - 42px) / 2);
-    bottom: 45px;
+    left: calc((100% - ${convertToRelativeUnit(42, "vw")}) / 2);
+    bottom: ${convertToRelativeUnit(45, "vh")};
     z-index: 10;
     opacity: 0;
     ${() => dashboardScrollAnimation(2.5, 15, 3)};
