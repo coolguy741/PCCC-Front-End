@@ -111,6 +111,8 @@ const Style = {
 
       .bubble-container {
         position: relative;
+        display: grid;
+        place-items: center;
       }
 
       img {
