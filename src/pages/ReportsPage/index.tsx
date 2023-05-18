@@ -1,49 +1,39 @@
-import { useMemo } from "react";
-import { useMatch } from "react-router-dom";
 import styled from "styled-components";
+import { ReportsHeader } from "../../components/Reports/ReportsHeader";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
-import { PageHeader } from "../../components/Global/Header/PageHeader";
-import { ReportActions } from "../../components/Reports/Actions";
-import { ReportAssessment } from "../../components/Reports/Assessment";
-import { ReportAssessmentPreview } from "../../components/Reports/Assessment/Preview";
-import { ReportImpact } from "../../components/Reports/Impact";
-import { ReportImpactPreview } from "../../components/Reports/Impact/Preview";
-import { ReportsTabs } from "../../components/Reports/Tabs";
+interface ReportsPageProps {
+  children: JSX.Element;
+}
 
-const tabs = ["assessment", "impact-qa"];
-
-const mainComponents = [<ReportAssessment />, <ReportImpact />];
-const previewComponents = [
-  <ReportAssessmentPreview />,
-  <ReportImpactPreview />,
-];
-
-export const ReportsPage = () => {
-  const mainMatch = useMatch("/dashboard/reports/:slug");
-  const previewMatch = useMatch("/dashboard/reports/:slug/preview");
-
-  const tabIndex = useMemo(() => {
-    const tab = (mainMatch ?? previewMatch)?.params?.slug ?? "assessment";
-
-    return tabs.indexOf(tab);
-  }, [mainMatch, previewMatch]);
-
-  const isPreview = useMemo(() => !!previewMatch, [previewMatch]);
-
-  if (tabIndex < 0) {
-    throw Error;
-  }
-
+export const ReportsPage = ({ children }: ReportsPageProps) => {
   return (
-    <Style.Container>
-      <PageHeader title="Reports" />
-      {isPreview && <ReportActions tabs={tabs} tabIndex={tabIndex} />}
-      <ReportsTabs tabIndex={tabIndex} tabs={tabs} isPreview={isPreview} />
-      {isPreview ? previewComponents[tabIndex] : mainComponents[tabIndex]}
-    </Style.Container>
+    <Style.PageContainer>
+      <ReportsHeader />
+      <section className="reports-content">{children}</section>
+    </Style.PageContainer>
   );
 };
 
 const Style = {
-  Container: styled.div``,
+  PageContainer: styled.div`
+    padding: 9vh 32px 2.5vh 64px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100vh;
+    justify-content: space-between;
+    overflow: hidden;
+
+    .reports-header {
+      height: 11vh;
+    }
+
+    section.reports-content {
+      width: 100%;
+      height: 77vh;
+    }
+
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
+  `,
 };

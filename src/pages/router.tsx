@@ -75,6 +75,8 @@ import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLess
 import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
 import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
 import { ReportsPage } from "./ReportsPage";
+import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
+import { LessonAssessmentPage } from "./ReportsPage/LessonAssessment";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
 import { TempHomePage } from "./TempHomePage";
@@ -184,13 +186,13 @@ export const router = createBrowserRouter([
       {
         path: "reports",
         element: (
-          <>
+          <ReportsPage>
             <Outlet />
-          </>
+          </ReportsPage>
         ),
         children: [
-          { path: ":slug", element: <ReportsPage /> },
-          { path: ":slug/preview", element: <ReportsPage /> },
+          { path: "lesson-assessment", element: <LessonAssessmentPage /> },
+          { path: "impact-reporting", element: <ImpactReportingPage /> },
           { path: "", element: <Navigate to="./assessment" /> },
         ],
       },
