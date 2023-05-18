@@ -17,7 +17,7 @@ const Cursor: FC = () => {
 
   // Handlers
   const handleSetCursorLocation = useCallback(
-    (event: MouseEvent) => {
+    (event: MouseEvent): void => {
       cursorLocation.set(event.clientX, event.clientY);
     },
     [cursorLocation],

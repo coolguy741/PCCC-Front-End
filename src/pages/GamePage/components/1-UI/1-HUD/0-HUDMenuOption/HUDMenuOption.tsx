@@ -3,6 +3,7 @@ import { HUDMenuOptionDataType } from "./HUDMenuOptionData";
 import HUDMenuOptionStyleContainer from "./HUDMenuOptionStyleContainer";
 import { useHUDMenuOptionLogic } from "./useHUDMenuOptionLogic";
 
+// Types
 export interface HUDMenuOptionPropTypes {
   menuActive: boolean;
   optionData: HUDMenuOptionDataType;

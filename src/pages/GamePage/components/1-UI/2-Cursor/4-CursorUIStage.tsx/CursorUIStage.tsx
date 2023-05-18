@@ -4,16 +4,19 @@ import { useGlobalState } from "../../../../globalState/useGlobalState";
 import CursorMenuOption from "../3-CursorMenuOption/CursorMenuOption";
 import {
   actionOneBoundingRectVector,
+  actionOneMenuOptionStyleObject,
   actionOneMenuPositionDriver,
   actionOneMenuPositionEnd,
   actionOneMenuPositionOffset,
   actionOneTempCopyCurrentLocation,
   actionTwoBoundingRectVector,
+  actionTwoMenuOptionStyleObject,
   actionTwoMenuPositionDriver,
   actionTwoMenuPositionEnd,
   actionTwoMenuPositionOffset,
   actionTwoTempCopyCurrentLocation,
   inspectBoundingRectVector,
+  inspectMenuOptionStyleObject,
   inspectMenuPositionDriver,
   inspectMenuPositionEnd,
   inspectMenuPositionOffset,
@@ -34,35 +37,35 @@ const CursorUIStage: FC = () => {
     <Fragment>
       <CursorMenuOption
         label="Inspect"
-        color="#26d07c"
         animOffset={0}
         hoverTrigger={hoveredSection === "left"}
-        iconURL="/game_assets/ui_images/cursor/inspect.webp"
         menuPositionEnd={inspectMenuPositionEnd}
+        styleObject={inspectMenuOptionStyleObject}
         boundingRectVector={inspectBoundingRectVector}
         menuPositionOffset={inspectMenuPositionOffset}
         menuPositionDriver={inspectMenuPositionDriver}
+        iconURL="/game_assets/ui_images/cursor/inspect.webp"
         tempCursorLocationCopy={inspectTempCopyCurrentLocation}
       />
       <CursorMenuOption
         label="Pick Up"
-        color="#ffcd00"
         animOffset={0.1}
-        iconURL="/game_assets/ui_images/cursor/pickup.webp"
         hoverTrigger={hoveredSection === "center"}
         menuPositionEnd={actionOneMenuPositionEnd}
+        styleObject={actionOneMenuOptionStyleObject}
         boundingRectVector={actionOneBoundingRectVector}
         menuPositionOffset={actionOneMenuPositionOffset}
         menuPositionDriver={actionOneMenuPositionDriver}
+        iconURL="/game_assets/ui_images/cursor/pickup.webp"
         tempCursorLocationCopy={actionOneTempCopyCurrentLocation}
       />
       <CursorMenuOption
         label="Use"
-        color="#0084d5"
         animOffset={0.2}
-        iconURL="/game_assets/ui_images/cursor/use.webp"
         hoverTrigger={hoveredSection === "right"}
         menuPositionEnd={actionTwoMenuPositionEnd}
+        styleObject={actionTwoMenuOptionStyleObject}
+        iconURL="/game_assets/ui_images/cursor/use.webp"
         boundingRectVector={actionTwoBoundingRectVector}
         menuPositionOffset={actionTwoMenuPositionOffset}
         menuPositionDriver={actionTwoMenuPositionDriver}

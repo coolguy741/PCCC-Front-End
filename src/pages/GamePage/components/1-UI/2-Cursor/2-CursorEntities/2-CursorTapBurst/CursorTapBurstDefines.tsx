@@ -6,15 +6,15 @@ import {
 } from "three";
 
 const tapBurstVertexShader = /* glsl */ `
-precision highp float;
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
+  precision highp float;
+  uniform mat4 modelViewMatrix;
+  uniform mat4 projectionMatrix;
 
-attribute vec2 uv;
-attribute vec3 position;
+  attribute vec2 uv;
+  attribute vec3 position;
 
-varying vec2 vUv;
-varying vec3 vPos;
+  varying vec2 vUv;
+  varying vec3 vPos;
 
     void main() {
         vUv = uv;
@@ -56,9 +56,14 @@ const uniforms = {
   uTime: { value: -3 },
 };
 
-const tapBurstGeometry = new CircleGeometry(0.5, 8, 0, Math.PI * 2);
+const tapBurstGeometry: CircleGeometry = new CircleGeometry(
+  0.5,
+  8,
+  0,
+  Math.PI * 2,
+);
 
-const tapBurstMaterial = new RawShaderMaterial({
+const tapBurstMaterial: RawShaderMaterial = new RawShaderMaterial({
   side: FrontSide,
   transparent: true,
   depthWrite: false,

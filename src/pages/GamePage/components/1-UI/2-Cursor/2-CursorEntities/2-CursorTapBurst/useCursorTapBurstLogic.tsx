@@ -5,7 +5,7 @@ import { RefBooleanType } from "../../../../../shared/Types/RefTypes";
 import { animateCursorTapBurst } from "./CursorTapBurstAnimations";
 import { tapBurstMaterial } from "./CursorTapBurstDefines";
 
-const useCursorTapBurstLogic = () => {
+const useCursorTapBurstLogic = (): void => {
   // Refs
   const tapBurstAnimAllowedRef: RefBooleanType = useRef(false);
 

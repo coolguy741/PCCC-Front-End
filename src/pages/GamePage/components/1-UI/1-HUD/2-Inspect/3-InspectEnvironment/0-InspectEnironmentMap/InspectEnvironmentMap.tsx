@@ -1,8 +1,8 @@
 import { Environment } from "@react-three/drei";
 import { FC, memo } from "react";
 
-const InspectEnvironment: FC = () => {
+const InspectEnvironmentMap: FC = () => {
   return <Environment files="forest.hdr" path={"/game_assets/envMaps/"} />;
 };
 
-export default memo(InspectEnvironment);
+export default memo(InspectEnvironmentMap);

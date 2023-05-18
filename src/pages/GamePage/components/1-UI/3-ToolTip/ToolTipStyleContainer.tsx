@@ -13,7 +13,6 @@ const ToolTipStyleContainer = styled.div`
   position: fixed;
   font-weight: bold;
   font-size: 1.25rem;
-  /* text-stroke: 1.5px black; */
   -webkit-text-stroke: 1.5px black;
   transform-origin: center center;
   -webkit-transform-origin: center center;

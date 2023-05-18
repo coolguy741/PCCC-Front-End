@@ -1,11 +1,11 @@
 // CursorMenuOption.js
 import { FC, memo } from "react";
 import { Vector2 } from "three";
+import { MenuOptionStyleObjectType } from "./CursorMenuOptionDefines";
 import CursorMenuOptionStyleContainer from "./CursorMenuOptionStyleContainer";
 import { useCursorMenuOptionLogic } from "./useCursorMenuOptionLogic";
 
 interface CursorMenuOptionPropTypes {
-  color: string;
   label: string;
   iconURL: string;
   animOffset: number;
@@ -15,10 +15,11 @@ interface CursorMenuOptionPropTypes {
   boundingRectVector: Vector2;
   menuPositionOffset: Vector2;
   tempCursorLocationCopy: Vector2;
+  styleObject: MenuOptionStyleObjectType;
 }
 
 const CursorMenuOption: FC<CursorMenuOptionPropTypes> = ({
-  color,
+  styleObject,
   label,
   iconURL,
   animOffset,
@@ -30,8 +31,7 @@ const CursorMenuOption: FC<CursorMenuOptionPropTypes> = ({
   tempCursorLocationCopy,
 }) => {
   // Hooks
-  const { styleObject, cursorMenuOptionRef } = useCursorMenuOptionLogic({
-    color,
+  const { cursorMenuOptionRef } = useCursorMenuOptionLogic({
     animOffset,
     hoverTrigger,
     menuPositionEnd,

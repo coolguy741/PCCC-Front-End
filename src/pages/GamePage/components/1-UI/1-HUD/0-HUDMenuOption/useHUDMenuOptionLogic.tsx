@@ -26,13 +26,10 @@ const useHUDMenuOptionLogic = ({
 
   // Handlers
   const handlePointerOver = useCallback((): void => {
-    if (
-      menuActive ||
-      !hudMenuOptionBGRef.current ||
-      !hudMenuOptionIconRef.current
-    ) {
-      return;
-    }
+    if (menuActive) return;
+    if (!hudMenuOptionBGRef.current) return;
+    if (!hudMenuOptionIconRef.current) return;
+
     setActiveHoveredHudMenuOption(optionData.name);
     animateHUDMenuOptionBGIn(hudMenuOptionBGRef.current);
     animateHUDMenuOptionIconIn(
@@ -42,13 +39,10 @@ const useHUDMenuOptionLogic = ({
   }, [menuActive, optionData, setActiveHoveredHudMenuOption]);
 
   const handlePointerOut = useCallback((): void => {
-    if (
-      menuActive ||
-      !hudMenuOptionBGRef.current ||
-      !hudMenuOptionIconRef.current
-    ) {
-      return;
-    }
+    if (menuActive) return;
+    if (!hudMenuOptionBGRef.current) return;
+    if (!hudMenuOptionIconRef.current) return;
+
     setActiveHoveredHudMenuOption(null);
     animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
     animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);

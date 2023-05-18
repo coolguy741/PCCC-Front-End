@@ -25,7 +25,12 @@ import {
   toolTipMenuOffset,
 } from "./ToolTipDefines";
 
-const useToolTipLogic = () => {
+interface UseToolTipLogicReturnTypes {
+  toolTipRef: RefDivType;
+  activeHoveredEntity: string | null;
+}
+
+const useToolTipLogic = (): UseToolTipLogicReturnTypes => {
   // Refs
   const toolTipRef: RefDivType = useRef(null);
   const allowToolTipUpdateRef: RefBooleanType = useRef(false);
@@ -45,7 +50,8 @@ const useToolTipLogic = () => {
 
   // Handlers
   const handleSetToolTipInitLocation = useCallback((): void => {
-    if (!isHoveringEntity || menuActive) return;
+    if (menuActive) return;
+    if (!isHoveringEntity) return;
 
     toolTipInitFollowLocation.set(
       cursorLocation.x -
@@ -58,7 +64,8 @@ const useToolTipLogic = () => {
   }, [menuActive, cursorLocation, isHoveringEntity]);
 
   const handleRevealHideToolTip = useCallback((): void => {
-    if (menuActive || !toolTipRef.current) return;
+    if (menuActive) return;
+    if (!toolTipRef.current) return;
 
     if (isHoveringEntity) {
       toolTipDampedFollowLocation.copy(toolTipInitFollowLocation);
@@ -80,7 +87,8 @@ const useToolTipLogic = () => {
   }, []);
 
   const handleUpdateToolTipMenuPosition = useCallback((): void => {
-    if (!menuActive || !toolTipRef.current) return;
+    if (!menuActive) return;
+    if (!toolTipRef.current) return;
 
     allowToolTipUpdateRef.current = true;
 

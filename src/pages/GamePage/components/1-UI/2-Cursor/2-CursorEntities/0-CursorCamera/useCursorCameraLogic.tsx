@@ -53,6 +53,7 @@ const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
   // Handlers
   const handleUpdateCursorCameraInitRotation = useCallback((): void => {
     if (!menuActive) return;
+
     const menuRotation = MathUtils.clamp(
       MathUtils.mapLinear(
         cursorLocation.x,
@@ -70,16 +71,19 @@ const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
 
   const handleAnimateCursorToMenuRotation = useCallback((): void => {
     if (!menuActive) return;
+
     animateCursorCameraToMenuRotation(cursorCameraDampedFollowStepRef);
   }, [menuActive]);
 
   const handleAnimateCursorToFollowRotation = useCallback((): void => {
     if (menuActive) return;
+
     animateCursorCameraToFollowRotation(cursorCameraInitRotation);
   }, [menuActive]);
 
   const handleSetHoveredSection = useCallback((): void => {
-    if (!menuActive || !cursorCameraRef.current) return;
+    if (!menuActive) return;
+    if (!cursorCameraRef.current) return;
 
     const sectionMap = [
       {
@@ -99,9 +103,10 @@ const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
     ];
 
     sectionMap.forEach(({ section, condition }) => {
-      if (hoveredSection !== section && condition) {
-        setHoveredSection(section);
-      }
+      if (!condition) return;
+      if (hoveredSection === section) return;
+
+      setHoveredSection(section);
     });
   }, [menuActive, hoveredSection, setHoveredSection]);
 

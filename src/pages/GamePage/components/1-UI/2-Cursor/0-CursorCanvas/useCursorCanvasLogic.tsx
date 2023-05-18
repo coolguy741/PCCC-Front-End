@@ -43,7 +43,8 @@ const useCursorCanvasLogic = (): UseCursorCanvasLogicReturnTypes => {
 
   // Handlers
   const handleAnimateCursorToMenuPosition = useCallback((): void => {
-    if (!menuActive || !enableOnFrameFollow.current) return;
+    if (!menuActive) return;
+    if (!enableOnFrameFollow.current) return;
 
     enableOnFrameFollow.current = false;
 
@@ -60,7 +61,8 @@ const useCursorCanvasLogic = (): UseCursorCanvasLogicReturnTypes => {
   }, [menuActive, cursorLocation]);
 
   const handleAnimateCursorToFollowPosition = useCallback((): void => {
-    if (menuActive || enableOnFrameFollow.current) return;
+    if (menuActive) return;
+    if (enableOnFrameFollow.current) return;
 
     enableOnFrameFollow.current = true;
 

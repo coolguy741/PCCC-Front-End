@@ -21,11 +21,8 @@ const useCursorHandLogic = (): UseCursorHandLogicReturnTypes => {
   // Texture
   const cursorTexture = useTexture("/game_assets/textures/cursor.webp");
 
-  // Calculate
   useMemo((): void => {
-    if (cursorTexture) {
-      cursorTexture.encoding = LinearEncoding;
-    }
+    cursorTexture.encoding = LinearEncoding;
   }, [cursorTexture]);
 
   // Global State
@@ -39,6 +36,7 @@ const useCursorHandLogic = (): UseCursorHandLogicReturnTypes => {
   // Handlers
   const handleCursorHandScale = useCallback((): void => {
     if (!cursorHandRef.current) return;
+
     if (isCursorDown) {
       animateCursorHandScaleIn(cursorHandRef.current);
     } else {

@@ -2,8 +2,8 @@ import { CSSProperties } from "react";
 import { Vector2 } from "three";
 import { DampVector2 } from "../../../../shared/Utility/UtilityFunctions";
 
-const cursorCanvasCenterOffset = new Vector2(50, 35);
-const cursorCanvasToMenuOffset = new Vector2(65, 90);
+const cursorCanvasCenterOffset: Vector2 = new Vector2(50, 35);
+const cursorCanvasToMenuOffset: Vector2 = new Vector2(65, 90);
 
 const cursorCanvasDampedFollowLocationStep = 0.1;
 

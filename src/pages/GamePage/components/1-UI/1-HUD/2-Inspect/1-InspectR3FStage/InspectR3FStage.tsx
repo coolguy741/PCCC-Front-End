@@ -1,16 +1,16 @@
 import { FC, Fragment, memo } from "react";
-import InspectCamera from "../2-InspectEntities/InspectCamera";
-import InspectItem from "../2-InspectEntities/InspectItem";
-import InspectShadowBG from "../2-InspectEntities/InspectShadowBG";
-import InspectEnvironment from "../3-InspectEnvironment/InspectEnvironment";
-import InspectLighting from "../3-InspectEnvironment/InspectLighting";
+import InspectCamera from "../2-InspectEntities/0-InspectCamera/InspectCamera";
+import InspectItem from "../2-InspectEntities/1-InspectItem/InspectItem";
+import InspectShadowBG from "../2-InspectEntities/2-InspectShadowBG/InspectShadowBG";
+import InspectEnvironmentMap from "../3-InspectEnvironment/0-InspectEnironmentMap/InspectEnvironmentMap";
+import InspectLighting from "../3-InspectEnvironment/1-InspectLighting/InspectLighting";
 
 const InspectR3FStage: FC = () => {
   return (
     <Fragment>
       <InspectShadowBG />
       <InspectItem />
-      <InspectEnvironment />
+      <InspectEnvironmentMap />
       <InspectLighting />
       <InspectCamera />
     </Fragment>

@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { Vector2 } from "three";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
@@ -16,8 +10,8 @@ import {
   animateCursorOptionsHoverOut,
 } from "./CursorMenuOptionAnimations";
 
+// Types
 interface UseCursorMenuOptionLogicPropTypes {
-  color: string;
   animOffset: number;
   hoverTrigger: boolean;
   menuPositionEnd: Vector2;
@@ -27,13 +21,7 @@ interface UseCursorMenuOptionLogicPropTypes {
   tempCursorLocationCopy: Vector2;
 }
 
-interface StyleObjectReturnType {
-  "--icon-border-color": string;
-  "--label-background-color": string;
-}
-
 const useCursorMenuOptionLogic = ({
-  color,
   animOffset,
   hoverTrigger,
   menuPositionEnd,
@@ -55,17 +43,10 @@ const useCursorMenuOptionLogic = ({
     shallow,
   );
 
-  // Defines
-  const styleObject = useMemo((): StyleObjectReturnType => {
-    return {
-      "--icon-border-color": color,
-      "--label-background-color": color,
-    };
-  }, [color]);
-
   // Handlers
   const handleCursorMenuOptionBoundingRect = useCallback((): void => {
     if (!cursorMenuOptionRef.current) return;
+
     if (boundingRectVector.x > 0 || boundingRectVector.y > 0) return;
 
     const cursorMenuOptionBoundingRect =
@@ -79,6 +60,7 @@ const useCursorMenuOptionLogic = ({
 
   const handleUpdateCursorMenuOptionElementPosition = useCallback((): void => {
     if (!cursorMenuOptionRef.current) return;
+
     cursorMenuOptionRef.current.style.left = `${menuPositionDriver.x}px`;
     cursorMenuOptionRef.current.style.top = `${menuPositionDriver.y}px`;
   }, [menuPositionDriver]);
@@ -87,6 +69,7 @@ const useCursorMenuOptionLogic = ({
     if (!menuActive) return;
     if (!cursorMenuOptionRef.current) return;
     if (!cursorMenuOptionHoverEnableRef.current) return;
+
     if (hoverTrigger) {
       animateCursorOptionsHoverIn(cursorMenuOptionRef.current);
     } else {
@@ -154,7 +137,7 @@ const useCursorMenuOptionLogic = ({
 
   useEffect(handleHoverTrigger, [menuActive, hoverTrigger, handleHoverTrigger]);
 
-  return { styleObject, cursorMenuOptionRef };
+  return { cursorMenuOptionRef };
 };
 
 export { useCursorMenuOptionLogic };

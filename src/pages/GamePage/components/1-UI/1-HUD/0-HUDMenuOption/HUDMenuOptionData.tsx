@@ -1,5 +1,6 @@
 import { Vector2 } from "three";
 
+// Types
 interface HUDMenuOptionStyleObjectType {
   "--hud-menu-option-top": string;
   "--hud-menu-option-left": string;
@@ -29,6 +30,7 @@ export interface HUDMenuOptionDataType {
   styleObject: HUDMenuOptionStyleObjectType;
 }
 
+// Defines
 const InventoryHUDMenuOptionData: HUDMenuOptionDataType = {
   name: "inventory",
   label: "Inventory",

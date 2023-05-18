@@ -6,6 +6,7 @@ import { cursorCanvasStyles } from "./CursorCanvasDefines";
 import CursorCanvasStyleContainer from "./CursorCanvasStyleContainer";
 import { useCursorCanvasLogic } from "./useCursorCanvasLogic";
 
+// Types
 interface CursorCanvasPropTypes {
   children: ReactNode;
 }

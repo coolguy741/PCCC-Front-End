@@ -4,6 +4,7 @@ import { devicePixelRatio } from "../../../../../shared/Consts/CanvasParams";
 import { GLParameters } from "../../../../../shared/Consts/GLParameters";
 import InspectCanvasStyleContainer from "./InspectCanvasStyleContainer";
 
+// Types
 interface InspectCanvasPropTypes {
   children: ReactNode;
 }

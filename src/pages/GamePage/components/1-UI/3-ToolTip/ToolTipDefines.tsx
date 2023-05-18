@@ -4,13 +4,13 @@ import { DampVector2 } from "../../../shared/Utility/UtilityFunctions";
 const toolTipBoundingRectDivisor = 2;
 const toolTipDampedFollowLocationStep = 0.0025;
 
-const toolTipMenuOffset = new Vector2(10, 70);
-const toolTipFollowOffset = new Vector2(10, 110);
-const toolTipInitFollowLocation = new Vector2();
-const toolTipCurrentPositionCopy = new Vector2();
-const toolTipFinalFollowLocation = new Vector2();
-const toolTipDampedFollowLocation = new Vector2();
-const toolTipBoundingRectDimensions = new Vector2();
+const toolTipMenuOffset: Vector2 = new Vector2(10, 70);
+const toolTipFollowOffset: Vector2 = new Vector2(10, 110);
+const toolTipInitFollowLocation: Vector2 = new Vector2();
+const toolTipCurrentPositionCopy: Vector2 = new Vector2();
+const toolTipFinalFollowLocation: Vector2 = new Vector2();
+const toolTipDampedFollowLocation: Vector2 = new Vector2();
+const toolTipBoundingRectDimensions: Vector2 = new Vector2();
 
 const handleDampToolTipLocation = (delta: number): void => {
   DampVector2(

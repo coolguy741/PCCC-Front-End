@@ -4,6 +4,7 @@ import { useGlobalState } from "../../../../globalState/useGlobalState";
 import { RefBooleanType, RefDivType } from "../../../../shared/Types/RefTypes";
 import { animateInventoryIn, animateInventoryOut } from "./InventoryAnimations";
 
+// Types
 interface UseInventoryLogicReturnTypes {
   inventoryContainerRef: RefDivType;
 }
