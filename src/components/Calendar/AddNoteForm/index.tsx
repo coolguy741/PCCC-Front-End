@@ -1,39 +1,41 @@
 import styled from "styled-components";
 import { formatDate } from "../../../lib/util/formatDate";
+import Button from "../../Button";
 import { Checkbox } from "../../Global/Checkbox";
-import { Input } from "../../Global/Input";
-import { Select } from "../../Global/Select";
+import { TextArea } from "../../Global/TextArea";
+import { FitleredSelect } from "../FilteredSelect";
 import { TimeSelect } from "../TimeSelect";
 
 interface AddNoteFormProps {
   selectedDate: string | undefined;
+  yPos: string;
 }
 
-export const AddNoteForm = ({ selectedDate }: AddNoteFormProps) => {
+export const AddNoteForm = ({ selectedDate, yPos }: AddNoteFormProps) => {
   return (
     <Style.Container>
       <div className="row">
-        <div>
+        <div className="add-note">
           <label>Add note</label>
-          <Input type="text" height="5rem"></Input>
+          <TextArea />
         </div>
-        <div>
+        <div className="date-picker">
           <label>{formatDate(selectedDate)}</label>
-          <div>
+          <div className="date-picker-row">
             <TimeSelect />
             <TimeSelect />
-            <div>
+            <div className="date-picker-row">
               <Checkbox />
               <label>All Day</label>
             </div>
           </div>
         </div>
-        <div>
+        <div className="group">
           <label>Add to</label>
-          <Select height="2.5rem">
-            <option value=""></option>
-            <option value="">Group A</option>
-          </Select>
+          <div className="group-row">
+            <FitleredSelect position={yPos} />
+            <Button>Add</Button>
+          </div>
         </div>
       </div>
     </Style.Container>
@@ -48,24 +50,28 @@ const Style = {
 
     .row {
       label {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        color: var(--neutral-800);
       }
 
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.2rem;
 
-      div {
+      .add-note,
+      .date-picker,
+      .group {
         display: flex;
         gap: 0.5rem;
         flex-direction: column;
 
-        div {
+        .date-picker-row,
+        .group-row {
           display: flex;
           flex-direction: row;
           gap: 1rem;
 
-          div {
+          .date-picker-row {
             display: flex;
             gap: 1.5rem;
             justify-content: center;
