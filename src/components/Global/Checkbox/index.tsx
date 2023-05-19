@@ -14,7 +14,6 @@ export const Checkbox = ({
   colorOption = "primary",
   ...props
 }: CheckboxProps) => {
-  console.log(colorOption);
   return (
     <Style.Input
       type="checkbox"

@@ -8,8 +8,9 @@ import { create } from "zustand";
 const defaultEvents: EventSourceInput = [
   {
     title: "",
+    theme: "",
     type: "note",
-    description: "Lorem ipsum",
+    description: "This is a note.",
     start: "2023-05-24T10:30:00Z",
     end: "2023-05-24T16:30:00Z",
     textColor: "#F87C56",
@@ -17,9 +18,10 @@ const defaultEvents: EventSourceInput = [
     display: "block",
   },
   {
-    title: "",
+    title: "Chocolate",
+    theme: "Garden Guardian",
     type: "mealtime",
-    description: "Lorem ipsum",
+    description: "This is a Mealtime Moment.",
     start: "2023-05-18T12:30:00Z",
     end: "2023-05-18T20:30:00Z",
     textColor: "#DE9200",
@@ -27,9 +29,10 @@ const defaultEvents: EventSourceInput = [
     display: "block",
   },
   {
-    title: "",
+    title: "Chocolate",
+    theme: "Garden Guardian",
     type: "assessment",
-    description: "Lorem ipsum",
+    description: "This is a Lesson Assessment.",
     start: "2023-05-20T14:30:00Z",
     end: "2023-05-20T18:30:00Z",
     textColor: "#DE9200",

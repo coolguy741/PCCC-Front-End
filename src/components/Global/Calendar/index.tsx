@@ -3,10 +3,54 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import { useState } from "react";
 import styled from "styled-components";
 import { capitalize } from "../../../lib/util/capitalize";
+import { EventModal } from "../../Calendar/EventModal";
+import { MoreLinksModal } from "../../Calendar/MoreLinksModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [showMoreLinksModal, setShowMoreLinksModal] = useState(false);
+  const [moreLinks, setMoreLinks] = useState(null);
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0,
+    xPos: "",
+    yPos: "",
+    height: 0,
+  });
+
+  const handleDateClick = (info: any) => {
+    const rectDOM = info.el.getBoundingClientRect();
+
+    let xPos = "";
+    let yPos = "";
+    if (info.jsEvent.pageY / window.innerHeight > 0.5) {
+      yPos = "bottom";
+    } else {
+      yPos = "top";
+    }
+
+    if (info.jsEvent.pageX / window.innerWidth > 0.5) {
+      xPos = "right";
+    } else {
+      xPos = "left";
+    }
+
+    setPosition({
+      x: rectDOM.x + rectDOM.width / 2,
+      y: rectDOM.y + rectDOM.height / 2 - (yPos === "top" ? 45 : -45),
+      xPos: xPos,
+      yPos: yPos,
+      height: rectDOM.height,
+    });
+
+    setSelectedEvent(info.event);
+    setShowEventModal(true);
+  };
+
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (
       <Style.CustomEventTitle>
@@ -14,6 +58,9 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           {capitalize(eventInfo.event?.extendedProps.type)}
         </p>
         <p className="event-content">
+          {eventInfo.event?.extendedProps.theme
+            ? `${eventInfo.event?.extendedProps.theme.toUpperCase()} — `
+            : null}{" "}
           {eventInfo.event?.extendedProps.description}
         </p>
       </Style.CustomEventTitle>
@@ -36,20 +83,39 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         longPressDelay={1000}
         eventLongPressDelay={1000}
         selectLongPressDelay={1000}
+        eventClick={handleDateClick}
         views={{
           dayGridMonth: {
             titleFormat: { year: "numeric", month: "short", day: "numeric" },
           },
         }}
         initialDate={new Date()}
-        dayMaxEventRows={2}
-        dayMaxEvents={true}
         fixedWeekCount={false}
+        dayMaxEventRows={true}
         eventContent={renderEventContent}
-        allDaySlot={false}
         editable={true}
         height="100%"
+        expandRows={true}
+        moreLinkClick={(e: any) => {
+          setShowMoreLinksModal(true);
+          setMoreLinks(e.allSegs);
+          return "month";
+        }}
       />
+      {showEventModal && (
+        <EventModal
+          selectedEvent={selectedEvent}
+          setShowEventModal={setShowEventModal}
+          position={position}
+        />
+      )}
+      {showMoreLinksModal && (
+        <MoreLinksModal
+          moreLinks={moreLinks}
+          setShowMoreLinksModal={setShowMoreLinksModal}
+          position={position}
+        />
+      )}
     </Style.Container>
   );
 };
@@ -58,6 +124,7 @@ const Style = {
   Container: styled.div`
     width: 75%;
     height: 100%;
+    position: relative;
 
     .fc {
       .fc-scrollgrid {
@@ -112,6 +179,31 @@ const Style = {
           margin: 0.3rem;
         }
       }
+
+      .fc-popover {
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(59.2764px);
+        border-radius: 1rem;
+        border: none;
+
+        &-header {
+          padding: 1rem;
+          font-weight: 600;
+          font-size: 1.2rem;
+        }
+
+        &-body {
+          a {
+            background: none !important;
+
+            p {
+              font-size: 1rem !important;
+            }
+          }
+        }
+      }
+
       .fc-event-main,
       .fc-event {
         padding: 0.1rem 0.25rem;
