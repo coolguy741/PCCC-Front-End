@@ -132,8 +132,15 @@ const DynamicEntity: FC = () => {
     shader.fragmentShader = shader.fragmentShader.replace(
       "#include <uv_pars_fragment>",
       `#include <uv_pars_fragment>
-          varying vec2 vUv;`,
+            varying vec2 vUv;`,
     );
+
+    // shader.fragmentShader = shader.fragmentShader.replace(
+    //   "#include <roughnessmap_fragment>",
+    //   `#include <roughnessmap_fragment>
+    //         roughnessFactor = vRoughnessMask.r;
+    //     `,
+    // );
 
     shader.fragmentShader = shader.fragmentShader.replace(
       "#include <roughnessmap_fragment>",
@@ -142,13 +149,37 @@ const DynamicEntity: FC = () => {
       `,
     );
 
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <aomap_fragment>",
+      ` float ambientOcclusion = vAOMask.r;
+        reflectedLight.indirectDiffuse *= ambientOcclusion;
+            #if defined( USE_ENVMAP ) && defined( STANDARD )
+                float dotNV = saturate( dot( geometry.normal, geometry.viewDir ) );
+                reflectedLight.indirectSpecular *= computeSpecularOcclusion( dotNV, ambientOcclusion, material.roughness );
+            #endif
+       `,
+    );
+
+    // shader.fragmentShader = shader.fragmentShader.replace(
+    //   "#include <aomap_fragment>",
+    //   "float ambientOcclusion = vAOMask.r;",
+    // );
+
+    // shader.fragmentShader = shader.fragmentShader.replace(
+    //   "float ambientOcclusion = ( texture2D( aoMap, vAoMapUv ).r - 1.0 ) * aoMapIntensity + 1.0;",
+    //   "float ambientOcclusion = vAOMask.r;",
+    // );
+
     // shader.fragmentShader = shader.fragmentShader.replace(
     //   "#include <output_fragment>",
     //   `#include <output_fragment>
 
     //       vec3 finalColor = vec3(0.0);
 
-    //       finalColor = mix(finalColor, outgoingLight, vRoughnessMask.r);
+    //       finalColor = mix(finalColor, vec3(1.0, 0.0, 1.0), vAOMask.r);
+    //       finalColor = mix(finalColor, vec3(1.0, 0.0, 0.0), vMetallicMask.r);
+    //       finalColor = mix(finalColor, vec3(0.0, 1.0, 0.0), vRoughnessMask.r);
+    //       finalColor = mix(finalColor, vec3(0.0, 0.0, 1.0), vSpecularMask.r);
 
     //       gl_FragColor = vec4(finalColor, 1.0);`,
     // );
@@ -162,6 +193,7 @@ const DynamicEntity: FC = () => {
     loader.parse(dynamicGLB, "", (gltf) => {
       // @ts-ignore
       gltf.scene["children"][0].material.onBeforeCompile = handleOBC;
+
       // @ts-ignore
       console.log(gltf.scene["children"][0].geometry);
 
