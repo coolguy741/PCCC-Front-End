@@ -12,7 +12,7 @@ const SunLight: FC = () => {
   const { size, color, intensity, tranforms } = useControls({
     MainLight: folder({
       tranforms: true,
-      intensity: 7,
+      intensity: 5,
       color: "#ffffff",
     }),
     shadows: folder({
