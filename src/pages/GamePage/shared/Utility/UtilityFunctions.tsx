@@ -5,7 +5,7 @@ const DampVector3 = (
   to: Vector3,
   step: number,
   delta: number,
-) => {
+): void => {
   target.x = MathUtils.damp(target.x, to.x, step, delta);
   target.y = MathUtils.damp(target.y, to.y, step, delta);
   target.z = MathUtils.damp(target.z, to.z, step, delta);
@@ -16,7 +16,7 @@ const DampVector2 = (
   to: Vector2,
   step: number,
   delta: number,
-) => {
+): void => {
   target.x = MathUtils.damp(target.x, to.x, step, delta);
   target.y = MathUtils.damp(target.y, to.y, step, delta);
 };
@@ -26,7 +26,7 @@ const DampScalar = (
   to: number,
   step: number,
   delta: number,
-) => {
+): void => {
   target = MathUtils.damp(target, to, step, delta);
 };
 

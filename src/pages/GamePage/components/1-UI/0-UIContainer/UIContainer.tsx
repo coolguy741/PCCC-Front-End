@@ -1,15 +1,15 @@
 import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
-import DebugUIContainer from "../1-DebugUI/DebugUIContainer";
-import useWindowFocusBlur from "../10-Hooks/useWindowFocusBlur";
-import useWindowResize from "../10-Hooks/useWindowResize";
-import ToolTip from "../3-ToolTip/ToolTip";
-import Cursor from "../4-Cursor/Cursor";
-import { onWindowBlur, onWindowFocus } from "../4-Cursor/CursorDefines";
-import HUD from "../5-HUD/HUD";
+import HUD from "../1-HUD/HUD";
+import DebugUIContainer from "../2-Debug/DebugUIContainer";
+import useWindowResize from "../5-Hooks/useWindowResize";
 
 const UIContainer: FC = () => {
+  // Hooks
+  useWindowResize();
+  // useWindowFocusBlur(onWindowFocus, onWindowBlur);
+
   // Global State
   const { isDebugUIVisible } = useGlobalState(
     (state) => ({
@@ -17,16 +17,11 @@ const UIContainer: FC = () => {
     }),
     shallow,
   );
-  // Hooks
-  useWindowResize();
-  useWindowFocusBlur(onWindowFocus, onWindowBlur);
 
   return (
     <Fragment>
       {!isDebugUIVisible && <HUD />}
       <DebugUIContainer />
-      <ToolTip />
-      <Cursor />
     </Fragment>
   );
 };

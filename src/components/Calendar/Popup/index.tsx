@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { ButtonRow } from "../../Global/ButtonRow";
 import { AddNoteForm } from "../AddNoteForm";
+import { PublishForm } from "../PublishForm";
 
 export interface EventType {
   type: string;
@@ -66,8 +67,6 @@ export const CalendarPopup: React.FC<Props> = ({
     setType("");
   };
 
-  console.log(type);
-
   return (
     <Style.Container
       isOpen={isOpen}
@@ -95,7 +94,12 @@ export const CalendarPopup: React.FC<Props> = ({
               </button>
             </ButtonRow>
           </div>
-          {type === "note" && <AddNoteForm selectedDate={selectedDate} />}
+          {type === "note" && (
+            <AddNoteForm yPos={position.yPos} selectedDate={selectedDate} />
+          )}
+          {type === "publish" && (
+            <PublishForm yPos={position.yPos} selectedDate={selectedDate} />
+          )}
           {/* {type && <EventTypeForm setEventType={setEventType} />}
           {eventType && (
             <EventForm eventType={eventType} addEvent={handleAddEvent} />

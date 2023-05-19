@@ -12,7 +12,6 @@ const Forms = css`
   }
 
   :where(button, [type="button"], [type="reset"], [type="submit"]) {
-    -webkit-appearance: button;
     padding: 1px 6px;
     &:not(:disabled) {
       cursor: pointer;
@@ -54,7 +53,6 @@ const Forms = css`
   }
 
   :where([type="search"]) {
-    -webkit-appearance: textfield;
     outline-offset: -2px;
   }
 
