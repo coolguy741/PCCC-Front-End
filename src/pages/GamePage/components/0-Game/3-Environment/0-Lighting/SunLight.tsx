@@ -9,8 +9,9 @@ const SunLight: FC = () => {
   const sunLightRef: RefDirectionalLightType = useRef(null);
 
   // Hooks
-  const { size, color, intensity } = useControls({
+  const { size, color, intensity, tranforms } = useControls({
     MainLight: folder({
+      tranforms: true,
       intensity: 7,
       color: "#ffffff",
     }),
@@ -32,6 +33,9 @@ const SunLight: FC = () => {
 
   return (
     <TransformControls
+      showX={tranforms}
+      showY={tranforms}
+      showZ={tranforms}
       onMouseUp={handleLogLightPos}
       position={[3.386257562668803, 4.710346678759947, 2.662153116199844]}
     >

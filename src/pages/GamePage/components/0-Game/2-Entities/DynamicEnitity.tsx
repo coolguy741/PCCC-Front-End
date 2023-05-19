@@ -1,7 +1,7 @@
 import { TransformControls } from "@react-three/drei";
 import { folder, useControls } from "leva";
 import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
-import { Euler, Group, Quaternion, Vector3 } from "three";
+import { Euler, Group, Quaternion, Shader, Vector3 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
@@ -29,9 +29,9 @@ const DynamicEntity: FC = () => {
   );
 
   // Hooks
-  const { transformsVisible, mode } = useControls({
+  const { transforms, mode } = useControls({
     DynamicModel: folder({
-      transformsVisible: true,
+      transforms: true,
       mode: {
         value: 0,
         min: 0,
@@ -80,13 +80,94 @@ const DynamicEntity: FC = () => {
     );
   }, []);
 
+  const handleOBC = useCallback((shader: Shader) => {
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <color_pars_vertex>",
+      `#include <color_pars_vertex>
+    
+            attribute vec4 _ao;
+            attribute vec4 _metallic;
+            attribute vec4 _roughness;
+            attribute vec4 _specular;
+    
+            varying vec4 vBaseColor;
+            varying vec4 vAOMask;
+            varying vec4 vMetallicMask;
+            varying vec4 vRoughnessMask;
+            varying vec4 vSpecularMask;
+
+            varying vec3 vPos;
+            varying vec2 vUv;`,
+    );
+
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <uv_vertex>",
+      `#include <uv_vertex>
+            vUv = uv;`,
+    );
+
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <color_vertex>",
+      `#include <color_vertex>
+            
+            vBaseColor = color;
+            vAOMask = _ao;
+            vMetallicMask = _metallic;
+            vRoughnessMask = _roughness;
+            vSpecularMask = _specular;
+    
+            vPos = position;`,
+    );
+
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <color_pars_fragment>",
+      `#include <color_pars_fragment>
+            varying vec4 vBaseColor;
+            varying vec4 vAOMask;
+            varying vec4 vMetallicMask;
+            varying vec4 vRoughnessMask;
+            varying vec4 vSpecularMask;`,
+    );
+
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <uv_pars_fragment>",
+      `#include <uv_pars_fragment>
+          varying vec2 vUv;`,
+    );
+
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <roughnessmap_fragment>",
+      `#include <roughnessmap_fragment>
+      roughnessFactor = vRoughnessMask.r;
+      `,
+    );
+
+    // shader.fragmentShader = shader.fragmentShader.replace(
+    //   "#include <output_fragment>",
+    //   `#include <output_fragment>
+
+    //       vec3 finalColor = vec3(0.0);
+
+    //       finalColor = mix(finalColor, outgoingLight, vRoughnessMask.r);
+
+    //       gl_FragColor = vec4(finalColor, 1.0);`,
+    // );
+
+    console.log(shader.fragmentShader);
+  }, []);
+
   const handleUpdateGLTFScene = useCallback(() => {
     if (!dynamicGLB) return;
 
     loader.parse(dynamicGLB, "", (gltf) => {
+      // @ts-ignore
+      gltf.scene["children"][0].material.onBeforeCompile = handleOBC;
+      // @ts-ignore
+      console.log(gltf.scene["children"][0].geometry);
+
       setGltfScene(gltf.scene);
     });
-  }, [dynamicGLB]);
+  }, [dynamicGLB, handleOBC]);
 
   // Listeners
   useEffect(handleUpdateGLTFScene, [handleUpdateGLTFScene, dynamicGLB]);
@@ -96,9 +177,9 @@ const DynamicEntity: FC = () => {
       position={[0, 1, 1]}
       onMouseUp={handleLogLightPos}
       mode={mode === 0 ? "translate" : mode === 1 ? "rotate" : "scale"}
-      showX={transformsVisible && dynamicGLB !== null}
-      showY={transformsVisible && dynamicGLB !== null}
-      showZ={transformsVisible && dynamicGLB !== null}
+      showX={transforms && dynamicGLB !== null}
+      showY={transforms && dynamicGLB !== null}
+      showZ={transforms && dynamicGLB !== null}
     >
       <group>
         {gltfScene && <primitive ref={dynamicGLBRef} object={gltfScene} />}
