@@ -59,9 +59,9 @@ const Style = {
       &:checked::before {
         opacity: 1;
         background: ${({ colorOption }) =>
-        colorOption === "primary" ? "var(--blue-400)" : "#D3BB90"};
+          colorOption === "primary" ? "var(--blue-400)" : "#D3BB90"};
       }
-      
+
       &::before {
         content: "";
         width: 12px;
