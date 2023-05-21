@@ -6,8 +6,23 @@ import { DropdownSelect } from "../../../components/Global/DropdownSelect";
 import { DatePicker } from "../../../components/Reports/DatePicker";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
-const TopicOptions = ["Topic A", "Topic B", "Topic C"];
+const ThemeOptions = ["Theme A", "Theme B", "Theme C"];
 const CurriculumOptions = ["Curriculum A", "Curriculum B", "Curriculum C"];
+const ProvinceOptions = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Northwest Territories",
+  "Nunavut",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Yukon",
+];
 
 export const LessonAssessmentPage: React.FC = () => {
   const [theme, setTheme] = useState("");
@@ -23,7 +38,7 @@ export const LessonAssessmentPage: React.FC = () => {
           <DropdownSelect
             placeholder="Select Theme"
             selectedValue={theme}
-            options={TopicOptions}
+            options={ThemeOptions}
             onChange={(optionValue) => {
               setTheme(optionValue);
             }}
@@ -44,10 +59,10 @@ export const LessonAssessmentPage: React.FC = () => {
           <label>Province</label>
           <DropdownSelect
             placeholder="Select Province"
-            selectedValue={theme}
-            options={TopicOptions}
+            selectedValue={province}
+            options={ProvinceOptions}
             onChange={(optionValue) => {
-              setTheme(optionValue);
+              setProvince(optionValue);
             }}
             height={convertToRelativeUnit(52, "vh")}
           />
