@@ -7,10 +7,13 @@ import { DatePicker } from "../../../components/Reports/DatePicker";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 const TopicOptions = ["Topic A", "Topic B", "Topic C"];
+const CurriculumOptions = ["Curriculum A", "Curriculum B", "Curriculum C"];
 
 export const LessonAssessmentPage: React.FC = () => {
   const [theme, setTheme] = useState("");
+  const [province, setProvince] = useState("");
   const [dates, setDates] = useState<DayRange | null>(null);
+  const [curriculum, setCurriculum] = useState("");
 
   return (
     <Style.Container>
@@ -38,9 +41,9 @@ export const LessonAssessmentPage: React.FC = () => {
           />
         </div>
         <div className="labeled-input">
-          <label>Theme</label>
+          <label>Province</label>
           <DropdownSelect
-            placeholder="Select Theme"
+            placeholder="Select Province"
             selectedValue={theme}
             options={TopicOptions}
             onChange={(optionValue) => {
@@ -50,13 +53,13 @@ export const LessonAssessmentPage: React.FC = () => {
           />
         </div>
         <div className="labeled-input">
-          <label>Theme</label>
+          <label>Curriculum</label>
           <DropdownSelect
-            placeholder="Select Theme"
-            selectedValue={theme}
-            options={TopicOptions}
+            placeholder="Select Curriculum"
+            selectedValue={curriculum}
+            options={CurriculumOptions}
             onChange={(optionValue) => {
-              setTheme(optionValue);
+              setCurriculum(optionValue);
             }}
             height={convertToRelativeUnit(52, "vh")}
           />
