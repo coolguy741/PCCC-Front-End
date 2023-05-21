@@ -113,6 +113,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 }) => {
   const [showingDateRangePicker, setShowingDateRangePicker] = useState(false);
   const [parentHeight, setParentHeight] = useState(18);
+  const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -133,10 +134,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     };
   }, []);
 
-  const showDateRangePicker = () => {
-    setShowingDateRangePicker(() => true);
-  };
-
   const hideDateRangePicker = () => {
     setShowingDateRangePicker(() => false);
   };
@@ -146,6 +143,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const fontSizePercentage = 0.34; // Adjust this value as needed
     const fontSize = parentHeight * fontSizePercentage;
     return `${fontSize}px`;
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    setShowingDateRangePicker(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    setShowingDateRangePicker(false);
   };
 
   const value = useMemo(() => {
@@ -172,7 +179,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     <Style.Container>
       <Style.CustomInput
         style={{ height: height }}
-        onClick={showDateRangePicker}
+        onClick={handleFocus}
+        onBlur={handleBlur}
+        isFocus={isFocused}
+        tabIndex={0}
         ref={containerRef}
       >
         <input
@@ -250,6 +260,10 @@ const Style = {
     }
 
     .Calendar {
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(59.2764px);
+
       .Calendar__header {
         padding: 16px;
       }
@@ -301,22 +315,17 @@ const Style = {
       }
     }
   `,
-  CustomInput: styled.section`
+  CustomInput: styled.section<{ isFocus: boolean }>`
     position: relative;
     width: 100%;
     display: inline-block;
     border-radius: 8px;
-    border: 2px solid white;
+    border: ${(props) =>
+      props.isFocus ? "1px solid var(--blue-500)" : "1px solid white"};
     background: #ffffff;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     display: flex;
     transition: box-shadow 0.3s ease-out 0s, border-color 0.3s ease-in 0s;
-
-    &:focus {
-      border: 2px solid var(--blue-500);
-      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1),
-        0px 0px 0px 4px rgba(31, 81, 229, 0.08);
-    }
 
     .icon-container {
       height: ${convertToRelativeUnit(52, "vh")};
