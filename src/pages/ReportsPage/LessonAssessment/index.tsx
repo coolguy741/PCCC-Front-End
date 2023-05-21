@@ -1,42 +1,65 @@
+import { DayRange } from "@amir04lm26/react-modern-calendar-date-picker";
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
-import { Select } from "../../../components/Global/Select";
+import { DropdownSelect } from "../../../components/Global/DropdownSelect";
+import { DatePicker } from "../../../components/Reports/DatePicker";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+
+const TopicOptions = ["Topic A", "Topic B", "Topic C"];
 
 export const LessonAssessmentPage: React.FC = () => {
+  const [theme, setTheme] = useState("");
+  const [dates, setDates] = useState<DayRange | null>(null);
+
   return (
     <Style.Container>
       <div className="select-container">
         <div className="labeled-input">
           <label>Theme</label>
-          <Select>
-            <option value="Topic A">Topic A</option>
-            <option value="Topic B">Topic B</option>
-            <option value="Topic C">Topic C</option>
-          </Select>
+          <DropdownSelect
+            placeholder="Select Theme"
+            selectedValue={theme}
+            options={TopicOptions}
+            onChange={(optionValue) => {
+              setTheme(optionValue);
+            }}
+            height={convertToRelativeUnit(52, "vh")}
+          />
+        </div>
+        <div className="labeled-input">
+          <label>Time Period</label>
+          <DatePicker
+            dates={dates}
+            label="Dates"
+            setDates={setDates}
+            placeholder="17.05.2023 - 21.05.2023"
+            height={convertToRelativeUnit(52, "vh")}
+          />
         </div>
         <div className="labeled-input">
           <label>Theme</label>
-          <Select>
-            <option value="Topic A">Topic A</option>
-            <option value="Topic B">Topic B</option>
-            <option value="Topic C">Topic C</option>
-          </Select>
+          <DropdownSelect
+            placeholder="Select Theme"
+            selectedValue={theme}
+            options={TopicOptions}
+            onChange={(optionValue) => {
+              setTheme(optionValue);
+            }}
+            height={convertToRelativeUnit(52, "vh")}
+          />
         </div>
         <div className="labeled-input">
           <label>Theme</label>
-          <Select>
-            <option value="Topic A">Topic A</option>
-            <option value="Topic B">Topic B</option>
-            <option value="Topic C">Topic C</option>
-          </Select>
-        </div>
-        <div className="labeled-input">
-          <label>Theme</label>
-          <Select>
-            <option value="Topic A">Topic A</option>
-            <option value="Topic B">Topic B</option>
-            <option value="Topic C">Topic C</option>
-          </Select>
+          <DropdownSelect
+            placeholder="Select Theme"
+            selectedValue={theme}
+            options={TopicOptions}
+            onChange={(optionValue) => {
+              setTheme(optionValue);
+            }}
+            height={convertToRelativeUnit(52, "vh")}
+          />
         </div>
       </div>
       <Button>Export</Button>
@@ -76,6 +99,10 @@ const Style = {
 
     button {
       align-self: flex-end;
+    }
+
+    option {
+      background: rgba(255, 255, 255, 0.5);
     }
   `,
 };

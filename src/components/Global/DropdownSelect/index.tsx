@@ -117,7 +117,7 @@ const Style = {
     display: inline-block;
     border-radius: 8px;
     border: ${(props) =>
-      props.isFocus ? "2px solid var(--blue-500)" : "2px solid white"};
+      props.isFocus ? "1px solid var(--blue-500)" : "1px solid white"};
     background: #ffffff;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-out 0s, border-color 0.3s ease-in 0s;
@@ -165,7 +165,7 @@ const Style = {
     }
 
     &:focus {
-      border: 2px solid var(--blue-500);
+      border: 1px solid var(--blue-500);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1),
         0px 0px 0px 4px rgba(31, 81, 229, 0.08);
     }
