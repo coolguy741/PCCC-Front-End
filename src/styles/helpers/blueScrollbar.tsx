@@ -5,7 +5,7 @@ export function blueScrollbar() {
   return css`
     /* width */
     ::-webkit-scrollbar {
-      width: ${convertToRelativeUnit(4, "vw")};
+      width: ${convertToRelativeUnit(8, "vw")};
     }
 
     /* Track */
