@@ -41,10 +41,17 @@ const Style = {
     &::after {
       content: url("/icons/downSelect.svg");
       position: absolute;
+<<<<<<< HEAD
       right: ${conv(15, "vw")};
       background-color: white;
       border-radius: 50%;
       padding: ${conv(5, "vw")};
+=======
+      height: 16px;
+      right: 15px;
+      top: 50%;
+      transform: translate(0, -50%);
+>>>>>>> alex/feature/reports
       pointer-events: none;
       height: 55%;
       aspect-ratio: 1 / 1;

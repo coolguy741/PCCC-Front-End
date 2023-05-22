@@ -68,12 +68,14 @@ export const MealPlanGenerator = () => {
           />
           <div className="filter-container">
             <DatePicker
+              data-testid="dates"
               dates={dates}
               label="Dates"
               setDates={changeDates}
               placeholder="17.05.2023 - 21.05.2023"
             />
             <BookPicker
+              data-testid="day"
               label="Meals per day"
               placeholder="4"
               number={mealsPerDay}

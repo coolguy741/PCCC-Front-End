@@ -13,6 +13,22 @@ import { Input } from "../../Global/Input";
 import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
+const PROVINCES = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Northwest Territories",
+  "Nunavut",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Yukon",
+];
+
 type TSignUpForm = {
   name: string;
   title: string;
@@ -259,23 +275,29 @@ export const SignUpForm = () => {
           )}
           <fieldset>
             <label>Province</label>
-            <Controller
-              name="province"
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field }) => (
-                <Input
-                  width="60%"
-                  placeholder="Ontario"
-                  type="text"
-                  data-testid="province"
-                  className={errors.province ? "has-error" : ""}
-                  {...field}
-                />
-              )}
-            />
+            <div className="province-select-container">
+              <Controller
+                name="province"
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field }) => (
+                  <Select
+                    data-testid="province"
+                    className={`${errors.province ? "has-error" : ""}`}
+                    {...field}
+                  >
+                    {PROVINCES &&
+                      PROVINCES.map((name, index) => (
+                        <option key={`province-${index}`} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                  </Select>
+                )}
+              />
+            </div>
           </fieldset>
           {isCoordinator && (
             <fieldset>
@@ -501,6 +523,10 @@ const Style = {
       svg {
         margin-left: ${conv(10, "vh")};
       }
+    }
+
+    .province-select-container {
+      width: 60%;
     }
   `,
   Button: styled.button`
