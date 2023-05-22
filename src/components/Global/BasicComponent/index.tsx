@@ -1,6 +1,8 @@
 import styled from "styled-components";
-
-export const BasicComponent = () => {
+interface Props {
+  name: string;
+}
+export const BasicComponent: React.FC<Props> = () => {
   return <Style.Container>edit content here</Style.Container>;
 };
 

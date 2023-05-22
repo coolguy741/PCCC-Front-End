@@ -12,12 +12,26 @@ import { Input } from "../../Global/Input";
 import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
+const PROVINCES = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Northwest Territories",
+  "Nunavut",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Yukon",
+];
+
 type TSignUpForm = {
   name: string;
   title: string;
-  date: string;
   year: string;
-  month: string;
   province: string;
   schoolIdCode: string;
   schoolName: string;
@@ -37,8 +51,6 @@ export const SignUpForm = () => {
     setTitle,
     changeStep,
     isCoordinator,
-    birthDate,
-    birthMonth,
     birthYear,
     province,
     schoolIdCode,
@@ -47,8 +59,6 @@ export const SignUpForm = () => {
     secondUsername,
     thirdUsername,
     email,
-    setBirthDate,
-    setBirthMonth,
     setBirthYear,
     setProvince,
     setFirstUsername,
@@ -68,9 +78,7 @@ export const SignUpForm = () => {
     defaultValues: {
       name: "",
       title: "",
-      date: birthDate?.toString() ?? "",
       year: birthYear?.toString() ?? "",
-      month: birthMonth?.toString() ?? "",
       province: province ?? "",
       schoolIdCode,
       schoolName,
@@ -120,8 +128,6 @@ export const SignUpForm = () => {
     email,
     province,
     year,
-    month,
-    date,
     firstUsername,
     secondUsername,
     thirdUsername,
@@ -136,8 +142,6 @@ export const SignUpForm = () => {
 
     setProvince(province);
     setBirthYear(parseInt(year));
-    setBirthMonth(parseInt(month));
-    setBirthDate(parseInt(date));
     setFirstUsername(firstUsername);
     setSecondUsername(secondUsername);
     setThirdUsername(thirdUsername);
@@ -201,49 +205,8 @@ export const SignUpForm = () => {
             </>
           )}
           <fieldset>
-            <label>Date of Birth</label>
+            <label>Year of birth</label>
             <div className="birth-split">
-              <Controller
-                name="month"
-                control={control}
-                rules={{
-                  required: true,
-                  min: "1",
-                  max: "12",
-                }}
-                render={({ field }) => (
-                  <Input
-                    width="25%"
-                    placeholder="MM"
-                    data-testid="month"
-                    type="number"
-                    className={errors.month ? "has-error" : ""}
-                    {...field}
-                  />
-                )}
-              />
-              <Controller
-                name="date"
-                rules={{
-                  required: true,
-                  min: "1",
-                  max: "31",
-                  validate: (value, { year, month, date }) =>
-                    parseInt(value.toString()) ===
-                    new Date(`${year}-${month}-${date} 00:00:00.000`).getDate(),
-                }}
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    width="25%"
-                    placeholder="DD"
-                    className={errors.date ? "has-error" : ""}
-                    data-testid="date"
-                    type="number"
-                    {...field}
-                  />
-                )}
-              />
               <Controller
                 name="year"
                 control={control}
@@ -254,7 +217,7 @@ export const SignUpForm = () => {
                 }}
                 render={({ field }) => (
                   <Input
-                    width="40%"
+                    width="100%"
                     placeholder="YYYY"
                     type="number"
                     data-testid="year"
@@ -311,23 +274,29 @@ export const SignUpForm = () => {
           )}
           <fieldset>
             <label>Province</label>
-            <Controller
-              name="province"
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field }) => (
-                <Input
-                  width="60%"
-                  placeholder="Ontario"
-                  type="text"
-                  data-testid="province"
-                  className={errors.province ? "has-error" : ""}
-                  {...field}
-                />
-              )}
-            />
+            <div className="province-select-container">
+              <Controller
+                name="province"
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field }) => (
+                  <Select
+                    data-testid="province"
+                    className={`${errors.province ? "has-error" : ""}`}
+                    {...field}
+                  >
+                    {PROVINCES &&
+                      PROVINCES.map((name, index) => (
+                        <option key={`province-${index}`} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                  </Select>
+                )}
+              />
+            </div>
           </fieldset>
           {isCoordinator && (
             <fieldset>
@@ -551,6 +520,10 @@ const Style = {
       svg {
         margin-left: 10px;
       }
+    }
+
+    .province-select-container {
+      width: 60%;
     }
   `,
   Button: styled.button`
