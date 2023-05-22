@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { Icon } from "../../Global/Icon";
 
 interface DropdownSelectProps {
@@ -7,7 +8,6 @@ interface DropdownSelectProps {
   options: string[];
   selectedValue: string;
   onChange: (value: string) => void;
-  className?: string;
   height?: string;
   width?: string;
 }
@@ -18,7 +18,6 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
   onChange,
   height = "100%",
   width = "100%",
-  className,
 }) => {
   const [value, setValue] = useState(selectedValue);
   const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +78,7 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
         height: height,
         fontSize: calculateFontSize(),
       }}
+      className=" has-error"
       onClick={handleFocus}
       onBlur={handleBlur}
       isFocus={isFocused}
@@ -86,6 +86,7 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
       ref={containerRef}
     >
       <div className="selected-value" onClick={handleToggle}>
+        {/* <input type="hidden" {...register()} /> */}
         <div className="text">
           {!value && placeholder && (
             <span className="placeholder">{placeholder}</span>
@@ -168,6 +169,17 @@ const Style = {
       border: 1px solid var(--blue-500);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1),
         0px 0px 0px 4px rgba(31, 81, 229, 0.08);
+    }
+
+    &.has-error {
+      border: 1px solid var(--red-300);
+      outline-color: transparent;
+
+      &:focus,
+      &:active {
+        border-color: var(--red-500);
+        border-width: ${conv(2, "vw")};
+      }
     }
   `,
 };
