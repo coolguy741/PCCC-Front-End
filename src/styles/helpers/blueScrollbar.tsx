@@ -16,6 +16,7 @@ export function blueScrollbar() {
     /* Handle */
     ::-webkit-scrollbar-thumb {
       background: var(--blue-500);
+      transition: background 0.25s linear;
     }
 
     /* Handle on hover */
