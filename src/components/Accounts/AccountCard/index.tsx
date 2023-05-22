@@ -41,7 +41,7 @@ const Style = {
     transition: background 0.3s ease-in, box-shadow 0.3s ease-out;
 
     .avatar {
-      margin-right: 15px;
+      margin-right: ${convertToRelativeUnit(15, "vw")};
     }
 
     .account-info {
