@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { Header } from "../shared/Header/header";
 import { SideMenu } from "../shared/SideMenu/sideMenu";
 
@@ -21,8 +22,13 @@ const Style = {
     width: 100%;
 
     main {
-      width: calc((100% + 32px) - var(--dashboard-menu-width-medium));
-      margin-left: calc(var(--dashboard-menu-width-medium) - 32px);
+      width: calc(
+        (100% + ${convertToRelativeUnit(32, "vw")}) -
+          var(--dashboard-menu-width-medium)
+      );
+      margin-left: calc(
+        var(--dashboard-menu-width-medium) - ${convertToRelativeUnit(32, "vw")}
+      );
       height: 100%;
     }
   `,

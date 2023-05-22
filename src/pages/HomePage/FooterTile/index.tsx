@@ -1,96 +1,112 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../../components/Global/Icon";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+
 export const FooterTile = () => {
   return (
-    <style.PageContainer>
-      <style.Background>
-        <style.Lemon src="/images/icons/lemon.svg" alt="lemon" />
-      </style.Background>
-      <style.InfoContainer>
-        <style.TitleContainer>
-          <style.FirstLine>Kids who eat</style.FirstLine>
-          <style.SecondLine>well, do well.</style.SecondLine>
-        </style.TitleContainer>
-        <style.Info>
-          <style.Column>
-            <div>About Us</div>
-            <div>Terms & Conditions</div>
-            <div>Accessibility</div>
-          </style.Column>
-          <style.Column>
-            <div>Privacy Policy</div>
-            <div>Contact Us</div>
-          </style.Column>
-          <style.Column>
-            <div>Follow Us</div>
-            <style.LinkGroup>
-              <Icon name="facebook" width="32px" />
-              <Icon name="instagram" width="32px" />
-              <Icon name="twitter" width="32px" />
-              <Icon name="youtube" width="32px" />
-            </style.LinkGroup>
-          </style.Column>
-        </style.Info>
-      </style.InfoContainer>
-    </style.PageContainer>
+    <Style.Container>
+      <img src="/images/icons/lemon.svg" alt="lemon" className="footer-image" />
+      <h2>
+        Kids who eat
+        <br />
+        well, do well.
+      </h2>
+      <nav>
+        <div>
+          <Link to="about-us">About Us</Link>
+          <Link to="t&&c">Terms & Conditions</Link>
+          <Link to="accessibility">Accessibility</Link>
+        </div>
+        <div>
+          <Link to="about-us">Privacy Policy</Link>
+          <Link to="t&&c">Contact Us</Link>
+        </div>
+        <div>
+          <p>Follow Us</p>
+          <article>
+            <Icon name="facebook" />
+            <Icon name="instagram" />
+            <Icon name="twitter" />
+            <Icon name="youtube" />
+          </article>
+        </div>
+      </nav>
+      <p className="footer-copyright">
+        ©2022 President’s Choice Children's Charity. All Rights Reserved.
+      </p>
+    </Style.Container>
   );
 };
 
-const style = {
-  PageContainer: styled.div`
-    min-height: calc(100vh);
+const Style = {
+  Container: styled.footer`
+    height: 100vh;
     width: 100%;
     font-family: "Noir Std";
     font-style: normal;
-  `,
-  InfoContainer: styled.div`
-    padding-left: 100px;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 28px;
-    color: var(--neutral-900);
-  `,
-  TitleContainer: styled.div`
-    font-weight: 700;
-    font-size: 120px;
-    line-height: 100%;
-    color: var(--neutral-900);
-    padding-top: 300px;
-  `,
-  FirstLine: styled.p``,
-  SecondLine: styled.p``,
-  Info: styled.div`
-    margin-top: 100px;
     display: flex;
-    gap: 138px;
-  `,
-  Column: styled.div`
-    display: flex;
+    justify-content: center;
     flex-direction: column;
-    gap: 32px;
-  `,
-  LinkGroup: styled.div`
-    display: flex;
-    gap: 32px;
-  `,
-  Background: styled.div`
-    position: absolute;
-    top: 0;
-    left: -32px;
-    width: calc(100% + 32px);
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
-  `,
-  Lemon: styled.img`
-    z-index: 10;
-    position: absolute;
-    bottom: -100px;
-    right: -50px;
-    max-with: 500px;
-    width: 50%;
-    transform: matrix(-1, 0, 0, 1, 50, 100) !important;
+    padding: 0 5vw;
+    padding-left: 7.5vw;
+    position: relative;
+    ${() => animatedbackgroundGradient("#D2F7E5", "#FFF5CC")};
+
+    h2 {
+      color: var(--neutral-900);
+      line-height: 110%;
+      font-weight: 700;
+      font-size: 10vh;
+    }
+
+    p.footer-copyright {
+      position: absolute;
+      font-size: 1.75vh;
+      bottom: 5vh;
+      right: 3vw;
+    }
+
+    .footer-image {
+      transform: matrix(-1, 0, 0, 1, 50, 100);
+      z-index: 0;
+      position: absolute;
+      bottom: ${convertToRelativeUnit(-100, "vh")};
+      right: ${convertToRelativeUnit(-50, "vw")};
+      width: 50%;
+    }
+
+    nav {
+      width: 60%;
+      margin-top: 7.5vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      z-index: 10;
+
+      & > div {
+        width: 30%;
+
+        article {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          img {
+            width: ${convertToRelativeUnit(32, "vw")};
+          }
+        }
+      }
+
+      a,
+      p {
+        color: var(--neutral-800);
+        font-size: 2.5vh;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 3vh;
+      }
+    }
   `,
 };

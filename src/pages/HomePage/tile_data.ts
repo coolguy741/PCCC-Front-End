@@ -1,4 +1,4 @@
-export const dummy_tiles = [
+export const dashboard_tiles = [
   {
     titleFirstLine: "Discover",
     titleSecondLine: "Together",
@@ -66,7 +66,7 @@ export const dummy_tiles = [
     titleFirstLine: "Games",
     titleSecondLine: "",
     titleColor: "orange-600",
-    subtitle: "Sunny's Place: A Bee-uitiful Food Adventure",
+    subtitle: "Sunny's Place: A Bee-utifull Food Adventure",
     gradientStart: "#FEE5DD",
     gradientEnd: "#FFF5CC",
     image: "/images/homepage/mad-kitchen.png",
