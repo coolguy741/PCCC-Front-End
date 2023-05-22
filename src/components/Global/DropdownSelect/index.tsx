@@ -78,7 +78,6 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
         height: height,
         fontSize: calculateFontSize(),
       }}
-      className=" has-error"
       onClick={handleFocus}
       onBlur={handleBlur}
       isFocus={isFocused}
