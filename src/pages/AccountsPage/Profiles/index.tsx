@@ -35,7 +35,7 @@ export const AccountsProfilesPage = () => {
     <Style.PageContainer className="">
       <div className="filters-container manage-users-options">
         {selectsGroup.map((select, index) => (
-          <fieldset key={index}>
+          <div className="sort-options" key={index}>
             <label>{select.label}</label>
             <Select
               width="180px"
@@ -53,7 +53,7 @@ export const AccountsProfilesPage = () => {
                 </option>
               ))}
             </Select>
-          </fieldset>
+          </div>
         ))}
       </div>
       <section className="users manage-users-content">
@@ -95,8 +95,11 @@ const Style = {
         color: var(--neutral-600);
       }
 
-      fieldset {
+      div.sort-options {
         margin-right: ${convertToRelativeUnit(24, "vw")};
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
     }
 
@@ -104,6 +107,9 @@ const Style = {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
+      overflow-y: scroll;
+      position: relative;
+      padding-bottom: ${convertToRelativeUnit(100, "vh")};
     }
   `,
 };

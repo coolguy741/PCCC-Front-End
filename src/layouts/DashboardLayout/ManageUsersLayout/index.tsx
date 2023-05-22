@@ -42,10 +42,10 @@ const Style = {
     /* classname to target content for manage users layout */
     .manage-users-content {
       height: 65vh;
-      overflow-y: auto;
+      overflow-y: scroll;
+      ${blueScrollbar}
       padding: 0 ${convertToRelativeUnit(16, "vw")};
       margin: 0 -${convertToRelativeUnit(16, "vw")};
-      ${blueScrollbar}
     }
   `,
 };

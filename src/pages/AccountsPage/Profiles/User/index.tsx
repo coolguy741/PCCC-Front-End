@@ -136,7 +136,6 @@ const Style = {
       font-weight: 600;
       color: var(--neutral-900);
       font-size: 3vh;
-      margin-bottom: 1vh;
     }
 
     h3 {
@@ -176,6 +175,7 @@ const Style = {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
     }
 
     .content-container {
@@ -194,7 +194,7 @@ const Style = {
     .groups,
     .activity,
     .lesson-assesment {
-      padding: 1.25vh 1.25vw;
+      padding: 1.25vh 1.5vw;
       border-radius: 1rem;
       box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
       overflow: hidden;

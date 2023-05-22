@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { trimStringByLength } from "../../../lib/util/trimStringByLength";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 interface AccountCardProps {
   img: { icon: any; bg: string };
@@ -13,7 +15,7 @@ export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
       <figure className="avatar">{img.icon()}</figure>
       <div className="account-info">
         <div>
-          <h5>{name}</h5>
+          <h3>{trimStringByLength(name, 15)}</h3>
           <p>{role} User</p>
         </div>
         <button onClick={onClick} className="avatar-delete">
@@ -26,13 +28,13 @@ export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
 
 const Style = {
   Container: styled.article`
-    height: 13vh;
+    height: 13.95vh;
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(59.2764px);
     width: 100%;
     border-radius: 16px;
-    padding: 24px;
+    padding: ${convertToRelativeUnit(24, "vh")};
     display: flex;
     align-items: center;
     position: relative;
@@ -45,6 +47,18 @@ const Style = {
     .account-info {
       display: flex;
       flex-direction: column;
+      height: 100%;
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: ${convertToRelativeUnit(20, "vh")};
+      color: var(--neutral-800);
+    }
+
+    p {
+      color: var(--neutral-700);
+      font-size: ${convertToRelativeUnit(15, "vh")};
     }
 
     .avatar-delete {
