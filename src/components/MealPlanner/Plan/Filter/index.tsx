@@ -56,6 +56,7 @@ export const PlateFullPlanFilter: React.FC<FilterProps> = ({
           required
           value={value}
           className={showingDropdown || value ? "active" : ""}
+          data-testid="filter"
         />
         <Style.RightButton>
           <Icon name="plus" />
