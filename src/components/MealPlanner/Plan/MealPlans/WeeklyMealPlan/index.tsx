@@ -1,21 +1,70 @@
 import styled from "styled-components";
 
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import {
+  Draggable,
+  DraggingStyle,
+  DragUpdate,
+  Droppable,
+  NotDraggingStyle,
+} from "react-beautiful-dnd";
 import { FullMealPlan } from "..";
+import { useMealPlannerStore } from "../../../../../stores/mealPlannerStore";
+import { Icon } from "../../../../Global/Icon";
 import { Typography } from "../../../../Global/Typography";
 import { MealCard } from "../MealCard";
-
 interface WeeklyMealPlanProps {
   mealPlans: FullMealPlan[];
   onMealRemove: (dayIndex: number, index: number) => void;
+  dragUpdateStatus?: DragUpdate;
 }
 
 export const WeeklyMealPlan = ({
   mealPlans,
   onMealRemove,
+  dragUpdateStatus,
 }: WeeklyMealPlanProps) => {
+  const { changeStep } = useMealPlannerStore();
+  const handlePrev = () => {
+    changeStep(1);
+  };
+
+  const getStyle = (
+    style: DraggingStyle | NotDraggingStyle | undefined,
+    isDragging: boolean,
+    dayIndex: number,
+    index: number,
+  ) => {
+    const customStyle: Record<string, any> = {};
+    const droppableId = `droppable-weekly-meal-plan-${dayIndex}`;
+    // is Dragged Over
+    if (
+      dragUpdateStatus?.destination?.droppableId === droppableId &&
+      dragUpdateStatus?.destination?.index === index
+    ) {
+      customStyle.visibility = "hidden";
+    }
+    if (
+      !(
+        dragUpdateStatus?.source?.droppableId === droppableId &&
+        dragUpdateStatus?.source?.index === index
+      ) ||
+      dragUpdateStatus?.source.droppableId === "droppable-meal-menu"
+    ) {
+      customStyle.transform = undefined;
+    }
+    if (!isDragging) {
+      customStyle.height = "100%";
+    }
+    return {
+      ...style,
+      ...customStyle,
+    };
+  };
   return (
     <Style.Container>
+      <Style.BackButton onClick={handlePrev}>
+        <Icon name="prev" />
+      </Style.BackButton>
       <div className="meal-planner-details">
         <div className="plan-info">
           <Typography variant="h2" color="book-200" weight="bold">
@@ -56,6 +105,7 @@ export const WeeklyMealPlan = ({
         <Style.MealPlans>
           {mealPlans.map((dailyPlan, dayIndex) => (
             <Droppable
+              isCombineEnabled
               droppableId={`droppable-weekly-meal-plan-${dayIndex}`}
               key={`droppable-weekly-meal-plan-${dayIndex}`}
             >
@@ -77,10 +127,12 @@ export const WeeklyMealPlan = ({
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
-                            style={{
-                              ...provided.draggableProps.style,
-                              height: snapshot.isDragging ? undefined : "100%",
-                            }}
+                            style={getStyle(
+                              provided.draggableProps.style,
+                              snapshot.isDragging,
+                              dayIndex,
+                              index,
+                            )}
                           >
                             <MealCard
                               meal={meal}
@@ -257,5 +309,17 @@ const Style = {
     img {
       height: 20%;
     }
+  `,
+  BackButton: styled.button`
+    position: absolute;
+    top: 2%;
+    left: -7%;
+    background: linear-gradient(
+      177.73deg,
+      var(--green-400) 1.85%,
+      var(--green-600) 98.05%
+    );
+    padding: 1%;
+    border-radius: 50%;
   `,
 };
