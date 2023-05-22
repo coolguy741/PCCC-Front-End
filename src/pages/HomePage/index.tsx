@@ -12,7 +12,7 @@ import { useUserStore } from "../../stores/userStore";
 import { dashboardScrollAnimation } from "../../styles/animations/dashboardScroll";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { AnimatedTile } from "./AnimatedTile";
-import { dummy_tiles, meal_planner_tile } from "./tile_data";
+import { dashboard_tiles, meal_planner_tile } from "./tile_data";
 
 export const HomePage = () => {
   const user = useUserStore((state) => state.user);
@@ -33,7 +33,7 @@ export const HomePage = () => {
         <SwiperSlide>
           <PowerFullKidsTile />
         </SwiperSlide>
-        {dummy_tiles.map((tile) => (
+        {dashboard_tiles.map((tile) => (
           <SwiperSlide>
             <AnimatedTile key={tile.titleFirstLine} tile={tile} />
           </SwiperSlide>

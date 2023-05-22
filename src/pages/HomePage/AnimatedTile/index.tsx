@@ -1,18 +1,22 @@
-// TODO: Create animated tile functionality.
-// needed?
-// title (component with color variant span)
-// imageOrSpline (currently image, spline intended)
-// text (details)
-// image width & content width.
-// button action.
-// animted background gradient.
-
 import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+
+function exceptionForGameName(subtitle: string) {
+  if (subtitle) {
+    if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
+      return (
+        <h3>
+          Sunny's Place:
+          <br />A Bee-utifull Food Adventure
+        </h3>
+      );
+    } else return <h3>{subtitle}</h3>;
+  }
+}
 
 export const AnimatedTile = (props: any) => {
   const [isShowingBubble, setIsShowingBubble] = useState(false);
@@ -34,7 +38,7 @@ export const AnimatedTile = (props: any) => {
           <br />
           {tile.titleSecondLine}
         </h2>
-        {tile.subtitle && <h3>{tile.subtitle}</h3>}
+        {exceptionForGameName(tile.subtitle)}
         <p>{tile.description}</p>
         <Button to={tile.buttonLink}>{tile.buttonText}</Button>
       </article>
@@ -90,7 +94,7 @@ const Style = {
 
       h3 {
         font-weight: 700;
-        font-size: 4.5vh;
+        font-size: 4vh;
         line-height: 110%;
         color: var(--neutral-800);
         margin-bottom: 1vh;
