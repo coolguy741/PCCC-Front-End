@@ -135,7 +135,7 @@ const Style = {
     /* classnames to target content for manage users layout */
     /* decreasing the options size & increasing content size */
     .manage-users-options {
-      height: 10vh;
+      height: 10vh !important;
     }
 
     .manage-users-content {
