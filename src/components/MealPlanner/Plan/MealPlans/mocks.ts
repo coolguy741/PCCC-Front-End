@@ -170,22 +170,22 @@ export const mockMealPlans = [
 export const mockMealPlanMenu = [
   {
     description: "Roasted red pepper hummusRoasted red pepper hummus...",
-    image: "/images/plate-full-planner/scroll-menu/image1.svg",
+    image: "/images/plate-full-planner/scroll-menu/image-1.svg",
   },
   {
     description: "Roasted red pepper hummusRoasted red pepper hummus...",
-    image: "/images/plate-full-planner/scroll-menu/image2.svg",
+    image: "/images/plate-full-planner/scroll-menu/image-2.svg",
   },
   {
     description: "Roasted red pepper hummusRoasted red pepper hummus...",
-    image: "/images/plate-full-planner/scroll-menu/image3.svg",
+    image: "/images/plate-full-planner/scroll-menu/image-3.svg",
   },
   {
     description: "Roasted red pepper hummusRoasted red pepper hummus...",
-    image: "/images/plate-full-planner/scroll-menu/image1.svg",
+    image: "/images/plate-full-planner/scroll-menu/image-1.svg",
   },
   {
     description: "Roasted red pepper hummusRoasted red pepper hummus...",
-    image: "/images/plate-full-planner/scroll-menu/image2.svg",
+    image: "/images/plate-full-planner/scroll-menu/image-2.svg",
   },
 ];
