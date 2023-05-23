@@ -2,27 +2,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { AccountCard } from "../../../components/Accounts/AccountCard";
-import { Select } from "../../../components/Global/Select";
+import { DropdownSelect } from "../../../components/Global/DropdownSelect";
 import { Typography } from "../../../components/Global/Typography";
 import { avatars_data } from "../../../lib/avatars/data";
 import UserCards from "../../../lib/mockData/accounts/profiles.json";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 const selectsGroup = [
   {
     label: "User type",
-    options: [
-      { label: "Standard", value: "standard" },
-      { label: "Admin", value: "admin" },
-      { label: "Teacher", value: "teacher" },
-    ],
+    options: ["Standard", "Admin", "Teacher"],
   },
   {
     label: "Sort",
-    options: [
-      { label: "Date", value: "date" },
-      { label: "Name", value: "name" },
-      { label: "Teacher", value: "teacher" },
-    ],
+    options: ["Date", "Name", "Teacher"],
   },
 ];
 
@@ -40,22 +33,12 @@ export const AccountsProfilesPage = () => {
               <Typography variant="paragraph3" mb={2} pb={1}>
                 {select.label}
               </Typography>
-              <Select
-                width="180px"
-                height="52px"
-                className="username-select"
-                required
-              >
-                {select.options.map((option) => (
-                  <option
-                    className="place-holder"
-                    key={`option-${option.label}`}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </Select>
+              <DropdownSelect
+                width={convertToRelativeUnit(180, "vw")}
+                height={convertToRelativeUnit(52, "vh")}
+                options={select.options}
+                onChange={() => alert("option changed")}
+              />
             </Style.SelectContainer>
           ))}
         </Style.SelectGroup>
