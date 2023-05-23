@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
+import { AddEventModal } from "../../components/Calendar/AddEventModal";
 import { CalendarFilter } from "../../components/Calendar/Filter/Index";
-import { CalendarPopup } from "../../components/Calendar/Popup";
 import { Calendar } from "../../components/Global/Calendar";
 import { Typography } from "../../components/Global/Typography";
 import { useCalendarEventsStore } from "../../stores/eventsStore";
@@ -27,8 +27,6 @@ export const CalendarPage = () => {
   const handleDateClick = (info: any) => {
     setSelectedDate(info.dateStr);
     const rectDOM = info.dayEl.getBoundingClientRect();
-
-    console.log(info);
 
     let xPos = "";
     let yPos = "";
@@ -95,7 +93,7 @@ export const CalendarPage = () => {
             </div>
           </Style.CalendarSideMenu>
         </Style.CalendarContainer>
-        <CalendarPopup
+        <AddEventModal
           position={position}
           isOpen={isOpen}
           selectedDate={selectedDate}

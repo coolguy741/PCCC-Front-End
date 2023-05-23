@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 import { Button } from "../../Global/Button";
-import { CalendarEvent, EventType } from "../Popup";
+import { CalendarEvent, EventType } from "../AddEventModal";
 
 interface Props {
   eventType: EventType;

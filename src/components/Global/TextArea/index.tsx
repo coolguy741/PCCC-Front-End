@@ -34,5 +34,7 @@ const Style = {
     resize: none;
     color: var(--neutral-600);
     font-size: 0.9rem;
+    font-family: "Noir Std", "Roboto", "Droid Sans", "Helvetica Neue",
+      sans-serif;
   `,
 };
