@@ -81,60 +81,61 @@ export const AccountsUserProfilePage = () => {
 
   return (
     <Style.Container>
-      <BackButton onClick={() => navigate(-1)} />
-      <article className="account-content-header">
-        <h2>Standard Profile</h2>
-      </article>
-      <section className="content-container">
-        {true && (
-          <>
-            <UserProfileInfo userData={userData} />
-            <UserLessonAssesment userData={userData} />
-            <UserGroups userData={userData} openGroupsModal={openGroupsModal} />
-            <UserActivity userData={userData} />
-            <UserAchievements openAchievementsModal={openAchievementsModal} />
-          </>
-        )}
-      </section>
-      <div className="accounts-bg">
-        <AltGrapeBG />
+      <div className="manage-users-options">
+        <BackButton onClick={() => navigate(-1)} />
       </div>
-      {!!user && (
-        <GroupsModal
-          isOpen={isOpenGroupsModal}
-          close={closeGroupsModal}
-          title="Groups"
-          groups={user.groups && user.groups.length > 0 ? user.groups : groups}
-        >
-          Modal
-        </GroupsModal>
-      )}
-      {!!user && (
-        <AchievementsModal
-          isOpen={isOpenAchievementsModal}
-          close={closeAchievementsModal}
-          title="Achievements"
-          achievements={achievements}
-        >
-          Modal
-        </AchievementsModal>
-      )}
+      <div className="manage-users-content">
+        <h2>Standard Profile</h2>
+        <section className="content-container">
+          {true && (
+            <>
+              <UserProfileInfo userData={userData} />
+              <UserLessonAssesment userData={userData} />
+              <UserGroups
+                userData={userData}
+                openGroupsModal={openGroupsModal}
+              />
+              <UserActivity userData={userData} />
+              <UserAchievements openAchievementsModal={openAchievementsModal} />
+            </>
+          )}
+        </section>
+        <div className="accounts-bg">
+          <AltGrapeBG />
+        </div>
+        {!!user && (
+          <GroupsModal
+            isOpen={isOpenGroupsModal}
+            close={closeGroupsModal}
+            title="Groups"
+            groups={
+              user.groups && user.groups.length > 0 ? user.groups : groups
+            }
+          >
+            Modal
+          </GroupsModal>
+        )}
+        {!!user && (
+          <AchievementsModal
+            isOpen={isOpenAchievementsModal}
+            close={closeAchievementsModal}
+            title="Achievements"
+            achievements={achievements}
+          >
+            Modal
+          </AchievementsModal>
+        )}
+      </div>
     </Style.Container>
   );
 };
 
 const Style = {
   Container: styled.section`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
     h2 {
       font-weight: 600;
       color: var(--neutral-900);
       font-size: 3vh;
-      margin-bottom: 1vh;
     }
 
     h3 {
@@ -149,14 +150,6 @@ const Style = {
 
     p {
       color: var(--neutral-800);
-    }
-
-    .account-content-header {
-      height: 6%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
     }
 
     .header-view {
@@ -178,6 +171,13 @@ const Style = {
       right: 0;
     }
 
+    .manage-users-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
     .content-container {
       position: relative;
       z-index: 1;
@@ -186,7 +186,7 @@ const Style = {
       grid-template-rows: repeat(7, 1fr);
       grid-column-gap: 1.5vh;
       grid-row-gap: 1.5vh;
-      height: 92.5%;
+      height: 92%;
     }
 
     .user-info,
@@ -194,7 +194,7 @@ const Style = {
     .groups,
     .activity,
     .lesson-assesment {
-      padding: 2vh 1.5vw;
+      padding: 1.25vh 1.5vw;
       border-radius: 1rem;
       box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
       overflow: hidden;
