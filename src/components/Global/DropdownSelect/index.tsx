@@ -6,16 +6,18 @@ import { Icon } from "../../Global/Icon";
 interface DropdownSelectProps {
   placeholder?: string;
   options: string[];
-  selectedValue: string;
+  selectedValue?: string;
   onChange: (value: string) => void;
   height?: string;
   width?: string;
+  className?: string;
 }
 export const DropdownSelect: React.FC<DropdownSelectProps> = ({
   placeholder,
   options,
-  selectedValue,
+  selectedValue = "",
   onChange,
+  className = "",
   height = "100%",
   width = "100%",
 }) => {
@@ -73,6 +75,7 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
 
   return (
     <Style.Container
+      className={className}
       style={{
         width: width,
         height: height,
