@@ -83,7 +83,7 @@ export const ProfileSettingsPage = () => {
                       <DropdownSelect
                         options={firstNames ? firstNames : [""]}
                         placeholder="First name"
-                        className={errors.email ? "has-error" : ""}
+                        className={errors.firstUsername ? "has-error" : ""}
                         onChange={(selectedOption) =>
                           field.onChange(selectedOption)
                         }
@@ -102,7 +102,7 @@ export const ProfileSettingsPage = () => {
                     <DropdownSelect
                       options={secondNames ? secondNames : [""]}
                       placeholder="Second name"
-                      className={errors.email ? "has-error" : ""}
+                      className={errors.secondUsername ? "has-error" : ""}
                       onChange={(selectedOption) =>
                         field.onChange(selectedOption)
                       }
