@@ -3,9 +3,14 @@ import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { Icon } from "../../Global/Icon";
 
+export interface SelectOption {
+  label: string | null;
+  value: string;
+}
+
 interface DropdownSelectProps {
   placeholder?: string;
-  options: string[];
+  options: SelectOption[] | string[];
   selectedValue?: string;
   onChange: (value: string) => void;
   height?: string;
@@ -100,15 +105,27 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
       {isOpen && (
         <div className="options">
           <Style.ScrollContainer>
-            {options.map((option, index) => (
-              <div
-                key={index}
-                className="option"
-                onClick={() => handleOptionClick(option)}
-              >
-                {option}
-              </div>
-            ))}
+            {options.map((option, index) =>
+              typeof option === "string" ? (
+                <div
+                  key={index}
+                  className="option"
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option}
+                </div>
+              ) : (
+                <div
+                  key={index}
+                  className="option"
+                  onClick={() =>
+                    handleOptionClick(option.value ? option.value : "")
+                  }
+                >
+                  {option.label ? option.label : ""}
+                </div>
+              ),
+            )}
           </Style.ScrollContainer>
         </div>
       )}
@@ -133,7 +150,7 @@ const Style = {
       height: 100%;
       border-radius: 8px;
       font-weight: 400;
-      color: var(--neutral-800);
+      color: #1d2433;
       cursor: pointer;
       display: flex;
       align-items: center;
