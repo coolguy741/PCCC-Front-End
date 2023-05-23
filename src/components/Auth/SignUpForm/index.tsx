@@ -15,7 +15,6 @@ import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { DropdownSelect } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
-import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
 type TSignUpForm = {
@@ -322,20 +321,15 @@ export const SignUpForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Select
+              <DropdownSelect
                 data-testid="first-username"
-                className={`${
-                  errors.firstUsername ? "has-error" : ""
-                } username-select`}
-                {...field}
-              >
-                {firstNames &&
-                  firstNames.map((name, index) => (
-                    <option key={`firstName-${index}`} value={name}>
-                      {name}
-                    </option>
-                  ))}
-              </Select>
+                options={firstNames ? firstNames : [""]}
+                placeholder="Awesome"
+                className={errors.firstUsername ? "has-error" : ""}
+                onChange={(selectedOption) => field.onChange(selectedOption)}
+                height={convertToRelativeUnit(48, "vh")}
+                width="25%"
+              />
             )}
           />
 
@@ -346,20 +340,15 @@ export const SignUpForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Select
+              <DropdownSelect
                 data-testid="second-username"
-                className={`${
-                  errors.secondUsername ? "has-error" : ""
-                } username-select`}
-                {...field}
-              >
-                {secondNames &&
-                  secondNames.map((name, index) => (
-                    <option key={`secondName-${index}`} value={name}>
-                      {name}
-                    </option>
-                  ))}
-              </Select>
+                options={secondNames ? secondNames : [""]}
+                placeholder="Apple"
+                className={errors.secondUsername ? "has-error" : ""}
+                onChange={(selectedOption) => field.onChange(selectedOption)}
+                height={convertToRelativeUnit(48, "vh")}
+                width="30%"
+              />
             )}
           />
           <Controller
