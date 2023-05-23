@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
+import { DropdownSelect } from "../../../components/Global/DropdownSelect";
 import { Input } from "../../../components/Global/Input";
-import { Select } from "../../../components/Global/Select";
 import { OrangeBG } from "../../../components/Icons";
 import { useAPI } from "../../../hooks/useAPI";
 import { avatars_data } from "../../../lib/avatars/data";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export const ProfileSettingsPage = () => {
   const [firstNames, setFirstNames] = useState<string[] | null | undefined>([]);
@@ -20,6 +21,7 @@ export const ProfileSettingsPage = () => {
   const {
     control,
     watch,
+    handleSubmit,
     formState: { errors },
   } = useForm();
 
@@ -37,6 +39,14 @@ export const ProfileSettingsPage = () => {
     return data;
   };
 
+  const saveAccountInfo = () => {
+    console.log("Save account information");
+  };
+
+  const saveChangedPassword = () => {
+    console.log("Save changed password");
+  };
+
   useEffect(() => {
     getUsernames();
   }, []);
@@ -51,7 +61,7 @@ export const ProfileSettingsPage = () => {
       </div>
       <h2>Profile Settings</h2>
       <Style.Content>
-        <Style.AccountInfo>
+        <Style.AccountInfo onSubmit={handleSubmit(saveAccountInfo)}>
           <h3>Edit account info</h3>
           <div className="account-info-content">
             <article className="info-settings">
@@ -61,70 +71,63 @@ export const ProfileSettingsPage = () => {
                 alt="avatar"
               />
               <div className="input-group">
-                <div className="username-selection-container">
+                <Style.LabeledInput width="32%">
                   <label>Username</label>
-                  <div className="username-selection-inputs">
-                    <Controller
-                      name="firstUsername"
-                      control={control}
-                      rules={{
-                        required: true,
-                      }}
-                      render={({ field }) => (
-                        <Select
-                          data-testid="first-username"
-                          className={`${
-                            errors.email ? "has-error" : ""
-                          } username-select`}
-                          {...field}
-                        >
-                          {firstNames &&
-                            firstNames.map((name, index) => (
-                              <option key={`firstName-${index}`} value={name}>
-                                {name}
-                              </option>
-                            ))}
-                        </Select>
-                      )}
+                  <Controller
+                    name="firstUsername"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({ field }) => (
+                      <DropdownSelect
+                        options={firstNames ? firstNames : [""]}
+                        placeholder="First name"
+                        className={errors.email ? "has-error" : ""}
+                        onChange={(selectedOption) =>
+                          field.onChange(selectedOption)
+                        }
+                        height={convertToRelativeUnit(48, "vh")}
+                      />
+                    )}
+                  />
+                </Style.LabeledInput>
+                <Controller
+                  name="secondUsername"
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <DropdownSelect
+                      options={secondNames ? secondNames : [""]}
+                      placeholder="Second name"
+                      className={errors.email ? "has-error" : ""}
+                      onChange={(selectedOption) =>
+                        field.onChange(selectedOption)
+                      }
+                      height={convertToRelativeUnit(48, "vh")}
+                      width="32%"
                     />
-                    <Controller
-                      name="secondUsername"
-                      control={control}
-                      rules={{
-                        required: true,
-                      }}
-                      render={({ field }) => (
-                        <Select
-                          data-testid="second-username"
-                          className={`${
-                            errors.email ? "has-error" : ""
-                          } username-select`}
-                          {...field}
-                        >
-                          {secondNames &&
-                            secondNames.map((name, index) => (
-                              <option key={`secondName-${index}`} value={name}>
-                                {name}
-                              </option>
-                            ))}
-                        </Select>
-                      )}
+                  )}
+                />
+                <Controller
+                  name="thirdUsername"
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      placeholder="12345"
+                      type="text"
+                      {...field}
+                      height={convertToRelativeUnit(48, "vh")}
+                      width="32%"
                     />
-                    <Controller
-                      name="thirdUsername"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          placeholder="12345"
-                          type="text"
-                          data-testid="third-username"
-                          {...field}
-                        />
-                      )}
-                    />
-                  </div>
-                </div>
-                <fieldset>
+                  )}
+                />
+                <Style.LabeledInput width="49%">
                   <label htmlFor="name">Name</label>
                   <Controller
                     name="name"
@@ -134,7 +137,6 @@ export const ProfileSettingsPage = () => {
                     }}
                     render={({ field }) => (
                       <Input
-                        width="60%"
                         placeholder="John"
                         type="text"
                         id="name"
@@ -143,8 +145,27 @@ export const ProfileSettingsPage = () => {
                       />
                     )}
                   />
-                </fieldset>
-                <fieldset>
+                </Style.LabeledInput>
+                <Style.LabeledInput width="49%">
+                  <label htmlFor="birth-year">Birth year</label>
+                  <Controller
+                    name="birth-year"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({ field }) => (
+                      <Input
+                        placeholder="1986"
+                        type="text"
+                        id="name"
+                        className={errors.name ? "has-error" : ""}
+                        {...field}
+                      />
+                    )}
+                  />
+                </Style.LabeledInput>
+                <Style.LabeledInput width="49%">
                   <label htmlFor="email">Email Address</label>
                   <Controller
                     name="email"
@@ -154,7 +175,6 @@ export const ProfileSettingsPage = () => {
                     }}
                     render={({ field }) => (
                       <Input
-                        width="60%"
                         placeholder="Johndoe@gmail.com"
                         type="email"
                         id="email"
@@ -163,7 +183,7 @@ export const ProfileSettingsPage = () => {
                       />
                     )}
                   />
-                </fieldset>
+                </Style.LabeledInput>
               </div>
             </article>
             <article className="choose-avatar">
@@ -182,10 +202,14 @@ export const ProfileSettingsPage = () => {
                 </div>
               </Style.ScrollContainer>
             </article>
-            <Button size="large">Save changes</Button>
+            <Button type="submit" size="large">
+              Save changes
+            </Button>
           </div>
         </Style.AccountInfo>
-        <Style.PasswordSettingContainer>
+        <Style.PasswordSettingContainer
+          onSubmit={handleSubmit(saveChangedPassword)}
+        >
           <h3>Change password</h3>
           <div className="input-group">
             <fieldset>
@@ -249,7 +273,9 @@ export const ProfileSettingsPage = () => {
               />
             </fieldset>
           </div>
-          <Button size="large">Save changes</Button>
+          <Button size="large" type="submit">
+            Save changes
+          </Button>
         </Style.PasswordSettingContainer>
       </Style.Content>
     </Style.PageContainer>
@@ -290,7 +316,7 @@ const Style = {
     display: flex;
     gap: 2vh;
   `,
-  AccountInfo: styled.div`
+  AccountInfo: styled.form`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -321,32 +347,15 @@ const Style = {
         .input-group {
           flex-grow: 1;
           display: flex;
-          flex-direction: column;
-          gap: 2.66vh;
+          flex-wrap: wrap;
+          row-gap: ${convertToRelativeUnit(24, "vh")};
+          justify-content: space-between;
+          align-items: end;
 
           label {
-            width: 30%;
             font-weight: 500;
             font-size: 1rem;
             color: var(--neutral-700);
-          }
-
-          .username-selection-container {
-            display: flex;
-            align-items: center;
-
-            .username-selection-inputs {
-              width: 70%;
-              height: 4.33vh;
-              display: flex;
-              gap: 1vh;
-              align-items: center;
-              justify-content: space-between;
-
-              input {
-                width: 60%;
-              }
-            }
           }
 
           fieldset {
@@ -364,6 +373,10 @@ const Style = {
       }
 
       .choose-avatar {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5vh;
+
         label {
           font-weight: 500;
           font-size: 1rem;
@@ -374,7 +387,6 @@ const Style = {
           flex-wrap: wrap;
           align-items: center;
           justify-content: space-between;
-          margin-top: 2.5vh;
           gap: 2.5vh 3.33vh;
 
           button {
@@ -390,7 +402,13 @@ const Style = {
       }
     }
   `,
-  PasswordSettingContainer: styled.div`
+  LabeledInput: styled.div<{ width?: string }>`
+    width: ${(props) => (props.width ? props.width : "100%")};
+    display: flex;
+    flex-direction: column;
+    gap: ${convertToRelativeUnit(8, "vh")};
+  `,
+  PasswordSettingContainer: styled.form`
     flex-grow: 1;
     align-self: self-start;
     background: rgba(255, 255, 255, 0.5);
@@ -412,17 +430,19 @@ const Style = {
       fieldset {
         width: 100%;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        gap: ${convertToRelativeUnit(8, "vh")};
+        align-items: start;
         justify-content: space-between;
 
         label {
-          width: 35%;
           color: var(--neutral-600);
           font-weight: 500;
           font-size: 1rem;
         }
 
         input {
+          width: 100%;
           height: 4vh;
         }
       }
@@ -434,7 +454,7 @@ const Style = {
   `,
   ScrollContainer: styled.div`
     overflow-y: auto;
-    height: 100%;
+    height: 16vh;
     padding-right: 16px;
     margin-right: -24px;
   `,
@@ -449,7 +469,6 @@ const Style = {
     transition: border 0.25s ease-in;
 
     svg {
-      position: absolute;
       width: 6vh;
       height: 6vh;
       transition: width 0.25s linear, height 0.25s linear,
