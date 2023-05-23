@@ -1,9 +1,9 @@
 import { gsap } from "gsap";
-import { BACK_1_OUT } from "../../../../shared/Eases/Eases";
+import { BACK_1_OUT } from "../../../../../shared/Eases/Eases";
 
 const animateInventoryIn = (inventoryRef: HTMLDivElement): void => {
   gsap.to(inventoryRef, {
-    y: -675,
+    y: -300,
     opacity: 1,
     duration: 0.5,
     delay: 0.1,

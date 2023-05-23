@@ -3,19 +3,18 @@ import styled from "styled-components";
 import { MarginPaddingNone } from "../../../../styles/Snippets/MarginPaddingNone";
 import { UserSelectNone } from "../../../../styles/Snippets/UserSelectNone";
 
-const InventoryStyleContainer = styled.div`
+const StaticSVGLoaderStyleContainer = styled.div`
   ${UserSelectNone};
   ${MarginPaddingNone};
-  position: fixed;
-  bottom: -35rem;
-  left: 0;
-  width: 22rem;
-  margin-left: 11rem;
-
-  img {
+  width: 100%;
+  height: 100%;
+  .svg-enable {
+    position: absolute;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
   }
 `;
 
-export default memo(InventoryStyleContainer);
+export default memo(StaticSVGLoaderStyleContainer);
