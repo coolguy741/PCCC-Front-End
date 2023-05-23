@@ -111,9 +111,9 @@ const Style = {
     flex-direction: column;
 
     /* making height auto and adding design gap to layout */
-    .manage-users-content {
+    div.manage-users-content {
       padding-top: ${convertToRelativeUnit(32, "vh")};
-      height: auto;
+      /* height: auto; */
     }
 
     .header-container {
