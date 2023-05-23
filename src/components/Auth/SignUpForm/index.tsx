@@ -281,6 +281,7 @@ export const SignUpForm = () => {
                     }
                     width="100%"
                     height={convertToRelativeUnit(48, "vh")}
+                    selectedValue={province}
                   />
                 )}
               />
