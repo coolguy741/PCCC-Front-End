@@ -3,9 +3,14 @@ import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { Icon } from "../../Global/Icon";
 
+export interface SelectOption {
+  label: string | null;
+  value: string;
+}
+
 interface DropdownSelectProps {
   placeholder?: string;
-  options: string[];
+  options: SelectOption[] | string[];
   selectedValue?: string;
   onChange: (value: string) => void;
   height?: string;
@@ -99,15 +104,29 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
       </div>
       {isOpen && (
         <div className="options">
-          {options.map((option, index) => (
-            <div
-              key={index}
-              className="option"
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </div>
-          ))}
+          <Style.ScrollContainer>
+            {options.map((option, index) =>
+              typeof option === "string" ? (
+                <div
+                  key={index}
+                  className="option"
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option}
+                </div>
+              ) : (
+                <div
+                  key={index}
+                  className="option"
+                  onClick={() =>
+                    handleOptionClick(option.value ? option.value : "")
+                  }
+                >
+                  {option.label ? option.label : ""}
+                </div>
+              ),
+            )}
+          </Style.ScrollContainer>
         </div>
       )}
     </Style.Container>
@@ -118,6 +137,8 @@ const Style = {
   Container: styled.div<{ isFocus: boolean }>`
     position: relative;
     display: inline-block;
+    font-size: ${conv(16, "vh")};
+    padding: ${conv(5, "vh")} ${conv(15, "vh")};
     border-radius: 8px;
     border: ${(props) =>
       props.isFocus ? "1px solid var(--blue-500)" : "1px solid white"};
@@ -128,9 +149,8 @@ const Style = {
     .selected-value {
       height: 100%;
       border-radius: 8px;
-      padding: 0 16px;
       font-weight: 400;
-      color: var(--neutral-800);
+      color: #1d2433;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -165,23 +185,41 @@ const Style = {
 
     .option:hover {
       background-color: #f0f0f0;
+      border-radius: 4px;
     }
 
     &:focus {
-      border: 1px solid var(--blue-500);
+      border: ${conv(2, "vh")} solid var(--blue-500);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1),
         0px 0px 0px 4px rgba(31, 81, 229, 0.08);
     }
 
+    &:active {
+      border: ${conv(2, "vh")} solid var(--blue-500);
+    }
+
+    &:disabled {
+      background: var(--neutral-100);
+      border: ${conv(1, "vh")} solid #e1e6ef;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
     &.has-error {
-      border: 1px solid var(--red-300);
+      border-color: var(--red-300);
+      padding: ${conv(6, "vh")} ${conv(16, "vw")};
+      border-width: ${conv(1, "vw")};
       outline-color: transparent;
 
       &:focus,
       &:active {
+        padding: ${conv(5, "vh")} ${conv(15, "vw")};
         border-color: var(--red-500);
         border-width: ${conv(2, "vw")};
       }
     }
+  `,
+  ScrollContainer: styled.div`
+    overflow-y: auto;
+    height: 10vh;
   `,
 };
