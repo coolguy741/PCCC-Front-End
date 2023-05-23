@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import Button from "../../components/Button";
 import { CalendarFilter } from "../../components/Calendar/Filter/Index";
 import { CalendarPopup } from "../../components/Calendar/Popup";
@@ -29,7 +28,7 @@ export const CalendarPage = () => {
     setSelectedDate(info.dateStr);
     const rectDOM = info.dayEl.getBoundingClientRect();
 
-    console.log(info.dayEl.getBoundingClientRect());
+    console.log(info);
 
     let xPos = "";
     let yPos = "";
@@ -45,13 +44,23 @@ export const CalendarPage = () => {
       xPos = "left";
     }
 
-    setPosition({
-      x: rectDOM.x + rectDOM.width / 2,
-      y: rectDOM.y + rectDOM.height / 2 - (yPos === "top" ? 45 : -45),
-      xPos: xPos,
-      yPos: yPos,
-      height: rectDOM.height,
-    });
+    if (info.view.type === "dayGridMonth") {
+      setPosition({
+        x: rectDOM.x + rectDOM.width / 2,
+        y: rectDOM.y + rectDOM.height / 2 - (yPos === "top" ? 45 : -45),
+        xPos: xPos,
+        yPos: yPos,
+        height: rectDOM.height,
+      });
+    } else {
+      setPosition({
+        x: rectDOM.x + rectDOM.width / 2,
+        y: rectDOM.y + rectDOM.height / 2 - (yPos === "top" ? 45 : -45),
+        xPos: xPos,
+        yPos: "bottom",
+        height: rectDOM.height,
+      });
+    }
     setIsOpen(true);
   };
 

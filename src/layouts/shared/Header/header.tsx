@@ -117,7 +117,7 @@ export const Header: React.FC = () => {
             className="header-alert"
             onClick={() => navigate("/dashboard/notifications")}
           >
-            <img alt="logout" src="/images/icons/alert.svg" />
+            <img alt="alert" src="/images/icons/alert.svg" />
           </Button>
         )}
         <div className="header-toggle">
@@ -213,6 +213,13 @@ const Style = {
       .header-alert {
         height: 100%;
         aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        position: relative;
+        padding: 0;
+
+        img {
+          height: 2vh;
+        }
       }
 
       .header-powerfull-image {

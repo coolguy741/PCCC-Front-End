@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { Color } from "../../../pages/types";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 interface SpeechBubbleProps {
   children: React.ReactNode;
@@ -170,19 +171,20 @@ function getButtonVariant(props: SpeechBubbleProps) {
 const Style = {
   Button: styled(motion.button)`
     border-radius: 0.5rem;
-    padding: 14px 1rem;
+    padding: ${conv(14, "vh")} ${conv(16, "vw")};
     white-space: nowrap;
-    position: ${({ position = "absolute" }) => position};
+    position: absolute;
     border: none;
-    left: ${({ left = 0, unit = "px" }) => `${left}${unit}`};
-    top: ${({ top = 0, unit = "px" }) => `${top}${unit}`};
+    top: 5vh;
+    right: 15%;
+    font-size: ${conv(16, "vh")};
 
     &:after {
       position: absolute;
       content: "";
-      width: 30px;
-      height: 28px;
-      top: 90%;
+      width: ${conv(30, "vw")};
+      height: ${conv(28, "vh")};
+      top: 75%;
       left: 50%;
       transform: translate(-50%);
       clip-path: polygon(0% 0%, 100% 0%, 56% 96%, 50% 97%, 44% 96%, 0% 0%);
