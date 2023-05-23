@@ -69,6 +69,16 @@ const Style = {
       transition: opacity 0.3s ease-out;
     }
 
+    figure {
+      height: 100%;
+      min-width: 20%;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     &:hover {
       background: linear-gradient(182.85deg, #ffeb99, #f3d03e);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);

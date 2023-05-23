@@ -132,6 +132,16 @@ export const AccountsUserProfilePage = () => {
 
 const Style = {
   Container: styled.section`
+    /* classnames to target content for manage users layout */
+    /* decreasing the options size & increasing content size */
+    .manage-users-options {
+      height: 10vh;
+    }
+
+    .manage-users-content {
+      height: 68.5vh;
+    }
+
     h2 {
       font-weight: 600;
       color: var(--neutral-900);

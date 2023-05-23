@@ -11,6 +11,7 @@ import {
   PccServer23GroupsCustomGroupUserJoinRequestDto,
   PccServer23GroupsGroupWithNavigationPropertiesDto,
 } from "../../../lib/api/api";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 interface IGroup {
   groups: PccServer23GroupsGroupWithNavigationPropertiesDto[];
@@ -38,20 +39,20 @@ export const AccountsGroupsPage = () => {
 
   return (
     <Style.PageContainer>
-      <div className="header-container">
+      <div className="header-container manage-users-options">
         <div className="group-container">
-          <div className="label">
-            <span>Group</span>
-            <Input type="text" height="3.5rem" />
-          </div>
-          <div className="label">
-            <span>Group ID</span>
-            <Input type="text" height="3.5rem" />
-          </div>
-          <div className="label">
-            <span>School</span>
-            <Input type="text" height="3.5rem" />
-          </div>
+          <fieldset className="label">
+            <label>Group</label>
+            <Input type="text" placeholder="Name" />
+          </fieldset>
+          <fieldset className="label">
+            <label>Group ID</label>
+            <Input type="text" placeholder="0000" />
+          </fieldset>
+          <fieldset className="label">
+            <label>School</label>
+            <Input type="text" placeholder="Name" />
+          </fieldset>
         </div>
         <div className="button-container">
           <Button variant="yellow" onClick={handleCreate}>
@@ -60,7 +61,7 @@ export const AccountsGroupsPage = () => {
           <Button onClick={() => setVisibleModal(true)}>Join Group</Button>
         </div>
       </div>
-      <div className="row">
+      <div className="row manage-users-content">
         <div className="groups-container">
           {groups.map((group, index) => (
             <div className="group-card-container" key={index}>
@@ -108,22 +109,27 @@ const Style = {
   PageContainer: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+
+    /* making height auto and adding design gap to layout */
+    .manage-users-content {
+      padding-top: ${convertToRelativeUnit(32, "vh")};
+      height: auto;
+    }
 
     .header-container {
-      margin-top: 10px;
+      padding-top: ${convertToRelativeUnit(32, "vh")};
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
 
       .group-container {
         display: flex;
-        gap: 1.5rem;
+        gap: ${convertToRelativeUnit(24, "vh")};
 
         .label {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: ${convertToRelativeUnit(8, "vh")};
           color: var(--neutral-600);
         }
       }
@@ -132,21 +138,21 @@ const Style = {
         display: flex;
         align-items: center;
 
-        Button {
-          margin-right: 10px;
+        button {
+          margin-left: ${convertToRelativeUnit(10, "vw")};
         }
       }
     }
 
     .row {
       display: flex;
-      gap: 20px;
+      gap: ${convertToRelativeUnit(20, "vw")};
 
       .groups-container {
         width: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: ${convertToRelativeUnit(20, "vw")};
 
         .group-card-container {
           width: 100%;
@@ -169,22 +175,22 @@ const Style = {
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
         border-radius: 16px;
         max-height: 50vh;
-        padding-top: 1rem;
+        padding-top: ${convertToRelativeUnit(16, "vh")};
         position: sticky;
 
         .title-text {
-          font-size: 1.2rem;
+          font-size: ${convertToRelativeUnit(20, "vh")};
           font-weight: 600;
           color: var(--neutral-800);
         }
 
         .group-invitations {
-          padding: 1.4rem;
+          padding: ${convertToRelativeUnit(22, "vh")};
           overflow-y: scroll;
           width: 100%;
 
           .bold-big-text {
-            font-size: 1.1 rem;
+            font-size: ${convertToRelativeUnit(18, "vh")};
             font-weight: 700;
           }
         }
