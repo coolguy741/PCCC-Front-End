@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useRef } from "react";
 import { shallow } from "zustand/shallow";
-import { useGlobalState } from "../../../../globalState/useGlobalState";
-import { RefBooleanType, RefDivType } from "../../../../shared/Types/RefTypes";
+
+import { useGlobalState } from "../../../../../globalState/useGlobalState";
+import {
+  RefBooleanType,
+  RefDivType,
+} from "../../../../../shared/Types/RefTypes";
 import { animateInventoryIn, animateInventoryOut } from "./InventoryAnimations";
 
 // Types

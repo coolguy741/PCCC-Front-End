@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import StaticSVGLoader from "../../../3-Reusable/StaticSVGLoader";
+import StaticSVGLoader from "../../../3-Reusable/0-StaticSVGLoader.tsx/StaticSVGLoader";
 import { InspectItemBGSVG } from "../../../4-Assets/InspectItemBGSVG";
 import InspectCanvas from "../1-InspectCanvas/InspectCanvas";
 import InspectR3FStage from "../3-InspectR3FStage/InspectR3FStage";

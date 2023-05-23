@@ -59,6 +59,7 @@ const useHotSpotRoute = ({
 
   // Handlers
   const handleRoutePosition = useCallback(() => {
+    console.log("hey");
     animateRouteProgress(
       routeProgressRef,
       direction ? 0 : 1,
