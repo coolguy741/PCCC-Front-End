@@ -53,7 +53,6 @@ import { MealPlannerGroceryPrintPage } from "./MealPlannerPage/Grocery/Print";
 import { MealPlannerPrintPage } from "./MealPlannerPage/Print";
 import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
-import { MealtimeMomentsBuilderPage } from "./MealTimeMomentsPage";
 import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
 import { MealtimeMomentPrintPage } from "./MealTimeMomentsPage/MealtimeMomentPrintPage";
 import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
@@ -232,9 +231,10 @@ export const router = createBrowserRouter([
       {
         path: "mealtime-moments",
         element: (
-          <MealtimeMomentsBuilderPage>
-            <Outlet />
-          </MealtimeMomentsBuilderPage>
+          <PageTitleLayout
+            title="Mealtime Moments"
+            icon="mealtime-moments-orange-outlined"
+          />
         ),
         children: [
           { path: "", element: <MealTimeMomentsPage /> },

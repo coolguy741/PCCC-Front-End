@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { AccountCard } from "../../../components/Accounts/AccountCard";
-import { Select } from "../../../components/Global/Select";
+import { DropdownSelect } from "../../../components/Global/DropdownSelect";
+import { Typography } from "../../../components/Global/Typography";
 import { avatars_data } from "../../../lib/avatars/data";
 import UserCards from "../../../lib/mockData/accounts/profiles.json";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
@@ -10,19 +11,11 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 const selectsGroup = [
   {
     label: "User type",
-    options: [
-      { label: "Standard", value: "standard" },
-      { label: "Admin", value: "admin" },
-      { label: "Teacher", value: "teacher" },
-    ],
+    options: ["Standard", "Admin", "Teacher"],
   },
   {
     label: "Sort",
-    options: [
-      { label: "Date", value: "date" },
-      { label: "Name", value: "name" },
-      { label: "Teacher", value: "teacher" },
-    ],
+    options: ["Date", "Name", "Teacher"],
   },
 ];
 
@@ -32,29 +25,23 @@ export const AccountsProfilesPage = () => {
   };
 
   return (
-    <Style.PageContainer className="">
+    <Style.PageContainer>
       <div className="filters-container manage-users-options">
-        {selectsGroup.map((select, index) => (
-          <div className="sort-options" key={index}>
-            <label>{select.label}</label>
-            <Select
-              width="180px"
-              height="5vh"
-              className="username-select"
-              required
-            >
-              {select.options.map((option) => (
-                <option
-                  className="place-holder"
-                  key={`option-${option.label}`}
-                  value={option.value}
-                >
-                  {option.label}
-                </option>
-              ))}
-            </Select>
-          </div>
-        ))}
+        <Style.SelectGroup>
+          {selectsGroup.map((select, index) => (
+            <Style.SelectContainer key={index}>
+              <Typography variant="paragraph3" pb={1}>
+                {select.label}
+              </Typography>
+              <DropdownSelect
+                width={convertToRelativeUnit(180, "vw")}
+                height={convertToRelativeUnit(52, "vh")}
+                options={select.options}
+                onChange={() => alert("option changed")}
+              />
+            </Style.SelectContainer>
+          ))}
+        </Style.SelectGroup>
       </div>
       <section className="users manage-users-content">
         {UserCards.map((Card, index) => {
@@ -111,5 +98,23 @@ const Style = {
       position: relative;
       padding-bottom: ${convertToRelativeUnit(100, "vh")};
     }
+  `,
+
+  SelectGroup: styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 0px;
+    gap: 24px;
+    width: 180px;
+  `,
+
+  SelectContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 180px;
   `,
 };
