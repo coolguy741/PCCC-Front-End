@@ -29,7 +29,7 @@ export const PublishForm = ({ selectedDate, yPos }: PublishFormProps) => {
         {!type && (
           <>
             <label>Add</label>
-            <Select onChange={(e) => setType(e.target.value)}>
+            <Select onChange={(e) => setType(e.target.value)} height="3rem">
               <option value="">—</option>
               <option value="mealtime">Mealtime Moment</option>
               <option value="foodways">Foodways</option>
@@ -52,11 +52,11 @@ export const PublishForm = ({ selectedDate, yPos }: PublishFormProps) => {
             <div className="group">
               <label>Add {EVENT_NAME_OBJECT[type]}</label>
               <div className="group-row">
-                <Select>
+                <Select height="3rem">
                   <option value="">—</option>
                   <option value="mealtime">Mealtime Moment</option>
                 </Select>
-                <Button>Add</Button>
+                <Button>Publish</Button>
               </div>
             </div>
           </>

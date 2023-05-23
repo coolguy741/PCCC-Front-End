@@ -8,10 +8,16 @@ import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
 import { PlateFullPlanSearch } from "../Search";
 
 import { useState } from "react";
-import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  DragUpdate,
+  OnDragEndResponder,
+  OnDragUpdateResponder,
+} from "react-beautiful-dnd";
 import { Tag } from "../Tag";
 import { mockMealPlanMenu, mockMealPlans } from "./mocks";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
+
 export interface FullMealPlan {
   day: string;
   plans: MealPlan[];
@@ -28,6 +34,7 @@ export const MealPlans = () => {
 
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
   const [mealPlanMenu, setMealPlanMenu] = useState(mockMealPlanMenu);
+  const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const sourceIndex = result.source.index;
@@ -60,14 +67,21 @@ export const MealPlans = () => {
       }
     }
     setMealPlans([...updatedMealPlans]);
+    setDragUpdateStatus(undefined);
   };
 
   const onMealRemove = (dayIndex: number, index: number) => {
     const updatedMealPlans = mealPlans;
+
     updatedMealPlans[dayIndex].plans[index] = {
       description: null,
     };
+
     setMealPlans([...updatedMealPlans]);
+  };
+
+  const onDragUpdate: OnDragUpdateResponder = (data) => {
+    setDragUpdateStatus(data);
   };
 
   return (
@@ -100,9 +114,13 @@ export const MealPlans = () => {
         translateY="-37%"
       />
       <Style.Pages>
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
           <Style.LeftPage>
-            <WeeklyMealPlan mealPlans={mealPlans} onMealRemove={onMealRemove} />
+            <WeeklyMealPlan
+              mealPlans={mealPlans}
+              onMealRemove={onMealRemove}
+              dragUpdateStatus={dragUpdateStatus}
+            />
           </Style.LeftPage>
           <Style.Page>
             <div className="page-title">
