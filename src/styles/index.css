@@ -15,7 +15,7 @@
 
   --fc-button-bg-color: rgba(255, 255, 255, 0.5);
   --fc-today-bg-color: rgba(255, 255, 255, 0);
-  --fc-event-border-color: rbga(255, 255, 255, 0);
+  --fc-event-border-color: rgba(255, 255, 255, 0);
   --fc-event-text-color: var(--black);
 }
 
