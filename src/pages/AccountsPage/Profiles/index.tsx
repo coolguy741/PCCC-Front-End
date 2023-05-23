@@ -37,7 +37,7 @@ export const AccountsProfilesPage = () => {
         <Style.SelectGroup>
           {selectsGroup.map((select, index) => (
             <Style.SelectContainer key={index}>
-              <Typography variant="paragraph3" mb={2} pb={1}>
+              <Typography variant="paragraph3" pb={1}>
                 {select.label}
               </Typography>
               <Select

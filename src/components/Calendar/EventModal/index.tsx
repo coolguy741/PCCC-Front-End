@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { capitalize } from "../../../lib/util/capitalize";
 
-interface EventModalProps {
+interface EditEventModalProps {
   position: {
     x: number;
     y: number;
@@ -13,11 +13,13 @@ interface EventModalProps {
   setShowEventModal: (boolean: boolean) => void;
 }
 
-export const EventModal = ({
+export const EditEventModal = ({
   selectedEvent,
   setShowEventModal,
   position,
-}: EventModalProps) => {
+}: EditEventModalProps) => {
+  console.log(selectedEvent.extendedProps.type);
+
   return (
     <Style.Container
       position={position}
@@ -29,7 +31,7 @@ export const EventModal = ({
       <div className="popup-background"></div>
       <div className="popup-container">
         <div className="popup">
-          <h3>Daily Plan</h3>
+          <h3>Edit Event</h3>
           {selectedEvent && (
             <div>
               <h4>{capitalize(selectedEvent.extendedProps.type)}</h4>
