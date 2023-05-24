@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
 import { Checkbox } from "../../../Global/Checkbox";
 
 interface MultipleSelectionProps {
@@ -28,15 +29,14 @@ const Style = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: ${convertToRelativeUnit(32, "vh")};
   `,
   LabeledCheckbox: styled.div`
     display: flex;
-    gap: 32px;
+    gap: ${convertToRelativeUnit(32, "vh")};
     font-weight: 600;
-    font-size: 19px;
-    line-height: 24px;
+    font-size: ${convertToRelativeUnit(19, "vh")};
+    line-height: ${convertToRelativeUnit(24, "vh")};
     color: var(--neutral-700);
-    align-items: center;
   `,
 };
