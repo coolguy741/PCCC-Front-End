@@ -436,13 +436,11 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
                 return;
               } else {
                 if (child.geometry.attributes._alpha) {
-                  console.log("alpha");
                   child.material = new MeshPhysicalMaterial({
                     transparent: true,
                   });
                   child.material.onBeforeCompile = handleOBCAlpha;
                 } else {
-                  console.log("non-alpha");
                   child.material = new MeshPhysicalMaterial();
                   child.material.onBeforeCompile = handleOBC;
                 }
@@ -452,6 +450,7 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
               child.castShadow = false;
               child.receiveShadow = false;
               child.visible = false;
+              setGltfScene(gltf.scene);
             } else {
               setGltfScene(null);
               window.alert("incorrect attributes");
