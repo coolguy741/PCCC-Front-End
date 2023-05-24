@@ -6,13 +6,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState } from "react";
 import styled from "styled-components";
 import { capitalize } from "../../../lib/util/capitalize";
-import { EditEventModal } from "../../Calendar/EventModal";
+import { EditEventModal } from "../../Calendar/EditEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
-  const [showMoreLinksModal, setShowMoreLinksModal] = useState(false);
-  const [moreLinks, setMoreLinks] = useState(null);
+  const [selectedDate, setSelectedDate] = useState();
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
@@ -23,6 +22,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
 
   const handleDateClick = (info: any) => {
     const rectDOM = info.el.getBoundingClientRect();
+    setSelectedDate(info.dateStr);
 
     let xPos = "";
     let yPos = "";
@@ -48,6 +48,10 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
 
     setSelectedEvent(info.event);
     setShowEventModal(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowEventModal(false);
   };
 
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
@@ -99,9 +103,11 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
       />
       {showEventModal && (
         <EditEventModal
-          selectedEvent={selectedEvent}
-          setShowEventModal={setShowEventModal}
+          selectedDate={selectedDate}
+          selectedEvent={selectedEvent!}
+          isOpen={showEventModal}
           position={position}
+          close={handleClosePopup}
         />
       )}
     </Style.Container>
