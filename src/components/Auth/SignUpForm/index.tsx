@@ -15,7 +15,6 @@ import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { DropdownSelect } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
-import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
 type TSignUpForm = {
@@ -173,9 +172,9 @@ export const SignUpForm = () => {
                 />
               </fieldset>
               <fieldset>
-                <label htmlFor="title">Title</label>
+                <label htmlFor="email">Email Address</label>
                 <Controller
-                  name="title"
+                  name="email"
                   control={control}
                   rules={{
                     required: isCoordinator,
@@ -183,10 +182,10 @@ export const SignUpForm = () => {
                   render={({ field }) => (
                     <Input
                       width="60%"
-                      placeholder="Student"
-                      type="text"
-                      id="title"
-                      className={errors.title ? "has-error" : ""}
+                      placeholder="Johndoe@gmail.com"
+                      type="email"
+                      id="email"
+                      className={errors.email ? "has-error" : ""}
                       {...field}
                     />
                   )}
@@ -218,50 +217,6 @@ export const SignUpForm = () => {
               />
             </div>
           </fieldset>
-          {isCoordinator && (
-            <>
-              <fieldset>
-                <label>School ID Code</label>
-                <Controller
-                  name="schoolIdCode"
-                  control={control}
-                  rules={{
-                    required: isCoordinator,
-                  }}
-                  render={({ field }) => (
-                    <Input
-                      width="60%"
-                      placeholder="1234567890"
-                      type="text"
-                      data-testid="school-code"
-                      className={errors.schoolIdCode ? "has-error" : ""}
-                      {...field}
-                    />
-                  )}
-                />
-              </fieldset>
-              <fieldset>
-                <label>School</label>
-                <Controller
-                  name="schoolName"
-                  control={control}
-                  rules={{
-                    required: isCoordinator,
-                  }}
-                  render={({ field }) => (
-                    <Input
-                      width="60%"
-                      placeholder="George Collage"
-                      type="text"
-                      data-testid="school-name"
-                      className={errors.schoolName ? "has-error" : ""}
-                      {...field}
-                    />
-                  )}
-                />
-              </fieldset>
-            </>
-          )}
           <fieldset>
             <label>Province</label>
             <div className="province-select-container">
@@ -282,32 +237,75 @@ export const SignUpForm = () => {
                     }
                     width="100%"
                     height={convertToRelativeUnit(48, "vh")}
+                    selectedValue={province}
                   />
                 )}
               />
             </div>
           </fieldset>
           {isCoordinator && (
-            <fieldset>
-              <label htmlFor="email">Email Address</label>
-              <Controller
-                name="email"
-                control={control}
-                rules={{
-                  required: isCoordinator,
-                }}
-                render={({ field }) => (
-                  <Input
-                    width="60%"
-                    placeholder="Johndoe@gmail.com"
-                    type="email"
-                    id="email"
-                    className={errors.email ? "has-error" : ""}
-                    {...field}
-                  />
-                )}
-              />
-            </fieldset>
+            <>
+              <fieldset>
+                <label>PCCC School ID</label>
+                <Controller
+                  name="schoolIdCode"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="1234567890"
+                      type="text"
+                      data-testid="school-code"
+                      className={errors.schoolIdCode ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
+                />
+              </fieldset>
+              <fieldset>
+                <label>School name</label>
+                <Controller
+                  name="schoolName"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="George Collage"
+                      type="text"
+                      data-testid="school-name"
+                      className={errors.schoolName ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
+                />
+              </fieldset>
+              <fieldset>
+                <label htmlFor="title">code</label>
+                <Controller
+                  name="title"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="Student"
+                      type="text"
+                      id="title"
+                      className={errors.title ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
+                />
+              </fieldset>
+            </>
           )}
         </section>
       </section>
@@ -322,20 +320,15 @@ export const SignUpForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Select
+              <DropdownSelect
                 data-testid="first-username"
-                className={`${
-                  errors.firstUsername ? "has-error" : ""
-                } username-select`}
-                {...field}
-              >
-                {firstNames &&
-                  firstNames.map((name, index) => (
-                    <option key={`firstName-${index}`} value={name}>
-                      {name}
-                    </option>
-                  ))}
-              </Select>
+                options={firstNames ? firstNames : [""]}
+                placeholder="Awesome"
+                className={errors.firstUsername ? "has-error" : ""}
+                onChange={(selectedOption) => field.onChange(selectedOption)}
+                height={convertToRelativeUnit(48, "vh")}
+                width="25%"
+              />
             )}
           />
 
@@ -346,20 +339,15 @@ export const SignUpForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Select
+              <DropdownSelect
                 data-testid="second-username"
-                className={`${
-                  errors.secondUsername ? "has-error" : ""
-                } username-select`}
-                {...field}
-              >
-                {secondNames &&
-                  secondNames.map((name, index) => (
-                    <option key={`secondName-${index}`} value={name}>
-                      {name}
-                    </option>
-                  ))}
-              </Select>
+                options={secondNames ? secondNames : [""]}
+                placeholder="Apple"
+                className={errors.secondUsername ? "has-error" : ""}
+                onChange={(selectedOption) => field.onChange(selectedOption)}
+                height={convertToRelativeUnit(48, "vh")}
+                width="30%"
+              />
             )}
           />
           <Controller
@@ -445,6 +433,9 @@ const Style = {
       ${glassBackground};
       padding: ${conv(40, "vh")} ${conv(20, "vw")};
       height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.66vh;
 
       legend {
         font-weight: 600;
@@ -458,12 +449,12 @@ const Style = {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: ${conv(10, "vh")};
 
         .birth-split {
           width: 60%;
           display: flex;
           justify-content: space-between;
+          align-items: center;
           height: 100%;
         }
 
