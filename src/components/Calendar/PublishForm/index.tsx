@@ -15,9 +15,11 @@ interface EventNameObject {
   [key: string]: string | undefined;
 }
 
-const EVENT_NAME_OBJECT: EventNameObject = {
+export const EVENT_NAME_OBJECT: EventNameObject = {
   mealtime: "Mealtime Moment",
-  foodways: "Foodways",
+  foodways: "Foodway",
+  note: "Note",
+  assessment: "Lesson Assessment",
 };
 
 export const PublishForm = ({ selectedDate, yPos }: PublishFormProps) => {

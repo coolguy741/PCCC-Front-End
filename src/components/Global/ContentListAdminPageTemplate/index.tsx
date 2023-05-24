@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 import React from "react";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
 import { ContentList } from "../ContentList";
 import { ContentListItemData } from "../ContentListItem";
-import { Select } from "../Select";
+import { DropdownSelect } from "../DropdownSelect";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";
 interface ContentListAdminPageTemplateProps {
@@ -13,6 +14,8 @@ interface ContentListAdminPageTemplateProps {
   listData: ContentListItemData[];
   onSelectionChange: (id: number, isSelected: boolean) => void;
 }
+
+const OPTIONS = ["name1", "name2", "name3"];
 
 export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplateProps> =
   ({ title, selectsGroup, listData, onSelectionChange }) => {
@@ -23,19 +26,13 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             {selectsGroup.map((select, index) => (
               <Style.SelectContainer key={index}>
                 <p className="text">{select}</p>
-                <Select
-                  width="180px"
-                  height="52px"
-                  className="username-select"
-                  required
-                >
-                  <option className="place-holder" selected disabled hidden>
-                    {select + " name"}
-                  </option>
-                  <option value="Curriculum name1">{select + " name1"}</option>
-                  <option value="Curriculum name2">{select + " name2"}</option>
-                  <option value="Curriculum name3">{select + " name3"}</option>
-                </Select>
+                <DropdownSelect
+                  placeholder={select}
+                  width={convertToRelativeUnit(180, "vw")}
+                  height={convertToRelativeUnit(52, "vh")}
+                  options={OPTIONS}
+                  onChange={() => alert("option changed")}
+                />
               </Style.SelectContainer>
             ))}
           </Style.SelectGroup>

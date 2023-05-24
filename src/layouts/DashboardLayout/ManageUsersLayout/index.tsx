@@ -37,7 +37,7 @@ const Style = {
       height: 13.5vh;
       display: flex;
       align-items: center;
-      border: 1px solid red;
+      /* border: 1px solid red; */
     }
 
     /* classname to target content for manage users layout */
@@ -47,7 +47,7 @@ const Style = {
       ${blueScrollbar}
       padding: 0 ${convertToRelativeUnit(16, "vw")};
       margin: 0 -${convertToRelativeUnit(16, "vw")};
-      border: 1px solid green;
+      /* border: 1px solid green; */
     }
   `,
 };

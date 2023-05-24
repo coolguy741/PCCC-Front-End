@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 
 import styled from "styled-components";
 import { Select } from "../../Global/Select";
-import { EventType } from "../Popup";
+import { EventType } from "../AddEventModal";
 
 interface IEventTypeForm {
   setEventType: (value: EventType) => void;

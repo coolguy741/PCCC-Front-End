@@ -34,7 +34,7 @@ interface Props {
   selectedDate?: string;
 }
 
-export const CalendarPopup: React.FC<Props> = ({
+export const AddEventModal: React.FC<Props> = ({
   isOpen = false,
   isConfirm = false,
   position,

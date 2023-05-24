@@ -6,14 +6,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState } from "react";
 import styled from "styled-components";
 import { capitalize } from "../../../lib/util/capitalize";
-import { EventModal } from "../../Calendar/EventModal";
-import { MoreLinksModal } from "../../Calendar/MoreLinksModal";
+import { EditEventModal } from "../../Calendar/EditEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
-  const [showMoreLinksModal, setShowMoreLinksModal] = useState(false);
-  const [moreLinks, setMoreLinks] = useState(null);
+  const [selectedDate, setSelectedDate] = useState();
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
@@ -24,6 +22,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
 
   const handleDateClick = (info: any) => {
     const rectDOM = info.el.getBoundingClientRect();
+    setSelectedDate(info.dateStr);
 
     let xPos = "";
     let yPos = "";
@@ -49,6 +48,10 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
 
     setSelectedEvent(info.event);
     setShowEventModal(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowEventModal(false);
   };
 
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
@@ -96,24 +99,15 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         editable={true}
         height="100%"
         expandRows={true}
-        moreLinkClick={(e: any) => {
-          setShowMoreLinksModal(true);
-          setMoreLinks(e.allSegs);
-          return "month";
-        }}
+        moreLinkClick="week"
       />
       {showEventModal && (
-        <EventModal
-          selectedEvent={selectedEvent}
-          setShowEventModal={setShowEventModal}
+        <EditEventModal
+          selectedDate={selectedDate}
+          selectedEvent={selectedEvent!}
+          isOpen={showEventModal}
           position={position}
-        />
-      )}
-      {showMoreLinksModal && (
-        <MoreLinksModal
-          moreLinks={moreLinks}
-          setShowMoreLinksModal={setShowMoreLinksModal}
-          position={position}
+          close={handleClosePopup}
         />
       )}
     </Style.Container>
@@ -191,6 +185,7 @@ const Style = {
           padding: 1rem;
           font-weight: 600;
           font-size: 1.2rem;
+          background-color: rgba(255, 255, 255, 0);
         }
 
         &-body {
