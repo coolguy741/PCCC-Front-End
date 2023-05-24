@@ -14,7 +14,7 @@ const EnvironmentMap: FC = () => {
   // Hooks
   const { blurHDR, projectHDR } = useControls({
     HDR: folder({
-      blurHDR: 0,
+      blurHDR: 0.1,
       projectHDR: true,
     }),
   });

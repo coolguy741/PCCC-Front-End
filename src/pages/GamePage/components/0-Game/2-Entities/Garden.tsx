@@ -7,6 +7,7 @@ import {
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   Shader,
+  SkinnedMesh,
 } from "three";
 import { GLTF } from "three-stdlib";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -411,30 +412,54 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
         gl_FragColor = vec4(finalColor, vAlphaMask.r);
         `,
     );
-
-    // console.log(shader.fragmentShader);
   }, []);
 
   const handleUpdateGLTFScene = useCallback(() => {
     if (!dynamicGarden) return;
 
     loader.parse(dynamicGarden, "", (gltf) => {
-      // @ts-ignore
-      if (gltf.scene["children"][0].geometry.attributes._alpha) {
-        const alpha = new MeshPhysicalMaterial({ transparent: true });
-        alpha.onBeforeCompile = handleOBCAlpha;
-        // @ts-ignore
-        gltf.scene["children"][0].material = alpha;
-      } else {
-        const reg = new MeshPhysicalMaterial();
-        reg.onBeforeCompile = handleOBC;
-        // @ts-ignore
-        gltf.scene["children"][0].material = reg;
-        // console.log(gltf.scene["children"][0].geometry);
+      if (gltf.scene) {
+        gltf.scene.traverse((child) => {
+          if (child instanceof Mesh || child instanceof SkinnedMesh) {
+            if (child.name === "garden") {
+              child.castShadow = true;
+              child.receiveShadow = true;
+              child.visible = true;
+              if (
+                !child.geometry.attributes._ao ||
+                !child.geometry.attributes._metallic ||
+                !child.geometry.attributes._roughness ||
+                !child.geometry.attributes._specular
+              ) {
+                setGltfScene(null);
+                window.alert("incorrect attributes");
+                return;
+              } else {
+                if (child.geometry.attributes._alpha) {
+                  console.log("alpha");
+                  child.material = new MeshPhysicalMaterial({
+                    transparent: true,
+                  });
+                  child.material.onBeforeCompile = handleOBCAlpha;
+                } else {
+                  console.log("non-alpha");
+                  child.material = new MeshPhysicalMaterial();
+                  child.material.onBeforeCompile = handleOBC;
+                }
+                setGltfScene(gltf.scene);
+              }
+            } else if (child.name.includes("collider")) {
+              child.castShadow = false;
+              child.receiveShadow = false;
+              child.visible = false;
+            } else {
+              setGltfScene(null);
+              window.alert("incorrect attributes");
+              return;
+            }
+          }
+        });
       }
-      //   console.log(gltf.scene["children"][0].material);
-
-      setGltfScene(gltf.scene);
     });
   }, [dynamicGarden, handleOBC, handleOBCAlpha]);
 
@@ -449,11 +474,11 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
   });
 
   return (
-    <group visible={gardenVisible}>
+    <group visible={gardenVisible} onClick={handleTempMenuExit}>
       {gltfScene ? (
         <group>{gltfScene && <primitive object={gltfScene} />}</group>
       ) : (
-        <group dispose={null} onClick={handleTempMenuExit}>
+        <group dispose={null}>
           <group
             name="MergedEnvironment001"
             rotation={[Math.PI / 2, 0, 0]}

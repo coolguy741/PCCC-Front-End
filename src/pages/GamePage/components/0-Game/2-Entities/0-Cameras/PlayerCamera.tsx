@@ -1,6 +1,6 @@
 import { PerspectiveCamera } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { FC, memo, useCallback, useRef } from "react";
+import { FC, memo, useCallback, useEffect, useRef } from "react";
 import { PerspectiveCamera as PerspectiveCameraType } from "three";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
@@ -64,6 +64,11 @@ const PlayerCamera: FC = () => {
     updatePlayerCameraPosition(playerCameraRef.current, delta);
     playerCameraRef.current.updateProjectionMatrix();
   });
+
+  useEffect(() => {
+    if (!playerCameraRef.current) return;
+    playerCameraRef.current.position.copy(playerCameraActivePosition);
+  }, [playerCameraActivePosition]);
 
   return (
     <PerspectiveCamera
