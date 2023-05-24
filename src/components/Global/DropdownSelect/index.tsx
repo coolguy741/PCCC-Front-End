@@ -119,7 +119,7 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
                   key={index}
                   className="option"
                   onClick={() =>
-                    handleOptionClick(option.value ? option.value : "")
+                    handleOptionClick(option.label ? option.label : "")
                   }
                 >
                   {option.label ? option.label : ""}
@@ -220,6 +220,6 @@ const Style = {
   `,
   ScrollContainer: styled.div`
     overflow-y: auto;
-    height: 10vh;
+    max-height: 10vh;
   `,
 };
