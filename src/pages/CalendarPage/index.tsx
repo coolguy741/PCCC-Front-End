@@ -3,9 +3,11 @@ import styled from "styled-components";
 import Button from "../../components/Button";
 import { AddEventModal } from "../../components/Calendar/AddEventModal";
 import { CalendarFilter } from "../../components/Calendar/Filter/Index";
+import { StandardAddEventModal } from "../../components/Calendar/StandardAddEventModal";
 import { Calendar } from "../../components/Global/Calendar";
 import { Typography } from "../../components/Global/Typography";
 import { useCalendarEventsStore } from "../../stores/eventsStore";
+import { useUser } from "../../stores/userStore";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
 export const CalendarPage = () => {
@@ -66,6 +68,10 @@ export const CalendarPage = () => {
     setIsOpen(false);
   };
 
+  const { user } = useUser();
+
+  console.log(user);
+
   return (
     <>
       <Style.Container>
@@ -93,12 +99,22 @@ export const CalendarPage = () => {
             </div>
           </Style.CalendarSideMenu>
         </Style.CalendarContainer>
-        <AddEventModal
-          position={position}
-          isOpen={isOpen}
-          selectedDate={selectedDate}
-          close={handleClosePopup}
-        />
+        {user?.role === "admin" && (
+          <AddEventModal
+            position={position}
+            isOpen={isOpen}
+            selectedDate={selectedDate}
+            close={handleClosePopup}
+          />
+        )}
+        {user?.role === "standard" && (
+          <StandardAddEventModal
+            position={position}
+            isOpen={isOpen}
+            selectedDate={selectedDate}
+            close={handleClosePopup}
+          />
+        )}
       </Style.Container>
     </>
   );
