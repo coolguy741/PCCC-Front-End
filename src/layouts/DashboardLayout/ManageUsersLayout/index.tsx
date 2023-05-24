@@ -14,6 +14,9 @@ interface Props {
 // - manage users (options): 13.5vh
 // - manage users (content): 65vh
 // - bottom padding: 2.5vh
+// on some option components (especially those with the back button)
+// the height is set to 10vh & content to 68.5vh.
+// make sure to increase specificity (i.e. section.manage-users-options)
 
 export function ManageUsersLayout({ children }: Props) {
   return (
