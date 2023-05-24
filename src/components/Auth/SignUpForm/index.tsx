@@ -286,7 +286,7 @@ export const SignUpForm = () => {
                 />
               </fieldset>
               <fieldset>
-                <label htmlFor="title">code</label>
+                <label htmlFor="title">Code</label>
                 <Controller
                   name="title"
                   control={control}
