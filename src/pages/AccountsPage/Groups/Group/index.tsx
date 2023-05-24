@@ -12,6 +12,7 @@ import {
 } from "../../../../lib/api/api";
 import { capitalize } from "../../../../lib/util/capitalize";
 import { formatDate } from "../../../../lib/util/formatDate";
+import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
 import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsGroupPage = () => {
@@ -75,12 +76,12 @@ export const AccountsGroupPage = () => {
 
   return (
     <Style.PageContainer>
-      <div className="buttons-container">
+      <div className="buttons-container manage-users-options">
         <BackButton onClick={handleBack} />
         <Button onClick={handleViewGroupCalender}>View Group calendar</Button>
       </div>
       {group && (
-        <>
+        <section className="manage-users-content">
           <div className="group-info-container">
             <div>
               <h2>{group?.group?.name}</h2>
@@ -97,7 +98,7 @@ export const AccountsGroupPage = () => {
           </div>
           <div className="content">
             <div className="members-container">
-              <h2>Owner: {group?.owner?.username}</h2>
+              <h3>Owner: {group?.owner?.username}</h3>
               <div className="members-container-content">
                 {members &&
                   members.map((member, index) => (
@@ -117,7 +118,7 @@ export const AccountsGroupPage = () => {
             </div>
             <GroupActivity />
           </div>
-        </>
+        </section>
       )}
     </Style.PageContainer>
   );
@@ -128,8 +129,23 @@ const Style = {
     display: flex;
     flex-direction: column;
 
+    /* classnames to target content for manage users layout */
+    /* decreasing the options size & increasing content size */
+    div.manage-users-options {
+      height: 10vh;
+    }
+
+    section.manage-users-content {
+      height: 68.5vh;
+    }
+
+    h2 {
+      color: var(--neutral-800);
+      font-size: ${convertToRelativeUnit(33, "vh")};
+      font-weight: 600;
+    }
+
     .buttons-container {
-      margin: 20px 0px;
       display: flex;
       justify-content: space-between;
     }
@@ -138,44 +154,43 @@ const Style = {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+      margin-bottom: ${convertToRelativeUnit(16, "vh")};
 
       div {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
 
         h2 {
-          font-size: 1.7rem;
-          margin-bottom: 1rem;
+          font-size: ${convertToRelativeUnit(21, "vw")};
           color: var(--neutral-900);
         }
 
         .group-id {
           font-weight: 500;
-          font-size: 1.1rem;
+          font-size: ${convertToRelativeUnit(18, "vh")};
           color: var(--neutral-600);
         }
 
         .modified {
-          font-size: 0.9rem;
+          font-size: ${convertToRelativeUnit(14, "vh")};
           color: var(--neutral-600);
         }
       }
     }
 
     .content {
-      margin-top: 2rem;
+      gap: ${convertToRelativeUnit(26, "vw")};
+      height: 77.5%;
       display: flex;
-      gap: 2rem;
 
       .members-container {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        gap: 30px;
+        gap: ${convertToRelativeUnit(30, "vw")};
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-        padding: 1.4rem;
+        padding: ${convertToRelativeUnit(20, "vw")};
         border-radius: 16px;
         width: calc(100% * (5 / 12));
 
@@ -194,7 +209,7 @@ const Style = {
               color: var(--neutral-800);
 
               .user {
-                font-size: 1.2rem;
+                font-size: ${convertToRelativeUnit(18, "vh")};
                 font-weight: 600;
               }
 
@@ -207,7 +222,7 @@ const Style = {
       }
 
       .row {
-        margin-bottom: 20px;
+        margin-bottom: ${convertToRelativeUnit(20, "vh")};
         display: flex;
         justify-content: space-between;
 
@@ -216,8 +231,8 @@ const Style = {
           align-items: center;
 
           select {
-            margin-left: 20px;
-            padding: 5px;
+            margin-left: ${convertToRelativeUnit(20, "vw")};
+            padding: ${convertToRelativeUnit(5, "vw")};
           }
         }
       }
