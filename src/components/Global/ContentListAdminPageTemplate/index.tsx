@@ -6,6 +6,7 @@ import Button from "../../Button";
 import { ContentList } from "../ContentList";
 import { ContentListItemData } from "../ContentListItem";
 import { DropdownSelect } from "../DropdownSelect";
+import Scrollbar from "../Scrollbar";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";
 interface ContentListAdminPageTemplateProps {
@@ -52,13 +53,13 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             </Button>
           </Style.ButtonGroup>
         </Style.InputGroup>
-        <Style.ScrollContainer>
+        <Scrollbar width="thick">
           <ContentList
             listData={listData}
             selectable={true}
             onSelectionChange={onSelectionChange}
           />
-        </Style.ScrollContainer>
+        </Scrollbar>
       </>
     );
   };
