@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { useCallback } from "react";
 import {
   Draggable,
   DraggingStyle,
@@ -16,6 +17,7 @@ interface WeeklyMealPlanProps {
   mealPlans: FullMealPlan[];
   onMealRemove: (dayIndex: number, index: number) => void;
   selectedMeal?: MealPlan;
+  destinationMeal?: MealPlan;
   dragUpdateStatus?: DragUpdate;
 }
 
@@ -24,45 +26,58 @@ export const WeeklyMealPlan = ({
   onMealRemove,
   dragUpdateStatus,
   selectedMeal,
+  destinationMeal,
 }: WeeklyMealPlanProps) => {
   const { changeStep } = useMealPlannerStore();
   const handlePrev = () => {
     changeStep(1);
   };
 
-  const isDraggedOver = (dayIndex: number, index: number) =>
-    dragUpdateStatus?.destination?.droppableId ===
-      `droppable-weekly-meal-plan-${dayIndex}` &&
-    dragUpdateStatus?.destination?.index === index;
+  const isDraggedOver = useCallback(
+    (dayIndex: number, index: number) =>
+      dragUpdateStatus?.destination?.droppableId ===
+        `droppable-weekly-meal-plan-${dayIndex}` &&
+      dragUpdateStatus?.destination?.index === index,
+    [dragUpdateStatus],
+  );
 
-  const isDragged = (dayIndex: number, index: number) =>
-    dragUpdateStatus?.source.droppableId ===
-      `droppable-weekly-meal-plan-${dayIndex}` &&
-    dragUpdateStatus.source.index === index;
+  const isDragged = useCallback(
+    (dayIndex: number, index: number) =>
+      dragUpdateStatus?.source.droppableId ===
+        `droppable-weekly-meal-plan-${dayIndex}` &&
+      dragUpdateStatus.source.index === index,
+    [dragUpdateStatus],
+  );
 
-  const getStyle = (
-    style: DraggingStyle | NotDraggingStyle | undefined,
-    isDragging: boolean,
-    dayIndex: number,
-    index: number,
-  ) => {
-    const customStyle: Record<string, any> = {};
-    // is Dragged Over
-    if (isDraggedOver(dayIndex, index)) {
-      customStyle.border = "2px dashed var(--blue-400)";
-      customStyle.opacity = "0.7";
-    }
-    if (!isDragged(dayIndex, index)) {
-      customStyle.transform = undefined;
-    }
-    if (!isDragging) {
-      customStyle.height = "100%";
-    }
-    return {
-      ...style,
-      ...customStyle,
-    };
-  };
+  const getStyle = useCallback(
+    (
+      style: DraggingStyle | NotDraggingStyle | undefined,
+      isDragging: boolean,
+      dayIndex: number,
+      index: number,
+    ) => {
+      const customStyle: Record<string, any> = { transition: undefined };
+      if (!isDragging) {
+        customStyle.height = "100%";
+      }
+      if (dragUpdateStatus) {
+        // is Dragged Over
+        if (isDraggedOver(dayIndex, index)) {
+          customStyle.border = "2px dashed var(--blue-400)";
+          customStyle.opacity = "0.7";
+        }
+        if (!isDragged(dayIndex, index)) {
+          customStyle.transform = undefined;
+        }
+      }
+
+      return {
+        ...style,
+        ...customStyle,
+      };
+    },
+    [dragUpdateStatus],
+  );
 
   return (
     <Style.Container>
@@ -127,33 +142,46 @@ export const WeeklyMealPlan = ({
                         index={index}
                       >
                         {(provided, snapshot) => (
-                          <div
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                            style={getStyle(
-                              provided.draggableProps.style,
-                              snapshot.isDragging,
-                              dayIndex,
-                              index,
+                          <>
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              style={getStyle(
+                                provided.draggableProps.style,
+                                snapshot.isDragging,
+                                dayIndex,
+                                index,
+                              )}
+                            >
+                              <MealCard
+                                meal={
+                                  isDraggedOver(dayIndex, index)
+                                    ? selectedMeal || meal
+                                    : meal
+                                }
+                                onMealRemove={() =>
+                                  onMealRemove(dayIndex, index)
+                                }
+                                label={
+                                  dayIndex === 0 ? `meal-${index + 1}` : null
+                                }
+                              />
+                            </div>
+                            {isDragged(dayIndex, index) && (
+                              <div className="placeholder">
+                                <MealCard
+                                  meal={destinationMeal || meal}
+                                  label={
+                                    dayIndex === 0 ? `meal-${index + 1}` : null
+                                  }
+                                />
+                              </div>
                             )}
-                          >
-                            <MealCard
-                              meal={
-                                isDraggedOver(dayIndex, index)
-                                  ? selectedMeal || meal
-                                  : meal
-                              }
-                              onMealRemove={() => onMealRemove(dayIndex, index)}
-                              label={
-                                dayIndex === 0 ? `meal-${index + 1}` : null
-                              }
-                            />
-                          </div>
+                          </>
                         )}
                       </Draggable>
                     ))}
-                    {dropProvided.placeholder}
                   </div>
                 </Style.DailyMealPlans>
               )}
@@ -285,11 +313,18 @@ const Style = {
 
     & .daily-plans {
       flex: 1;
+      height: 100%;
       width: 100%;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       margin: -5% 0;
+    }
+
+    & .placeholder {
+      opacity: 0.7;
+      height: 100%;
+      border: 2px dashed var(--blue-400);
     }
 
     & .meal-plan-day {
