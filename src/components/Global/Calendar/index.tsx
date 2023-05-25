@@ -81,7 +81,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         buttonIcons={{ prev: "chevron-left", next: "chevron-right" }}
-        buttonText={{ today: "bla" }}
+        buttonText={{ today: "Today" }}
         {...props}
         longPressDelay={1000}
         eventLongPressDelay={1000}
