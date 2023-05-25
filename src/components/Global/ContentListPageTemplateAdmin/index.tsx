@@ -4,6 +4,7 @@ import React from "react";
 import Button from "../../Button";
 import { ContentList } from "../../Global/ContentList";
 import { ContentListItemData } from "../../Global/ContentListItem";
+import Scrollbar from "../Scrollbar";
 import { Select } from "../Select";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";
@@ -50,13 +51,13 @@ export const ContentListPageTemplateAdmin: React.FC<ContentListPageTemplateAdmin
             </Button>
           </Style.ButtonGroup>
         </Style.InputGroup>
-        <Style.ScrollContainer>
+        <Scrollbar>
           <ContentList
             listData={listData}
             selectable={true}
             onSelectionChange={onSelectionChange}
           />
-        </Style.ScrollContainer>
+        </Scrollbar>
       </>
     );
   };
@@ -98,11 +99,5 @@ const Style = {
     align-items: flex-start;
     padding: 0px;
     gap: 24px;
-  `,
-  ScrollContainer: styled.div`
-    overflow-y: auto;
-    height: 100%;
-    padding-right: 16px;
-    margin-right: -24px;
   `,
 };
