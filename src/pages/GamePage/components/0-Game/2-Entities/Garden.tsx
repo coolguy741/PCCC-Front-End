@@ -73,17 +73,12 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
   ) as GLTFResult;
 
   // Global State
-  const { setMenuActive, dynamicGarden } = useGlobalState(
+  const { dynamicGarden } = useGlobalState(
     (state) => ({
-      setMenuActive: state.setMenuActive,
       dynamicGarden: state.dynamicGarden,
     }),
     shallow,
   );
-
-  const handleTempMenuExit = useCallback(() => {
-    setMenuActive(false);
-  }, [setMenuActive]);
 
   // Handlers
   const handleOBC = useCallback((shader: Shader) => {
@@ -450,7 +445,6 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
               child.castShadow = false;
               child.receiveShadow = false;
               child.visible = false;
-              setGltfScene(gltf.scene);
             } else {
               setGltfScene(null);
               window.alert("incorrect attributes");
@@ -473,7 +467,7 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
   });
 
   return (
-    <group visible={gardenVisible} onClick={handleTempMenuExit}>
+    <group visible={gardenVisible}>
       {gltfScene ? (
         <group>{gltfScene && <primitive object={gltfScene} />}</group>
       ) : (

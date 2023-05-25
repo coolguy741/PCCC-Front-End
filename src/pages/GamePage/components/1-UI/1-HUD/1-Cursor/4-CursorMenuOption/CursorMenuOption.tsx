@@ -1,28 +1,14 @@
-// CursorMenuOption.js
-import { FC, memo } from "react";
-import { Vector2 } from "three";
-import { MenuOptionStyleObjectType } from "./CursorMenuOptionDefines";
+import { FC, Fragment, memo } from "react";
 import CursorMenuOptionStyleContainer from "./CursorMenuOptionStyleContainer";
+import { CursorMenuOptionPropTypes } from "./CursorMenuOptionTypes";
 import { useCursorMenuOptionLogic } from "./useCursorMenuOptionLogic";
 
-interface CursorMenuOptionPropTypes {
-  label: string;
-  iconURL: string;
-  animOffset: number;
-  hoverTrigger: boolean;
-  menuPositionEnd: Vector2;
-  menuPositionDriver: Vector2;
-  boundingRectVector: Vector2;
-  menuPositionOffset: Vector2;
-  tempCursorLocationCopy: Vector2;
-  styleObject: MenuOptionStyleObjectType;
-}
-
 const CursorMenuOption: FC<CursorMenuOptionPropTypes> = ({
-  styleObject,
+  type,
   label,
   iconURL,
   animOffset,
+  styleObject,
   hoverTrigger,
   menuPositionEnd,
   menuPositionDriver,
@@ -46,9 +32,17 @@ const CursorMenuOption: FC<CursorMenuOptionPropTypes> = ({
       style={styleObject}
       ref={cursorMenuOptionRef}
     >
-      <h3 className="label">{label}</h3>
-      <div className="body-bg" />
-      <img className="icon" alt={label} src={iconURL} draggable={false} />
+      {type === "exit" ? (
+        <div className="exit-body-bg">
+          <h3 className="exit-label">{label}</h3>
+        </div>
+      ) : (
+        <Fragment>
+          <h3 className="label">{label}</h3>
+          <div className="body-bg" />
+          <img className="icon" alt={label} src={iconURL} draggable={false} />
+        </Fragment>
+      )}
     </CursorMenuOptionStyleContainer>
   );
 };

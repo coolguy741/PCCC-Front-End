@@ -58,8 +58,6 @@ const useHUDMenuOptionLogic = ({
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
 
-    console.log("ran");
-
     animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
     animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
   }, [optionData, menuActive, activeHoveredHudMenuOption]);

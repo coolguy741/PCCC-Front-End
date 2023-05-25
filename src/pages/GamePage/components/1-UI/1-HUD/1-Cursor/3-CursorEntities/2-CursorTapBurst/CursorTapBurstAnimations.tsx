@@ -1,11 +1,12 @@
 import { gsap } from "gsap";
 import { RawShaderMaterial } from "three";
 import { BACK_1_OUT } from "../../../../../../shared/Eases/Eases";
+import { AnimateCursorTapBurstType } from "./CusorTapBurstTypes";
 
-const tL = gsap.timeline();
-
-const animateCursorTapBurst = (material: RawShaderMaterial): void => {
-  tL.fromTo(
+const animateCursorTapBurst: AnimateCursorTapBurstType = (
+  material: RawShaderMaterial,
+): void => {
+  gsap.fromTo(
     material.uniforms.uTime,
     { value: 0.75 },
     {

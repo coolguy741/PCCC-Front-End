@@ -21,7 +21,6 @@ const DraggableGrid: FC<DraggableGridPropTypes> = ({ items }) => {
   const [gridRef, gridDimensions] = useMeasure();
 
   const itemDimensions = useMemo(() => {
-    console.log(gridDimensions);
     const itemDimensions = getItemDimensions(gridDimensions);
     return itemDimensions;
   }, [gridDimensions]);

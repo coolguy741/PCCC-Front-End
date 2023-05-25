@@ -1,4 +1,5 @@
 import { Vector2 } from "three";
+import { Theme } from "../../../../styles/Snippets/Theme";
 
 // Types
 interface HUDMenuOptionStyleObjectType {
@@ -37,7 +38,7 @@ const InventoryHUDMenuOptionData: HUDMenuOptionDataType = {
   animIconLanding: new Vector2(15, -15),
   iconURL: "/game_assets/ui_images/inventory/inventory.webp",
   styleObject: {
-    "--hud-menu-option-bg-color": "#ffcd00",
+    "--hud-menu-option-bg-color": Theme.PCCCYellow,
     "--hud-menu-option-position": "fixed",
     "--hud-menu-option-left": "0",
     "--hud-menu-option-right": "auto",
@@ -64,7 +65,7 @@ const RecipeBookHUDMenuOptionData: HUDMenuOptionDataType = {
   animIconLanding: new Vector2(-15, -15),
   iconURL: "/game_assets/ui_images/recipe_book/recipe_book.webp",
   styleObject: {
-    "--hud-menu-option-bg-color": "#F65321",
+    "--hud-menu-option-bg-color": Theme.PCCCRed,
     "--hud-menu-option-position": "fixed",
     "--hud-menu-option-left": "auto",
     "--hud-menu-option-right": "0",
@@ -91,7 +92,7 @@ const SettingsHUDMenuOptionData: HUDMenuOptionDataType = {
   animIconLanding: new Vector2(-15, 15),
   iconURL: "/game_assets/ui_images/settings/settings.webp",
   styleObject: {
-    "--hud-menu-option-bg-color": "#0084D5",
+    "--hud-menu-option-bg-color": Theme.PCCCBlue,
     "--hud-menu-option-position": "fixed",
     "--hud-menu-option-left": "auto",
     "--hud-menu-option-right": "0",
@@ -118,7 +119,7 @@ const GoalListHUDMenuOptionData: HUDMenuOptionDataType = {
   animIconLanding: new Vector2(15, 15),
   iconURL: "/game_assets/ui_images/goal_list/goal_list.webp",
   styleObject: {
-    "--hud-menu-option-bg-color": "#26D07C",
+    "--hud-menu-option-bg-color": Theme.PCCCGreen,
     "--hud-menu-option-position": "fixed",
     "--hud-menu-option-left": "0",
     "--hud-menu-option-right": "auto",

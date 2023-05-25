@@ -8,9 +8,9 @@ import DynamicEnitity from "../2-Entities/DynamicEnitity";
 import Garden from "../2-Entities/Garden";
 import Environment from "../3-Environment/Environment";
 import {
-  BIGTREE_LOOKAT_POSITION,
-  PLANTBOX_LOOKAT_POSITION,
-  TOOLRACK_LOOKAT_POSITION,
+  GARDENHOSE_LOOKAT_POSITION,
+  GATE_LOOKAT_POSITION,
+  KITCHENVIEW_LOOKAT_POSITION,
 } from "../5-Constants/0-Garden/GARDEN_LOOKAT_POSITION";
 import { GATE_POSITION } from "../5-Constants/0-Garden/GARDEN_POSITION";
 import SceneHelpers from "../6-Helpers/SceneHelpers";
@@ -38,11 +38,14 @@ const GameStage: FC = () => {
     <Fragment>
       <Garden />
       <DynamicEnitity />
-      <InteractiveGameEntity name={"Berries"} pos={BIGTREE_LOOKAT_POSITION} />
-      <InteractiveGameEntity name={"Branches"} pos={TOOLRACK_LOOKAT_POSITION} />
+      <InteractiveGameEntity name={"Berries"} pos={GATE_LOOKAT_POSITION} />
+      <InteractiveGameEntity
+        name={"Branches"}
+        pos={GARDENHOSE_LOOKAT_POSITION}
+      />
       <InteractiveGameEntity
         name={"Bee Hive Top"}
-        pos={PLANTBOX_LOOKAT_POSITION}
+        pos={KITCHENVIEW_LOOKAT_POSITION}
       />
       <PlayerCamera />
       <Environment />
