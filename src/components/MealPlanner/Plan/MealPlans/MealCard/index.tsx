@@ -10,7 +10,6 @@ interface MealCardProps {
   };
   label: string | null;
   fixed?: boolean;
-  overlay?: boolean;
   onMealRemove?: () => void;
 }
 
@@ -18,12 +17,11 @@ export const MealCard: React.FC<MealCardProps> = ({
   meal,
   label,
   fixed,
-  overlay,
   onMealRemove,
 }) => {
   return (
-    <Style.Container fixed={fixed} overlay={overlay}>
-      <Style.Card hasPlan={!!meal.description} overlay={overlay}>
+    <Style.Container fixed={fixed}>
+      <Style.Card hasPlan={!!meal.description}>
         <Style.ActionButtons className="button-actions">
           <Style.ActionbuttonWrapper onClick={onMealRemove}>
             <Icon name="trash" width="100%" height="100%" />
@@ -61,27 +59,18 @@ export const MealCard: React.FC<MealCardProps> = ({
 };
 
 const Style = {
-  Container: styled.section.attrs(
-    ({ fixed, overlay }: { fixed: boolean; overlay: boolean }) => ({
-      fixed: fixed ?? false,
-      overlay: overlay ?? false,
-    }),
-  )`
+  Container: styled.section.attrs(({ fixed }: { fixed: boolean }) => ({
+    fixed: fixed ?? false,
+  }))`
     padding: 5% 0;
     overflow: hidden;
     height: 100%;
     min-height: 105px;
     width: ${({ fixed }) => (fixed ? "90px" : "100%")};
-
-    border: ${({ overlay }) =>
-      overlay ? "2px dashed var(--blue-400)" : undefined};
   `,
-  Card: styled.article.attrs(
-    ({ hasPlan, overlay }: { hasPlan: boolean; overlay: boolean }) => ({
-      hasPlan: hasPlan ?? false,
-      overlay: overlay ?? false,
-    }),
-  )`
+  Card: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({
+    hasPlan: hasPlan ?? false,
+  }))`
     position: relative;
     height: 100%;
     border-radius: 8px;
@@ -92,7 +81,6 @@ const Style = {
     transform: rotate(
       ${({ hasPlan }) => (hasPlan ? (Math.random() - 0.5) * 6 : 0)}deg
     );
-    filter: ${({ overlay }) => (overlay ? "blur(10px)" : undefined)};
     &:hover {
       background: var(--orange-500);
       p {
