@@ -134,11 +134,11 @@ const Style = {
   Container: styled.section`
     /* classnames to target content for manage users layout */
     /* decreasing the options size & increasing content size */
-    .manage-users-options {
-      height: 10vh !important;
+    div.manage-users-options {
+      height: 10vh;
     }
 
-    .manage-users-content {
+    div.manage-users-content {
       height: 68.5vh;
     }
 
