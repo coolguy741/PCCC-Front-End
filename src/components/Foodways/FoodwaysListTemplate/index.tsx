@@ -6,6 +6,7 @@ import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import Button from "../../Button";
+import Scrollbar from "../../Global/Scrollbar";
 import { Select } from "../../Global/Select";
 import { FoodwaysList } from "../FoodwaysList";
 
@@ -76,13 +77,13 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             </Link>
           </Style.ButtonGroup>
         </Style.InputGroup>
-        <Style.ScrollContainer>
+        <Scrollbar>
           <FoodwaysList
             listData={listData}
             selectable={true}
             onSelectionChange={onSelectionChange}
           />
-        </Style.ScrollContainer>
+        </Scrollbar>
       </>
     );
   };
@@ -124,11 +125,5 @@ const Style = {
     align-items: flex-start;
     padding: 0px;
     gap: 24px;
-  `,
-  ScrollContainer: styled.div`
-    overflow-y: auto;
-    height: 100%;
-    padding-right: 16px;
-    margin-right: -24px;
   `,
 };
