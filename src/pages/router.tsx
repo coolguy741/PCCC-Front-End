@@ -366,7 +366,11 @@ export const router = createBrowserRouter([
         element: <PageTitleLayout title="Discover Together" />,
         children: [{ path: "", element: <DiscoverTogetherPage /> }],
       },
-      { path: "grow-together", element: <GrowTogetherPage /> },
+      {
+        path: "grow-together",
+        element: <PageTitleLayout title="Grow Together" />,
+        children: [{ path: "", element: <GrowTogetherPage /> }],
+      },
       { path: "cook-together", element: <CookTogetherPage /> },
       { path: "search", element: <SearchPage /> },
       {
