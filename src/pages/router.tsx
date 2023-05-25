@@ -365,7 +365,16 @@ export const router = createBrowserRouter([
       { path: "grow-together", element: <GrowTogetherPage /> },
       { path: "cook-together", element: <CookTogetherPage /> },
       { path: "search", element: <SearchPage /> },
-      { path: "notifications", element: <NotificationsPage /> },
+      {
+        path: "notifications",
+        element: (
+          <PageTitleLayout
+            title="Notifications"
+            icon="notifications-orange-outlined"
+          />
+        ),
+        children: [{ path: "", element: <NotificationsPage /> }],
+      },
     ],
   },
   {
