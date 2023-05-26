@@ -17,7 +17,7 @@ export const TogetherPageTemplate = ({
   return (
     <Style.PageContainer>
       <h2>Related to '{relatedTo}'</h2>
-      <Scrollbar width="thick">
+      <Scrollbar thumbWidth="thick">
         <ContentList listData={listData} />
       </Scrollbar>
     </Style.PageContainer>

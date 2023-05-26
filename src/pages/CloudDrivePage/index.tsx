@@ -131,7 +131,7 @@ export const CloudDrivePage = () => {
             </Button>
           </div>
           <div className="content">
-            <Scrollbar width="thin">
+            <Scrollbar thumbWidth="thin">
               <Style.Table>
                 <thead>
                   <tr>

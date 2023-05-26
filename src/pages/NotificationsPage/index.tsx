@@ -11,7 +11,7 @@ export const NotificationsPage = () => {
   };
 
   return (
-    <Scrollbar width="thick">
+    <Scrollbar thumbWidth="thick">
       <Style.PageContainer>
         <h2>Activity</h2>
         <Style.ListContainer>
