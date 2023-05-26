@@ -2,33 +2,19 @@ import { motion } from "framer-motion";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
+import { PROVINCES } from "../../../pages/consts";
 import { useSignUpStore } from "../../../stores/signUpStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
+import { DropdownSelect } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
-import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
 
 type AgeGateForm = {
   year: string | number;
   province: string;
 };
-
-const PROVINCES = [
-  "Alberta",
-  "British Columbia",
-  "Manitoba",
-  "New Brunswick",
-  "Newfoundland and Labrador",
-  "Nova Scotia",
-  "Northwest Territories",
-  "Nunavut",
-  "Ontario",
-  "Prince Edward Island",
-  "Quebec",
-  "Saskatchewan",
-  "Yukon",
-];
 
 export const AgeGate = () => {
   const {
@@ -90,6 +76,7 @@ export const AgeGate = () => {
                   type="number"
                   data-testid="year"
                   className={errors.year ? "has-error" : ""}
+                  height={convertToRelativeUnit(48, "vh")}
                   {...field}
                 />
               )}
@@ -106,18 +93,15 @@ export const AgeGate = () => {
                 required: true,
               }}
               render={({ field }) => (
-                <Select
+                <DropdownSelect
                   data-testid="province"
-                  className={`${errors.province ? "has-error" : ""}`}
-                  {...field}
-                >
-                  {PROVINCES &&
-                    PROVINCES.map((name, index) => (
-                      <option key={`province-${index}`} value={name}>
-                        {name}
-                      </option>
-                    ))}
-                </Select>
+                  options={PROVINCES}
+                  placeholder="Select Province"
+                  className={errors.province ? "has-error" : ""}
+                  onChange={(selectedOption) => field.onChange(selectedOption)}
+                  width="100%"
+                  height={convertToRelativeUnit(48, "vh")}
+                />
               )}
             />
           </div>

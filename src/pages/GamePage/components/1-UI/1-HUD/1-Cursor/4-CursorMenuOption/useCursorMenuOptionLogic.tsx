@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
-import { Vector2 } from "three";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
+import { ConstantVoidFunctionType } from "../../../../../shared/Types/DefineTypes";
 import {
   RefBooleanType,
   RefDivType,
@@ -12,17 +12,7 @@ import {
   animateCursorOptionsHoverIn,
   animateCursorOptionsHoverOut,
 } from "./CursorMenuOptionAnimations";
-
-// Types
-interface UseCursorMenuOptionLogicPropTypes {
-  animOffset: number;
-  hoverTrigger: boolean;
-  menuPositionEnd: Vector2;
-  menuPositionDriver: Vector2;
-  boundingRectVector: Vector2;
-  menuPositionOffset: Vector2;
-  tempCursorLocationCopy: Vector2;
-}
+import { UseCursorMenuOptionLogicPropTypes } from "./CursorMenuOptionTypes";
 
 const useCursorMenuOptionLogic = ({
   animOffset,
@@ -47,26 +37,28 @@ const useCursorMenuOptionLogic = ({
   );
 
   // Handlers
-  const handleCursorMenuOptionBoundingRect = useCallback((): void => {
-    if (!cursorMenuOptionRef.current) return;
+  const handleCursorMenuOptionBoundingRect: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (!cursorMenuOptionRef.current) return;
 
-    if (boundingRectVector.x > 0 || boundingRectVector.y > 0) return;
+      if (boundingRectVector.x > 0 || boundingRectVector.y > 0) return;
 
-    const cursorMenuOptionBoundingRect =
-      cursorMenuOptionRef.current.getBoundingClientRect();
+      const cursorMenuOptionBoundingRect =
+        cursorMenuOptionRef.current.getBoundingClientRect();
 
-    boundingRectVector.set(
-      cursorMenuOptionBoundingRect.width,
-      cursorMenuOptionBoundingRect.height,
-    );
-  }, [boundingRectVector]);
+      boundingRectVector.set(
+        cursorMenuOptionBoundingRect.width,
+        cursorMenuOptionBoundingRect.height,
+      );
+    }, [boundingRectVector]);
 
-  const handleUpdateCursorMenuOptionElementPosition = useCallback((): void => {
-    if (!cursorMenuOptionRef.current) return;
+  const handleUpdateCursorMenuOptionElementPosition: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (!cursorMenuOptionRef.current) return;
 
-    cursorMenuOptionRef.current.style.left = `${menuPositionDriver.x}px`;
-    cursorMenuOptionRef.current.style.top = `${menuPositionDriver.y}px`;
-  }, [menuPositionDriver]);
+      cursorMenuOptionRef.current.style.left = `${menuPositionDriver.x}px`;
+      cursorMenuOptionRef.current.style.top = `${menuPositionDriver.y}px`;
+    }, [menuPositionDriver]);
 
   const handleHoverTrigger = useCallback(() => {
     if (!menuActive) return;
@@ -80,53 +72,54 @@ const useCursorMenuOptionLogic = ({
     }
   }, [menuActive, hoverTrigger]);
 
-  const handleRevealHideCursorMenuOption = useCallback((): void => {
-    if (!cursorMenuOptionRef.current) return;
+  const handleRevealHideCursorMenuOption: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (!cursorMenuOptionRef.current) return;
 
-    if (menuActive) {
-      tempCursorLocationCopy.set(
-        cursorLocation.x - boundingRectVector.x / 2,
-        cursorLocation.y - boundingRectVector.y / 2,
-      );
+      if (menuActive) {
+        tempCursorLocationCopy.set(
+          cursorLocation.x - boundingRectVector.x / 2,
+          cursorLocation.y - boundingRectVector.y / 2,
+        );
 
-      menuPositionEnd.set(
-        tempCursorLocationCopy.x + menuPositionOffset.x,
-        tempCursorLocationCopy.y + menuPositionOffset.y,
-      );
+        menuPositionEnd.set(
+          tempCursorLocationCopy.x + menuPositionOffset.x,
+          tempCursorLocationCopy.y + menuPositionOffset.y,
+        );
 
-      animateCursorMenuOptionIn(
-        cursorMenuOptionRef.current,
-        menuPositionDriver,
-        tempCursorLocationCopy,
-        menuPositionEnd,
-        handleUpdateCursorMenuOptionElementPosition,
-        animOffset,
-        () => {
-          cursorMenuOptionHoverEnableRef.current = true;
-        },
-      );
-    } else {
-      cursorMenuOptionHoverEnableRef.current = false;
-      animateCursorMenuOptionOut(
-        cursorMenuOptionRef.current,
-        menuPositionDriver,
-        menuPositionEnd,
-        tempCursorLocationCopy,
-        handleUpdateCursorMenuOptionElementPosition,
-        animOffset,
-      );
-    }
-  }, [
-    animOffset,
-    menuActive,
-    cursorLocation,
-    menuPositionEnd,
-    menuPositionDriver,
-    boundingRectVector,
-    menuPositionOffset,
-    tempCursorLocationCopy,
-    handleUpdateCursorMenuOptionElementPosition,
-  ]);
+        animateCursorMenuOptionIn(
+          cursorMenuOptionRef.current,
+          menuPositionDriver,
+          tempCursorLocationCopy,
+          menuPositionEnd,
+          handleUpdateCursorMenuOptionElementPosition,
+          animOffset,
+          () => {
+            cursorMenuOptionHoverEnableRef.current = true;
+          },
+        );
+      } else {
+        cursorMenuOptionHoverEnableRef.current = false;
+        animateCursorMenuOptionOut(
+          cursorMenuOptionRef.current,
+          menuPositionDriver,
+          menuPositionEnd,
+          tempCursorLocationCopy,
+          handleUpdateCursorMenuOptionElementPosition,
+          animOffset,
+        );
+      }
+    }, [
+      animOffset,
+      menuActive,
+      cursorLocation,
+      menuPositionEnd,
+      menuPositionDriver,
+      boundingRectVector,
+      menuPositionOffset,
+      tempCursorLocationCopy,
+      handleUpdateCursorMenuOptionElementPosition,
+    ]);
 
   // Listeners
   useEffect(handleRevealHideCursorMenuOption, [

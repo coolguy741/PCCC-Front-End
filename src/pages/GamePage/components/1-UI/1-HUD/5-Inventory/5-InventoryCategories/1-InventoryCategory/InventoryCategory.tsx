@@ -1,6 +1,9 @@
-import { FC, memo, useMemo } from "react";
+// @ts-ignore
+import sample from "lodash-es/sample";
+import { nanoid } from "nanoid";
+import { FC, memo, useMemo, useState } from "react";
+import DraggableGrid from "./DraggableGrid";
 import {
-  handleRenderInventoryItem,
   tempIngredientsData,
   tempMiscData,
   tempToolsData,
@@ -34,15 +37,33 @@ const InventoryCategory: FC<InventoryCategoryPropTypes> = ({
     }
   }, [categoryTitle]);
 
+  const [items, setItems] = useState(
+    inventoryCategoryItems.map((item) => ({ id: nanoid(), ...item })),
+  );
+
+  const handleRemove = (id: string) => {
+    setItems((items) => items.filter((item) => item.id !== id));
+  };
+
+  const handleAdd = () => {
+    setItems((items) => [
+      ...items,
+      { id: nanoid(), ...sample(inventoryCategoryItems) },
+    ]);
+  };
+
   return (
     <InventoryCategoryStyleContainer style={styleObject}>
       <div className="inventory-category-title">
         <div className="inventory-category-title-spacer" />
         <h3 className="inventory-category-title-text">{categoryTitle}</h3>
       </div>
-      <div className="inventory-category-items">
-        {inventoryCategoryItems.map(handleRenderInventoryItem)}
-      </div>
+
+      <DraggableGrid
+        items={items}
+        addItem={handleAdd}
+        removeItem={handleRemove}
+      />
     </InventoryCategoryStyleContainer>
   );
 };

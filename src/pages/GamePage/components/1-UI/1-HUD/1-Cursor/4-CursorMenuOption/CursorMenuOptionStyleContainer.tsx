@@ -1,11 +1,13 @@
 import { memo } from "react";
 import styled from "styled-components";
+import { DisableTouchPointerEvents } from "../../../../../styles/Snippets/DisableTouchPointerEvents";
 import { MarginPaddingNone } from "../../../../../styles/Snippets/MarginPaddingNone";
 import { UserSelectNone } from "../../../../../styles/Snippets/UserSelectNone";
 
 const CursorMenuOptionStyleContainer = styled.div`
   ${UserSelectNone};
   ${MarginPaddingNone};
+  ${DisableTouchPointerEvents};
   display: flex;
   position: fixed;
   align-items: center;
@@ -19,6 +21,22 @@ const CursorMenuOptionStyleContainer = styled.div`
     border-radius: 100%;
     background: linear-gradient(to right, #d4c1b0, #ebd6c3 25%, #ebd6c3);
     border: 0.75rem solid var(--icon-border-color, #30d5c8);
+  }
+
+  .exit-body-bg {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 100%;
+    background: linear-gradient(to right, #d4c1b0, #ebd6c3 25%, #ebd6c3);
+    border: 0.5rem solid var(--icon-border-color, #30d5c8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .exit-label {
+      color: black;
+      font-weight: bold;
+      font-size: 1.15rem;
+    }
   }
 
   .icon {

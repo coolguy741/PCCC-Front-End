@@ -12,7 +12,7 @@ const Shadows: FC = () => {
         size: 20,
       }),
       bakeShadows: folder({
-        enableBS: true,
+        enableBS: false,
       }),
     }),
   });

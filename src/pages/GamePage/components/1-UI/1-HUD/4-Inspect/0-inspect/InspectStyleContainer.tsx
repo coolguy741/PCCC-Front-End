@@ -15,6 +15,7 @@ const InspectStyleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: none !important;
 
   .inspect-modal {
     ${MarginPaddingNone};

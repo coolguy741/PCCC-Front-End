@@ -11,6 +11,21 @@ export const WEEK_DAYS = [
   "friday",
   "saturday",
 ];
+export const PROVINCES = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Northwest Territories",
+  "Nunavut",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Yukon",
+];
 export const MENUS: Menu[] = [
   { label: "Home", to: "/dashboard", icon: "home" },
   { label: "Manage Users", to: "accounts", icon: "user", auth: true },

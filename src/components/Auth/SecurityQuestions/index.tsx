@@ -9,8 +9,8 @@ import { useSignUpStore } from "../../../stores/signUpStore";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
+import { DropdownSelect, SelectOption } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
-import { Select } from "../../Global/Select";
 import { Info } from "../../Icons";
 
 interface SecurityQuestion {
@@ -206,22 +206,25 @@ export const SecurityQuestions = () => {
             rules={{
               required: true,
             }}
-            render={({ field }) => (
-              <Select
-                width="75%"
-                data-testid="first-security-question"
-                className={errors.firstSecurityQuestionId ? "has-error" : ""}
-                {...field}
-              >
-                <option></option>
-                {firstSecurityQuestions &&
-                  firstSecurityQuestions.map((question) => (
-                    <option key={question.id} value={question.id}>
-                      {question.question}
-                    </option>
-                  ))}
-              </Select>
-            )}
+            render={({ field }) => {
+              const options: SelectOption[] = firstSecurityQuestions
+                ? firstSecurityQuestions.map((question) => ({
+                    label: question.question || "",
+                    value: question.id || "",
+                  }))
+                : [{ label: "", value: "" }];
+
+              return (
+                <DropdownSelect
+                  data-testid="first-security-question"
+                  options={options}
+                  className={errors.firstSecurityQuestionId ? "has-error" : ""}
+                  onChange={(selectedOption) => field.onChange(selectedOption)}
+                  width="75%"
+                  height={convertToRelativeUnit(48, "vh")}
+                />
+              );
+            }}
           />
         </fieldset>
         <fieldset>
@@ -251,22 +254,25 @@ export const SecurityQuestions = () => {
             rules={{
               required: true,
             }}
-            render={({ field }) => (
-              <Select
-                width="75%"
-                data-testid="second-security-question"
-                className={errors.secondSecurityQuestionId ? "has-error" : ""}
-                {...field}
-              >
-                <option></option>
-                {secondSecurityQuestions &&
-                  secondSecurityQuestions.map((question) => (
-                    <option key={question.id} value={question.id}>
-                      {question.question}
-                    </option>
-                  ))}
-              </Select>
-            )}
+            render={({ field }) => {
+              const options: SelectOption[] = secondSecurityQuestions
+                ? secondSecurityQuestions.map((question) => ({
+                    label: question.question || "",
+                    value: question.id || "",
+                  }))
+                : [{ label: "", value: "" }];
+
+              return (
+                <DropdownSelect
+                  data-testid="second-security-question"
+                  options={options}
+                  className={errors.secondSecurityQuestionId ? "has-error" : ""}
+                  onChange={(selectedOption) => field.onChange(selectedOption)}
+                  width="75%"
+                  height={convertToRelativeUnit(48, "vh")}
+                />
+              );
+            }}
           />
         </fieldset>
         <fieldset>
@@ -296,22 +302,25 @@ export const SecurityQuestions = () => {
             rules={{
               required: true,
             }}
-            render={({ field }) => (
-              <Select
-                width="75%"
-                data-testid="third-security-question"
-                className={errors.thirdSecurityQuestionId ? "has-error" : ""}
-                {...field}
-              >
-                <option></option>
-                {thirdSecurityQuestions &&
-                  thirdSecurityQuestions.map((question) => (
-                    <option key={question.id} value={question.id}>
-                      {question.question}
-                    </option>
-                  ))}
-              </Select>
-            )}
+            render={({ field }) => {
+              const options: SelectOption[] = thirdSecurityQuestions
+                ? thirdSecurityQuestions.map((question) => ({
+                    label: question.question || "",
+                    value: question.id || "",
+                  }))
+                : [{ label: "", value: "" }];
+
+              return (
+                <DropdownSelect
+                  data-testid="third-security-question"
+                  options={options}
+                  className={errors.thirdSecurityQuestionId ? "has-error" : ""}
+                  onChange={(selectedOption) => field.onChange(selectedOption)}
+                  width="75%"
+                  height={convertToRelativeUnit(48, "vh")}
+                />
+              );
+            }}
           />
         </fieldset>
         <fieldset>
