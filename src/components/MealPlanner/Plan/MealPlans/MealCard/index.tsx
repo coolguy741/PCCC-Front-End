@@ -78,9 +78,6 @@ const Style = {
     justify-content: center;
     align-items: center;
     background: ${({ hasPlan }) => (hasPlan ? "white" : "var(--book-50)")};
-    transform: rotate(
-      ${({ hasPlan }) => (hasPlan ? (Math.random() - 0.5) * 6 : 0)}deg
-    );
     &:hover {
       background: var(--orange-500);
       p {
