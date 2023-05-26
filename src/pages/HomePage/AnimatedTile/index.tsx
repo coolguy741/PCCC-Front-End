@@ -10,7 +10,14 @@ function showSubtitleWithException(subtitle: string) {
   if (subtitle) {
     if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
       return (
-        <Typography weight={700}>
+        <Typography
+          tag="h3"
+          size="4vh"
+          color="neutral-800"
+          lineHeight="110%"
+          mb="1vh"
+          weight={700}
+        >
           Sunny's Place:
           <br />A Bee-utifull Food Adventure
         </Typography>
@@ -34,13 +41,32 @@ export const AnimatedTile = (props: any) => {
       end={tile.gradientEnd}
     >
       <article>
-        <h2>
-          <span>{tile.titleFirstLine}</span>
+        <Typography
+          tag="h2"
+          size="8vh"
+          color="neutral-800"
+          weight="900"
+          textTransform="uppercase"
+          letterSpacing="110%"
+          lineHeight="90%"
+          mb="1.5vh"
+        >
+          <Typography tag="span" color={tile.titleColor}>
+            {tile.titleFirstLine}
+          </Typography>
           <br />
           {tile.titleSecondLine}
-        </h2>
+        </Typography>
         {showSubtitleWithException(tile.subtitle)}
-        <p>{tile.description}</p>
+        <Typography
+          weight={500}
+          size="2.25vh"
+          lineHeight="115%"
+          mb={convertToRelativeUnit(48, "vh")}
+          color="neutral-700"
+        >
+          {tile.description}
+        </Typography>
         <Button to={tile.buttonLink}>{tile.buttonText}</Button>
       </article>
 
@@ -79,34 +105,6 @@ const Style = {
 
     article {
       width: 42.5%;
-
-      h2 {
-        font-size: 8vh;
-        line-height: 90%;
-        letter-spacing: 110%;
-        text-transform: uppercase;
-        margin-bottom: 1.5vh;
-
-        span {
-          color: ${({ color }) => `var(--${color})`};
-        }
-      }
-
-      h3 {
-        font-weight: 700;
-        font-size: 4vh;
-        line-height: 110%;
-        color: var(--neutral-800);
-        margin-bottom: 1vh;
-      }
-
-      p {
-        font-weight: 500;
-        font-size: 2.25vh;
-        line-height: 115%;
-        margin-bottom: ${convertToRelativeUnit(48, "vh")};
-        color: var(--neutral-700);
-      }
     }
 
     .image-container {

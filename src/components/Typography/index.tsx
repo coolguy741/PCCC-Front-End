@@ -27,6 +27,7 @@ export interface BaseTypographyProps {
   color?: string;
   tag?: TagVariants;
   children?: React.ReactNode;
+  size?: React.CSSProperties["fontSize"];
 }
 
 export const Typography = ({
@@ -39,14 +40,8 @@ export const Typography = ({
   </DynamicTypography>
 );
 
-function getMargin(
-  margin: string,
-  mt: string,
-  mb: string,
-  mr: string,
-  ml: string,
-) {
-  return margin ? `${margin}` : `${mt} ${mr} ${mb} ${ml}`;
+function getMargin(margin = "0", mt = "0", mr = "0", mb = "0", ml = "0") {
+  return !margin ? `${margin}` : `${mt} ${mr} ${mb} ${ml}`;
 }
 
 export const DynamicTypography = styled(({ tag, children, ...props }) =>
@@ -59,4 +54,5 @@ export const DynamicTypography = styled(({ tag, children, ...props }) =>
   text-transform: ${({ textTransform }) => textTransform};
   text-align: ${({ align }) => align};
   line-height: ${({ lineHeight }) => lineHeight};
+  font-size: ${({ size }) => size};
 `;
