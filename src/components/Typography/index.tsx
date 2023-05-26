@@ -1,6 +1,5 @@
 import { createElement } from "react";
 import styled from "styled-components";
-import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 
 export type TagVariants =
   | "div"
@@ -19,11 +18,11 @@ export interface BaseTypographyProps {
   letterSpacing?: React.CSSProperties["letterSpacing"];
   lineHeight?: React.CSSProperties["lineHeight"];
   textTransform?: React.CSSProperties["textTransform"];
-  margin?: number;
-  mb?: number;
-  mt?: number;
-  ml?: number;
-  mr?: number;
+  margin?: string;
+  mb?: string;
+  mt?: string;
+  ml?: string;
+  mr?: string;
   weight?: React.CSSProperties["fontWeight"];
   color?: string;
   tag?: TagVariants;
@@ -40,26 +39,14 @@ export const Typography = ({
   </DynamicTypography>
 );
 
-function convertMargin(margin: number) {
-  return margin ? convertToRelativeUnit(margin, "vw") : 0;
-}
-
 function getMargin(
-  margin: number,
-  mt: number,
-  mb: number,
-  mr: number,
-  ml: number,
+  margin: string,
+  mt: string,
+  mb: string,
+  mr: string,
+  ml: string,
 ) {
-  const convertedMargin = convertMargin(margin);
-  const convertedMarginTop = convertMargin(mt);
-  const convertedMarginBottom = convertMargin(mb);
-  const convertedMarginRight = convertMargin(mr);
-  const convertedMarginLeft = convertMargin(ml);
-
-  return margin
-    ? `${convertedMargin}`
-    : `${convertedMarginTop} ${convertedMarginRight} ${convertedMarginBottom} ${convertedMarginLeft}`;
+  return margin ? `${margin}` : `${mt} ${mr} ${mb} ${ml}`;
 }
 
 export const DynamicTypography = styled(({ tag, children, ...props }) =>

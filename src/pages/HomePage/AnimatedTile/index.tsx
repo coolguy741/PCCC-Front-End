@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
+import { Typography } from "../../../components/Typography";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
@@ -9,10 +10,10 @@ function showSubtitleWithException(subtitle: string) {
   if (subtitle) {
     if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
       return (
-        <h3>
+        <Typography weight={700}>
           Sunny's Place:
           <br />A Bee-utifull Food Adventure
-        </h3>
+        </Typography>
       );
     } else return <h3>{subtitle}</h3>;
   }
@@ -80,7 +81,6 @@ const Style = {
       width: 42.5%;
 
       h2 {
-        font-weight: 900;
         font-size: 8vh;
         line-height: 90%;
         letter-spacing: 110%;
