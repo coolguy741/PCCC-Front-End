@@ -7,6 +7,7 @@ import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import Button from "../../../components/Button";
 import { Input } from "../../../components/Global/Input";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
+import Scrollbar from "../../../components/Global/Scrollbar";
 import {
   PccServer23GroupsCustomGroupUserJoinRequestDto,
   PccServer23GroupsGroupWithNavigationPropertiesDto,
@@ -74,18 +75,20 @@ export const AccountsGroupsPage = () => {
             {`Group Invitations (${invitations?.length})`}
           </p>
           <div className="group-invitations">
-            {invitations &&
-              invitations.map((invitation, index) => {
-                return (
-                  <GroupInvitationCard
-                    key={index}
-                    groupName={invitation.groupName}
-                    userName={invitation.userName}
-                    groupUserId={invitation.groupUserId}
-                    userRole={invitation.userRole}
-                  />
-                );
-              })}
+            <Scrollbar>
+              {invitations &&
+                invitations.map((invitation, index) => {
+                  return (
+                    <GroupInvitationCard
+                      key={index}
+                      groupName={invitation.groupName}
+                      userName={invitation.userName}
+                      groupUserId={invitation.groupUserId}
+                      userRole={invitation.userRole}
+                    />
+                  );
+                })}
+            </Scrollbar>
           </div>
         </div>
       </div>
@@ -170,6 +173,7 @@ const Style = {
         flex-direction: column;
         align-items: center;
         width: 20%;
+        min-width: 22vh;
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
         border-radius: 16px;
@@ -178,7 +182,7 @@ const Style = {
         position: sticky;
 
         .title-text {
-          font-size: ${convertToRelativeUnit(20, "vh")};
+          font-size: ${convertToRelativeUnit(19, "vh")};
           font-weight: 600;
           color: var(--neutral-800);
         }

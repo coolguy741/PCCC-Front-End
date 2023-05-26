@@ -53,7 +53,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             </Button>
           </Style.ButtonGroup>
         </Style.InputGroup>
-        <Scrollbar width="thick">
+        <Scrollbar thumbWidth="thick">
           <ContentList
             listData={listData}
             selectable={true}

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
+import Scrollbar from "../../../components/Global/Scrollbar";
 import { GroceryItem } from "../../../components/MealPlanner/Grocery";
 import { MealPlanHeader } from "../../../components/MealPlanner/Header";
 import { Grocery } from "../../types";
@@ -169,7 +170,7 @@ export const MealPlannerGroceryPage = () => {
           <Button size="large">Print</Button>
         </Style.ButtonContainer>
         <h3>Grocery List</h3>
-        <Style.ScrollContainer>
+        <Scrollbar thumbWidth="thick">
           <Style.GroceryList>
             {groceries.map((grocery) => (
               <div className="grocery-item-container">
@@ -177,7 +178,7 @@ export const MealPlannerGroceryPage = () => {
               </div>
             ))}
           </Style.GroceryList>
-        </Style.ScrollContainer>
+        </Scrollbar>
       </div>
     </Style.PageContainer>
   );
@@ -234,11 +235,5 @@ const Style = {
       margin-bottom: 24px;
       break-inside: avoid;
     }
-  `,
-  ScrollContainer: styled.div`
-    overflow-y: auto;
-    height: 100%;
-    padding-right: 16px;
-    margin-right: -24px;
   `,
 };
