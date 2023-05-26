@@ -70,8 +70,6 @@ export const CalendarPage = () => {
 
   const { user } = useUser();
 
-  console.log(user);
-
   return (
     <>
       <Style.Container>
