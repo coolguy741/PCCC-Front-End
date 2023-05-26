@@ -5,7 +5,7 @@ import { SpeechBubble } from "../../../components/Global/SpeechBubble";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
-function exceptionForGameName(subtitle: string) {
+function showSubtitleWithException(subtitle: string) {
   if (subtitle) {
     if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
       return (
@@ -38,7 +38,7 @@ export const AnimatedTile = (props: any) => {
           <br />
           {tile.titleSecondLine}
         </h2>
-        {exceptionForGameName(tile.subtitle)}
+        {showSubtitleWithException(tile.subtitle)}
         <p>{tile.description}</p>
         <Button to={tile.buttonLink}>{tile.buttonText}</Button>
       </article>
