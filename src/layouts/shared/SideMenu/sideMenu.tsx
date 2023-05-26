@@ -3,9 +3,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
+import { avatars_data } from "../../../lib/avatars/data";
 import { MENUS, STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
-import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
+import {
+  convertToRelativeUnit as conv,
+  convertToRelativeUnit,
+} from "../../../styles/helpers/convertToRelativeUnits";
 
 type MenuState = {
   "user-tools": boolean;
@@ -40,8 +44,11 @@ export function SideMenu() {
       <div>
         <Link to="profile">
           <div className="logo-container">
-            <img src="/images/avatars/avatar.svg" alt="avatar" />
-            <div className="username">{user?.username}</div>
+            {avatars_data[0].icon()}
+            <div className="username">
+              <div>Self disciplined</div>
+              <div>{user?.username}</div>
+            </div>
           </div>
         </Link>
       </div>
@@ -157,21 +164,20 @@ const Style = {
   MenuContainer: styled.aside`
     z-index: 100;
     position: fixed;
-    overflow-y: auto;
     width: var(--dashboard-menu-width-medium);
-    min-height: 100vh;
-    height: 100%;
+    height: 100vh;
     background: linear-gradient(-90deg, var(--green-400), var(--green-600));
-    border-radius: 0 32px 32px 0;
-    padding: ${conv(36, "vh")} 0;
+    border-radius: 0 ${conv(32, "vh")} ${conv(32, "vh")} 0;
+    padding: ${conv(36, "vh")} ${conv(20, "vh")};
     display: flex;
     flex-direction: column;
     filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
+    overflow-y: auto;
 
     .username {
-      line-height: ${conv(29, "vh")};
+      line-height: ${conv(24, "vh")};
       font-weight: 700;
-      font-size: ${conv(24, "vh")};
+      font-size: ${conv(19, "vh")};
       transition: all 0.2s ease-in-out;
     }
 
@@ -192,20 +198,26 @@ const Style = {
       }
     }
 
-    .logo-container {
-      padding-left: ${conv(20, "vw")};
-      display: flex;
-      color: white;
-      align-items: center;
-      margin-bottom: ${conv(42, "vh")};
-    }
-
     .drop-down {
       padding-left: ${conv(40, "vw")};
     }
 
     @media screen {
       width: var(--dashboard-menu-width-medium);
+      justify-content: center;
+
+      .logo-container {
+        display: flex;
+        color: white;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: ${conv(42, "vh")};
+
+        svg {
+          width: ${convertToRelativeUnit(60, "vh")};
+          height: ${convertToRelativeUnit(60, "vh")};
+        }
+      }
 
       .drop-down {
         padding-left: 0;
@@ -285,7 +297,8 @@ const Style = {
         }
 
         .username {
-          font-size: ${conv(24, "vh")};
+          font-size: ${conv(19, "vh")};
+          padding-left: ${conv(18, "vh")};
         }
       }
 
