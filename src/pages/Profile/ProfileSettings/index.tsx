@@ -6,6 +6,7 @@ import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
 import { DropdownSelect } from "../../../components/Global/DropdownSelect";
 import { Input } from "../../../components/Global/Input";
+import Scrollbar from "../../../components/Global/Scrollbar";
 import { OrangeBG } from "../../../components/Icons";
 import { useAPI } from "../../../hooks/useAPI";
 import { avatars_data } from "../../../lib/avatars/data";
@@ -188,7 +189,7 @@ export const ProfileSettingsPage = () => {
             </article>
             <article className="choose-avatar">
               <label>Change profile picture</label>
-              <Style.ScrollContainer>
+              <Scrollbar height="16vh">
                 <div className="avatars">
                   {/* TODO: Improve avatar animations */}
                   {avatars_data.map((avatar, index) => (
@@ -200,7 +201,7 @@ export const ProfileSettingsPage = () => {
                     </Style.AvatarButton>
                   ))}
                 </div>
-              </Style.ScrollContainer>
+              </Scrollbar>
             </article>
             <Button type="submit" size="large">
               Save changes
@@ -451,12 +452,6 @@ const Style = {
     button {
       align-self: self-end;
     }
-  `,
-  ScrollContainer: styled.div`
-    overflow-y: auto;
-    height: 16vh;
-    padding-right: 16px;
-    margin-right: -24px;
   `,
   AvatarButton: styled.button`
     width: 6.66vh;
