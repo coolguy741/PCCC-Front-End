@@ -1,20 +1,8 @@
 import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
-import { useGlobalState } from "../../../../../globalState/useGlobalState";
-import CursorMenuOption from "./CursorMenuOption";
+import { useGlobalState } from "../../../../../../globalState/useGlobalState";
+import CursorMenuOption from "../0-CursorMenuOption/CursorMenuOption";
 import {
-  actionOneBoundingRectVector,
-  actionOneMenuOptionStyleObject,
-  actionOneMenuPositionDriver,
-  actionOneMenuPositionEnd,
-  actionOneMenuPositionOffset,
-  actionOneTempCopyCurrentLocation,
-  actionTwoBoundingRectVector,
-  actionTwoMenuOptionStyleObject,
-  actionTwoMenuPositionDriver,
-  actionTwoMenuPositionEnd,
-  actionTwoMenuPositionOffset,
-  actionTwoTempCopyCurrentLocation,
   exitBoundingRectVector,
   exitMenuOptionStyleObject,
   exitMenuPositionDriver,
@@ -27,13 +15,19 @@ import {
   inspectMenuPositionEnd,
   inspectMenuPositionOffset,
   inspectTempCopyCurrentLocation,
-} from "./CursorMenuOptionDefines";
+  pickupBoundingRectVector,
+  pickupMenuOptionStyleObject,
+  pickupMenuPositionDriver,
+  pickupMenuPositionEnd,
+  pickupMenuPositionOffset,
+  pickupTempCopyCurrentLocation,
+} from "../0-CursorMenuOption/CursorMenuOptionDefines";
+import DynamicCursorMenuOptionStage from "./DynamicCursorMenuOptionStage";
 
 const CursorMenuOptionStage: FC = () => {
   // Global State
   const { hoveredSection } = useGlobalState(
     (state) => ({
-      cursorLocation: state.cursorLocation,
       hoveredSection: state.hoveredSection,
     }),
     shallow,
@@ -55,31 +49,19 @@ const CursorMenuOptionStage: FC = () => {
         tempCursorLocationCopy={inspectTempCopyCurrentLocation}
       />
       <CursorMenuOption
-        type="actionOne"
+        type="pickup"
         label="Pick Up"
         animOffset={0.1}
-        hoverTrigger={hoveredSection === "actionOne"}
-        menuPositionEnd={actionOneMenuPositionEnd}
-        styleObject={actionOneMenuOptionStyleObject}
-        boundingRectVector={actionOneBoundingRectVector}
-        menuPositionOffset={actionOneMenuPositionOffset}
-        menuPositionDriver={actionOneMenuPositionDriver}
+        hoverTrigger={hoveredSection === "pickup"}
+        menuPositionEnd={pickupMenuPositionEnd}
+        styleObject={pickupMenuOptionStyleObject}
+        boundingRectVector={pickupBoundingRectVector}
+        menuPositionOffset={pickupMenuPositionOffset}
+        menuPositionDriver={pickupMenuPositionDriver}
         iconURL="/game_assets/ui_images/cursor/pickup.webp"
-        tempCursorLocationCopy={actionOneTempCopyCurrentLocation}
+        tempCursorLocationCopy={pickupTempCopyCurrentLocation}
       />
-      <CursorMenuOption
-        type="actionTwo"
-        label="Use"
-        animOffset={0.2}
-        hoverTrigger={hoveredSection === "actionTwo"}
-        menuPositionEnd={actionTwoMenuPositionEnd}
-        styleObject={actionTwoMenuOptionStyleObject}
-        iconURL="/game_assets/ui_images/cursor/use.webp"
-        boundingRectVector={actionTwoBoundingRectVector}
-        menuPositionOffset={actionTwoMenuPositionOffset}
-        menuPositionDriver={actionTwoMenuPositionDriver}
-        tempCursorLocationCopy={actionTwoTempCopyCurrentLocation}
-      />
+      <DynamicCursorMenuOptionStage />
       <CursorMenuOption
         label="X"
         type="exit"

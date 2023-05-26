@@ -7,12 +7,18 @@ import Shadows from "./2-Shadows/Shadows";
 const Environment: FC = () => {
   // Hooks
   const { enableHDR, enableLight } = useControls({
-    HDR: folder({
-      enableHDR: true,
-    }),
-    MainLight: folder({
-      enableLight: true,
-    }),
+    HDR: folder(
+      {
+        enableHDR: true,
+      },
+      { collapsed: true },
+    ),
+    MainLight: folder(
+      {
+        enableLight: true,
+      },
+      { collapsed: true },
+    ),
   });
 
   return (

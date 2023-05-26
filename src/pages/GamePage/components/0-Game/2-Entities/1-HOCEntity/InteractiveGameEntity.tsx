@@ -44,7 +44,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   );
 
   // Handlers
-  const handlePointerOutEvent = useCallback(
+  const handlePointerLeaveEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
       if (isHoveringEntity) {
@@ -58,7 +58,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     [isCursorDown, setIsCursorDown, isHoveringEntity, setIsHoveringEntity],
   );
 
-  const handlePointerOverEvent = useCallback(
+  const handlePointerEnterEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
       if (menuActive) return;
@@ -122,9 +122,9 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
       userData={{ name: name }}
       onClick={handleOnClickEvent}
       onPointerUp={handlePointerUpEvent}
-      onPointerOut={handlePointerOutEvent}
-      onPointerOver={handlePointerOverEvent}
       onPointerDown={handlePointerDownEvent}
+      onPointerLeave={handlePointerLeaveEvent}
+      onPointerEnter={handlePointerEnterEvent}
     >
       <meshStandardMaterial color={"blue"} />
     </Box>

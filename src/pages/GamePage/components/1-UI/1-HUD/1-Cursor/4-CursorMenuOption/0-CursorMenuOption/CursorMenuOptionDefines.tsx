@@ -1,5 +1,5 @@
 import { Vector2 } from "three";
-import { Theme } from "../../../../../styles/Snippets/Theme";
+import { Theme } from "../../../../../../styles/Snippets/Theme";
 
 // Types
 export interface MenuOptionStyleObjectType {
@@ -19,23 +19,23 @@ const inspectMenuOptionStyleObject: MenuOptionStyleObjectType = {
 };
 
 // Action One Menu Option
-const actionOneBoundingRectVector: Vector2 = new Vector2();
-const actionOneMenuPositionOffset: Vector2 = new Vector2(14, -160);
-const actionOneTempCopyCurrentLocation: Vector2 = new Vector2();
-const actionOneMenuPositionEnd: Vector2 = new Vector2();
-const actionOneMenuPositionDriver: Vector2 = new Vector2();
-const actionOneMenuOptionStyleObject: MenuOptionStyleObjectType = {
+const pickupBoundingRectVector: Vector2 = new Vector2();
+const pickupMenuPositionOffset: Vector2 = new Vector2(14, -160);
+const pickupTempCopyCurrentLocation: Vector2 = new Vector2();
+const pickupMenuPositionEnd: Vector2 = new Vector2();
+const pickupMenuPositionDriver: Vector2 = new Vector2();
+const pickupMenuOptionStyleObject: MenuOptionStyleObjectType = {
   "--icon-border-color": Theme.PCCCYellow,
   "--label-background-color": Theme.PCCCYellow,
 };
 
 // Action One Menu Option
-const actionTwoBoundingRectVector: Vector2 = new Vector2();
-const actionTwoMenuPositionOffset: Vector2 = new Vector2(119, -80);
-const actionTwoTempCopyCurrentLocation: Vector2 = new Vector2();
-const actionTwoMenuPositionEnd: Vector2 = new Vector2();
-const actionTwoMenuPositionDriver: Vector2 = new Vector2();
-const actionTwoMenuOptionStyleObject: MenuOptionStyleObjectType = {
+const dynamicBoundingRectVector: Vector2 = new Vector2();
+const dynamicMenuPositionOffset: Vector2 = new Vector2(119, -80);
+const dynamicTempCopyCurrentLocation: Vector2 = new Vector2();
+const dynamicMenuPositionEnd: Vector2 = new Vector2();
+const dynamicMenuPositionDriver: Vector2 = new Vector2();
+const dynamicMenuOptionStyleObject: MenuOptionStyleObjectType = {
   "--icon-border-color": Theme.PCCCBlue,
   "--label-background-color": Theme.PCCCBlue,
 };
@@ -56,23 +56,23 @@ export {
   exitBoundingRectVector,
   exitMenuPositionOffset,
   exitMenuPositionDriver,
-  actionTwoMenuPositionEnd,
-  actionOneMenuPositionEnd,
+  dynamicMenuPositionEnd,
+  pickupMenuPositionEnd,
   inspectBoundingRectVector,
   inspectMenuPositionOffset,
   inspectMenuPositionDriver,
   exitMenuOptionStyleObject,
-  actionOneBoundingRectVector,
-  actionOneMenuPositionDriver,
-  actionOneMenuPositionOffset,
-  actionTwoBoundingRectVector,
-  actionTwoMenuPositionDriver,
-  actionTwoMenuPositionOffset,
+  pickupBoundingRectVector,
+  pickupMenuPositionDriver,
+  pickupMenuPositionOffset,
+  dynamicBoundingRectVector,
+  dynamicMenuPositionDriver,
+  dynamicMenuPositionOffset,
   exitTempCopyCurrentLocation,
   inspectMenuOptionStyleObject,
-  actionOneMenuOptionStyleObject,
-  actionTwoMenuOptionStyleObject,
+  pickupMenuOptionStyleObject,
+  dynamicMenuOptionStyleObject,
   inspectTempCopyCurrentLocation,
-  actionOneTempCopyCurrentLocation,
-  actionTwoTempCopyCurrentLocation,
+  pickupTempCopyCurrentLocation,
+  dynamicTempCopyCurrentLocation,
 };

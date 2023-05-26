@@ -25,6 +25,11 @@ const InteractiveGameEntityModule = ({ set, get }: globalStateApiType) => {
     setHoveredSection: (hoveredSection: CursorMenuOptionTypes | null) => {
       set({ hoveredSection });
     },
+
+    inspectActive: false,
+    setInspectActive: (inspectActive: boolean) => {
+      set({ inspectActive });
+    },
   };
 };
 

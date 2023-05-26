@@ -1,8 +1,8 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { DisableTouchPointerEvents } from "../../../../../styles/Snippets/DisableTouchPointerEvents";
-import { MarginPaddingNone } from "../../../../../styles/Snippets/MarginPaddingNone";
-import { UserSelectNone } from "../../../../../styles/Snippets/UserSelectNone";
+import { DisableTouchPointerEvents } from "../../../../../../styles/Snippets/DisableTouchPointerEvents";
+import { MarginPaddingNone } from "../../../../../../styles/Snippets/MarginPaddingNone";
+import { UserSelectNone } from "../../../../../../styles/Snippets/UserSelectNone";
 
 const CursorMenuOptionStyleContainer = styled.div`
   ${UserSelectNone};
