@@ -2,27 +2,32 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
-import { Typography } from "../../../components/Typography";
+import {
+  BaseTypographyProps,
+  Typography,
+} from "../../../components/Typography";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+
+const h3Props = {
+  tag: "h3",
+  size: "4vh",
+  color: "neutral-800",
+  lineHeight: "110%",
+  mb: "1vh",
+  weight: "700",
+} as BaseTypographyProps;
 
 function showSubtitleWithException(subtitle: string) {
   if (subtitle) {
     if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
       return (
-        <Typography
-          tag="h3"
-          size="4vh"
-          color="neutral-800"
-          lineHeight="110%"
-          mb="1vh"
-          weight={700}
-        >
+        <Typography {...h3Props}>
           Sunny's Place:
           <br />A Bee-utifull Food Adventure
         </Typography>
       );
-    } else return <h3>{subtitle}</h3>;
+    } else return <Typography {...h3Props}>{subtitle}</Typography>;
   }
 }
 
