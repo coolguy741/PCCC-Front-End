@@ -14,6 +14,7 @@ const SunLight: FC = () => {
       tranforms: true,
       intensity: 5,
       color: "#ffffff",
+      enable: true,
     }),
     shadows: folder({
       shadowMap: folder({

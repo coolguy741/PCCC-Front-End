@@ -35,6 +35,7 @@ export const PublishForm = ({ selectedDate, yPos }: PublishFormProps) => {
               <option value="">—</option>
               <option value="mealtime">Mealtime Moment</option>
               <option value="foodways">Foodways</option>
+              <option value="assessment">Lesson Assessment</option>
             </Select>
           </>
         )}

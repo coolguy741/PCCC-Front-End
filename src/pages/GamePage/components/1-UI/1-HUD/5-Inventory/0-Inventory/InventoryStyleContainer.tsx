@@ -6,13 +6,14 @@ import { UserSelectNone } from "../../../../../styles/Snippets/UserSelectNone";
 const InventoryStyleContainer = styled.div`
   ${UserSelectNone};
   ${MarginPaddingNone};
-  top: 50%;
-  left: 50%;
+  left: 30vw;
+  bottom: 0;
   display: flex;
   position: fixed;
   align-items: center;
   justify-content: center;
-  background-color: red;
+  pointer-events: none;
+  opacity: 0;
 
   .inventory-book {
     width: 35vw;

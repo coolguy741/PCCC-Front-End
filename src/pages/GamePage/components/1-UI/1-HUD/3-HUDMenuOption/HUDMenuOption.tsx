@@ -7,6 +7,7 @@ import { useHUDMenuOptionLogic } from "./useHUDMenuOptionLogic";
 export interface HUDMenuOptionPropTypes {
   menuActive: boolean;
   optionData: HUDMenuOptionDataType;
+  activeHoveredHudMenuOption: string | null;
   setActiveHoveredHudMenuOption: (
     activeHoveredHudMenuOption: string | null,
   ) => void;
@@ -15,25 +16,27 @@ export interface HUDMenuOptionPropTypes {
 const HUDMenuOption: FC<HUDMenuOptionPropTypes> = ({
   optionData,
   menuActive,
+  activeHoveredHudMenuOption,
   setActiveHoveredHudMenuOption,
 }) => {
   // Hooks
   const {
-    handlePointerOut,
-    handlePointerOver,
+    onPointerLeave,
+    onPointerEnter,
     hudMenuOptionBGRef,
     hudMenuOptionIconRef,
   } = useHUDMenuOptionLogic({
     menuActive,
     optionData,
+    activeHoveredHudMenuOption,
     setActiveHoveredHudMenuOption,
   });
 
   return (
     <HUDMenuOptionStyleContainer
       style={optionData.styleObject}
-      onPointerOut={handlePointerOut}
-      onPointerOver={handlePointerOver}
+      onPointerLeave={onPointerLeave}
+      onPointerEnter={onPointerEnter}
     >
       <div ref={hudMenuOptionBGRef} className="hud-menu-option-bg" />
       <img

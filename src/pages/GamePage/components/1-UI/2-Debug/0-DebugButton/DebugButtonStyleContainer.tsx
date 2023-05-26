@@ -12,6 +12,7 @@ const DebugButtonStyleContainer = styled.button`
   text-align: center;
   background-color: black;
   border: solid white 1px;
+  cursor: pointer;
   top: var(--debug-button-top, auto);
   left: var(--debug-button-left, auto);
   right: var(--debug-button-right, auto);

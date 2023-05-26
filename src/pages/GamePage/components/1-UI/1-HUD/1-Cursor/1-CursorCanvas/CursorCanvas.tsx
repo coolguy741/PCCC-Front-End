@@ -1,15 +1,11 @@
 import { Canvas } from "@react-three/fiber";
-import { FC, memo, ReactNode, Suspense } from "react";
+import { FC, memo, Suspense } from "react";
 import { devicePixelRatio } from "../../../../../shared/Consts/CanvasParams";
 import { GLParameters } from "../../../../../shared/Consts/GLParameters";
 import { cursorCanvasStyles } from "./CursorCanvasDefines";
 import CursorCanvasStyleContainer from "./CursorCanvasStyleContainer";
+import { CursorCanvasPropTypes } from "./CursorCanvasTypes";
 import { useCursorCanvasLogic } from "./useCursorCanvasLogic";
-
-// Types
-interface CursorCanvasPropTypes {
-  children: ReactNode;
-}
 
 const CursorCanvas: FC<CursorCanvasPropTypes> = ({ children }) => {
   // Hooks

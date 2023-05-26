@@ -8,6 +8,7 @@ import { RefBooleanType, RefDivType } from "../../../shared/Types/RefTypes";
 import { DisableTouchPointerEvents } from "../../../styles/Snippets/DisableTouchPointerEvents";
 import { MarginPaddingNone } from "../../../styles/Snippets/MarginPaddingNone";
 import { UserSelectNone } from "../../../styles/Snippets/UserSelectNone";
+import useMouseMove from "../5-Hooks/useMouseMove";
 const cursorBoundingRectDimensions = new Vector2();
 
 const CursorDebug: FC = () => {
@@ -24,6 +25,13 @@ const CursorDebug: FC = () => {
   );
 
   // Handlers
+  const handleSetCursorLocation = useCallback(
+    (event: MouseEvent): void => {
+      cursorLocation.set(event.clientX, event.clientY);
+    },
+    [cursorLocation],
+  );
+
   const handleUpdateCursorDebugBoundingRect = useCallback(() => {
     if (!cursorDebugRef.current) return;
     if (hasSetCursorDebugBoundsRef.current) return;
@@ -56,6 +64,7 @@ const CursorDebug: FC = () => {
   ]);
 
   // Hooks
+  useMouseMove(handleSetCursorLocation);
   useAnimationFrame((time, delta) => {
     handleUpdateDebugCursorLocation();
   });
@@ -71,7 +80,7 @@ const CursorDebugStyleContainer = styled.div`
   position: fixed;
   border-radius: 100%;
   background-color: red;
-  opacity: 0;
+  opacity: 0.5;
   ${UserSelectNone};
   ${MarginPaddingNone};
   ${DisableTouchPointerEvents};

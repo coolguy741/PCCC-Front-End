@@ -5,6 +5,12 @@ export type InteractiveGameEntityTypes =
   | "Beekeeper Outfit + Hat"
   | "Fully Grown Blueberries";
 
+export type CursorMenuOptionTypes =
+  | "inspect"
+  | "actionOne"
+  | "actionTwo"
+  | "exit";
+
 export interface InteractiveGameEntityModuleTypes {
   isHoveringEntity: boolean;
   setIsHoveringEntity: (isHoveringEntity: boolean) => void;
@@ -17,6 +23,6 @@ export interface InteractiveGameEntityModuleTypes {
   menuActive: boolean;
   setMenuActive: (menuActive: boolean) => void;
 
-  hoveredSection: null | string;
-  setHoveredSection: (hoveredSection: string | null) => void;
+  hoveredSection: null | CursorMenuOptionTypes;
+  setHoveredSection: (hoveredSection: CursorMenuOptionTypes | null) => void;
 }

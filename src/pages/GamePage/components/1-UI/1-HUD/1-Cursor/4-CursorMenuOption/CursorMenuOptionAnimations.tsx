@@ -1,8 +1,13 @@
 import gsap from "gsap";
 import { Vector2 } from "three";
 import { BACK_1_OUT, POWER_1_INOUT } from "../../../../../shared/Eases/Eases";
+import {
+  AnimateCursorMenuOptionInType,
+  AnimateCursorMenuOptionOutType,
+  AnimateCursorOptionsHoverType,
+} from "./CursorMenuOptionTypes";
 
-const animateCursorOptionsHoverIn = (
+const animateCursorOptionsHoverIn: AnimateCursorOptionsHoverType = (
   cursorMenuOptionElement: HTMLDivElement,
 ): void => {
   gsap.to(cursorMenuOptionElement, {
@@ -13,7 +18,7 @@ const animateCursorOptionsHoverIn = (
   });
 };
 
-const animateCursorOptionsHoverOut = (
+const animateCursorOptionsHoverOut: AnimateCursorOptionsHoverType = (
   cursorMenuOptionElement: HTMLDivElement,
 ): void => {
   gsap.to(cursorMenuOptionElement, {
@@ -24,7 +29,7 @@ const animateCursorOptionsHoverOut = (
   });
 };
 
-const animateCursorMenuOptionIn = (
+const animateCursorMenuOptionIn: AnimateCursorMenuOptionInType = (
   cursorMenuOptionElement: HTMLDivElement,
   cursorMenuOptionPositionFinal: Vector2,
   cursorMenuOptionPositionStart: Vector2,
@@ -65,7 +70,7 @@ const animateCursorMenuOptionIn = (
   );
 };
 
-const animateCursorMenuOptionOut = (
+const animateCursorMenuOptionOut: AnimateCursorMenuOptionOutType = (
   cursorMenuOptionElement: HTMLDivElement,
   cursorMenuOptionPositionFinal: Vector2,
   cursorMenuOptionPositionStart: Vector2,

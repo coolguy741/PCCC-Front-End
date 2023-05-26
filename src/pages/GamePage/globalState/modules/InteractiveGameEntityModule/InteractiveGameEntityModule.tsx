@@ -1,5 +1,8 @@
 import { globalStateApiType } from "../../GlobalStateTypes";
-import { InteractiveGameEntityTypes } from "./InteractiveGameEntityModuleTypes";
+import {
+  CursorMenuOptionTypes,
+  InteractiveGameEntityTypes,
+} from "./InteractiveGameEntityModuleTypes";
 
 const InteractiveGameEntityModule = ({ set, get }: globalStateApiType) => {
   return {
@@ -19,7 +22,7 @@ const InteractiveGameEntityModule = ({ set, get }: globalStateApiType) => {
     },
 
     hoveredSection: null,
-    setHoveredSection: (hoveredSection: string | null) => {
+    setHoveredSection: (hoveredSection: CursorMenuOptionTypes | null) => {
       set({ hoveredSection });
     },
   };

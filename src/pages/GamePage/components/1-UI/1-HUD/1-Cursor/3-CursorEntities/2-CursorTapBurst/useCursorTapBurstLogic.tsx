@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../../globalState/useGlobalState";
+import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
 import { RefBooleanType } from "../../../../../../shared/Types/RefTypes";
 import { animateCursorTapBurst } from "./CursorTapBurstAnimations";
 import { tapBurstMaterial } from "./CursorTapBurstDefines";
 
-const useCursorTapBurstLogic = (): void => {
+const useCursorTapBurstLogic: ConstantVoidFunctionType = (): void => {
   // Refs
   const tapBurstAnimAllowedRef: RefBooleanType = useRef(false);
 
@@ -19,16 +20,17 @@ const useCursorTapBurstLogic = (): void => {
   );
 
   // Handlers
-  const handleTapBurstOnClick = useCallback((): void => {
-    if (isCursorDown && isHoveringEntity) {
-      tapBurstAnimAllowedRef.current = true;
-    }
+  const handleTapBurstOnClick: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (isCursorDown && isHoveringEntity) {
+        tapBurstAnimAllowedRef.current = true;
+      }
 
-    if (!isCursorDown && tapBurstAnimAllowedRef.current) {
-      animateCursorTapBurst(tapBurstMaterial);
-      tapBurstAnimAllowedRef.current = false;
-    }
-  }, [isCursorDown, isHoveringEntity]);
+      if (!isCursorDown && tapBurstAnimAllowedRef.current) {
+        animateCursorTapBurst(tapBurstMaterial);
+        tapBurstAnimAllowedRef.current = false;
+      }
+    }, [isCursorDown, isHoveringEntity]);
 
   // Listeners
   useEffect(handleTapBurstOnClick, [isCursorDown, handleTapBurstOnClick]);
