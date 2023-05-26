@@ -4,8 +4,8 @@ import styled from "styled-components";
 // Define the styled component
 const ScrollableDiv = styled.div<{ width: "thin" | "thick" }>`
   height: 100%;
-  margin-right: ${(props) => (props.width === "thin" ? "-4px" : "-28px")};
-  padding-right: ${(props) => (props.width === "thin" ? "0px" : "20px")};
+  margin-right: ${(props) => (props.width === "thin" ? "-8px" : "-28px")};
+  padding-right: ${(props) => (props.width === "thin" ? "4px" : "20px")};
   overflow: auto;
   ::-webkit-scrollbar {
     width: ${(props) => (props.width === "thin" ? "4px" : "8px")};
@@ -19,6 +19,10 @@ const ScrollableDiv = styled.div<{ width: "thin" | "thick" }>`
   }
   ::-webkit-scrollbar-thumb:hover {
   }
+
+  /* For Firefox */
+  scrollbar-color: var(--blue-300);
+  scrollbar-width: ${(props) => (props.width === "thin" ? "4px" : "8px")};
 `;
 
 interface ScrollbarProps {
