@@ -1,7 +1,10 @@
 import { gsap } from "gsap";
 import { Mesh } from "three";
+import { AnimateCursorHandScaleType } from "./CursorHandTypes";
 
-const animateCursorHandScaleIn = (cursorHand: Mesh): void => {
+const animateCursorHandScaleIn: AnimateCursorHandScaleType = (
+  cursorHand: Mesh,
+): void => {
   gsap.to(cursorHand.scale, {
     x: 0.8,
     y: 0.8,
@@ -11,7 +14,9 @@ const animateCursorHandScaleIn = (cursorHand: Mesh): void => {
   });
 };
 
-const animateCursorHandScaleOut = (cursorHand: Mesh): void => {
+const animateCursorHandScaleOut: AnimateCursorHandScaleType = (
+  cursorHand: Mesh,
+): void => {
   gsap.to(cursorHand.scale, {
     x: 1,
     y: 1,

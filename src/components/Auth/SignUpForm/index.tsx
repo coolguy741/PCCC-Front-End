@@ -5,29 +5,17 @@ import styled from "styled-components";
 
 import { useAPI } from "../../../hooks/useAPI";
 import { avatars_data } from "../../../lib/avatars/data";
+import { PROVINCES } from "../../../pages/consts";
 import { useSignUpStore } from "../../../stores/signUpStore";
-import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
+import {
+  convertToRelativeUnit as conv,
+  convertToRelativeUnit,
+} from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
+import { DropdownSelect } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
-import { Select } from "../../Global/Select";
 import { ArrowRight } from "../../Icons";
-
-const PROVINCES = [
-  "Alberta",
-  "British Columbia",
-  "Manitoba",
-  "New Brunswick",
-  "Newfoundland and Labrador",
-  "Nova Scotia",
-  "Northwest Territories",
-  "Nunavut",
-  "Ontario",
-  "Prince Edward Island",
-  "Quebec",
-  "Saskatchewan",
-  "Yukon",
-];
 
 type TSignUpForm = {
   name: string;
@@ -184,9 +172,9 @@ export const SignUpForm = () => {
                 />
               </fieldset>
               <fieldset>
-                <label htmlFor="title">Title</label>
+                <label htmlFor="email">Email Address</label>
                 <Controller
-                  name="title"
+                  name="email"
                   control={control}
                   rules={{
                     required: isCoordinator,
@@ -194,10 +182,10 @@ export const SignUpForm = () => {
                   render={({ field }) => (
                     <Input
                       width="60%"
-                      placeholder="Student"
-                      type="text"
-                      id="title"
-                      className={errors.title ? "has-error" : ""}
+                      placeholder="Johndoe@gmail.com"
+                      type="email"
+                      id="email"
+                      className={errors.email ? "has-error" : ""}
                       {...field}
                     />
                   )}
@@ -229,10 +217,36 @@ export const SignUpForm = () => {
               />
             </div>
           </fieldset>
+          <fieldset>
+            <label>Province</label>
+            <div className="province-select-container">
+              <Controller
+                name="province"
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field }) => (
+                  <DropdownSelect
+                    data-testid="province"
+                    options={PROVINCES}
+                    placeholder="Select Province"
+                    className={errors.province ? "has-error" : ""}
+                    onChange={(selectedOption) =>
+                      field.onChange(selectedOption)
+                    }
+                    width="100%"
+                    height={convertToRelativeUnit(48, "vh")}
+                    selectedValue={province}
+                  />
+                )}
+              />
+            </div>
+          </fieldset>
           {isCoordinator && (
             <>
               <fieldset>
-                <label>School ID Code</label>
+                <label>PCCC School ID</label>
                 <Controller
                   name="schoolIdCode"
                   control={control}
@@ -252,7 +266,7 @@ export const SignUpForm = () => {
                 />
               </fieldset>
               <fieldset>
-                <label>School</label>
+                <label>School name</label>
                 <Controller
                   name="schoolName"
                   control={control}
@@ -271,55 +285,27 @@ export const SignUpForm = () => {
                   )}
                 />
               </fieldset>
+              <fieldset>
+                <label htmlFor="title">Code</label>
+                <Controller
+                  name="title"
+                  control={control}
+                  rules={{
+                    required: isCoordinator,
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      width="60%"
+                      placeholder="Student"
+                      type="text"
+                      id="title"
+                      className={errors.title ? "has-error" : ""}
+                      {...field}
+                    />
+                  )}
+                />
+              </fieldset>
             </>
-          )}
-          <fieldset>
-            <label>Province</label>
-            <div className="province-select-container">
-              <Controller
-                name="province"
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field }) => (
-                  <Select
-                    data-testid="province"
-                    className={`${errors.province ? "has-error" : ""}`}
-                    {...field}
-                  >
-                    {PROVINCES &&
-                      PROVINCES.map((name, index) => (
-                        <option key={`province-${index}`} value={name}>
-                          {name}
-                        </option>
-                      ))}
-                  </Select>
-                )}
-              />
-            </div>
-          </fieldset>
-          {isCoordinator && (
-            <fieldset>
-              <label htmlFor="email">Email Address</label>
-              <Controller
-                name="email"
-                control={control}
-                rules={{
-                  required: isCoordinator,
-                }}
-                render={({ field }) => (
-                  <Input
-                    width="60%"
-                    placeholder="Johndoe@gmail.com"
-                    type="email"
-                    id="email"
-                    className={errors.email ? "has-error" : ""}
-                    {...field}
-                  />
-                )}
-              />
-            </fieldset>
           )}
         </section>
       </section>
@@ -334,20 +320,15 @@ export const SignUpForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Select
+              <DropdownSelect
                 data-testid="first-username"
-                className={`${
-                  errors.firstUsername ? "has-error" : ""
-                } username-select`}
-                {...field}
-              >
-                {firstNames &&
-                  firstNames.map((name, index) => (
-                    <option key={`firstName-${index}`} value={name}>
-                      {name}
-                    </option>
-                  ))}
-              </Select>
+                options={firstNames ? firstNames : [""]}
+                placeholder="Awesome"
+                className={errors.firstUsername ? "has-error" : ""}
+                onChange={(selectedOption) => field.onChange(selectedOption)}
+                height={convertToRelativeUnit(48, "vh")}
+                width="25%"
+              />
             )}
           />
 
@@ -358,20 +339,15 @@ export const SignUpForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Select
+              <DropdownSelect
                 data-testid="second-username"
-                className={`${
-                  errors.secondUsername ? "has-error" : ""
-                } username-select`}
-                {...field}
-              >
-                {secondNames &&
-                  secondNames.map((name, index) => (
-                    <option key={`secondName-${index}`} value={name}>
-                      {name}
-                    </option>
-                  ))}
-              </Select>
+                options={secondNames ? secondNames : [""]}
+                placeholder="Apple"
+                className={errors.secondUsername ? "has-error" : ""}
+                onChange={(selectedOption) => field.onChange(selectedOption)}
+                height={convertToRelativeUnit(48, "vh")}
+                width="30%"
+              />
             )}
           />
           <Controller
@@ -457,6 +433,9 @@ const Style = {
       ${glassBackground};
       padding: ${conv(40, "vh")} ${conv(20, "vw")};
       height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.66vh;
 
       legend {
         font-weight: 600;
@@ -470,12 +449,12 @@ const Style = {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: ${conv(10, "vh")};
 
         .birth-split {
           width: 60%;
           display: flex;
           justify-content: space-between;
+          align-items: center;
           height: 100%;
         }
 

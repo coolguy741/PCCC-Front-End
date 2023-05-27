@@ -3,9 +3,12 @@ import { useCallback, useEffect, useRef } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 import {
+  ConstantVoidFunctionType,
+  FramerAnimFrameFunctionType,
+} from "../../../../../shared/Types/DefineTypes";
+import {
   RefBooleanType,
   RefCanvasType,
-  RefNumberType,
 } from "../../../../../shared/Types/RefTypes";
 import {
   animateCursorCanvasToFollowPosition,
@@ -14,6 +17,7 @@ import {
 import {
   cursorCanvasCenterOffset,
   cursorCanvasDampedFollowLocation,
+  cursorCanvasDampedFollowStep,
   cursorCanvasFollowLocation,
   cursorCanvasTempCopyCurrentLocation,
   handleDampCursorCanvasLocation,
@@ -21,96 +25,99 @@ import {
   handleUpdateCursorCanvasElementLocation,
   handleUpdateCursorCanvasFinalLocation,
 } from "./CursorCanvasDefines";
+import {
+  UseCursorCanvasLogicHookTypes,
+  UseCursorCanvasLogicReturnTypes,
+} from "./CursorCanvasTypes";
 
-interface UseCursorCanvasLogicReturnTypes {
-  cursorCanvasRef: RefCanvasType;
-}
+const useCursorCanvasLogic: UseCursorCanvasLogicHookTypes =
+  (): UseCursorCanvasLogicReturnTypes => {
+    // Refs
+    const cursorCanvasRef: RefCanvasType = useRef(null);
+    const enableOnFrameFollow: RefBooleanType = useRef(true);
 
-const useCursorCanvasLogic = (): UseCursorCanvasLogicReturnTypes => {
-  // Refs
-  const cursorCanvasRef: RefCanvasType = useRef(null);
-  const enableOnFrameFollow: RefBooleanType = useRef(true);
-  const cursorCanvasDampedFollowStepRef: RefNumberType = useRef(0.01);
-
-  // Global State
-  const { menuActive, cursorLocation } = useGlobalState(
-    (state) => ({
-      menuActive: state.menuActive,
-      cursorLocation: state.cursorLocation,
-    }),
-    shallow,
-  );
-
-  // Handlers
-  const handleAnimateCursorToMenuPosition = useCallback((): void => {
-    if (!menuActive) return;
-    if (!enableOnFrameFollow.current) return;
-
-    enableOnFrameFollow.current = false;
-
-    const currentCursorLocation =
-      cursorCanvasTempCopyCurrentLocation.copy(cursorLocation);
-
-    animateCursorCanvasToMenuPosition(
-      cursorCanvasDampedFollowLocation,
-      currentCursorLocation,
-      () => {
-        cursorCanvasDampedFollowStepRef.current = 0;
-      },
-    );
-  }, [menuActive, cursorLocation]);
-
-  const handleAnimateCursorToFollowPosition = useCallback((): void => {
-    if (menuActive) return;
-    if (enableOnFrameFollow.current) return;
-
-    enableOnFrameFollow.current = true;
-
-    const currentCursorLocation =
-      cursorCanvasTempCopyCurrentLocation.copy(cursorLocation);
-
-    cursorCanvasFollowLocation.set(
-      currentCursorLocation.x - cursorCanvasCenterOffset.x,
-      currentCursorLocation.y - cursorCanvasCenterOffset.y,
+    // Global State
+    const { menuActive, cursorLocation } = useGlobalState(
+      (state) => ({
+        menuActive: state.menuActive,
+        cursorLocation: state.cursorLocation,
+      }),
+      shallow,
     );
 
-    animateCursorCanvasToFollowPosition(cursorCanvasDampedFollowStepRef);
-  }, [menuActive, cursorLocation]);
+    // Handlers
+    const handleAnimateCursorToMenuPosition: ConstantVoidFunctionType =
+      useCallback((): void => {
+        if (!menuActive) return;
+        if (!enableOnFrameFollow.current) return;
 
-  const handleCursorCanvasAnimationFrame = useCallback(
-    (time: number, delta: number): void => {
-      if (!cursorCanvasRef.current) return;
+        enableOnFrameFollow.current = false;
 
-      if (enableOnFrameFollow.current) {
-        handleSetCursorCanvasLocation(cursorLocation);
+        const currentCursorLocation =
+          cursorCanvasTempCopyCurrentLocation.copy(cursorLocation);
 
-        handleDampCursorCanvasLocation(
-          delta,
-          cursorCanvasDampedFollowStepRef.current,
+        animateCursorCanvasToMenuPosition(
+          cursorCanvasDampedFollowLocation,
+          currentCursorLocation,
+          () => {
+            cursorCanvasDampedFollowStep.setX(0);
+          },
         );
-      }
+      }, [menuActive, cursorLocation]);
 
-      handleUpdateCursorCanvasFinalLocation();
+    const handleAnimateCursorToFollowPosition: ConstantVoidFunctionType =
+      useCallback((): void => {
+        if (menuActive) return;
+        if (enableOnFrameFollow.current) return;
 
-      handleUpdateCursorCanvasElementLocation(cursorCanvasRef.current);
-    },
-    [cursorLocation],
-  );
+        enableOnFrameFollow.current = true;
 
-  // Listeners
-  useEffect((): void => {
-    handleAnimateCursorToMenuPosition();
-    handleAnimateCursorToFollowPosition();
-  }, [
-    menuActive,
-    handleAnimateCursorToMenuPosition,
-    handleAnimateCursorToFollowPosition,
-  ]);
+        const currentCursorLocation =
+          cursorCanvasTempCopyCurrentLocation.copy(cursorLocation);
 
-  // Hooks
-  useAnimationFrame(handleCursorCanvasAnimationFrame);
+        cursorCanvasFollowLocation.set(
+          currentCursorLocation.x - cursorCanvasCenterOffset.x,
+          currentCursorLocation.y - cursorCanvasCenterOffset.y,
+        );
 
-  return { cursorCanvasRef };
-};
+        animateCursorCanvasToFollowPosition(cursorCanvasDampedFollowStep);
+      }, [menuActive, cursorLocation]);
+
+    const handleCursorCanvasAnimationFrame: FramerAnimFrameFunctionType =
+      useCallback(
+        (time: number, delta: number): void => {
+          if (!cursorCanvasRef.current) return;
+
+          if (enableOnFrameFollow.current) {
+            handleSetCursorCanvasLocation(cursorLocation);
+
+            handleDampCursorCanvasLocation(
+              delta,
+              cursorCanvasDampedFollowStep.x,
+            );
+          }
+
+          handleUpdateCursorCanvasFinalLocation();
+
+          handleUpdateCursorCanvasElementLocation(cursorCanvasRef.current);
+        },
+        [cursorLocation],
+      );
+
+    // Listeners
+    useEffect((): void => {
+      handleAnimateCursorToMenuPosition();
+      handleAnimateCursorToFollowPosition();
+    }, [
+      menuActive,
+      handleAnimateCursorToMenuPosition,
+      handleAnimateCursorToFollowPosition,
+    ]);
+
+    // Hooks
+    useAnimationFrame(handleCursorCanvasAnimationFrame);
+
+    return { cursorCanvasRef };
+  };
 
 export { useCursorCanvasLogic };

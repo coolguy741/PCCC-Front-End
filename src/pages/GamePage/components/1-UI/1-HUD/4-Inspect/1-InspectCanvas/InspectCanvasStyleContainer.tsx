@@ -8,9 +8,9 @@ const InspectCanvasStyleContainer = styled.div`
   ${UserSelectNone};
   ${MarginPaddingNone};
   ${DisableTouchPointerEvents}
-  width: 100%;
-  height: 100%;
-  cursor: none;
+  width: 20vw;
+  height: 20vw;
+  cursor: none !important;
 `;
 
 export default memo(InspectCanvasStyleContainer);

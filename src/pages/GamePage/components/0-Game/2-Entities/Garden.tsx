@@ -1,4 +1,5 @@
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { folder, useControls } from "leva";
 import { memo, useCallback, useEffect, useState } from "react";
 import {
@@ -7,6 +8,8 @@ import {
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   Shader,
+  SkinnedMesh,
+  Vector3,
 } from "three";
 import { GLTF } from "three-stdlib";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -62,6 +65,15 @@ type GLTFResult = GLTF & {
 };
 
 const loader = new GLTFLoader();
+const c = new Vector3();
+
+const alphaMat = new MeshPhysicalMaterial({
+  transparent: true,
+});
+
+const regMat = new MeshPhysicalMaterial({
+  transparent: true,
+});
 
 const Garden = (props: JSX.IntrinsicElements["group"]) => {
   // Local State
@@ -72,20 +84,44 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
   ) as GLTFResult;
 
   // Global State
-  const { setMenuActive, dynamicGarden } = useGlobalState(
+  const { dynamicGarden } = useGlobalState(
     (state) => ({
-      setMenuActive: state.setMenuActive,
       dynamicGarden: state.dynamicGarden,
     }),
     shallow,
   );
 
-  const handleTempMenuExit = useCallback(() => {
-    setMenuActive(false);
-  }, [setMenuActive]);
+  // Hooks
+  const { enable, intensity, gardenVisible, colorMultiplier } = useControls({
+    garden: folder(
+      {
+        gardenVisible: true,
+        colorMultiplier: { r: 255, b: 255, g: 255 },
+      },
+      { collapsed: true },
+    ),
+    shadows: folder(
+      {
+        enable: true,
+      },
+      { collapsed: true },
+    ),
+    HDR: folder(
+      {
+        intensity: {
+          value: 1,
+          min: 0,
+          max: 1,
+          step: 0.0001,
+        },
+      },
+      { collapsed: true },
+    ),
+  });
 
   // Handlers
   const handleOBC = useCallback((shader: Shader) => {
+    shader.uniforms.uMultiplier = { value: new Vector3() };
     shader.vertexShader = shader.vertexShader.replace(
       "#include <color_pars_vertex>",
       `#include <color_pars_vertex>
@@ -133,6 +169,8 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
             varying vec4 vMetallicMask;
             varying vec4 vRoughnessMask;
             varying vec4 vSpecularMask;
+
+            uniform vec3 uMultiplier;
             
             float map(float value, float min1, float max1, float min2, float max2) {
                 return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -241,14 +279,16 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
       "#include <output_fragment>",
       `#include <output_fragment>
         vec3 finalColor = outgoingLight * vAOMask.rgb;
-        gl_FragColor = vec4(finalColor, diffuseColor.a);
+        gl_FragColor = vec4(finalColor * uMultiplier, diffuseColor.a);
         `,
     );
 
+    regMat.userData.shader = shader;
     // console.log(shader.fragmentShader);
   }, []);
 
   const handleOBCAlpha = useCallback((shader: Shader) => {
+    shader.uniforms.uMultiplier = { value: new Vector3() };
     shader.vertexShader = shader.vertexShader.replace(
       "#include <color_pars_vertex>",
       `#include <color_pars_vertex>
@@ -300,6 +340,8 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
             varying vec4 vMetallicMask;
             varying vec4 vRoughnessMask;
             varying vec4 vSpecularMask;
+
+            uniform vec3 uMultiplier;
             
             float map(float value, float min1, float max1, float min2, float max2) {
                 return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -408,52 +450,85 @@ const Garden = (props: JSX.IntrinsicElements["group"]) => {
       "#include <output_fragment>",
       `#include <output_fragment>
         vec3 finalColor = outgoingLight * vAOMask.rgb;
-        gl_FragColor = vec4(finalColor, vAlphaMask.r);
+        gl_FragColor = vec4(finalColor * uMultiplier, vAlphaMask.r);
         `,
     );
 
-    // console.log(shader.fragmentShader);
+    alphaMat.userData.shader = shader;
   }, []);
+
+  useFrame(() => {
+    c.set(
+      colorMultiplier.r / 255,
+      colorMultiplier.g / 255,
+      colorMultiplier.b / 255,
+    );
+
+    if (regMat.userData.shader) {
+      regMat.userData.shader.uniforms.uMultiplier.value = c;
+    }
+
+    if (alphaMat.userData.shader) {
+      alphaMat.userData.shader.uniforms.uMultiplier.value = c;
+    }
+  });
 
   const handleUpdateGLTFScene = useCallback(() => {
     if (!dynamicGarden) return;
 
     loader.parse(dynamicGarden, "", (gltf) => {
-      // @ts-ignore
-      if (gltf.scene["children"][0].geometry.attributes._alpha) {
-        const alpha = new MeshPhysicalMaterial({ transparent: true });
-        alpha.onBeforeCompile = handleOBCAlpha;
-        // @ts-ignore
-        gltf.scene["children"][0].material = alpha;
-      } else {
-        const reg = new MeshPhysicalMaterial();
-        reg.onBeforeCompile = handleOBC;
-        // @ts-ignore
-        gltf.scene["children"][0].material = reg;
-        // console.log(gltf.scene["children"][0].geometry);
+      if (gltf.scene) {
+        gltf.scene.traverse((child) => {
+          if (child instanceof Mesh || child instanceof SkinnedMesh) {
+            if (child.name === "garden") {
+              child.castShadow = enable;
+              child.receiveShadow = enable;
+              child.visible = true;
+              if (
+                !child.geometry.attributes._ao ||
+                !child.geometry.attributes._metallic ||
+                !child.geometry.attributes._roughness ||
+                !child.geometry.attributes._specular
+              ) {
+                setGltfScene(null);
+                window.alert("incorrect attributes");
+                return;
+              } else {
+                if (child.geometry.attributes._alpha) {
+                  alphaMat.envMapIntensity = intensity;
+                  alphaMat.onBeforeCompile = handleOBCAlpha;
+                  child.material = alphaMat;
+                } else {
+                  regMat.envMapIntensity = intensity;
+                  regMat.onBeforeCompile = handleOBC;
+                  child.material = regMat;
+                }
+                setGltfScene(gltf.scene);
+              }
+            } else if (child.name.includes("collider")) {
+              child.castShadow = false;
+              child.receiveShadow = false;
+              child.visible = false;
+            } else {
+              setGltfScene(null);
+              window.alert("incorrect attributes");
+              return;
+            }
+          }
+        });
       }
-      //   console.log(gltf.scene["children"][0].material);
-
-      setGltfScene(gltf.scene);
     });
-  }, [dynamicGarden, handleOBC, handleOBCAlpha]);
+  }, [dynamicGarden, handleOBC, handleOBCAlpha, intensity, enable]);
 
   // Listeners
   useEffect(handleUpdateGLTFScene, [handleUpdateGLTFScene, dynamicGarden]);
 
-  // Hooks
-  const { gardenVisible } = useControls({
-    gardenVisible: folder({
-      gardenVisible: true,
-    }),
-  });
-
   return (
-    <group visible={gardenVisible}>
+    <group visible={gardenVisible} renderOrder={1}>
       {gltfScene ? (
         <group>{gltfScene && <primitive object={gltfScene} />}</group>
       ) : (
-        <group dispose={null} onClick={handleTempMenuExit}>
+        <group dispose={null}>
           <group
             name="MergedEnvironment001"
             rotation={[Math.PI / 2, 0, 0]}

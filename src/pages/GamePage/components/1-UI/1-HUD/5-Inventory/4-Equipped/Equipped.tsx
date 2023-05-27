@@ -1,10 +1,10 @@
 import { FC, memo } from "react";
 import StaticSVGLoader from "../../../3-Reusable/0-StaticSVGLoader.tsx/StaticSVGLoader";
-import { InventoryEquippedBGSVG } from "../6-SVGAssets/InventoryEquippedBGSVG";
-import { InventoryEquippedBodySVG } from "../6-SVGAssets/InventoryEquippedBodySVG";
-import { InventoryEquippedEyeSVG } from "../6-SVGAssets/InventoryEquippedEyeSVG";
-import { InventoryEquippedHandsSVG } from "../6-SVGAssets/InventoryEquippedHandsSVG";
-import { InventoryEquippedHeadSVG } from "../6-SVGAssets/InventoryEquippedHeadSVG";
+import { InventoryEquippedBGSVG } from "../6-InventorySVGAssets/InventoryEquippedBGSVG";
+import { InventoryEquippedBodySVG } from "../6-InventorySVGAssets/InventoryEquippedBodySVG";
+import { InventoryEquippedEyeSVG } from "../6-InventorySVGAssets/InventoryEquippedEyeSVG";
+import { InventoryEquippedHandsSVG } from "../6-InventorySVGAssets/InventoryEquippedHandsSVG";
+import { InventoryEquippedHeadSVG } from "../6-InventorySVGAssets/InventoryEquippedHeadSVG";
 import EquippedStyleContainer from "./EquippedStyleContainer";
 
 const Equipped: FC = () => {

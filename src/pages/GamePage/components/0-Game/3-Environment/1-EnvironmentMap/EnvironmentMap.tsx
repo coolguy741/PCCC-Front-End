@@ -13,10 +13,18 @@ const EnvironmentMap: FC = () => {
 
   // Hooks
   const { blurHDR, projectHDR } = useControls({
-    HDR: folder({
-      blurHDR: 0,
-      projectHDR: true,
-    }),
+    HDR: folder(
+      {
+        blurHDR: {
+          value: 0.1,
+          min: 0,
+          max: 1,
+          step: 0.1,
+        },
+        projectHDR: true,
+      },
+      { collapsed: true },
+    ),
   });
 
   const { dataURL, dataPath } = useMemo(() => {

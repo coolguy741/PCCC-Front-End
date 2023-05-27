@@ -3,6 +3,7 @@ import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import DebugButton from "./0-DebugButton/DebugButton";
 import ActiveStateController from "./ActiveStateController/ActiveStateController";
+import CursorDebug from "./CursorDebug";
 import DebugPlayerCameraTriggers from "./DebugPlayerCameraTriggers/DebugPlayerCameraTriggers";
 import DynamicFileController from "./DynamicFileController";
 import LevaController from "./LevaController";
@@ -40,6 +41,7 @@ const DebugUIContainer: FC = () => {
       <DebugPlayerCameraTriggers />
       {isDebugUIVisible && (
         <Fragment>
+          <CursorDebug />
           <VConsoleController />
           <DynamicFileController />
           <ActiveStateController />

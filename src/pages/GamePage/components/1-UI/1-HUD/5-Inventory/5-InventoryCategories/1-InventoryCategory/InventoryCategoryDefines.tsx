@@ -1,5 +1,11 @@
+import { DraggableItemsTypes } from "./DraggableGrid";
+
 export interface InventoryCategoryDataTypes {
-  id: number;
+  itemName: string;
+}
+
+export interface InventoryCategoryConvertedDataTypes {
+  id: string;
   itemName: string;
 }
 
@@ -19,7 +25,7 @@ const MiscCategoryStyleObject = {
 const handleRenderInventoryItem = ({
   id,
   itemName,
-}: InventoryCategoryDataTypes) => {
+}: InventoryCategoryConvertedDataTypes) => {
   return (
     <div key={id} className="inventory-item">
       <img
@@ -32,46 +38,81 @@ const handleRenderInventoryItem = ({
 };
 
 const tempToolsData: InventoryCategoryDataTypes[] = [
-  { id: 0, itemName: "hat" },
-  { id: 1, itemName: "hat" },
-  { id: 2, itemName: "hat" },
-  { id: 3, itemName: "hat" },
-  { id: 4, itemName: "hat" },
-  { id: 5, itemName: "hat" },
-  { id: 6, itemName: "hat" },
-  { id: 7, itemName: "hat" },
-  { id: 8, itemName: "hat" },
-  { id: 9, itemName: "hat" },
-  { id: 10, itemName: "hat" },
-  { id: 11, itemName: "hat" },
-  { id: 12, itemName: "hat" },
+  { itemName: "hat" },
+  { itemName: "shovel" },
+  { itemName: "gloves" },
+  { itemName: "shovel" },
+  { itemName: "rake" },
+  { itemName: "hat" },
+  { itemName: "hat" },
+  { itemName: "gloves" },
+  { itemName: "hat" },
+  { itemName: "rake" },
+  { itemName: "shovel" },
+  { itemName: "gloves" },
+  { itemName: "rake" },
 ];
 
 const tempIngredientsData: InventoryCategoryDataTypes[] = [
-  { id: 0, itemName: "hat" },
-  { id: 1, itemName: "hat" },
-  { id: 2, itemName: "hat" },
-  { id: 3, itemName: "hat" },
-  { id: 4, itemName: "hat" },
-  { id: 5, itemName: "hat" },
+  { itemName: "rake" },
+  { itemName: "gloves" },
+  { itemName: "hat" },
+  { itemName: "gloves" },
+  { itemName: "rake" },
+  { itemName: "hat" },
 ];
 
 const tempMiscData: InventoryCategoryDataTypes[] = [
-  { id: 0, itemName: "hat" },
-  { id: 1, itemName: "hat" },
-  { id: 2, itemName: "hat" },
-  { id: 3, itemName: "hat" },
-  { id: 4, itemName: "hat" },
-  { id: 5, itemName: "hat" },
-  { id: 6, itemName: "hat" },
-  { id: 7, itemName: "hat" },
-  { id: 8, itemName: "hat" },
-  { id: 9, itemName: "hat" },
-  { id: 10, itemName: "hat" },
-  { id: 11, itemName: "hat" },
-  { id: 12, itemName: "hat" },
-  { id: 13, itemName: "hat" },
+  { itemName: "rake" },
+  { itemName: "hat" },
+  { itemName: "gloves" },
+  { itemName: "hat" },
+  { itemName: "gloves" },
+  { itemName: "rake" },
+  { itemName: "hat" },
+  { itemName: "rake" },
+  { itemName: "gloves" },
+  { itemName: "rake" },
+  { itemName: "hat" },
+  { itemName: "gloves" },
+  { itemName: "hat" },
+  { itemName: "gloves" },
 ];
+
+export const ITEM_RATIO = 1;
+export const NUM_COLS = 4;
+
+interface GridDimensionsTypes {
+  bottom: number;
+  height: number;
+  left: number;
+  right: number;
+  top: number;
+  width: number;
+  x: number;
+  y: number;
+}
+
+export interface GetGridDimensionsReturnTypes {
+  width: number;
+  height: number;
+}
+
+export const getItemDimensions = (
+  gridDimensions: GridDimensionsTypes,
+): GetGridDimensionsReturnTypes => {
+  const width = gridDimensions.width / NUM_COLS;
+  const height = width * ITEM_RATIO;
+  return { width, height };
+};
+
+export const swap = (arr: DraggableItemsTypes[], from: number, to: number) => {
+  const _arr = arr.slice(0);
+  const val = _arr[from];
+  _arr.splice(from, 1);
+  _arr.splice(to, 0, val);
+  return _arr;
+};
 
 export {
   tempMiscData,

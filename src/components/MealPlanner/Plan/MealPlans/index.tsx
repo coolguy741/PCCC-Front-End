@@ -35,6 +35,7 @@ export const MealPlans = () => {
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
   const [mealPlanMenu, setMealPlanMenu] = useState(mockMealPlanMenu);
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
+  const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const sourceIndex = result.source.index;
@@ -67,6 +68,7 @@ export const MealPlans = () => {
       }
     }
     setMealPlans([...updatedMealPlans]);
+    setSelectedMeal(undefined);
     setDragUpdateStatus(undefined);
   };
 
@@ -80,8 +82,18 @@ export const MealPlans = () => {
     setMealPlans([...updatedMealPlans]);
   };
 
-  const onDragUpdate: OnDragUpdateResponder = (data) => {
-    setDragUpdateStatus(data);
+  const onDragUpdate: OnDragUpdateResponder = (result) => {
+    setDragUpdateStatus(result);
+
+    const sourceIndex = result.source.index;
+    if (result.source.droppableId === "droppable-meal-menu") {
+      setSelectedMeal(mealPlanMenu[sourceIndex]);
+    } else {
+      const sourceDayIndex = Number(result.source?.droppableId.slice(-1));
+      if (!isNaN(sourceDayIndex)) {
+        setSelectedMeal(mealPlans[sourceDayIndex].plans[sourceIndex]);
+      }
+    }
   };
 
   return (
@@ -120,6 +132,7 @@ export const MealPlans = () => {
               mealPlans={mealPlans}
               onMealRemove={onMealRemove}
               dragUpdateStatus={dragUpdateStatus}
+              selectedMeal={selectedMeal}
             />
           </Style.LeftPage>
           <Style.Page>

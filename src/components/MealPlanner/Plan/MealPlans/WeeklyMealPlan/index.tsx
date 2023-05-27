@@ -7,7 +7,7 @@ import {
   Droppable,
   NotDraggingStyle,
 } from "react-beautiful-dnd";
-import { FullMealPlan } from "..";
+import { FullMealPlan, MealPlan } from "..";
 import { useMealPlannerStore } from "../../../../../stores/mealPlannerStore";
 import { Icon } from "../../../../Global/Icon";
 import { Typography } from "../../../../Global/Typography";
@@ -15,6 +15,7 @@ import { MealCard } from "../MealCard";
 interface WeeklyMealPlanProps {
   mealPlans: FullMealPlan[];
   onMealRemove: (dayIndex: number, index: number) => void;
+  selectedMeal?: MealPlan;
   dragUpdateStatus?: DragUpdate;
 }
 
@@ -22,11 +23,22 @@ export const WeeklyMealPlan = ({
   mealPlans,
   onMealRemove,
   dragUpdateStatus,
+  selectedMeal,
 }: WeeklyMealPlanProps) => {
   const { changeStep } = useMealPlannerStore();
   const handlePrev = () => {
     changeStep(1);
   };
+
+  const isDraggedOver = (dayIndex: number, index: number) =>
+    dragUpdateStatus?.destination?.droppableId ===
+      `droppable-weekly-meal-plan-${dayIndex}` &&
+    dragUpdateStatus?.destination?.index === index;
+
+  const isDragged = (dayIndex: number, index: number) =>
+    dragUpdateStatus?.source.droppableId ===
+      `droppable-weekly-meal-plan-${dayIndex}` &&
+    dragUpdateStatus.source.index === index;
 
   const getStyle = (
     style: DraggingStyle | NotDraggingStyle | undefined,
@@ -35,21 +47,12 @@ export const WeeklyMealPlan = ({
     index: number,
   ) => {
     const customStyle: Record<string, any> = {};
-    const droppableId = `droppable-weekly-meal-plan-${dayIndex}`;
     // is Dragged Over
-    if (
-      dragUpdateStatus?.destination?.droppableId === droppableId &&
-      dragUpdateStatus?.destination?.index === index
-    ) {
-      customStyle.visibility = "hidden";
+    if (isDraggedOver(dayIndex, index)) {
+      customStyle.border = "2px dashed var(--blue-400)";
+      customStyle.opacity = "0.7";
     }
-    if (
-      !(
-        dragUpdateStatus?.source?.droppableId === droppableId &&
-        dragUpdateStatus?.source?.index === index
-      ) ||
-      dragUpdateStatus?.source.droppableId === "droppable-meal-menu"
-    ) {
+    if (!isDragged(dayIndex, index)) {
       customStyle.transform = undefined;
     }
     if (!isDragging) {
@@ -60,6 +63,7 @@ export const WeeklyMealPlan = ({
       ...customStyle,
     };
   };
+
   return (
     <Style.Container>
       <Style.BackButton onClick={handlePrev}>
@@ -135,7 +139,11 @@ export const WeeklyMealPlan = ({
                             )}
                           >
                             <MealCard
-                              meal={meal}
+                              meal={
+                                isDraggedOver(dayIndex, index)
+                                  ? selectedMeal || meal
+                                  : meal
+                              }
                               onMealRemove={() => onMealRemove(dayIndex, index)}
                               label={
                                 dayIndex === 0 ? `meal-${index + 1}` : null

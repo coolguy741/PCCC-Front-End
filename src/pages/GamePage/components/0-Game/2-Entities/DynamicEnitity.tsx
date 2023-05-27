@@ -4,9 +4,11 @@ import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   Euler,
   Group,
+  Mesh,
   MeshPhysicalMaterial,
   Quaternion,
   Shader,
+  SkinnedMesh,
   Vector3,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -30,22 +32,28 @@ const DynamicEntity: FC = () => {
   const [gltfScene, setGltfScene] = useState<Group | null>(null);
 
   // Global State
-  const { dynamicGLB } = useGlobalState(
-    (state) => ({ dynamicGLB: state.dynamicGLB }),
+  const { dynamicGLB, setDynamicGLB } = useGlobalState(
+    (state) => ({
+      dynamicGLB: state.dynamicGLB,
+      setDynamicGLB: state.setDynamicGLB,
+    }),
     shallow,
   );
 
   // Hooks
   const { transforms, mode } = useControls({
-    DynamicModel: folder({
-      transforms: true,
-      mode: {
-        value: 0,
-        min: 0,
-        max: 2,
-        step: 1,
+    DynamicModel: folder(
+      {
+        transforms: true,
+        mode: {
+          value: 0,
+          min: 0,
+          max: 2,
+          step: 1,
+        },
       },
-    }),
+      { collapsed: true },
+    ),
   });
 
   // Handlers
@@ -421,24 +429,36 @@ const DynamicEntity: FC = () => {
     if (!dynamicGLB) return;
 
     loader.parse(dynamicGLB, "", (gltf) => {
-      // @ts-ignore
-      if (gltf.scene["children"][0].geometry.attributes._alpha) {
-        const alpha = new MeshPhysicalMaterial({ transparent: true });
-        alpha.onBeforeCompile = handleOBCAlpha;
-        // @ts-ignore
-        gltf.scene["children"][0].material = alpha;
-      } else {
-        const reg = new MeshPhysicalMaterial();
-        reg.onBeforeCompile = handleOBC;
-        // @ts-ignore
-        gltf.scene["children"][0].material = reg;
-        // console.log(gltf.scene["children"][0].geometry);
+      if (gltf.scene) {
+        gltf.scene.traverse((child) => {
+          if (child instanceof Mesh || child instanceof SkinnedMesh) {
+            if (
+              !child.geometry.attributes._ao ||
+              !child.geometry.attributes._metallic ||
+              !child.geometry.attributes._roughness ||
+              !child.geometry.attributes._specular
+            ) {
+              setDynamicGLB("");
+              setGltfScene(null);
+              window.alert("incorrect attributes");
+              return;
+            } else {
+              if (child.geometry.attributes._alpha) {
+                child.material = new MeshPhysicalMaterial({
+                  transparent: true,
+                });
+                child.material.onBeforeCompile = handleOBCAlpha;
+              } else {
+                child.material = new MeshPhysicalMaterial();
+                child.material.onBeforeCompile = handleOBC;
+              }
+              setGltfScene(gltf.scene);
+            }
+          }
+        });
       }
-      //   console.log(gltf.scene["children"][0].material);
-
-      setGltfScene(gltf.scene);
     });
-  }, [dynamicGLB, handleOBC, handleOBCAlpha]);
+  }, [dynamicGLB, setDynamicGLB, handleOBC, handleOBCAlpha]);
 
   // Listeners
   useEffect(handleUpdateGLTFScene, [handleUpdateGLTFScene, dynamicGLB]);
@@ -452,25 +472,11 @@ const DynamicEntity: FC = () => {
       showY={transforms && dynamicGLB !== null}
       showZ={transforms && dynamicGLB !== null}
     >
-      <group>
+      <group renderOrder={1}>
         {gltfScene && <primitive ref={dynamicGLBRef} object={gltfScene} />}
-
-        {/* <Sphere>
-          <meshPhysicalMaterial
-            color={"red"}
-            specularIntensity={0}
-            metalness={1}
-            roughness={0}
-          />
-        </Sphere> */}
       </group>
     </TransformControls>
   );
 };
 
 export default memo(DynamicEntity);
-
-// gl_FragColor = vec4(vec3(vMetallicMask.r), diffuseColor.a);
-// gl_FragColor = vec4(vec3(vSpecularMask.r), diffuseColor.a);
-// gl_FragColor = vec4(vec3(vAOMask.g), diffuseColor.a);
-// gl_FragColor = vec4(vec3(vRoughnessMask.r), diffuseColor.a);

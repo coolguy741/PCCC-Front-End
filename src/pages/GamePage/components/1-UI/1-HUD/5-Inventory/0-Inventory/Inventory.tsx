@@ -3,16 +3,22 @@ import StaticSVGLoader from "../../../3-Reusable/0-StaticSVGLoader.tsx/StaticSVG
 import Equipped from "../4-Equipped/Equipped";
 
 import InventoryCategoryParent from "../5-InventoryCategories/0-InventoryCategoryParent/InventoryCategoryParent";
-import { InventoryPagesSVG } from "../6-SVGAssets/InventoryPagesSVG";
-import { InventoryWoodBGSVG } from "../6-SVGAssets/InventoryWoodBGSVG";
+import { InventoryPagesSVG } from "../6-InventorySVGAssets/InventoryPagesSVG";
+import { InventoryWoodBGSVG } from "../6-InventorySVGAssets/InventoryWoodBGSVG";
 import InventoryStyleContainer from "./InventoryStyleContainer";
+import { useInventoryLogic } from "./useInvetoryLogic";
 
 const Inventory: FC = () => {
   // Hooks
-  // const { inventoryContainerRef } = useInventoryLogic();
+  const { handlePointerOut, handlePointerOver, inventoryContainerRef } =
+    useInventoryLogic();
 
   return (
-    <InventoryStyleContainer>
+    <InventoryStyleContainer
+      ref={inventoryContainerRef}
+      onPointerEnter={handlePointerOver}
+      onPointerLeave={handlePointerOut}
+    >
       <div className="inventory-book">
         <div className="inventory-wood">
           <StaticSVGLoader

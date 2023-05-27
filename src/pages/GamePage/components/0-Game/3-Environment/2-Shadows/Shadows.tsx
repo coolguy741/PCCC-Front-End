@@ -4,17 +4,41 @@ import { FC, Fragment, memo } from "react";
 
 const Shadows: FC = () => {
   const { size, focus, samples, enableSS, enableBS } = useControls({
-    shadows: folder({
-      softShadows: folder({
-        enableSS: true,
-        samples: 16,
-        focus: 0,
-        size: 20,
-      }),
-      bakeShadows: folder({
-        enableBS: true,
-      }),
-    }),
+    shadows: folder(
+      {
+        softShadows: folder(
+          {
+            enableSS: true,
+            samples: {
+              value: 8,
+              min: 0,
+              max: 16,
+              step: 4,
+            },
+            focus: {
+              value: 0,
+              min: 0,
+              max: 1,
+              step: 0.0001,
+            },
+            size: {
+              value: 20,
+              min: 0,
+              max: 40,
+              step: 1,
+            },
+          },
+          { collapsed: true },
+        ),
+        bakeShadows: folder(
+          {
+            enableBS: false,
+          },
+          { collapsed: true },
+        ),
+      },
+      { collapsed: true },
+    ),
   });
   return (
     <Fragment>

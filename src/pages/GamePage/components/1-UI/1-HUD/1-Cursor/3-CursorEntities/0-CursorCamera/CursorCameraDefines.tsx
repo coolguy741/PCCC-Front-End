@@ -1,28 +1,35 @@
 import { MathUtils, OrthographicCamera, Vector2 } from "three";
+import {
+  ConstantDampFunctionType,
+  ConstantVoidFunctionType,
+} from "../../../../../../shared/Types/DefineTypes";
+import { CursorCameraCameraUpdatefunctionType } from "./CursorCameraTypes";
 
-const cursorCameraMaxRotation = 1.5;
+const cursorCameraMaxRotation = 2.5;
 const cursorCameraMinRotation = -0.25;
 const haltInterpolationThreshold = 0.0001;
 
 const range: number = cursorCameraMaxRotation - cursorCameraMinRotation;
-const thirdOfRange: number = range / 3;
+const fourthOfRange: number = range / 4;
 
-const cursorCameraBreakpoint1: number = cursorCameraMinRotation + thirdOfRange;
+const cursorCameraBreakpoint1: number = cursorCameraMinRotation + fourthOfRange;
 const cursorCameraBreakpoint2: number =
-  cursorCameraMinRotation + 2 * thirdOfRange;
+  cursorCameraMinRotation + fourthOfRange * 2;
+const cursorCameraBreakpoint3: number =
+  cursorCameraMinRotation + fourthOfRange * 3;
 
 const cursorCameraInitRotation: Vector2 = new Vector2();
 const cursorCameraDampedRotation: Vector2 = new Vector2();
 const cursorCameraFinalRotation: Vector2 = new Vector2();
 const cursorCameraCopyCurrentRotation: Vector2 = new Vector2();
+const cursorCurrentXLocation: Vector2 = new Vector2();
 
-const handleUpdateCursorCameraFinalRotation = (
-  cursorCameraReference: OrthographicCamera,
-): void => {
-  cursorCameraReference.rotation.z = cursorCameraFinalRotation.x;
-};
+const handleUpdateCursorCameraFinalRotation: CursorCameraCameraUpdatefunctionType =
+  (cursorCameraReference: OrthographicCamera): void => {
+    cursorCameraReference.rotation.z = cursorCameraFinalRotation.x;
+  };
 
-const handleCursorCameraDampedRotation = (
+const handleCursorCameraDampedRotation: ConstantDampFunctionType = (
   step: number,
   delta: number,
 ): void => {
@@ -34,11 +41,12 @@ const handleCursorCameraDampedRotation = (
   );
 };
 
-const handleCursorCameraFinalMenuRotation = (): void => {
-  cursorCameraFinalRotation.copy(cursorCameraDampedRotation);
-};
+const handleCursorCameraFinalMenuRotation: ConstantVoidFunctionType =
+  (): void => {
+    cursorCameraFinalRotation.copy(cursorCameraDampedRotation);
+  };
 
-const handleHaltInterpolationCheck = (
+const handleHaltInterpolationCheck: CursorCameraCameraUpdatefunctionType = (
   cursorCameraReference: OrthographicCamera,
 ): void => {
   if (cursorCameraReference.rotation.z < haltInterpolationThreshold) {
@@ -47,8 +55,10 @@ const handleHaltInterpolationCheck = (
 };
 
 export {
+  cursorCurrentXLocation,
   cursorCameraBreakpoint1,
   cursorCameraBreakpoint2,
+  cursorCameraBreakpoint3,
   cursorCameraMaxRotation,
   cursorCameraMinRotation,
   cursorCameraInitRotation,

@@ -1,15 +1,21 @@
 import { FC, memo } from "react";
+import ToolRackPOC from "../3-ToolRackPOC/ToolRackPOC";
 import { useInspectItemLogic } from "./useInspectItemLogic";
 
 const InspectItem: FC = () => {
   // Hooks
-  const { inspectItemMeshRef } = useInspectItemLogic();
+  const { inspectItemMeshRef, handleIsActivatedDown, handleIsActivatedUp } =
+    useInspectItemLogic();
 
   return (
-    <mesh castShadow ref={inspectItemMeshRef} scale={1.1}>
-      <torusKnotGeometry args={[1, 0.25, 64, 8, 2, 3]} />
-      <meshStandardMaterial color="hotpink" emissiveIntensity={0} />
-    </mesh>
+    <group
+      ref={inspectItemMeshRef}
+      scale={30}
+      onPointerDown={handleIsActivatedDown}
+      onPointerUp={handleIsActivatedUp}
+    >
+      <ToolRackPOC />
+    </group>
   );
 };
 
