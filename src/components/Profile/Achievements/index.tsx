@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 
-export function UserAchievements({ openAchievementsModal }: any) {
+export function UserAchievements({
+  openAchievementsModal,
+}: {
+  openAchievementsModal: () => void;
+}) {
   return (
     <Style.Container className="achievements">
       <hgroup className="header-view">

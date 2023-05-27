@@ -44,6 +44,7 @@ export const AccountsGroupPage = () => {
     );
 
     if (response.data.items) {
+      // TODO: type
       response.data.items.find((item: any) => {
         if (item.group.id === params.group) {
           setGroup(item);

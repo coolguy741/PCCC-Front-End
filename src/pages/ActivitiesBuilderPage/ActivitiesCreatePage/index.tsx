@@ -63,10 +63,6 @@ export const ActivitiesCreatePage = () => {
   );
 };
 
-const ClickedButton = styled(SmallButton)`
-  background-color: green;
-`;
-
 const Style = {
   ClickedButton: styled(SmallButton)`
     background-color: green;

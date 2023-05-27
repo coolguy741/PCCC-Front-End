@@ -13,6 +13,7 @@ const useInspectItemLogic = (): UseInspectItemLogicReturnTypes => {
   // Refs
   const inspectItemMeshRef: RefGroupType = useRef(null);
 
+  // TODO: is activated not used
   const [isActivated, setIsActivated] = useState(true);
 
   // Handlers

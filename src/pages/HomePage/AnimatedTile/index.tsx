@@ -4,6 +4,7 @@ import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+import { Tile } from "../tile_data";
 
 function exceptionForGameName(subtitle: string) {
   if (subtitle) {
@@ -18,9 +19,8 @@ function exceptionForGameName(subtitle: string) {
   }
 }
 
-export const AnimatedTile = (props: any) => {
+export const AnimatedTile = ({ tile }: { tile: Tile }) => {
   const [isShowingBubble, setIsShowingBubble] = useState(false);
-  const { tile } = props;
 
   const handleClick = () => {
     setIsShowingBubble(true);
@@ -47,9 +47,7 @@ export const AnimatedTile = (props: any) => {
         {isShowingBubble && (
           <div className="bubble-container">
             <SpeechBubble
-              left={tile.speechBubble.left}
-              top={tile.speechBubble.top}
-              variant={tile.speechBubble.variant as any}
+              variant={tile.speechBubble.variant}
               to={tile.speechBubble.link}
             >
               {tile.speechBubble.text}
