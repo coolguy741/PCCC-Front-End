@@ -122,35 +122,13 @@ export function SideMenu() {
 }
 
 const Style = {
-  MenuItem: styled.div`
-    color: var(--white);
-
-    .menu-item {
-      display: flex;
-      padding: ${conv(20, "vh")} ${conv(36, "vw")};
-      cursor: pointer;
-
-      .menu-icon {
-        margin-right: var(--gutter-grid);
-      }
-
-      .arrow {
-        margin-left: auto;
-      }
-
-      .menu-content {
-        font-weight: 600;
-        font-size: ${conv(19, "vh")};
-        line-height: 125%;
-      }
-    }
-  `,
   DropDown: styled.div.attrs((props: { open: boolean; count: number }) => ({
     open: props.open,
     count: props.count,
   }))`
-    height: ${({ open, count }) => (open ? `${64 * count}px` : 0)};
-    transition: height 0.3s ease-in-out;
+    height: ${({ open, count }) => (open ? `${conv(48 * count, "vh")}` : 0)};
+    padding-top: ${({ open }) => (open ? `${conv(24, "vh")}` : 0)};
+    transition: height 0.3s ease-in-out, padding-top 0.3s ease-in-out;
     overflow: hidden;
   `,
   SubMenuItem: styled.div.attrs((props: { open: boolean }) => ({
@@ -161,6 +139,29 @@ const Style = {
       transform: rotate(${({ open }) => (open ? "0deg" : "-180deg")});
     }
   `,
+  MenuItem: styled.div`
+    color: var(--white);
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .menu-icon {
+        width: ${conv(24, "vh")};
+        height: ${conv(24, "vh")};
+      }
+
+      .arrow {
+        width: ${conv(24, "vh")};
+        display: none;
+      }
+
+      .menu-content {
+        display: none;
+      }
+    }
+  `,
   MenuContainer: styled.aside`
     z-index: 100;
     position: fixed;
@@ -168,153 +169,122 @@ const Style = {
     height: 100vh;
     background: linear-gradient(-90deg, var(--green-400), var(--green-600));
     border-radius: 0 ${conv(32, "vh")} ${conv(32, "vh")} 0;
-    padding: ${conv(36, "vh")} ${conv(20, "vh")};
+    filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
+    padding: ${conv(20, "vh")} ${conv(36, "vh")};
     display: flex;
     flex-direction: column;
-    filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
-    overflow-y: auto;
+    align-items: center;
+    transition: width 0.2s ease-in-out;
+    overflow: hidden;
 
-    .username {
-      line-height: ${conv(24, "vh")};
-      font-weight: 700;
-      font-size: ${conv(19, "vh")};
-      transition: all 0.2s ease-in-out;
+    .logo-container {
+      display: flex;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: ${conv(77, "vh")};
+
+      svg {
+        width: ${convertToRelativeUnit(60, "vh")};
+        height: ${convertToRelativeUnit(60, "vh")};
+      }
     }
 
     .btn-logout {
       position: relative;
       height: ${conv(48, "vh")};
       min-height: ${conv(48, "vh")};
-      margin-top: ${conv(40, "vh")};
-      margin-left: calc(2 * var(--gutter-grid));
-      width: ${conv(124, "vh")};
+      transition: all 0.2s ease-in-out;
+      width: ${conv(48, "vh")};
 
-      img {
+      div.logout-content {
         display: none;
       }
 
-      div.logout-content {
+      img {
         display: block;
       }
     }
 
     .drop-down {
-      padding-left: ${conv(40, "vw")};
+      display: flex;
+      flex-direction: column;
+      gap: ${conv(24, "vh")};
     }
 
-    @media screen {
-      width: var(--dashboard-menu-width-medium);
-      justify-content: center;
+    .username {
+      font-size: 0;
+    }
+
+    &:hover {
+      min-width: var(--dashboard-menu-width-large);
+      transition: width 0.2s ease-in-out;
 
       .logo-container {
-        display: flex;
-        color: white;
         align-items: center;
-        justify-content: center;
-        margin-bottom: ${conv(42, "vh")};
+        justify-content: start;
+      }
 
-        svg {
-          width: ${convertToRelativeUnit(60, "vh")};
-          height: ${convertToRelativeUnit(60, "vh")};
-        }
+      .username {
+        padding-left: ${conv(18, "vh")};
+        line-height: ${conv(24, "vh")};
+        font-weight: 700;
+        font-size: ${conv(19, "vh")};
+        transition: all 0.2s ease-in-out;
       }
 
       .drop-down {
-        padding-left: 0;
+        padding-left: ${conv(36, "vh")};
       }
 
       .btn-logout {
-        margin-left: ${conv(44, "vw")};
+        align-self: start;
+        width: ${conv(124, "vw")};
         transition: all 0.2s ease-in-out;
-        width: ${conv(48, "vw")};
 
-        div.logout-content {
+        img {
           display: none;
         }
 
-        img {
+        div.logout-content {
           display: block;
         }
       }
 
       .menu-item {
-        padding: ${conv(20, "vh")} ${conv(56, "vw")};
-        transition: padding 0.4s ease-in-out;
+        transition: all 0.1s ease-in-out;
+        justify-content: center;
+        text-decoration: none;
 
         .arrow {
-          display: none;
+          margin-left: auto;
+          display: block;
         }
 
         .menu-content {
-          transition: all 0.2s ease-in-out;
-          font-size: 0;
+          display: block;
+          flex-grow: 1;
+          margin-left: ${conv(16, "vh")};
+          font-weight: 600;
+          font-size: ${conv(18, "vh")};
+          line-height: ${conv(24, "vh")};
+          white-space: nowrap;
+          transition: all 0.3s ease-in-out;
         }
       }
 
-      .username {
-        font-size: 0;
+      .item-container {
+        align-items: start;
       }
-
-      &:hover {
-        width: var(--dashboard-menu-width-large);
-        transition: width 0.1s ease-in-out;
-
-        .drop-down {
-          padding-left: ${conv(40, "vw")};
-        }
-
-        .btn-logout {
-          margin-left: calc(2 * var(--gutter-grid));
-          width: ${conv(124, "vw")};
-          transition: all 0.2s ease-in-out;
-
-          img {
-            display: none;
-          }
-
-          div.logout-content {
-            display: block;
-          }
-        }
-
-        .menu-item {
-          padding: ${conv(20, "vh")} ${conv(36, "vw")};
-          transition: all 0.1s ease-in-out;
-
-          text-decoration: none;
-
-          .arrow {
-            margin-left: auto;
-            display: block;
-          }
-
-          .menu-content {
-            transition: all 0.3s ease-in-out;
-            font-size: ${conv(19, "vh")};
-            color: var(--white);
-            text-decoration: none !important;
-          }
-        }
-
-        .username {
-          font-size: ${conv(19, "vh")};
-          padding-left: ${conv(18, "vh")};
-        }
-      }
-
-      .logo-container {
-        margin-bottom: ${conv(22, "vh")};
-      }
-
-      transition: width 0.2s ease-in-out;
     }
 
     .item-container {
-      display: flex;
-      margin-top: ${conv(10, "vh")};
+      flex-grow: 1;
       margin-bottom: auto;
-      overflow-y: auto;
+      display: flex;
       flex-direction: column;
+      gap: ${conv(24, "vh")};
+      align-items: center;
     }
   `,
 };
