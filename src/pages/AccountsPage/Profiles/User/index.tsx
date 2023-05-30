@@ -39,14 +39,6 @@ export const AccountsUserProfilePage = () => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
-  const handleBack = () => {
-    return "handle back";
-  };
-
-  const handleEdit = () => {
-    return "handle edit";
-  };
-
   const getProfile = async () => {
     const response = await api.appUserUserProfileList({
       headers: {

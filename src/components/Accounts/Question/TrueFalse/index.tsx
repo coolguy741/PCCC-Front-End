@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
 import { Radio } from "../../../Global/Radio";
 
 export const TrueFalseQuestion = () => {
@@ -36,14 +37,14 @@ const Style = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: ${convertToRelativeUnit(32, "vh")};
   `,
   LabeledRadio: styled.div`
     display: flex;
-    gap: 32px;
+    gap: ${convertToRelativeUnit(32, "vh")};
     font-weight: 600;
-    font-size: 19px;
-    line-height: 24px;
+    font-size: ${convertToRelativeUnit(19, "vh")};
+    line-height: ${convertToRelativeUnit(24, "vh")};
     color: var(--neutral-700);
   `,
 };

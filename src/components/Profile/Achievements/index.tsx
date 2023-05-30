@@ -38,7 +38,7 @@ const Style = {
     }
 
     figure {
-      width: 12%;
+      width: min(12%, 9.6vh);
       aspect-ratio: 1 / 1;
       border-radius: 50%;
       border: 2px solid white;
