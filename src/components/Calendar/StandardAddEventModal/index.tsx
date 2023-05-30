@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { Select } from "../../Global/Select";
 import { AddNoteForm } from "../AddNoteForm";
 import { StandardPublishForm } from "../StandardPublishForm";
@@ -50,7 +49,7 @@ export const StandardAddEventModal: React.FC<Props> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [type, setType] = useState<string>("");
-  const addEvent = useCalendarEventsStore((state) => state.addEvent);
+  // const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";

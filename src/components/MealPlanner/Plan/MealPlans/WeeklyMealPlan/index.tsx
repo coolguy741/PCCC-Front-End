@@ -47,6 +47,7 @@ export const WeeklyMealPlan = ({
     index: number,
   ) => {
     // TODO: type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const customStyle: Record<string, any> = {};
     // is Dragged Over
     if (isDraggedOver(dayIndex, index)) {

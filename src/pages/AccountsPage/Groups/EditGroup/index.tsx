@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
@@ -26,7 +26,7 @@ export const AccountsEditGroupPage = () => {
   const params = useParams();
   const { api } = useAPI();
 
-  const getMembers = async () => {
+  const getMembers = useCallback(async () => {
     if (params.group) {
       const response = await api.appGroupsJoinedGroupUsersList(
         { GroupId: params.group },
@@ -41,7 +41,7 @@ export const AccountsEditGroupPage = () => {
         setMembers(response.data.items);
       }
     }
-  };
+  }, [api, params.group]);
 
   const handleBack = () => {
     navigate(-1);
@@ -83,7 +83,7 @@ export const AccountsEditGroupPage = () => {
     }
   };
 
-  const getGroup = async () => {
+  const getGroup = useCallback(async () => {
     const response = await api.appGroupsMyCreatedGroupsList(
       {},
       {
@@ -94,19 +94,24 @@ export const AccountsEditGroupPage = () => {
     );
 
     if (response.data.items) {
-      // TODO: type
-      response.data.items.find((item: any) => {
-        if (item.group.id === params.group) {
-          setGroup(item);
-        }
-      });
+      response.data.items.find(
+        (item: PccServer23GroupsGroupWithNavigationPropertiesDto) => {
+          if (item?.group?.id === params.group) {
+            setGroup(item);
+          }
+          return null;
+        },
+      );
     }
-  };
+  }, [api, params.group]);
 
   useEffect(() => {
     getGroup();
+  }, [getGroup]);
+
+  useEffect(() => {
     getMembers();
-  }, []);
+  }, [getMembers]);
 
   return (
     <Style.Container>

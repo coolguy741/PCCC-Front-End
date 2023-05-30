@@ -9,7 +9,7 @@ export const CalendarPrintPage = () => {
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [getEvents]);
 
   return (
     <Style.Container>
