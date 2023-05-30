@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "../../components/Button";
+import Scrollbar from "../../components/Global/Scrollbar";
 import { avatars_data } from "../../lib/avatars/data";
 import mockData from "../../lib/mockData/notifications.json";
 
@@ -9,12 +10,9 @@ export const NotificationsPage = () => {
   };
 
   return (
-    <Style.PageContainer>
-      <Style.Background />
-      <Style.TitleLine>
-        <Style.Title>Notifications</Style.Title>
-      </Style.TitleLine>
-      <Style.ScrollContainer>
+    <Scrollbar thumbWidth="thick">
+      <Style.PageContainer>
+        <h2>Activity</h2>
         <Style.ListContainer>
           <Style.SubTitle>Activity</Style.SubTitle>
           <Style.NotificationsContainer>
@@ -33,8 +31,8 @@ export const NotificationsPage = () => {
             ))}
           </Style.NotificationsContainer>
         </Style.ListContainer>
-      </Style.ScrollContainer>
-    </Style.PageContainer>
+      </Style.PageContainer>
+    </Scrollbar>
   );
 };
 

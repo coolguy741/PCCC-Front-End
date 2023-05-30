@@ -2,20 +2,33 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
+import {
+  BaseTypographyProps,
+  Typography,
+} from "../../../components/Typography";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Tile } from "../tile_data";
 
-function exceptionForGameName(subtitle: string) {
+const h3Props = {
+  tag: "h3",
+  size: "4vh",
+  color: "neutral-800",
+  lineHeight: "110%",
+  mb: "1vh",
+  weight: "700",
+} as BaseTypographyProps;
+
+function showSubtitleWithException(subtitle: string) {
   if (subtitle) {
     if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
       return (
-        <h3>
+        <Typography {...h3Props}>
           Sunny's Place:
           <br />A Bee-utifull Food Adventure
-        </h3>
+        </Typography>
       );
-    } else return <h3>{subtitle}</h3>;
+    } else return <Typography {...h3Props}>{subtitle}</Typography>;
   }
 }
 
@@ -33,13 +46,32 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
       end={tile.gradientEnd}
     >
       <article>
-        <h2>
-          <span>{tile.titleFirstLine}</span>
+        <Typography
+          tag="h2"
+          size="8vh"
+          color="neutral-800"
+          weight="900"
+          textTransform="uppercase"
+          letterSpacing="110%"
+          lineHeight="90%"
+          mb="1.5vh"
+        >
+          <Typography tag="span" color={tile.titleColor}>
+            {tile.titleFirstLine}
+          </Typography>
           <br />
           {tile.titleSecondLine}
-        </h2>
-        {exceptionForGameName(tile.subtitle)}
-        <p>{tile.description}</p>
+        </Typography>
+        {showSubtitleWithException(tile.subtitle)}
+        <Typography
+          weight={500}
+          size="2.25vh"
+          lineHeight="115%"
+          mb={convertToRelativeUnit(48, "vh")}
+          color="neutral-700"
+        >
+          {tile.description}
+        </Typography>
         <Button to={tile.buttonLink}>{tile.buttonText}</Button>
       </article>
 
@@ -76,35 +108,6 @@ const Style = {
 
     article {
       width: 42.5%;
-
-      h2 {
-        font-weight: 900;
-        font-size: 8vh;
-        line-height: 90%;
-        letter-spacing: 110%;
-        text-transform: uppercase;
-        margin-bottom: 1.5vh;
-
-        span {
-          color: ${({ color }) => `var(--${color})`};
-        }
-      }
-
-      h3 {
-        font-weight: 700;
-        font-size: 4vh;
-        line-height: 110%;
-        color: var(--neutral-800);
-        margin-bottom: 1vh;
-      }
-
-      p {
-        font-weight: 500;
-        font-size: 2.25vh;
-        line-height: 115%;
-        margin-bottom: ${convertToRelativeUnit(48, "vh")};
-        color: var(--neutral-700);
-      }
     }
 
     .image-container {

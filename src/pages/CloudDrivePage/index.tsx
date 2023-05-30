@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import FileDropzone from "../../components/CloudDrive/FileDropzone";
 import { Folder } from "../../components/CloudDrive/Folder";
 import { Icon } from "../../components/Global/Icon";
+import Scrollbar from "../../components/Global/Scrollbar";
 import DownloadIcon from "../../components/Icons/Download/download";
 import SharingIcon from "../../components/Icons/Sharing/sharing";
 import TrashIcon from "../../components/Icons/Trash/trash";
@@ -89,6 +90,24 @@ const files: FileInterface[] = [
     size: "200 MB",
     date: "Sat, 27 May 2023",
   },
+  {
+    name: "Coconut",
+    fileNameExtension: "jpeg",
+    icon: "image",
+    type: "image",
+    sharing: "self",
+    size: "200 MB",
+    date: "Sat, 27 May 2023",
+  },
+  {
+    name: "Coconut",
+    fileNameExtension: "jpeg",
+    icon: "image",
+    type: "image",
+    sharing: "self",
+    size: "200 MB",
+    date: "Sat, 27 May 2023",
+  },
 ];
 
 export const CloudDrivePage = () => {
@@ -122,7 +141,7 @@ export const CloudDrivePage = () => {
             </Button>
           </div>
           <div className="content">
-            <Style.ScrollContainer>
+            <Scrollbar thumbWidth="thin">
               <Style.Table>
                 <thead>
                   <tr>
@@ -163,7 +182,7 @@ export const CloudDrivePage = () => {
                   ))}
                 </tbody>
               </Style.Table>
-            </Style.ScrollContainer>
+            </Scrollbar>
           </div>
         </Style.Files>
       </div>
@@ -206,6 +225,7 @@ const Style = {
     height: 100%;
     display: flex;
     gap: 2vh;
+    overflow: auto;
 
     .folders-files-container {
       width: 75%;
@@ -228,6 +248,7 @@ const Style = {
   `,
 
   Files: styled.div`
+    overflow: auto;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -347,12 +368,6 @@ const Style = {
         justify-content: space-around;
       }
     }
-  `,
-  ScrollContainer: styled.div`
-    overflow-y: auto;
-    height: 100%;
-    padding-right: 1.33vh;
-    margin-right: -2vh;
   `,
   CloudStorage: styled.div`
     flex-grow: 1;
