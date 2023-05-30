@@ -21,9 +21,9 @@ export type AnimateCursorCameraToFollowRotationType = (
   cursorCameraRotation: Vector2,
 ) => void;
 
-interface SectionMapType {
+interface CursorFourOptionMapType {
   section: CursorMenuOptionTypes;
   condition: boolean;
 }
 
-export type SectionMapArrayType = SectionMapType[];
+export type CursorFourOptionMapArrayType = CursorFourOptionMapType[];

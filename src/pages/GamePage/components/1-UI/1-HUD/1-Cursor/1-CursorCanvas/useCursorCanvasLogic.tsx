@@ -9,7 +9,6 @@ import {
 import {
   RefBooleanType,
   RefCanvasType,
-  RefNumberType,
 } from "../../../../../shared/Types/RefTypes";
 import {
   animateCursorCanvasToFollowPosition,
@@ -18,6 +17,7 @@ import {
 import {
   cursorCanvasCenterOffset,
   cursorCanvasDampedFollowLocation,
+  cursorCanvasDampedFollowStep,
   cursorCanvasFollowLocation,
   cursorCanvasTempCopyCurrentLocation,
   handleDampCursorCanvasLocation,
@@ -35,7 +35,6 @@ const useCursorCanvasLogic: UseCursorCanvasLogicHookTypes =
     // Refs
     const cursorCanvasRef: RefCanvasType = useRef(null);
     const enableOnFrameFollow: RefBooleanType = useRef(true);
-    const cursorCanvasDampedFollowStepRef: RefNumberType = useRef(0.01);
 
     // Global State
     const { menuActive, cursorLocation } = useGlobalState(
@@ -61,7 +60,7 @@ const useCursorCanvasLogic: UseCursorCanvasLogicHookTypes =
           cursorCanvasDampedFollowLocation,
           currentCursorLocation,
           () => {
-            cursorCanvasDampedFollowStepRef.current = 0;
+            cursorCanvasDampedFollowStep.setX(0);
           },
         );
       }, [menuActive, cursorLocation]);
@@ -81,7 +80,7 @@ const useCursorCanvasLogic: UseCursorCanvasLogicHookTypes =
           currentCursorLocation.y - cursorCanvasCenterOffset.y,
         );
 
-        animateCursorCanvasToFollowPosition(cursorCanvasDampedFollowStepRef);
+        animateCursorCanvasToFollowPosition(cursorCanvasDampedFollowStep);
       }, [menuActive, cursorLocation]);
 
     const handleCursorCanvasAnimationFrame: FramerAnimFrameFunctionType =
@@ -94,7 +93,7 @@ const useCursorCanvasLogic: UseCursorCanvasLogicHookTypes =
 
             handleDampCursorCanvasLocation(
               delta,
-              cursorCanvasDampedFollowStepRef.current,
+              cursorCanvasDampedFollowStep.x,
             );
           }
 

@@ -50,7 +50,11 @@ export const GroupInvitationCard = (
     <Style.Container>
       <div className="invitation-container">
         <div>
-          <img src="/images/icons/group.svg" width="20" />
+          <img
+            src="/images/icons/group.svg"
+            width="20"
+            alt={"group name:" + group.groupName}
+          />
           <p className="bold-big-text">{group.groupName}</p>
         </div>
         <p className="text">Creator: {group.userName}</p>

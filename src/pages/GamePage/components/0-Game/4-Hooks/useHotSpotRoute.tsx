@@ -7,6 +7,7 @@ import {
   locationKeyType,
 } from "../../../globalState/modules/LocationModule/LocationModuleTypes";
 import { useGlobalState } from "../../../globalState/useGlobalState";
+import { ConstantVoidFunctionType } from "../../../shared/Types/DefineTypes";
 import { RefNumberType } from "../../../shared/Types/RefTypes";
 import {
   animateRouteFov,
@@ -58,54 +59,55 @@ const useHotSpotRoute = ({
   );
 
   // Handlers
-  const handleRoutePosition = useCallback(() => {
-    console.log("hey");
-    animateRouteProgress(
-      routeProgressRef,
-      direction ? 0 : 1,
-      direction ? 1 : 0,
-      duration,
-      () => {
-        playerCameraActivePosition.copy(
-          route.getPointAt(routeProgressRef.current),
-        );
-      },
-    );
-  }, [route, duration, direction, playerCameraActivePosition]);
+  const handleRoutePosition: ConstantVoidFunctionType =
+    useCallback((): void => {
+      animateRouteProgress(
+        routeProgressRef,
+        direction ? 0 : 1,
+        direction ? 1 : 0,
+        duration,
+        () => {
+          playerCameraActivePosition.copy(
+            route.getPointAt(routeProgressRef.current),
+          );
+        },
+      );
+    }, [route, duration, direction, playerCameraActivePosition]);
 
-  const handleRouteFov = useCallback(() => {
+  const handleRouteFov: ConstantVoidFunctionType = useCallback((): void => {
     animateRouteFov(playerCameraActiveFov, fov, duration);
   }, [fov, duration, playerCameraActiveFov]);
 
-  const handleRouteLookAt = useCallback(() => {
+  const handleRouteLookAt: ConstantVoidFunctionType = useCallback((): void => {
     animateRouteLookAt(playerCameraActiveLookAt, lookAt, duration);
   }, [lookAt, duration, playerCameraActiveLookAt]);
 
-  const handleRouteTransistion = useCallback(() => {
-    if (newLocation !== activeLocation) {
-      setActiveLocation(newLocation);
-    }
+  const handleRouteTransistion: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (newLocation !== activeLocation) {
+        setActiveLocation(newLocation);
+      }
 
-    if (newLocation === "Garden") {
-      setActiveGardenHotSpot(hotspot as gardenHotspotKeyType);
-    } else if (newLocation === "Kitchen") {
-      setActiveKitchenHotSpot(hotspot as kitchenHotspotKeyType);
-    }
+      if (newLocation === "Garden") {
+        setActiveGardenHotSpot(hotspot as gardenHotspotKeyType);
+      } else if (newLocation === "Kitchen") {
+        setActiveKitchenHotSpot(hotspot as kitchenHotspotKeyType);
+      }
 
-    handleRouteFov();
-    handleRouteLookAt();
-    handleRoutePosition();
-  }, [
-    hotspot,
-    newLocation,
-    activeLocation,
-    handleRouteFov,
-    handleRouteLookAt,
-    setActiveLocation,
-    handleRoutePosition,
-    setActiveGardenHotSpot,
-    setActiveKitchenHotSpot,
-  ]);
+      handleRouteFov();
+      handleRouteLookAt();
+      handleRoutePosition();
+    }, [
+      hotspot,
+      newLocation,
+      activeLocation,
+      handleRouteFov,
+      handleRouteLookAt,
+      setActiveLocation,
+      handleRoutePosition,
+      setActiveGardenHotSpot,
+      setActiveKitchenHotSpot,
+    ]);
 
   return {
     handleRouteTransistion,

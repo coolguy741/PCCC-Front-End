@@ -1,9 +1,6 @@
 import { ReactNode } from "react";
 import { Vector2 } from "three";
-import {
-  RefCanvasType,
-  RefNumberType,
-} from "../../../../../shared/Types/RefTypes";
+import { RefCanvasType } from "../../../../../shared/Types/RefTypes";
 
 // Component
 export interface CursorCanvasPropTypes {
@@ -25,7 +22,7 @@ export type AnimateCursorCanvasToMenuPositionType = (
   onComplete: () => void,
 ) => void;
 
-export type AnimateCursorCanvasToFollowPosition = (step: RefNumberType) => void;
+export type AnimateCursorCanvasToFollowPosition = (step: Vector2) => void;
 
 // Defines
 export type HandleSetCursorCanvasLocationType = (

@@ -10,7 +10,9 @@ import {
   HandleUpdateCursorCanvasElementLocationType,
 } from "./CursorCanvasTypes";
 
-const cursorCanvasDampedFollowLocationStep = 0.1;
+const cursorCanvasDampStep = 0.025;
+
+const cursorCanvasDampedFollowStep: Vector2 = new Vector2(0.025, 0.025);
 
 const cursorCanvasCenterOffset: Vector2 = new Vector2(50, 35);
 const cursorCanvasToMenuOffset: Vector2 = new Vector2(65, 90);
@@ -61,15 +63,16 @@ const handleUpdateCursorCanvasElementLocation: HandleUpdateCursorCanvasElementLo
 
 export {
   cursorCanvasStyles,
+  cursorCanvasDampStep,
   cursorCanvasCenterOffset,
   cursorCanvasToMenuOffset,
   cursorCanvasFollowLocation,
+  cursorCanvasDampedFollowStep,
   handleSetCursorCanvasLocation,
   handleDampCursorCanvasLocation,
   cursorCanvasFinalFollowLocation,
   cursorCanvasDampedFollowLocation,
   cursorCanvasTempCopyCurrentLocation,
-  cursorCanvasDampedFollowLocationStep,
   handleUpdateCursorCanvasFinalLocation,
   handleUpdateCursorCanvasElementLocation,
 };

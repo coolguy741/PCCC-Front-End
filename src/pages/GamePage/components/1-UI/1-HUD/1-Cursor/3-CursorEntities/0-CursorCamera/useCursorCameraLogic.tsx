@@ -22,13 +22,14 @@ import {
   cursorCameraInitRotation,
   cursorCameraMaxRotation,
   cursorCameraMinRotation,
+  cursorCurrentXLocation,
   handleCursorCameraDampedRotation,
   handleCursorCameraFinalMenuRotation,
   handleHaltInterpolationCheck,
   handleUpdateCursorCameraFinalRotation,
 } from "./CursorCameraDefines";
 import {
-  SectionMapArrayType,
+  CursorFourOptionMapArrayType,
   UseCursorCameraLogicReturnTypes,
 } from "./CursorCameraTypes";
 
@@ -56,15 +57,24 @@ const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
   );
 
   // Handlers
+  const handleCaptureCurrentCursorLocation: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (!menuActive) return;
+      cursorCurrentXLocation.copy(cursorLocation);
+      console.log("cursorCurrentXLocation", cursorCurrentXLocation.x);
+    }, [menuActive, cursorLocation]);
+
   const handleUpdateCursorCameraInitRotation: ConstantVoidFunctionType =
     useCallback((): void => {
       if (!menuActive) return;
 
+      const windowFraction = windowSize.x / 20;
+
       const menuRotation = MathUtils.clamp(
         MathUtils.mapLinear(
           cursorLocation.x,
-          windowSize.x / 4,
-          (windowSize.x / 4) * 3,
+          cursorCurrentXLocation.x - windowFraction,
+          cursorCurrentXLocation.x + windowFraction,
           cursorCameraMinRotation,
           cursorCameraMaxRotation,
         ),
@@ -94,21 +104,21 @@ const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
       if (!menuActive) return;
       if (!cursorCameraRef.current) return;
 
-      const sectionMap: SectionMapArrayType = [
+      const cursorFourOptionMap: CursorFourOptionMapArrayType = [
         {
           section: "inspect",
           condition:
             cursorCameraRef.current.rotation.z < cursorCameraBreakpoint1,
         },
         {
-          section: "actionOne",
+          section: "pickup",
           condition:
             cursorCameraRef.current.rotation.z > cursorCameraBreakpoint1 &&
             cursorCameraRef.current.rotation.z < cursorCameraBreakpoint2 &&
             cursorCameraRef.current.rotation.z < cursorCameraBreakpoint3,
         },
         {
-          section: "actionTwo",
+          section: "dynamic",
           condition:
             cursorCameraRef.current.rotation.z > cursorCameraBreakpoint2 &&
             cursorCameraRef.current.rotation.z < cursorCameraBreakpoint3,
@@ -120,7 +130,7 @@ const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
         },
       ];
 
-      sectionMap.forEach(({ section, condition }) => {
+      cursorFourOptionMap.forEach(({ section, condition }) => {
         if (!condition) return;
         if (hoveredSection === section) return;
 
@@ -156,10 +166,12 @@ const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
   // Listeners
   useEffect((): void => {
     handleAnimateCursorToMenuRotation();
+    handleCaptureCurrentCursorLocation();
     handleAnimateCursorToFollowRotation();
   }, [
     menuActive,
     handleAnimateCursorToMenuRotation,
+    handleCaptureCurrentCursorLocation,
     handleAnimateCursorToFollowRotation,
   ]);
 

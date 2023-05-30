@@ -26,6 +26,7 @@ export const CalendarPage = () => {
     getEvents();
   }, []);
 
+  // TODO: type
   const handleDateClick = (info: any) => {
     setSelectedDate(info.dateStr);
     const rectDOM = info.dayEl.getBoundingClientRect();

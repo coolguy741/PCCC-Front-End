@@ -33,6 +33,7 @@ export const MealPlans = () => {
     useMealPlannerStore();
 
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
+  // TODO: unused variable
   const [mealPlanMenu, setMealPlanMenu] = useState(mockMealPlanMenu);
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
   const [selectedMeal, setSelectedMeal] = useState<MealPlan>();

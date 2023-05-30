@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 import { FoodwaysListItem } from "../FoodwaysListItem";
@@ -48,6 +47,6 @@ const Style = {
   `,
 };
 
-const StyledLink = styled(Link)`
-  flex-basis: calc(50% - 20px);
-`;
+// const StyledLink = styled(Link)`
+//   flex-basis: calc(50% - 20px);
+// `;

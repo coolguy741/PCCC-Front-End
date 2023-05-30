@@ -22,6 +22,7 @@ const cursorCameraInitRotation: Vector2 = new Vector2();
 const cursorCameraDampedRotation: Vector2 = new Vector2();
 const cursorCameraFinalRotation: Vector2 = new Vector2();
 const cursorCameraCopyCurrentRotation: Vector2 = new Vector2();
+const cursorCurrentXLocation: Vector2 = new Vector2();
 
 const handleUpdateCursorCameraFinalRotation: CursorCameraCameraUpdatefunctionType =
   (cursorCameraReference: OrthographicCamera): void => {
@@ -54,6 +55,7 @@ const handleHaltInterpolationCheck: CursorCameraCameraUpdatefunctionType = (
 };
 
 export {
+  cursorCurrentXLocation,
   cursorCameraBreakpoint1,
   cursorCameraBreakpoint2,
   cursorCameraBreakpoint3,

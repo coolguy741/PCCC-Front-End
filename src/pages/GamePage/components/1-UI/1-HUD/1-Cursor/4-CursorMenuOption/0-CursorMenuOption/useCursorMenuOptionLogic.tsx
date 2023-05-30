@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { shallow } from "zustand/shallow";
-import { useGlobalState } from "../../../../../globalState/useGlobalState";
-import { ConstantVoidFunctionType } from "../../../../../shared/Types/DefineTypes";
+import { useGlobalState } from "../../../../../../globalState/useGlobalState";
+import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
 import {
   RefBooleanType,
   RefDivType,
-} from "../../../../../shared/Types/RefTypes";
+} from "../../../../../../shared/Types/RefTypes";
 import {
   animateCursorMenuOptionIn,
   animateCursorMenuOptionOut,

@@ -6,10 +6,6 @@ import DebugUIContainer from "../2-Debug/DebugUIContainer";
 import useWindowResize from "../5-Hooks/useWindowResize";
 
 const UIContainer: FC = () => {
-  // Hooks
-  useWindowResize();
-  // useWindowFocusBlur(onWindowFocus, onWindowBlur);
-
   // Global State
   const { isDebugUIVisible } = useGlobalState(
     (state) => ({
@@ -17,6 +13,9 @@ const UIContainer: FC = () => {
     }),
     shallow,
   );
+
+  // Hooks
+  useWindowResize();
 
   return (
     <Fragment>

@@ -1,6 +1,9 @@
 import gsap from "gsap";
 import { Vector2 } from "three";
-import { BACK_1_OUT, POWER_1_INOUT } from "../../../../../shared/Eases/Eases";
+import {
+  BACK_1_OUT,
+  POWER_1_INOUT,
+} from "../../../../../../shared/Eases/Eases";
 import {
   AnimateCursorMenuOptionInType,
   AnimateCursorMenuOptionOutType,

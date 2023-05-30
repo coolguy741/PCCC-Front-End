@@ -16,7 +16,17 @@ const FolderNames = [
   { name: "Download", numberOfFiles: 100, icon: "download", capacity: 100 },
 ];
 
-const Files = [
+interface FileInterface {
+  name: string;
+  icon: string;
+  fileNameExtension: string;
+  type: string;
+  sharing: string;
+  size: string;
+  date: string;
+}
+
+const files: FileInterface[] = [
   {
     name: "Assessment",
     icon: "file",
@@ -143,7 +153,7 @@ export const CloudDrivePage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Files.map((file: any, index: number) => (
+                  {files.map((file, index) => (
                     <tr key={index}>
                       <td className="name">
                         <div className="icon-container">
@@ -346,7 +356,7 @@ const Style = {
           b {
             color: var(--neutral-800);
 
-            &: hover {
+            &:hover {
               color: red;
             }
           }

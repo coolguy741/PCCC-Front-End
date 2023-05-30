@@ -4,8 +4,10 @@ import {
   POWER_1_INOUT,
   POWER_3_INOUT,
 } from "../../../../../shared/Eases/Eases";
-import { RefNumberType } from "../../../../../shared/Types/RefTypes";
-import { cursorCanvasToMenuOffset } from "./CursorCanvasDefines";
+import {
+  cursorCanvasDampStep,
+  cursorCanvasToMenuOffset,
+} from "./CursorCanvasDefines";
 import {
   AnimateCursorCanvasToFollowPosition,
   AnimateCursorCanvasToMenuPositionType,
@@ -28,9 +30,9 @@ const animateCursorCanvasToMenuPosition: AnimateCursorCanvasToMenuPositionType =
   };
 
 const animateCursorCanvasToFollowPosition: AnimateCursorCanvasToFollowPosition =
-  (step: RefNumberType): void => {
+  (step: Vector2): void => {
     gsap.to(step, {
-      current: 0.01,
+      x: cursorCanvasDampStep,
       duration: 1,
       overwrite: true,
       ease: POWER_1_INOUT,

@@ -70,7 +70,7 @@ export const AccountsEditGroupPage = () => {
 
   const handleDelete = async (userId: string | undefined) => {
     if (userId) {
-      const response = await api.appGroupsDelete(
+      await api.appGroupsDelete(
         { GroupId: params.group, UserId: userId },
         {
           headers: {
@@ -94,6 +94,7 @@ export const AccountsEditGroupPage = () => {
     );
 
     if (response.data.items) {
+      // TODO: type
       response.data.items.find((item: any) => {
         if (item.group.id === params.group) {
           setGroup(item);

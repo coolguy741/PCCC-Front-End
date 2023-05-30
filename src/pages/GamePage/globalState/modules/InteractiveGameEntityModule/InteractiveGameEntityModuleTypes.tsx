@@ -1,15 +1,9 @@
 export type InteractiveGameEntityTypes =
-  | "Berries"
-  | "Branches"
-  | "Bee Hive Top"
-  | "Beekeeper Outfit + Hat"
-  | "Fully Grown Blueberries";
+  | "Gardening Hat"
+  | "Shovel"
+  | "Gardening Gloves";
 
-export type CursorMenuOptionTypes =
-  | "inspect"
-  | "actionOne"
-  | "actionTwo"
-  | "exit";
+export type CursorMenuOptionTypes = "inspect" | "pickup" | "dynamic" | "exit";
 
 export interface InteractiveGameEntityModuleTypes {
   isHoveringEntity: boolean;
@@ -25,4 +19,7 @@ export interface InteractiveGameEntityModuleTypes {
 
   hoveredSection: null | CursorMenuOptionTypes;
   setHoveredSection: (hoveredSection: CursorMenuOptionTypes | null) => void;
+
+  inspectActive: boolean;
+  setInspectActive: (inspectActive: boolean) => void;
 }
