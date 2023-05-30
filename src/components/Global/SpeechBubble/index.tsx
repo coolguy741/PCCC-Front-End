@@ -3,15 +3,12 @@ import { BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-import { Color } from "../../../pages/types";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 interface SpeechBubbleProps {
   children: React.ReactNode;
-  variant?: Color;
+  variant?: string;
   to?: string;
-  left?: number;
-  top?: number;
   onClick?: (event: BaseSyntheticEvent) => void;
   position?: "fixed" | "absolute";
   unit?: "px" | "%";

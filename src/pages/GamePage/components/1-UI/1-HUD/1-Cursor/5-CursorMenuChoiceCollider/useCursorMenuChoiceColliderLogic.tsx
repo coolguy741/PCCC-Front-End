@@ -11,14 +11,16 @@ const useCursorMenuChoiceColliderLogic =
     const cursorMenuChoiceColliderRef: RefDivType = useRef(null);
 
     // Global State
-    const { menuActive, setMenuActive, hoveredSection } = useGlobalState(
-      (state) => ({
-        menuActive: state.menuActive,
-        setMenuActive: state.setMenuActive,
-        hoveredSection: state.hoveredSection,
-      }),
-      shallow,
-    );
+    const { menuActive, setMenuActive, hoveredSection, setInspectActive } =
+      useGlobalState(
+        (state) => ({
+          menuActive: state.menuActive,
+          setMenuActive: state.setMenuActive,
+          hoveredSection: state.hoveredSection,
+          setInspectActive: state.setInspectActive,
+        }),
+        shallow,
+      );
 
     // Handlers
     const handleCursorMenuOptionChoice: ConstantVoidFunctionType =
@@ -31,13 +33,13 @@ const useCursorMenuChoiceColliderLogic =
 
         switch (hoveredSection) {
           case "inspect":
-            console.log("inspect");
+            setInspectActive(true);
             break;
-          case "actionOne":
-            console.log("actionOne");
+          case "pickup":
+            console.log("pickUp");
             break;
-          case "actionTwo":
-            console.log("actionTwo");
+          case "dynamic":
+            console.log("dynamic");
             break;
           case "exit":
             console.log("exit");
@@ -48,7 +50,7 @@ const useCursorMenuChoiceColliderLogic =
         }
 
         setMenuActive(false);
-      }, [menuActive, setMenuActive, hoveredSection]);
+      }, [menuActive, setMenuActive, hoveredSection, setInspectActive]);
 
     const handleRevealCursorMenuChoiceCollider: ConstantVoidFunctionType =
       useCallback((): void => {

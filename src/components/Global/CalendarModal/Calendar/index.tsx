@@ -1,6 +1,6 @@
 import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
-import { MouseEvent, useMemo } from "react";
+import { MouseEvent } from "react";
 import styled from "styled-components";
 
 type TPlan = {
@@ -8,7 +8,7 @@ type TPlan = {
   meal: string;
 };
 
-// Should move these exported types to `types.ts` as this is updated according to the data structure
+// TODO: Should move these exported types to `types.ts` as this is updated according to the data structure
 export type TCalendarType = "plan" | "assessment" | "recipe" | "foodways";
 
 export type TData = {
@@ -34,7 +34,7 @@ export const Calendar: React.FC<Props> = ({
   type = "plan",
   data,
 }) => {
-  const isPlan = useMemo(() => type === "plan", [type]);
+  // const isPlan = useMemo(() => type === "plan", [type]);
 
   return (
     <Style.Calendar>

@@ -42,15 +42,18 @@ const DynamicEntity: FC = () => {
 
   // Hooks
   const { transforms, mode } = useControls({
-    DynamicModel: folder({
-      transforms: true,
-      mode: {
-        value: 0,
-        min: 0,
-        max: 2,
-        step: 1,
+    DynamicModel: folder(
+      {
+        transforms: true,
+        mode: {
+          value: 0,
+          min: 0,
+          max: 2,
+          step: 1,
+        },
       },
-    }),
+      { collapsed: true },
+    ),
   });
 
   // Handlers
@@ -469,7 +472,7 @@ const DynamicEntity: FC = () => {
       showY={transforms && dynamicGLB !== null}
       showZ={transforms && dynamicGLB !== null}
     >
-      <group>
+      <group renderOrder={1}>
         {gltfScene && <primitive ref={dynamicGLBRef} object={gltfScene} />}
       </group>
     </TransformControls>

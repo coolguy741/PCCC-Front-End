@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -43,7 +43,7 @@ export const TopicCreateForm: React.FC<Props> = ({
   topicId,
   isEdit = false,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const tabIndex = useMemo(() => tabs.indexOf(tab), [tab]);
   const getPrevPath = useCallback(
@@ -63,7 +63,7 @@ export const TopicCreateForm: React.FC<Props> = ({
           : `/dashboard/topics/create/${tabs[tabIndex + 1]}`,
       );
     } else {
-      setIsOpen(true);
+      // setIsOpen(true);
     }
   };
 

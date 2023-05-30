@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { MultipleSelection } from "./MultipleSelection";
 import { TrueFalseQuestion } from "./TrueFalse";
 
-type QuestionType = "text" | "multiple-selection" | "true-false";
+// type QuestionType = "text" | "multiple-selection" | "true-false";
 interface QuestionProps {
   pattern: string;
   content: {

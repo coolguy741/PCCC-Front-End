@@ -46,6 +46,7 @@ export const WeeklyMealPlan = ({
     dayIndex: number,
     index: number,
   ) => {
+    // TODO: type
     const customStyle: Record<string, any> = {};
     // is Dragged Over
     if (isDraggedOver(dayIndex, index)) {

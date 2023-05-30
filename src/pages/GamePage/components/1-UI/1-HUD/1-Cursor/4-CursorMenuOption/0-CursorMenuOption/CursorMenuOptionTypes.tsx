@@ -1,9 +1,10 @@
 import { Vector2 } from "three";
+import { CursorMenuOptionTypes } from "../../../../../../globalState/modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
 import { MenuOptionStyleObjectType } from "./CursorMenuOptionDefines";
 
 // Component
 export interface CursorMenuOptionPropTypes {
-  type: string;
+  type: CursorMenuOptionTypes;
   label: string;
   iconURL?: string;
   animOffset: number;

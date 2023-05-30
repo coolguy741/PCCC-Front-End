@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
+import { MockUserType } from "../../../types/user";
 import { Group } from "../../Icons";
 
-export function UserActivity({ userData }: any) {
+export function UserActivity({ userData }: { userData: MockUserType }) {
   return (
     <Style.Container className="activity">
       <hgroup>
@@ -10,7 +11,7 @@ export function UserActivity({ userData }: any) {
       </hgroup>
 
       <ul>
-        {userData.activities.map((activity: any, index: any) => (
+        {userData.activities.map((activity, index) => (
           <li key={index}>
             <p>
               <Group /> User {activity.name} {activity.content}

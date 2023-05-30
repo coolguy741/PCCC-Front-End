@@ -63,10 +63,6 @@ export const ActivitiesEditPage = () => {
   );
 };
 
-const ClickedButton = styled(SmallButton)`
-  background-color: green;
-`;
-
 const Style = {
   PageContainer: styled.div`
     .title-buttons-container {

@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { trimStringByLength } from "../../../lib/util/trimStringByLength";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
+import { MockUserType } from "../../../types/user";
 import { Pagination } from "../../Pagination/pagination";
 
-export function UserLessonAssesment({ userData }: any) {
+export function UserLessonAssesment({ userData }: { userData: MockUserType }) {
   return (
     <Style.Container className="lesson-assesment">
       <hgroup>
@@ -20,7 +21,7 @@ export function UserLessonAssesment({ userData }: any) {
           </tr>
         </thead>
         <tbody>
-          {userData.lessonAssessment.map((lesson: any, index: any) => (
+          {userData.lessonAssessment.map((lesson, index) => (
             <tr key={index}>
               <td className="lesson-name">
                 <span>GARDEN GUARDIAN</span>

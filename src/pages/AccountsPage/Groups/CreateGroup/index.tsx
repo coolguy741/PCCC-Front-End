@@ -13,6 +13,7 @@ import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelat
 import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsCreateGroupPage = () => {
+  // TODO: set members unused
   const [members, setMembers] = useState<
     PccServer23GroupsCustomGetJoinedGroupUsersDto[]
   >([]);

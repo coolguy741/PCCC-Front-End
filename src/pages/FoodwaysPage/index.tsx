@@ -24,7 +24,7 @@ export const foodwaysPageLoader = async () => {
     if (response.status === 200) {
       return response.data.items;
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.warn(error);
   }
 

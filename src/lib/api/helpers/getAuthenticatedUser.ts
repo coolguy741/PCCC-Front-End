@@ -19,7 +19,7 @@ export const getAuthenticatedUser = async () => {
     if (response.status === 200) {
       setUser(response.data);
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.warn(error);
   }
 

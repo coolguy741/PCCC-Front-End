@@ -1,59 +1,77 @@
-import { TransformControls } from "@react-three/drei";
+import { Sphere } from "@react-three/drei";
 import { folder, useControls } from "leva";
-import { FC, memo, useCallback, useRef } from "react";
+import { FC, memo, useRef } from "react";
 import { RefDirectionalLightType } from "../../../../shared/Types/RefTypes";
-import { sunLightWorldPos } from "./LightingDefines";
 
 const SunLight: FC = () => {
   // Refs
   const sunLightRef: RefDirectionalLightType = useRef(null);
 
   // Hooks
-  const { size, color, intensity, tranforms } = useControls({
-    MainLight: folder({
-      tranforms: true,
-      intensity: 5,
-      color: "#ffffff",
-      enable: true,
-    }),
-    shadows: folder({
-      shadowMap: folder({
-        size: 6,
-      }),
-    }),
-  });
-
-  // Handlers
-  const handleLogLightPos = useCallback(() => {
-    if (sunLightRef.current) {
-      const newPos = sunLightRef.current.getWorldPosition(sunLightWorldPos);
-      console.clear();
-      console.log("lightPosition:", newPos);
-    }
-  }, []);
+  const { size, color, intensity, positionX, positionY, positionZ } =
+    useControls({
+      MainLight: folder(
+        {
+          intensity: {
+            value: 5,
+            min: 0,
+            max: 10,
+            step: 0.001,
+          },
+          color: "#ffffff",
+          enable: true,
+          positionX: {
+            value: 3.5,
+            min: -15,
+            max: 15,
+            step: 0.001,
+          },
+          positionY: {
+            value: 5,
+            min: -15,
+            max: 15,
+            step: 0.001,
+          },
+          positionZ: {
+            value: 2.5,
+            min: -15,
+            max: 15,
+            step: 0.001,
+          },
+        },
+        { collapsed: true },
+      ),
+      shadows: folder(
+        {
+          shadowMap: folder(
+            {
+              size: 6,
+            },
+            { collapsed: true },
+          ),
+        },
+        { collapsed: true },
+      ),
+    });
 
   return (
-    <TransformControls
-      showX={tranforms}
-      showY={tranforms}
-      showZ={tranforms}
-      onMouseUp={handleLogLightPos}
-      position={[3.386257562668803, 4.710346678759947, 2.662153116199844]}
+    <directionalLight
+      castShadow
+      color={color}
+      ref={sunLightRef}
+      shadow-bias={-0.001}
+      shadow-mapSize={2048}
+      intensity={intensity}
+      position={[positionX, positionY, positionZ]}
     >
-      <directionalLight
-        castShadow
-        color={color}
-        ref={sunLightRef}
-        shadow-bias={-0.001}
-        shadow-mapSize={2048}
-        intensity={intensity}
-      >
-        <orthographicCamera
-          attach="shadow-camera"
-          args={[size, size * -1, size, size * -1, 0.1, 100]}
-        />
-      </directionalLight>
-    </TransformControls>
+      <orthographicCamera
+        attach="shadow-camera"
+        args={[size, size * -1, size, size * -1, 0.1, 100]}
+      />
+      <Sphere scale={0.1}>
+        <meshStandardMaterial color={color} />
+      </Sphere>
+    </directionalLight>
   );
 };
 

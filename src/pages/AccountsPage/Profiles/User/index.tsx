@@ -16,6 +16,7 @@ import { UserGroups } from "../../../../components/Profile/Groups";
 import { UserLessonAssesment } from "../../../../components/Profile/LessonAssesment";
 import { UserProfileInfo } from "../../../../components/Profile/ProfileInfo";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
+import { MockUserType } from "../../../../types/user";
 import { STORAGE_KEY_JWT } from "../../../consts";
 import { achievements, groups } from "./dummy_data";
 
@@ -28,7 +29,7 @@ export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const userData = pathname.includes("Standard")
+  const userData: MockUserType = pathname.includes("Standard")
     ? MockData[0]
     : pathname.includes("Professional")
     ? MockData[1]
@@ -39,13 +40,13 @@ export const AccountsUserProfilePage = () => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
-  const handleBack = () => {
-    return "handle back";
-  };
+  // const handleBack = () => {
+  //   return "handle back";
+  // };
 
-  const handleEdit = () => {
-    return "handle edit";
-  };
+  // const handleEdit = () => {
+  //   return "handle edit";
+  // };
 
   const getProfile = async () => {
     const response = await api.appUserUserProfileList({

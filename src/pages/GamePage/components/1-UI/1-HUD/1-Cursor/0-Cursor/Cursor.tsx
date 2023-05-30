@@ -1,7 +1,7 @@
 import { FC, Fragment, memo } from "react";
 import CursorCanvas from "../1-CursorCanvas/CursorCanvas";
 import CursorR3FStage from "../2-CursorR3FStage/CursorR3FStage";
-import CursorMenuOptionStage from "../4-CursorMenuOption/CursorMenuOptionStage";
+import CursorMenuOptionStage from "../4-CursorMenuOption/1-CursorMenuOptionStage/CursorMenuOptionStage";
 import CursorMenuChoiceCollider from "../5-CursorMenuChoiceCollider/CursorMenuChoiceCollider";
 import { useCursorLogic } from "./useCursorLogic";
 
