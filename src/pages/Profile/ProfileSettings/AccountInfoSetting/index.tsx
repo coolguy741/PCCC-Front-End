@@ -198,7 +198,7 @@ export const AccountInfoSetting = () => {
               {/* TODO: Improve avatar animations */}
               {avatars_data.map((avatar, index) => (
                 <Style.AvatarButton className="avatar" key={`avatar-${index}`}>
-                  {avatar.icon()}
+                  {avatar.icon({})}
                 </Style.AvatarButton>
               ))}
             </div>
