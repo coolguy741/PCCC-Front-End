@@ -32,7 +32,7 @@ const Style = {
       ${convertToRelativeUnit(64, "vw")};
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")};
     height: 100vh;
-    overflow-y: hidden;
+    overflow: hidden;
 
     /* classname to target options for manage users layout */
     .manage-users-options {

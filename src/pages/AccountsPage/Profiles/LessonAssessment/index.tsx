@@ -11,6 +11,7 @@ import Button from "../../../../components/Button";
 import { BackButton } from "../../../../components/Global/BackButton";
 import { PaginationTwo } from "../../../../components/PaginationTwo";
 import mockData from "../../../../lib/mockData/accounts/profileLessonAccessment.json";
+import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
 
 const patterns = ["lemon", "peach", "brokolli", "apple", "grape"];
 
@@ -35,7 +36,7 @@ export const AccountsUserLessonAssessmentPage = () => {
           Print
         </Button>
       </Style.ButtonContainer>
-      <Style.Topic>{"Topic : " + mockData.topic}</Style.Topic>
+      <Style.Topic>{mockData.topic}</Style.Topic>
       <Style.Lesson>{mockData.lesson}</Style.Lesson>
       <Style.Questions>
         <Swiper
@@ -92,6 +93,7 @@ const Style = {
     overflow: visible;
   `,
   ButtonContainer: styled.div`
+    height: 10vh;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -103,27 +105,27 @@ const Style = {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 16px;
-    gap: 10px;
-    border: 2px solid var(--orange-600);
-    border-radius: 50px;
+    padding: ${convertToRelativeUnit(10, "vh")}
+      ${convertToRelativeUnit(16, "vh")};
+    border: ${convertToRelativeUnit(2, "vh")} solid var(--orange-600);
+    border-radius: ${convertToRelativeUnit(50, "vh")};
+    font-size: ${convertToRelativeUnit(14, "vh")};
     color: var(--orange-600);
     text-transform: uppercase;
-    margin-top: 40px;
     margin-left: 8%;
   `,
   Lesson: styled.h2`
-    margin-top: 20px;
-    margin-bottom: 24px;
+    margin-top: ${convertToRelativeUnit(8, "vh")};
+    margin-bottom: ${convertToRelativeUnit(16, "vh")};
     margin-left: 8%;
     font-weight: 600;
-    font-size: 33px;
-    line-height: 40px;
+    font-size: ${convertToRelativeUnit(32, "vh")};
+    line-height: 125%;
     color: var(--neutral-800);
   `,
   Questions: styled.div`
     width: 100%;
-    height: calc(100vh - 612px);
+    height: ${convertToRelativeUnit(588, "vh")};
     .swiper {
       width: 100%;
       height: 100%;
@@ -142,8 +144,8 @@ const Style = {
     }
     .swiper-button-prev,
     .swiper-button-next {
-      width: 76px;
-      height: 76px;
+      width: ${convertToRelativeUnit(77, "vh")};
+      height: ${convertToRelativeUnit(77, "vh")};
       border-radius: 50%;
       background-color: white;
       display: flex;
@@ -154,11 +156,10 @@ const Style = {
         background 0.3s linear 0s, transform 0.2s ease-in-out 0s;
 
       &:after {
-        font-size: 33px;
+        font-size: ${convertToRelativeUnit(33, "vh")};
       }
       &:hover {
         filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.2));
-        transform: translateY(-3px);
       }
     }
   `,
@@ -168,6 +169,6 @@ const Style = {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 39px;
+    margin-top: ${convertToRelativeUnit(32, "vh")};
   `,
 };
