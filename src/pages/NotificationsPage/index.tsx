@@ -20,7 +20,7 @@ export const NotificationsPage = () => {
           <Style.NotificationsContainer>
             {mockData.listData.map((notification, index) => (
               <Style.Row key={index}>
-                <div className="icon">{avatars_data[0].icon()}</div>
+                <div className="icon">{avatars_data[0].icon({})}</div>
                 <div className="text">
                   <div className="role">{notification.role}</div>
                   <p className="activity">{notification.content}</p>
