@@ -144,7 +144,17 @@ export const FoodwaysOverviewPage = () => {
               </>
             )}
           </div>
-          <div className="content__bottom"></div>
+          <div className="content__bottom">
+            <img className="scroll" src="/images/icons/scroll.svg" width="35" />
+            <div className="popup">
+              <img src="/images/icons/info.svg" width="80" />
+              <p>
+                Learn more about gardening in{" "}
+                <span>The places you will grow!</span> or check out this fun
+                activity <span>Plant a seed, feed yourself!</span>
+              </p>
+            </div>
+          </div>
         </div>
       </Style.Container>
       <CalendarModal
@@ -158,7 +168,7 @@ export const FoodwaysOverviewPage = () => {
 
 const Style = {
   Container: styled.div<{ stops: number | undefined; nav: number }>`
-  overflow-y: hidden;
+    overflow-y: hidden;
 
     .content {
       display: flex;
@@ -182,9 +192,8 @@ const Style = {
 
       &__body {
         display: grid;
-        height: 70vh;
+        height: 60vh;
         grid-template-columns: 5fr 7fr;
-        grid-template-rows: 9fr 1fr;
         position: relative;
 
         &__left {
@@ -296,6 +305,38 @@ const Style = {
 
           &__globe {
             width: 100%;
+          }
+        }
+      }
+
+      &__bottom {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 10vh;
+        padding: 1rem;
+        position: relative;
+
+        .scroll {
+          position: absolute;
+          left: 50%;
+        }
+
+        .popup {
+          display: flex;
+          width: 35rem;
+          background: rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 7.78814px 19.4703px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(59.2764px);
+          border-radius: 16px;
+          padding: 1rem 2rem 1rem 1rem;
+          gap: 1rem;
+           
+          p {
+            span {
+              color: var(--orange-500);
+              font-weight: 600;
+            }
           }
         }
       }
