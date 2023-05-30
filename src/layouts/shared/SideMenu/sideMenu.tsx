@@ -44,7 +44,7 @@ export function SideMenu() {
       <div>
         <Link to="profile">
           <div className="logo-container">
-            {avatars_data[0].icon()}
+            {avatars_data[0].icon({})}
             <div className="username">
               <div>Self disciplined</div>
               <div>{user?.username}</div>
