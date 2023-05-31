@@ -219,7 +219,36 @@ const Style = {
     }
   `,
   ScrollContainer: styled.div`
-    overflow-y: auto;
     max-height: 10vh;
+    overflow-y: auto;
+    padding-right: 4px;
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--blue-300);
+      opacity: 0.5;
+      border-radius: 100px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+    }
+
+    scrollbar-color: var(--blue-300) rgba(0, 0, 0, 0);
+    scrollbar-width: 4px;
+
+    /* Firefox specific styles */
+    @supports (-moz-appearance: none) {
+      scrollbar-color: var(--blue-300) rgba(0, 0, 0, 0);
+
+      & {
+        -moz-appearance: none; /* Disable default Firefox scrollbar */
+      }
+
+      &::-moz-range-track {
+        border-radius: 100px; /* Border radius for the scrollbar track in Firefox */
+      }
+    }
   `,
 };

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export type CheckboxSize = "small" | "large";
 export type CheckboxColor = "primary" | "book" | "green" | "orange" | "yellow";
@@ -32,15 +33,15 @@ const Style = {
       background-color: #fff;
       padding: 0;
       margin: 0;
-      width: 20px;
-      height: 20px;
+      width: ${convertToRelativeUnit(20, "vh")};
+      height: ${convertToRelativeUnit(20, "vh")};
       transform-origin: left center;
       scale: ${({ sizeOption }) => (sizeOption === "small" ? "1" : "1.6666")};
-      border-radius: 4px;
+      border-radius: ${convertToRelativeUnit(4, "vh")};
       position: relative;
       display: grid;
       place-items: center;
-      border: 2px solid
+      border: ${convertToRelativeUnit(2, "vh")} solid
         ${({ colorOption }) =>
           colorOption === "primary"
             ? "var(--blue-300)"
@@ -51,11 +52,11 @@ const Style = {
             : colorOption === "yellow"
             ? "var(--yellow-400)"
             : "#A59176"};
-      border-radius: 4px;
+      border-radius: ${convertToRelativeUnit(4, "vh")};
 
       &:disabled {
         background: white;
-        border: 2px solid var(--neutral-400);
+        border: ${convertToRelativeUnit(2, "vh")} solid var(--neutral-400);
       }
 
       &:disabled:checked::before {
@@ -80,9 +81,9 @@ const Style = {
 
       &::before {
         content: "";
-        width: 12px;
-        height: 12px;
-        border-radius: 2px;
+        width: ${convertToRelativeUnit(12, "vh")};
+        height: ${convertToRelativeUnit(12, "vh")};
+        border-radius: ${convertToRelativeUnit(2, "vh")};
         background: white;
         position: absolute;
         opacity: 0;

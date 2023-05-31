@@ -187,7 +187,6 @@ const Style = {
 
         .group-invitations {
           padding: ${convertToRelativeUnit(22, "vh")};
-          overflow-y: scroll;
           width: 100%;
 
           .bold-big-text {
