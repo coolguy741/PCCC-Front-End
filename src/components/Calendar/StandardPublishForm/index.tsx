@@ -14,9 +14,9 @@ interface PublishFormProps {
   isOpen: boolean;
 }
 
-interface EventNameObject {
-  [key: string]: string | undefined;
-}
+// interface EventNameObject {
+//   [key: string]: string | undefined;
+// }
 
 export const StandardPublishForm = ({
   selectedDate,

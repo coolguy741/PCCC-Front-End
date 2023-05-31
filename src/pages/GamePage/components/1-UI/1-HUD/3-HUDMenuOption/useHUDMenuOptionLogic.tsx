@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
+import { ConstantVoidFunctionType } from "../../../../shared/Types/DefineTypes";
 import { RefDivType, RefImageType } from "../../../../shared/Types/RefTypes";
 import { HUDMenuOptionPropTypes } from "./HUDMenuOption";
 import {
@@ -9,8 +10,8 @@ import {
 } from "./HUDMenuOptionAnimations";
 
 interface UseHUDMenuOptionLogicReturnTypes {
-  onPointerLeave: () => void;
-  onPointerEnter: () => void;
+  onPointerLeave: ConstantVoidFunctionType;
+  onPointerEnter: ConstantVoidFunctionType;
   hudMenuOptionBGRef: RefDivType;
   hudMenuOptionIconRef: RefImageType;
 }
@@ -26,7 +27,7 @@ const useHUDMenuOptionLogic = ({
   const hudMenuOptionIconRef: RefImageType = useRef(null);
 
   // Handlers
-  const onPointerEnter = useCallback((): void => {
+  const onPointerEnter: ConstantVoidFunctionType = useCallback((): void => {
     if (menuActive) return;
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
@@ -39,7 +40,7 @@ const useHUDMenuOptionLogic = ({
     );
   }, [menuActive, optionData, setActiveHoveredHudMenuOption]);
 
-  const onPointerLeave = useCallback((): void => {
+  const onPointerLeave: ConstantVoidFunctionType = useCallback((): void => {
     if (menuActive) return;
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
@@ -51,6 +52,7 @@ const useHUDMenuOptionLogic = ({
     }
   }, [menuActive, setActiveHoveredHudMenuOption, activeHoveredHudMenuOption]);
 
+  // TODO: Kanui - This only covers the inventory condition
   useEffect(() => {
     if (optionData.name !== "inventory") return;
     if (activeHoveredHudMenuOption !== null) return;

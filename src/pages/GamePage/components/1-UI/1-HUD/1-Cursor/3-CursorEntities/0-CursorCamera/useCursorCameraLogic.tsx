@@ -22,151 +22,182 @@ import {
   cursorCameraInitRotation,
   cursorCameraMaxRotation,
   cursorCameraMinRotation,
+  cursorCurrentXLocation,
   handleCursorCameraDampedRotation,
   handleCursorCameraFinalMenuRotation,
   handleHaltInterpolationCheck,
   handleUpdateCursorCameraFinalRotation,
+  responsiveZoomRatio,
 } from "./CursorCameraDefines";
 import {
-  SectionMapArrayType,
+  CursorFourOptionMapArrayType,
+  UseCursorCameraLogicHookTypes,
   UseCursorCameraLogicReturnTypes,
 } from "./CursorCameraTypes";
 
-const useCursorCameraLogic = (): UseCursorCameraLogicReturnTypes => {
-  // Refs
-  const cursorCameraRef: RefOrthographicCameraType = useRef(null);
-  const cursorCameraDampedFollowStepRef: RefNumberType = useRef(0);
+const useCursorCameraLogic: UseCursorCameraLogicHookTypes =
+  (): UseCursorCameraLogicReturnTypes => {
+    // Refs
+    const cursorCameraRef: RefOrthographicCameraType = useRef(null);
+    const cursorCameraDampedFollowStepRef: RefNumberType = useRef(0);
 
-  // Global Stated
-  const {
-    menuActive,
-    windowSize,
-    cursorLocation,
-    hoveredSection,
-    setHoveredSection,
-  } = useGlobalState(
-    (state) => ({
-      menuActive: state.menuActive,
-      windowSize: state.windowSize,
-      cursorLocation: state.cursorLocation,
-      hoveredSection: state.hoveredSection,
-      setHoveredSection: state.setHoveredSection,
-    }),
-    shallow,
-  );
+    // Global Stated
+    const {
+      menuActive,
+      cursorSize,
+      windowSize,
+      cursorLocation,
+      hoveredSection,
+      setHoveredSection,
+    } = useGlobalState(
+      (state) => ({
+        cursorSize: state.cursorSize,
+        menuActive: state.menuActive,
+        windowSize: state.windowSize,
+        cursorLocation: state.cursorLocation,
+        hoveredSection: state.hoveredSection,
+        setHoveredSection: state.setHoveredSection,
+      }),
+      shallow,
+    );
 
-  // Handlers
-  const handleUpdateCursorCameraInitRotation: ConstantVoidFunctionType =
-    useCallback((): void => {
-      if (!menuActive) return;
+    // Handlers
+    const handleCaptureCurrentCursorLocation: ConstantVoidFunctionType =
+      useCallback((): void => {
+        if (!menuActive) return;
+        cursorCurrentXLocation.copy(cursorLocation);
+      }, [menuActive, cursorLocation]);
 
-      const menuRotation = MathUtils.clamp(
-        MathUtils.mapLinear(
-          cursorLocation.x,
-          windowSize.x / 4,
-          (windowSize.x / 4) * 3,
+    const handleUpdateCursorCameraInitRotation: ConstantVoidFunctionType =
+      useCallback((): void => {
+        if (!menuActive) return;
+
+        const windowFraction = windowSize.x / 20;
+
+        const menuRotation = MathUtils.clamp(
+          MathUtils.mapLinear(
+            cursorLocation.x,
+            cursorCurrentXLocation.x - windowFraction,
+            cursorCurrentXLocation.x + windowFraction,
+            cursorCameraMinRotation,
+            cursorCameraMaxRotation,
+          ),
           cursorCameraMinRotation,
           cursorCameraMaxRotation,
-        ),
-        cursorCameraMinRotation,
-        cursorCameraMaxRotation,
-      );
+        );
 
-      cursorCameraInitRotation.setX(menuRotation);
-    }, [windowSize, menuActive, cursorLocation]);
+        cursorCameraInitRotation.setX(menuRotation);
+      }, [windowSize, menuActive, cursorLocation]);
 
-  const handleAnimateCursorToMenuRotation: ConstantVoidFunctionType =
-    useCallback((): void => {
-      if (!menuActive) return;
+    const handleAnimateCursorToMenuRotation: ConstantVoidFunctionType =
+      useCallback((): void => {
+        if (!menuActive) return;
 
-      animateCursorCameraToMenuRotation(cursorCameraDampedFollowStepRef);
-    }, [menuActive]);
+        animateCursorCameraToMenuRotation(cursorCameraDampedFollowStepRef);
+      }, [menuActive]);
 
-  const handleAnimateCursorToFollowRotation: ConstantVoidFunctionType =
-    useCallback((): void => {
-      if (menuActive) return;
+    const handleAnimateCursorToFollowRotation: ConstantVoidFunctionType =
+      useCallback((): void => {
+        if (menuActive) return;
+        if (cursorCameraInitRotation.x === 0) return;
 
-      animateCursorCameraToFollowRotation(cursorCameraInitRotation);
-    }, [menuActive]);
+        animateCursorCameraToFollowRotation(cursorCameraInitRotation);
+      }, [menuActive]);
 
-  const handleSetHoveredSection: ConstantVoidFunctionType =
-    useCallback((): void => {
-      if (!menuActive) return;
+    const handleSetHoveredSection: ConstantVoidFunctionType =
+      useCallback((): void => {
+        if (!menuActive) return;
+        if (!cursorCameraRef.current) return;
+
+        const cursorFourOptionMap: CursorFourOptionMapArrayType = [
+          {
+            section: "inspect",
+            condition:
+              cursorCameraRef.current.rotation.z < cursorCameraBreakpoint1,
+          },
+          {
+            section: "pickup",
+            condition:
+              cursorCameraRef.current.rotation.z > cursorCameraBreakpoint1 &&
+              cursorCameraRef.current.rotation.z < cursorCameraBreakpoint2 &&
+              cursorCameraRef.current.rotation.z < cursorCameraBreakpoint3,
+          },
+          {
+            section: "dynamic",
+            condition:
+              cursorCameraRef.current.rotation.z > cursorCameraBreakpoint2 &&
+              cursorCameraRef.current.rotation.z < cursorCameraBreakpoint3,
+          },
+          {
+            section: "exit",
+            condition:
+              cursorCameraRef.current.rotation.z > cursorCameraBreakpoint3,
+          },
+        ];
+
+        cursorFourOptionMap.forEach(({ section, condition }) => {
+          if (!condition) return;
+          if (hoveredSection === section) return;
+
+          setHoveredSection(section);
+        });
+      }, [menuActive, hoveredSection, setHoveredSection]);
+
+    const handleCameraZoom: ConstantVoidFunctionType = useCallback((): void => {
       if (!cursorCameraRef.current) return;
-
-      const sectionMap: SectionMapArrayType = [
-        {
-          section: "inspect",
-          condition:
-            cursorCameraRef.current.rotation.z < cursorCameraBreakpoint1,
-        },
-        {
-          section: "actionOne",
-          condition:
-            cursorCameraRef.current.rotation.z > cursorCameraBreakpoint1 &&
-            cursorCameraRef.current.rotation.z < cursorCameraBreakpoint2 &&
-            cursorCameraRef.current.rotation.z < cursorCameraBreakpoint3,
-        },
-        {
-          section: "actionTwo",
-          condition:
-            cursorCameraRef.current.rotation.z > cursorCameraBreakpoint2 &&
-            cursorCameraRef.current.rotation.z < cursorCameraBreakpoint3,
-        },
-        {
-          section: "exit",
-          condition:
-            cursorCameraRef.current.rotation.z > cursorCameraBreakpoint3,
-        },
-      ];
-
-      sectionMap.forEach(({ section, condition }) => {
-        if (!condition) return;
-        if (hoveredSection === section) return;
-
-        setHoveredSection(section);
-      });
-    }, [menuActive, hoveredSection, setHoveredSection]);
-
-  const handleCursorCameraOnFrame: R3FUseFrameFunctionType = useCallback(
-    (state: RootState, delta: number): void => {
-      if (!cursorCameraRef.current) return;
-
-      handleSetHoveredSection();
-
-      handleUpdateCursorCameraInitRotation();
-
-      handleHaltInterpolationCheck(cursorCameraRef.current);
-
-      if (cursorCameraRef.current.rotation.z === cursorCameraInitRotation.x)
+      if (cursorCameraRef.current.zoom === cursorSize.x * responsiveZoomRatio)
         return;
+      cursorCameraRef.current.zoom = cursorSize.x * responsiveZoomRatio;
+      cursorCameraRef.current.updateProjectionMatrix();
+    }, [cursorSize]);
 
-      handleCursorCameraDampedRotation(
-        cursorCameraDampedFollowStepRef.current,
-        delta,
-      );
+    const handleCursorCameraOnFrame: R3FUseFrameFunctionType = useCallback(
+      (state: RootState, delta: number): void => {
+        if (!cursorCameraRef.current) return;
 
-      handleCursorCameraFinalMenuRotation();
+        handleCameraZoom();
 
-      handleUpdateCursorCameraFinalRotation(cursorCameraRef.current);
-    },
-    [handleUpdateCursorCameraInitRotation, handleSetHoveredSection],
-  );
+        handleSetHoveredSection();
 
-  // Listeners
-  useEffect((): void => {
-    handleAnimateCursorToMenuRotation();
-    handleAnimateCursorToFollowRotation();
-  }, [
-    menuActive,
-    handleAnimateCursorToMenuRotation,
-    handleAnimateCursorToFollowRotation,
-  ]);
+        handleUpdateCursorCameraInitRotation();
 
-  // Hooks
-  useFrame(handleCursorCameraOnFrame);
+        handleHaltInterpolationCheck(cursorCameraRef.current);
 
-  return { cursorCameraRef };
-};
+        if (cursorCameraRef.current.rotation.z === cursorCameraInitRotation.x)
+          return;
+
+        handleCursorCameraDampedRotation(
+          cursorCameraDampedFollowStepRef.current,
+          delta,
+        );
+
+        handleCursorCameraFinalMenuRotation();
+
+        handleUpdateCursorCameraFinalRotation(cursorCameraRef.current);
+      },
+      [
+        handleCameraZoom,
+        handleSetHoveredSection,
+        handleUpdateCursorCameraInitRotation,
+      ],
+    );
+
+    // Listeners
+    useEffect((): void => {
+      handleAnimateCursorToMenuRotation();
+      handleCaptureCurrentCursorLocation();
+      handleAnimateCursorToFollowRotation();
+    }, [
+      menuActive,
+      handleAnimateCursorToMenuRotation,
+      handleCaptureCurrentCursorLocation,
+      handleAnimateCursorToFollowRotation,
+    ]);
+
+    // Hooks
+    useFrame(handleCursorCameraOnFrame);
+
+    return { cursorCameraRef };
+  };
 
 export { useCursorCameraLogic };

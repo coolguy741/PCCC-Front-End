@@ -1,43 +1,94 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 import { ConstantVoidFunctionType } from "../../../../../shared/Types/DefineTypes";
-import { RefDivType } from "../../../../../shared/Types/RefTypes";
+import {
+  RefDivType,
+  RefTimeoutType,
+} from "../../../../../shared/Types/RefTypes";
+import { InspectData } from "../../4-Inspect/7-InspectData/INSPECT_DATA";
 import { UseCursorMenuChoiceColliderLogicReturnTypes } from "./CursorMenuChoiceColliderTypes";
 
 const useCursorMenuChoiceColliderLogic =
   (): UseCursorMenuChoiceColliderLogicReturnTypes => {
     // Refs
     const cursorMenuChoiceColliderRef: RefDivType = useRef(null);
+    const cursorMenuChoiceColliderTimeoutRef: RefTimeoutType = useRef(null);
+
+    // Local State
+    const [
+      isCursorMenuChoiceColliderDisabled,
+      setIsCursorMenuChoiceColliderDisabled,
+    ] = useState(true);
 
     // Global State
-    const { menuActive, setMenuActive, hoveredSection } = useGlobalState(
+    const {
+      menuActive,
+      setMenuActive,
+      hoveredSection,
+      setInspectActive,
+      activeHoveredEntity,
+      setActiveMiscInventory,
+      setActiveToolInventory,
+      setActiveIngredientInventory,
+    } = useGlobalState(
       (state) => ({
         menuActive: state.menuActive,
         setMenuActive: state.setMenuActive,
         hoveredSection: state.hoveredSection,
+        setInspectActive: state.setInspectActive,
+        activeHoveredEntity: state.activeHoveredEntity,
+        setActiveMiscInventory: state.setActiveMiscInventory,
+        setActiveToolInventory: state.setActiveToolInventory,
+        setActiveIngredientInventory: state.setActiveIngredientInventory,
       }),
       shallow,
     );
 
     // Handlers
+    const handlePickUpItem: ConstantVoidFunctionType = useCallback(() => {
+      if (!menuActive) return;
+      if (!activeHoveredEntity) return;
+
+      const itemType = InspectData[activeHoveredEntity].type;
+
+      switch (itemType) {
+        case "tool":
+          setActiveToolInventory(InspectData[activeHoveredEntity].imgName);
+          break;
+        case "ingredient":
+          setActiveIngredientInventory(
+            InspectData[activeHoveredEntity].imgName,
+          );
+          break;
+        case "misc":
+          setActiveMiscInventory(InspectData[activeHoveredEntity].imgName);
+          break;
+        default:
+          break;
+      }
+    }, [
+      menuActive,
+      activeHoveredEntity,
+      setActiveMiscInventory,
+      setActiveToolInventory,
+      setActiveIngredientInventory,
+    ]);
+
     const handleCursorMenuOptionChoice: ConstantVoidFunctionType =
       useCallback((): void => {
         if (!menuActive) return;
-        if (!cursorMenuChoiceColliderRef.current) return;
-
-        cursorMenuChoiceColliderRef.current.style.visibility = "hidden";
-        cursorMenuChoiceColliderRef.current.style.pointerEvents = "none";
+        if (isCursorMenuChoiceColliderDisabled) return;
 
         switch (hoveredSection) {
           case "inspect":
-            console.log("inspect");
+            setInspectActive(true);
             break;
-          case "actionOne":
-            console.log("actionOne");
+          case "pickup":
+            handlePickUpItem();
             break;
-          case "actionTwo":
-            console.log("actionTwo");
+          case "dynamic":
+            console.log("dynamic");
             break;
           case "exit":
             console.log("exit");
@@ -48,7 +99,26 @@ const useCursorMenuChoiceColliderLogic =
         }
 
         setMenuActive(false);
-      }, [menuActive, setMenuActive, hoveredSection]);
+        setIsCursorMenuChoiceColliderDisabled(true);
+
+        if (cursorMenuChoiceColliderTimeoutRef.current) {
+          clearTimeout(cursorMenuChoiceColliderTimeoutRef.current);
+        }
+
+        cursorMenuChoiceColliderTimeoutRef.current = setTimeout(() => {
+          if (!cursorMenuChoiceColliderRef.current) return;
+          cursorMenuChoiceColliderRef.current.style.visibility = "hidden";
+          cursorMenuChoiceColliderRef.current.style.pointerEvents = "none";
+        }, 1250);
+      }, [
+        menuActive,
+        setMenuActive,
+        hoveredSection,
+        setInspectActive,
+        handlePickUpItem,
+        isCursorMenuChoiceColliderDisabled,
+        setIsCursorMenuChoiceColliderDisabled,
+      ]);
 
     const handleRevealCursorMenuChoiceCollider: ConstantVoidFunctionType =
       useCallback((): void => {
@@ -56,7 +126,14 @@ const useCursorMenuChoiceColliderLogic =
         if (!cursorMenuChoiceColliderRef.current) return;
         cursorMenuChoiceColliderRef.current.style.visibility = "visible";
         cursorMenuChoiceColliderRef.current.style.pointerEvents = "auto";
-      }, [menuActive]);
+        if (cursorMenuChoiceColliderTimeoutRef.current) {
+          clearTimeout(cursorMenuChoiceColliderTimeoutRef.current);
+        }
+
+        cursorMenuChoiceColliderTimeoutRef.current = setTimeout(() => {
+          setIsCursorMenuChoiceColliderDisabled(false);
+        }, 1250);
+      }, [menuActive, setIsCursorMenuChoiceColliderDisabled]);
 
     // Listers
     useEffect(handleRevealCursorMenuChoiceCollider, [

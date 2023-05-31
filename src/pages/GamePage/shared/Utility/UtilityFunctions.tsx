@@ -30,4 +30,8 @@ const DampScalar = (
   target = MathUtils.damp(target, to, step, delta);
 };
 
-export { DampVector3, DampScalar, DampVector2 };
+const handleStopPropagation = (e: MouseEvent) => {
+  e.stopPropagation();
+};
+
+export { DampVector3, DampScalar, DampVector2, handleStopPropagation };

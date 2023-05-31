@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
+import { formatDate } from "../../../lib/util/formatDate";
 import { Checkbox } from "../../Global/Checkbox";
 
 interface FoodwaysListItemProps {
@@ -28,9 +29,15 @@ export const FoodwaysListItem: React.FC<FoodwaysListItemProps> = ({
 
   return (
     <Style.Container onClick={() => navigate(`${data.id}`)}>
-      {/* <img src={data.image} alt={data.title} /> */}
+      <div className="img-container">
+        <img src={data.image!} alt={data.title!} />
+      </div>
       <Style.Content>
-        {/* {data.date && <Style.Date>{"Feature date: " + data.date}</Style.Date>} */}
+        {data.featureDate && (
+          <Style.Date>
+            <div>{"Feature date: " + formatDate(data.featureDate)}</div>
+          </Style.Date>
+        )}
         <Style.Title>{data.title}</Style.Title>
         <Style.Description>{data.info}</Style.Description>
       </Style.Content>
@@ -62,22 +69,28 @@ const Style = {
     font-family: "Noir Std";
     font-style: normal;
     width: 100%;
+    height: 17rem;
 
     &: hover {
       background: linear-gradient(182.85deg, #ffeb99 2.47%, #f3d03e 97.72%);
     }
 
-    img {
-      height: 100%;
+    .img-container {
+      width: 40%;
+
+      img {
+        width: 100%;
+      }
     }
   `,
   Content: styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr;
+    padding: 0;
     gap: 20px;
+    width: 60%;
+    height: 100%;
+    overflow: hidden;
   `,
   Topic: styled.p`
     box-sizing: border-box;
@@ -92,18 +105,20 @@ const Style = {
     color: var(--orange-600);
     text-transform: uppercase;
   `,
-  Date: styled.p`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 16px;
-    gap: 10px;
-    border: 2px solid var(--orange-600);
-    border-radius: 50px;
-    color: var(--orange-600);
-    text-transform: uppercase;
+  Date: styled.div`
+    div {
+      box-sizing: border-box;
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 16px;
+      gap: 10px;
+      border: 2px solid var(--orange-600);
+      border-radius: 50px;
+      color: var(--orange-600);
+      text-transform: uppercase;
+    }
   `,
   Title: styled.p`
     font-weight: 600;
@@ -113,10 +128,11 @@ const Style = {
     mix-blend-mode: normal;
   `,
   Description: styled.p`
-    font- weight: 400;
-    font - size: 16px;
-    line - height: 20px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
     color: var(--neutral-600);
+    text-overflow: ellipsis;
   `,
   InputContainer: styled.div`
     z-index: 10;

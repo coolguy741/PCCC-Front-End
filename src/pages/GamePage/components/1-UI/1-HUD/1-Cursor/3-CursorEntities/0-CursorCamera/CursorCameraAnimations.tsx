@@ -13,7 +13,7 @@ const animateCursorCameraToMenuRotation: AnimateCursorCameraToMenuRotationType =
       step,
       { current: 0 },
       {
-        current: 5,
+        current: 6,
         duration: 1,
         overwrite: true,
         ease: POWER_1_INOUT,

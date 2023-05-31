@@ -12,6 +12,7 @@ import {
   PccServer23GroupsGroupWithNavigationPropertiesDto,
 } from "../../../../lib/api/api";
 import { capitalize } from "../../../../lib/util/capitalize";
+import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
 import { STORAGE_KEY_JWT } from "../../../consts";
 
 export const AccountsEditGroupPage = () => {
@@ -69,7 +70,7 @@ export const AccountsEditGroupPage = () => {
 
   const handleDelete = async (userId: string | undefined) => {
     if (userId) {
-      const response = await api.appGroupsDelete(
+      await api.appGroupsDelete(
         { GroupId: params.group, UserId: userId },
         {
           headers: {
@@ -93,6 +94,7 @@ export const AccountsEditGroupPage = () => {
     );
 
     if (response.data.items) {
+      // TODO: type
       response.data.items.find((item: any) => {
         if (item.group.id === params.group) {
           setGroup(item);
@@ -108,98 +110,114 @@ export const AccountsEditGroupPage = () => {
 
   return (
     <Style.Container>
-      <div className="buttons-container">
+      <div className="buttons-container manage-users-options">
         <BackButton onClick={handleBack} />
       </div>
-      <h2>Edit Group</h2>
-      <div className="content">
-        <div className="group-container">
-          <div className="group-header">
-            <div className="group-name">
-              <h3>Group Name</h3>
-              <Input
-                value={groupName}
-                onChange={(e) => setGroupName(e.target.value)}
-                placeholder="Enter your group name"
-                height="3.5rem"
-              />
+      <section className="manage-users-content">
+        <h2>Edit Group</h2>
+        <div className="content">
+          <div className="group-container">
+            <div className="group-header">
+              <div className="group-name">
+                <h3>Group Name</h3>
+                <Input
+                  value={groupName}
+                  onChange={(e) => setGroupName(e.target.value)}
+                  placeholder="Enter your group name"
+                />
+              </div>
+              <div className="group-owner">
+                <h3>Owner:</h3>
+                <Select>
+                  <option value="1">Owner</option>
+                </Select>
+              </div>
+              <div className="group-meta">
+                <h3>Group ID</h3>
+                <span>{group?.group?.id}</span>
+              </div>
             </div>
-            <div className="group-owner">
-              <h3>Owner:</h3>
-              <Select height="3.5rem">
-                <option value="1">Owner</option>
-              </Select>
-            </div>
-            <div className="group-meta">
-              <h3>Group ID</h3>
-              <span>{group?.group?.id}</span>
-            </div>
-          </div>
-          <div className="group-body">
-            <h3>Group members</h3>
-            <div className="group-body-members">
-              {members.map((member, index) => (
-                <div className="member-container-row" key={index}>
-                  <div className="member-container">
-                    <img
-                      src="/images/avatars/avatar.svg"
-                      alt="member"
-                      placeholder="image"
-                      width="50"
-                    />
-                    <div>
-                      <span className="user">
-                        {member.userName || "UserName"}
-                      </span>
-                      <span className="role">
-                        {capitalize(member.userRole)}
-                      </span>
+            <div className="group-body">
+              <h3>Group members</h3>
+              <div className="group-body-members">
+                {members.map((member, index) => (
+                  <div className="member-container-row" key={index}>
+                    <div className="member-container">
+                      <img
+                        src="/images/avatars/avatar.svg"
+                        alt="member"
+                        placeholder="image"
+                        width="50"
+                      />
+                      <div>
+                        <span className="user">
+                          {member.userName || "UserName"}
+                        </span>
+                        <span className="role">
+                          {capitalize(member.userRole)}
+                        </span>
+                      </div>
                     </div>
+                    <Button
+                      size="small"
+                      variant="yellow"
+                      onClick={() => handleDelete(member.userId)}
+                    >
+                      Remove
+                    </Button>
                   </div>
-                  <Button
-                    size="small"
-                    variant="yellow"
-                    onClick={() => handleDelete(member.userId)}
-                  >
-                    Remove
-                  </Button>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="user-container">
+            <div className="user-header">
+              <h3>Username</h3>
+              <Input placeholder="Search by username" />
+              <div className="users-body"></div>
             </div>
           </div>
         </div>
-        <div className="user-container">
-          <div className="user-header">
-            <h3>Username</h3>
-            <Input placeholder="Search by username" height="3.5rem" />
-            <div className="users-body"></div>
-          </div>
-        </div>
-      </div>
 
-      <div className="edit-button-container">
-        <Button onClick={handleEdit}>Save changes</Button>
-      </div>
+        <div className="edit-button-container">
+          <Button onClick={handleEdit}>Save changes</Button>
+        </div>
+      </section>
     </Style.Container>
   );
 };
 
 const Style = {
   Container: styled.div`
+    /* classnames to target content for manage users layout */
+    /* decreasing the options size & increasing content size */
+    div.manage-users-options {
+      height: 10vh;
+    }
+
+    section.manage-users-content {
+      height: 68.5vh;
+    }
+
+    h2 {
+      color: var(--neutral-800);
+      font-size: ${convertToRelativeUnit(33, "vh")};
+      font-weight: 600;
+    }
+
     .buttons-container {
-      margin: 20px 0px;
       display: flex;
       justify-content: space-between;
     }
 
     .content {
       display: flex;
-      gap: 2rem;
-      height: 55vh;
+      gap: ${convertToRelativeUnit(26, "vw")};
+      height: 77.5%;
 
       h3 {
         color: var(--neutral-600);
-        font-size: 1.1rem;
+        font-size: ${convertToRelativeUnit(18, "vw")};
         font-weight: 600;
       }
 
@@ -207,32 +225,31 @@ const Style = {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        gap: 30px;
+        gap: ${convertToRelativeUnit(30, "vw")};
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-        padding: 1.4rem;
+        padding: ${convertToRelativeUnit(24, "vw")};
         border-radius: 16px;
         width: calc(100% * (8 / 12));
-        margin-top: 1.5rem;
 
         .group-header {
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          gap: 2rem;
+          gap: ${convertToRelativeUnit(18, "vw")};
 
           .group-name,
           .group-owner {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: ${convertToRelativeUnit(12, "vw")};
             width: 100%;
           }
 
           .group-meta {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: ${convertToRelativeUnit(12, "vw")};
             width: 60%;
             color: var(--neutral-600);
           }
@@ -242,7 +259,7 @@ const Style = {
           .group-body-members {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0 2rem;
+            gap: 0 ${convertToRelativeUnit(32, "vw")};
 
             .member-container-row {
               display: flex;
@@ -257,8 +274,8 @@ const Style = {
 
                 img {
                   border-radius: 50%;
-                  width: 80px;
-                  height: 80px;
+                  width: ${convertToRelativeUnit(80, "vw")};
+                  height: ${convertToRelativeUnit(80, "vh")};
                 }
 
                 div {
@@ -267,12 +284,12 @@ const Style = {
 
                   .user {
                     font-weight: 600;
-                    font-size: 1.1rem;
+                    font-size: ${convertToRelativeUnit(18, "vh")};
                     color: var(--neutral-800);
                   }
 
                   .role {
-                    font-size: 0.8rem;
+                    font-size: ${convertToRelativeUnit(14, "vh")};
                     color: var(--neutral-700);
                   }
                 }
@@ -286,18 +303,17 @@ const Style = {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        gap: 30px;
+        gap: ${convertToRelativeUnit(30, "vw")};
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-        padding: 1.4rem;
+        padding: ${convertToRelativeUnit(20, "vw")};
         border-radius: 16px;
         width: calc(100% * (4 / 12));
-        margin-top: 1.5rem;
 
         .user-header {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: ${convertToRelativeUnit(12, "vw")};
         }
       }
 
@@ -314,8 +330,8 @@ const Style = {
 
           img {
             border-radius: 50%;
-            width: 80px;
-            height: 80px;
+            width: ${convertToRelativeUnit(80, "vw")};
+            height: ${convertToRelativeUnit(80, "vh")};
           }
 
           div {
@@ -324,12 +340,12 @@ const Style = {
 
             .user {
               font-weight: 600;
-              font-size: 1.1rem;
+              font-size: ${convertToRelativeUnit(18, "vh")};
               color: var(--neutral-800);
             }
 
             .role {
-              font-size: 0.8rem;
+              font-size: ${convertToRelativeUnit(14, "vh")};
               color: var(--neutral-700);
             }
           }
@@ -340,7 +356,7 @@ const Style = {
       display: flex;
       justify-content: flex-end;
       width: 100%;
-      margin-top: 2rem;
+      margin-top: ${convertToRelativeUnit(24, "vh")};
     }
   `,
 };

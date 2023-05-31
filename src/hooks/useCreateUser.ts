@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import { Api } from "../lib/api/api";
 
 export const useCreateUser = () => {
+  // TODO: unused set user
   const [user, setUser] = useState(null);
   const { api } = new Api({ baseUrl: "https://backend-dev.powerfullkids.ca" });
 
-  const getQuestions = async () => {
-    const questions =
-      await api.appSecurityQuestionChoicesSecurityQuestionsList();
+  // const getQuestions = async () => {
+  //   const questions =
+  //     await api.appSecurityQuestionChoicesSecurityQuestionsList();
 
-    console.log(questions);
+  //   console.log(questions);
 
-    return questions;
-  };
+  //   return questions;
+  // };
 
   const getUserNames = async () => {
     const usernames = await api.appUsernameChoicesUsernameChoicesList();

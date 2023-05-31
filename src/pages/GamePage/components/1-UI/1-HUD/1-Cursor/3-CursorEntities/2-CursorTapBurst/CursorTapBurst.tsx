@@ -3,7 +3,7 @@ import { tapBurstGeometry, tapBurstMaterial } from "./CursorTapBurstDefines";
 import { useCursorTapBurstLogic } from "./useCursorTapBurstLogic";
 
 const CursorTapBurst: FC = () => {
-  // Hooks
+  // Component Logic
   useCursorTapBurstLogic();
 
   return (

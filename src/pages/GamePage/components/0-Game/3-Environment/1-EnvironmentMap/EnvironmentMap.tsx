@@ -13,16 +13,22 @@ const EnvironmentMap: FC = () => {
 
   // Hooks
   const { blurHDR, projectHDR } = useControls({
-    HDR: folder({
-      blurHDR: 0.1,
-      projectHDR: true,
-    }),
+    HDR: folder(
+      {
+        blurHDR: {
+          value: 0.1,
+          min: 0,
+          max: 1,
+          step: 0.1,
+        },
+        projectHDR: true,
+      },
+      { collapsed: true },
+    ),
   });
 
   const { dataURL, dataPath } = useMemo(() => {
-    const dataURL = dynamicEnvironmentMap
-      ? dynamicEnvironmentMap
-      : "forest.hdr";
+    const dataURL = dynamicEnvironmentMap ? dynamicEnvironmentMap : "sky.hdr";
     const dataPath = dynamicEnvironmentMap
       ? undefined
       : "/game_assets/envMaps/";

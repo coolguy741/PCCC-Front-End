@@ -76,7 +76,7 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
           </p>
           <Link to={`${data?.group?.id}/edit`}>
             <button>
-              <img src="/images/icons/edit.svg" />
+              <img src="/images/icons/edit.svg" alt="edit" />
             </button>
           </Link>
         </div>
@@ -89,7 +89,7 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
         <div className="row">
           <div className="buttons-group">
             <button onClick={handleDelete}>
-              <img src="/images/icons/delete.svg" />
+              <img src="/images/icons/delete.svg" alt="delete" />
             </button>
             <Button size="small" onClick={handleJoin}>
               Join

@@ -1,20 +1,15 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
-import { RefBooleanType } from "../../../../../../shared/Types/RefTypes";
 import { animateCursorTapBurst } from "./CursorTapBurstAnimations";
 import { tapBurstMaterial } from "./CursorTapBurstDefines";
 
 const useCursorTapBurstLogic: ConstantVoidFunctionType = (): void => {
-  // Refs
-  const tapBurstAnimAllowedRef: RefBooleanType = useRef(false);
-
   // Global State
-  const { isCursorDown, isHoveringEntity } = useGlobalState(
+  const { menuActive } = useGlobalState(
     (state) => ({
-      isCursorDown: state.isCursorDown,
-      isHoveringEntity: state.isHoveringEntity,
+      menuActive: state.menuActive,
     }),
     shallow,
   );
@@ -22,18 +17,19 @@ const useCursorTapBurstLogic: ConstantVoidFunctionType = (): void => {
   // Handlers
   const handleTapBurstOnClick: ConstantVoidFunctionType =
     useCallback((): void => {
-      if (isCursorDown && isHoveringEntity) {
-        tapBurstAnimAllowedRef.current = true;
-      }
+      if (!menuActive) return;
+      animateCursorTapBurst(tapBurstMaterial);
+    }, [menuActive]);
 
-      if (!isCursorDown && tapBurstAnimAllowedRef.current) {
-        animateCursorTapBurst(tapBurstMaterial);
-        tapBurstAnimAllowedRef.current = false;
-      }
-    }, [isCursorDown, isHoveringEntity]);
+  // useFrame((state: RootState, delta: number) => {
+  //   if (tapBurstMaterial.uniforms.uTime.value >= 1) {
+  //     tapBurstMaterial.uniforms.uTime.value = 0;
+  //   }
+  //   tapBurstMaterial.uniforms.uTime.value += delta;
+  // });
 
   // Listeners
-  useEffect(handleTapBurstOnClick, [isCursorDown, handleTapBurstOnClick]);
+  useEffect(handleTapBurstOnClick, [menuActive, handleTapBurstOnClick]);
 };
 
 export { useCursorTapBurstLogic };

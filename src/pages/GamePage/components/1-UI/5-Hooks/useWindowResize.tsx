@@ -1,21 +1,24 @@
 import { useCallback, useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
+import { ConstantVoidFunctionType } from "../../../shared/Types/DefineTypes";
 
 const useWindowResize = (): void => {
   // Global State
-  const { windowSize } = useGlobalState(
+  const { windowSize, setWindowResizeEventTrigger } = useGlobalState(
     (state) => ({
       windowSize: state.windowSize,
+      setWindowResizeEventTrigger: state.setWindowResizeEventTrigger,
     }),
     shallow,
   );
 
-  const handleResize = useCallback((): void => {
+  const handleResize: ConstantVoidFunctionType = useCallback((): void => {
     windowSize.set(window.innerWidth, window.innerHeight);
-  }, [windowSize]);
+    setWindowResizeEventTrigger();
+  }, [windowSize, setWindowResizeEventTrigger]);
 
-  useEffect((): (() => void) => {
+  useEffect(() => {
     handleResize();
 
     window.addEventListener("resize", handleResize);

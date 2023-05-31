@@ -59,7 +59,7 @@ const Style = {
     -webkit-padding-start: ${conv(15, "vw")};
     -moz-padding-start: ${conv(15, "vw")};
     background-color: white;
-    height: ${({ height }) => (height ? height : "100%")};
+    height: ${({ height }) => (height ? height : conv(48, "vh"))};
     width: 100%;
     box-shadow: 0px 5.19209px 20.7684px rgba(0, 0, 0, 0.1);
     border-radius: ${conv(8, "vw")};

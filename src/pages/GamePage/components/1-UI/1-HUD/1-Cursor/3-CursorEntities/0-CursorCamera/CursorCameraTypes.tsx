@@ -5,14 +5,15 @@ import {
   RefOrthographicCameraType,
 } from "../../../../../../shared/Types/RefTypes";
 
-export type CursorCameraCameraUpdatefunctionType = (
-  cursorCameraReference: OrthographicCamera,
-) => void;
+// Component Logic
+export type UseCursorCameraLogicHookTypes =
+  () => UseCursorCameraLogicReturnTypes;
 
 export interface UseCursorCameraLogicReturnTypes {
   cursorCameraRef: RefOrthographicCameraType;
 }
 
+// Animations
 export type AnimateCursorCameraToMenuRotationType = (
   step: RefNumberType,
 ) => void;
@@ -21,9 +22,14 @@ export type AnimateCursorCameraToFollowRotationType = (
   cursorCameraRotation: Vector2,
 ) => void;
 
-interface SectionMapType {
+// Constants
+export type CursorCameraCameraUpdateFunctionType = (
+  cursorCameraReference: OrthographicCamera,
+) => void;
+
+interface CursorFourOptionMapType {
   section: CursorMenuOptionTypes;
   condition: boolean;
 }
 
-export type SectionMapArrayType = SectionMapType[];
+export type CursorFourOptionMapArrayType = CursorFourOptionMapType[];

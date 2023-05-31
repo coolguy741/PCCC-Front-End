@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { Avatar } from "../../../lib/avatars/data";
 import { trimStringByLength } from "../../../lib/util/trimStringByLength";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 interface AccountCardProps {
-  img: { icon: any; bg: string };
+  img: Avatar;
   name: string;
   role: string;
   onClick: () => void;
@@ -12,7 +13,7 @@ interface AccountCardProps {
 export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
   return (
     <Style.Container>
-      <figure className="avatar">{img.icon()}</figure>
+      <figure className="avatar">{img.icon({})}</figure>
       <div className="account-info">
         <div>
           <h3>{trimStringByLength(name, 15)}</h3>

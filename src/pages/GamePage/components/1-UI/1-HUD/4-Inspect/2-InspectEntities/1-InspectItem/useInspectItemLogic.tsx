@@ -1,26 +1,29 @@
 import { RootState, useFrame } from "@react-three/fiber";
 import { useCallback, useRef } from "react";
-import { RefMeshType } from "../../../../../../shared/Types/RefTypes";
+import { RefGroupType } from "../../../../../../shared/Types/RefTypes";
+import {
+  UseInspectItemLogicHookType,
+  UseInspectItemLogicReturnTypes,
+} from "./InspectItemTypes";
 
-// Types
-interface UseInspectItemLogicReturnTypes {
-  inspectItemMeshRef: RefMeshType;
-}
+const useInspectItemLogic: UseInspectItemLogicHookType =
+  (): UseInspectItemLogicReturnTypes => {
+    // Refs
+    const inspectItemMeshRef: RefGroupType = useRef(null);
 
-const useInspectItemLogic = (): UseInspectItemLogicReturnTypes => {
-  // Refs
-  const inspectItemMeshRef: RefMeshType = useRef(null);
+    // Handlers
+    const handleOnFrame = useCallback(
+      (state: RootState, delta: number): void => {
+        if (!inspectItemMeshRef.current) return;
+        inspectItemMeshRef.current.rotation.y += 1 * delta;
+      },
+      [],
+    );
 
-  // Handlers
-  const handleOnFrame = useCallback((state: RootState, delta: number): void => {
-    if (!inspectItemMeshRef.current) return;
-    inspectItemMeshRef.current.rotation.y += 1 * delta;
-  }, []);
+    // Hooks
+    useFrame(handleOnFrame);
 
-  // Hooks
-  useFrame(handleOnFrame);
-
-  return { inspectItemMeshRef };
-};
+    return { inspectItemMeshRef };
+  };
 
 export { useInspectItemLogic };

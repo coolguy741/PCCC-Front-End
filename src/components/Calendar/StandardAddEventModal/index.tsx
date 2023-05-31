@@ -56,18 +56,18 @@ export const StandardAddEventModal: React.FC<Props> = ({
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
 
-  const handleAddEvent = (event: CalendarEvent) => {
-    addEvent({
-      title: event.group,
-      start: selectedDate,
-      type: eventType?.type,
-      description: `${event.curriculum.replaceAll(
-        "-",
-        " ",
-      )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
-    });
-    handleClose();
-  };
+  // const handleAddEvent = (event: CalendarEvent) => {
+  //   addEvent({
+  //     title: event.group,
+  //     start: selectedDate,
+  //     type: eventType?.type,
+  //     description: `${event.curriculum.replaceAll(
+  //       "-",
+  //       " ",
+  //     )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
+  //   });
+  //   handleClose();
+  // };
 
   const handleClose = () => {
     close();
@@ -99,21 +99,31 @@ export const StandardAddEventModal: React.FC<Props> = ({
             </Select>
           </div>
           {type === "Note" && (
-            <AddNoteForm
-              yPos={position.yPos}
-              selectedDate={selectedDate}
-              isOpen={isOpen}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-            />
+            <>
+              <div className="divider">
+                <div />
+              </div>
+              <AddNoteForm
+                yPos={position.yPos}
+                selectedDate={selectedDate}
+                isOpen={isOpen}
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+              />
+            </>
           )}
           {!!type && type !== "Note" && (
-            <StandardPublishForm
-              yPos={position.yPos}
-              selectedDate={selectedDate}
-              type={type}
-              isOpen={isOpen}
-            />
+            <>
+              <div className="divider">
+                <div />
+              </div>
+              <StandardPublishForm
+                yPos={position.yPos}
+                selectedDate={selectedDate}
+                type={type}
+                isOpen={isOpen}
+              />
+            </>
           )}
         </div>
       </div>
@@ -190,6 +200,16 @@ const Style = {
           h3 {
             font-size: 1.3rem;
             font-weight: 600;
+          }
+        }
+
+        .divider {
+          width: 100%;
+          padding: 0.5rem 1.3rem;
+
+          div {
+            background-color: #d9d9d9;
+            height: 1px;
           }
         }
 

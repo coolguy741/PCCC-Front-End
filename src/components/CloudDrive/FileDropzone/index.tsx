@@ -15,7 +15,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesDropped }) => {
     [onFilesDropped],
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <Style.Container {...getRootProps()}>

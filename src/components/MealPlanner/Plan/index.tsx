@@ -1,5 +1,4 @@
 import { AnimatePresence } from "framer-motion";
-import { useMemo } from "react";
 
 import { useMealPlannerStore } from "../../../stores/mealPlannerStore";
 import { ClosedPlateFullPlannerBook } from "./ClosedBook";
@@ -16,19 +15,19 @@ const COMPONENTS = [
   <MealPlans />,
 ];
 
-const weekDays = [
-  "",
-  "Sunday",
-  "Monday",
-  "TuesDay",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+// const weekDays = [
+//   "",
+//   "Sunday",
+//   "Monday",
+//   "TuesDay",
+//   "Wednesday",
+//   "Thursday",
+//   "Friday",
+//   "Saturday",
+// ];
 
 export const MealPlan: React.FC<Props> = ({ match = "" }) => {
-  const isPrint = useMemo(() => match.includes("print"), [match]);
+  // const isPrint = useMemo(() => match.includes("print"), [match]);
   const { currentStep } = useMealPlannerStore();
 
   return <AnimatePresence>{COMPONENTS[currentStep]}</AnimatePresence>;

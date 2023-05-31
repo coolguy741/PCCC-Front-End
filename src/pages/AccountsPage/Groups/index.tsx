@@ -24,8 +24,6 @@ export const AccountsGroupsPage = () => {
   const navigate = useNavigate();
   const { groups, invitations } = useLoaderData() as IGroup;
 
-  console.log(groups, invitations);
-
   const handleCreate = () => {
     navigate("/dashboard/accounts/groups/create");
   };
@@ -113,10 +111,9 @@ const Style = {
     display: flex;
     flex-direction: column;
 
-    /* making height auto and adding design gap to layout */
-    .manage-users-content {
-      padding-top: ${convertToRelativeUnit(32, "vh")};
-      height: auto;
+    div.manage-users-options {
+      padding-bottom: ${convertToRelativeUnit(16, "vh")};
+      height: calc(10vh + ${convertToRelativeUnit(32, "vh")});
     }
 
     .header-container {
