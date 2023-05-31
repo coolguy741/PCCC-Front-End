@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useMatch } from "react-router-dom";
 import styled from "styled-components";
 
@@ -8,13 +7,13 @@ import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgro
 
 export const MealPlannerPage = () => {
   const match = useMatch("/dashboard/meal-planner/edit");
-  const [isOpen, setIsOpen] = useState(false);
-  const close = () => {
-    setIsOpen(false);
-  };
-  const open = () => {
-    setIsOpen(true);
-  };
+  // const [isOpen, setIsOpen] = useState(false);
+  // const close = () => {
+  //   setIsOpen(false);
+  // };
+  // const open = () => {
+  //   setIsOpen(true);
+  // };
 
   return (
     <Style.PageContainer>

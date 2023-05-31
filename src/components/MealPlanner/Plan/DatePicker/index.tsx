@@ -90,13 +90,13 @@ const myCustomLocale = {
   isRtl: false,
 };
 
-const changeDateFormat = (dates: [Date, Date]) => {
-  return `${new Intl.DateTimeFormat("fr-FR")
-    .format(dates[0])
-    .replaceAll("/", ".")} - ${new Intl.DateTimeFormat("fr-FR")
-    .format(dates[1])
-    .replaceAll("/", ".")}`;
-};
+// const changeDateFormat = (dates: [Date, Date]) => {
+//   return `${new Intl.DateTimeFormat("fr-FR")
+//     .format(dates[0])
+//     .replaceAll("/", ".")} - ${new Intl.DateTimeFormat("fr-FR")
+//     .format(dates[1])
+//     .replaceAll("/", ".")}`;
+// };
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   dates,

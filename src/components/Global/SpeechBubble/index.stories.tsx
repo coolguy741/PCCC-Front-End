@@ -30,9 +30,7 @@ const Template: ComponentStory<typeof SpeechBubble> = (args) => {
 export const Default = Template.bind({});
 
 Default.args = {
-  left: 100,
   unit: "px",
-  top: 20,
   variant: "green",
   children: "Hell World",
 };
@@ -51,7 +49,6 @@ Bubbles.decorators = [
           <SpeechBubble
             {...Bubbles.args}
             variant={variant as Color}
-            top={100 * index}
             onClick={(event: BaseSyntheticEvent): void => {
               alert("Hello World!");
             }}

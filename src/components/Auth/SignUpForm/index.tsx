@@ -369,7 +369,7 @@ export const SignUpForm = () => {
             {/* TODO: Improve avatar animations */}
             {avatars_data.map((avatar, index) => (
               <Style.Button className="avatar" key={`avatar-${index}`}>
-                {avatar.icon()}
+                {avatar.icon({})}
               </Style.Button>
             ))}
           </div>

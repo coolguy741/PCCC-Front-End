@@ -1,4 +1,23 @@
-export const dashboard_tiles = [
+export interface Tile {
+  titleFirstLine: string;
+  titleSecondLine: string;
+  titleColor: string;
+  subtitle: string;
+  gradientStart: string;
+  gradientEnd: string;
+  image: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  buttonAction: string;
+  speechBubble: {
+    variant: string;
+    link: string;
+    text: string;
+  };
+}
+
+export const dashboard_tiles: Tile[] = [
   {
     titleFirstLine: "Discover",
     titleSecondLine: "Together",
@@ -13,8 +32,6 @@ export const dashboard_tiles = [
     buttonLink: "/dashboard/discover-together",
     buttonAction: "link",
     speechBubble: {
-      left: 500,
-      top: 90,
       variant: "orange",
       link: "discover-together",
       text: "Discover more",
@@ -34,8 +51,6 @@ export const dashboard_tiles = [
     buttonLink: "/dashboard/discover-together",
     buttonAction: "link",
     speechBubble: {
-      left: 500,
-      top: 90,
       variant: "orange",
       link: "grow-together",
       text: "Learn more about gardening",
@@ -55,8 +70,6 @@ export const dashboard_tiles = [
     buttonLink: "/dashboard/cook-together",
     buttonAction: "link",
     speechBubble: {
-      left: 500,
-      top: 90,
       variant: "blue",
       link: "cook-together",
       text: "Learn more about cooking",
@@ -76,8 +89,6 @@ export const dashboard_tiles = [
     buttonLink: "/dashboard/mad-kitchen",
     buttonAction: "link",
     speechBubble: {
-      left: 500,
-      top: 90,
       variant: "orange",
       link: "games",
       text: "Explore more games",
@@ -97,8 +108,6 @@ export const dashboard_tiles = [
     buttonLink: "/dashboard/foodways",
     buttonAction: "link",
     speechBubble: {
-      left: 500,
-      top: 90,
       variant: "green",
       link: "foodways",
       text: "Explore more foodways",
@@ -118,8 +127,6 @@ export const dashboard_tiles = [
     buttonLink: "/dashboard/mealtime-moments",
     buttonAction: "link",
     speechBubble: {
-      left: 500,
-      top: 90,
       variant: "blue",
       link: "mealtime-moments",
       text: "Explore more Mealtime Moments",
@@ -127,7 +134,7 @@ export const dashboard_tiles = [
   },
 ];
 
-export const meal_planner_tile = {
+export const meal_planner_tile: Tile = {
   titleFirstLine: "Meal",
   titleSecondLine: "Planner",
   titleColor: "orange-600",
@@ -141,8 +148,6 @@ export const meal_planner_tile = {
   buttonLink: "/dashboard/mealtime-moments",
   buttonAction: "link",
   speechBubble: {
-    left: 500,
-    top: 90,
     variant: "orange",
     link: "meal-planner",
     text: "Explore more Meal Planner",

@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import { trimStringByLength } from "../../../lib/util/trimStringByLength";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
+import { MockUserType } from "../../../types/user";
 import { Group } from "../../Icons";
 
-export function UserGroups({ openGroupsModal, userData }: any) {
+export function UserGroups({
+  openGroupsModal,
+  userData,
+}: {
+  openGroupsModal: () => void;
+  userData: MockUserType;
+}) {
   return (
     <Style.Container className="groups">
       <hgroup className="header-view">
@@ -11,7 +18,7 @@ export function UserGroups({ openGroupsModal, userData }: any) {
         <button onClick={openGroupsModal}>View all</button>
       </hgroup>
       <ul>
-        {userData.groups.map((group: any, index: any) => (
+        {userData.groups.map((group, index) => (
           <li key={index}>
             <Group />
             {trimStringByLength(group.name, 15)}
@@ -19,7 +26,7 @@ export function UserGroups({ openGroupsModal, userData }: any) {
             {"(" + group.number + ")"}
           </li>
         ))}
-        {userData.groups.map((group: any, index: any) => (
+        {userData.groups.map((group, index) => (
           <li key={index}>
             <Group />
             {trimStringByLength(group.name, 15)}

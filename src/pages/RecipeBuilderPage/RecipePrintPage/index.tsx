@@ -14,7 +14,3 @@ const Style = {
     padding: 20px;
   `,
 };
-
-const PageContainer = styled.div`
-  padding: 20px;
-`;

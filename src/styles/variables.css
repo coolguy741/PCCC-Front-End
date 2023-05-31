@@ -100,8 +100,8 @@
   /* Spaces for grid system */
   --gutter-grid: 1rem;
   --gutter-spacing: 0.25rem;
-  --dashboard-menu-width-large: 20vw;
-  --dashboard-menu-width-medium: 7.5vw;
+  --dashboard-menu-width-large: 26.6667vh;
+  --dashboard-menu-width-medium: 11.3334vh;
 
   --fc-button-text-color: #3d3d3d;
   --fc-button-bg-color: #ffffff50;

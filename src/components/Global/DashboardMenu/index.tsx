@@ -2,7 +2,6 @@ import Cookies from "js-cookie";
 import { forwardRef, Ref, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { usePathName } from "../../../hooks/usePathName";
 import { MENUS, STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
 import Button from "../../Button";
@@ -21,22 +20,22 @@ export const DashboardMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
     "content-builder": false,
   });
 
-  const {
-    isDashboard,
-    isAccounts,
-    isReports,
-    isGroupOrganizer,
-    isMealPlanner,
-    isTopicEditor,
-    isMealTimeMoments,
-    isActivitiesBuilder,
-    isAchievements,
-    isFoodwaysEditor,
-    isRecipeBuilder,
-    isCalendar,
-    isGames,
-    isCloudDrive,
-  } = usePathName();
+  // const {
+  //   isDashboard,
+  //   isAccounts,
+  //   isReports,
+  //   isGroupOrganizer,
+  //   isMealPlanner,
+  //   isTopicEditor,
+  //   isMealTimeMoments,
+  //   isActivitiesBuilder,
+  //   isAchievements,
+  //   isFoodwaysEditor,
+  //   isRecipeBuilder,
+  //   isCalendar,
+  //   isGames,
+  //   isCloudDrive,
+  // } = usePathName();
 
   const handleMenuClick = (menu: string) => {
     setMenuOpen({

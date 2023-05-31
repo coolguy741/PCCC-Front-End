@@ -38,6 +38,8 @@ export const FoodwaysOverviewPage = () => {
     e.stopPropagation();
   };
 
+  console.log(foodway);
+
   return (
     <>
       <Style.Container
@@ -74,24 +76,25 @@ export const FoodwaysOverviewPage = () => {
 
                   <div className="content__body__left__text">
                     <AnimatePresence>
-                      <motion.img
-                        // src={foodway?.foodwayStops[nav].image}
-                        src="/images/chocolate.jpg"
-                        key="foodways-image"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0, display: "none" }}
-                      />
-                      {/* {foodway.foodwayStops && (
-                    <motion.h3
-                    key={foodway.foodwayStops[nav].location}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0, display: "none" }}
-                    >
-                    {foodway?.foodwayStops[nav].location}
-                    </motion.h3>
-                  )} */}
+                      {foodway.foodwayStops && (
+                        <motion.img
+                          src={foodway.foodwayStops[nav].image!}
+                          key="foodways-image"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0, display: "none" }}
+                        />
+                      )}
+                      {foodway.foodwayStops && (
+                        <motion.h3
+                          key={foodway.foodwayStops[nav].location}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0, display: "none" }}
+                        >
+                          {foodway?.foodwayStops[nav].location}
+                        </motion.h3>
+                      )}
                       {foodway.foodwayStops && (
                         <motion.p
                           key={foodway?.foodwayStops[nav].description}
@@ -110,6 +113,11 @@ export const FoodwaysOverviewPage = () => {
                     <Globe latitude={23} longitude={43} />
                   </div>
                   <div className="content__body__right__timeline">
+                    {foodway.foodwayStops && (
+                      <div className="bubble">
+                        {foodway.foodwayStops[nav].timePeriod}
+                      </div>
+                    )}
                     {foodway.foodwayStops &&
                       foodway.foodwayStops.map((_, index) => (
                         <div key={`stop-${index}`} className="stop">
@@ -121,23 +129,29 @@ export const FoodwaysOverviewPage = () => {
                           {foodway.foodwayStops &&
                             index !== foodway.foodwayStops.length - 1 && (
                               <div
-                                className={`line ${nav >= index + 1 && "active"}
-                      }`}
+                                className={`line ${
+                                  nav >= index + 1 && "active"
+                                }`}
                               />
                             )}
                         </div>
                       ))}
-                    {foodway.foodwayStops && (
-                      <div className="bubble">
-                        {foodway.foodwayStops[nav].timePeriod}
-                      </div>
-                    )}
                   </div>
                 </div>
               </>
             )}
           </div>
-          <div className="content__bottom"></div>
+          <div className="content__bottom">
+            <img className="scroll" src="/images/icons/scroll.svg" width="35" />
+            <div className="popup">
+              <img src="/images/icons/info.svg" width="80" />
+              <p>
+                Learn more about gardening in{" "}
+                <span>The places you will grow!</span> or check out this fun
+                activity <span>Plant a seed, feed yourself!</span>
+              </p>
+            </div>
+          </div>
         </div>
       </Style.Container>
       <CalendarModal
@@ -151,7 +165,7 @@ export const FoodwaysOverviewPage = () => {
 
 const Style = {
   Container: styled.div<{ stops: number | undefined; nav: number }>`
-  overflow-y: hidden;
+    overflow-y: hidden;
 
     .content {
       display: flex;
@@ -175,14 +189,15 @@ const Style = {
 
       &__body {
         display: grid;
-        height: calc(100% - 120px);
+        height: 60vh;
         grid-template-columns: 5fr 7fr;
-        grid-template-rows: 9fr 1fr;
+        position: relative;
 
         &__left {
           display: grid;
           grid-template-rows: 100px 1fr;
           overflow: hidden;
+          height: 100%;
 
           h2 {
             background: linear-gradient(
@@ -203,14 +218,14 @@ const Style = {
           &__text {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             background: rgba(255, 255, 255, 0.5);
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(59.2764px);
             border-radius: 16px;
             padding: 20px;
             overflow-y: auto;
-            max-height: 90%;
+            height: 100%;
+            gap: 1rem;
           }
         }
 
@@ -273,7 +288,7 @@ const Style = {
             .bubble {
               position: absolute;
               top: ${({ nav, stops }) =>
-                `calc(${nav} * (100% / ${stops}) - 9px)`};
+                `calc(${nav} * (100% / (${stops} - 1)) - (${nav} * 10px) - 9px)`};
               left: -120px;
               transition: .4s top ease-in-out;
               background-color: var(--blue-300);
@@ -287,6 +302,38 @@ const Style = {
 
           &__globe {
             width: 100%;
+          }
+        }
+      }
+
+      &__bottom {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 10vh;
+        padding: 1rem;
+        position: relative;
+
+        .scroll {
+          position: absolute;
+          left: 50%;
+        }
+
+        .popup {
+          display: flex;
+          width: 35rem;
+          background: rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 7.78814px 19.4703px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(59.2764px);
+          border-radius: 16px;
+          padding: 1rem 2rem 1rem 1rem;
+          gap: 1rem;
+           
+          p {
+            span {
+              color: var(--orange-500);
+              font-weight: 600;
+            }
           }
         }
       }

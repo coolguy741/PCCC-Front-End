@@ -50,7 +50,7 @@ export const RecipesCreateRecipePage = () => {
       <div className="title-buttons-container">
         <h2>Create recipe</h2>
         <div className="language-toggle">
-          {currentLanguage == "en" ? (
+          {currentLanguage === "en" ? (
             <>
               <SmallButton
                 onClick={() => setCurrentLanguage("en")}

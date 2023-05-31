@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+import { MockUserType } from "../../../types/user";
 import { Icon } from "../../Global/Icon";
 import { OrangeBG } from "../../Icons";
 
@@ -8,7 +9,7 @@ export function UserProfileInfo({
   userData,
   settings = false,
 }: {
-  userData: any;
+  userData: MockUserType;
   settings?: boolean;
 }) {
   return (
