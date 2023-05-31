@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -80,7 +80,7 @@ export const SignUpForm = () => {
 
   const { api } = useAPI();
 
-  const getUsernames = async () => {
+  const getUsernames = useCallback(async () => {
     const { data } = await api.appUsernameChoicesUsernameChoicesList();
 
     setFirstNames(data.firstNames);
@@ -103,11 +103,11 @@ export const SignUpForm = () => {
     );
 
     return data;
-  };
+  }, [api, firstUsername, secondUsername, setValue]);
 
   useEffect(() => {
     getUsernames();
-  }, []);
+  }, [getUsernames]);
 
   const submitHandler = ({
     name,

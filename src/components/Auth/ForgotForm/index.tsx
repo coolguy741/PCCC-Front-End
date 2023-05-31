@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -77,18 +77,18 @@ export const ForgotForm = () => {
       : "Enter the email that belongs to the account and we will send your username to you ";
   const label = forgetType === "password" ? "Username" : "Email";
 
-  const getSecurityQuestions = async () => {
+  const getSecurityQuestions = useCallback(async () => {
     const { data } =
       await api.appSecurityQuestionChoicesSecurityQuestionsList();
 
     setSecurityQuestions(data);
 
     return data;
-  };
+  }, [api, setSecurityQuestions]);
 
   useEffect(() => {
     getSecurityQuestions();
-  }, []);
+  }, [getSecurityQuestions]);
 
   return (
     <Style.Container

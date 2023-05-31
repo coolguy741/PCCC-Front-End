@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -64,7 +64,7 @@ export const SecurityQuestions = () => {
 
   const { api } = useAPI();
 
-  const getSecurityQuestions = async () => {
+  const getSecurityQuestions = useCallback(async () => {
     const { data } =
       await api.appSecurityQuestionChoicesSecurityQuestionsList();
 
@@ -73,11 +73,11 @@ export const SecurityQuestions = () => {
     setThirdSecurityQuestions(data.thirdSecurityQuestions);
 
     return data;
-  };
+  }, [api]);
 
   useEffect(() => {
     getSecurityQuestions();
-  }, []);
+  }, [getSecurityQuestions]);
 
   const submitHandler = async ({
     password,

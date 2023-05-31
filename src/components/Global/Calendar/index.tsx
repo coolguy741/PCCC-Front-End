@@ -20,7 +20,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     height: 0,
   });
 
-  // TODO: type
+  // FullCalendar types not updated?
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDateClick = (info: any) => {
     const rectDOM = info.el.getBoundingClientRect();
     setSelectedDate(info.dateStr);

@@ -35,7 +35,7 @@ export const MealPlans = () => {
   const mainContentRef = useRef<HTMLDivElement>(null);
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
   // TODO: unused variable
-  const [mealPlanMenu, setMealPlanMenu] = useState(mockMealPlanMenu);
+  const [mealPlanMenu] = useState(mockMealPlanMenu);
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
   const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
   const [destinationMeal, setDestinationMeal] = useState<MealPlan>();

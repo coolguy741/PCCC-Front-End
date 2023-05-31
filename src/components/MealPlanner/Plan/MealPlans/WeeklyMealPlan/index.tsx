@@ -49,35 +49,31 @@ export const WeeklyMealPlan = ({
     [dragUpdateStatus],
   );
 
-  const getStyle = useCallback(
-    (
-      style: DraggingStyle | NotDraggingStyle | undefined,
-      isDragging: boolean,
-      dayIndex: number,
-      index: number,
-    ) => {
-      const customStyle: Record<string, any> = { transition: undefined };
-      if (!isDragging) {
-        customStyle.height = "100%";
-      }
-      if (dragUpdateStatus) {
-        // is Dragged Over
-        if (isDraggedOver(dayIndex, index)) {
-          customStyle.border = "2px dashed var(--blue-400)";
-          customStyle.opacity = "0.7";
-        }
-        if (!isDragged(dayIndex, index)) {
-          customStyle.transform = undefined;
-        }
-      }
-
-      return {
-        ...style,
-        ...customStyle,
-      };
-    },
-    [dragUpdateStatus],
-  );
+  const getStyle = (
+    style: DraggingStyle | NotDraggingStyle | undefined,
+    isDragging: boolean,
+    dayIndex: number,
+    index: number,
+  ) => {
+    // TODO: type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const customStyle: Record<string, any> = {};
+    // is Dragged Over
+    if (isDraggedOver(dayIndex, index)) {
+      customStyle.border = "2px dashed var(--blue-400)";
+      customStyle.opacity = "0.7";
+    }
+    if (!isDragged(dayIndex, index)) {
+      customStyle.transform = undefined;
+    }
+    if (!isDragging) {
+      customStyle.height = "100%";
+    }
+    return {
+      ...style,
+      ...customStyle,
+    };
+  };
 
   return (
     <Style.Container>
