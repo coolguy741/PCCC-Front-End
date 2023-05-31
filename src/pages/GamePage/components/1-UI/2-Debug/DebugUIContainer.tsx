@@ -38,13 +38,13 @@ const DebugUIContainer: FC = () => {
 
       <LevaController isDebugUIVisible={isDebugUIVisible} />
 
-      <DebugPlayerCameraTriggers />
       {isDebugUIVisible && (
         <Fragment>
           <CursorDebug />
           <VConsoleController />
           <DynamicFileController />
           <ActiveStateController />
+          <DebugPlayerCameraTriggers />
         </Fragment>
       )}
     </Fragment>

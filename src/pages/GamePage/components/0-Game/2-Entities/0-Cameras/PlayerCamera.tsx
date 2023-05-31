@@ -68,11 +68,13 @@ const PlayerCamera: FC = () => {
   useEffect(() => {
     if (!playerCameraRef.current) return;
     playerCameraRef.current.position.copy(playerCameraActivePosition);
-  }, [playerCameraActivePosition]);
+    playerCameraRef.current.lookAt(playerCameraActiveLookAt);
+  }, [playerCameraActivePosition, playerCameraActiveLookAt]);
 
   return (
     <PerspectiveCamera
       ref={playerCameraRef}
+      fov={40}
       makeDefault={activeCamera === "PlayerCamera"}
     />
   );

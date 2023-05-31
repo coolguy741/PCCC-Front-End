@@ -28,9 +28,7 @@ const EnvironmentMap: FC = () => {
   });
 
   const { dataURL, dataPath } = useMemo(() => {
-    const dataURL = dynamicEnvironmentMap
-      ? dynamicEnvironmentMap
-      : "forest.hdr";
+    const dataURL = dynamicEnvironmentMap ? dynamicEnvironmentMap : "sky.hdr";
     const dataPath = dynamicEnvironmentMap
       ? undefined
       : "/game_assets/envMaps/";

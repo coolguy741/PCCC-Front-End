@@ -3,8 +3,9 @@ import {
   ConstantDampFunctionType,
   ConstantVoidFunctionType,
 } from "../../../../../../shared/Types/DefineTypes";
-import { CursorCameraCameraUpdatefunctionType } from "./CursorCameraTypes";
+import { CursorCameraCameraUpdateFunctionType } from "./CursorCameraTypes";
 
+const responsiveZoomRatio = 0.534;
 const cursorCameraMaxRotation = 2.5;
 const cursorCameraMinRotation = -0.25;
 const haltInterpolationThreshold = 0.0001;
@@ -24,7 +25,7 @@ const cursorCameraFinalRotation: Vector2 = new Vector2();
 const cursorCameraCopyCurrentRotation: Vector2 = new Vector2();
 const cursorCurrentXLocation: Vector2 = new Vector2();
 
-const handleUpdateCursorCameraFinalRotation: CursorCameraCameraUpdatefunctionType =
+const handleUpdateCursorCameraFinalRotation: CursorCameraCameraUpdateFunctionType =
   (cursorCameraReference: OrthographicCamera): void => {
     cursorCameraReference.rotation.z = cursorCameraFinalRotation.x;
   };
@@ -46,7 +47,7 @@ const handleCursorCameraFinalMenuRotation: ConstantVoidFunctionType =
     cursorCameraFinalRotation.copy(cursorCameraDampedRotation);
   };
 
-const handleHaltInterpolationCheck: CursorCameraCameraUpdatefunctionType = (
+const handleHaltInterpolationCheck: CursorCameraCameraUpdateFunctionType = (
   cursorCameraReference: OrthographicCamera,
 ): void => {
   if (cursorCameraReference.rotation.z < haltInterpolationThreshold) {
@@ -55,6 +56,7 @@ const handleHaltInterpolationCheck: CursorCameraCameraUpdatefunctionType = (
 };
 
 export {
+  responsiveZoomRatio,
   cursorCurrentXLocation,
   cursorCameraBreakpoint1,
   cursorCameraBreakpoint2,

@@ -4,16 +4,10 @@ import { useInspectItemLogic } from "./useInspectItemLogic";
 
 const InspectItem: FC = () => {
   // Hooks
-  const { inspectItemMeshRef, handleIsActivatedDown, handleIsActivatedUp } =
-    useInspectItemLogic();
+  const { inspectItemMeshRef } = useInspectItemLogic();
 
   return (
-    <group
-      ref={inspectItemMeshRef}
-      scale={30}
-      onPointerDown={handleIsActivatedDown}
-      onPointerUp={handleIsActivatedUp}
-    >
+    <group ref={inspectItemMeshRef} scale={30}>
       <ToolRackPOC />
     </group>
   );

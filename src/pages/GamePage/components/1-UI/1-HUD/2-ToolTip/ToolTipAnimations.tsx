@@ -5,8 +5,15 @@ import {
   POWER_1_INOUT,
   POWER_2_INOUT,
 } from "../../../../shared/Eases/Eases";
+import { ConstantVoidFunctionType } from "../../../../shared/Types/DefineTypes";
+import {
+  AnimateToolTipFunctionType,
+  AnimateToolTipMenuInFunctionType,
+} from "./ToolTipTypes";
 
-const animateToolTipIn = (toolTipElement: HTMLDivElement): void => {
+const animateToolTipIn: AnimateToolTipFunctionType = (
+  toolTipElement: HTMLDivElement,
+): void => {
   gsap.fromTo(
     toolTipElement,
     {
@@ -24,7 +31,9 @@ const animateToolTipIn = (toolTipElement: HTMLDivElement): void => {
   );
 };
 
-const animateToolTipOut = (toolTipElement: HTMLDivElement): void => {
+const animateToolTipOut: AnimateToolTipFunctionType = (
+  toolTipElement: HTMLDivElement,
+): void => {
   gsap.to(toolTipElement, {
     y: 15,
     opacity: 0,
@@ -34,10 +43,10 @@ const animateToolTipOut = (toolTipElement: HTMLDivElement): void => {
   });
 };
 
-const animateToolTipMenuIn = (
+const animateToolTipMenuIn: AnimateToolTipMenuInFunctionType = (
   targetVector: Vector2,
   endPosition: Vector2,
-  onComplete: () => void,
+  onComplete: ConstantVoidFunctionType,
 ): void => {
   gsap.to(targetVector, {
     x: endPosition.x,

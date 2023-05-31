@@ -48,31 +48,141 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
   return (
     <Fragment>
       <mesh
-        name="gloves"
         castShadow
-        visible={activeHoveredEntity === "Gardening Gloves"}
         geometry={nodes.gloves.geometry}
         material={materials.VertexColors_PBR}
-        userData={{ name: "gloves" }}
+        visible={activeHoveredEntity === "Gardening Gloves"}
       />
       <mesh
-        name="hat"
         castShadow
-        visible={activeHoveredEntity === "Gardening Hat"}
         geometry={nodes.hat_01.geometry}
         material={materials.VertexColors_PBR}
-        userData={{ name: "hat_01" }}
+        visible={activeHoveredEntity === "Gardening Hat"}
       />
       <mesh
-        name="spade"
         castShadow
-        visible={activeHoveredEntity === "Shovel"}
+        scale={1.25}
+        position={[0, 0.01, 0]}
         geometry={nodes.spade.geometry}
         material={materials.VertexColors_PBR}
-        userData={{ name: "spade" }}
-        scale={1.15}
-        position={[0, 0.01, 0]}
+        visible={activeHoveredEntity === "Shovel"}
       />
+
+      <mesh
+        castShadow
+        scale={0.95}
+        rotation={[0.25, 0, 0]}
+        position={[0, 0, 0.01]}
+        geometry={nodes.drawer.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Drawer"}
+      />
+
+      <mesh
+        castShadow
+        scale={1.5}
+        position={[0, -0.01, 0]}
+        geometry={nodes.rake.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Rake"}
+      />
+
+      <mesh
+        castShadow
+        scale={1.25}
+        position={[0, -0.015, 0]}
+        geometry={nodes.seed_packets.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Seed Packets"}
+      />
+
+      <mesh
+        castShadow
+        geometry={nodes.sun_glasses.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Sunglasses"}
+      />
+
+      <mesh
+        castShadow
+        scale={1.3}
+        position={[0, 0.01, 0]}
+        material={materials.VertexColors_PBR}
+        geometry={nodes.screwdriver_phillips.geometry}
+        visible={activeHoveredEntity === "Screwdriver Phillips"}
+      />
+
+      <mesh
+        castShadow
+        material={materials.VertexColors_PBR}
+        geometry={nodes.screwdriver_slot.geometry}
+        visible={activeHoveredEntity === "Screwdriver Slotted"}
+      />
+
+      <mesh
+        castShadow
+        scale={1.3}
+        position={[0, 0.01, 0]}
+        geometry={nodes.hoe.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Hoe"}
+      />
+
+      <mesh
+        castShadow
+        scale={1.4}
+        position={[0, 0.02, 0]}
+        rotation={[0.15, 0, 0]}
+        geometry={nodes.wood_glue.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Wood Glue"}
+      />
+
+      <mesh
+        castShadow
+        geometry={nodes.wood_scraps.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Wood Scraps"}
+      />
+
+      <mesh
+        castShadow
+        scale={1.4}
+        position={[0, 0.02, 0]}
+        geometry={nodes.pitchfork.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Pitch Fork"}
+      />
+
+      <mesh
+        castShadow
+        scale={0.8}
+        geometry={nodes.paint_cans.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Paint Cans"}
+      />
+
+      <mesh
+        castShadow
+        geometry={nodes.hat_02.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Yellow Straw Hat"}
+      />
+
+      <mesh
+        castShadow
+        geometry={nodes.hat_03.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Green Straw Hat"}
+      />
+
+      <mesh
+        castShadow
+        geometry={nodes.scarecrow_hat.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Blue Straw Hat"}
+      />
+
       {/* <mesh
         name="bucket"
         castShadow
@@ -80,41 +190,8 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
         geometry={nodes.bucket.geometry}
         material={materials.VertexColors_PBR}
         userData={{ name: "bucket" }}
-      /> */}
-      {/* <mesh
-        name="drawer"
-        castShadow
-        visible={false}
-        geometry={nodes.drawer.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "drawer" }}
-      /> */}
-
-      {/* <mesh
-        name="hat_02"
-        castShadow
-        visible={false}
-        geometry={nodes.hat_02.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "hat_02" }}
       />
       <mesh
-        name="hat_03"
-        castShadow
-        visible={false}
-        geometry={nodes.hat_03.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "hat_03" }}
-      /> */}
-      {/* <mesh
-        name="hoe"
-        castShadow
-        visible={false}
-        geometry={nodes.hoe.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "hoe" }}
-      /> */}
-      {/* <mesh
         name="old_clothing_01"
         castShadow
         visible={false}
@@ -130,87 +207,6 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
         material={materials.VertexColors_PBR}
         userData={{ name: "old_clothing_02" }}
       /> */}
-      {/* <mesh
-        name="paint_cans"
-        castShadow
-        visible={false}
-        geometry={nodes.paint_cans.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "paint_cans" }}
-      />
-      <mesh
-        name="pitchfork"
-        castShadow
-        visible={false}
-        geometry={nodes.pitchfork.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "pitchfork" }}
-      /> */}
-      {/* <mesh
-        name="rake"
-        castShadow
-        visible={false}
-        geometry={nodes.rake.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "rake" }}
-      /> */}
-      {/* <mesh
-        name="scarecrow_hat"
-        castShadow
-        visible={false}
-        geometry={nodes.scarecrow_hat.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "scarecrow_hat" }}
-      /> */}
-      {/* <mesh
-        name="screwdriver_phillips"
-        castShadow
-        visible={false}
-        geometry={nodes.screwdriver_phillips.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "screwdriver_phillips" }}
-      />
-      <mesh
-        name="screwdriver_slot"
-        castShadow
-        visible={false}
-        geometry={nodes.screwdriver_slot.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "screwdriver_slot" }}
-      />
-      <mesh
-        name="seed_packets"
-        castShadow
-        visible={false}
-        geometry={nodes.seed_packets.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "seed_packets" }}
-      /> */}
-
-      {/* <mesh
-        name="sun_glasses"
-        castShadow
-        visible={false}
-        geometry={nodes.sun_glasses.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "sun_glasses" }}
-      /> */}
-      {/* <mesh
-        name="wood_glue"
-        castShadow
-        visible={false}
-        geometry={nodes.wood_glue.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "wood_glue" }}
-      />
-      <mesh
-        name="wood_scraps"
-        castShadow
-        visible={false}
-        geometry={nodes.wood_scraps.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "wood_scraps" }}
-      /> */}
     </Fragment>
   );
 };
@@ -218,11 +214,3 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
 useGLTF.preload("/game_assets/models/tool-rack-items-transformed.glb");
 
 export default memo(ToolRackPOC);
-
-// {
-//   /* <mesh castShadow
-// visible={false} ref={inspectItemMeshRef} scale={1.1}>
-// <torusKnotGeometry args={[1, 0.25, 64, 8, 2, 3]} />
-// <meshStandardMaterial color="hotpink" emissiveIntensity={0} />
-// </mesh> */
-// }

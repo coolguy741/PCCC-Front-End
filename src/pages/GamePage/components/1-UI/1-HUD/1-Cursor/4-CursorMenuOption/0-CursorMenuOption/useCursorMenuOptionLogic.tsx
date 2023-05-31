@@ -1,22 +1,25 @@
-import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import useMeasure from "react-use-measure";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
-import {
-  RefBooleanType,
-  RefDivType,
-} from "../../../../../../shared/Types/RefTypes";
+import { RefDivType } from "../../../../../../shared/Types/RefTypes";
 import {
   animateCursorMenuOptionIn,
   animateCursorMenuOptionOut,
   animateCursorOptionsHoverIn,
   animateCursorOptionsHoverOut,
 } from "./CursorMenuOptionAnimations";
-import { UseCursorMenuOptionLogicPropTypes } from "./CursorMenuOptionTypes";
+import {
+  UseCursorMenuOptionLogicPropTypes,
+  UseCursorMenuOptionLogicReturnTypes,
+} from "./CursorMenuOptionTypes";
 
-const useCursorMenuOptionLogic = ({
+const useCursorMenuOptionLogic: UseCursorMenuOptionLogicReturnTypes = ({
+  type,
   animOffset,
   hoverTrigger,
+  offsetFactor,
   menuPositionEnd,
   menuPositionDriver,
   boundingRectVector,
@@ -25,9 +28,16 @@ const useCursorMenuOptionLogic = ({
 }: UseCursorMenuOptionLogicPropTypes) => {
   // Refs
   const cursorMenuOptionRef: RefDivType = useRef(null);
-  const cursorMenuOptionHoverEnableRef: RefBooleanType = useRef(false);
 
-  // Global Stated
+  // Measure Ref
+  const [cursorMenuOptionMeasureRef, cursorMenuOptionMeasureRefDimensions] =
+    useMeasure();
+
+  // Local State
+  const [cursorMenuOptionIsShowing, setCursorMenuOptionIsShowing] =
+    useState(false);
+
+  // Global State
   const { menuActive, cursorLocation } = useGlobalState(
     (state) => ({
       menuActive: state.menuActive,
@@ -37,20 +47,32 @@ const useCursorMenuOptionLogic = ({
   );
 
   // Handlers
-  const handleCursorMenuOptionBoundingRect: ConstantVoidFunctionType =
+  const handleResizeEventTrigger: ConstantVoidFunctionType =
     useCallback((): void => {
       if (!cursorMenuOptionRef.current) return;
+      if (boundingRectVector.x === cursorMenuOptionMeasureRefDimensions.width)
+        return;
+      if (boundingRectVector.y === cursorMenuOptionMeasureRefDimensions.height)
+        return;
 
-      if (boundingRectVector.x > 0 || boundingRectVector.y > 0) return;
+      cursorMenuOptionRef.current.style.opacity = "0";
+      cursorMenuOptionRef.current.style.transform = "scale(1)";
 
-      const cursorMenuOptionBoundingRect =
-        cursorMenuOptionRef.current.getBoundingClientRect();
+      menuPositionOffset.set(
+        cursorMenuOptionMeasureRefDimensions.width * offsetFactor.x,
+        cursorMenuOptionMeasureRefDimensions.height * offsetFactor.y,
+      );
 
       boundingRectVector.set(
-        cursorMenuOptionBoundingRect.width,
-        cursorMenuOptionBoundingRect.height,
+        cursorMenuOptionMeasureRefDimensions.width,
+        cursorMenuOptionMeasureRefDimensions.height,
       );
-    }, [boundingRectVector]);
+    }, [
+      offsetFactor,
+      boundingRectVector,
+      menuPositionOffset,
+      cursorMenuOptionMeasureRefDimensions,
+    ]);
 
   const handleUpdateCursorMenuOptionElementPosition: ConstantVoidFunctionType =
     useCallback((): void => {
@@ -62,21 +84,21 @@ const useCursorMenuOptionLogic = ({
 
   const handleHoverTrigger = useCallback(() => {
     if (!menuActive) return;
+    if (!cursorMenuOptionIsShowing) return;
     if (!cursorMenuOptionRef.current) return;
-    if (!cursorMenuOptionHoverEnableRef.current) return;
 
     if (hoverTrigger) {
       animateCursorOptionsHoverIn(cursorMenuOptionRef.current);
     } else {
       animateCursorOptionsHoverOut(cursorMenuOptionRef.current);
     }
-  }, [menuActive, hoverTrigger]);
+  }, [menuActive, hoverTrigger, cursorMenuOptionIsShowing]);
 
   const handleRevealHideCursorMenuOption: ConstantVoidFunctionType =
     useCallback((): void => {
       if (!cursorMenuOptionRef.current) return;
 
-      if (menuActive) {
+      if (menuActive && !cursorMenuOptionIsShowing) {
         tempCursorLocationCopy.set(
           cursorLocation.x - boundingRectVector.x / 2,
           cursorLocation.y - boundingRectVector.y / 2,
@@ -95,11 +117,12 @@ const useCursorMenuOptionLogic = ({
           handleUpdateCursorMenuOptionElementPosition,
           animOffset,
           () => {
-            cursorMenuOptionHoverEnableRef.current = true;
+            setCursorMenuOptionIsShowing(true);
           },
         );
-      } else {
-        cursorMenuOptionHoverEnableRef.current = false;
+      }
+
+      if (!menuActive && cursorMenuOptionIsShowing) {
         animateCursorMenuOptionOut(
           cursorMenuOptionRef.current,
           menuPositionDriver,
@@ -107,6 +130,9 @@ const useCursorMenuOptionLogic = ({
           tempCursorLocationCopy,
           handleUpdateCursorMenuOptionElementPosition,
           animOffset,
+          () => {
+            setCursorMenuOptionIsShowing(false);
+          },
         );
       }
     }, [
@@ -118,22 +144,25 @@ const useCursorMenuOptionLogic = ({
       boundingRectVector,
       menuPositionOffset,
       tempCursorLocationCopy,
+      cursorMenuOptionIsShowing,
+      setCursorMenuOptionIsShowing,
       handleUpdateCursorMenuOptionElementPosition,
     ]);
 
   // Listeners
+  useEffect(handleResizeEventTrigger, [
+    handleResizeEventTrigger,
+    cursorMenuOptionMeasureRefDimensions,
+  ]);
+
   useEffect(handleRevealHideCursorMenuOption, [
     menuActive,
     handleRevealHideCursorMenuOption,
   ]);
 
-  useLayoutEffect(handleCursorMenuOptionBoundingRect, [
-    handleCursorMenuOptionBoundingRect,
-  ]);
-
   useEffect(handleHoverTrigger, [menuActive, hoverTrigger, handleHoverTrigger]);
 
-  return { cursorMenuOptionRef };
+  return { cursorMenuOptionRef, cursorMenuOptionMeasureRef };
 };
 
 export { useCursorMenuOptionLogic };

@@ -1,13 +1,10 @@
 // @ts-ignore
 import sample from "lodash-es/sample";
 import { nanoid } from "nanoid";
-import { FC, memo, useMemo, useState } from "react";
+import { FC, memo, useEffect, useMemo, useState } from "react";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import DraggableGrid from "./DraggableGrid";
-import {
-  tempIngredientsData,
-  tempMiscData,
-  tempToolsData,
-} from "./InventoryCategoryDefines";
 import InventoryCategoryStyleContainer from "./InventoryCategoryStyleContainer";
 
 // Types
@@ -26,20 +23,49 @@ const InventoryCategory: FC<InventoryCategoryPropTypes> = ({
   styleObject,
   categoryTitle,
 }) => {
+  // Global State
+  const {
+    activeToolInventory,
+    activeMiscInventory,
+    activeIngredientInventory,
+  } = useGlobalState(
+    (state) => ({
+      activeToolInventory: state.activeToolInventory,
+      activeMiscInventory: state.activeMiscInventory,
+      activeIngredientInventory: state.activeIngredientInventory,
+    }),
+    shallow,
+  );
+
   // Defines
   const inventoryCategoryItems = useMemo(() => {
     if (categoryTitle === "Tools") {
-      return tempToolsData;
+      return activeToolInventory;
     } else if (categoryTitle === "Ingredients") {
-      return tempIngredientsData;
+      return activeIngredientInventory;
     } else {
-      return tempMiscData;
+      return activeMiscInventory;
     }
-  }, [categoryTitle]);
+  }, [
+    categoryTitle,
+    activeMiscInventory,
+    activeToolInventory,
+    activeIngredientInventory,
+  ]);
 
   const [items, setItems] = useState(
     inventoryCategoryItems.map((item) => ({ id: nanoid(), ...item })),
   );
+
+  useEffect(() => {
+    setItems(inventoryCategoryItems.map((item) => ({ id: nanoid(), ...item })));
+  }, [
+    setItems,
+    inventoryCategoryItems,
+    activeMiscInventory,
+    activeToolInventory,
+    activeIngredientInventory,
+  ]);
 
   const handleRemove = (id: string) => {
     setItems((items) => items.filter((item) => item.id !== id));

@@ -4,7 +4,6 @@ import { AchievementKeyType } from "../../../../globalState/modules/AchievementM
 import { useGlobalState } from "../../../../globalState/useGlobalState";
 import DebugButton from "../0-DebugButton/DebugButton";
 import ActiveStateControllerStyleContainer from "./ActiveStateControllerStyleContainer";
-import { InventoryTable } from "./InventoryTable";
 
 const ActiveStateController: FC = () => {
   // Local State
@@ -15,14 +14,12 @@ const ActiveStateController: FC = () => {
     activeCamera,
     setActiveCamera,
     activeLocation,
-    activeInventory,
     activeAchievements,
     activeGardenHotSpot,
     activeKitchenHotSpot,
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
-      activeInventory: state.activeInventory,
       activeAchievements: state.activeAchievements,
       activeGardenHotSpot: state.activeGardenHotSpot,
       activeKitchenHotSpot: state.activeKitchenHotSpot,
@@ -87,9 +84,7 @@ const ActiveStateController: FC = () => {
               </tr>
               <tr>
                 <th>Active Inventory</th>
-                <td>
-                  <InventoryTable inventory={activeInventory} />
-                </td>
+                <td>{/* <InventoryTable inventory={activeInventory} /> */}</td>
               </tr>
             </tbody>
           </table>

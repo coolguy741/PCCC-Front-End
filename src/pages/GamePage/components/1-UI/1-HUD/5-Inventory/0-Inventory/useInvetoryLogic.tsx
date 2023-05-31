@@ -46,7 +46,6 @@ const useInventoryLogic = (): UseInventoryLogicReturnTypes => {
     (event: PointerEvent<HTMLDivElement>) => {
       event.stopPropagation();
       if (!inventoryContainerRef.current) return;
-      console.log("pointer over");
       // if (inventoryIsInRef.current) {
       //   inventoryIsInRef.current = false;
       //   animateInventoryOut(inventoryContainerRef.current, () => {
@@ -61,7 +60,6 @@ const useInventoryLogic = (): UseInventoryLogicReturnTypes => {
   const handlePointerOut = useCallback(
     (event: PointerEvent<HTMLDivElement>) => {
       event.stopPropagation();
-      console.log("pointer out");
       if (!inventoryContainerRef.current) return;
       if (inventoryIsInRef.current) {
         inventoryIsInRef.current = false;

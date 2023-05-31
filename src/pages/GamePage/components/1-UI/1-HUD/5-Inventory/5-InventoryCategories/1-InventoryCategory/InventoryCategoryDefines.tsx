@@ -1,12 +1,9 @@
+import { InventoryItemImgName } from "../../../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
 import { DraggableItemsTypes } from "./DraggableGrid";
-
-export interface InventoryCategoryDataTypes {
-  itemName: string;
-}
 
 export interface InventoryCategoryConvertedDataTypes {
   id: string;
-  itemName: string;
+  itemName: InventoryItemImgName;
 }
 
 const MiscCategoryTitle = "Misc";
@@ -36,48 +33,6 @@ const handleRenderInventoryItem = ({
     </div>
   );
 };
-
-const tempToolsData: InventoryCategoryDataTypes[] = [
-  { itemName: "hat" },
-  { itemName: "shovel" },
-  { itemName: "gloves" },
-  { itemName: "shovel" },
-  { itemName: "rake" },
-  { itemName: "hat" },
-  { itemName: "hat" },
-  { itemName: "gloves" },
-  { itemName: "hat" },
-  { itemName: "rake" },
-  { itemName: "shovel" },
-  { itemName: "gloves" },
-  { itemName: "rake" },
-];
-
-const tempIngredientsData: InventoryCategoryDataTypes[] = [
-  { itemName: "rake" },
-  { itemName: "gloves" },
-  { itemName: "hat" },
-  { itemName: "gloves" },
-  { itemName: "rake" },
-  { itemName: "hat" },
-];
-
-const tempMiscData: InventoryCategoryDataTypes[] = [
-  { itemName: "rake" },
-  { itemName: "hat" },
-  { itemName: "gloves" },
-  { itemName: "hat" },
-  { itemName: "gloves" },
-  { itemName: "rake" },
-  { itemName: "hat" },
-  { itemName: "rake" },
-  { itemName: "gloves" },
-  { itemName: "rake" },
-  { itemName: "hat" },
-  { itemName: "gloves" },
-  { itemName: "hat" },
-  { itemName: "gloves" },
-];
 
 export const ITEM_RATIO = 1;
 export const NUM_COLS = 4;
@@ -115,11 +70,8 @@ export const swap = (arr: DraggableItemsTypes[], from: number, to: number) => {
 };
 
 export {
-  tempMiscData,
-  tempToolsData,
   MiscCategoryTitle,
   ToolsCategoryTitle,
-  tempIngredientsData,
   MiscCategoryStyleObject,
   ToolsCategoryStyleObject,
   IngredientsCategoryTitle,

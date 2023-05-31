@@ -1,5 +1,6 @@
 import { useAnimationFrame } from "framer-motion";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import useMeasure from "react-use-measure";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 import {
@@ -15,16 +16,19 @@ import {
   animateCursorCanvasToMenuPosition,
 } from "./CursorCanvasAnimations";
 import {
+  cursorCanvasCenterOffseOffsetPercent,
   cursorCanvasCenterOffset,
   cursorCanvasDampedFollowLocation,
   cursorCanvasDampedFollowStep,
   cursorCanvasFollowLocation,
   cursorCanvasTempCopyCurrentLocation,
+  cursorCanvasToMenuOffset,
+  cursorCanvasToMenuOffsetPercent,
   handleDampCursorCanvasLocation,
   handleSetCursorCanvasLocation,
   handleUpdateCursorCanvasElementLocation,
   handleUpdateCursorCanvasFinalLocation,
-} from "./CursorCanvasDefines";
+} from "./CursorCanvasConstants";
 import {
   UseCursorCanvasLogicHookTypes,
   UseCursorCanvasLogicReturnTypes,
@@ -36,10 +40,15 @@ const useCursorCanvasLogic: UseCursorCanvasLogicHookTypes =
     const cursorCanvasRef: RefCanvasType = useRef(null);
     const enableOnFrameFollow: RefBooleanType = useRef(true);
 
+    // Measure Ref
+    const [cursorCanvasMeasureRef, cursorCanvasMeasureRefDimensions] =
+      useMeasure();
+
     // Global State
-    const { menuActive, cursorLocation } = useGlobalState(
+    const { menuActive, cursorSize, cursorLocation } = useGlobalState(
       (state) => ({
         menuActive: state.menuActive,
+        cursorSize: state.cursorSize,
         cursorLocation: state.cursorLocation,
       }),
       shallow,
@@ -114,10 +123,34 @@ const useCursorCanvasLogic: UseCursorCanvasLogicHookTypes =
       handleAnimateCursorToFollowPosition,
     ]);
 
-    // Hooks
+    useMemo(() => {
+      cursorSize.set(
+        cursorCanvasMeasureRefDimensions.width,
+        cursorCanvasMeasureRefDimensions.height,
+      );
+
+      cursorCanvasCenterOffset.set(
+        cursorCanvasMeasureRefDimensions.width *
+          cursorCanvasCenterOffseOffsetPercent.x,
+        cursorCanvasMeasureRefDimensions.height *
+          cursorCanvasCenterOffseOffsetPercent.y,
+      );
+
+      cursorCanvasToMenuOffset.set(
+        cursorCanvasMeasureRefDimensions.width *
+          cursorCanvasToMenuOffsetPercent.x,
+        cursorCanvasMeasureRefDimensions.height *
+          cursorCanvasToMenuOffsetPercent.y,
+      );
+    }, [
+      cursorSize,
+      cursorCanvasMeasureRefDimensions.width,
+      cursorCanvasMeasureRefDimensions.height,
+    ]);
+
     useAnimationFrame(handleCursorCanvasAnimationFrame);
 
-    return { cursorCanvasRef };
+    return { cursorCanvasRef, cursorCanvasMeasureRef };
   };
 
 export { useCursorCanvasLogic };

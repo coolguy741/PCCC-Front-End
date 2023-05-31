@@ -4,10 +4,11 @@ import {
   POWER_1_INOUT,
   POWER_3_INOUT,
 } from "../../../../../shared/Eases/Eases";
+import { ConstantVoidFunctionType } from "../../../../../shared/Types/DefineTypes";
 import {
   cursorCanvasDampStep,
   cursorCanvasToMenuOffset,
-} from "./CursorCanvasDefines";
+} from "./CursorCanvasConstants";
 import {
   AnimateCursorCanvasToFollowPosition,
   AnimateCursorCanvasToMenuPositionType,
@@ -17,7 +18,7 @@ const animateCursorCanvasToMenuPosition: AnimateCursorCanvasToMenuPositionType =
   (
     affectedVector: Vector2,
     targetVector: Vector2,
-    onComplete: () => void,
+    onComplete: ConstantVoidFunctionType,
   ): void => {
     gsap.to(affectedVector, {
       x: targetVector.x - cursorCanvasToMenuOffset.x,

@@ -3,10 +3,10 @@ import { FC, memo } from "react";
 import { useCursorCameraLogic } from "./useCursorCameraLogic";
 
 const CursorCamera: FC = () => {
-  // Hooks
+  // Component Logic
   const { cursorCameraRef } = useCursorCameraLogic();
 
-  return <OrthographicCamera ref={cursorCameraRef} makeDefault zoom={100} />;
+  return <OrthographicCamera ref={cursorCameraRef} makeDefault />;
 };
 
 export default memo(CursorCamera);
