@@ -4,6 +4,7 @@ import {
   BACK_1_OUT,
   POWER_1_INOUT,
 } from "../../../../../../shared/Eases/Eases";
+import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
 import {
   AnimateCursorMenuOptionInType,
   AnimateCursorMenuOptionOutType,
@@ -37,9 +38,9 @@ const animateCursorMenuOptionIn: AnimateCursorMenuOptionInType = (
   cursorMenuOptionPositionFinal: Vector2,
   cursorMenuOptionPositionStart: Vector2,
   cursorMenuOptionPositionEnd: Vector2,
-  onUpdate: () => void,
+  onUpdate: ConstantVoidFunctionType,
   animDelay: number,
-  onComplete: () => void,
+  onComplete: ConstantVoidFunctionType,
 ): void => {
   gsap.fromTo(
     cursorMenuOptionElement,
@@ -51,7 +52,6 @@ const animateCursorMenuOptionIn: AnimateCursorMenuOptionInType = (
       duration: 0.5,
       ease: BACK_1_OUT,
       delay: 0.5 + animDelay,
-      onComplete: onComplete,
     },
   );
 
@@ -69,6 +69,7 @@ const animateCursorMenuOptionIn: AnimateCursorMenuOptionInType = (
       ease: BACK_1_OUT,
       onUpdate: onUpdate,
       delay: 0.5 + animDelay,
+      onComplete: onComplete,
     },
   );
 };
@@ -78,8 +79,9 @@ const animateCursorMenuOptionOut: AnimateCursorMenuOptionOutType = (
   cursorMenuOptionPositionFinal: Vector2,
   cursorMenuOptionPositionStart: Vector2,
   cursorMenuOptionPositionEnd: Vector2,
-  onUpdate: () => void,
+  onUpdate: ConstantVoidFunctionType,
   animDelay: number,
+  onComplete: ConstantVoidFunctionType,
 ): void => {
   gsap.to(cursorMenuOptionElement, {
     scale: 0,
@@ -103,6 +105,7 @@ const animateCursorMenuOptionOut: AnimateCursorMenuOptionOutType = (
       ease: POWER_1_INOUT,
       onUpdate: onUpdate,
       delay: animDelay - 0.05,
+      onComplete: onComplete,
     },
   );
 };

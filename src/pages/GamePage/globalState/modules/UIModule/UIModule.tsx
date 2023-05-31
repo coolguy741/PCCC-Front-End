@@ -3,6 +3,8 @@ import { globalStateApiType } from "../../GlobalStateTypes";
 
 const UIModule = ({ set, get }: globalStateApiType) => {
   return {
+    cursorSize: new Vector2(),
+
     cursorLocation: new Vector2(),
 
     isCursorDown: false,
@@ -11,6 +13,11 @@ const UIModule = ({ set, get }: globalStateApiType) => {
     },
 
     windowSize: new Vector2(),
+    windowResizeEventTrigger: 0,
+    setWindowResizeEventTrigger: () => {
+      const windowResizeEventTrigger = get().windowResizeEventTrigger;
+      set({ windowResizeEventTrigger: windowResizeEventTrigger + 1 });
+    },
 
     activeHoveredHudMenuOption: null,
     setActiveHoveredHudMenuOption: (newHoveredHudMenuOption: string | null) => {

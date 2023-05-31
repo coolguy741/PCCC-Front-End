@@ -1,7 +1,10 @@
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
-import { ConstantVoidFunctionType } from "../../../../../shared/Types/DefineTypes";
+import {
+  ConstantVoidFunctionType,
+  MouseEventFunctionType,
+} from "../../../../../shared/Types/DefineTypes";
 import useMouseMove from "../../../5-Hooks/useMouseMove";
 
 const useCursorLogic: ConstantVoidFunctionType = (): void => {
@@ -14,7 +17,7 @@ const useCursorLogic: ConstantVoidFunctionType = (): void => {
   );
 
   // Handlers
-  const handleSetCursorLocation = useCallback(
+  const handleSetCursorLocation: MouseEventFunctionType = useCallback(
     (event: MouseEvent): void => {
       cursorLocation.set(event.clientX, event.clientY);
     },

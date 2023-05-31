@@ -3,7 +3,7 @@ import { FC, memo } from "react";
 import { useCursorHandLogic } from "./useCursorHandLogic";
 
 const CursorHand: FC = () => {
-  // Hooks
+  // Component Logic
   const { cursorHandRef, cursorTexture } = useCursorHandLogic();
 
   return (

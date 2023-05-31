@@ -9,8 +9,10 @@ const CursorCanvasStyleContainer = styled.div`
   ${MarginPaddingNone};
   ${DisableTouchPointerEvents};
   position: fixed;
-  width: 10rem;
-  height: 10rem;
+  width: 11.11122071516646vw;
+  height: 11.11122071516646vw;
+  max-width: 160px;
+  max-height: 160px;
   border-radius: 100%;
 `;
 

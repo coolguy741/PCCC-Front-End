@@ -1,7 +1,21 @@
 export type InteractiveGameEntityTypes =
-  | "Gardening Hat"
+  | "Hoe"
+  | "Rake"
+  | "Drawer"
   | "Shovel"
-  | "Gardening Gloves";
+  | "Wood Glue"
+  | "Sunglasses"
+  | "Pitch Fork"
+  | "Paint Cans"
+  | "Wood Scraps"
+  | "Seed Packets"
+  | "Gardening Hat"
+  | "Blue Straw Hat"
+  | "Green Straw Hat"
+  | "Gardening Gloves"
+  | "Yellow Straw Hat"
+  | "Screwdriver Slotted"
+  | "Screwdriver Phillips";
 
 export type CursorMenuOptionTypes = "inspect" | "pickup" | "dynamic" | "exit";
 

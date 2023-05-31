@@ -6,7 +6,7 @@ import CursorMenuChoiceCollider from "../5-CursorMenuChoiceCollider/CursorMenuCh
 import { useCursorLogic } from "./useCursorLogic";
 
 const Cursor: FC = () => {
-  // Hooks
+  // Component Logic
   useCursorLogic();
 
   return (

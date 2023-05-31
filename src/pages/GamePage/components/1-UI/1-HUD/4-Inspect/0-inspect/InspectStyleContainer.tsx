@@ -15,7 +15,6 @@ const InspectStyleContainer = styled.div`
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,6 +22,7 @@ const InspectStyleContainer = styled.div`
 
   .inspect-modal {
     ${MarginPaddingNone};
+    pointer-events: auto;
     position: relative;
     width: 40vw;
     height: 40vh;

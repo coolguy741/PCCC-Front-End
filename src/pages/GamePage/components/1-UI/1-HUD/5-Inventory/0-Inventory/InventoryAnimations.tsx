@@ -1,9 +1,10 @@
 import { gsap } from "gsap";
 import { BACK_1_OUT } from "../../../../../shared/Eases/Eases";
+import { ConstantVoidFunctionType } from "../../../../../shared/Types/DefineTypes";
 
 const animateInventoryIn = (
   inventoryRef: HTMLDivElement,
-  onComplete: () => void,
+  onComplete: ConstantVoidFunctionType,
 ): void => {
   gsap.to(inventoryRef, {
     y: -400,
@@ -18,7 +19,7 @@ const animateInventoryIn = (
 
 const animateInventoryOut = (
   inventoryRef: HTMLDivElement,
-  onComplete: () => void,
+  onComplete: ConstantVoidFunctionType,
 ): void => {
   gsap.to(inventoryRef, {
     y: 0,

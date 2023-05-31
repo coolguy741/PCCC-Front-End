@@ -4,7 +4,7 @@ import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import {
   InspectActionTypes,
   InspectData,
-} from "../../../4-Inspect/6-InspectData/INSPECT_DATA";
+} from "../../../4-Inspect/7-InspectData/INSPECT_DATA";
 import CursorMenuOption from "../0-CursorMenuOption/CursorMenuOption";
 import {
   dynamicBoundingRectVector,
@@ -12,40 +12,43 @@ import {
   dynamicMenuPositionDriver,
   dynamicMenuPositionEnd,
   dynamicMenuPositionOffset,
+  dynamicMenuPositionOffsetFactor,
   dynamicTempCopyCurrentLocation,
 } from "../0-CursorMenuOption/CursorMenuOptionDefines";
+import { DynamicCursorMenuOptionStagePropTypes } from "./CursorMenuOptionStageTypes";
 
-const DynamicCursorMenuOptionStage: FC = () => {
-  // Global State
-  const { hoveredSection, activeHoveredEntity } = useGlobalState(
-    (state) => ({
-      hoveredSection: state.hoveredSection,
-      activeHoveredEntity: state.activeHoveredEntity,
-    }),
-    shallow,
-  );
+const DynamicCursorMenuOptionStage: FC<DynamicCursorMenuOptionStagePropTypes> =
+  ({ hoveredSection }) => {
+    // Global State
+    const { activeHoveredEntity } = useGlobalState(
+      (state) => ({
+        activeHoveredEntity: state.activeHoveredEntity,
+      }),
+      shallow,
+    );
 
-  // Defines
-  const dynamicLabel = useMemo((): InspectActionTypes => {
-    if (activeHoveredEntity === null) return "Use";
-    return InspectData[activeHoveredEntity].action;
-  }, [activeHoveredEntity]);
+    // Defines
+    const dynamicLabel = useMemo((): InspectActionTypes => {
+      if (activeHoveredEntity === null) return "Use";
+      return InspectData[activeHoveredEntity].action;
+    }, [activeHoveredEntity]);
 
-  return (
-    <CursorMenuOption
-      type="dynamic"
-      animOffset={0.2}
-      label={dynamicLabel}
-      hoverTrigger={hoveredSection === "dynamic"}
-      menuPositionEnd={dynamicMenuPositionEnd}
-      styleObject={dynamicMenuOptionStyleObject}
-      iconURL="/game_assets/ui_images/cursor/use.webp"
-      boundingRectVector={dynamicBoundingRectVector}
-      menuPositionOffset={dynamicMenuPositionOffset}
-      menuPositionDriver={dynamicMenuPositionDriver}
-      tempCursorLocationCopy={dynamicTempCopyCurrentLocation}
-    />
-  );
-};
+    return (
+      <CursorMenuOption
+        type="dynamic"
+        animOffset={0.2}
+        label={dynamicLabel}
+        menuPositionEnd={dynamicMenuPositionEnd}
+        styleObject={dynamicMenuOptionStyleObject}
+        hoverTrigger={hoveredSection === "dynamic"}
+        offsetFactor={dynamicMenuPositionOffsetFactor}
+        boundingRectVector={dynamicBoundingRectVector}
+        menuPositionOffset={dynamicMenuPositionOffset}
+        menuPositionDriver={dynamicMenuPositionDriver}
+        iconURL="/game_assets/ui_images/cursor/use.webp"
+        tempCursorLocationCopy={dynamicTempCopyCurrentLocation}
+      />
+    );
+  };
 
 export default memo(DynamicCursorMenuOptionStage);

@@ -8,18 +8,21 @@ import {
   exitMenuPositionDriver,
   exitMenuPositionEnd,
   exitMenuPositionOffset,
+  exitMenuPositionOffsetFactor,
   exitTempCopyCurrentLocation,
   inspectBoundingRectVector,
   inspectMenuOptionStyleObject,
   inspectMenuPositionDriver,
   inspectMenuPositionEnd,
   inspectMenuPositionOffset,
+  inspectMenuPositionOffsetFactor,
   inspectTempCopyCurrentLocation,
   pickupBoundingRectVector,
   pickupMenuOptionStyleObject,
   pickupMenuPositionDriver,
   pickupMenuPositionEnd,
   pickupMenuPositionOffset,
+  pickupMenuPositionOffsetFactor,
   pickupTempCopyCurrentLocation,
 } from "../0-CursorMenuOption/CursorMenuOptionDefines";
 import DynamicCursorMenuOptionStage from "./DynamicCursorMenuOptionStage";
@@ -39,9 +42,10 @@ const CursorMenuOptionStage: FC = () => {
         type="inspect"
         label="Inspect"
         animOffset={0}
-        hoverTrigger={hoveredSection === "inspect"}
         menuPositionEnd={inspectMenuPositionEnd}
         styleObject={inspectMenuOptionStyleObject}
+        hoverTrigger={hoveredSection === "inspect"}
+        offsetFactor={inspectMenuPositionOffsetFactor}
         boundingRectVector={inspectBoundingRectVector}
         menuPositionOffset={inspectMenuPositionOffset}
         menuPositionDriver={inspectMenuPositionDriver}
@@ -52,16 +56,17 @@ const CursorMenuOptionStage: FC = () => {
         type="pickup"
         label="Pick Up"
         animOffset={0.1}
-        hoverTrigger={hoveredSection === "pickup"}
         menuPositionEnd={pickupMenuPositionEnd}
         styleObject={pickupMenuOptionStyleObject}
+        hoverTrigger={hoveredSection === "pickup"}
+        offsetFactor={pickupMenuPositionOffsetFactor}
         boundingRectVector={pickupBoundingRectVector}
         menuPositionOffset={pickupMenuPositionOffset}
         menuPositionDriver={pickupMenuPositionDriver}
         iconURL="/game_assets/ui_images/cursor/pickup.webp"
         tempCursorLocationCopy={pickupTempCopyCurrentLocation}
       />
-      <DynamicCursorMenuOptionStage />
+      <DynamicCursorMenuOptionStage hoveredSection={hoveredSection} />
       <CursorMenuOption
         label="X"
         type="exit"
@@ -69,6 +74,7 @@ const CursorMenuOptionStage: FC = () => {
         menuPositionEnd={exitMenuPositionEnd}
         styleObject={exitMenuOptionStyleObject}
         hoverTrigger={hoveredSection === "exit"}
+        offsetFactor={exitMenuPositionOffsetFactor}
         boundingRectVector={exitBoundingRectVector}
         menuPositionOffset={exitMenuPositionOffset}
         menuPositionDriver={exitMenuPositionDriver}

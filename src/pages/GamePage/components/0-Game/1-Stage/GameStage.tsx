@@ -1,12 +1,10 @@
 import { folder, useControls } from "leva";
 import { FC, Fragment, memo } from "react";
-import { Vector3 } from "three";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import PlayerCamera from "../2-Entities/0-Cameras/PlayerCamera";
-import InteractiveGameEntity from "../2-Entities/1-HOCEntity/InteractiveGameEntity";
+import GardenOG from "../2-Entities/1-Garden/GardenOG";
 import DynamicEnitity from "../2-Entities/DynamicEnitity";
-import Garden from "../2-Entities/Garden";
 import Environment from "../3-Environment/Environment";
 import { GATE_POSITION } from "../5-Constants/0-Garden/GARDEN_POSITION";
 import SceneHelpers from "../6-Helpers/SceneHelpers";
@@ -26,7 +24,7 @@ const GameStage: FC = () => {
     debugHelpers: folder(
       {
         axes: false,
-        perf: true,
+        perf: false,
         gizmo: true,
       },
       { collapsed: true },
@@ -35,9 +33,12 @@ const GameStage: FC = () => {
 
   return (
     <Fragment>
-      <Garden />
+      <GardenOG />
       <DynamicEnitity />
-      {!isDebugUIVisible && (
+      <PlayerCamera />
+      <Environment />
+
+      {/* {!isDebugUIVisible && (
         <Fragment>
           <InteractiveGameEntity
             name={"Gardening Hat"}
@@ -52,10 +53,8 @@ const GameStage: FC = () => {
             pos={new Vector3(0.1, 0.4253210127353668, 2.78058123588562)}
           />
         </Fragment>
-      )}
+      )} */}
 
-      <PlayerCamera />
-      <Environment />
       <SceneHelpers
         axes={axes}
         hotspotDebug={true}
