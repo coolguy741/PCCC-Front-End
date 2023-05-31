@@ -15,6 +15,7 @@ const defaultEvents: EventSourceInput = [
     end: "2023-05-24T16:30:00Z",
     textColor: "#F87C56",
     backgroundColor: "#FEE5DD",
+    borderColor: "#ff0000",
     display: "block",
   },
   {
@@ -26,6 +27,7 @@ const defaultEvents: EventSourceInput = [
     end: "2023-05-18T20:30:00Z",
     textColor: "#DE9200",
     backgroundColor: "#FFEFBF",
+    borderColor: "#B97A00",
     display: "block",
   },
   {
@@ -37,6 +39,7 @@ const defaultEvents: EventSourceInput = [
     end: "2023-05-20T18:30:00Z",
     textColor: "#DE9200",
     backgroundColor: "#FFEFBF",
+    borderColor: "#B97A00",
     display: "block",
   },
 ];

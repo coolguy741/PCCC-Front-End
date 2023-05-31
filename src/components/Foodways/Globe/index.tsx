@@ -5,6 +5,7 @@ import { Vector3 } from "three";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
 type GLTFResult = GLTF & {
+  // TODO: type
   nodes: any;
   materials: any;
 };

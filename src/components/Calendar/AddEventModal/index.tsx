@@ -49,18 +49,18 @@ export const AddEventModal: React.FC<Props> = ({
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
 
-  const handleAddEvent = (event: CalendarEvent) => {
-    addEvent({
-      title: event.group,
-      start: selectedDate,
-      type: eventType?.type,
-      description: `${event.curriculum.replaceAll(
-        "-",
-        " ",
-      )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
-    });
-    handleClose();
-  };
+  // const handleAddEvent = (event: CalendarEvent) => {
+  //   addEvent({
+  //     title: event.group,
+  //     start: selectedDate,
+  //     type: eventType?.type,
+  //     description: `${event.curriculum.replaceAll(
+  //       "-",
+  //       " ",
+  //     )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
+  //   });
+  //   handleClose();
+  // };
 
   const handleClose = () => {
     close();

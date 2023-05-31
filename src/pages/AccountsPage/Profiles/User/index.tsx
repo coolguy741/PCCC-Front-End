@@ -16,6 +16,7 @@ import { UserGroups } from "../../../../components/Profile/Groups";
 import { UserLessonAssesment } from "../../../../components/Profile/LessonAssesment";
 import { UserProfileInfo } from "../../../../components/Profile/ProfileInfo";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
+import { MockUserType } from "../../../../types/user";
 import { STORAGE_KEY_JWT } from "../../../consts";
 import { achievements, groups } from "./dummy_data";
 
@@ -28,7 +29,7 @@ export const AccountsUserProfilePage = () => {
   //should be deleted after api implementation
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const userData = pathname.includes("Standard")
+  const userData: MockUserType = pathname.includes("Standard")
     ? MockData[0]
     : pathname.includes("Professional")
     ? MockData[1]
@@ -38,14 +39,6 @@ export const AccountsUserProfilePage = () => {
   const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-
-  const handleBack = () => {
-    return "handle back";
-  };
-
-  const handleEdit = () => {
-    return "handle edit";
-  };
 
   const getProfile = async () => {
     const response = await api.appUserUserProfileList({
@@ -134,11 +127,11 @@ const Style = {
   Container: styled.section`
     /* classnames to target content for manage users layout */
     /* decreasing the options size & increasing content size */
-    .manage-users-options {
-      height: 10vh !important;
+    div.manage-users-options {
+      height: 10vh;
     }
 
-    .manage-users-content {
+    div.manage-users-content {
       height: 68.5vh;
     }
 

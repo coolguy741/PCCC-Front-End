@@ -1,15 +1,9 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Account } from "../../../components/Icons";
 
 export const AccountsHeader = () => {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   return (
     <Style.Container className="accounts-header">
       <h1>
@@ -77,25 +71,6 @@ const Style = {
 
       .active {
         border-bottom: 4px solid var(--blue-500);
-      }
-    }
-
-    // TODO: ask about global back button
-    button {
-      margin: 1.2vh 0;
-      background: rgba(255, 255, 255, 0.65);
-      width: 110px;
-      padding: 10px 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-      border-radius: 80px;
-      font-size: 1.5vh;
-
-      svg {
-        margin-right: 0.5vw;
-        height: 1.5vh;
       }
     }
   `,

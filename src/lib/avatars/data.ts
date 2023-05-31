@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import One from "../../components/Avatars/1/1";
 import Ten from "../../components/Avatars/10/10";
 import Eleven from "../../components/Avatars/11/11";
@@ -19,9 +20,10 @@ import Six from "../../components/Avatars/6/6";
 import Seven from "../../components/Avatars/7/7";
 import Eight from "../../components/Avatars/8/8";
 import Nine from "../../components/Avatars/9/9";
+import { IconProps } from "../../types";
 
-interface Avatar {
-  icon: any;
+export interface Avatar {
+  icon: (props: IconProps) => ReactNode;
   bg: string;
 }
 

@@ -6,7 +6,7 @@ import { DropdownSelect } from "../../../components/Global/DropdownSelect";
 import { DatePicker } from "../../../components/Reports/DatePicker";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
-const TopicOptions = ["Topic A", "Topic B", "Topic C"];
+// const TopicOptions = ["Topic A", "Topic B", "Topic C"];
 const CurriculumOptions = ["Curriculum A", "Curriculum B", "Curriculum C"];
 const QuestionOptions = [
   "All questions",

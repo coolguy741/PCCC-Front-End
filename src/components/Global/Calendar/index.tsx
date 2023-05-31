@@ -20,6 +20,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     height: 0,
   });
 
+  // TODO: type
   const handleDateClick = (info: any) => {
     const rectDOM = info.el.getBoundingClientRect();
     setSelectedDate(info.dateStr);
@@ -81,7 +82,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         buttonIcons={{ prev: "chevron-left", next: "chevron-right" }}
-        buttonText={{ today: "bla" }}
+        buttonText={{ today: "Today" }}
         {...props}
         longPressDelay={1000}
         eventLongPressDelay={1000}
@@ -104,6 +105,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
       {showEventModal && (
         <EditEventModal
           selectedDate={selectedDate}
+          // TODO: non null assertion
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           selectedEvent={selectedEvent!}
           isOpen={showEventModal}
           position={position}

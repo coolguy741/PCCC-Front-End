@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { MultipleSelection } from "./MultipleSelection";
 import { TrueFalseQuestion } from "./TrueFalse";
 
-type QuestionType = "text" | "multiple-selection" | "true-false";
+// type QuestionType = "text" | "multiple-selection" | "true-false";
 interface QuestionProps {
   pattern: string;
   content: {
@@ -27,13 +28,13 @@ export const Question = ({ pattern, content, order, count }: QuestionProps) => {
         <Style.Content>
           <Style.Order>{"Question " + order + " of " + count}</Style.Order>
           <Style.Question>{content.question}</Style.Question>
-          <Style.Answer>
+          <div>
             {content.type === "text" && <Style.Textarea />}
             {content.type === "true-false" && <TrueFalseQuestion />}
             {content.type === "multiple-selection" && content.list && (
               <MultipleSelection optionlist={content.list} />
             )}
-          </Style.Answer>
+          </div>
         </Style.Content>
       </Style.ContentContainer>
     </Style.Container>
@@ -47,10 +48,8 @@ const Style = {
     align-items: flex-start;
     width: 100%;
     height: 100%;
-    border-radius: 32px;
+    border-radius: ${convertToRelativeUnit(32, "vh")};
     overflow: hidden;
-    font-family: "Noir Std";
-    font-style: normal;
     filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
     backdrop-filter: blur(59.2764px);
   `,
@@ -64,10 +63,9 @@ const Style = {
     }
   `,
   ContentContainer: styled.div`
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 0px 32px 32px 0px;
-    height: 100%;
     width: 65%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,35 +74,34 @@ const Style = {
     border-box: content-box;
   `,
   Content: styled.div`
-    width: 70%;
+    width: 65%;
   `,
   Order: styled.p`
     font-weight: 500;
-    font-size: 19px;
-    line-height: 24px;
+    font-size: ${convertToRelativeUnit(19, "vh")};
+    line-height: ${convertToRelativeUnit(24, "vh")};
     color: var(--blue-500);
-    margin-bottom: 20px;
+    margin-bottom: ${convertToRelativeUnit(18, "vh")}; ;
   `,
   Question: styled.p`
     font-weight: 500;
-    font-size: 23px;
-    line-height: 28px;
+    font-size: ${convertToRelativeUnit(23, "vh")};
+    line-height: ${convertToRelativeUnit(28, "vh")};
     color: var(--neutral-600);
-    margin-bottom: 24px;
+    margin-bottom: ${convertToRelativeUnit(24, "vh")};
   `,
-  Answer: styled.div``,
   Textarea: styled.textarea`
     width: 100%;
-    min-height: 100px;
-    max-height: 200px;
+    height: ${convertToRelativeUnit(199, "vh")};
     overflow: hidden;
     resize: none;
-    padding: 13px 15px;
+    padding: ${convertToRelativeUnit(13, "vh")}
+      ${convertToRelativeUnit(15, "vh")};
     font-family: "Noir Std";
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: ${convertToRelativeUnit(16, "vh")};
+    line-height: ${convertToRelativeUnit(20, "vh")};
     color: var(--neutral-600);
     border-radius: 12px;
     background: #ffffff;

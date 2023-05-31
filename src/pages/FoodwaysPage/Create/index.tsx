@@ -20,13 +20,18 @@ export const CreateFoodwaysPage = () => {
   const handleCreate = async () => {
     const response = await api.appFoodwaysCreate(
       {
+        image: "/images/chocolate2.png",
         english: {
           title: title,
           info: description,
+          featureDate: "2023-05-26T19:41:06.252Z",
+          description: "Test description.",
         },
         french: {
           title: title,
           info: description,
+          featureDate: "2023-05-26T19:41:06.252Z",
+          description: "Test description.",
         },
       },
       {
@@ -36,17 +41,68 @@ export const CreateFoodwaysPage = () => {
       },
     );
 
+    console.log(response);
+
     if (response.status === 200) {
       const _response = await api.appFoodwayStopsCreate(
         {
-          foodwayId: response.data.id,
+          foodwayId: response.data?.english?.id,
+          image: "/images/chocolate.jpg",
           english: {
             timePeriod: stopTimePeriod,
             description: stopDescription,
+            location: "Canada",
           },
           french: {
             timePeriod: stopTimePeriod,
             description: stopDescription,
+            location: "Canada",
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      console.log(_response);
+
+      await api.appFoodwayStopsCreate(
+        {
+          foodwayId: response.data?.english?.id,
+          image: "/images/chocolate2.png",
+          english: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            location: "Canada",
+          },
+          french: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            location: "Canada",
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      await api.appFoodwayStopsCreate(
+        {
+          foodwayId: response.data?.english?.id,
+          image: "/images/chocolate.jpg",
+          english: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            location: "Canada",
+          },
+          french: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            location: "Canada",
           },
         },
         {
