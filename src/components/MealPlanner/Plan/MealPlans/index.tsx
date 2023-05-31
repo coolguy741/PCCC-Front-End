@@ -7,7 +7,7 @@ import { PlateFullPlanFilter } from "../Filter";
 import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
 import { PlateFullPlanSearch } from "../Search";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   DragDropContext,
   DragUpdate,
@@ -32,6 +32,7 @@ export const MealPlans = () => {
   const { selectedFilters, filters, changeSelectedFilters } =
     useMealPlannerStore();
 
+  const mainContentRef = useRef<HTMLDivElement>(null);
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
   // TODO: unused variable
   const [mealPlanMenu, setMealPlanMenu] = useState(mockMealPlanMenu);
@@ -164,7 +165,7 @@ export const MealPlans = () => {
                 Customize your meal plan
               </Typography>
             </div>
-            <div className="main-content">
+            <div className="main-content" ref={mainContentRef}>
               <Style.BorderScroll>
                 <img
                   src="/images/plate-full-planner/scroll-border.svg"
@@ -185,7 +186,10 @@ export const MealPlans = () => {
                   setFilters={changeSelectedFilters}
                 />
               </div>
-              <PlateFullPlannerScrollMenu mealPlanMenu={mealPlanMenu} />
+              <PlateFullPlannerScrollMenu
+                mealPlanMenu={mealPlanMenu}
+                rootRef={mainContentRef}
+              />
             </div>
             <Style.CoffeeStain
               src="/images/plate-full-planner/coffee-stain.svg"
