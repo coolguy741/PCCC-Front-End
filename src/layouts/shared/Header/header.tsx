@@ -226,6 +226,7 @@ const Style = {
         height: 100%;
         width: max-content;
         margin-left: 2.5%;
+        max-width: 18vw;
       }
 
       .header-toggle {

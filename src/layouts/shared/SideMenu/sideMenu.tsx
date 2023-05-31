@@ -3,13 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
-import { avatars_data } from "../../../lib/avatars/data";
 import { MENUS, STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
-import {
-  convertToRelativeUnit as conv,
-  convertToRelativeUnit,
-} from "../../../styles/helpers/convertToRelativeUnits";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 type MenuState = {
   "user-tools": boolean;
@@ -44,10 +40,8 @@ export function SideMenu() {
       <div>
         <Link to="profile">
           <div className="logo-container">
-            {avatars_data[0].icon({})}
-            <div className="username">
-              <div>{user?.username}</div>
-            </div>
+            <img src="/images/avatars/avatar.svg" alt="avatar" />
+            <div className="username">{user?.username}</div>
           </div>
         </Link>
       </div>
@@ -121,13 +115,35 @@ export function SideMenu() {
 }
 
 const Style = {
+  MenuItem: styled.div`
+    color: var(--white);
+
+    .menu-item {
+      display: flex;
+      padding: ${conv(20, "vh")} ${conv(36, "vw")};
+      cursor: pointer;
+
+      .menu-icon {
+        margin-right: var(--gutter-grid);
+      }
+
+      .arrow {
+        margin-left: auto;
+      }
+
+      .menu-content {
+        font-weight: 600;
+        font-size: ${conv(19, "vh")};
+        line-height: 125%;
+      }
+    }
+  `,
   DropDown: styled.div.attrs((props: { open: boolean; count: number }) => ({
     open: props.open,
     count: props.count,
   }))`
-    height: ${({ open, count }) => (open ? `${conv(64 * count, "vh")}` : 0)};
-    padding-top: ${({ open }) => (open ? `${conv(32, "vh")}` : 0)};
-    transition: height 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+    height: ${({ open, count }) => (open ? `${64 * count}px` : 0)};
+    transition: height 0.3s ease-in-out;
     overflow: hidden;
   `,
   SubMenuItem: styled.div.attrs((props: { open: boolean }) => ({
@@ -138,154 +154,154 @@ const Style = {
       transform: rotate(${({ open }) => (open ? "0deg" : "-180deg")});
     }
   `,
-  MenuItem: styled.div`
-    color: var(--white);
-
-    .menu-item {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-
-      .menu-icon {
-        width: ${conv(32, "vh")};
-        height: ${conv(32, "vh")};
-      }
-
-      .arrow {
-        width: ${conv(32, "vh")};
-        display: none;
-      }
-
-      .menu-content {
-        display: none;
-      }
-    }
-  `,
   MenuContainer: styled.aside`
     z-index: 100;
     position: fixed;
+    overflow-y: auto;
     width: var(--dashboard-menu-width-medium);
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     background: linear-gradient(-90deg, var(--green-400), var(--green-600));
-    border-radius: 0 ${conv(32, "vh")} ${conv(32, "vh")} 0;
-    filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
-    padding: ${conv(20, "vh")} ${conv(36, "vh")};
+    border-radius: 0 32px 32px 0;
+    padding: ${conv(36, "vh")} 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    transition: width 0.2s ease-in-out;
-    overflow: hidden;
+    filter: drop-shadow(6px 0px 16px rgba(0, 0, 0, 0.1));
 
-    .logo-container {
-      display: flex;
-      color: white;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: ${conv(48, "vh")};
-      margin-top: ${conv(48, "vh")};
-
-      svg {
-        width: ${convertToRelativeUnit(80, "vh")};
-        height: ${convertToRelativeUnit(80, "vh")};
-      }
+    .username {
+      line-height: ${conv(29, "vh")};
+      font-weight: 700;
+      font-size: ${conv(24, "vh")};
+      transition: all 0.2s ease-in-out;
     }
 
     .btn-logout {
       position: relative;
-      height: ${conv(64, "vh")};
-      transition: all 0.2s ease-in-out;
-      width: ${conv(64, "vh")};
+      height: ${conv(48, "vh")};
+      min-height: ${conv(48, "vh")};
+      margin-top: ${conv(40, "vh")};
+      margin-left: calc(2 * var(--gutter-grid));
+      width: ${conv(124, "vh")};
 
-      div.logout-content {
-        font-size: ${conv(24, "vh")};
+      img {
         display: none;
       }
 
-      img {
-        width: ${conv(28, "vh")};
+      div.logout-content {
         display: block;
       }
     }
 
-    .drop-down {
+    .logo-container {
+      padding-left: ${conv(20, "vw")};
       display: flex;
-      flex-direction: column;
-      gap: ${conv(32, "vh")};
+      color: white;
+      align-items: center;
+      margin-bottom: ${conv(42, "vh")};
     }
 
-    .username {
-      font-size: 0;
+    .drop-down {
+      padding-left: ${conv(40, "vw")};
     }
 
-    &:hover {
-      width: ${conv(380, "vh")};
-      transition: width 0.2s ease-in-out;
-
-      .logo-container {
-        align-items: center;
-        justify-content: start;
-      }
-
-      .username {
-        padding-left: ${conv(24, "vh")};
-        line-height: ${conv(32, "vh")};
-        font-weight: 700;
-        font-size: ${conv(28, "vh")};
-        transition: all 0.2s ease-in-out;
-      }
+    @media screen {
+      width: var(--dashboard-menu-width-medium);
 
       .drop-down {
-        padding-left: ${conv(48, "vh")};
+        padding-left: 0;
       }
 
       .btn-logout {
-        align-self: start;
-        width: ${conv(150, "vh")};
+        margin-left: ${conv(44, "vw")};
         transition: all 0.2s ease-in-out;
+        width: ${conv(48, "vw")};
 
-        img {
+        div.logout-content {
           display: none;
         }
 
-        div.logout-content {
+        img {
           display: block;
         }
       }
 
       .menu-item {
-        transition: all 0.1s ease-in-out;
-        justify-content: center;
-        text-decoration: none;
+        padding: ${conv(20, "vh")} ${conv(56, "vw")};
+        transition: padding 0.4s ease-in-out;
 
         .arrow {
-          margin-left: auto;
-          display: block;
+          display: none;
         }
 
         .menu-content {
-          display: block;
-          flex-grow: 1;
-          margin-left: ${conv(20, "vh")};
-          font-weight: 600;
-          font-size: ${conv(24, "vh")};
-          line-height: ${conv(32, "vh")};
-          white-space: nowrap;
-          transition: all 0.3s ease-in-out;
+          transition: all 0.2s ease-in-out;
+          font-size: 0;
         }
       }
 
-      .item-container {
-        align-items: start;
+      .username {
+        font-size: 0;
       }
+
+      &:hover {
+        width: var(--dashboard-menu-width-large);
+        transition: width 0.1s ease-in-out;
+
+        .drop-down {
+          padding-left: ${conv(40, "vw")};
+        }
+
+        .btn-logout {
+          margin-left: calc(2 * var(--gutter-grid));
+          width: ${conv(124, "vw")};
+          transition: all 0.2s ease-in-out;
+
+          img {
+            display: none;
+          }
+
+          div.logout-content {
+            display: block;
+          }
+        }
+
+        .menu-item {
+          padding: ${conv(20, "vh")} ${conv(36, "vw")};
+          transition: all 0.1s ease-in-out;
+
+          text-decoration: none;
+
+          .arrow {
+            margin-left: auto;
+            display: block;
+          }
+
+          .menu-content {
+            transition: all 0.3s ease-in-out;
+            font-size: ${conv(19, "vh")};
+            color: var(--white);
+            text-decoration: none !important;
+          }
+        }
+
+        .username {
+          font-size: ${conv(24, "vh")};
+        }
+      }
+
+      .logo-container {
+        margin-bottom: ${conv(22, "vh")};
+      }
+
+      transition: width 0.2s ease-in-out;
     }
 
     .item-container {
-      flex-grow: 1;
-      margin-bottom: auto;
       display: flex;
+      margin-top: ${conv(10, "vh")};
+      margin-bottom: auto;
+      overflow-y: auto;
       flex-direction: column;
-      gap: ${conv(36, "vh")};
-      align-items: center;
     }
   `,
 };

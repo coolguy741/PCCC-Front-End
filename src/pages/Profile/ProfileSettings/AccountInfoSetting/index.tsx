@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "../../../../components/Button";
 import { DropdownSelect } from "../../../../components/Global/DropdownSelect";
 import { Input } from "../../../../components/Global/Input";
-import Scrollbar from "../../../../components/Global/Scrollbar";
+import Scrollbar from "../../../../components/Global/Scrollable";
 import { useAPI } from "../../../../hooks/useAPI";
 import { avatars_data } from "../../../../lib/avatars/data";
 import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";

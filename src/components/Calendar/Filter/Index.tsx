@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Checkbox } from "../../Global/Checkbox";
-import Scrollbar from "../../Global/Scrollbar";
+import Scrollbar from "../../Global/Scrollable";
 
 export const CalendarFilter = () => {
   return (

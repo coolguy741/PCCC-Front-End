@@ -6,7 +6,7 @@ import Button from "../../Button";
 import { ContentList } from "../ContentList";
 import { ContentListItemData } from "../ContentListItem";
 import { DropdownSelect } from "../DropdownSelect";
-import Scrollbar from "../Scrollbar";
+import Scrollbar from "../Scrollable";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";
 interface ContentListAdminPageTemplateProps {

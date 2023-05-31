@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import { PROVINCES } from "../../../pages/consts";
 import { useSignUpStore } from "../../../stores/signUpStore";
-import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { DropdownSelect } from "../../Global/DropdownSelect";
@@ -76,7 +75,6 @@ export const AgeGate = () => {
                   type="number"
                   data-testid="year"
                   className={errors.year ? "has-error" : ""}
-                  height={convertToRelativeUnit(48, "vh")}
                   {...field}
                 />
               )}
@@ -100,7 +98,7 @@ export const AgeGate = () => {
                   className={errors.province ? "has-error" : ""}
                   onChange={(selectedOption) => field.onChange(selectedOption)}
                   width="100%"
-                  height={convertToRelativeUnit(48, "vh")}
+                  height="5vh"
                 />
               )}
             />
@@ -147,7 +145,7 @@ const Style = {
     }
 
     form > fieldset {
-      margin-bottom: 2.666vh;
+      margin-bottom: 1.5vh;
       height: 10vh;
     }
 
@@ -167,7 +165,7 @@ const Style = {
     }
 
     button {
-      margin-top: 4.66vh;
+      margin-top: 2.5vh;
       svg {
         margin-left: 0.5vw;
       }
@@ -175,7 +173,6 @@ const Style = {
 
     .province-select-container {
       width: 100%;
-      height: 4vh;
       margin-top: 2vh;
     }
   `,
