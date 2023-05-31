@@ -78,10 +78,7 @@ export const FoodwaysOverviewPage = () => {
                     <AnimatePresence>
                       {foodway.foodwayStops && (
                         <motion.img
-                          src={
-                            foodway.foodwayStops[nav].image! ||
-                            "/images/chocolate.jpg"
-                          }
+                          src={foodway.foodwayStops[nav].image!}
                           key="foodways-image"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
