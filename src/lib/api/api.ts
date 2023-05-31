@@ -342,6 +342,20 @@ export interface PccServer23FoodwayStopsMultiLingualFoodwayStopUpdateDto {
   concurrencyStamp?: string | null;
 }
 
+export interface PccServer23FoodwayStopsPublicFoodwayStopDto {
+  /** @format uuid */
+  id?: string;
+  timePeriod?: string | null;
+  description?: string | null;
+  /** @format int32 */
+  order?: number;
+  image?: string | null;
+  location?: string | null;
+  /** @format uuid */
+  foodwayId?: string;
+  language?: string | null;
+}
+
 export interface PccServer23FoodwayStopsTranslationFoodwayStopUpdateDto {
   timePeriod: string;
   description?: string | null;
@@ -404,6 +418,19 @@ export interface PccServer23FoodwaysMultiLingualFoodwayUpdateDto {
   english: PccServer23FoodwaysTranslationFoodwayUpdateDto;
   french: PccServer23FoodwaysTranslationFoodwayUpdateDto;
   image?: string | null;
+}
+
+export interface PccServer23FoodwaysPublicFoodwayDto {
+  /** @format uuid */
+  id?: string;
+  title?: string | null;
+  info?: string | null;
+  image?: string | null;
+  /** @format date-time */
+  featureDate?: string;
+  description?: string | null;
+  language?: string | null;
+  foodwayStops?: PccServer23FoodwayStopsPublicFoodwayStopDto[] | null;
 }
 
 export interface PccServer23FoodwaysTranslationFoodwayCreateDto {
@@ -649,6 +676,15 @@ export interface PccServer23IngredientsIngredientWithNavigationPropertiesDto {
   recipe?: PccServer23RecipesRecipeDto;
 }
 
+export interface PccServer23IngredientsPublicIngredientDto {
+  quantity?: string | null;
+  measurement?: string | null;
+  name?: string | null;
+  /** @format uuid */
+  recipeId?: string;
+  language?: string | null;
+}
+
 export interface PccServer23RecipeMediasRecipeMediaCreateDto {
   mediaType?: PccServer23RecipeMediasRecipeMediaType;
   fileType: string;
@@ -699,41 +735,48 @@ export interface PccServer23RecipeMediasRecipeMediaWithNavigationPropertiesDto {
   recipe?: PccServer23RecipesRecipeDto;
 }
 
-export interface PccServer23RecipesCustomIngredientUpdate {
-  english: PccServer23IngredientsIngredientUpdateDto;
-  french: PccServer23IngredientsIngredientUpdateDto;
+export interface PccServer23RecipesIngredientUpdate {
+  english: PccServer23RecipesRecipeIngredientUpdateDto;
+  french: PccServer23RecipesRecipeIngredientUpdateDto;
 }
 
-export interface PccServer23RecipesCustomMultiLingualIngredientCreate {
-  english: PccServer23RecipesCustomRecipeIngredientCreateDto;
-  french: PccServer23RecipesCustomRecipeIngredientCreateDto;
+export interface PccServer23RecipesMultiLingualIngredientCreate {
+  english: PccServer23RecipesRecipeIngredientCreateDto;
+  french: PccServer23RecipesRecipeIngredientCreateDto;
 }
 
-export interface PccServer23RecipesCustomMultiLingualRecipeCreateDto {
-  english: PccServer23RecipesCustomRecipeCreate;
-  french: PccServer23RecipesCustomRecipeCreate;
-  ingredients: PccServer23RecipesCustomMultiLingualIngredientCreate[];
+export interface PccServer23RecipesMultiLingualRecipeCreateDto {
+  english: PccServer23RecipesRecipeCreate;
+  french: PccServer23RecipesRecipeCreate;
+  ingredients: PccServer23RecipesMultiLingualIngredientCreate[];
 }
 
-export interface PccServer23RecipesCustomMultiLingualRecipeUpdateDto {
+export interface PccServer23RecipesMultiLingualRecipeUpdateDto {
   english: PccServer23RecipesRecipeUpdateDto;
   french: PccServer23RecipesRecipeUpdateDto;
   concurrencyStamp?: string | null;
-  ingredients?: PccServer23RecipesCustomIngredientUpdate[] | null;
+  ingredients?: PccServer23RecipesIngredientUpdate[] | null;
 }
 
-export interface PccServer23RecipesCustomRecipeCreate {
+export interface PccServer23RecipesPublicRecipeDto {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  goodFor?: string | null;
+  servingSize?: string | null;
+  tags?: string | null;
+  directions?: string | null;
+  language?: string | null;
+  medias?: PccServer23RecipeMediasRecipeMediaDto[] | null;
+  ingredients?: PccServer23IngredientsPublicIngredientDto[] | null;
+}
+
+export interface PccServer23RecipesRecipeCreate {
   name: string;
   goodFor?: string | null;
   servingSize?: string | null;
   tags?: string | null;
   directions?: string | null;
-}
-
-export interface PccServer23RecipesCustomRecipeIngredientCreateDto {
-  quantity?: string | null;
-  measurement?: string | null;
-  name?: string | null;
 }
 
 export interface PccServer23RecipesRecipeCreateDto {
@@ -768,6 +811,21 @@ export interface PccServer23RecipesRecipeDto {
   concurrencyStamp?: string | null;
   language?: string | null;
   medias?: PccServer23RecipeMediasRecipeMediaDto[] | null;
+  ingredients?: PccServer23IngredientsIngredientDto[] | null;
+}
+
+export interface PccServer23RecipesRecipeIngredientCreateDto {
+  quantity?: string | null;
+  measurement?: string | null;
+  name?: string | null;
+}
+
+export interface PccServer23RecipesRecipeIngredientUpdateDto {
+  /** @format uuid */
+  id?: string;
+  quantity?: string | null;
+  measurement?: string | null;
+  name?: string | null;
 }
 
 export interface PccServer23RecipesRecipeUpdateDto {
@@ -821,14 +879,19 @@ export interface PccServer23SharedDownloadTokenResultDto {
   token?: string | null;
 }
 
-export interface PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsFoodwayStopDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
-  english?: PccServer23FoodwayStopsFoodwayStopDto;
-  french?: PccServer23FoodwayStopsFoodwayStopDto;
+export interface PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsPublicFoodwayStopDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  english?: PccServer23FoodwayStopsPublicFoodwayStopDto;
+  french?: PccServer23FoodwayStopsPublicFoodwayStopDto;
 }
 
-export interface PccServer23SharedIMultiLingualDto1PccServer23FoodwaysFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
-  english?: PccServer23FoodwaysFoodwayDto;
-  french?: PccServer23FoodwaysFoodwayDto;
+export interface PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  english?: PccServer23FoodwaysPublicFoodwayDto;
+  french?: PccServer23FoodwaysPublicFoodwayDto;
+}
+
+export interface PccServer23SharedIMultiLingualDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  english?: PccServer23RecipesPublicRecipeDto;
+  french?: PccServer23RecipesPublicRecipeDto;
 }
 
 export interface PccServer23SharedLookupDto1SystemGuidSystemPrivateCoreLibVersion7000CultureNeutralPublicKeyToken7Cec85D7Bea7798E {
@@ -1489,7 +1552,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     appFoodwaysCreate: (data: PccServer23FoodwaysMultiLingualFoodwayCreateDto, params: RequestParams = {}) =>
       this.request<
-        PccServer23SharedIMultiLingualDto1PccServer23FoodwaysFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/foodways`,
@@ -1510,7 +1573,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/foodways/{id}
      */
     appFoodwaysDetail: (id: string, params: RequestParams = {}) =>
-      this.request<PccServer23FoodwaysFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<PccServer23FoodwaysPublicFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/foodways/${id}`,
         method: "GET",
         format: "json",
@@ -1549,7 +1612,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        PccServer23SharedIMultiLingualDto1PccServer23FoodwaysFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/foodways/${id}`,
@@ -1593,7 +1656,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsFoodwayStopDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsPublicFoodwayStopDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/foodway-stops/${id}`,
@@ -1619,7 +1682,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsFoodwayStopDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsPublicFoodwayStopDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/foodway-stops`,
@@ -2024,8 +2087,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/recipes
      * @secure
      */
-    appRecipesCreate: (data: PccServer23RecipesCustomMultiLingualRecipeCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23RecipesRecipeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appRecipesCreate: (data: PccServer23RecipesMultiLingualRecipeCreateDto, params: RequestParams = {}) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/recipes`,
         method: "POST",
         body: data,
@@ -2044,7 +2110,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/recipes/{id}
      */
     appRecipesDetail: (id: string, params: RequestParams = {}) =>
-      this.request<PccServer23RecipesRecipeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<PccServer23RecipesPublicRecipeDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/recipes/${id}`,
         method: "GET",
         format: "json",
@@ -2077,12 +2143,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/api/app/recipes/{id}
      * @secure
      */
-    appRecipesUpdate: (
-      id: string,
-      data: PccServer23RecipesCustomMultiLingualRecipeUpdateDto,
-      params: RequestParams = {},
-    ) =>
-      this.request<PccServer23RecipesRecipeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appRecipesUpdate: (id: string, data: PccServer23RecipesMultiLingualRecipeUpdateDto, params: RequestParams = {}) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/recipes/${id}`,
         method: "PUT",
         body: data,

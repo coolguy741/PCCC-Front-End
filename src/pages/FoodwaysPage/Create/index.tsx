@@ -20,7 +20,7 @@ export const CreateFoodwaysPage = () => {
   const handleCreate = async () => {
     const response = await api.appFoodwaysCreate(
       {
-        image: "/images/chocolate2.png",
+        image: "/images/chocolate.jpg",
         english: {
           title: title,
           info: description,
@@ -46,8 +46,8 @@ export const CreateFoodwaysPage = () => {
     if (response.status === 200) {
       const _response = await api.appFoodwayStopsCreate(
         {
-          foodwayId: response.data?.english?.id,
-          image: "/images/chocolate.jpg",
+          foodwayId: response.data.english?.id,
+          image: "/images/moment.jpg",
           english: {
             timePeriod: stopTimePeriod,
             description: stopDescription,
@@ -71,7 +71,7 @@ export const CreateFoodwaysPage = () => {
       await api.appFoodwayStopsCreate(
         {
           foodwayId: response.data?.english?.id,
-          image: "/images/chocolate2.png",
+          image: "/images/moment.jpg",
           english: {
             timePeriod: stopTimePeriod,
             description: stopDescription,
@@ -93,7 +93,7 @@ export const CreateFoodwaysPage = () => {
       await api.appFoodwayStopsCreate(
         {
           foodwayId: response.data?.english?.id,
-          image: "/images/chocolate.jpg",
+          image: "/images/moment.jpg",
           english: {
             timePeriod: stopTimePeriod,
             description: stopDescription,
