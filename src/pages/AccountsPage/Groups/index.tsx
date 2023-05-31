@@ -66,9 +66,7 @@ export const AccountsGroupsPage = () => {
       <Scrollable className="row manage-users-content" height="65vh">
         <div className="groups-container">
           {groups.map((group, index) => (
-            <div className="group-card-container" key={index}>
-              <GroupCard data={group} invitations={invitations} />
-            </div>
+            <GroupCard key={index} data={group} invitations={invitations} />
           ))}
         </div>
         <div className="group-invitations-container">
@@ -153,20 +151,9 @@ const Style = {
 
       .groups-container {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: ${convertToRelativeUnit(20, "vw")};
-
-        .group-card-container {
-          width: 100%;
-
-          a {
-            &:hover,
-            &:visited {
-              text-decoration: none;
-            }
-          }
-        }
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
       }
 
       .group-invitations-container {
