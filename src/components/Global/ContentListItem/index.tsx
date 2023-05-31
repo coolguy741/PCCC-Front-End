@@ -99,8 +99,8 @@ const Style = {
     border-radius: ${convertToRelativeUnit(50, "vh")};
     color: var(--orange-600);
     text-transform: uppercase;
-    font-size: ${convertToRelativeUnit(28, "vh")};
-    line-height: ${convertToRelativeUnit(32, "vh")};
+    font-size: ${convertToRelativeUnit(14, "vh")};
+    line-height: ${convertToRelativeUnit(16, "vh")};
   `,
   Date: styled.p`
     box-sizing: border-box;
@@ -115,8 +115,8 @@ const Style = {
     border-radius: ${convertToRelativeUnit(50, "vh")};
     color: var(--orange-600);
     text-transform: uppercase;
-    font-size: ${convertToRelativeUnit(28, "vh")};
-    line-height: ${convertToRelativeUnit(32, "vh")};
+    font-size: ${convertToRelativeUnit(14, "vh")};
+    line-height: ${convertToRelativeUnit(16, "vh")};
   `,
   Title: styled.p`
     font-weight: 600;
