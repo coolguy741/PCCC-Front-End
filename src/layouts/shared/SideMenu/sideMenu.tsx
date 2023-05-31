@@ -45,10 +45,7 @@ export function SideMenu() {
         <Link to="profile">
           <div className="logo-container">
             {avatars_data[0].icon()}
-            <div className="username">
-              <div>Self disciplined</div>
-              <div>{user?.username}</div>
-            </div>
+            <div className="username">{user?.username}</div>
           </div>
         </Link>
       </div>
@@ -126,8 +123,8 @@ const Style = {
     open: props.open,
     count: props.count,
   }))`
-    height: ${({ open, count }) => (open ? `${conv(48 * count, "vh")}` : 0)};
-    padding-top: ${({ open }) => (open ? `${conv(24, "vh")}` : 0)};
+    height: ${({ open, count }) => (open ? `${conv(64 * count, "vh")}` : 0)};
+    padding-top: ${({ open }) => (open ? `${conv(32, "vh")}` : 0)};
     transition: height 0.3s ease-in-out, padding-top 0.3s ease-in-out;
     overflow: hidden;
   `,
@@ -148,12 +145,12 @@ const Style = {
       cursor: pointer;
 
       .menu-icon {
-        width: ${conv(24, "vh")};
-        height: ${conv(24, "vh")};
+        width: ${conv(32, "vh")};
+        height: ${conv(32, "vh")};
       }
 
       .arrow {
-        width: ${conv(24, "vh")};
+        width: ${conv(32, "vh")};
         display: none;
       }
 
@@ -182,26 +179,28 @@ const Style = {
       color: white;
       justify-content: center;
       align-items: center;
-      margin-bottom: ${conv(77, "vh")};
+      margin-bottom: ${conv(48, "vh")};
+      margin-top: ${conv(48, "vh")};
 
       svg {
-        width: ${convertToRelativeUnit(60, "vh")};
-        height: ${convertToRelativeUnit(60, "vh")};
+        width: ${convertToRelativeUnit(80, "vh")};
+        height: ${convertToRelativeUnit(80, "vh")};
       }
     }
 
     .btn-logout {
       position: relative;
-      height: ${conv(48, "vh")};
-      min-height: ${conv(48, "vh")};
+      height: ${conv(64, "vh")};
       transition: all 0.2s ease-in-out;
-      width: ${conv(48, "vh")};
+      width: ${conv(64, "vh")};
 
       div.logout-content {
+        font-size: ${conv(24, "vh")};
         display: none;
       }
 
       img {
+        width: ${conv(28, "vh")};
         display: block;
       }
     }
@@ -209,7 +208,7 @@ const Style = {
     .drop-down {
       display: flex;
       flex-direction: column;
-      gap: ${conv(24, "vh")};
+      gap: ${conv(32, "vh")};
     }
 
     .username {
@@ -217,7 +216,7 @@ const Style = {
     }
 
     &:hover {
-      min-width: var(--dashboard-menu-width-large);
+      width: ${conv(380, "vh")};
       transition: width 0.2s ease-in-out;
 
       .logo-container {
@@ -226,20 +225,20 @@ const Style = {
       }
 
       .username {
-        padding-left: ${conv(18, "vh")};
-        line-height: ${conv(24, "vh")};
+        padding-left: ${conv(24, "vh")};
+        line-height: ${conv(32, "vh")};
         font-weight: 700;
-        font-size: ${conv(19, "vh")};
+        font-size: ${conv(28, "vh")};
         transition: all 0.2s ease-in-out;
       }
 
       .drop-down {
-        padding-left: ${conv(36, "vh")};
+        padding-left: ${conv(48, "vh")};
       }
 
       .btn-logout {
         align-self: start;
-        width: ${conv(124, "vw")};
+        width: ${conv(150, "vh")};
         transition: all 0.2s ease-in-out;
 
         img {
@@ -264,10 +263,10 @@ const Style = {
         .menu-content {
           display: block;
           flex-grow: 1;
-          margin-left: ${conv(16, "vh")};
+          margin-left: ${conv(20, "vh")};
           font-weight: 600;
-          font-size: ${conv(18, "vh")};
-          line-height: ${conv(24, "vh")};
+          font-size: ${conv(24, "vh")};
+          line-height: ${conv(32, "vh")};
           white-space: nowrap;
           transition: all 0.3s ease-in-out;
         }
@@ -283,7 +282,7 @@ const Style = {
       margin-bottom: auto;
       display: flex;
       flex-direction: column;
-      gap: ${conv(24, "vh")};
+      gap: ${conv(36, "vh")};
       align-items: center;
     }
   `,
