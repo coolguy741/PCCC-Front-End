@@ -1,9 +1,9 @@
-import { InventoryItemImgName } from "../../../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
+import { InventoryItemAssetName } from "../../../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
 import { DraggableItemsTypes } from "./DraggableGrid";
 
 export interface InventoryCategoryConvertedDataTypes {
   id: string;
-  itemName: InventoryItemImgName;
+  itemName: InventoryItemAssetName;
 }
 
 const MiscCategoryTitle = "Misc";

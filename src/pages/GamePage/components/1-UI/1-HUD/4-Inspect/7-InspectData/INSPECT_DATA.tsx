@@ -1,5 +1,5 @@
 import { InteractiveGameEntityTypes } from "../../../../../globalState/modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
-import { InventoryItemImgName } from "../../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
+import { InventoryItemAssetName } from "../../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
 
 export type InspectActionTypes =
   | "Wear"
@@ -15,7 +15,7 @@ interface InspectDataItem {
   id: number;
   type: itemType;
   pickup: boolean;
-  imgName: InventoryItemImgName;
+  assetName: InventoryItemAssetName;
   action: InspectActionTypes;
   inspectText: string | null;
   cantPickupText: string | null;
@@ -28,15 +28,15 @@ interface InspectDataTypes {
 }
 
 const InspectData: InspectDataTypes = {
-  "Gardening Hat": {
+  "Gardening Hat and Sunglasses": {
     id: 0,
-    itemName: "Gardening Hat",
+    itemName: "Gardening Hat and Sunglasses",
     pickup: true,
     action: "Wear",
     inspectText: "Stay cool in the sun and protect your face from sunburn.",
     cantPickupText: null,
     incorrectUseText: null,
-    imgName: "gardening_hat",
+    assetName: "gardening_and_sunglasses",
     type: "tool",
   },
   Shovel: {
@@ -48,7 +48,7 @@ const InspectData: InspectDataTypes = {
     cantPickupText: null,
     incorrectUseText:
       "I shouldn’t use it here. It’s best use din the Plant box area.",
-    imgName: "shovel",
+    assetName: "shovel",
     type: "tool",
   },
   "Gardening Gloves": {
@@ -59,7 +59,7 @@ const InspectData: InspectDataTypes = {
     inspectText: "Keep your hands clean and safe from thorns and prickles.",
     cantPickupText: null,
     incorrectUseText: null,
-    imgName: "gardening_gloves",
+    assetName: "gardening_gloves",
     type: "tool",
   },
   Drawer: {
@@ -71,7 +71,7 @@ const InspectData: InspectDataTypes = {
       "An old drawer, a bit rusty but it looks like it can still slide open…",
     cantPickupText: "Oh it’s too heavy, I can’t carry this.",
     incorrectUseText: null,
-    imgName: "drawer",
+    assetName: "drawer",
     type: "misc",
   },
   Rake: {
@@ -82,7 +82,7 @@ const InspectData: InspectDataTypes = {
     inspectText: "Gather leaves and debris to tidy up your garden with ease.",
     cantPickupText: null,
     incorrectUseText: null,
-    imgName: "rake",
+    assetName: "rake",
     type: "tool",
   },
   "Seed Packets": {
@@ -95,42 +95,31 @@ const InspectData: InspectDataTypes = {
     cantPickupText: null,
     incorrectUseText:
       "I can’t plant it like here that! I need to open it first!",
-    imgName: "seed_packets",
-    type: "misc",
+    assetName: "seed_packets",
+    type: "ingredient",
   },
-  Sunglasses: {
-    id: 6,
-    itemName: "Sunglasses",
-    pickup: true,
-    action: "Wear",
-    inspectText: "Shield your eyes from the bright sun rays.",
-    cantPickupText: null,
-    incorrectUseText: null,
-    imgName: "sunglasses",
-    type: "tool",
-  },
-  "Screwdriver Phillips": {
+  "Phillips Screwdriver": {
     id: 7,
-    itemName: "Screwdriver Phillips",
+    itemName: "Phillips Screwdriver",
     pickup: true,
     action: "Use",
     inspectText:
       "A tool used for screws with a cross-shaped indentation. Perfect for fixing garden tools!",
     cantPickupText: null,
     incorrectUseText: null,
-    imgName: "screwdriver_phillips",
+    assetName: "phillips_screwdriver",
     type: "tool",
   },
-  "Screwdriver Slotted": {
+  "Slotted Screwdriver": {
     id: 8,
-    itemName: "Screwdriver Slotted",
+    itemName: "Slotted Screwdriver",
     pickup: true,
     action: "Use",
     inspectText:
       "A tool used for screws with a single slot. Handy for fixing old garden furniture!",
     cantPickupText: null,
     incorrectUseText: null,
-    imgName: "screwdriver_slotted",
+    assetName: "slotted_screwdriver",
     type: "tool",
   },
   Hoe: {
@@ -142,7 +131,7 @@ const InspectData: InspectDataTypes = {
       "It helps dig, weed, and create the perfect soil for your plants to grow strong and happy.",
     cantPickupText: null,
     incorrectUseText: "I can't use this here, it's usually for the plant box.",
-    imgName: "hoe",
+    assetName: "hoe",
     type: "tool",
   },
   "Wood Glue": {
@@ -154,7 +143,7 @@ const InspectData: InspectDataTypes = {
       "The magical sticky potion for fixing and crafting with wood! It's like a hug for pieces of wood, making them stick together tight and strong.",
     cantPickupText: null,
     incorrectUseText: "What do I use this on?",
-    imgName: "wood_glue",
+    assetName: "wood_glue",
     type: "misc",
   },
   "Wood Scraps": {
@@ -166,7 +155,7 @@ const InspectData: InspectDataTypes = {
       "These little pieces of wood are like treasure chests for creativity. They're perfect for crafting, building tiny forts, or fueling your imagination!",
     cantPickupText: null,
     incorrectUseText: "How am I supposed to use this?",
-    imgName: "wood_scraps",
+    assetName: "wood_scraps",
     type: "misc",
   },
   "Pitch Fork": {
@@ -176,8 +165,8 @@ const InspectData: InspectDataTypes = {
     action: "Use",
     inspectText: "Temp Copy For Pitch Fork",
     cantPickupText: null,
-    incorrectUseText: null,
-    imgName: "pitch_fork",
+    incorrectUseText: "I can’t use this here, it’s usually for the plant box.",
+    assetName: "pitchfork",
     type: "tool",
   },
   "Paint Cans": {
@@ -189,18 +178,18 @@ const InspectData: InspectDataTypes = {
       "Unleash your inner artist! This colorful can holds the magic of paint, ready to transform your ordinary objects into vibrant masterpieces.",
     cantPickupText: null,
     incorrectUseText: "I can't use this here",
-    imgName: "paint_cans",
+    assetName: "paint_cans",
     type: "misc",
   },
-  "Yellow Straw Hat": {
+  "Red Straw Hat": {
     id: 14,
-    itemName: "Yellow Straw Hat",
+    itemName: "Red Straw Hat",
     pickup: true,
     action: "Wear",
     inspectText: "This is an old straw hat. This yellow makes me happy!",
     cantPickupText: null,
     incorrectUseText: "This old hat is a bit too dirty, I shouldn’t wear it.",
-    imgName: "yellow_straw_hat",
+    assetName: "red_hat",
     type: "tool",
   },
   "Green Straw Hat": {
@@ -213,7 +202,7 @@ const InspectData: InspectDataTypes = {
     cantPickupText: null,
     incorrectUseText:
       "This old hat is a bit too dirty for me, I shouldn’t wear it.",
-    imgName: "green_straw_hat",
+    assetName: "green_hat",
     type: "tool",
   },
   "Blue Straw Hat": {
@@ -225,8 +214,32 @@ const InspectData: InspectDataTypes = {
     cantPickupText: null,
     incorrectUseText:
       "This old hat is a bit too dirty for me, I shouldn’t wear it.",
-    imgName: "blue_straw_hat",
+    assetName: "blue_hat",
     type: "tool",
+  },
+  "Blue Overalls": {
+    id: 17,
+    itemName: "Blue Overalls",
+    pickup: true,
+    action: "Wear",
+    inspectText: "This is an old straw hat. This blue is quite eye-catching.",
+    cantPickupText: null,
+    incorrectUseText:
+      "This old hat is a bit too dirty for me, I shouldn’t wear it.",
+    assetName: "blue_overalls",
+    type: "misc",
+  },
+  "Orange Overalls": {
+    id: 17,
+    itemName: "Blue Overalls",
+    pickup: true,
+    action: "Wear",
+    inspectText: "This is an old straw hat. This blue is quite eye-catching.",
+    cantPickupText: null,
+    incorrectUseText:
+      "This old hat is a bit too dirty for me, I shouldn’t wear it.",
+    assetName: "orange_overalls",
+    type: "misc",
   },
 };
 

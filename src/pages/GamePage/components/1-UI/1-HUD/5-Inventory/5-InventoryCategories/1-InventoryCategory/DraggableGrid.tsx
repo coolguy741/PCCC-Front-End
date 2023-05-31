@@ -1,7 +1,7 @@
 import { animated } from "@react-spring/web";
 import { FC, PointerEvent, useMemo } from "react";
 import useMeasure from "react-use-measure";
-import { InventoryItemImgName } from "../../../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
+import { InventoryItemAssetName } from "../../../../../../globalState/modules/InventoryModule/InventoryModuleTypes";
 import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
 import { getItemDimensions, NUM_COLS } from "./InventoryCategoryDefines";
 // @ts-ignore
@@ -10,7 +10,7 @@ import useAnimatedItems from "./useAnimatedItems";
 // Types
 export interface DraggableItemsTypes {
   id: string;
-  itemName: InventoryItemImgName;
+  itemName: InventoryItemAssetName;
 }
 
 interface DraggableGridPropTypes {

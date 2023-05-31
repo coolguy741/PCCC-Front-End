@@ -1,3 +1,5 @@
+import { InventoryItemAssetName } from "../InventoryModule/InventoryModuleTypes";
+
 export type InteractiveGameEntityTypes =
   | "Hoe"
   | "Rake"
@@ -9,13 +11,15 @@ export type InteractiveGameEntityTypes =
   | "Paint Cans"
   | "Wood Scraps"
   | "Seed Packets"
-  | "Gardening Hat"
+  | "Blue Overalls"
+  | "Orange Overalls"
+  | "Red Straw Hat"
   | "Blue Straw Hat"
   | "Green Straw Hat"
   | "Gardening Gloves"
-  | "Yellow Straw Hat"
-  | "Screwdriver Slotted"
-  | "Screwdriver Phillips";
+  | "Slotted Screwdriver"
+  | "Phillips Screwdriver"
+  | "Gardening Hat and Sunglasses";
 
 export type CursorMenuOptionTypes = "inspect" | "pickup" | "dynamic" | "exit";
 
@@ -36,4 +40,9 @@ export interface InteractiveGameEntityModuleTypes {
 
   inspectActive: boolean;
   setInspectActive: (inspectActive: boolean) => void;
+
+  itemToRemoveFromScene: null | InventoryItemAssetName;
+  setItemToRemoveFromScene: (
+    itemToRemoveFromScene: InventoryItemAssetName | null,
+  ) => void;
 }

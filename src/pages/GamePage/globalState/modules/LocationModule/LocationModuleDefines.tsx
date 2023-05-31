@@ -7,8 +7,8 @@ import {
 const locationKeys: locationKeyType[] = ["Gate", "Kitchen", "Garden"];
 
 // TODO: Kanui - Change this to the first locationKey
-// const initLocationKey: locationKeyType = locationKeys[0];
-const initLocationKey: locationKeyType = locationKeys[2];
+const initLocationKey: locationKeyType = locationKeys[0];
+// const initLocationKey: locationKeyType = locationKeys[2];
 
 const gardenHotspotKeys: gardenHotspotKeyType[] = [
   "BigTree",
@@ -19,8 +19,8 @@ const gardenHotspotKeys: gardenHotspotKeyType[] = [
 ];
 
 // TODO: Kanui - Change this to the first gardenHotspotKey
-// const initGardenHotSpotKey: gardenHotspotKeyType = gardenHotspotKeys[0];
-const initGardenHotSpotKey: gardenHotspotKeyType = gardenHotspotKeys[1];
+const initGardenHotSpotKey: gardenHotspotKeyType = gardenHotspotKeys[0];
+// const initGardenHotSpotKey: gardenHotspotKeyType = gardenHotspotKeys[1];
 
 const kitchenHotspotKeys: kitchenHotspotKeyType[] = [
   "Sink",

@@ -3,7 +3,7 @@ import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import PlayerCamera from "../2-Entities/0-Cameras/PlayerCamera";
-import GardenOG from "../2-Entities/1-Garden/GardenOG";
+import GardenDebug from "../2-Entities/1-Garden/0-Garden/GardenDebug";
 import DynamicEnitity from "../2-Entities/DynamicEnitity";
 import Environment from "../3-Environment/Environment";
 import { GATE_POSITION } from "../5-Constants/0-Garden/GARDEN_POSITION";
@@ -33,7 +33,7 @@ const GameStage: FC = () => {
 
   return (
     <Fragment>
-      <GardenOG />
+      <GardenDebug />
       <DynamicEnitity />
       <PlayerCamera />
       <Environment />

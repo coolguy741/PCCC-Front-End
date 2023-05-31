@@ -57,7 +57,7 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
         castShadow
         geometry={nodes.hat_01.geometry}
         material={materials.VertexColors_PBR}
-        visible={activeHoveredEntity === "Gardening Hat"}
+        visible={activeHoveredEntity === "Gardening Hat and Sunglasses"}
       />
       <mesh
         castShadow
@@ -109,14 +109,14 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
         position={[0, 0.01, 0]}
         material={materials.VertexColors_PBR}
         geometry={nodes.screwdriver_phillips.geometry}
-        visible={activeHoveredEntity === "Screwdriver Phillips"}
+        visible={activeHoveredEntity === "Phillips Screwdriver"}
       />
 
       <mesh
         castShadow
         material={materials.VertexColors_PBR}
         geometry={nodes.screwdriver_slot.geometry}
-        visible={activeHoveredEntity === "Screwdriver Slotted"}
+        visible={activeHoveredEntity === "Slotted Screwdriver"}
       />
 
       <mesh
@@ -166,7 +166,7 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
         castShadow
         geometry={nodes.hat_02.geometry}
         material={materials.VertexColors_PBR}
-        visible={activeHoveredEntity === "Yellow Straw Hat"}
+        visible={activeHoveredEntity === "Red Straw Hat"}
       />
 
       <mesh
@@ -183,6 +183,20 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
         visible={activeHoveredEntity === "Blue Straw Hat"}
       />
 
+      <mesh
+        castShadow
+        geometry={nodes.old_clothing_02.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Blue Overalls"}
+      />
+
+      <mesh
+        castShadow
+        geometry={nodes.old_clothing_01.geometry}
+        material={materials.VertexColors_PBR}
+        visible={activeHoveredEntity === "Orange Overalls"}
+      />
+
       {/* <mesh
         name="bucket"
         castShadow
@@ -191,22 +205,8 @@ const ToolRackPOC = (props: JSX.IntrinsicElements["group"]) => {
         material={materials.VertexColors_PBR}
         userData={{ name: "bucket" }}
       />
-      <mesh
-        name="old_clothing_01"
-        castShadow
-        visible={false}
-        geometry={nodes.old_clothing_01.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "old_clothing_01" }}
-      />
-      <mesh
-        name="old_clothing_02"
-        castShadow
-        visible={false}
-        geometry={nodes.old_clothing_02.geometry}
-        material={materials.VertexColors_PBR}
-        userData={{ name: "old_clothing_02" }}
-      /> */}
+      
+       */}
     </Fragment>
   );
 };
