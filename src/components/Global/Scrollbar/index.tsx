@@ -43,6 +43,7 @@ const ScrollableDiv = styled.div<{
 interface ScrollbarProps {
   children?: React.ReactNode;
   thumbWidth?: "thin" | "thick";
+  className?: string;
   height?: string;
 }
 
@@ -50,9 +51,14 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
   thumbWidth = "thin",
   height = "100%",
   children,
+  className,
 }) => {
   return (
-    <ScrollableDiv thumbWidth={thumbWidth} height={height}>
+    <ScrollableDiv
+      className={className ? className : ""}
+      thumbWidth={thumbWidth}
+      height={height}
+    >
       {children}
     </ScrollableDiv>
   );

@@ -1,27 +1,37 @@
 import { css } from "styled-components";
-import { convertToRelativeUnit } from "./convertToRelativeUnits";
 
-export function blueScrollbar() {
+export function blueScrollbar(thumbWidth: "thin" | "thick") {
   return css`
-    /* width */
-    ::-webkit-scrollbar {
-      width: ${convertToRelativeUnit(6, "vw")};
+    margin-right: ${() => (thumbWidth === "thin" ? "-8px" : "-28px")};
+    padding-right: ${() => (thumbWidth === "thin" ? "4px" : "20px")};
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: ${() => (thumbWidth === "thin" ? "4px" : "8px")};
+    }
+    &::-webkit-scrollbar-track {
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--blue-300);
+      opacity: 0.5;
+      border-radius: 100px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
     }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
+    scrollbar-color: var(--blue-300) rgba(0, 0, 0, 0);
+    scrollbar-width: ${() => (thumbWidth === "thin" ? "4px" : "8px")};
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: var(--blue-500);
-      transition: background 0.25s linear;
-    }
+    /* Firefox specific styles */
+    @supports (-moz-appearance: none) {
+      scrollbar-color: var(--blue-300) rgba(0, 0, 0, 0);
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--blue-600);
+      & {
+        -moz-appearance: none; /* Disable default Firefox scrollbar */
+      }
+
+      &::-moz-range-track {
+        border-radius: 100px; /* Border radius for the scrollbar track in Firefox */
+      }
     }
   `;
 }
