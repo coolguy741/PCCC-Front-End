@@ -13,7 +13,7 @@ import { GardenGLTF } from "./GardenTypes";
 const Garden: FC = () => {
   // Load GLTF
   const { nodes } = useGLTF(
-    "/game_assets/models/garden_v007-transformed.glb",
+    "/game_assets/models/garden_v008-transformed.glb",
   ) as GardenGLTF;
 
   // Hooks
@@ -83,19 +83,10 @@ const Garden: FC = () => {
           userData={{ name: "garden" }}
         />
       </group>
-      {/* <mesh
-        name="garden"
-        castShadow={enable}
-        receiveShadow={enable}
-        geometry={nodes.garden.geometry}
-        material={gardenMaterial}
-        position={[0.1345324218, 0.0302855372, 2.0220003128]}
-        userData={{ name: "garden" }}
-      /> */}
     </Fragment>
   );
 };
 
-useGLTF.preload("/game_assets/models/garden_v007-transformed.glb");
+useGLTF.preload("/game_assets/models/garden_v008-transformed.glb");
 
 export default memo(Garden);
