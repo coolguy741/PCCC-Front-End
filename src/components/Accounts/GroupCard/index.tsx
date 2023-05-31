@@ -164,6 +164,12 @@ const Style = {
       .buttons-group {
         display: flex;
         gap: ${convertToRelativeUnit(10, "vh")};
+        align-items: center;
+
+        button:first-of-type {
+          display: grid;
+          place-items: center;
+        }
       }
     }
 
