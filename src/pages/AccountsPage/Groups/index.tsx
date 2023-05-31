@@ -7,7 +7,10 @@ import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import Button from "../../../components/Button";
 import { Input } from "../../../components/Global/Input";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
-import Scrollbar from "../../../components/Global/Scrollbar";
+import {
+  default as Scrollable,
+  default as Scrollbar,
+} from "../../../components/Global/Scrollable";
 import {
   PccServer23GroupsCustomGroupUserJoinRequestDto,
   PccServer23GroupsGroupWithNavigationPropertiesDto,
@@ -60,7 +63,7 @@ export const AccountsGroupsPage = () => {
           <Button onClick={() => setVisibleModal(true)}>Join Group</Button>
         </div>
       </div>
-      <div className="row manage-users-content">
+      <Scrollable className="row manage-users-content" height="65vh">
         <div className="groups-container">
           {groups.map((group, index) => (
             <div className="group-card-container" key={index}>
@@ -89,7 +92,7 @@ export const AccountsGroupsPage = () => {
             </Scrollbar>
           </div>
         </div>
-      </div>
+      </Scrollable>
       {visibleModal && (
         <ModalContainer>
           <JoinGroupModal
