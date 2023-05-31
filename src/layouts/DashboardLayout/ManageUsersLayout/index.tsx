@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
-import { blueScrollbar } from "../../../styles/helpers/blueScrollbar";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { AccountsHeader } from "./header";
 
@@ -14,6 +13,9 @@ interface Props {
 // - manage users (options): 13.5vh
 // - manage users (content): 65vh
 // - bottom padding: 2.5vh
+// on some option components (especially those with the back button)
+// the height is set to 10vh & content to 68.5vh.
+// make sure to increase specificity (i.e. section.manage-users-options)
 
 export function ManageUsersLayout({ children }: Props) {
   return (
@@ -30,7 +32,7 @@ const Style = {
       ${convertToRelativeUnit(64, "vw")};
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")};
     height: 100vh;
-    overflow-y: hidden;
+    overflow: hidden;
 
     /* classname to target options for manage users layout */
     .manage-users-options {
@@ -42,9 +44,7 @@ const Style = {
 
     /* classname to target content for manage users layout */
     .manage-users-content {
-      height: 65vh;
-      overflow-y: scroll;
-      ${blueScrollbar}
+      height: 100%;
       padding: 0 ${convertToRelativeUnit(16, "vw")};
       margin: 0 -${convertToRelativeUnit(16, "vw")};
       /* border: 1px solid green; */

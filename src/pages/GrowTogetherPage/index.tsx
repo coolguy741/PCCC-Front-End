@@ -5,7 +5,6 @@ export const GrowTogetherPage = () => {
   return (
     <>
       <TogetherPageTemplate
-        title={mockData.title}
         relatedTo={mockData.relatedTo}
         listData={mockData.listData}
       />

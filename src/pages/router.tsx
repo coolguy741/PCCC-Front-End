@@ -361,11 +361,32 @@ export const router = createBrowserRouter([
         element: <PageTitleLayout title="Cloud Drive" />,
         children: [{ path: "", element: <CloudDrivePage /> }],
       },
-      { path: "discover-together", element: <DiscoverTogetherPage /> },
-      { path: "grow-together", element: <GrowTogetherPage /> },
-      { path: "cook-together", element: <CookTogetherPage /> },
+      {
+        path: "discover-together",
+        element: <PageTitleLayout title="Discover Together" />,
+        children: [{ path: "", element: <DiscoverTogetherPage /> }],
+      },
+      {
+        path: "grow-together",
+        element: <PageTitleLayout title="Grow Together" />,
+        children: [{ path: "", element: <GrowTogetherPage /> }],
+      },
+      {
+        path: "cook-together",
+        element: <PageTitleLayout title="Cook Together" />,
+        children: [{ path: "", element: <CookTogetherPage /> }],
+      },
       { path: "search", element: <SearchPage /> },
-      { path: "notifications", element: <NotificationsPage /> },
+      {
+        path: "notifications",
+        element: (
+          <PageTitleLayout
+            title="Notifications"
+            icon="notifications-orange-outlined"
+          />
+        ),
+        children: [{ path: "", element: <NotificationsPage /> }],
+      },
     ],
   },
   {

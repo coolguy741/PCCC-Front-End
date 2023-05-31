@@ -41,7 +41,7 @@ export const FitleredSelect = ({
       >
         <span>—</span>
         <span>
-          <img src="/icons/downSelect.svg" />{" "}
+          <img src="/icons/downSelect.svg" alt="select" />{" "}
         </span>
         {modalOpen && (
           <Style.Modal position={position} onClick={(e) => e.stopPropagation()}>
@@ -112,11 +112,11 @@ const Style = {
           flex-direction: row;
           align-items: center;
           gap: 1rem;
-          padding: .5rem 0;
+          padding: 0.5rem 0;
         }
-        
+
         .divider {
-          border-bottom: 1px solid var(--neutral-100);)
+          border-bottom: 1px solid var(--neutral-100);
         }
       }
     }

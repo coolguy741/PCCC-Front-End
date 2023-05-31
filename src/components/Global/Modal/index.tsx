@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { Icon } from "../Icon";
 import { ModalContainer } from "../ModalContainer";
+import Scrollbar from "../Scrollbar";
 import { Typography } from "../Typography";
 
 export interface ModalProps {
@@ -29,7 +30,7 @@ export const Modal: React.FC<ModalProps> = ({
           </Typography>
           <Icon name="close" />
         </Style.ModalHeader>
-        <Style.ModalBody>{children}</Style.ModalBody>
+        <Scrollbar>{children}</Scrollbar>
       </Style.Modal>
     </ModalContainer>
   ) : null;

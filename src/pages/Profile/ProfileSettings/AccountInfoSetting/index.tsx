@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "../../../../components/Button";
 import { DropdownSelect } from "../../../../components/Global/DropdownSelect";
 import { Input } from "../../../../components/Global/Input";
+import Scrollbar from "../../../../components/Global/Scrollbar";
 import { useAPI } from "../../../../hooks/useAPI";
 import { avatars_data } from "../../../../lib/avatars/data";
 import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
@@ -192,16 +193,16 @@ export const AccountInfoSetting = () => {
         </article>
         <article className="choose-avatar">
           <label>Change profile picture</label>
-          <Style.ScrollContainer>
+          <Scrollbar thumbWidth="thin" height="16vh">
             <div className="avatars">
               {/* TODO: Improve avatar animations */}
               {avatars_data.map((avatar, index) => (
                 <Style.AvatarButton className="avatar" key={`avatar-${index}`}>
-                  {avatar.icon()}
+                  {avatar.icon({})}
                 </Style.AvatarButton>
               ))}
             </div>
-          </Style.ScrollContainer>
+          </Scrollbar>
         </article>
         <Button type="submit" size="large">
           Save changes
@@ -278,6 +279,7 @@ const Style = {
           font-size: 1rem;
           color: var(--neutral-700);
         }
+
         .avatars {
           display: flex;
           flex-wrap: wrap;
@@ -303,12 +305,6 @@ const Style = {
     display: flex;
     flex-direction: column;
     gap: ${convertToRelativeUnit(8, "vh")};
-  `,
-  ScrollContainer: styled.div`
-    overflow-y: auto;
-    height: 16vh;
-    padding-right: 16px;
-    margin-right: -24px;
   `,
   AvatarButton: styled.button`
     width: 6.66vh;

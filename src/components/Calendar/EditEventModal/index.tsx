@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { EditNoteForm } from "../EditNoteForm";
 import { EditPublishForm } from "../EditPublishForm";
 import { EVENT_NAME_OBJECT } from "../PublishForm";
@@ -31,6 +30,7 @@ interface Props {
   close: () => void;
   isConfirm?: boolean;
   selectedDate?: string;
+  // TODO. Type
   selectedEvent: any;
 }
 
@@ -43,8 +43,9 @@ export const EditEventModal: React.FC<Props> = ({
   close,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [type, setType] = useState<string>("note");
-  const addEvent = useCalendarEventsStore((state) => state.addEvent);
+  // TODO: type is never used.
+  // const [type, setType] = useState<string>("note");
+  // const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const [noteDescription, setNoteDescription] = useState(
     selectedEvent.extendedProps.description,
@@ -53,23 +54,23 @@ export const EditEventModal: React.FC<Props> = ({
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
 
-  const handleAddEvent = (event: CalendarEvent) => {
-    addEvent({
-      title: event.group,
-      start: selectedDate,
-      type: eventType?.type,
-      description: `${event.curriculum.replaceAll(
-        "-",
-        " ",
-      )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
-    });
-    handleClose();
-  };
+  // const handleAddEvent = (event: CalendarEvent) => {
+  //   addEvent({
+  //     title: event.group,
+  //     start: selectedDate,
+  //     type: eventType?.type,
+  //     description: `${event.curriculum.replaceAll(
+  //       "-",
+  //       " ",
+  //     )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
+  //   });
+  //   handleClose();
+  // };
 
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType("note");
+    // setType("note");
   };
 
   return (
@@ -86,7 +87,7 @@ export const EditEventModal: React.FC<Props> = ({
         <div className="popup">
           <div className="header">
             <h3>Edit {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type]}</h3>
-            <img src="/icons/delete.svg" width="18" />
+            <img src="/icons/delete.svg" width="18" alt="delete" />
           </div>
           {selectedEvent.extendedProps.type === "note" ? (
             <EditNoteForm

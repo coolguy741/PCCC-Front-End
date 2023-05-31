@@ -23,10 +23,16 @@ export const CreateFoodwaysPage = () => {
         english: {
           title: title,
           info: description,
+          image: "/images/chocolate.jpg",
+          featureDate: "2023-05-26T19:41:06.252Z",
+          description: "Test description.",
         },
         french: {
           title: title,
           info: description,
+          image: "/images/chocolate.jpg",
+          featureDate: "2023-05-26T19:41:06.252Z",
+          description: "Test description.",
         },
       },
       {
@@ -43,10 +49,14 @@ export const CreateFoodwaysPage = () => {
           english: {
             timePeriod: stopTimePeriod,
             description: stopDescription,
+            image: "/images/1.jpg",
+            location: "Canada",
           },
           french: {
             timePeriod: stopTimePeriod,
             description: stopDescription,
+            image: "/images/1.jpg",
+            location: "Canada",
           },
         },
         {
@@ -55,6 +65,54 @@ export const CreateFoodwaysPage = () => {
           },
         },
       );
+
+      await api.appFoodwayStopsCreate(
+        {
+          foodwayId: response.data.id,
+          english: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            image: "/images/1.jpg",
+            location: "Canada",
+          },
+          french: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            image: "/images/1.jpg",
+            location: "Canada",
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      await api.appFoodwayStopsCreate(
+        {
+          foodwayId: response.data.id,
+          english: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            image: "/images/1.jpg",
+            location: "Canada",
+          },
+          french: {
+            timePeriod: stopTimePeriod,
+            description: stopDescription,
+            image: "/images/1.jpg",
+            location: "Canada",
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      console.log(_response);
 
       if (_response.status === 200) {
         navigate("/dashboard/foodways");

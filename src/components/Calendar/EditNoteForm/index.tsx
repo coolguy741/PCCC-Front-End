@@ -14,6 +14,7 @@ interface AddNoteFormProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   noteDescription: string;
   setNoteDescription: Dispatch<SetStateAction<string>>;
+  // TODO: type
   selectedEvent: any;
 }
 

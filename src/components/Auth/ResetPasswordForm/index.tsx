@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -11,8 +10,6 @@ import Button from "../../Button";
 import { Input } from "../../Global/Input";
 
 export const ResetPasswordForm = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const {
     usernameForSecurityQuestions,
     firstQuestionAnswer,

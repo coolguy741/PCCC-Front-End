@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { AccountCard } from "../../../components/Accounts/AccountCard";
 import { DropdownSelect } from "../../../components/Global/DropdownSelect";
+import Scrollbar from "../../../components/Global/Scrollbar";
 import { Typography } from "../../../components/Global/Typography";
 import { avatars_data } from "../../../lib/avatars/data";
 import UserCards from "../../../lib/mockData/accounts/profiles.json";
@@ -43,24 +44,26 @@ export const AccountsProfilesPage = () => {
           ))}
         </Style.SelectGroup>
       </div>
-      <section className="users manage-users-content">
-        {UserCards.map((Card, index) => {
-          return (
-            <Link
-              to="/dashboard/accounts/profiles/Standard"
-              key={`user-${index}`}
-            >
-              <AccountCard
-                img={avatars_data[index]}
-                name={Card.name}
-                role={Card.role}
-                onClick={handleCardDelete}
-                key={index}
-              />
-            </Link>
-          );
-        })}
-      </section>
+      <Scrollbar height="65vh" thumbWidth="thick">
+        <section className="users manage-users-content">
+          {UserCards.map((Card, index) => {
+            return (
+              <Link
+                to="/dashboard/accounts/profiles/Standard"
+                key={`user-${index}`}
+              >
+                <AccountCard
+                  img={avatars_data[index]}
+                  name={Card.name}
+                  role={Card.role}
+                  onClick={handleCardDelete}
+                  key={index}
+                />
+              </Link>
+            );
+          })}
+        </section>
+      </Scrollbar>
     </Style.PageContainer>
   );
 };
@@ -94,7 +97,6 @@ const Style = {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
-      overflow-y: scroll;
       position: relative;
       padding-bottom: ${convertToRelativeUnit(100, "vh")};
     }

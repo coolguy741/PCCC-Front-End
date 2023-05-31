@@ -74,10 +74,12 @@ h6 {
 
 h1 {
   font-size: 4vh;
+  color: var(--orange-500);
 }
 
 h2 {
   font-size: 2.75vh;
+  color: var(--neutral-900);
 }
 
 h3 {
