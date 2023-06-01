@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import styled from "styled-components";
+import { Typography } from "../../components/Typography";
 import { useSearchResultsStore } from "../../stores/searchResultsStore";
+import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 
 export const SearchPage = () => {
   const { searchKey, results } = useSearchResultsStore();
@@ -8,10 +10,13 @@ export const SearchPage = () => {
 
   return (
     <Style.PageContainer>
-      <Style.Title>{"Search Results for " + searchKey}</Style.Title>
-      <Style.ResultesText>
-        {`Results ${count} of ${count} for ${searchKey}`}{" "}
-      </Style.ResultesText>
+      <Typography
+        tag="h1"
+        color="orange-500"
+        size={convertToRelativeUnit(40, "vh")}
+        weight={600}
+      >{`Search Results for “${searchKey}”`}</Typography>
+      <p>{`Results ${count} of ${count} for ${searchKey}`} </p>
       {results.map((result, index) => (
         <Style.ListItem key={`list-${index}`}>
           <img
@@ -40,29 +45,12 @@ export const SearchPage = () => {
 
 const Style = {
   PageContainer: styled.div`
+    height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-  `,
-  Title: styled.p`
-    font-family: "Noir Std";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 103.68%;
-    letter-spacing: 0.02em;
-    color: #c4c4c4;
-    margin-bottom: 0px;
-  `,
-  ResultesText: styled.p`
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 143.18%;
-    letter-spacing: 0.02em;
-    color: #797979;
-    margin: 0px;
+    padding: 9vh ${convertToRelativeUnit(32, "vw")} 2.5vh
+      ${convertToRelativeUnit(64, "vw")};
   `,
   ListItem: styled.div`
     display: flex;
