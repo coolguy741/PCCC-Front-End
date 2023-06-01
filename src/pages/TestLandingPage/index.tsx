@@ -1,13 +1,24 @@
+import { Canvas } from "@react-three/fiber";
 import Spline from "@splinetool/react-spline";
 import styled from "styled-components";
 // @ts-ignore
 import FPSStats from "react-fps-stats";
+import { useMousePosition } from "../../hooks/useMousePosition";
+import { Bee } from "./Bee";
 
 export const TestLandingPage = () => {
+  const pos = useMousePosition();
+
   return (
     <>
       <FPSStats />
       <Style.Container>
+        <div className="r3f-canvas">
+          <Canvas>
+            <Bee pos={pos} />
+            <ambientLight />
+          </Canvas>
+        </div>
         <div className="odd">
           <h1>Panel 1</h1>
           <Spline scene="https://prod.spline.design/75VaWhQ6daSyqN2c/scene.splinecode" />
@@ -46,6 +57,22 @@ const Style = {
     display: flex;
     flex-direction: column;
     position: relative;
+
+    .r3f-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      pointer-events: none;
+
+      div,
+      div div,
+      canvas {
+        pointer-events: none !important;
+      }
+    }
 
     div {
       position: relative;
