@@ -35,7 +35,11 @@ export const Globe = ({ latitude, longitude }: GlobeProps) => {
   return (
     <Canvas style={{ height: "100%" }}>
       <Suspense fallback={null}>
-        <OrbitControls enableZoom={false} />
+        <OrbitControls
+          enableZoom={false}
+          minPolarAngle={Math.PI / 2}
+          maxPolarAngle={Math.PI / 2}
+        />
         <rectAreaLight position={[-3, 3, 3]} />
         <ambientLight intensity={0.3} />
         <group dispose={null} scale={[0.3, 0.3, 0.3]}>

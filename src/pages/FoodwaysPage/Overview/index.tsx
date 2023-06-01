@@ -38,8 +38,6 @@ export const FoodwaysOverviewPage = () => {
     e.stopPropagation();
   };
 
-  console.log(foodway);
-
   return (
     <>
       <Style.Container
