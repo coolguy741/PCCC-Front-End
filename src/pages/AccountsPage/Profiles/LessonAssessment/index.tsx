@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,9 +8,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Question } from "../../../../components/Accounts/Question";
 import Button from "../../../../components/Button";
 import { BackButton } from "../../../../components/Global/BackButton";
+import { YellowFruitBG } from "../../../../components/Icons";
 import { PaginationTwo } from "../../../../components/PaginationTwo";
+import { Typography } from "../../../../components/Typography";
 import mockData from "../../../../lib/mockData/accounts/profileLessonAccessment.json";
-import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
+import {
+  convertToRelativeUnit as conv,
+  convertToRelativeUnit,
+} from "../../../../styles/helpers/convertToRelativeUnits";
 
 const patterns = ["lemon", "peach", "brokolli", "apple", "grape"];
 
@@ -29,123 +33,140 @@ export const AccountsUserLessonAssessmentPage = () => {
   };
 
   return (
-    <Style.PageContainer>
-      <Style.ButtonContainer>
+    <Style.Container>
+      <section className="manage-users-options">
         <BackButton onClick={handleBack} />
-        <Button onClick={handlePrint} size="large">
-          Print
-        </Button>
-      </Style.ButtonContainer>
-      <Style.Topic>{mockData.topic}</Style.Topic>
-      <Style.Lesson>{mockData.lesson}</Style.Lesson>
-      <Style.Questions>
-        <Swiper
-          onSwiper={setSwiperInstance}
-          onSlideChange={(swiper) => setCurrentPage(swiper.realIndex + 1)}
-          speed={600}
-          slidesPerView={"auto"}
-          spaceBetween={500}
-          centeredSlides={true}
-          pagination={{
-            clickable: true,
-            type: "custom",
-          }}
-          navigation={true}
-          modules={[Pagination, Navigation]}
-          className="mySwiper"
-        >
-          {mockData.questions.map((question, index) => (
-            <SwiperSlide>
-              <Question
-                content={question}
-                pattern={patterns[index % patterns.length]}
-                count={mockData.questions.length}
-                order={index + 1}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </Style.Questions>
-      <Style.PaginationContainer>
-        <PaginationTwo
-          currentPage={currentPage}
-          totalCount={mockData.questions.length}
-          pageSize={1}
-          siblingCount={0}
-          onPageChange={async (page) => {
-            setCurrentPage(page);
-            swiperInstance?.slideTo(page - 1);
-          }}
-        />
-      </Style.PaginationContainer>
-    </Style.PageContainer>
+        <Button onClick={handlePrint}>Print</Button>
+      </section>
+
+      <div className="accounts-bg">
+        <YellowFruitBG />
+      </div>
+
+      <section className="manage-users-content">
+        <hgroup>
+          <h2>{mockData.topic}</h2>
+          <Typography
+            tag="h3"
+            color="neutral-800"
+            weight={600}
+            size={convertToRelativeUnit(33, "vh")}
+            mb="1vh"
+          >
+            {mockData.lesson}
+          </Typography>
+        </hgroup>
+
+        <Style.Questions>
+          <Swiper
+            onSwiper={setSwiperInstance}
+            onSlideChange={(swiper) => setCurrentPage(swiper.realIndex + 1)}
+            speed={600}
+            slidesPerView={"auto"}
+            spaceBetween={500}
+            centeredSlides={true}
+            pagination={{
+              clickable: true,
+              type: "custom",
+            }}
+            navigation={true}
+            modules={[Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {mockData.questions.map((question, index) => (
+              <SwiperSlide>
+                <Question
+                  content={question}
+                  pattern={patterns[index % patterns.length]}
+                  count={mockData.questions.length}
+                  order={index + 1}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Style.Questions>
+        <Style.Pagination>
+          <PaginationTwo
+            currentPage={currentPage}
+            totalCount={mockData.questions.length}
+            pageSize={1}
+            siblingCount={0}
+            onPageChange={async (page) => {
+              setCurrentPage(page);
+              swiperInstance?.slideTo(page - 1);
+            }}
+          />
+        </Style.Pagination>
+      </section>
+    </Style.Container>
   );
 };
 
 const Style = {
-  PageContainer: styled.div`
+  Container: styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    font-family: "Noir Std";
-    font-style: normal;
-    overflow: visible;
-  `,
-  ButtonContainer: styled.div`
-    height: 10vh;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  `,
-  Topic: styled.p`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: ${convertToRelativeUnit(10, "vh")}
-      ${convertToRelativeUnit(16, "vh")};
-    border: ${convertToRelativeUnit(2, "vh")} solid var(--orange-600);
-    border-radius: ${convertToRelativeUnit(50, "vh")};
-    font-size: ${convertToRelativeUnit(14, "vh")};
-    color: var(--orange-600);
-    text-transform: uppercase;
-    margin-left: 8%;
-  `,
-  Lesson: styled.h2`
-    margin-top: ${convertToRelativeUnit(8, "vh")};
-    margin-bottom: ${convertToRelativeUnit(16, "vh")};
-    margin-left: 8%;
-    font-weight: 600;
-    font-size: ${convertToRelativeUnit(32, "vh")};
-    line-height: 125%;
-    color: var(--neutral-800);
+
+    section.manage-users-options {
+      height: 10vh;
+      justify-content: space-between;
+    }
+
+    section.manage-users-content {
+      height: 68.5vh;
+    }
+
+    .accounts-bg {
+      position: fixed;
+      z-index: 0;
+      bottom: -10px;
+      right: 0;
+    }
+
+    hgroup {
+      width: 85%;
+      margin: auto;
+
+      h2 {
+        font-weight: 500;
+        font-size: ${conv(14, "vw")};
+        text-transform: uppercase;
+        color: var(--orange-600);
+        border: 2px solid var(--orange-600);
+        width: max-content;
+        padding: ${conv(5, "vh")} ${conv(10, "vw")};
+        border-radius: 24px;
+      }
+    }
   `,
   Questions: styled.div`
     width: 100%;
-    height: ${convertToRelativeUnit(588, "vh")};
+    height: 75%;
+
     .swiper {
       width: 100%;
       height: 100%;
       overflow: visible;
     }
+
     .swiper-slide {
-      width: 84%;
+      width: 85%;
     }
+
     .swiper-button-prev {
       position: absolute;
-      left: 0px;
+      left: 0;
     }
+
     .swiper-button-next {
       position: absolute;
-      right: 0px;
+      right: 0;
     }
+
     .swiper-button-prev,
     .swiper-button-next {
-      width: ${convertToRelativeUnit(77, "vh")};
-      height: ${convertToRelativeUnit(77, "vh")};
+      width: ${conv(50, "vw")};
+      height: ${conv(50, "vh")};
       border-radius: 50%;
       background-color: white;
       display: flex;
@@ -156,19 +177,23 @@ const Style = {
         background 0.3s linear 0s, transform 0.2s ease-in-out 0s;
 
       &:after {
-        font-size: ${convertToRelativeUnit(33, "vh")};
+        font-size: ${conv(15, "vh")};
       }
+
       &:hover {
         filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.2));
       }
     }
   `,
-  PaginationContainer: styled.div`
-    height: 100%;
+  Pagination: styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: ${convertToRelativeUnit(32, "vh")};
+    margin-top: ${conv(20, "vh")};
+
+    li {
+      font-size: ${conv(10, "vh")};
+    }
   `,
 };
