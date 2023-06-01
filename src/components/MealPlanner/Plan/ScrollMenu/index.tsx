@@ -57,7 +57,7 @@ export const PlateFullPlannerScrollMenu = ({
       return 0;
     }
     return (
-      imageRef.current.clientHeight + containerRef.current.clientHeight * 0.12
+      imageRef.current.clientHeight + containerRef.current.clientHeight * 0.07
     );
   };
 
@@ -120,7 +120,7 @@ const Style = {
     display: flex;
     padding: 5% 10% 5% 20%;
     flex-direction: column;
-    gap: 12%;
+    gap: 7%;
     overflow-y: auto;
     &::-webkit-scrollbar {
       display: none;
