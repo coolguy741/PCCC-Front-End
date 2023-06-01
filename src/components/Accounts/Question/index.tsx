@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { MultipleSelection } from "./MultipleSelection";
 import { TrueFalseQuestion } from "./TrueFalse";
 
@@ -48,7 +48,7 @@ const Style = {
     align-items: flex-start;
     width: 100%;
     height: 100%;
-    border-radius: ${convertToRelativeUnit(32, "vh")};
+    border-radius: ${conv(32, "vh")};
     overflow: hidden;
     filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
     backdrop-filter: blur(59.2764px);
@@ -69,39 +69,30 @@ const Style = {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px;
-    margin: 0px;
-    border-box: content-box;
   `,
   Content: styled.div`
     width: 65%;
   `,
   Order: styled.p`
     font-weight: 500;
-    font-size: ${convertToRelativeUnit(19, "vh")};
-    line-height: ${convertToRelativeUnit(24, "vh")};
+    font-size: 2vh;
     color: var(--blue-500);
-    margin-bottom: ${convertToRelativeUnit(18, "vh")}; ;
+    margin-bottom: 1vh;
   `,
   Question: styled.p`
     font-weight: 500;
-    font-size: ${convertToRelativeUnit(23, "vh")};
-    line-height: ${convertToRelativeUnit(28, "vh")};
+    font-size: 2.25vh;
+    line-height: 2.75vh;
     color: var(--neutral-600);
-    margin-bottom: ${convertToRelativeUnit(24, "vh")};
+    margin-bottom: 2vh;
   `,
   Textarea: styled.textarea`
     width: 100%;
-    height: ${convertToRelativeUnit(199, "vh")};
-    overflow: hidden;
+    height: ${conv(199, "vh")};
     resize: none;
-    padding: ${convertToRelativeUnit(13, "vh")}
-      ${convertToRelativeUnit(15, "vh")};
-    font-family: "Noir Std";
-    font-style: normal;
-    font-weight: 400;
-    font-size: ${convertToRelativeUnit(16, "vh")};
-    line-height: ${convertToRelativeUnit(20, "vh")};
+    padding: ${conv(13, "vh")} ${conv(15, "vh")};
+    font-size: ${conv(16, "vh")};
+    line-height: ${conv(20, "vh")};
     color: var(--neutral-600);
     border-radius: 12px;
     background: #ffffff;
