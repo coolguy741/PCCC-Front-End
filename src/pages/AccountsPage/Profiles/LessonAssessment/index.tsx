@@ -191,5 +191,9 @@ const Style = {
     justify-content: center;
     align-items: center;
     margin-top: ${conv(20, "vh")};
+
+    li {
+      font-size: ${conv(10, "vh")};
+    }
   `,
 };
