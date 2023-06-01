@@ -13,6 +13,7 @@ import { useMealPlannerStore } from "../../../../../stores/mealPlannerStore";
 import { Icon } from "../../../../Global/Icon";
 import { Typography } from "../../../../Global/Typography";
 import { MealCard } from "../MealCard";
+
 interface WeeklyMealPlanProps {
   mealPlans: FullMealPlan[];
   onMealRemove: (dayIndex: number, index: number) => void;
@@ -118,19 +119,25 @@ export const WeeklyMealPlan = ({
       </div>
       <div className="plate-full-planner-container">
         <Style.MealPlans>
-          {mealPlans.map((dailyPlan, dayIndex) => (
-            <Droppable
-              isCombineEnabled
-              droppableId={`droppable-weekly-meal-plan-${dayIndex}`}
-              key={`droppable-weekly-meal-plan-${dayIndex}`}
-            >
-              {(dropProvided, dropSnapshot) => (
-                <Style.DailyMealPlans
-                  {...dropProvided.droppableProps}
-                  ref={dropProvided.innerRef}
-                >
-                  <div className="meal-plan-day">{dailyPlan.day}</div>
-                  <div className="daily-plans">
+          <div className="week-days">
+            {mealPlans.map((dailyPlan, dayIndex) => (
+              <div className="meal-plan-day" key={`week-day-${dayIndex}`}>
+                {dailyPlan.day}
+              </div>
+            ))}
+          </div>
+          <div className="meal-plans">
+            {mealPlans.map((dailyPlan, dayIndex) => (
+              <Droppable
+                isCombineEnabled
+                droppableId={`droppable-weekly-meal-plan-${dayIndex}`}
+                key={`droppable-weekly-meal-plan-${dayIndex}`}
+              >
+                {(dropProvided, dropSnapshot) => (
+                  <Style.DailyMealPlans
+                    {...dropProvided.droppableProps}
+                    ref={dropProvided.innerRef}
+                  >
                     {dailyPlan.plans.map((meal, index) => (
                       <Draggable
                         key={`draggable-weekly-meal-plan-${dayIndex}-${index}`}
@@ -159,18 +166,14 @@ export const WeeklyMealPlan = ({
                                 onMealRemove={() =>
                                   onMealRemove(dayIndex, index)
                                 }
-                                label={
-                                  dayIndex === 0 ? `meal-${index + 1}` : null
-                                }
+                                label={null}
                               />
                             </div>
                             {isDragged(dayIndex, index) && (
                               <div className="placeholder">
                                 <MealCard
                                   meal={destinationMeal || meal}
-                                  label={
-                                    dayIndex === 0 ? `meal-${index + 1}` : null
-                                  }
+                                  label={null}
                                 />
                               </div>
                             )}
@@ -178,11 +181,11 @@ export const WeeklyMealPlan = ({
                         )}
                       </Draggable>
                     ))}
-                  </div>
-                </Style.DailyMealPlans>
-              )}
-            </Droppable>
-          ))}
+                  </Style.DailyMealPlans>
+                )}
+              </Droppable>
+            ))}
+          </div>
           <div className="cleaner" />
         </Style.MealPlans>
       </div>
@@ -282,16 +285,29 @@ const Style = {
     height: 100%;
     position: relative;
     flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 2%;
     border-radius: 16px;
     background-image: linear-gradient(to right, #eadab650 0%, #eadab680 100%);
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 2%;
+
+    .week-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2%;
+      height: 5%;
+    }
+
+    .meal-plans {
+      display: grid;
+      height: 95%;
+      position: relative;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2%;
+    }
 
     .cleaner {
       position: absolute;
-      background: black;
       width: 2.2%;
       opacity: 0.9;
       background: #f9f4e7;
@@ -299,28 +315,6 @@ const Style = {
       transform: translate(-100%);
       z-index: 2;
       height: 98%;
-    }
-  `,
-  DailyMealPlans: styled.div`
-    display: flex;
-    overflow: hidden;
-    flex-direction: column;
-    gap: 2%;
-
-    & .daily-plans {
-      flex: 1;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      margin: -5% 0;
-    }
-
-    & .placeholder {
-      opacity: 0.7;
-      height: 100%;
-      border: 2px dashed var(--blue-400);
     }
 
     & .meal-plan-day {
@@ -332,6 +326,19 @@ const Style = {
         font-size: 14px;
         color: var(--book-300);
       }
+    }
+  `,
+  DailyMealPlans: styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    & .placeholder {
+      opacity: 0.7;
+      height: 100%;
+      border: 2px dashed var(--blue-400);
     }
   `,
   Labels: styled.div`

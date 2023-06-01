@@ -45,7 +45,12 @@ export const MealPlanGenerator = () => {
         <Style.Page>
           <Style.MealPlanLabel>
             <div className="label-container">
-              <Typography variant="h5" color="book-400" weight="semi-bold">
+              <Typography
+                variant="h5"
+                as="h5"
+                color="book-400"
+                weight="semi-bold"
+              >
                 Lettuce help you build a meal plan
               </Typography>
             </div>
@@ -160,6 +165,13 @@ export const MealPlanGenerator = () => {
 const Style = {
   Container: styled(motion.section)`
     padding-top: 10px;
+    width: ${
+      window.innerHeight / window.innerWidth >= 0.625
+        ? 100
+        : (100 * (window.innerHeight / window.innerWidth)) / 0.631
+    }%;
+}%;
+    margin: auto;
     position: relative;
   `,
   Background: styled.div`
@@ -206,6 +218,10 @@ const Style = {
       transform: rotate(-2.51deg) translate(0, -40%);
       padding: 5%;
       position: absolute;
+
+      & label {
+        font-size: 80%;
+      }
     }
 
     .filter-container {
