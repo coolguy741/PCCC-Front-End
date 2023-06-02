@@ -30,7 +30,7 @@ export const SearchPage = () => {
           <Typography color="neutral-400" size="3.5vh" weight={600} mb="1.5vh">
             No results found
           </Typography>
-          <Typography color="neutral-500" size="2vh" weight={500}>
+          <Typography color="neutral-500" size="2vh" mb="7.5vh" weight={500}>
             There's nothing here. Try using different word
           </Typography>
         </article>
