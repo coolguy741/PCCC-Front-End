@@ -21,6 +21,11 @@ type Vector2Object = {
   y: number;
 };
 
+type Factors = {
+  lowerFactor: number;
+  upperFactor: number;
+};
+
 const playerCameraFOVDampener: Vector2 = new Vector2();
 const playerCameraLookAtDampener: Vector3 = new Vector3();
 const playerCameraLookAtFractionCalc: Vector3 = new Vector3();
@@ -47,13 +52,29 @@ const xyExponent: Vector2 = new Vector2(10, 4);
 const xySensitivity: Vector2 = new Vector2(1, 1);
 const leftRightLimit: Vector2 = new Vector2(0.5, 1);
 const bottomTopLimit: Vector2 = new Vector2(0.5, 0.75);
+const xyThreshold: Vector2 = new Vector2(0.5, 0.5);
 
-const getQuadraticAdjustment = (mousePos: number, limit: Vector2): number => {
+const getThresholdFactors = (threshold: number): Factors => {
+  const lowerFactor = 1 / (1 - threshold);
+  const upperFactor = 1 / threshold;
+  return {
+    lowerFactor,
+    upperFactor,
+  };
+};
+
+const getQuadraticAdjustment = (
+  mousePos: number,
+  limit: Vector2,
+  threshold: number,
+  factors: Factors,
+): number => {
   const normalizedMousePos: number = (mousePos + 1) / 2;
   const adjustment: number =
-    normalizedMousePos < 0.5
-      ? Math.pow(1 - normalizedMousePos * 2, 2) * limit.x
-      : Math.pow((normalizedMousePos - 0.5) * 2, 2) * limit.y;
+    normalizedMousePos < threshold
+      ? Math.pow(1 - normalizedMousePos * factors.lowerFactor, 2) * limit.x
+      : Math.pow((normalizedMousePos - threshold) * factors.upperFactor, 2) *
+        limit.y;
   return adjustment;
 };
 
@@ -66,12 +87,16 @@ const getRotationMultiplier = (mousePos: Vector2): Vector2Object => {
   const yAdjustment: number = getQuadraticAdjustment(
     mousePos.y,
     bottomTopLimit,
+    xyThreshold.y,
+    getThresholdFactors(xyThreshold.y),
   );
   yMultiplier *= yAdjustment * xySensitivity.y;
 
   const xAdjustment: number = getQuadraticAdjustment(
     mousePos.x,
     leftRightLimit,
+    xyThreshold.x,
+    getThresholdFactors(xyThreshold.x),
   );
   xMultiplier *= xAdjustment * xySensitivity.x;
 
@@ -81,7 +106,7 @@ const getRotationMultiplier = (mousePos: Vector2): Vector2Object => {
   };
 };
 
-const updatePlayerCameraMouseMouseRotationMultiplier = (
+const updatePlayerCameraMouseRotationMultiplier = (
   playerCameraReference: PerspectiveCameraType,
   mouse: Vector2,
   delta: number,
@@ -199,5 +224,5 @@ export {
   playerCameraMouseRotationQuaternion,
   playerCameraMouseRotationMultiplier,
   playerCameraMouseRotationMultiplierFactor,
-  updatePlayerCameraMouseMouseRotationMultiplier,
+  updatePlayerCameraMouseRotationMultiplier,
 };

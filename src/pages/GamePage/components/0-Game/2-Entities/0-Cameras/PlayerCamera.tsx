@@ -12,7 +12,7 @@ import {
   playerCameraLookAtDampener,
   updatePlayerCameraFov,
   updatePlayerCameraLookAt,
-  updatePlayerCameraMouseMouseRotationMultiplier,
+  updatePlayerCameraMouseRotationMultiplier,
   updatePlayerCameraPosition,
 } from "./PlayerCameraDefines";
 
@@ -34,7 +34,7 @@ const PlayerCamera: FC = () => {
     (state: RootState, delta: number) => {
       if (!playerCameraRef.current) return;
       updatePlayerCameraLookAt(playerCameraRef.current, delta);
-      updatePlayerCameraMouseMouseRotationMultiplier(
+      updatePlayerCameraMouseRotationMultiplier(
         playerCameraRef.current,
         state.mouse,
         delta,

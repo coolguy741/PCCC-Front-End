@@ -8,7 +8,11 @@ import { PCCCAudioKeysType } from "./globalState/modules/AudioModule/AudioModule
 import { useGlobalState } from "./globalState/useGlobalState";
 import StyleProvider from "./styles/StyleProvider";
 
-const GamePage: FC = () => {
+interface GamePagePropTypes {
+  debug?: boolean;
+}
+
+const GamePage: FC<GamePagePropTypes> = ({ debug }) => {
   // Global State
   const { playAudio, PCCCAudio, setMuted, setIsGlobalMute, PCCCVolumeKeys } =
     useGlobalState(
@@ -52,7 +56,7 @@ const GamePage: FC = () => {
       <GameCanvas>
         <GameStage />
       </GameCanvas>
-      <UIContainer />
+      <UIContainer debug={debug} />
     </StyleProvider>
   );
 };
