@@ -1,71 +1,43 @@
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import { Vector3 } from "three";
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+import { Suspense, useRef, useState } from "react";
+import { Group, Vector3 } from "three";
+import { Marker } from "../Marker";
 
-type GLTFResult = GLTF & {
-  // TODO: Unknown Three.js Type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  nodes: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  materials: any;
-};
+export const Globe = () => {
+  const markerRef = useRef<Group>(null);
+  const [marker, setMarker] = useState({
+    position: { x: 0, y: 0, z: 0 },
+  });
 
-interface GlobeProps {
-  latitude?: number;
-  longitude?: number;
-}
+  const handleClick = (e: any) => {
+    const pos = new Vector3(
+      e.intersections[0].point.x,
+      e.intersections[0].point.y,
+      e.intersections[0].point.z,
+    );
 
-export const Globe = ({ latitude, longitude }: GlobeProps) => {
-  const { nodes, materials } = useGLTF("/models/earth.glb") as GLTFResult;
+    setMarker({
+      position: pos,
+    });
 
-  // Function to convert longitude and latitude to 3D coordinates
-  const latLongToVector3 = (lat: number, long: number, radius: number) => {
-    const phi = (lat * Math.PI) / 180;
-    const theta = ((long - 180) * Math.PI) / 180;
-
-    const x = -(radius * Math.cos(phi) * Math.cos(theta));
-    const y = radius * Math.sin(phi);
-    const z = radius * Math.cos(phi) * Math.sin(theta);
-
-    return new Vector3(x, y, z);
+    if (markerRef.current) {
+      markerRef.current.position.set(pos.x, pos.y, pos.z);
+      markerRef.current.lookAt(new Vector3(0, 0, 0));
+    }
   };
 
   return (
     <Canvas style={{ height: "100%" }}>
       <Suspense fallback={null}>
-        <OrbitControls
-          enableZoom={false}
-          minPolarAngle={Math.PI / 2}
-          maxPolarAngle={Math.PI / 2}
-        />
+        <OrbitControls enableZoom={false} />
         <rectAreaLight position={[-3, 3, 3]} />
         <ambientLight intensity={0.3} />
-        <group dispose={null} scale={[0.3, 0.3, 0.3]}>
-          <group rotation={[-Math.PI / 2, 0, -Math.PI / 1.4]}>
-            <group rotation={[Math.PI / 2, 0, 0]}>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.earth4_blinn1_0.geometry}
-                material={materials.blinn1}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.earth4_lambert1_0.geometry}
-                material={materials.lambert1}
-              />
-            </group>
-          </group>
-        </group>
-        {latitude && longitude && (
-          <mesh position={latLongToVector3(latitude, longitude, 2.7)}>
-            <sphereBufferGeometry args={[0.1, 32, 32]} />
-            <meshBasicMaterial color="red" />
-          </mesh>
-        )}
+        <mesh onClick={handleClick}>
+          <sphereBufferGeometry args={[2.65, 32, 32]} />
+          <meshBasicMaterial color="blue" wireframe />
+        </mesh>
+        <Marker ref={markerRef} />
       </Suspense>
     </Canvas>
   );
