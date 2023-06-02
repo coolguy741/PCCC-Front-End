@@ -13,7 +13,7 @@ export const SearchPage = () => {
   console.log("Search Key >>>>>>");
 
   return (
-    <Style.PageContainer>
+    <Style.Container>
       <Typography
         tag="h1"
         color="orange-500"
@@ -35,12 +35,12 @@ export const SearchPage = () => {
           </Typography>
         </article>
       </div>
-    </Style.PageContainer>
+    </Style.Container>
   );
 };
 
 const Style = {
-  PageContainer: styled.div`
+  Container: styled.section`
     height: 100vh;
     width: 100%;
     display: flex;
@@ -60,50 +60,6 @@ const Style = {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-      }
-    }
-  `,
-  ListItem: styled.div`
-    display: flex;
-    gap: 70px;
-
-    .text-container {
-      p {
-        margin: 0px;
-      }
-      .topic {
-        font-family: "Open Sans";
-        font-style: normal;
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 143.18%;
-        letter-spacing: 0.02em;
-        color: #797979;
-      }
-
-      .title {
-        font-family: "Noir Std";
-        font-style: normal;
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 129.18%;
-        letter-spacing: 0.02em;
-        color: #797979;
-      }
-
-      .content {
-        font-family: "Noir Std";
-        font-style: normal;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 110%;
-        letter-spacing: 0.02em;
-        color: #797979;
-
-        strong {
-          color: var(--black);
-          font-size: 14px;
-        }
       }
     }
   `,
