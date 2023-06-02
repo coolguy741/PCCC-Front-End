@@ -108,7 +108,7 @@ export const FoodwaysOverviewPage = () => {
                 </div>
                 <div className="content__body__right">
                   <div className="content__body__right__globe">
-                    <Globe latitude={23} longitude={43} />
+                    <Globe />
                   </div>
                   <div className="content__body__right__timeline">
                     {foodway.foodwayStops && (
