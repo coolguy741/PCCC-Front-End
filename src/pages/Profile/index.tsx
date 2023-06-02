@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
@@ -37,7 +37,7 @@ export const ProfilePage = () => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
-  const getProfile = async () => {
+  const getProfile = useCallback(async () => {
     const response = await api.appUserUserProfileList({
       headers: {
         Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
@@ -47,7 +47,7 @@ export const ProfilePage = () => {
     if (response.data) {
       setUser(response.data);
     }
-  };
+  }, [api, setUser]);
 
   const openGroupsModal = () => {
     setIsOpenGroupsModal(() => true);
@@ -67,7 +67,7 @@ export const ProfilePage = () => {
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [getProfile]);
 
   return (
     <Style.Container>

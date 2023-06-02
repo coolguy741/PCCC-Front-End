@@ -5,8 +5,10 @@ import { Vector3 } from "three";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
 type GLTFResult = GLTF & {
-  // TODO: type
+  // TODO: Unknown Three.js Type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   nodes: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   materials: any;
 };
 

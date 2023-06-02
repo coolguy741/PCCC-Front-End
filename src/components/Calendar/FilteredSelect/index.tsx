@@ -27,9 +27,10 @@ export const FitleredSelect = ({
   modalOpen,
   setModalOpen,
 }: FilteredSelectProps) => {
+  // TODO: Added missing dependency, might affect funcitonality. Delete if it doesn't
   useEffect(() => {
     if (!isOpen) setModalOpen(false);
-  }, [isOpen]);
+  }, [isOpen, setModalOpen]);
 
   return (
     <>

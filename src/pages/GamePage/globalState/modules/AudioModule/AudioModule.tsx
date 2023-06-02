@@ -1,29 +1,10 @@
-// Howler
-import { Howl } from "howler";
 import { globalStateApiType } from "../../GlobalStateTypes";
 import {
-  PCCCAudioKeysType,
-  PCCCAudioType,
-  PCCCVolumeKeysType,
-} from "./AudioModuleTypes";
-
-const PCCCVolumeKeys: PCCCVolumeKeysType = {
-  PCCCTheme: 0.5,
-  InventoryNotification: 1.5,
-};
-
-const PCCCAudio: PCCCAudioType = {
-  PCCCTheme: new Howl({
-    src: ["/game_assets/audio/pccc_theme.aac"],
-    volume: PCCCVolumeKeys.PCCCTheme,
-    loop: true,
-  }),
-  InventoryNotification: new Howl({
-    src: ["/game_assets/audio/inventory_notification.aac"],
-    volume: PCCCVolumeKeys.InventoryNotification,
-    loop: false,
-  }),
-};
+  PCCCAudio,
+  PCCCAudioFadeDuration,
+  PCCCVolumeKeys,
+} from "./AudioModuleDefines";
+import { PCCCAudioKeysType } from "./AudioModuleTypes";
 
 const AudioModule = ({ set, get }: globalStateApiType) => {
   return {
@@ -50,13 +31,17 @@ const AudioModule = ({ set, get }: globalStateApiType) => {
       const audioKeyCurrentVolume = audioKey.volume();
       const targetVolumeKey = get().PCCCVolumeKeys[key];
       if (muteState) {
-        audioKey.fade(audioKeyCurrentVolume, 0, 250);
+        audioKey.fade(audioKeyCurrentVolume, 0, PCCCAudioFadeDuration);
         setTimeout(() => {
           audioKey.mute(true);
-        }, 250);
+        }, PCCCAudioFadeDuration);
       } else {
         audioKey.mute(false);
-        audioKey.fade(audioKeyCurrentVolume, targetVolumeKey, 250);
+        audioKey.fade(
+          audioKeyCurrentVolume,
+          targetVolumeKey,
+          PCCCAudioFadeDuration,
+        );
       }
     },
   };

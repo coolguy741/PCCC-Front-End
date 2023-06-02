@@ -448,6 +448,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "gamedebug",
+    element: <GamePage debug />,
+  },
+  {
+    path: "game",
     element: <GamePage />,
   },
   {

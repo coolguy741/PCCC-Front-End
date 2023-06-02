@@ -1,3 +1,4 @@
+import { EventImpl } from "@fullcalendar/core/internal";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { EditNoteForm } from "../EditNoteForm";
@@ -30,8 +31,7 @@ interface Props {
   close: () => void;
   isConfirm?: boolean;
   selectedDate?: string;
-  // TODO. Type
-  selectedEvent: any;
+  selectedEvent: EventImpl;
 }
 
 export const EditEventModal: React.FC<Props> = ({

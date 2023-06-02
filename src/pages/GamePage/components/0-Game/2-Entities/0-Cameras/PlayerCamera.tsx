@@ -1,82 +1,69 @@
 import { PerspectiveCamera } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { FC, memo, useCallback, useEffect, useRef } from "react";
-import { PerspectiveCamera as PerspectiveCameraType } from "three";
+import { RootState, useFrame } from "@react-three/fiber";
+import { FC, Fragment, memo, useCallback, useEffect, useRef } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
-import { RefPerspectiveCameraType } from "../../../../shared/Types/RefTypes";
-import { DampVector3 } from "../../../../shared/Utility/UtilityFunctions";
+import {
+  RefMeshType,
+  RefPerspectiveCameraType,
+} from "../../../../shared/Types/RefTypes";
+import {
+  handlePlayerCameraInit,
+  playerCameraLookAtDampener,
+  updatePlayerCameraFov,
+  updatePlayerCameraLookAt,
+  updatePlayerCameraMouseRotationMultiplier,
+  updatePlayerCameraPosition,
+} from "./PlayerCameraDefines";
 
 const PlayerCamera: FC = () => {
   // Refs
   const playerCameraRef: RefPerspectiveCameraType = useRef(null);
+  const playerSphereRef: RefMeshType = useRef(null);
 
   // Global State
-  const {
-    activeCamera,
-    playerCameraActiveFov,
-    playerCameraActiveLookAt,
-    playerCameraActivePosition,
-  } = useGlobalState(
+  const { activeCamera } = useGlobalState(
     (state) => ({
       activeCamera: state.activeCamera,
-      playerCameraActiveFov: state.playerCameraActiveFov,
-      playerCameraActiveLookAt: state.playerCameraActiveLookAt,
-      playerCameraActivePosition: state.playerCameraActivePosition,
     }),
     shallow,
   );
 
-  const updatePlayerCameraLookAt = useCallback(
-    (playerCameraReference: PerspectiveCameraType) => {
-      playerCameraReference.lookAt(playerCameraActiveLookAt);
+  // Handlers
+  const handlePlayerCameraOnFrame = useCallback(
+    (state: RootState, delta: number) => {
+      if (!playerCameraRef.current) return;
+      updatePlayerCameraLookAt(playerCameraRef.current, delta);
+      updatePlayerCameraMouseRotationMultiplier(
+        playerCameraRef.current,
+        state.mouse,
+        delta,
+      );
+      updatePlayerCameraFov(playerCameraRef.current, delta);
+      updatePlayerCameraPosition(playerCameraRef.current, delta);
+      playerSphereRef.current?.position.copy(playerCameraLookAtDampener);
+      playerCameraRef.current.updateProjectionMatrix();
     },
-    [playerCameraActiveLookAt],
+    [],
   );
 
-  const updatePlayerCameraPosition = useCallback(
-    (playerCameraReference: PerspectiveCameraType, delta: number) => {
-      if (!playerCameraReference.position.equals(playerCameraActivePosition)) {
-        DampVector3(
-          playerCameraReference.position,
-          playerCameraActivePosition,
-          1,
-          delta,
-        );
-      }
-    },
-    [playerCameraActivePosition],
-  );
-
-  const updatePlayerCameraFov = useCallback(
-    (playerCameraReference: PerspectiveCameraType, delta: number) => {
-      if (playerCameraReference.fov !== playerCameraActiveFov.x) {
-        playerCameraReference.fov = playerCameraActiveFov.x;
-      }
-    },
-    [playerCameraActiveFov],
-  );
-
-  useFrame((state, delta) => {
-    if (!playerCameraRef.current) return;
-    updatePlayerCameraLookAt(playerCameraRef.current);
-    updatePlayerCameraFov(playerCameraRef.current, delta);
-    updatePlayerCameraPosition(playerCameraRef.current, delta);
-    playerCameraRef.current.updateProjectionMatrix();
-  });
-
+  // Listeners
   useEffect(() => {
     if (!playerCameraRef.current) return;
-    playerCameraRef.current.position.copy(playerCameraActivePosition);
-    playerCameraRef.current.lookAt(playerCameraActiveLookAt);
-  }, [playerCameraActivePosition, playerCameraActiveLookAt]);
+    handlePlayerCameraInit(playerCameraRef.current);
+  }, []);
+
+  // Hooks
+  useFrame(handlePlayerCameraOnFrame);
 
   return (
-    <PerspectiveCamera
-      ref={playerCameraRef}
-      fov={40}
-      makeDefault={activeCamera === "PlayerCamera"}
-    />
+    <Fragment>
+      <PerspectiveCamera
+        ref={playerCameraRef}
+        makeDefault={activeCamera === "PlayerCamera"}
+      />
+      {/* <Sphere ref={playerSphereRef} scale={0.05} /> */}
+    </Fragment>
   );
 };
 

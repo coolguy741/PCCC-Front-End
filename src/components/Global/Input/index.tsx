@@ -13,7 +13,7 @@ export const Input = forwardRef(
 const Style = {
   Input: styled.input<InputProps>`
     width: ${({ width }) => (width ? width : "100%")};
-    height: ${({ height }) => (height ? height : conv(48, "vh"))};
+    height: ${({ height }) => (height ? height : "5vh")};
     background: var(--white);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     border-radius: 8px;

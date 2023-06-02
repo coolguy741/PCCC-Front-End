@@ -24,9 +24,10 @@ export const CalendarPage = () => {
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [getEvents]);
 
-  // TODO: type
+  // TODO: FullCalendar type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDateClick = (info: any) => {
     setSelectedDate(info.dateStr);
     const rectDOM = info.dayEl.getBoundingClientRect();

@@ -9,6 +9,7 @@ import {
 import { formatDate } from "../../../lib/util/formatDate";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
 import { Icon } from "../../Global/Icon";
 
@@ -105,15 +106,17 @@ const Style = {
   Container: styled.div`
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-    padding: 1.4rem;
+    padding: ${convertToRelativeUnit(24, "vh")};
     border-radius: 16px;
+    width: 49%;
+    margin-bottom: ${convertToRelativeUnit(24, "vh")};
 
     .card-content {
       width: 100%;
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: ${convertToRelativeUnit(24, "vh")};
 
       .header {
         display: flex;
@@ -125,12 +128,12 @@ const Style = {
         .group-name {
           display: flex;
           align-items: center;
-          gap: 5px;
-          font-size: 1.6rem;
+          gap: ${convertToRelativeUnit(5, "vh")};
+          font-size: ${convertToRelativeUnit(28, "vh")};
         }
 
         .date {
-          font-size: 0.75rem;
+          font-size: ${convertToRelativeUnit(12, "vh")};
           color: var(--neutral-600);
         }
       }
@@ -138,13 +141,13 @@ const Style = {
       .body {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: ${convertToRelativeUnit(12, "vh")};
         color: var(--neutral-600);
       }
 
       .icon-container {
-        width: 30px;
-        height: 30px;
+        height: ${convertToRelativeUnit(30, "vh")};
+        aspect-ratio: 1 / 1;
       }
     }
 
@@ -155,12 +158,18 @@ const Style = {
       .expand-button {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: ${convertToRelativeUnit(5, "vh")};
       }
 
       .buttons-group {
         display: flex;
-        gap: 10px;
+        gap: ${convertToRelativeUnit(10, "vh")};
+        align-items: center;
+
+        button:first-of-type {
+          display: grid;
+          place-items: center;
+        }
       }
     }
 

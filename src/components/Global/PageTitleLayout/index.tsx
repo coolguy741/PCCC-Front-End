@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Icon } from "../Icon";
 
 interface PageTitleLayoutProps {
@@ -40,8 +41,8 @@ const Style = {
   Background: styled.div`
     position: absolute;
     top: 0;
-    left: -32px;
-    width: calc(100% + 32px);
+    left: ${convertToRelativeUnit(-32, "vw")};
+    width: calc(100% + ${convertToRelativeUnit(32, "vw")});
     height: 100vh;
     background: linear-gradient(270deg, #c4e8ff, #fff9e0);
     z-index: -1;

@@ -3,7 +3,7 @@ import Button from "../../components/Button";
 import FileDropzone from "../../components/CloudDrive/FileDropzone";
 import { Folder } from "../../components/CloudDrive/Folder";
 import { Icon } from "../../components/Global/Icon";
-import Scrollbar from "../../components/Global/Scrollbar";
+import Scrollbar from "../../components/Global/Scrollable";
 import DownloadIcon from "../../components/Icons/Download/download";
 import SharingIcon from "../../components/Icons/Sharing/sharing";
 import TrashIcon from "../../components/Icons/Trash/trash";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../../components/Button";
-import Scrollbar from "../../components/Global/Scrollbar";
+import Scrollbar from "../../components/Global/Scrollable";
 import { avatars_data } from "../../lib/avatars/data";
 import mockData from "../../lib/mockData/notifications.json";
 

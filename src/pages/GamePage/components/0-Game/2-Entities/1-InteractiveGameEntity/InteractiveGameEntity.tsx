@@ -4,7 +4,7 @@ import { Bone, BufferGeometry, Skeleton } from "three";
 import { shallow } from "zustand/shallow";
 import { InteractiveGameEntityTypes } from "../../../../globalState/modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
-import { InspectData } from "../../../1-UI/1-HUD/4-Inspect/7-InspectData/INSPECT_DATA";
+import { InspectData } from "../../../1-UI/1-HUD/5-Inspect/7-InspectData/INSPECT_DATA";
 import { animateInteractiveGameEntityOut } from "./InteractiveGameEntitiyAnimations";
 import { InteractiveGameEntityMaterial } from "./InteractiveGameEntityDefines";
 
@@ -23,6 +23,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
 }) => {
   // Global State
   const {
+    activeGardenHotSpot,
     menuActive,
     isCursorDown,
     setMenuActive,
@@ -35,6 +36,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     setItemToRemoveFromScene,
   } = useGlobalState(
     (state) => ({
+      activeGardenHotSpot: state.activeGardenHotSpot,
       menuActive: state.menuActive,
       isCursorDown: state.isCursorDown,
       setMenuActive: state.setMenuActive,
@@ -68,6 +70,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
       if (menuActive) return;
+      if (activeGardenHotSpot !== "ToolRack") return;
       if (name === activeHoveredEntity) {
         setIsHoveringEntity(true);
       } else {
@@ -77,6 +80,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     [
       name,
       menuActive,
+      activeGardenHotSpot,
       setIsHoveringEntity,
       activeHoveredEntity,
       setActiveHoveredEntity,
@@ -86,17 +90,19 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   const handlePointerDownEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
+      if (!isCursorDown) return;
       setIsCursorDown(true);
     },
-    [setIsCursorDown],
+    [setIsCursorDown, isCursorDown],
   );
 
   const handlePointerUpEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
+      if (activeGardenHotSpot !== "ToolRack") return;
       setIsCursorDown(false);
     },
-    [setIsCursorDown],
+    [setIsCursorDown, activeGardenHotSpot],
   );
 
   const handleActiveHoveredEntityStateChange = useCallback(() => {
@@ -108,10 +114,11 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   const handleOnClickEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
+      if (activeGardenHotSpot !== "ToolRack") return;
       if (menuActive) return;
       setMenuActive(true);
     },
-    [setMenuActive, menuActive],
+    [setMenuActive, menuActive, activeGardenHotSpot],
   );
 
   const handleRemoveItemFromScene = useCallback(() => {

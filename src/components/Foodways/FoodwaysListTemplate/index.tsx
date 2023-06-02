@@ -6,7 +6,7 @@ import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import Button from "../../Button";
-import Scrollbar from "../../Global/Scrollbar";
+import Scrollbar from "../../Global/Scrollable";
 import { Select } from "../../Global/Select";
 import { FoodwaysList } from "../FoodwaysList";
 

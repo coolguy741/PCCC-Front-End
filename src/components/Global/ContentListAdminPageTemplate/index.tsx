@@ -6,7 +6,7 @@ import Button from "../../Button";
 import { ContentList } from "../ContentList";
 import { ContentListItemData } from "../ContentListItem";
 import { DropdownSelect } from "../DropdownSelect";
-import Scrollbar from "../Scrollbar";
+import Scrollbar from "../Scrollable";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";
 interface ContentListAdminPageTemplateProps {
@@ -70,28 +70,28 @@ const Style = {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    padding-bottom: 40px;
+    padding-bottom: ${convertToRelativeUnit(40, "vh")};
   `,
   SelectGroup: styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     padding: 0px;
-    gap: 24px;
-    width: 180px;
+    gap: ${convertToRelativeUnit(24, "vh")};
+    width: ${convertToRelativeUnit(180, "vw")};
   `,
   SelectContainer: styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
-    gap: 8px;
-    width: 180px;
+    gap: ${convertToRelativeUnit(8, "vh")};
+    width: ${convertToRelativeUnit(180, "vw")};
 
     .text {
       font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
+      font-size: ${convertToRelativeUnit(16, "vh")};
+      line-height: ${convertToRelativeUnit(24, "vh")};
       color: var(--neutral-600);
     }
   `,
@@ -100,12 +100,6 @@ const Style = {
     flex-direction: row;
     align-items: flex-start;
     padding: 0px;
-    gap: 24px;
-  `,
-  ScrollContainer: styled.div`
-    overflow-y: auto;
-    height: 100%;
-    padding-right: 16px;
-    margin-right: -24px;
+    gap: ${convertToRelativeUnit(24, "vh")};
   `,
 };

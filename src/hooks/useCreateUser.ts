@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Api } from "../lib/api/api";
 
 export const useCreateUser = () => {
-  // TODO: unused set user
-  const [user, setUser] = useState(null);
+  const [user] = useState(null);
   const { api } = new Api({ baseUrl: "https://backend-dev.powerfullkids.ca" });
 
   // const getQuestions = async () => {
@@ -15,13 +14,13 @@ export const useCreateUser = () => {
   //   return questions;
   // };
 
-  const getUserNames = async () => {
+  const getUserNames = useCallback(async () => {
     const usernames = await api.appUsernameChoicesUsernameChoicesList();
 
     console.log(usernames);
 
     return usernames;
-  };
+  }, [api]);
 
   useEffect(() => {
     // getQuestions();
@@ -39,7 +38,7 @@ export const useCreateUser = () => {
     //   thirdSecurityQuestionId: "3a0a65d5-29b3-20b8-659a-059d0beafbcc",
     //   thirdSecurityQuestionAnswer: "testAnswer",
     // });
-  }, []);
+  }, [getUserNames]);
 
   return user;
 };

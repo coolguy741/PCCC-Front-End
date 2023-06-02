@@ -7,13 +7,6 @@ import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgro
 
 export const MealPlannerPage = () => {
   const match = useMatch("/dashboard/meal-planner/edit");
-  // const [isOpen, setIsOpen] = useState(false);
-  // const close = () => {
-  //   setIsOpen(false);
-  // };
-  // const open = () => {
-  //   setIsOpen(true);
-  // };
 
   return (
     <Style.PageContainer>
@@ -26,7 +19,8 @@ export const MealPlannerPage = () => {
 const Style = {
   PageContainer: styled.div`
     margin-left: -32px;
-    padding: 88px 40px 0 104px;
+    padding: 8vh 40px 0 104px;
+
     display: flex;
     height: 100vh;
     flex-direction: column;

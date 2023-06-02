@@ -106,8 +106,7 @@ const Style = {
     flex: 1;
     overflow: hidden;
     p {
-      height: 42px;
-      line-height: 14px;
+      line-height: 12px;
       width: 100%;
       overflow: hidden;
       display: -webkit-box;
