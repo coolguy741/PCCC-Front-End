@@ -39,15 +39,11 @@ const Style = {
       height: 13.5vh;
       display: flex;
       align-items: center;
-      /* border: 1px solid red; */
     }
 
     /* classname to target content for manage users layout */
     .manage-users-content {
-      height: 100%;
-      padding: 0 ${convertToRelativeUnit(16, "vw")};
-      margin: 0 -${convertToRelativeUnit(16, "vw")};
-      /* border: 1px solid green; */
+      height: 65vh;
     }
   `,
 };

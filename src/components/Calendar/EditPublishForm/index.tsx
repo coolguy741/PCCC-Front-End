@@ -8,6 +8,8 @@ import { TimeSelect } from "../TimeSelect";
 
 interface EditPublishFormProps {
   yPos: string;
+  // TODO: FullCalendar type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedEvent: any;
   type: string;
 }

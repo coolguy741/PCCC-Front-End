@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { GroupActivity } from "../../../../components/Accounts/GroupActivity";
@@ -33,7 +33,7 @@ export const AccountsGroupPage = () => {
     navigate("/dashboard/accounts/groups/group/calendar");
   };
 
-  const getGroup = async () => {
+  const getGroup = useCallback(async () => {
     const response = await api.appGroupsMyCreatedGroupsList(
       {},
       {
@@ -44,16 +44,18 @@ export const AccountsGroupPage = () => {
     );
 
     if (response.data.items) {
-      // TODO: type
-      response.data.items.find((item: any) => {
-        if (item.group.id === params.group) {
-          setGroup(item);
-        }
-      });
+      response.data.items.find(
+        (item: PccServer23GroupsGroupWithNavigationPropertiesDto) => {
+          if (item?.group?.id === params.group) {
+            setGroup(item);
+          }
+          return null;
+        },
+      );
     }
-  };
+  }, [api, params.group]);
 
-  const getMembers = async () => {
+  const getMembers = useCallback(async () => {
     if (params.group) {
       const response = await api.appGroupsJoinedGroupUsersList(
         { GroupId: params.group },
@@ -68,12 +70,15 @@ export const AccountsGroupPage = () => {
         setMembers(response.data.items);
       }
     }
-  };
+  }, [api, params.group]);
+
+  useEffect(() => {
+    getMembers();
+  }, [getMembers]);
 
   useEffect(() => {
     getGroup();
-    getMembers();
-  }, []);
+  }, [getGroup]);
 
   return (
     <Style.PageContainer>

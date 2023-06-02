@@ -14,7 +14,7 @@ export const CalendarPrintPage = () => {
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [getEvents]);
 
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (

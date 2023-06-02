@@ -14,7 +14,8 @@ interface AddNoteFormProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   noteDescription: string;
   setNoteDescription: Dispatch<SetStateAction<string>>;
-  // TODO: type
+  // TODO: FullCalendar type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedEvent: any;
 }
 

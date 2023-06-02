@@ -21,7 +21,7 @@ export const MealPlanHeader = ({ title, description }: MealPlanHeaderProps) => {
 const Style = {
   Container: styled.div`
     display: flex;
-    padding-top: 0.675rem;
+    padding-top: 1%;
 
     .mr-5 {
       margin-right: 1.25rem;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { ContentList } from "../../Global/ContentList";
 import { ContentListItemData } from "../../Global/ContentListItem";
-import Scrollbar from "../../Global/Scrollbar";
+import Scrollbar from "../../Global/Scrollable";
 
 interface TogetherPageTemplateProps {
   relatedTo: string;

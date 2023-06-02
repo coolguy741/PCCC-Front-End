@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
-import Scrollbar from "../../../components/Global/Scrollbar";
+import Scrollbar from "../../../components/Global/Scrollable";
 import { GroceryItem } from "../../../components/MealPlanner/Grocery";
 import { MealPlanHeader } from "../../../components/MealPlanner/Header";
 import { Grocery } from "../../types";

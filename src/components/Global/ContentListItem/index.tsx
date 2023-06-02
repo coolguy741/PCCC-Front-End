@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Checkbox } from "../Checkbox";
 
 export interface ContentListItemData {
@@ -58,8 +59,8 @@ const Style = {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 20px;
-    gap: 24px;
+    padding: ${convertToRelativeUnit(20, "vh")};
+    gap: ${convertToRelativeUnit(24, "vh")};
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(59.2764px);
@@ -74,7 +75,7 @@ const Style = {
     }
 
     img {
-      height: 100%;
+      height: ${convertToRelativeUnit(180, "vh")};
     }
   `,
   Content: styled.div`
@@ -83,7 +84,7 @@ const Style = {
     justify-content: center;
     align-items: flex-start;
     padding: 0px;
-    gap: 20px;
+    gap: ${convertToRelativeUnit(20, "vh")};
   `,
   Topic: styled.p`
     box-sizing: border-box;
@@ -91,12 +92,15 @@ const Style = {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 16px;
-    gap: 10px;
+    padding: ${convertToRelativeUnit(10, "vh")}
+      ${convertToRelativeUnit(16, "vh")};
+    gap: ${convertToRelativeUnit(10, "vh")};
     border: 2px solid var(--orange-600);
-    border-radius: 50px;
+    border-radius: ${convertToRelativeUnit(50, "vh")};
     color: var(--orange-600);
     text-transform: uppercase;
+    font-size: ${convertToRelativeUnit(14, "vh")};
+    line-height: ${convertToRelativeUnit(16, "vh")};
   `,
   Date: styled.p`
     box-sizing: border-box;
@@ -104,30 +108,33 @@ const Style = {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 16px;
-    gap: 10px;
+    padding: ${convertToRelativeUnit(10, "vh")}
+      ${convertToRelativeUnit(16, "vh")};
+    gap: ${convertToRelativeUnit(10, "vh")};
     border: 2px solid var(--orange-600);
-    border-radius: 50px;
+    border-radius: ${convertToRelativeUnit(50, "vh")};
     color: var(--orange-600);
     text-transform: uppercase;
+    font-size: ${convertToRelativeUnit(14, "vh")};
+    line-height: ${convertToRelativeUnit(16, "vh")};
   `,
   Title: styled.p`
     font-weight: 600;
-    font-size: 28px;
-    line-height: 32px;
+    font-size: ${convertToRelativeUnit(28, "vh")};
+    line-height: ${convertToRelativeUnit(32, "vh")};
     color: var(--neutral-900);
     mix-blend-mode: normal;
   `,
   Description: styled.p`
-    font- weight: 400;
-    font - size: 16px;
-    line - height: 20px;
+    font-weight: 400;
+    font-size: ${convertToRelativeUnit(16, "vh")};
+    line-height: ${convertToRelativeUnit(20, "vh")};
     color: var(--neutral-600);
   `,
   InputContainer: styled.div`
     z-index: 10;
     position: absolute;
-    top: 23.33px;
-    right: 23.33px;
+    top: ${convertToRelativeUnit(23.33, "vh")};
+    right: ${convertToRelativeUnit(23.33, "vh")};
   `,
 };

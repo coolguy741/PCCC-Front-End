@@ -7,7 +7,7 @@ import { PlateFullPlanFilter } from "../Filter";
 import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
 import { PlateFullPlanSearch } from "../Search";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   DragDropContext,
   DragUpdate,
@@ -32,9 +32,10 @@ export const MealPlans = () => {
   const { selectedFilters, filters, changeSelectedFilters } =
     useMealPlannerStore();
 
+  const mainContentRef = useRef<HTMLDivElement>(null);
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
   // TODO: unused variable
-  const [mealPlanMenu, setMealPlanMenu] = useState(mockMealPlanMenu);
+  const [mealPlanMenu] = useState(mockMealPlanMenu);
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
   const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
   const [destinationMeal, setDestinationMeal] = useState<MealPlan>();
@@ -101,7 +102,7 @@ export const MealPlans = () => {
       const destinationDayIndex = Number(
         result.destination?.droppableId.slice(-1),
       );
-      if (!isNaN(destinationDayIndex) && destinationIndex) {
+      if (!isNaN(destinationDayIndex) && destinationIndex !== undefined) {
         setDestinationMeal(
           mealPlans[destinationDayIndex].plans[destinationIndex],
         );
@@ -164,7 +165,7 @@ export const MealPlans = () => {
                 Customize your meal plan
               </Typography>
             </div>
-            <div className="main-content">
+            <div className="main-content" ref={mainContentRef}>
               <Style.BorderScroll>
                 <img
                   src="/images/plate-full-planner/scroll-border.svg"
@@ -185,7 +186,10 @@ export const MealPlans = () => {
                   setFilters={changeSelectedFilters}
                 />
               </div>
-              <PlateFullPlannerScrollMenu mealPlanMenu={mealPlanMenu} />
+              <PlateFullPlannerScrollMenu
+                mealPlanMenu={mealPlanMenu}
+                rootRef={mainContentRef}
+              />
             </div>
             <Style.CoffeeStain
               src="/images/plate-full-planner/coffee-stain.svg"
@@ -198,8 +202,13 @@ export const MealPlans = () => {
             <Style.BrownPaper>
               <div className="brown-paper-content">
                 <Icon name="food" />
-                <Typography variant="h6" weight="semi-bold" color="book-50">
-                  Roasted red pepper hummus with vegetables{" "}
+                <Typography
+                  variant="h6"
+                  as="h6"
+                  weight="semi-bold"
+                  color="book-50"
+                >
+                  Roasted red pepper hummus with vegetables
                 </Typography>
               </div>
               <img
@@ -218,6 +227,11 @@ const Style = {
   Container: styled(motion.section)`
     margin-top: 10px;
     position: relative;
+    width: ${window.innerHeight / window.innerWidth >= 0.625
+      ? 100
+      : (100 * (window.innerHeight / window.innerWidth)) / 0.628}%;
+    margin-left: auto;
+    margin-right: auto;
   `,
   Background: styled.div`
     padding: 0;
@@ -236,14 +250,14 @@ const Style = {
     grid-template-columns: 1fr 1fr;
     gap: 4%;
   `,
-  LeftPage: styled.section`
+  LeftPage: styled.div`
     margin-right: -2%;
-    height: 100%;
+    height: ${window.innerHeight / window.innerWidth >= 0.625 ? 100 : 80}%;
   `,
   Page: styled.div`
     position: relative;
     display: flex;
-    height: 100%;
+    height: ${window.innerHeight / window.innerWidth >= 0.625 ? 100 : 80}%;
     flex-direction: column;
     padding: 10px 0;
     overflow: hidden;

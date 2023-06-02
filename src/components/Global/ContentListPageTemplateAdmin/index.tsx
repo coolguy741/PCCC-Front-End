@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../../Button";
 import { ContentList } from "../../Global/ContentList";
 import { ContentListItemData } from "../../Global/ContentListItem";
-import Scrollbar from "../Scrollbar";
+import Scrollbar from "../Scrollable";
 import { Select } from "../Select";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";

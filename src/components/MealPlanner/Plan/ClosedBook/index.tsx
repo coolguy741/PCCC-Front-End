@@ -87,7 +87,9 @@ export const ClosedPlateFullPlannerBook = () => {
 
 const Style = {
   Container: styled(motion.section)`
-    width: 50%;
+    width: ${window.innerHeight / window.innerWidth >= 0.625
+      ? 50
+      : (50 * (window.innerHeight / window.innerWidth)) / 0.7}%;
     padding-top: 1.25rem;
     margin: 0 auto;
     display: flex;

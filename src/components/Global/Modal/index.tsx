@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { Icon } from "../Icon";
 import { ModalContainer } from "../ModalContainer";
-import Scrollbar from "../Scrollbar";
+import Scrollbar from "../Scrollable";
 import { Typography } from "../Typography";
 
 export interface ModalProps {

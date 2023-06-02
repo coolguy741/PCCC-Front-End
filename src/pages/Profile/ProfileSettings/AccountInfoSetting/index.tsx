@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
 import { DropdownSelect } from "../../../../components/Global/DropdownSelect";
 import { Input } from "../../../../components/Global/Input";
-import Scrollbar from "../../../../components/Global/Scrollbar";
+import Scrollbar from "../../../../components/Global/Scrollable";
 import { useAPI } from "../../../../hooks/useAPI";
 import { avatars_data } from "../../../../lib/avatars/data";
 import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
@@ -24,13 +24,13 @@ export const AccountInfoSetting = () => {
 
   const { api } = useAPI();
 
-  const getUsernames = async () => {
+  const getUsernames = useCallback(async () => {
     const { data } = await api.appUsernameChoicesUsernameChoicesList();
     setFirstNames(data.firstNames);
     setSecondNames(data.secondNames);
 
     return data;
-  };
+  }, [api]);
 
   const saveAccountInfo = () => {
     console.log("Save account information");
@@ -38,7 +38,7 @@ export const AccountInfoSetting = () => {
 
   useEffect(() => {
     getUsernames();
-  }, []);
+  }, [getUsernames]);
 
   return (
     <Style.AccountInfoSetting onSubmit={handleSubmit(saveAccountInfo)}>
