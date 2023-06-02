@@ -6,7 +6,7 @@ import {
   RefDivType,
   RefTimeoutType,
 } from "../../../../../shared/Types/RefTypes";
-import { InspectData } from "../../4-Inspect/7-InspectData/INSPECT_DATA";
+import { InspectData } from "../../5-Inspect/7-InspectData/INSPECT_DATA";
 import { UseCursorMenuChoiceColliderLogicReturnTypes } from "./CursorMenuChoiceColliderTypes";
 
 const useCursorMenuChoiceColliderLogic =

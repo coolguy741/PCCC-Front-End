@@ -10,6 +10,16 @@ import { useGlobalState } from "../../../globalState/useGlobalState";
 import { ConstantVoidFunctionType } from "../../../shared/Types/DefineTypes";
 import { RefNumberType } from "../../../shared/Types/RefTypes";
 import {
+  leftRightLimit,
+  playerCameraActiveFov,
+  playerCameraActiveLookAt,
+  playerCameraActivePosition,
+  playerCameraFullMouseRotationMultiplier,
+  playerCameraInitMouseRotationMultiplier,
+  playerCameraMouseRotationMultiplierFactor,
+} from "../2-Entities/0-Cameras/PlayerCameraDefines";
+import {
+  animateMouseMultiplierFactor,
   animateRouteFov,
   animateRouteLookAt,
   animateRouteProgress,
@@ -40,20 +50,14 @@ const useHotSpotRoute = ({
   const {
     activeLocation,
     setActiveLocation,
-    playerCameraActiveFov,
     setActiveGardenHotSpot,
     setActiveKitchenHotSpot,
-    playerCameraActiveLookAt,
-    playerCameraActivePosition,
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
       setActiveLocation: state.setActiveLocation,
-      playerCameraActiveFov: state.playerCameraActiveFov,
       setActiveGardenHotSpot: state.setActiveGardenHotSpot,
       setActiveKitchenHotSpot: state.setActiveKitchenHotSpot,
-      playerCameraActiveLookAt: state.playerCameraActiveLookAt,
-      playerCameraActivePosition: state.playerCameraActivePosition,
     }),
     shallow,
   );
@@ -61,6 +65,11 @@ const useHotSpotRoute = ({
   // Handlers
   const handleRoutePosition: ConstantVoidFunctionType =
     useCallback((): void => {
+      animateMouseMultiplierFactor(
+        playerCameraMouseRotationMultiplierFactor,
+        playerCameraInitMouseRotationMultiplier,
+        0.5,
+      );
       animateRouteProgress(
         routeProgressRef,
         direction ? 0 : 1,
@@ -71,16 +80,46 @@ const useHotSpotRoute = ({
             route.getPointAt(routeProgressRef.current),
           );
         },
+        () => {
+          animateMouseMultiplierFactor(
+            playerCameraMouseRotationMultiplierFactor,
+            playerCameraFullMouseRotationMultiplier,
+            1.5,
+          );
+        },
       );
-    }, [route, duration, direction, playerCameraActivePosition]);
+    }, [route, duration, direction]);
 
   const handleRouteFov: ConstantVoidFunctionType = useCallback((): void => {
     animateRouteFov(playerCameraActiveFov, fov, duration);
-  }, [fov, duration, playerCameraActiveFov]);
+  }, [fov, duration]);
 
   const handleRouteLookAt: ConstantVoidFunctionType = useCallback((): void => {
     animateRouteLookAt(playerCameraActiveLookAt, lookAt, duration);
-  }, [lookAt, duration, playerCameraActiveLookAt]);
+  }, [lookAt, duration]);
+
+  const handleCursorMovementLimits: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (newLocation === "Garden") {
+        if (hotspot === "ToolRack") {
+          leftRightLimit.set(1.0, 6.0);
+        } else if (hotspot === "PlantBox") {
+          leftRightLimit.set(1.0, 2.0);
+        } else if (hotspot === "SoilCorner") {
+          leftRightLimit.set(6.0, 1.0);
+        } else if (hotspot === "GardenHose") {
+          leftRightLimit.set(3.0, 3.0);
+        } else if (hotspot === "BigTree") {
+          leftRightLimit.set(3.0, 5.0);
+        } else if (hotspot === "Overview") {
+          leftRightLimit.set(0.5, 0.5);
+        }
+      } else if (newLocation === "Kitchen") {
+        if (hotspot === "Overview") {
+          leftRightLimit.set(2.0, 2.0);
+        }
+      }
+    }, [newLocation, hotspot]);
 
   const handleRouteTransistion: ConstantVoidFunctionType =
     useCallback((): void => {
@@ -97,6 +136,7 @@ const useHotSpotRoute = ({
       handleRouteFov();
       handleRouteLookAt();
       handleRoutePosition();
+      handleCursorMovementLimits();
     }, [
       hotspot,
       newLocation,
@@ -107,6 +147,7 @@ const useHotSpotRoute = ({
       handleRoutePosition,
       setActiveGardenHotSpot,
       setActiveKitchenHotSpot,
+      handleCursorMovementLimits,
     ]);
 
   return {

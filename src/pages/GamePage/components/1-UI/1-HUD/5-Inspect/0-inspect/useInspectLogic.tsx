@@ -52,6 +52,7 @@ const useInspectLogic: UseInspectLogicType = (): UseInspectLogicReturnTypes => {
     inspectActive,
     handleRevealHideInspectModal,
   ]);
+
   return { inspectModalRef };
 };
 

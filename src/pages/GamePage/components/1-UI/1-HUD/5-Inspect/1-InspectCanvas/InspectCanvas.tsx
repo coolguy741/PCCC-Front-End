@@ -1,13 +1,9 @@
 import { Canvas } from "@react-three/fiber";
-import { FC, memo, ReactNode, Suspense } from "react";
+import { FC, memo, Suspense } from "react";
 import { devicePixelRatio } from "../../../../../shared/Consts/CanvasParams";
 import { GLParameters } from "../../../../../shared/Consts/GLParameters";
 import InspectCanvasStyleContainer from "./InspectCanvasStyleContainer";
-
-// Types
-interface InspectCanvasPropTypes {
-  children: ReactNode;
-}
+import { InspectCanvasPropTypes } from "./InspectCanvasTypes";
 
 const InspectCanvas: FC<InspectCanvasPropTypes> = ({ children }) => {
   return (
