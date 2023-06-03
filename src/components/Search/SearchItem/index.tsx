@@ -14,7 +14,7 @@ export function SearchItem() {
             tag="h2"
             textTransform="uppercase"
             size="1.5vh"
-            mb="1.5vh"
+            mb="1vh"
             weight={600}
             color="orange-600"
           >
@@ -23,14 +23,14 @@ export function SearchItem() {
           <Typography
             tag="h3"
             color="neutral-800"
-            size="3vh"
-            mb="1vh"
+            size="2.65vh"
+            mb="0.75vh"
             weight={600}
           >
             Activity: Over the Grainbow
           </Typography>
         </hgroup>
-        <Typography color="neutral-600" size="1.55vh">
+        <Typography color="neutral-600" size="1.6vh">
           {trimStringByLength(
             `Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
           vulputate libero et velit interdum, ac aliquet odio mattis. Class
@@ -63,16 +63,17 @@ const Style = {
     }
 
     figure {
-      min-width: 35%;
+      min-width: 30%;
       border: 1px solid red;
     }
 
     .search-image {
-      border-radius: 8px;
+      border-radius: 6px;
     }
 
     .search-content {
-      width: 60%;
+      width: 65%;
+      padding: ${conv(15, "vh")} 0;
     }
 
     &:hover {
