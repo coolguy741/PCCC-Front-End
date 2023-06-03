@@ -32,7 +32,7 @@ const Shadows: FC = () => {
         ),
         bakeShadows: folder(
           {
-            enableBS: false,
+            enableBS: true,
           },
           { collapsed: true },
         ),
