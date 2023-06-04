@@ -23,11 +23,11 @@ export function SearchItem() {
           <Typography
             tag="h3"
             color="neutral-800"
-            size="2.65vh"
+            size="2.5vh"
             mb="0.75vh"
             weight={600}
           >
-            Activity: Over the Grainbow
+            {trimStringByLength("Activity: Over the Grainbow", 27)}
           </Typography>
         </hgroup>
         <Typography color="neutral-600" size="1.6vh">

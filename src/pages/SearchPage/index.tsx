@@ -40,6 +40,10 @@ export const SearchPage = () => {
         <SearchItem />
         <SearchItem />
         <SearchItem />
+        <SearchItem />
+        <SearchItem />
+        <SearchItem />
+        <SearchItem />
       </Scrollable>
     </Style.Container>
   );
