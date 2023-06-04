@@ -7,10 +7,7 @@ import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import Button from "../../../components/Button";
 import { Input } from "../../../components/Global/Input";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
-import {
-  default as Scrollable,
-  default as Scrollbar,
-} from "../../../components/Global/Scrollable";
+import Scrollable from "../../../components/Global/Scrollable";
 import {
   PccServer23GroupsCustomGroupUserJoinRequestDto,
   PccServer23GroupsGroupWithNavigationPropertiesDto,
@@ -74,7 +71,7 @@ export const AccountsGroupsPage = () => {
             {`Group Invitations (${invitations?.length})`}
           </p>
           <div className="group-invitations">
-            <Scrollbar>
+            <Scrollable>
               {invitations &&
                 invitations.map((invitation, index) => {
                   return (
@@ -87,7 +84,7 @@ export const AccountsGroupsPage = () => {
                     />
                   );
                 })}
-            </Scrollbar>
+            </Scrollable>
           </div>
         </div>
       </Scrollable>
@@ -147,7 +144,7 @@ const Style = {
 
     .row {
       display: flex;
-      gap: ${convertToRelativeUnit(20, "vw")};
+      column-gap: ${convertToRelativeUnit(20, "vw")};
 
       .groups-container {
         width: 100%;
