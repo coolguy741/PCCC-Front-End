@@ -34,7 +34,7 @@ export const WeeklyMealPlan = ({
   const handlePrev = () => {
     changeStep(1);
   };
-  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(true);
+  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
 
   const isDraggedOver = useCallback(
     (dayIndex: number, index: number) =>
