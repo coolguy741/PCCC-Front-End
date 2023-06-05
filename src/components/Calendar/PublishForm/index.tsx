@@ -9,6 +9,7 @@ import { TimeSelect } from "../TimeSelect";
 interface PublishFormProps {
   selectedDate: string | undefined;
   yPos: string;
+  handleAddEvent: () => void;
 }
 
 interface EventNameObject {
@@ -22,7 +23,11 @@ export const EVENT_NAME_OBJECT: EventNameObject = {
   assessment: "Lesson Assessment",
 };
 
-export const PublishForm = ({ selectedDate, yPos }: PublishFormProps) => {
+export const PublishForm = ({
+  selectedDate,
+  yPos,
+  handleAddEvent,
+}: PublishFormProps) => {
   const [type, setType] = useState<string>("");
 
   return (
@@ -59,7 +64,7 @@ export const PublishForm = ({ selectedDate, yPos }: PublishFormProps) => {
                   <option value="">—</option>
                   <option value="mealtime">Mealtime Moment</option>
                 </Select>
-                <Button>Publish</Button>
+                <Button onClick={handleAddEvent}>Publish</Button>
               </div>
             </div>
           </>

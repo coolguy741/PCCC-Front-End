@@ -13,6 +13,7 @@ interface AddNoteFormProps {
   isOpen: boolean;
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
+  handleAddEvent: () => void;
 }
 
 export const AddNoteForm = ({
@@ -21,6 +22,7 @@ export const AddNoteForm = ({
   isOpen,
   modalOpen,
   setModalOpen,
+  handleAddEvent,
 }: AddNoteFormProps) => {
   return (
     <Style.Container>
@@ -49,7 +51,7 @@ export const AddNoteForm = ({
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
             />
-            <Button>Add</Button>
+            <Button onClick={handleAddEvent}>Add</Button>
           </div>
         </div>
       </div>

@@ -3,12 +3,18 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useState } from "react";
+import Cookies from "js-cookie";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
 import { capitalize } from "../../../lib/util/capitalize";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { EditEventModal } from "../../Calendar/EditEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
+  const { api } = useAPI();
+  const { events, addEvent } = useCalendarEventsStore((state) => state);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
@@ -56,6 +62,43 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     setShowEventModal(false);
   };
 
+  const getEvents = useCallback(async () => {
+    const response = await api.appCalendarsMyCalendarEventsList(
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.data.items) {
+      response.data.items.forEach((item) => {
+        if (item.calendarEvent) {
+          addEvent({
+            ...item.calendarEvent,
+            textColor: "#F87C56",
+            backgroundColor: "#FEE5DD",
+            borderColor: "#ff0000",
+            display: "block",
+            title: "Test title",
+            theme: "Test theme",
+            start: item.calendarEvent.startDate || "",
+            end: item.calendarEvent.endDate || "",
+          });
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    getEvents();
+  }, [getEvents]);
+
+  useEffect(() => {
+    console.log(events);
+  }, [events]);
+
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (
       <Style.CustomEventTitle>
@@ -84,7 +127,6 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         }}
         buttonIcons={{ prev: "chevron-left", next: "chevron-right" }}
         buttonText={{ today: "Today" }}
-        {...props}
         longPressDelay={1000}
         eventLongPressDelay={1000}
         selectLongPressDelay={1000}
@@ -102,6 +144,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         height="100%"
         expandRows={true}
         moreLinkClick="week"
+        events={events}
+        {...props}
       />
       {showEventModal && (
         <EditEventModal

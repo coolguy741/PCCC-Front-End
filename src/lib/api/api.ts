@@ -97,8 +97,6 @@ export interface PccServer23CalendarEventsCalendarEventCreateDto {
   topicId?: string | null;
   /** @format uuid */
   activityId?: string | null;
-  /** @format uuid */
-  groupId?: string | null;
 }
 
 export interface PccServer23CalendarEventsCalendarEventDto {
@@ -131,17 +129,17 @@ export interface PccServer23CalendarEventsCalendarEventDto {
   topicId?: string | null;
   /** @format uuid */
   activityId?: string | null;
-  /** @format uuid */
-  groupId?: string | null;
   concurrencyStamp?: string | null;
 }
 
 /** @format int32 */
 export enum PccServer23CalendarEventsCalendarEventType {
+  Value0 = 0,
   Value1 = 1,
   Value2 = 2,
   Value3 = 3,
   Value4 = 4,
+  Value5 = 5,
 }
 
 export interface PccServer23CalendarEventsCalendarEventUpdateDto {
@@ -159,8 +157,6 @@ export interface PccServer23CalendarEventsCalendarEventUpdateDto {
   topicId?: string | null;
   /** @format uuid */
   activityId?: string | null;
-  /** @format uuid */
-  groupId?: string | null;
   concurrencyStamp?: string | null;
 }
 
@@ -170,7 +166,46 @@ export interface PccServer23CalendarEventsCalendarEventWithNavigationPropertiesD
   curriculum?: PccServer23CurriculumsCurriculumDto;
   topic?: PccServer23TopicsTopicDto;
   activity?: PccServer23ActivitiesActivityDto;
-  group?: PccServer23GroupsGroupDto;
+}
+
+export interface PccServer23CalendarEventsPublicCalendarEventCreateDto {
+  description?: string | null;
+  /** @format date-time */
+  startDate?: string | null;
+  /** @format date-time */
+  endDate?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  /** @format uuid */
+  topicId?: string | null;
+  /** @format uuid */
+  activityId?: string | null;
+  /** @format uuid */
+  groupId?: string | null;
+}
+
+export interface PccServer23CalendarEventsPublicCalendarEventDto {
+  /** @format uuid */
+  id?: string;
+  description?: string | null;
+  type?: PccServer23CalendarEventsCalendarEventType;
+  /** @format date-time */
+  startDate?: string | null;
+  /** @format date-time */
+  endDate?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  /** @format uuid */
+  topicId?: string | null;
+  /** @format uuid */
+  activityId?: string | null;
+}
+
+export interface PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto {
+  calendarEvent?: PccServer23CalendarEventsPublicCalendarEventDto;
+  curriculum?: PccServer23CurriculumsCurriculumDto;
+  topic?: PccServer23TopicsTopicDto;
+  activity?: PccServer23ActivitiesActivityDto;
 }
 
 export interface PccServer23CalendarsCalendarCreateDto {
@@ -1064,8 +1099,8 @@ export interface PccServer23UsersUserInGroupDto {
 
 export type SystemVoid = object;
 
-export interface VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarsCalendarWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
-  items?: PccServer23CalendarsCalendarWithNavigationPropertiesDto[] | null;
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto[] | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -1343,63 +1378,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomCalendars
-     * @name AppCalendarsDelete
-     * @request DELETE:/api/app/calendars/{id}
+     * @name AppCalendarsMyCalendarEventsList
+     * @request GET:/api/app/calendars/my-calendar-events
+     * @secure
      */
-    appCalendarsDelete: (id: string, params: RequestParams = {}) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars/${id}`,
-        method: "DELETE",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCalendars
-     * @name AppCalendarsUpdate
-     * @request PUT:/api/app/calendars/{id}
-     */
-    appCalendarsUpdate: (id: string, data: PccServer23CalendarsCalendarUpdateDto, params: RequestParams = {}) =>
-      this.request<PccServer23CalendarsCalendarDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars/${id}`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCalendars
-     * @name AppCalendarsCreate
-     * @request POST:/api/app/calendars
-     */
-    appCalendarsCreate: (data: PccServer23CalendarsCalendarCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23CalendarsCalendarDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCalendars
-     * @name AppCalendarsMyCalendarList
-     * @request GET:/api/app/calendars/my-calendar
-     */
-    appCalendarsMyCalendarList: (
+    appCalendarsMyCalendarEventsList: (
       query?: {
         FilterText?: string;
         Description?: string;
-        /** @format uuid */
-        GroupId?: string;
+        /** @format date-time */
+        StartDate?: string;
+        /** @format date-time */
+        EndDate?: string;
         Sorting?: string;
         /**
          * @format int32
@@ -1417,12 +1407,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarsCalendarWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/calendars/my-calendar`,
+        path: `/api/app/calendars/my-calendar-events`,
         method: "GET",
         query: query,
+        secure: true,
         format: "json",
         ...params,
       }),
@@ -1431,17 +1422,19 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomCalendars
-     * @name AppCalendarsGroupCalendarList
-     * @request GET:/api/app/calendars/group-calendar
+     * @name AppCalendarsGroupCalendarEventsList
+     * @request GET:/api/app/calendars/group-calendar-events
      */
-    appCalendarsGroupCalendarList: (
+    appCalendarsGroupCalendarEventsList: (
       query: {
         FilterText?: string;
         Description?: string;
         /** @format uuid */
         GroupId: string;
-        /** @format uuid */
-        UserId?: string;
+        /** @format date-time */
+        StartDate?: string;
+        /** @format date-time */
+        EndDate?: string;
         Sorting?: string;
         /**
          * @format int32
@@ -1459,10 +1452,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarsCalendarWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/calendars/group-calendar`,
+        path: `/api/app/calendars/group-calendar-events`,
         method: "GET",
         query: query,
         format: "json",
@@ -1475,11 +1468,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags CustomCalendars
      * @name AppCalendarsEventDelete
      * @request DELETE:/api/app/calendars/{id}/event
+     * @secure
      */
     appCalendarsEventDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/calendars/${id}/event`,
         method: "DELETE",
+        secure: true,
         ...params,
       }),
 
@@ -1487,14 +1482,41 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomCalendars
-     * @name AppCalendarsEventCreate
-     * @request POST:/api/app/calendars/event
+     * @name AppCalendarsEventToMyCalendarCreate
+     * @request POST:/api/app/calendars/event-to-my-calendar
+     * @secure
      */
-    appCalendarsEventCreate: (data: PccServer23CalendarEventsCalendarEventCreateDto, params: RequestParams = {}) =>
+    appCalendarsEventToMyCalendarCreate: (
+      data: PccServer23CalendarEventsPublicCalendarEventCreateDto,
+      params: RequestParams = {},
+    ) =>
       this.request<PccServer23CalendarEventsCalendarEventDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars/event`,
+        path: `/api/app/calendars/event-to-my-calendar`,
         method: "POST",
         body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCalendars
+     * @name AppCalendarsEventToGroupCalendarCreate
+     * @request POST:/api/app/calendars/event-to-group-calendar
+     * @secure
+     */
+    appCalendarsEventToGroupCalendarCreate: (
+      data: PccServer23CalendarEventsPublicCalendarEventCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23CalendarEventsCalendarEventDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/calendars/event-to-group-calendar`,
+        method: "POST",
+        body: data,
+        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,

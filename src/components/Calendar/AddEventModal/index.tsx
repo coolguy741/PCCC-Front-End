@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 
+import Cookies from "js-cookie";
+import { useAPI } from "../../../hooks/useAPI";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { ButtonRow } from "../../Global/ButtonRow";
 import { AddNoteForm } from "../AddNoteForm";
@@ -41,6 +44,7 @@ export const AddEventModal: React.FC<Props> = ({
   selectedDate,
   close,
 }) => {
+  const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
   const [type, setType] = useState<string>("note");
   const addEvent = useCalendarEventsStore((state) => state.addEvent);
@@ -49,18 +53,28 @@ export const AddEventModal: React.FC<Props> = ({
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
 
-  // const handleAddEvent = (event: CalendarEvent) => {
-  //   addEvent({
-  //     title: event.group,
-  //     start: selectedDate,
-  //     type: eventType?.type,
-  //     description: `${event.curriculum.replaceAll(
-  //       "-",
-  //       " ",
-  //     )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
-  //   });
-  //   handleClose();
-  // };
+  const handleAddEvent = async () => {
+    const response = await api.appCalendarsEventToMyCalendarCreate(
+      {
+        description: "Test description",
+        startDate: "2023-06-05T16:35:50.569Z",
+        endDate: "2023-06-05T18:35:50.569Z",
+        curriculumId: "",
+        topicId: "",
+        activityId: "",
+        groupId: "",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    console.log(response);
+
+    handleClose();
+  };
 
   const handleClose = () => {
     close();
@@ -103,10 +117,15 @@ export const AddEventModal: React.FC<Props> = ({
               isOpen={isOpen}
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
+              handleAddEvent={handleAddEvent}
             />
           )}
           {type === "publish" && (
-            <PublishForm yPos={position.yPos} selectedDate={selectedDate} />
+            <PublishForm
+              yPos={position.yPos}
+              selectedDate={selectedDate}
+              handleAddEvent={handleAddEvent}
+            />
           )}
         </div>
       </div>

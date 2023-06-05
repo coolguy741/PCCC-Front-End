@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import { AddEventModal } from "../../components/Calendar/AddEventModal";
@@ -6,12 +6,10 @@ import { CalendarFilter } from "../../components/Calendar/Filter/Index";
 import { StandardAddEventModal } from "../../components/Calendar/StandardAddEventModal";
 import { Calendar } from "../../components/Global/Calendar";
 import { Typography } from "../../components/Global/Typography";
-import { useCalendarEventsStore } from "../../stores/eventsStore";
 import { useUser } from "../../stores/userStore";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
 export const CalendarPage = () => {
-  const { events, getEvents } = useCalendarEventsStore((state) => state);
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
@@ -21,10 +19,6 @@ export const CalendarPage = () => {
   });
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
-
-  useEffect(() => {
-    getEvents();
-  }, [getEvents]);
 
   // TODO: FullCalendar type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,7 +75,6 @@ export const CalendarPage = () => {
 
         <Style.CalendarContainer>
           <Calendar
-            events={events}
             height="750px"
             dateClick={handleDateClick}
             buttonText={{

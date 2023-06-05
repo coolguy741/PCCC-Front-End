@@ -12,17 +12,15 @@ interface PublishFormProps {
   yPos: string;
   type: string;
   isOpen: boolean;
+  handleAddEvent: () => void;
 }
-
-// interface EventNameObject {
-//   [key: string]: string | undefined;
-// }
 
 export const StandardPublishForm = ({
   selectedDate,
   yPos,
   type,
   isOpen,
+  handleAddEvent,
 }: PublishFormProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -58,7 +56,7 @@ export const StandardPublishForm = ({
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
             />
-            <Button>Add</Button>
+            <Button onClick={handleAddEvent}>Add</Button>
           </div>
         </div>
       </div>

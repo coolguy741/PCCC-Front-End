@@ -1,5 +1,8 @@
+import Cookies from "js-cookie";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { Select } from "../../Global/Select";
 import { AddNoteForm } from "../AddNoteForm";
 import { StandardPublishForm } from "../StandardPublishForm";
@@ -47,26 +50,36 @@ export const StandardAddEventModal: React.FC<Props> = ({
   selectedDate,
   close,
 }) => {
+  const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
   const [type, setType] = useState<string>("");
-  // const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
 
-  // const handleAddEvent = (event: CalendarEvent) => {
-  //   addEvent({
-  //     title: event.group,
-  //     start: selectedDate,
-  //     type: eventType?.type,
-  //     description: `${event.curriculum.replaceAll(
-  //       "-",
-  //       " ",
-  //     )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
-  //   });
-  //   handleClose();
-  // };
+  const handleAddEvent = async () => {
+    const response = await api.appCalendarsEventToMyCalendarCreate(
+      {
+        description: "Test description",
+        startDate: "2023-05-24T10:30:00Z",
+        endDate: "2023-05-24T16:30:00Z",
+        curriculumId: "",
+        topicId: "",
+        activityId: "",
+        groupId: "",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    console.log(response);
+
+    handleClose();
+  };
 
   const handleClose = () => {
     close();
@@ -108,6 +121,7 @@ export const StandardAddEventModal: React.FC<Props> = ({
                 isOpen={isOpen}
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
+                handleAddEvent={handleAddEvent}
               />
             </>
           )}
@@ -121,6 +135,7 @@ export const StandardAddEventModal: React.FC<Props> = ({
                 selectedDate={selectedDate}
                 type={type}
                 isOpen={isOpen}
+                handleAddEvent={handleAddEvent}
               />
             </>
           )}
