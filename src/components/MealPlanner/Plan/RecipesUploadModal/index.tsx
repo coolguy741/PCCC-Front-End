@@ -49,7 +49,6 @@ export const RecipesUploadModal: React.FC<Omit<ModalProps, "children">> = ({
               </div>
               <span className="uploading-progress">100%</span>
             </div>
-            <div className="bar"></div>
           </Style.FileInfo>
           <Icon name="close" />
         </Style.FileStatus>

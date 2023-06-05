@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
 import styled from "styled-components";
+
 import { Icon } from "../../Global/Icon";
 
 interface FileDropzoneProps {
