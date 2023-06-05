@@ -1,6 +1,10 @@
 import { Howl } from "howler";
 
-export type PCCCAudioKeysType = "PCCCTheme" | "InventoryNotification";
+export type PCCCAudioKeysType =
+  | "ClickUp"
+  | "PCCCTheme"
+  | "ClickDown"
+  | "InventoryNotification";
 
 export type PCCCAudioType = {
   [K in PCCCAudioKeysType]: Howl;

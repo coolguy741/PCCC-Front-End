@@ -57,6 +57,7 @@ const useCursorMenuChoiceColliderLogic =
     const handlePickUpItem: ConstantVoidFunctionType = useCallback(() => {
       if (!menuActive) return;
       if (!activeHoveredEntity) return;
+      if (!InspectData[activeHoveredEntity].pickup) return;
 
       const itemType = InspectData[activeHoveredEntity].type;
 

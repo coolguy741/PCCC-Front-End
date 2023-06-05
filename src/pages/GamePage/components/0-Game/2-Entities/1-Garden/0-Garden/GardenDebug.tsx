@@ -41,7 +41,7 @@ const GardenDebug = (props: JSX.IntrinsicElements["group"]) => {
       garden: folder(
         {
           gardenVisible: true,
-          colorMultiplier: { r: 255, b: 255, g: 255 },
+          colorMultiplier: { r: 223, b: 238, g: 255 },
           aoIntensity: {
             value: 1,
             min: 0,
@@ -60,7 +60,7 @@ const GardenDebug = (props: JSX.IntrinsicElements["group"]) => {
       HDR: folder(
         {
           intensity: {
-            value: 1,
+            value: 1.5,
             min: 0,
             max: 5,
             step: 0.0001,

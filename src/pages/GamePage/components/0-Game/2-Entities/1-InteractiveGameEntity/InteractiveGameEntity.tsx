@@ -90,19 +90,21 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   const handlePointerDownEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
-      if (!isCursorDown) return;
+      if (activeGardenHotSpot !== "ToolRack") return;
+      if (isCursorDown) return;
       setIsCursorDown(true);
     },
-    [setIsCursorDown, isCursorDown],
+    [setIsCursorDown, isCursorDown, activeGardenHotSpot],
   );
 
   const handlePointerUpEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
       if (activeGardenHotSpot !== "ToolRack") return;
+      if (!isCursorDown) return;
       setIsCursorDown(false);
     },
-    [setIsCursorDown, activeGardenHotSpot],
+    [setIsCursorDown, isCursorDown, activeGardenHotSpot],
   );
 
   const handleActiveHoveredEntityStateChange = useCallback(() => {

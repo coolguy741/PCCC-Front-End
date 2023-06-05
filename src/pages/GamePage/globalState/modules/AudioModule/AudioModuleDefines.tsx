@@ -6,6 +6,8 @@ const PCCCAudioFadeDuration = 250;
 const PCCCVolumeKeys: PCCCVolumeKeysType = {
   PCCCTheme: 0.5,
   InventoryNotification: 1.5,
+  ClickDown: 1,
+  ClickUp: 1,
 };
 
 const PCCCAudio: PCCCAudioType = {
@@ -17,6 +19,16 @@ const PCCCAudio: PCCCAudioType = {
   InventoryNotification: new Howl({
     src: ["/game_assets/audio/inventory_notification.aac"],
     volume: PCCCVolumeKeys.InventoryNotification,
+    loop: false,
+  }),
+  ClickDown: new Howl({
+    src: ["/game_assets/audio/click_down.aac"],
+    volume: PCCCVolumeKeys.ClickDown,
+    loop: false,
+  }),
+  ClickUp: new Howl({
+    src: ["/game_assets/audio/click_up.aac"],
+    volume: PCCCVolumeKeys.ClickUp,
     loop: false,
   }),
 };

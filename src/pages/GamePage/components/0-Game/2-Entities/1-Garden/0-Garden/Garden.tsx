@@ -20,9 +20,9 @@ const Garden: FC = () => {
   const { enable, intensity, aoIntensity, colorMultiplier } = useControls({
     garden: folder(
       {
-        colorMultiplier: { r: 255, b: 255, g: 255 },
+        colorMultiplier: { r: 223, b: 238, g: 255 },
         aoIntensity: {
-          value: 1,
+          value: 0.75,
           min: 0,
           max: 1.5,
           step: 0.000001,
