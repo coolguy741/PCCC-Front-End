@@ -5,9 +5,19 @@ import { Icon } from "../../Global/Icon";
 
 interface FileDropzoneProps {
   onFilesDropped: (files: FileWithPath[]) => void;
+  className?: string;
+  title?: JSX.Element;
+  description?: JSX.Element;
+  fileType?: Record<string, string[]>;
 }
 
-const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesDropped }) => {
+const FileDropzone: React.FC<FileDropzoneProps> = ({
+  onFilesDropped,
+  title,
+  description,
+  className,
+  fileType,
+}) => {
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
       onFilesDropped(acceptedFiles);
@@ -15,16 +25,21 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesDropped }) => {
     [onFilesDropped],
   );
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: fileType,
+    maxFiles: 1,
+    maxSize: 50000000,
+  });
 
   return (
     <Style.Container {...getRootProps()}>
       <input {...getInputProps()} />
-      <div className="label">
+      <div className={`label ${className ?? ""}`}>
         <Icon name="drop-files-green" />
         <div className="text">
-          <p className="bold">Drop your files</p>
-          <p className="normal">Supports all file formats</p>
+          <p className="bold">{title ?? "Drop your files"}</p>
+          <p className="normal">{description ?? "Supports all file formats"}</p>
         </div>
       </div>
     </Style.Container>

@@ -35,6 +35,9 @@ export const MealPlanGenerator = () => {
   const handleCreate = () => {
     changeStep(2);
   };
+  const handleClose = () => {
+    setIsRecipesModalOpen(false);
+  };
 
   return (
     <Style.Container
@@ -43,7 +46,7 @@ export const MealPlanGenerator = () => {
       exit={{ opacity: 0 }}
       layout
     >
-      {user?.role === "admin" && (
+      {user?.role !== "admin" && (
         <>
           <Tag
             title="Input recipes"
@@ -55,7 +58,7 @@ export const MealPlanGenerator = () => {
           />
           <RecipesUploadModal
             isOpen={isRecipesModalOpen}
-            close={() => setIsRecipesModalOpen(false)}
+            close={handleClose}
             title="Upload Plate Full Planner Recipes"
           />
         </>
