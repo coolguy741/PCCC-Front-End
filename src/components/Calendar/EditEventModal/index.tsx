@@ -62,8 +62,6 @@ export const EditEventModal: React.FC<Props> = ({
       },
     });
 
-    console.log(response);
-
     handleClose();
   };
 

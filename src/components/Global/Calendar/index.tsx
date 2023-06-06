@@ -3,18 +3,17 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import Cookies from "js-cookie";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAPI } from "../../../hooks/useAPI";
+import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { capitalize } from "../../../lib/util/capitalize";
-import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { EditEventModal } from "../../Calendar/EditEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
-  const { api } = useAPI();
-  const { events, addEvent } = useCalendarEventsStore((state) => state);
+  const { events, addEvent, removeEvents } = useCalendarEventsStore(
+    (state) => state,
+  );
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
@@ -63,30 +62,20 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   };
 
   const getEvents = useCallback(async () => {
-    const response = await api.appCalendarsMyCalendarEventsList(
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      },
-    );
+    const _events = await fetchEvents();
 
-    if (response.data.items) {
-      response.data.items.forEach((item) => {
-        if (item.calendarEvent) {
-          addEvent({
-            ...item.calendarEvent,
-            textColor: "#F87C56",
-            backgroundColor: "#FEE5DD",
-            borderColor: "#ff0000",
-            display: "block",
-            title: "Test title",
-            theme: "Test theme",
-            start: item.calendarEvent.startDate || "",
-            end: item.calendarEvent.endDate || "",
-          });
-        }
+    if (_events) {
+      removeEvents();
+
+      _events.forEach((item) => {
+        //@ts-ignore
+        addEvent({
+          ...item.calendarEvent,
+          textColor: "#F87C56",
+          backgroundColor: "#FEE5DD",
+          borderColor: "#ff0000",
+          display: "block",
+        });
       });
     }
   }, []);
@@ -96,7 +85,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   }, [getEvents]);
 
   useEffect(() => {
-    console.log(events);
+    console.log("STORE EVENTS", events);
   }, [events]);
 
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
