@@ -79,6 +79,7 @@ import { LessonAssessmentPage } from "./ReportsPage/LessonAssessment";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
 import { TempHomePage } from "./TempHomePage";
+import { ThemeDemoPage } from "./TempTheme";
 import { TestLandingPage } from "./TestLandingPage";
 import { Topics } from "./TopicBuilderPage";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
@@ -86,6 +87,11 @@ import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
+  {
+    path: "/demo-theme",
+    element: <ThemeDemoPage />,
+    errorElement: <ErrorBoundary />,
+  },
   { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
   { path: "/landing", element: <TestLandingPage /> },
   {
