@@ -13,7 +13,7 @@ export type TagVariants =
   | "label"
   | "p";
 
-export interface BaseTypographyProps {
+export interface BaseTypographyProps extends React.HTMLAttributes<"div"> {
   align?: React.CSSProperties["textAlign"];
   letterSpacing?: React.CSSProperties["letterSpacing"];
   lineHeight?: React.CSSProperties["lineHeight"];

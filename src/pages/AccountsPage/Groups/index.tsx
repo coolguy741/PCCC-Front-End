@@ -7,10 +7,8 @@ import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import Button from "../../../components/Button";
 import { Input } from "../../../components/Global/Input";
 import { ModalContainer } from "../../../components/Global/ModalContainer";
-import {
-  default as Scrollable,
-  default as Scrollbar,
-} from "../../../components/Global/Scrollable";
+import { default as Scrollable } from "../../../components/Global/Scrollable";
+import { Typography } from "../../../components/Typography";
 import {
   PccServer23GroupsCustomGroupUserJoinRequestDto,
   PccServer23GroupsGroupWithNavigationPropertiesDto,
@@ -70,25 +68,33 @@ export const AccountsGroupsPage = () => {
           ))}
         </div>
         <div className="group-invitations-container">
-          <p className="title-text">
+          <Typography
+            color="neutral-800"
+            weight={600}
+            size="2vh"
+            tag="p"
+            mb="1.75vh"
+          >
             {`Group Invitations (${invitations?.length})`}
-          </p>
-          <div className="group-invitations">
-            <Scrollbar>
-              {invitations &&
-                invitations.map((invitation, index) => {
-                  return (
-                    <GroupInvitationCard
-                      key={index}
-                      groupName={invitation.groupName}
-                      userName={invitation.userName}
-                      groupUserId={invitation.groupUserId}
-                      userRole={invitation.userRole}
-                    />
-                  );
-                })}
-            </Scrollbar>
-          </div>
+          </Typography>
+          <Scrollable
+            height="auto"
+            thumbWidth="thin"
+            className="group-invitations"
+          >
+            {invitations &&
+              invitations.map((invitation, index) => {
+                return (
+                  <GroupInvitationCard
+                    key={index}
+                    groupName={invitation.groupName}
+                    userName={invitation.userName}
+                    groupUserId={invitation.groupUserId}
+                    userRole={invitation.userRole}
+                  />
+                );
+              })}
+          </Scrollable>
         </div>
       </Scrollable>
       {visibleModal && (
@@ -147,10 +153,10 @@ const Style = {
 
     .row {
       display: flex;
-      gap: ${convertToRelativeUnit(20, "vw")};
+      position: relative;
 
       .groups-container {
-        width: 100%;
+        width: 78.5%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -160,24 +166,18 @@ const Style = {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 20%;
-        min-width: 22vh;
+        position: fixed;
+        width: 17.5%;
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
         border-radius: 16px;
-        max-height: 50vh;
+        height: 65vh;
+        right: 2.5%;
         padding-top: ${convertToRelativeUnit(16, "vh")};
-        position: sticky;
-
-        .title-text {
-          font-size: ${convertToRelativeUnit(19, "vh")};
-          font-weight: 600;
-          color: var(--neutral-800);
-        }
+        padding-bottom: 40px;
 
         .group-invitations {
-          padding: ${convertToRelativeUnit(22, "vh")};
-          width: 100%;
+          width: 90%;
 
           .bold-big-text {
             font-size: ${convertToRelativeUnit(18, "vh")};
