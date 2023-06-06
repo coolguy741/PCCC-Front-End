@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Scrollable from "../../components/Global/Scrollable";
-import { SearchItem } from "../../components/Search/SearchItem";
 import { Typography } from "../../components/Typography";
 import { capitalize } from "../../lib/util/capitalize";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
@@ -28,22 +27,22 @@ export const SearchPage = () => {
       </Typography>
 
       <Scrollable height="auto" className="content-container">
-        {/* <article className="empty-container">
+        <article className="empty-container">
           <Typography color="neutral-400" size="3.5vh" weight={600} mb="1.5vh">
             No results found
           </Typography>
           <Typography color="neutral-500" size="2vh" mb="7.5vh" weight={500}>
             There's nothing here. Try using different word
           </Typography>
-        </article> */}
+        </article>
+        {/* <SearchItem />
         <SearchItem />
         <SearchItem />
         <SearchItem />
         <SearchItem />
         <SearchItem />
         <SearchItem />
-        <SearchItem />
-        <SearchItem />
+        <SearchItem /> */}
       </Scrollable>
     </Style.Container>
   );
@@ -68,7 +67,7 @@ const Style = {
       align-items: flex-start;
 
       .empty-container {
-        height: 100%;
+        margin-top: 22.5vh;
         width: 100%;
         display: flex;
         flex-direction: column;
