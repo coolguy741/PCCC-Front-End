@@ -26,11 +26,14 @@ export function blueScrollbar(thumbWidth: "thin" | "thick") {
       scrollbar-color: var(--blue-300) rgba(0, 0, 0, 0);
 
       & {
-        -moz-appearance: none; /* Disable default Firefox scrollbar */
+        /* Disable default Firefox scrollbar */
+        -moz-appearance: none;
+        appearance: none;
       }
 
       &::-moz-range-track {
-        border-radius: 100px; /* Border radius for the scrollbar track in Firefox */
+        /* Border radius for the scrollbar track in Firefox */
+        border-radius: 100px;
       }
     }
   `;
