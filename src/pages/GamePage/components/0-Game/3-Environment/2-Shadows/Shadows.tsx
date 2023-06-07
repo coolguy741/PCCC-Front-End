@@ -3,7 +3,7 @@ import { folder, useControls } from "leva";
 import { FC, Fragment, memo } from "react";
 
 const Shadows: FC = () => {
-  const { size, focus, samples, enableSS, enableBS } = useControls({
+  const { size, focus, samples, enableSS } = useControls({
     shadows: folder(
       {
         softShadows: folder(
@@ -30,19 +30,19 @@ const Shadows: FC = () => {
           },
           { collapsed: true },
         ),
-        bakeShadows: folder(
-          {
-            enableBS: false,
-          },
-          { collapsed: true },
-        ),
+        // bakeShadows: folder(
+        //   {
+        //     enableBS: true,
+        //   },
+        //   { collapsed: true },s
+        // ),
       },
       { collapsed: true },
     ),
   });
   return (
     <Fragment>
-      {enableBS && <BakeShadows />}
+      <BakeShadows />
       {enableSS && <SoftShadows samples={samples} focus={focus} size={size} />}
     </Fragment>
   );

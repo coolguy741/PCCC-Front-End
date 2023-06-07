@@ -11,4 +11,6 @@ export interface DevelopmentModuleTypes {
   setPGVideo: (newPGVideo: HTMLVideoElement) => void;
   pgVideoLoaded: boolean;
   setPGVideoLoaded: (pgVideoLoaded: boolean) => void;
+  programBakeShadows: boolean;
+  setProgramBakeShadows: (programBakeShadows: boolean) => void;
 }

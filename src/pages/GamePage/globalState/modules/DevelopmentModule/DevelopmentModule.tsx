@@ -31,6 +31,11 @@ const DevelopmentModule = ({ set, get }: globalStateApiType) => {
     setPGVideoLoaded: (pgVideoLoaded: boolean) => {
       set({ pgVideoLoaded });
     },
+
+    programBakeShadows: false,
+    setProgramBakeShadows: (programBakeShadows: boolean) => {
+      set({ programBakeShadows });
+    },
   };
 };
 

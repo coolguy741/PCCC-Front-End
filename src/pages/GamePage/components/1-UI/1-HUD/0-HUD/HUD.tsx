@@ -8,11 +8,16 @@ import {
   onWindowFocus,
 } from "../1-Cursor/0-Cursor/CursorDefines";
 import ToolTip from "../2-ToolTip/ToolTip";
-import HUDMenuOptionStage from "../3-HUDMenuOption/HUDMenuOptionStage";
-import Inspect from "../4-Inspect/0-inspect/Inspect";
-import Inventory from "../5-Inventory/0-Inventory/Inventory";
+import Eye from "../3-Eye/Eye";
+import HUDMenuOptionStage from "../4-HUDMenuOption/HUDMenuOptionStage";
+import Inspect from "../5-Inspect/0-inspect/Inspect";
+import Inventory from "../6-Inventory/0-Inventory/Inventory";
 
-const HUD: FC = () => {
+interface HUDPropTypes {
+  debug?: boolean;
+}
+
+const HUD: FC<HUDPropTypes> = ({ debug }) => {
   // Global State
   const { isDebugUIVisible } = useGlobalState(
     (state) => ({
@@ -24,15 +29,27 @@ const HUD: FC = () => {
   // Hooks
   useWindowFocusBlur(onWindowFocus, onWindowBlur);
 
-  return !isDebugUIVisible ? (
+  return debug ? (
+    !isDebugUIVisible ? (
+      <Fragment>
+        <Eye />
+        <HUDMenuOptionStage />
+        <Inspect />
+        <Inventory />
+        <Cursor />
+        <ToolTip />
+      </Fragment>
+    ) : null
+  ) : (
     <Fragment>
+      <Eye />
       <HUDMenuOptionStage />
       <Inspect />
       <Inventory />
       <Cursor />
       <ToolTip />
     </Fragment>
-  ) : null;
+  );
 };
 
 export default memo(HUD);

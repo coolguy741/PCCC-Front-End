@@ -28,7 +28,7 @@ const GateDebugOptions: FC = () => {
   });
 
   const handleGateToToolRack = useHotSpotRoute({
-    duration: 6,
+    duration: 7,
     direction: true,
     fov: TOOLRACK_FOV,
     hotspot: "ToolRack",

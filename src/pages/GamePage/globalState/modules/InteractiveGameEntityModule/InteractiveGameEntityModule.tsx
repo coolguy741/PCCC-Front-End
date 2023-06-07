@@ -1,4 +1,5 @@
 import { globalStateApiType } from "../../GlobalStateTypes";
+import { InventoryItemAssetName } from "../InventoryModule/InventoryModuleTypes";
 import {
   CursorMenuOptionTypes,
   InteractiveGameEntityTypes,
@@ -29,6 +30,13 @@ const InteractiveGameEntityModule = ({ set, get }: globalStateApiType) => {
     inspectActive: false,
     setInspectActive: (inspectActive: boolean) => {
       set({ inspectActive });
+    },
+
+    itemToRemoveFromScene: null,
+    setItemToRemoveFromScene: (
+      itemToRemoveFromScene: InventoryItemAssetName | null,
+    ) => {
+      set({ itemToRemoveFromScene });
     },
   };
 };

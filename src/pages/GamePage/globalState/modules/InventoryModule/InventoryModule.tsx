@@ -1,5 +1,5 @@
 import { globalStateApiType } from "../../GlobalStateTypes";
-import { InventoryItemImgName } from "./InventoryModuleTypes";
+import { InventoryItemAssetName } from "./InventoryModuleTypes";
 
 const InventoryModule = ({ set, get }: globalStateApiType) => {
   return {
@@ -34,7 +34,7 @@ const InventoryModule = ({ set, get }: globalStateApiType) => {
 
     // activeInventory: InitInventory,
     activeToolInventory: [],
-    setActiveToolInventory: (newTool: InventoryItemImgName) => {
+    setActiveToolInventory: (newTool: InventoryItemAssetName) => {
       const newItem = { itemName: newTool };
       set((state) => {
         state.activeToolInventory = [...state.activeToolInventory, newItem];
@@ -42,7 +42,7 @@ const InventoryModule = ({ set, get }: globalStateApiType) => {
     },
 
     activeIngredientInventory: [],
-    setActiveIngredientInventory: (newIngredient: InventoryItemImgName) => {
+    setActiveIngredientInventory: (newIngredient: InventoryItemAssetName) => {
       const newItem = { itemName: newIngredient };
       set((state) => {
         state.activeIngredientInventory = [
@@ -53,7 +53,7 @@ const InventoryModule = ({ set, get }: globalStateApiType) => {
     },
 
     activeMiscInventory: [],
-    setActiveMiscInventory: (newMisc: InventoryItemImgName) => {
+    setActiveMiscInventory: (newMisc: InventoryItemAssetName) => {
       const newItem = { itemName: newMisc };
       set((state) => {
         state.activeMiscInventory = [...state.activeMiscInventory, newItem];
