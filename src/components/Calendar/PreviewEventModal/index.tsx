@@ -1,13 +1,8 @@
 import { EventImpl } from "@fullcalendar/core/internal";
-import Cookies from "js-cookie";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { useAPI } from "../../../hooks/useAPI";
-import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
-import { STORAGE_KEY_JWT } from "../../../pages/consts";
-import { useCalendarEventsStore } from "../../../stores/eventsStore";
-import { EditNoteForm } from "../EditNoteForm";
-import { EditPublishForm } from "../EditPublishForm";
+import { formatDate } from "../../../lib/util/formatDate";
+import { getTimeFromDateString } from "../../../lib/util/getTimeFromDateString";
 import { EVENT_NAME_OBJECT } from "../PublishForm";
 
 export interface EventType {
@@ -39,7 +34,7 @@ interface Props {
   selectedEvent: EventImpl;
 }
 
-export const EditEventModal: React.FC<Props> = ({
+export const PreviewEventModal: React.FC<Props> = ({
   isOpen = false,
   isConfirm = false,
   position,
@@ -47,49 +42,11 @@ export const EditEventModal: React.FC<Props> = ({
   selectedEvent,
   close,
 }) => {
-  const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
   const [eventType, setEventType] = useState<EventType | undefined>();
-  const [noteDescription, setNoteDescription] = useState(
-    selectedEvent.extendedProps.description,
-  );
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
-  const { addEvent, removeEvents } = useCalendarEventsStore((state) => state);
-
-  const handleDelete = async () => {
-    const response = await api.appCalendarsEventDelete(selectedEvent.id, {
-      headers: {
-        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-      },
-    });
-
-    if (response.status === 204) {
-      const _events = await fetchEvents();
-
-      if (_events) {
-        removeEvents();
-
-        _events.forEach((item) => {
-          //@ts-ignore
-          addEvent({
-            ...item.calendarEvent,
-            textColor: "#F87C56",
-            backgroundColor: "#FEE5DD",
-            borderColor: "#ff0000",
-            display: "block",
-          });
-        });
-      }
-    }
-
-    handleClose();
-  };
-
-  const handleEdit = () => {
-    console.log("EDIT");
-  };
 
   const handleClose = () => {
     close();
@@ -109,33 +66,39 @@ export const EditEventModal: React.FC<Props> = ({
       <div className="popup-container">
         <div className="popup">
           <div className="header">
-            <h3>Edit {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type]}</h3>
-            <img
-              src="/icons/delete.svg"
-              width="18"
-              alt="delete"
-              onClick={handleDelete}
-            />
+            <h3>
+              {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type] || "Event"}
+            </h3>
           </div>
-          {selectedEvent.extendedProps.type === "note" ? (
-            <EditNoteForm
-              yPos={position.yPos}
-              selectedEvent={selectedEvent}
-              isOpen={isOpen}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-              noteDescription={noteDescription}
-              setNoteDescription={setNoteDescription}
-              handleEdit={handleEdit}
-            />
-          ) : (
-            <EditPublishForm
-              yPos={position.yPos}
-              selectedEvent={selectedEvent}
-              type={selectedEvent.extendedProps.type}
-              handleEdit={handleEdit}
-            />
-          )}
+          <div className="content">
+            <div className="row">
+              <div className="section">
+                <h4>Curriculum</h4>
+                <p>N/A</p>
+              </div>
+              <div className="section">
+                <h4>Topic</h4>
+                <p>Description</p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="section">
+                {selectedEvent.start && selectedEvent.end && (
+                  <>
+                    <h4>{formatDate(selectedEvent.start.toString())}</h4>
+                    <p>
+                      {getTimeFromDateString(selectedEvent.start)} -{" "}
+                      {getTimeFromDateString(selectedEvent.end)}
+                    </p>
+                  </>
+                )}
+              </div>
+              <div className="section">
+                <h4>Title</h4>
+                <p>{selectedEvent.title}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Style.Container>
@@ -202,7 +165,7 @@ const Style = {
 
         .header {
           display: flex;
-          padding: 1.75rem 1.25rem 1.25rem;
+          padding: 1.75rem 1.25rem 0.25rem;
           width: 100%;
           justify-content: space-between;
 
@@ -213,6 +176,26 @@ const Style = {
 
           img {
             cursor: pointer;
+          }
+        }
+
+        .content {
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+
+          .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .section {
+              display: flex;
+              flex-direction: column;
+              gap: 0.75rem;
+              width: 50%;
+            }
           }
         }
 

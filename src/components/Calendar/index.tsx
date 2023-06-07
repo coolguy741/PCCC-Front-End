@@ -5,10 +5,10 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
-import { capitalize } from "../../../lib/util/capitalize";
-import { useCalendarEventsStore } from "../../../stores/eventsStore";
-import { EditEventModal } from "../../Calendar/EditEventModal";
+import { fetchEvents } from "../../lib/api/helpers/fetchEvents";
+import { capitalize } from "../../lib/util/capitalize";
+import { useCalendarEventsStore } from "../../stores/eventsStore";
+import { PreviewEventModal } from "./PreviewEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
   const { events, addEvent, removeEvents } = useCalendarEventsStore(
@@ -16,7 +16,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   );
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState("");
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
@@ -84,10 +84,6 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     getEvents();
   }, [getEvents]);
 
-  useEffect(() => {
-    console.log("STORE EVENTS", events);
-  }, [events]);
-
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (
       <Style.CustomEventTitle>
@@ -136,8 +132,19 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         events={events}
         {...props}
       />
-      {showEventModal && (
+      {/* {showEventModal && (
         <EditEventModal
+          selectedDate={selectedDate}
+          // TODO: non null assertion
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          selectedEvent={selectedEvent!}
+          isOpen={showEventModal}
+          position={position}
+          close={handleClosePopup}
+        />
+      )} */}
+      {showEventModal && (
+        <PreviewEventModal
           selectedDate={selectedDate}
           // TODO: non null assertion
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

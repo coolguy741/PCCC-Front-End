@@ -62,13 +62,9 @@ export const StandardAddEventModal: React.FC<Props> = ({
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
-  const { events, addEvent, removeEvents } = useCalendarEventsStore(
-    (state) => state,
-  );
+  const { addEvent, removeEvents } = useCalendarEventsStore((state) => state);
 
   const handleAddEvent = async () => {
-    console.log(`${selectedDate}T${startTime}`, `${selectedDate}T${endTime}`);
-
     const response = await api.appCalendarsEventToMyCalendarCreate(
       {
         description: description,
@@ -85,8 +81,6 @@ export const StandardAddEventModal: React.FC<Props> = ({
         },
       },
     );
-
-    console.log(response);
 
     if (response.status === 200) {
       const _events = await fetchEvents();

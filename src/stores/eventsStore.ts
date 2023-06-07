@@ -10,10 +10,13 @@ interface MergedEventInput extends EventInput {
 
 export const useCalendarEventsStore = create<{
   events: MergedEventInput[];
-  removeEvents: () => void;
   addEvent: (event: MergedEventInput) => void;
+  removeEvent: (event: MergedEventInput) => void;
+  removeEvents: () => void;
 }>()((set) => ({
   events: [],
-  removeEvents: () => set({ events: [] }),
   addEvent: (event) => set((state) => ({ events: [...state.events, event] })),
+  removeEvent: (event) =>
+    set((state) => ({ events: state.events.filter((e) => e.id !== event.id) })),
+  removeEvents: () => set({ events: [] }),
 }));

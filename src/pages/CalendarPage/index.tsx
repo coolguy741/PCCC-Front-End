@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
+import { Calendar } from "../../components/Calendar";
 import { AddEventModal } from "../../components/Calendar/AddEventModal";
 import { CalendarFilter } from "../../components/Calendar/Filter/Index";
 import { StandardAddEventModal } from "../../components/Calendar/StandardAddEventModal";
-import { Calendar } from "../../components/Global/Calendar";
 import { Typography } from "../../components/Global/Typography";
 import { useUser } from "../../stores/userStore";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
