@@ -7,11 +7,13 @@ import { MealCard } from "../MealPlans/MealCard";
 interface PlateFullPlannerScrollMenuProps {
   mealPlanMenu: MealPlan[];
   rootRef: React.RefObject<HTMLDivElement>;
+  openRecipeModal?: (recipeId: number) => void;
 }
 
 export const PlateFullPlannerScrollMenu = ({
   mealPlanMenu,
   rootRef,
+  openRecipeModal,
 }: PlateFullPlannerScrollMenuProps) => {
   const [imageIndex, setImageIndex] = useState(1);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -94,6 +96,9 @@ export const PlateFullPlannerScrollMenu = ({
                           ref={index === 0 ? imageRef : undefined}
                           key={`image-${index}`}
                           index={index}
+                          onDoubleClick={() => {
+                            openRecipeModal?.(3);
+                          }}
                           active={imageIndex}
                         >
                           <img src={image} alt="fruits" />

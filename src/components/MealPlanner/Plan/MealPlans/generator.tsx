@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { SequenceAnimator } from "react-sequence-animator";
 import styled from "styled-components";
 
 import { WEEK_DAYS } from "../../../../pages/consts";
@@ -17,7 +16,7 @@ import { Tag } from "../Tag";
 
 export const MealPlanGenerator = () => {
   const [isRecipesModalOpen, setIsRecipesModalOpen] = useState(false);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const {
     changeStep,
     dates,
@@ -64,7 +63,7 @@ export const MealPlanGenerator = () => {
         </>
       )}
       <Style.Background>
-        <SequenceAnimator
+        {/* <SequenceAnimator
           loop={false}
           duration={4000}
           onAnimationStop={() => setShow(true)}
@@ -79,11 +78,10 @@ export const MealPlanGenerator = () => {
               key={`book-${index}`}
             />
           ))}
-        </SequenceAnimator>
+        </SequenceAnimator> */}
         <img
           src="/images/plate-full-planner/book-opened.svg"
           alt="opened book"
-          style={{ position: "absolute", top: 0, zIndex: 0, opacity: 0.2 }}
         />
       </Style.Background>
       {show && (

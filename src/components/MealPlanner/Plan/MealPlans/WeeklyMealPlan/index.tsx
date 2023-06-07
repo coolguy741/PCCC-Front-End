@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import {
   Draggable,
   DraggingStyle,
@@ -12,12 +12,12 @@ import { FullMealPlan, MealPlan } from "..";
 import { useMealPlannerStore } from "../../../../../stores/mealPlannerStore";
 import { Icon } from "../../../../Global/Icon";
 import { Typography } from "../../../../Global/Typography";
-import { RecipeModal } from "../../RecipeModal";
 import { MealCard } from "../MealCard";
 
 interface WeeklyMealPlanProps {
   mealPlans: FullMealPlan[];
   onMealRemove: (dayIndex: number, index: number) => void;
+  openRecipeModal?: (recipeId: number) => void;
   selectedMeal?: MealPlan;
   destinationMeal?: MealPlan;
   dragUpdateStatus?: DragUpdate;
@@ -28,13 +28,13 @@ export const WeeklyMealPlan = ({
   onMealRemove,
   dragUpdateStatus,
   selectedMeal,
+  openRecipeModal,
   destinationMeal,
 }: WeeklyMealPlanProps) => {
   const { changeStep } = useMealPlannerStore();
   const handlePrev = () => {
     changeStep(1);
   };
-  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
 
   const isDraggedOver = useCallback(
     (dayIndex: number, index: number) =>
@@ -168,6 +168,7 @@ export const WeeklyMealPlan = ({
                                 onMealRemove={() =>
                                   onMealRemove(dayIndex, index)
                                 }
+                                openRecipeModal={openRecipeModal}
                                 label={null}
                               />
                             </div>
@@ -199,10 +200,6 @@ export const WeeklyMealPlan = ({
         <img src="/images/plate-full-planner/labels/meal-4.svg" alt="meal-4" />
         <img src="/images/plate-full-planner/labels/meal-5.svg" alt="meal-5" />
       </Style.Labels>
-      <RecipeModal
-        isOpen={isRecipeModalOpen}
-        close={() => setIsRecipeModalOpen(false)}
-      />
     </Style.Container>
   );
 };

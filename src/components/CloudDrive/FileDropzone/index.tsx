@@ -7,17 +7,21 @@ import { Icon } from "../../Global/Icon";
 interface FileDropzoneProps {
   onFilesDropped: (files: FileWithPath[]) => void;
   className?: string;
-  title?: JSX.Element;
+  title?: string;
+  trigger?: string;
   description?: JSX.Element;
+  noClick?: boolean;
   fileType?: Record<string, string[]>;
 }
 
 const FileDropzone: React.FC<FileDropzoneProps> = ({
   onFilesDropped,
   title,
+  trigger,
   description,
   className,
   fileType,
+  noClick = false,
 }) => {
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
@@ -26,11 +30,12 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
     [onFilesDropped],
   );
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     onDrop,
     accept: fileType,
     maxFiles: 1,
     maxSize: 50000000,
+    noClick,
   });
 
   return (
@@ -39,7 +44,12 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       <div className={`label ${className ?? ""}`}>
         <Icon name="drop-files-green" />
         <div className="text">
-          <p className="bold">{title ?? "Drop your files"}</p>
+          <div className="bold">
+            {!!trigger && (
+              <Style.Trigger onClick={open}>{trigger}</Style.Trigger>
+            )}
+            {title ?? "Drop your files"}
+          </div>
           <p className="normal">{description ?? "Supports all file formats"}</p>
         </div>
       </div>
@@ -79,7 +89,7 @@ const Style = {
         .bold {
           font-weight: 500;
           font-size: 1.6vh;
-          color: var(--neutral-800);
+          color: var(--neutral-400);
         }
 
         .normal {
@@ -89,6 +99,11 @@ const Style = {
         }
       }
     }
+  `,
+  Trigger: styled.button`
+    color: var(--neutral-400);
+    text-decoration: underline;
+    margin-right: 8px;
   `,
 };
 

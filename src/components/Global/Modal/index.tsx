@@ -10,6 +10,7 @@ export interface ModalProps {
   isOpen: boolean;
   close: () => void;
   title?: string;
+  withoutScroll?: boolean;
   width?: string;
   size?: "md" | "lg" | "xl";
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   width,
   title,
+  withoutScroll,
 }) => {
   return isOpen ? (
     <Style.Container>
@@ -35,7 +37,11 @@ export const Modal: React.FC<ModalProps> = ({
             <Icon name="close" onClick={close} />
           </Style.ModalHeader>
         )}
-        <Scrollbar>{children}</Scrollbar>
+        {withoutScroll ? (
+          <Style.ModalBody>{children}</Style.ModalBody>
+        ) : (
+          <Scrollbar>{children}</Scrollbar>
+        )}
       </Style.Modal>
     </Style.Container>
   ) : null;
@@ -46,7 +52,12 @@ const Style = {
     position: fixed;
     z-index: 400;
     left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
     width: 100%;
+    padding: 20px;
   `,
   Modal: styled.div.attrs(
     (props: { size: "md" | "lg" | "xl"; width: string }) => ({
@@ -75,8 +86,10 @@ const Style = {
     justify-content: space-between;
     flex: 1;
   `,
-  ModalBody: styled.div`
-    overflow-y: auto;
+  ModalBody: styled.section`
+    overflow: hidden;
+    height: 80%;
+    width: 100%;
     flex: auto;
   `,
 };

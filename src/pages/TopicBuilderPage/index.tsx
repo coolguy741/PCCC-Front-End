@@ -1,5 +1,4 @@
-import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
-import mockData from "../../lib/mockData/activities/activities.json";
+import { ContentBuilder } from "../../components/ContentBuilder";
 
 export const Topics = () => {
   const handleSelectionChange = (id: number, isSelected: boolean) => {
@@ -7,11 +6,12 @@ export const Topics = () => {
   };
 
   return (
-    <ContentListAdminPageTemplate
-      title={"Topic"}
-      selectsGroup={["Topic", "Sort"]}
-      listData={mockData.activities}
-      onSelectionChange={handleSelectionChange}
-    />
+    // <ContentListAdminPageTemplate
+    //   title={"Topic"}
+    //   selectsGroup={["Topic", "Sort"]}
+    //   listData={mockData.activities}
+    //   onSelectionChange={handleSelectionChange}
+    // />
+    <ContentBuilder />
   );
 };

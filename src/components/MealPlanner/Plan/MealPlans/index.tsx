@@ -1,12 +1,4 @@
 import { motion } from "framer-motion";
-import styled from "styled-components";
-import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
-import { Icon } from "../../../Global/Icon";
-import { Typography } from "../../../Global/Typography";
-import { PlateFullPlanFilter } from "../Filter";
-import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
-import { PlateFullPlanSearch } from "../Search";
-
 import { useRef, useState } from "react";
 import {
   DragDropContext,
@@ -14,6 +6,16 @@ import {
   OnDragEndResponder,
   OnDragUpdateResponder,
 } from "react-beautiful-dnd";
+import styled from "styled-components";
+
+import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
+import { Icon } from "../../../Global/Icon";
+import { Typography } from "../../../Global/Typography";
+import { PlateFullPlanFilter } from "../Filter";
+import { RecipeModal } from "../RecipeModal";
+import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
+import { PlateFullPlanSearch } from "../Search";
+
 import { Tag } from "../Tag";
 import { mockMealPlanMenu, mockMealPlans } from "./mocks";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
@@ -31,7 +33,9 @@ export interface MealPlan {
 export const MealPlans = () => {
   const { selectedFilters, filters, changeSelectedFilters } =
     useMealPlannerStore();
-
+  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] =
+    useState<number | undefined>();
   const mainContentRef = useRef<HTMLDivElement>(null);
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
   // TODO: unused variable
@@ -39,6 +43,11 @@ export const MealPlans = () => {
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
   const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
   const [destinationMeal, setDestinationMeal] = useState<MealPlan>();
+
+  const openRecipeModal = (recipeId: number) => {
+    setSelectedRecipeId(recipeId);
+    setIsRecipeModalOpen(true);
+  };
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const sourceIndex = result.source.index;
@@ -145,6 +154,7 @@ export const MealPlans = () => {
             <WeeklyMealPlan
               mealPlans={mealPlans}
               onMealRemove={onMealRemove}
+              openRecipeModal={openRecipeModal}
               dragUpdateStatus={dragUpdateStatus}
               selectedMeal={selectedMeal}
               destinationMeal={destinationMeal}
@@ -189,6 +199,7 @@ export const MealPlans = () => {
               <PlateFullPlannerScrollMenu
                 mealPlanMenu={mealPlanMenu}
                 rootRef={mainContentRef}
+                openRecipeModal={openRecipeModal}
               />
             </div>
             <Style.CoffeeStain
@@ -219,6 +230,11 @@ export const MealPlans = () => {
           </Style.Page>
         </DragDropContext>
       </Style.Pages>
+      <RecipeModal
+        isOpen={isRecipeModalOpen}
+        selectedRecipeId={selectedRecipeId}
+        close={() => setIsRecipeModalOpen(false)}
+      />
     </Style.Container>
   );
 };
