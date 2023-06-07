@@ -24,7 +24,7 @@ const InventoryCategoryStyleContainer = styled.div`
     height: 100%;
     .inventory-category-title-spacer {
       width: 0.75vw;
-      height: 2vw;
+      height: 1.75vw;
       margin-right: 0.75vw;
       background-color: var(--inventory-category-highlight-color, #4cde96);
     }
@@ -35,7 +35,7 @@ const InventoryCategoryStyleContainer = styled.div`
       width: 100%;
       font-weight: bold;
       font-size: 1.25vw;
-      line-height: 2vw;
+      line-height: 1.75vw;
       /* background-color: green; */
     }
   }
@@ -51,24 +51,25 @@ const InventoryCategoryStyleContainer = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+
         .item {
           ${UserSelectNone};
           ${MarginPaddingNone};
-          /* touch-action: none; */
-          /* width: 100%; */
           height: 100%;
-          border-radius: 0.5vw;
+          border-radius: 1vw;
           background: radial-gradient(
             50% 50% at 50% 50%,
             rgba(255, 255, 255, 1) 0%,
             rgba(199, 172, 146, 1) 175%,
             rgba(182, 144, 105, 1) 175%
           );
-          border: 2px solid var(--inventory-category-highlight-color, #4cde96);
 
           img {
             width: 100%;
             height: 100%;
+            border-radius: 1vw;
+
+            border: 2px solid var(--inventory-category-highlight-color, #4cde96);
           }
         }
       }

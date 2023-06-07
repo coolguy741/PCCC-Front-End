@@ -44,7 +44,8 @@ export type InventoryItemAssetName =
   | "gardening_gloves"
   | "slotted_screwdriver"
   | "phillips_screwdriver"
-  | "gardening_and_sunglasses";
+  | "gardening_and_sunglasses"
+  | "blank";
 
 export type InventoryKeyValueType = {
   key: string;

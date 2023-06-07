@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { FC, memo, useEffect, useMemo, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../../globalState/useGlobalState";
-import DraggableGrid from "./DraggableGrid";
+import DraggableGrid, { DraggableItemsTypes } from "./DraggableGrid";
 import InventoryCategoryStyleContainer from "./InventoryCategoryStyleContainer";
 
 // Types
@@ -57,6 +57,16 @@ const InventoryCategory: FC<InventoryCategoryPropTypes> = ({
     inventoryCategoryItems.map((item) => ({ id: nanoid(), ...item })),
   );
 
+  const nItems: DraggableItemsTypes[] = useMemo(
+    () => [
+      { id: nanoid(), itemName: "blank" },
+      { id: nanoid(), itemName: "blank" },
+      { id: nanoid(), itemName: "blank" },
+      { id: nanoid(), itemName: "blank" },
+    ],
+    [],
+  );
+
   useEffect(() => {
     setItems(inventoryCategoryItems.map((item) => ({ id: nanoid(), ...item })));
   }, [
@@ -84,12 +94,19 @@ const InventoryCategory: FC<InventoryCategoryPropTypes> = ({
         <div className="inventory-category-title-spacer" />
         <h3 className="inventory-category-title-text">{categoryTitle}</h3>
       </div>
-
-      <DraggableGrid
-        items={items}
-        addItem={handleAdd}
-        removeItem={handleRemove}
-      />
+      {items.length === 0 ? (
+        <DraggableGrid
+          items={nItems}
+          addItem={handleAdd}
+          removeItem={handleRemove}
+        />
+      ) : (
+        <DraggableGrid
+          items={items}
+          addItem={handleAdd}
+          removeItem={handleRemove}
+        />
+      )}
     </InventoryCategoryStyleContainer>
   );
 };

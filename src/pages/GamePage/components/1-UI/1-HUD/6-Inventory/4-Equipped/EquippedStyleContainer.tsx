@@ -7,7 +7,7 @@ const EquippedStyleContainer = styled.div`
   ${UserSelectNone};
   ${MarginPaddingNone};
   width: 9vw;
-  left: -6.5vw;
+  left: -6.75vw;
   margin-bottom: 3.25vw;
   display: flex;
   position: absolute;
@@ -36,13 +36,32 @@ const EquippedStyleContainer = styled.div`
     .equipped-title {
       ${UserSelectNone};
       ${MarginPaddingNone};
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      color: black;
-      font-size: 1.15vw;
-      font-weight: bold;
       margin-top: 1.5vw;
-      text-align: center;
+
+      .equipped-title-spacer {
+        ${UserSelectNone};
+        ${MarginPaddingNone};
+        width: 0.75vw;
+        height: 1.75vw;
+        background-color: #f87c56;
+      }
+
+      .equipped-title-text {
+        ${UserSelectNone};
+        ${MarginPaddingNone};
+        color: black;
+        font-weight: bold;
+        font-size: 1.1vw;
+        line-height: 1.75vw;
+        margin-left: 0.5vw;
+      }
     }
+
     .equipped-items {
       ${UserSelectNone};
       ${MarginPaddingNone};
@@ -57,16 +76,17 @@ const EquippedStyleContainer = styled.div`
       .equipped-item {
         ${UserSelectNone};
         ${MarginPaddingNone};
-        width: 4.25vw;
-      }
+        width: 5vw;
+        background: linear-gradient(0deg, #efe6dc, #efe6dc),
+          radial-gradient(
+            50% 50% at 50% 50%,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(182, 144, 105, 0.2) 100%
+          );
 
-      .equipped-break-line {
-        ${UserSelectNone};
-        ${MarginPaddingNone};
-        width: 30%;
-        height: 0.1vw;
-        opacity: 0.5;
-        background-color: #291700;
+        border: 2.5px solid #f87c56;
+        padding: 0.5vw;
+        border-radius: 1vw;
       }
     }
   }
