@@ -54,10 +54,15 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (optionValue: string) => {
-    setValue(optionValue);
+  const handleOptionClick = (option: string | SelectOption) => {
+    if (typeof option === "string") {
+      setValue(option);
+      onChange(option);
+    } else {
+      option.label && setValue(option.label);
+      onChange(option.value);
+    }
     setIsOpen(false);
-    onChange(optionValue);
   };
 
   const handleFocus = () => {
@@ -118,9 +123,7 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
                 <div
                   key={index}
                   className="option"
-                  onClick={() =>
-                    handleOptionClick(option.label ? option.label : "")
-                  }
+                  onClick={() => handleOptionClick(option ? option : "")}
                 >
                   {option.label ? option.label : ""}
                 </div>
