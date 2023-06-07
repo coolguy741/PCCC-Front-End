@@ -11,7 +11,12 @@ interface GameCanvasPropTypes {
 const GameCanvas: FC<GameCanvasPropTypes> = ({ children }) => {
   return (
     <GameCanvasStyleContainer>
-      <Canvas shadows gl={GLParameters} dpr={devicePixelRatio}>
+      <Canvas
+        shadows
+        frameloop="demand"
+        gl={GLParameters}
+        dpr={devicePixelRatio}
+      >
         <Suspense fallback={null}>{children}</Suspense>
       </Canvas>
     </GameCanvasStyleContainer>

@@ -28,8 +28,9 @@ const useCursorHandLogic: UseCursorHandLogicHookType =
     }, [cursorTexture]);
 
     // Global State
-    const { isCursorDown } = useGlobalState(
+    const { playAudio, isCursorDown } = useGlobalState(
       (state) => ({
+        playAudio: state.playAudio,
         isCursorDown: state.isCursorDown,
       }),
       shallow,
@@ -42,10 +43,12 @@ const useCursorHandLogic: UseCursorHandLogicHookType =
 
         if (isCursorDown) {
           animateCursorHandScaleIn(cursorHandRef.current);
+          playAudio("ClickDown");
         } else {
           animateCursorHandScaleOut(cursorHandRef.current);
+          playAudio("ClickUp");
         }
-      }, [isCursorDown]);
+      }, [playAudio, isCursorDown]);
 
     // Listeners
     useEffect(handleCursorHandScale, [isCursorDown, handleCursorHandScale]);

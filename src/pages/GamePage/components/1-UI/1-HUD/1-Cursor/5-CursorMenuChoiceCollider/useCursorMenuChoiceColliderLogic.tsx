@@ -6,7 +6,7 @@ import {
   RefDivType,
   RefTimeoutType,
 } from "../../../../../shared/Types/RefTypes";
-import { InspectData } from "../../4-Inspect/7-InspectData/INSPECT_DATA";
+import { InspectData } from "../../5-Inspect/7-InspectData/INSPECT_DATA";
 import { UseCursorMenuChoiceColliderLogicReturnTypes } from "./CursorMenuChoiceColliderTypes";
 
 const useCursorMenuChoiceColliderLogic =
@@ -14,6 +14,8 @@ const useCursorMenuChoiceColliderLogic =
     // Refs
     const cursorMenuChoiceColliderRef: RefDivType = useRef(null);
     const cursorMenuChoiceColliderTimeoutRef: RefTimeoutType = useRef(null);
+    const cursorMenuChoiceColliderAudioTimeoutRef: RefTimeoutType =
+      useRef(null);
 
     // Local State
     const [
@@ -23,6 +25,8 @@ const useCursorMenuChoiceColliderLogic =
 
     // Global State
     const {
+      playAudio,
+      PCCCAudio,
       menuActive,
       setMenuActive,
       hoveredSection,
@@ -30,9 +34,12 @@ const useCursorMenuChoiceColliderLogic =
       activeHoveredEntity,
       setActiveMiscInventory,
       setActiveToolInventory,
+      setItemToRemoveFromScene,
       setActiveIngredientInventory,
     } = useGlobalState(
       (state) => ({
+        playAudio: state.playAudio,
+        PCCCAudio: state.PCCCAudio,
         menuActive: state.menuActive,
         setMenuActive: state.setMenuActive,
         hoveredSection: state.hoveredSection,
@@ -40,6 +47,7 @@ const useCursorMenuChoiceColliderLogic =
         activeHoveredEntity: state.activeHoveredEntity,
         setActiveMiscInventory: state.setActiveMiscInventory,
         setActiveToolInventory: state.setActiveToolInventory,
+        setItemToRemoveFromScene: state.setItemToRemoveFromScene,
         setActiveIngredientInventory: state.setActiveIngredientInventory,
       }),
       shallow,
@@ -49,29 +57,44 @@ const useCursorMenuChoiceColliderLogic =
     const handlePickUpItem: ConstantVoidFunctionType = useCallback(() => {
       if (!menuActive) return;
       if (!activeHoveredEntity) return;
+      if (!InspectData[activeHoveredEntity].pickup) return;
 
       const itemType = InspectData[activeHoveredEntity].type;
 
       switch (itemType) {
         case "tool":
-          setActiveToolInventory(InspectData[activeHoveredEntity].imgName);
+          setActiveToolInventory(InspectData[activeHoveredEntity].assetName);
           break;
         case "ingredient":
           setActiveIngredientInventory(
-            InspectData[activeHoveredEntity].imgName,
+            InspectData[activeHoveredEntity].assetName,
           );
           break;
         case "misc":
-          setActiveMiscInventory(InspectData[activeHoveredEntity].imgName);
+          setActiveMiscInventory(InspectData[activeHoveredEntity].assetName);
           break;
         default:
           break;
       }
+      setItemToRemoveFromScene(InspectData[activeHoveredEntity].assetName);
+
+      if (cursorMenuChoiceColliderAudioTimeoutRef.current) {
+        clearTimeout(cursorMenuChoiceColliderAudioTimeoutRef.current);
+      }
+
+      cursorMenuChoiceColliderAudioTimeoutRef.current = setTimeout(() => {
+        if (!PCCCAudio["InventoryNotification"]) return;
+        if (PCCCAudio["InventoryNotification"].playing()) return;
+        playAudio("InventoryNotification");
+      }, 750);
     }, [
+      playAudio,
+      PCCCAudio,
       menuActive,
       activeHoveredEntity,
       setActiveMiscInventory,
       setActiveToolInventory,
+      setItemToRemoveFromScene,
       setActiveIngredientInventory,
     ]);
 
