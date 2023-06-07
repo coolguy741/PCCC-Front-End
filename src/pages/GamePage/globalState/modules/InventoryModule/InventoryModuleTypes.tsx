@@ -24,24 +24,27 @@ type KitchenTools =
   | "EmptyTeaKettle"
   | "MeasuringSpoons";
 
-export type InventoryItemImgName =
+export type InventoryItemAssetName =
   | "hoe"
   | "rake"
   | "shovel"
   | "drawer"
+  | "pitchfork"
   | "wood_glue"
   | "sunglasses"
-  | "pitch_fork"
   | "paint_cans"
   | "wood_scraps"
   | "seed_packets"
   | "gardening_hat"
-  | "blue_straw_hat"
-  | "green_straw_hat"
-  | "yellow_straw_hat"
+  | "red_hat"
+  | "blue_overalls"
+  | "orange_overalls"
+  | "blue_hat"
+  | "green_hat"
   | "gardening_gloves"
-  | "screwdriver_slotted"
-  | "screwdriver_phillips";
+  | "slotted_screwdriver"
+  | "phillips_screwdriver"
+  | "gardening_and_sunglasses";
 
 export type InventoryKeyValueType = {
   key: string;
@@ -63,7 +66,7 @@ export type InventoryObjectType = {
 export type InventoryObjectKey = keyof InventoryObjectType;
 
 export interface InventoryCategoryDataTypes {
-  itemName: InventoryItemImgName;
+  itemName: InventoryItemAssetName;
 }
 
 export interface InventoryModuleTypes {
@@ -71,11 +74,11 @@ export interface InventoryModuleTypes {
   // setUpdateActiveInventory: (keyName: string, newValue: boolean) => void;
 
   activeToolInventory: InventoryCategoryDataTypes[];
-  setActiveToolInventory: (newTool: InventoryItemImgName) => void;
+  setActiveToolInventory: (newTool: InventoryItemAssetName) => void;
 
   activeIngredientInventory: InventoryCategoryDataTypes[];
-  setActiveIngredientInventory: (newIngredient: InventoryItemImgName) => void;
+  setActiveIngredientInventory: (newIngredient: InventoryItemAssetName) => void;
 
   activeMiscInventory: InventoryCategoryDataTypes[];
-  setActiveMiscInventory: (newMisc: InventoryItemImgName) => void;
+  setActiveMiscInventory: (newMisc: InventoryItemAssetName) => void;
 }

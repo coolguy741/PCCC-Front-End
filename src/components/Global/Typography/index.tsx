@@ -122,28 +122,28 @@ const variantVStyles = (variant: TypographyVariant) => {
       `;
     case "h2":
       return css`
-        font-size: 40px;
-        line-height: 48px;
+        font-size: 3.5vh;
+        line-height: 4vh;
       `;
     case "h3":
       return css`
-        font-size: 33px;
-        line-height: 40px;
+        font-size: 3vh;
+        line-height: 3.5vh;
       `;
     case "h4":
       return css`
-        font-size: 28px;
-        line-height: 32px;
+        font-size: 2.5vh;
+        line-height: 3vh;
       `;
     case "h5":
       return css`
-        font-size: 23px;
-        line-height: 28px;
+        font-size: 1.9vh;
+        line-height: 2.3vh;
       `;
     case "h6":
       return css`
-        font-size: 19px;
-        line-height: 24px;
+        font-size: 1.8vh;
+        line-height: 2vh;
       `;
     case "paragraph1":
       return css`

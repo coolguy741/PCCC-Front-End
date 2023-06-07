@@ -1,4 +1,5 @@
 import { AchievementModuleTypes } from "./modules/AchievementModule/AchievementModuleTypes";
+import { AudioModuleTypes } from "./modules/AudioModule/AudioModuleTypes";
 import { CameraModuleTypes } from "./modules/CameraModule.tsx/CameraModuleTypes";
 import { DevelopmentModuleTypes } from "./modules/DevelopmentModule/DevelopmentModuleTypes";
 import { InteractiveGameEntityModuleTypes } from "./modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
@@ -10,6 +11,7 @@ export interface GlobalStateTypes
   extends UIModuleTypes,
     LocationModuleTypes,
     CameraModuleTypes,
+    AudioModuleTypes,
     InventoryModuleTypes,
     DevelopmentModuleTypes,
     AchievementModuleTypes,

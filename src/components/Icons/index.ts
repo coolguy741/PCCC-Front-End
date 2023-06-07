@@ -13,6 +13,7 @@ import OrangeBG from "./OrangeBG/orangeBG";
 import PCCRed from "./PCCRed/pccRed";
 import PFKLogo from "./PFKLogo/PFKLogo";
 import Search from "./Search/search";
+import YellowFruitBG from "./YellowFruitBG/yellowFruitBG";
 
 export {
   PFKLogo,
@@ -30,4 +31,5 @@ export {
   AltGrapeBG,
   Search,
   Account,
+  YellowFruitBG,
 };
