@@ -4,7 +4,10 @@ import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23GroupsCustomGroupUserJoinRequestDto } from "../../../lib/api/api";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
+import { Group } from "../../Icons";
+import { Typography } from "../../Typography";
 
 export const GroupInvitationCard = (
   group: PccServer23GroupsCustomGroupUserJoinRequestDto,
@@ -48,24 +51,28 @@ export const GroupInvitationCard = (
 
   return (
     <Style.Container>
-      <div className="invitation-container">
-        <div>
-          <img
-            src="/images/icons/group.svg"
-            width="20"
-            alt={"group name:" + group.groupName}
-          />
-          <p className="bold-big-text">{group.groupName}</p>
-        </div>
-        <p className="text">Creator: {group.userName}</p>
-        <div className="status-container">
-          <Button size="small" variant="yellow" onClick={acceptHandler}>
-            Accept
-          </Button>
-          <Button size="small" onClick={denyHandler}>
-            Deny
-          </Button>
-          {/* {group.status === "Accepted" && (
+      <Typography
+        color="neutral-600"
+        size={convertToRelativeUnit(18, "vh")}
+        weight={500}
+      >
+        <Group /> Group: {group.groupName}
+      </Typography>
+      <Typography
+        color="neutral-600"
+        size={convertToRelativeUnit(16, "vh")}
+        mb="3vh"
+      >
+        Creator: {group.userName ?? "dummy-text"}
+      </Typography>
+      <div className="status-container">
+        <Button size="small" variant="yellow" onClick={acceptHandler}>
+          Accept
+        </Button>
+        <Button size="small" onClick={denyHandler}>
+          Decline
+        </Button>
+        {/* {group.status === "Accepted" && (
             <>
               <p className="bold-text">Accepted</p>
             </>
@@ -75,7 +82,6 @@ export const GroupInvitationCard = (
               <p className="bold-text">Denied</p>
             </>
           )} */}
-        </div>
       </div>
     </Style.Container>
   );
@@ -83,54 +89,29 @@ export const GroupInvitationCard = (
 
 const Style = {
   Container: styled.div`
-    border-bottom: 1px solid var(--neutral-200);
-
-    .invitation-container {
-      margin: 20px 0;
+    padding: 2.5vh 0.5vh;
+    border-bottom: 1px solid #d9d9d9;
+    p {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      color: var(--neutral-600);
+      align-items: center;
 
-      div {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-
-        .bold-big-text {
-          padding: 0px;
-          margin: 0px;
-          font-size: 1.1rem;
-          font-weight: 500;
-        }
-
-        .text {
-          padding: 0px;
-          margin: 0px;
-          font-size: 1 rem;
-          font-weight: 400;
-        }
+      svg {
+        margin-right: ${convertToRelativeUnit(8, "vw")};
       }
+    }
 
-      .status-container {
-        display: flex;
-        color: var(--neutral-800);
-        justify-content: space-between;
+    .status-container {
+      display: flex;
+      justify-content: space-between;
+    }
 
-        .bold-text {
-          display: flex;
-          width: 100%;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.2rem;
-          font-weight: 700;
-        }
+    &:first-of-type {
+      padding-top: 0;
+      padding-bottom: 2.5vh;
+    }
 
-        p {
-          padding: 0px;
-          margin: 0px;
-        }
-      }
+    &:last-of-type {
+      border-bottom: unset;
     }
   `,
 };
