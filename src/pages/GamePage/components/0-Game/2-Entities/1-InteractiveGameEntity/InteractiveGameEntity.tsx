@@ -1,24 +1,29 @@
 import { ThreeEvent } from "@react-three/fiber";
-import { FC, memo, useCallback, useEffect } from "react";
-import { BufferGeometry, Skeleton } from "three";
+import { FC, Fragment, memo, useCallback, useEffect } from "react";
+import { Bone, BufferGeometry, Skeleton } from "three";
 import { shallow } from "zustand/shallow";
 import { InteractiveGameEntityTypes } from "../../../../globalState/modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
+import { InspectData } from "../../../1-UI/1-HUD/5-Inspect/7-InspectData/INSPECT_DATA";
+import { animateInteractiveGameEntityOut } from "./InteractiveGameEntitiyAnimations";
 import { InteractiveGameEntityMaterial } from "./InteractiveGameEntityDefines";
 
 interface InteractiveGameEntityPropTypes {
+  bone: Bone;
   skeleton: Skeleton;
   geometry: BufferGeometry;
   name: InteractiveGameEntityTypes;
 }
 
 const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
+  bone,
   name,
   skeleton,
   geometry,
 }) => {
   // Global State
   const {
+    activeGardenHotSpot,
     menuActive,
     isCursorDown,
     setMenuActive,
@@ -26,9 +31,12 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     isHoveringEntity,
     activeHoveredEntity,
     setIsHoveringEntity,
+    itemToRemoveFromScene,
     setActiveHoveredEntity,
+    setItemToRemoveFromScene,
   } = useGlobalState(
     (state) => ({
+      activeGardenHotSpot: state.activeGardenHotSpot,
       menuActive: state.menuActive,
       isCursorDown: state.isCursorDown,
       setMenuActive: state.setMenuActive,
@@ -36,7 +44,9 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
       isHoveringEntity: state.isHoveringEntity,
       activeHoveredEntity: state.activeHoveredEntity,
       setIsHoveringEntity: state.setIsHoveringEntity,
+      itemToRemoveFromScene: state.itemToRemoveFromScene,
       setActiveHoveredEntity: state.setActiveHoveredEntity,
+      setItemToRemoveFromScene: state.setItemToRemoveFromScene,
     }),
     shallow,
   );
@@ -60,6 +70,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
       if (menuActive) return;
+      if (activeGardenHotSpot !== "ToolRack") return;
       if (name === activeHoveredEntity) {
         setIsHoveringEntity(true);
       } else {
@@ -69,6 +80,7 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
     [
       name,
       menuActive,
+      activeGardenHotSpot,
       setIsHoveringEntity,
       activeHoveredEntity,
       setActiveHoveredEntity,
@@ -78,17 +90,19 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   const handlePointerDownEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
+      if (!isCursorDown) return;
       setIsCursorDown(true);
     },
-    [setIsCursorDown],
+    [setIsCursorDown, isCursorDown],
   );
 
   const handlePointerUpEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
+      if (activeGardenHotSpot !== "ToolRack") return;
       setIsCursorDown(false);
     },
-    [setIsCursorDown],
+    [setIsCursorDown, activeGardenHotSpot],
   );
 
   const handleActiveHoveredEntityStateChange = useCallback(() => {
@@ -100,32 +114,47 @@ const InteractiveGameEntity: FC<InteractiveGameEntityPropTypes> = ({
   const handleOnClickEvent = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation();
+      if (activeGardenHotSpot !== "ToolRack") return;
       if (menuActive) return;
       setMenuActive(true);
     },
-    [setMenuActive, menuActive],
+    [setMenuActive, menuActive, activeGardenHotSpot],
   );
 
+  const handleRemoveItemFromScene = useCallback(() => {
+    if (!itemToRemoveFromScene) return;
+    if (InspectData[name].assetName !== itemToRemoveFromScene) return;
+    animateInteractiveGameEntityOut(bone);
+    setItemToRemoveFromScene(null);
+  }, [name, bone, itemToRemoveFromScene, setItemToRemoveFromScene]);
+
   // Listeners
+  useEffect(handleRemoveItemFromScene, [
+    itemToRemoveFromScene,
+    handleRemoveItemFromScene,
+  ]);
+
   useEffect(handleActiveHoveredEntityStateChange, [
     activeHoveredEntity,
     handleActiveHoveredEntityStateChange,
   ]);
 
   return (
-    <skinnedMesh
-      name={name}
-      visible={false}
-      userData={{ name }}
-      geometry={geometry}
-      skeleton={skeleton}
-      onClick={handleOnClickEvent}
-      onPointerUp={handlePointerUpEvent}
-      onPointerDown={handlePointerDownEvent}
-      onPointerLeave={handlePointerLeaveEvent}
-      onPointerEnter={handlePointerEnterEvent}
-      material={InteractiveGameEntityMaterial}
-    />
+    <Fragment>
+      <primitive object={bone} />
+      <skinnedMesh
+        name={name}
+        visible={false}
+        geometry={geometry}
+        skeleton={skeleton}
+        onClick={handleOnClickEvent}
+        onPointerUp={handlePointerUpEvent}
+        onPointerDown={handlePointerDownEvent}
+        onPointerLeave={handlePointerLeaveEvent}
+        onPointerEnter={handlePointerEnterEvent}
+        material={InteractiveGameEntityMaterial}
+      />
+    </Fragment>
   );
 };
 

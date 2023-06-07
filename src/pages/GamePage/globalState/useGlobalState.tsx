@@ -4,6 +4,7 @@ import create from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { GetState, GlobalStateTypes, SetState } from "./GlobalStateTypes";
 import { AchievementModule } from "./modules/AchievementModule/AchievementModule";
+import { AudioModule } from "./modules/AudioModule/AudioModule";
 import { CameraModule } from "./modules/CameraModule.tsx/CameraModule";
 import { DevelopmentModule } from "./modules/DevelopmentModule/DevelopmentModule";
 import { InteractiveGameEntityModule } from "./modules/InteractiveGameEntityModule/InteractiveGameEntityModule";
@@ -16,6 +17,7 @@ const storeModules = (
   get: GetState<GlobalStateTypes>,
 ) => ({
   ...UIModule({ set, get }),
+  ...AudioModule({ set, get }),
   ...CameraModule({ set, get }),
   ...LocationModule({ set, get }),
   ...InventoryModule({ set, get }),

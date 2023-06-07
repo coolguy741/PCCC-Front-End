@@ -4,7 +4,7 @@ import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import {
   InspectActionTypes,
   InspectData,
-} from "../../../4-Inspect/7-InspectData/INSPECT_DATA";
+} from "../../../5-Inspect/7-InspectData/INSPECT_DATA";
 import CursorMenuOption from "../0-CursorMenuOption/CursorMenuOption";
 import {
   dynamicBoundingRectVector,
