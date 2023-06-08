@@ -3,15 +3,20 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { capitalize } from "../../../lib/util/capitalize";
-import { EditEventModal } from "../../Calendar/EditEventModal";
+import { fetchEvents } from "../../lib/api/helpers/fetchEvents";
+import { capitalize } from "../../lib/util/capitalize";
+import { useCalendarEventsStore } from "../../stores/eventsStore";
+import { PreviewEventModal } from "./PreviewEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
+  const { events, addEvent, removeEvents } = useCalendarEventsStore(
+    (state) => state,
+  );
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState("");
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
@@ -56,6 +61,29 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     setShowEventModal(false);
   };
 
+  const getEvents = useCallback(async () => {
+    const _events = await fetchEvents();
+
+    if (_events) {
+      removeEvents();
+
+      _events.forEach((item) => {
+        //@ts-ignore
+        addEvent({
+          ...item.calendarEvent,
+          textColor: "#F87C56",
+          backgroundColor: "#FEE5DD",
+          borderColor: "#ff0000",
+          display: "block",
+        });
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    getEvents();
+  }, [getEvents]);
+
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (
       <Style.CustomEventTitle>
@@ -84,7 +112,6 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         }}
         buttonIcons={{ prev: "chevron-left", next: "chevron-right" }}
         buttonText={{ today: "Today" }}
-        {...props}
         longPressDelay={1000}
         eventLongPressDelay={1000}
         selectLongPressDelay={1000}
@@ -102,9 +129,22 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         height="100%"
         expandRows={true}
         moreLinkClick="week"
+        events={events}
+        {...props}
       />
-      {showEventModal && (
+      {/* {showEventModal && (
         <EditEventModal
+          selectedDate={selectedDate}
+          // TODO: non null assertion
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          selectedEvent={selectedEvent!}
+          isOpen={showEventModal}
+          position={position}
+          close={handleClosePopup}
+        />
+      )} */}
+      {showEventModal && (
+        <PreviewEventModal
           selectedDate={selectedDate}
           // TODO: non null assertion
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -12,12 +12,14 @@ interface EditPublishFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedEvent: any;
   type: string;
+  handleEdit: () => void;
 }
 
 export const EditPublishForm = ({
   yPos,
   selectedEvent,
   type,
+  handleEdit,
 }: EditPublishFormProps) => {
   return (
     <Style.Container>

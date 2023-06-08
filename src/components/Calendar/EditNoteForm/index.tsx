@@ -17,6 +17,7 @@ interface AddNoteFormProps {
   // TODO: FullCalendar type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedEvent: any;
+  handleEdit: () => void;
 }
 
 export const EditNoteForm = ({
@@ -27,6 +28,7 @@ export const EditNoteForm = ({
   noteDescription,
   setNoteDescription,
   selectedEvent,
+  handleEdit,
 }: AddNoteFormProps) => {
   return (
     <Style.Container>

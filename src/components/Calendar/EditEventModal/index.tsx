@@ -1,6 +1,11 @@
 import { EventImpl } from "@fullcalendar/core/internal";
+import Cookies from "js-cookie";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { EditNoteForm } from "../EditNoteForm";
 import { EditPublishForm } from "../EditPublishForm";
 import { EVENT_NAME_OBJECT } from "../PublishForm";
@@ -42,10 +47,8 @@ export const EditEventModal: React.FC<Props> = ({
   selectedEvent,
   close,
 }) => {
+  const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
-  // TODO: type is never used.
-  // const [type, setType] = useState<string>("note");
-  // const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const [noteDescription, setNoteDescription] = useState(
     selectedEvent.extendedProps.description,
@@ -53,24 +56,44 @@ export const EditEventModal: React.FC<Props> = ({
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
+  const { addEvent, removeEvents } = useCalendarEventsStore((state) => state);
 
-  // const handleAddEvent = (event: CalendarEvent) => {
-  //   addEvent({
-  //     title: event.group,
-  //     start: selectedDate,
-  //     type: eventType?.type,
-  //     description: `${event.curriculum.replaceAll(
-  //       "-",
-  //       " ",
-  //     )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
-  //   });
-  //   handleClose();
-  // };
+  const handleDelete = async () => {
+    const response = await api.appCalendarsEventDelete(selectedEvent.id, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+      },
+    });
+
+    if (response.status === 204) {
+      const _events = await fetchEvents();
+
+      if (_events) {
+        removeEvents();
+
+        _events.forEach((item) => {
+          //@ts-ignore
+          addEvent({
+            ...item.calendarEvent,
+            textColor: "#F87C56",
+            backgroundColor: "#FEE5DD",
+            borderColor: "#ff0000",
+            display: "block",
+          });
+        });
+      }
+    }
+
+    handleClose();
+  };
+
+  const handleEdit = () => {
+    console.log("EDIT");
+  };
 
   const handleClose = () => {
     close();
     setEventType(undefined);
-    // setType("note");
   };
 
   return (
@@ -87,7 +110,12 @@ export const EditEventModal: React.FC<Props> = ({
         <div className="popup">
           <div className="header">
             <h3>Edit {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type]}</h3>
-            <img src="/icons/delete.svg" width="18" alt="delete" />
+            <img
+              src="/icons/delete.svg"
+              width="18"
+              alt="delete"
+              onClick={handleDelete}
+            />
           </div>
           {selectedEvent.extendedProps.type === "note" ? (
             <EditNoteForm
@@ -98,12 +126,14 @@ export const EditEventModal: React.FC<Props> = ({
               setModalOpen={setModalOpen}
               noteDescription={noteDescription}
               setNoteDescription={setNoteDescription}
+              handleEdit={handleEdit}
             />
           ) : (
             <EditPublishForm
               yPos={position.yPos}
               selectedEvent={selectedEvent}
               type={selectedEvent.extendedProps.type}
+              handleEdit={handleEdit}
             />
           )}
         </div>

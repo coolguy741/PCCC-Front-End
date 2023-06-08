@@ -107,7 +107,8 @@ export const SignUpForm = () => {
 
   useEffect(() => {
     getUsernames();
-  }, [getUsernames]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const submitHandler = ({
     name,

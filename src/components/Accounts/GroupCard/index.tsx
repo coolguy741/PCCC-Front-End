@@ -87,7 +87,7 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
             Owner: {data?.owner?.username} {"(" + data?.owner?.role + ")"}
           </p>
         </div>
-        <div className="row">
+        <div className="card-row">
           <div className="buttons-group">
             <button onClick={handleDelete}>
               <img src="/images/icons/delete.svg" alt="delete" />
@@ -151,7 +151,7 @@ const Style = {
       }
     }
 
-    .row {
+    .card-row {
       display: flex;
       justify-content: flex-end;
 
