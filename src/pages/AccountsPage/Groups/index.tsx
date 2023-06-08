@@ -171,7 +171,7 @@ const Style = {
         background: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
         border-radius: 16px;
-        height: 65vh;
+        max-height: 62vh;
         right: 2.5%;
         padding-top: ${convertToRelativeUnit(16, "vh")};
         padding-bottom: 40px;
