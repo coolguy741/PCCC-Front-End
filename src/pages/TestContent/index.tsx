@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { ThemeComponent } from "../../components/ContentCreation/Theme";
+import { Title } from "../../components/ContentCreation/Title";
 
 export const TestContentPage = () => {
   return (
     <Style.PageContainer>
       <div className="cc-components"></div>
       <div className="cc-preview">
-        <ThemeComponent />
+        {/* <ThemeComponent /> */}
+        <Title />
       </div>
     </Style.PageContainer>
   );
