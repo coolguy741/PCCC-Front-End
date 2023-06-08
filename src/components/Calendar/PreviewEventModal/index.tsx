@@ -1,13 +1,9 @@
+import { EventImpl } from "@fullcalendar/core/internal";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-
-import Cookies from "js-cookie";
-import { useAPI } from "../../../hooks/useAPI";
-import { STORAGE_KEY_JWT } from "../../../pages/consts";
-import { useCalendarEventsStore } from "../../../stores/eventsStore";
-import { ButtonRow } from "../../Global/ButtonRow";
-import { AddNoteForm } from "../AddNoteForm";
-import { PublishForm } from "../PublishForm";
+import { formatDate } from "../../../lib/util/formatDate";
+import { getTimeFromDateString } from "../../../lib/util/getTimeFromDateString";
+import { EVENT_NAME_OBJECT } from "../PublishForm";
 
 export interface EventType {
   type: string;
@@ -35,51 +31,26 @@ interface Props {
   close: () => void;
   isConfirm?: boolean;
   selectedDate?: string;
+  selectedEvent: EventImpl;
 }
 
-export const AddEventModal: React.FC<Props> = ({
+export const PreviewEventModal: React.FC<Props> = ({
   isOpen = false,
   isConfirm = false,
   position,
   selectedDate,
+  selectedEvent,
   close,
 }) => {
-  const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
-  const [type, setType] = useState<string>("note");
-  const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
 
-  const handleAddEvent = async () => {
-    const response = await api.appCalendarsEventToMyCalendarCreate(
-      {
-        description: "Test description",
-        startDate: "2023-06-05T16:35:50.569Z",
-        endDate: "2023-06-05T18:35:50.569Z",
-        curriculumId: "",
-        topicId: "",
-        activityId: "",
-        groupId: "",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      },
-    );
-
-    console.log(response);
-
-    handleClose();
-  };
-
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType("note");
   };
 
   return (
@@ -94,39 +65,40 @@ export const AddEventModal: React.FC<Props> = ({
       <div className="popup-background" onClick={handleClose}></div>
       <div className="popup-container">
         <div className="popup">
-          <div className="btn-container">
-            <ButtonRow>
-              <button
-                className={type === "note" ? "active" : ""}
-                onClick={() => setType("note")}
-              >
-                Add note
-              </button>
-              <button
-                className={type === "publish" ? "active" : ""}
-                onClick={() => setType("publish")}
-              >
-                Publish
-              </button>
-            </ButtonRow>
+          <div className="header">
+            <h3>
+              {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type] || "Event"}
+            </h3>
           </div>
-          {type === "note" && (
-            <AddNoteForm
-              yPos={position.yPos}
-              selectedDate={selectedDate}
-              isOpen={isOpen}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-              handleAddEvent={handleAddEvent}
-            />
-          )}
-          {type === "publish" && (
-            <PublishForm
-              yPos={position.yPos}
-              selectedDate={selectedDate}
-              handleAddEvent={handleAddEvent}
-            />
-          )}
+          <div className="content">
+            <div className="row">
+              <div className="section">
+                <h4>Curriculum</h4>
+                <p>N/A</p>
+              </div>
+              <div className="section">
+                <h4>Topic</h4>
+                <p>Description</p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="section">
+                {selectedEvent.start && selectedEvent.end && (
+                  <>
+                    <h4>{formatDate(selectedEvent.start.toString())}</h4>
+                    <p>
+                      {getTimeFromDateString(selectedEvent.start)} -{" "}
+                      {getTimeFromDateString(selectedEvent.end)}
+                    </p>
+                  </>
+                )}
+              </div>
+              <div className="section">
+                <h4>Title</h4>
+                <p>{selectedEvent.title}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Style.Container>
@@ -191,11 +163,40 @@ const Style = {
         display: flex;
         flex-direction: column;
 
-        .btn-container {
+        .header {
           display: flex;
-          gap: 1rem;
+          padding: 1.75rem 1.25rem 0.25rem;
+          width: 100%;
+          justify-content: space-between;
+
+          h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+          }
+
+          img {
+            cursor: pointer;
+          }
+        }
+
+        .content {
           padding: 1.25rem;
-          border-bottom: 1px solid var(--neutral-100);
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+
+          .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .section {
+              display: flex;
+              flex-direction: column;
+              gap: 0.75rem;
+              width: 50%;
+            }
+          }
         }
 
         &:before {

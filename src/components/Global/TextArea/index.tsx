@@ -1,9 +1,8 @@
-import { ChangeEventHandler } from "react";
 import styled from "styled-components";
 
 interface TextAreaProps {
   placeholder?: string;
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value?: string;
 }
 
