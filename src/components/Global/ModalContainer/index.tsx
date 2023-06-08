@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 interface ModalContainerProps {
   close?: () => void;
+  children?: React.ReactNode;
 }
 
-export const ModalContainer = ({ close }: ModalContainerProps) => {
-  return <Style.Container onClick={close}></Style.Container>;
+export const ModalContainer = ({ close, children }: ModalContainerProps) => {
+  return <Style.Container onClick={close}>{children}</Style.Container>;
 };
 
 const Style = {
