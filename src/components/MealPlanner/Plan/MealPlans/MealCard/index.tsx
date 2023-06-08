@@ -69,10 +69,8 @@ const Style = {
   Container: styled.section.attrs(({ fixed }: { fixed: boolean }) => ({
     fixed: fixed ?? false,
   }))`
-    padding: 5% 0;
     overflow: hidden;
     height: 100%;
-    min-height: 105px;
     width: ${({ fixed }) => (fixed ? "90px" : "100%")};
   `,
   Card: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({

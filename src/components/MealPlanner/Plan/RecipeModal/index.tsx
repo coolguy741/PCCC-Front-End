@@ -3,6 +3,7 @@ import Button from "../../../Button";
 
 import { Icon } from "../../../Global/Icon";
 import { Modal, ModalProps } from "../../../Global/Modal";
+import Scrollable from "../../../Global/Scrollable";
 import { Typography } from "../../../Global/Typography";
 
 export const RecipeModal: React.FC<
@@ -47,68 +48,198 @@ export const RecipeModal: React.FC<
         <Style.RecipeInfo>
           <Style.IngredientsContainer>
             <label>Ingredients</label>
-            <Style.Ingredients>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-              <li>value="Chocolate granola bites" readOnly</li>
-            </Style.Ingredients>
+            <Scrollable>
+              <Style.Ingredients>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    2 cups
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Quick oats
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1/3 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Coconut flakes
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Creamy not butter of your choice
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    2 cups
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Ground flaxseed
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Chocolate chips
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Chocolate chips
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Chocolate chips
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Chocolate chips
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Chocolate chips
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Chocolate chips
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="h6" as="h6" weight="medium">
+                    1 cup
+                  </Typography>
+                  <Typography variant="paragraph3" as="span">
+                    Chocolate chips
+                  </Typography>
+                </div>
+              </Style.Ingredients>
+            </Scrollable>
           </Style.IngredientsContainer>
-          <div>
+          <Style.DirectionsContainer>
             <label>Directions</label>
-            <ul>
-              <li>
-                Combine all the ingredients together in a large bowl mix until
-                well combined.
-              </li>
-              <li>Refrigerate for about 30 minutes</li>
-              <li>
-                Scoop out a tablespoon portion of mixture, roll each portion in
-                the palm of your hands and place each ball into a resealable
-                container for storage.Bites should be refrigerated to maintain
-                shape or frozen for long term storage.Bites should be
-                refrigerated to maintain shape or frozen for long term storage.
-              </li>
-              <li>
-                Bites should be refrigerated to maintain shape or frozen for
-                long term storage.
-              </li>
-            </ul>
-          </div>
+            <Scrollable>
+              <Style.Directions>
+                <ol>
+                  <li>
+                    Combine all the ingredients together in a large bowl mix
+                    until well combined.
+                  </li>
+                  <li>Refrigerate for about 30 minutes</li>
+                  <li>
+                    Scoop out a tablespoon portion of mixture, roll each portion
+                    in the palm of your hands and place each ball into a
+                    resealable container for storage.Bites should be
+                    refrigerated to maintain shape or frozen for long term
+                    storage.Bites should be refrigerated to maintain shape or
+                    frozen for long term storage.
+                  </li>
+                  <li>
+                    Bites should be refrigerated to maintain shape or frozen for
+                    long term storage.
+                  </li>
+                  <li>
+                    Combine all the ingredients together in a large bowl mix
+                    until well combined.
+                  </li>
+                  <li>Refrigerate for about 30 minutes</li>
+                  <li>
+                    Scoop out a tablespoon portion of mixture, roll each portion
+                    in the palm of your hands and place each ball into a
+                    resealable container for storage.Bites should be
+                    refrigerated to maintain shape or frozen for long term
+                    storage.Bites should be refrigerated to maintain shape or
+                    frozen for long term storage.
+                  </li>
+                  <li>
+                    Bites should be refrigerated to maintain shape or frozen for
+                    long term storage.
+                  </li>
+                  <li>
+                    Combine all the ingredients together in a large bowl mix
+                    until well combined.
+                  </li>
+                  <li>Refrigerate for about 30 minutes</li>
+                  <li>
+                    Scoop out a tablespoon portion of mixture, roll each portion
+                    in the palm of your hands and place each ball into a
+                    resealable container for storage.Bites should be
+                    refrigerated to maintain shape or frozen for long term
+                    storage.Bites should be refrigerated to maintain shape or
+                    frozen for long term storage.
+                  </li>
+                  <li>
+                    Bites should be refrigerated to maintain shape or frozen for
+                    long term storage.
+                  </li>
+                  <li>
+                    Combine all the ingredients together in a large bowl mix
+                    until well combined.
+                  </li>
+                  <li>Refrigerate for about 30 minutes</li>
+                  <li>
+                    Scoop out a tablespoon portion of mixture, roll each portion
+                    in the palm of your hands and place each ball into a
+                    resealable container for storage.Bites should be
+                    refrigerated to maintain shape or frozen for long term
+                    storage.Bites should be refrigerated to maintain shape or
+                    frozen for long term storage.
+                  </li>
+                  <li>
+                    Bites should be refrigerated to maintain shape or frozen for
+                    long term storage.
+                  </li>
+                  <li>
+                    Combine all the ingredients together in a large bowl mix
+                    until well combined.
+                  </li>
+                  <li>Refrigerate for about 30 minutes</li>
+                  <li>
+                    Scoop out a tablespoon portion of mixture, roll each portion
+                    in the palm of your hands and place each ball into a
+                    resealable container for storage.Bites should be
+                    refrigerated to maintain shape or frozen for long term
+                    storage.Bites should be refrigerated to maintain shape or
+                    frozen for long term storage.
+                  </li>
+                  <li>
+                    Bites should be refrigerated to maintain shape or frozen for
+                    long term storage.
+                  </li>
+                </ol>
+              </Style.Directions>
+            </Scrollable>
+          </Style.DirectionsContainer>
         </Style.RecipeInfo>
       </Style.Container>
-      <Button variant="orange">Print</Button>
+      <div className="flex justify-end">
+        <Button variant="orange">Print</Button>
+      </div>
     </Modal>
   );
 };
@@ -116,6 +247,8 @@ export const RecipeModal: React.FC<
 const Style = {
   Container: styled.section`
     display: flex;
+    height: 50%;
+    overflow: hidden;
     & > section {
       width: 50%;
       padding: 16px;
@@ -136,7 +269,7 @@ const Style = {
     .detail-content {
       display: flex;
       align-items: center;
-      background: #ffffff;
+      background: #ffffff50;
       border-radius: 0.5rem;
       height: 6vh;
       padding: 0 2vh;
@@ -162,9 +295,14 @@ const Style = {
   `,
   RecipeInfo: styled.section`
     display: flex;
-    max-height: 722px;
     flex-direction: column;
     overflow: hidden;
+    gap: 5%;
+
+    .directions {
+      overflow: auto;
+      height: 65%;
+    }
   `,
   Header: styled.header`
     display: flex;
@@ -178,9 +316,67 @@ const Style = {
     overflow: hidden;
     height: 35%;
     display: flex;
+    flex-direction: column;
+    label {
+      color: var(--neutral-500);
+      font-size: 1.5vh;
+      margin-bottom: 1vh;
+    }
+
+    & > section {
+      background: #ffffff50;
+      border-radius: 0.5rem;
+      padding: 5%;
+    }
   `,
-  Ingredients: styled.ul`
-    overflow-y: auto;
-    flex: auto;
+  DirectionsContainer: styled.div`
+    overflow: hidden;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    label {
+      color: var(--neutral-500);
+      font-size: 1.5vh;
+      margin-bottom: 1vh;
+    }
+
+    & > section {
+      background: #ffffff50;
+      border-radius: 0.5rem;
+      padding: 5%;
+    }
+  `,
+  Directions: styled.div`
+    width: 100%;
+    row-gap: 15%;
+    column-gap: 5%;
+    padding: 0 5%;
+    ol {
+      list-style: decimals;
+      li {
+        padding: 1%;
+        &:before {
+          content: counter(list-item) " ";
+          left: -10%;
+        }
+      }
+    }
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+    }
+  `,
+  Ingredients: styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 15%;
+    column-gap: 5%;
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+    }
   `,
 };

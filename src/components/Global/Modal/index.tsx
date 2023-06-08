@@ -88,8 +88,8 @@ const Style = {
   `,
   ModalBody: styled.section`
     overflow: hidden;
-    height: 80%;
     width: 100%;
-    flex: auto;
+    display: flex;
+    flex-direction: column;
   `,
 };
