@@ -16,7 +16,7 @@ export interface TagProps {
 export const Tag: React.FC<TagProps> = ({ title, ...props }) => {
   return (
     <Style.Container {...props}>
-      <Typography variant="paragraph3" weight="semi-bold" color="white">
+      <Typography variant="paragraph3" as="p" weight="semi-bold" color="white">
         {title}
       </Typography>
     </Style.Container>

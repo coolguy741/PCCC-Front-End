@@ -125,6 +125,10 @@ input {
   margin-top: 1rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .justify-end {
   justify-content: flex-end;
 }
@@ -156,6 +160,11 @@ input {
 textarea {
   vertical-align: top;
 }
+
+.items-end {
+  align-items: flex-end;
+}
+
 .items-center {
   align-items: center;
 }

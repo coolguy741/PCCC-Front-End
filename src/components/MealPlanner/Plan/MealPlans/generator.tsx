@@ -1,16 +1,22 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import styled from "styled-components";
 
 import { WEEK_DAYS } from "../../../../pages/consts";
 import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
+import { useUserStore } from "../../../../stores/userStore";
 import Button from "../../../Button";
 import { Checkbox } from "../../../Global/Checkbox";
 import { Typography } from "../../../Global/Typography";
 import { DatePicker } from "../DatePicker";
 import { PlateFullPlanFilter } from "../Filter";
 import { BookPicker } from "../Picker";
+import { RecipesUploadModal } from "../RecipesUploadModal";
+import { Tag } from "../Tag";
 
 export const MealPlanGenerator = () => {
+  const [isRecipesModalOpen, setIsRecipesModalOpen] = useState(false);
+  const [show, setShow] = useState(true);
   const {
     changeStep,
     dates,
@@ -23,9 +29,13 @@ export const MealPlanGenerator = () => {
     changeMealsPerDay,
     changeSelectedFilters,
   } = useMealPlannerStore();
+  const user = useUserStore((state) => state.user);
 
   const handleCreate = () => {
     changeStep(2);
+  };
+  const handleClose = () => {
+    setIsRecipesModalOpen(false);
   };
 
   return (
@@ -35,129 +45,168 @@ export const MealPlanGenerator = () => {
       exit={{ opacity: 0 }}
       layout
     >
+      {user?.role !== "admin" && (
+        <>
+          <Tag
+            title="Input recipes"
+            top="0"
+            right="0"
+            translateX="-100%"
+            translateY="-15%"
+            onClick={() => setIsRecipesModalOpen(true)}
+          />
+          <RecipesUploadModal
+            isOpen={isRecipesModalOpen}
+            close={handleClose}
+            title="Upload Plate Full Planner Recipes"
+          />
+        </>
+      )}
       <Style.Background>
+        {/* <SequenceAnimator
+          loop={false}
+          duration={4000}
+          onAnimationStop={() => setShow(true)}
+        >
+          {Array.from({ length: 60 }).map((value, index) => (
+            <img
+              src={`/images/book/sh1000_v04.${String(index).padStart(
+                4,
+                "0",
+              )}.webp`}
+              alt="book animation"
+              key={`book-${index}`}
+            />
+          ))}
+        </SequenceAnimator> */}
         <img
           src="/images/plate-full-planner/book-opened.svg"
           alt="opened book"
         />
       </Style.Background>
-      <Style.Pages>
-        <Style.Page>
-          <Style.MealPlanLabel>
-            <div className="label-container">
-              <Typography
-                variant="h5"
-                as="h5"
-                color="book-400"
-                weight="semi-bold"
-              >
-                Lettuce help you build a meal plan
-              </Typography>
-            </div>
-            <img
-              src="/images/plate-full-planner/label.svg"
-              alt="meal planner label"
-            />
-          </Style.MealPlanLabel>
-          <Style.Corner bottom="-1%" left="-1%" angle="270deg" />
-          <Style.Corner bottom="-1%" right="-1%" angle="180deg" />
-          <Style.LemonSticker>
-            <img
-              src="/images/plate-full-planner/lemon-sticker.svg"
-              alt="lemon sticker"
-            />
-          </Style.LemonSticker>
-          <Style.SmallScribble
-            src="/images/plate-full-planner/scribble-small.svg"
-            alt="small scribble on paper"
-          />
-          <div className="filter-container">
-            <DatePicker
-              data-testid="dates"
-              dates={dates}
-              label="Dates"
-              setDates={changeDates}
-              placeholder="17.05.2023 - 21.05.2023"
-            />
-            <BookPicker
-              data-testid="day"
-              label="Meals per day"
-              placeholder="4"
-              number={mealsPerDay}
-              setNumber={changeMealsPerDay}
-            />
-            <PlateFullPlanFilter
-              filters={filters}
-              selectedFilters={selectedFilters}
-              setFilters={changeSelectedFilters}
-            />
-            <BookPicker
-              label="For how many"
-              placeholder="5"
-              number={childrenCount}
-              setNumber={changeChildrenCount}
-            />
-          </div>
-        </Style.Page>
-        <Style.Page>
-          <Style.Corner top="-1%" left="-1%" />
-          <Style.Corner top="-1%" right="-1%" angle="90deg" />
-          <img
-            src="/images/plate-full-planner/omate-line.svg"
-            alt="omate line"
-            className="omate-line"
-          />
-          <Style.CoffeeStain
-            src="/images/plate-full-planner/coffee-stain.svg"
-            alt="coffee stainer on paper"
-          />
-          <Style.Arrow
-            src="/images/plate-full-planner/arrows.svg"
-            alt="arrows on paper"
-          />
-          <Style.Scribble
-            src="/images/plate-full-planner/scribble-large.svg"
-            alt="large scribble on paper"
-          />
-          <div className="week-container">
-            <Typography variant="paragraph3" color="book-300" weight="medium">
-              Days of the week
-            </Typography>
-
-            <Style.AppleSticker>
-              <img
-                src="/images/plate-full-planner/apple-sticker.svg"
-                alt="apple sticker"
-                className="apple-sticker"
-              />
-            </Style.AppleSticker>
-            <Style.Paper>
-              <img
-                src="/images/plate-full-planner/paper.svg"
-                alt="week paper"
-              />
-              <div className="week-group">
-                {WEEK_DAYS.map((day) => {
-                  return (
-                    <Style.Checkbox key={day}>
-                      <Checkbox colorOption="book" sizeOption="small" />
-                      <label>{day}</label>
-                    </Style.Checkbox>
-                  );
-                })}
+      {show && (
+        <Style.Pages
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <Style.Page>
+            <Style.MealPlanLabel>
+              <div className="label-container">
+                <Typography
+                  variant="h5"
+                  as="h5"
+                  color="book-400"
+                  weight="semi-bold"
+                >
+                  Lettuce help you build a meal plan
+                </Typography>
               </div>
-            </Style.Paper>
-          </div>
-          <Button
-            icon="next"
-            iconPosition="right"
-            className="btn-create"
-            onClick={handleCreate}
-          >
-            Create Plan
-          </Button>
-        </Style.Page>
-      </Style.Pages>
+              <img
+                src="/images/plate-full-planner/label.svg"
+                alt="meal planner label"
+              />
+            </Style.MealPlanLabel>
+            <Style.Corner bottom="-1%" left="-1%" angle="270deg" />
+            <Style.Corner bottom="-1%" right="-1%" angle="180deg" />
+            <Style.LemonSticker>
+              <img
+                src="/images/plate-full-planner/lemon-sticker.svg"
+                alt="lemon sticker"
+              />
+            </Style.LemonSticker>
+            <Style.SmallScribble
+              src="/images/plate-full-planner/scribble-small.svg"
+              alt="small scribble on paper"
+            />
+            <div className="filter-container">
+              <DatePicker
+                data-testid="dates"
+                dates={dates}
+                label="Dates"
+                setDates={changeDates}
+                placeholder="17.05.2023 - 21.05.2023"
+              />
+              <BookPicker
+                data-testid="day"
+                label="Meals per day"
+                placeholder="4"
+                number={mealsPerDay}
+                setNumber={changeMealsPerDay}
+              />
+              <PlateFullPlanFilter
+                filters={filters}
+                selectedFilters={selectedFilters}
+                setFilters={changeSelectedFilters}
+              />
+              <BookPicker
+                label="For how many"
+                placeholder="5"
+                number={childrenCount}
+                setNumber={changeChildrenCount}
+              />
+            </div>
+          </Style.Page>
+          <Style.Page>
+            <Style.Corner top="-1%" left="-1%" />
+            <Style.Corner top="-1%" right="-1%" angle="90deg" />
+            <img
+              src="/images/plate-full-planner/omate-line.svg"
+              alt="omate line"
+              className="omate-line"
+            />
+            <Style.CoffeeStain
+              src="/images/plate-full-planner/coffee-stain.svg"
+              alt="coffee stainer on paper"
+            />
+            <Style.Arrow
+              src="/images/plate-full-planner/arrows.svg"
+              alt="arrows on paper"
+            />
+            <Style.Scribble
+              src="/images/plate-full-planner/scribble-large.svg"
+              alt="large scribble on paper"
+            />
+            <div className="week-container">
+              <Typography variant="paragraph3" color="book-300" weight="medium">
+                Days of the week
+              </Typography>
+
+              <Style.AppleSticker>
+                <img
+                  src="/images/plate-full-planner/apple-sticker.svg"
+                  alt="apple sticker"
+                  className="apple-sticker"
+                />
+              </Style.AppleSticker>
+              <Style.Paper>
+                <img
+                  src="/images/plate-full-planner/paper.svg"
+                  alt="week paper"
+                />
+                <div className="week-group">
+                  {WEEK_DAYS.map((day) => {
+                    return (
+                      <Style.Checkbox key={day}>
+                        <Checkbox colorOption="book" sizeOption="small" />
+                        <label>{day}</label>
+                      </Style.Checkbox>
+                    );
+                  })}
+                </div>
+              </Style.Paper>
+            </div>
+            <Button
+              icon="next"
+              iconPosition="right"
+              className="btn-create"
+              onClick={handleCreate}
+            >
+              Create Plan
+            </Button>
+          </Style.Page>
+        </Style.Pages>
+      )}
     </Style.Container>
   );
 };
@@ -180,7 +229,7 @@ const Style = {
       width: 100%;
     }
   `,
-  Pages: styled.section`
+  Pages: styled(motion.section)`
     display: grid;
     top: 0;
     left: 0;
