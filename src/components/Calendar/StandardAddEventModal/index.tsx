@@ -68,9 +68,6 @@ export const StandardAddEventModal: React.FC<Props> = ({
     const response = await api.appCalendarsEventToMyCalendarCreate(
       {
         description: description,
-        curriculumId: "",
-        topicId: "",
-        activityId: "",
         groupId: "",
         startDate: `${selectedDate}T${startTime}`,
         endDate: `${selectedDate}T${endTime}`,

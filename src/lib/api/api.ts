@@ -155,12 +155,16 @@ export interface PccServer23CalendarEventsCalendarEventDto {
 
 /** @format int32 */
 export enum PccServer23CalendarEventsCalendarEventType {
-  Value0 = 0,
-  Value1 = 1,
-  Value2 = 2,
-  Value3 = 3,
-  Value4 = 4,
-  Value5 = 5,
+  None = None,
+  Note = Note,
+  Activity = Activity,
+  Recipe = Recipe,
+  Assessment = Assessment,
+  MealtimeMoment = MealtimeMoment,
+  Foodway = Foodway,
+  EducatorNote = EducatorNote,
+  Topic = Topic,
+  DailyDiscovery = DailyDiscovery,
 }
 
 export interface PccServer23CalendarEventsCalendarEventUpdateDto {
@@ -198,13 +202,10 @@ export interface PccServer23CalendarEventsPublicCalendarEventCreateDto {
   /** @format date-time */
   endDate?: string | null;
   /** @format uuid */
-  curriculumId?: string | null;
-  /** @format uuid */
-  topicId?: string | null;
-  /** @format uuid */
-  activityId?: string | null;
-  /** @format uuid */
   groupId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+  /** @format uuid */
+  eventId?: string | null;
 }
 
 export interface PccServer23CalendarEventsPublicCalendarEventDto {
@@ -223,6 +224,21 @@ export interface PccServer23CalendarEventsPublicCalendarEventDto {
   topicId?: string | null;
   /** @format uuid */
   activityId?: string | null;
+}
+
+export interface PccServer23CalendarEventsPublicCalendarEventUpdateDto {
+  /** @format uuid */
+  id?: string;
+  description?: string | null;
+  /** @format date-time */
+  startDate?: string | null;
+  /** @format date-time */
+  endDate?: string | null;
+  /** @format uuid */
+  groupId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+  /** @format uuid */
+  eventId?: string | null;
 }
 
 export interface PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto {
@@ -775,8 +791,8 @@ export interface PccServer23RecipeMediasRecipeMediaDto {
 
 /** @format int32 */
 export enum PccServer23RecipeMediasRecipeMediaType {
-  Value0 = 0,
-  Value1 = 1,
+  Image = Image,
+  Video = Video,
 }
 
 export interface PccServer23RecipeMediasRecipeMediaUpdateDto {
@@ -917,9 +933,9 @@ export interface PccServer23SecurityQuestionChoicesSecurityQuestionChoiceDto {
 
 /** @format int32 */
 export enum PccServer23SecurityQuestionChoicesSecurityQuestionChoiceType {
-  Value1 = 1,
-  Value2 = 2,
-  Value3 = 3,
+  First = First,
+  Second = Second,
+  Third = Third,
 }
 
 export interface PccServer23SecurityQuestionChoicesSecurityQuestionChoiceUpdateDto {
@@ -1048,8 +1064,8 @@ export interface PccServer23UsernameChoicesUsernameChoiceDto {
 
 /** @format int32 */
 export enum PccServer23UsernameChoicesUsernameChoiceType {
-  Value1 = 1,
-  Value2 = 2,
+  First = First,
+  Second = Second,
 }
 
 export interface PccServer23UsernameChoicesUsernameChoiceUpdateDto {
@@ -1581,6 +1597,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         StartDate?: string;
         /** @format date-time */
         EndDate?: string;
+        FilterGroupIds?: string[];
+        FilterEventTypes?: PccServer23CalendarEventsCalendarEventType[];
         Sorting?: string;
         /**
          * @format int32
@@ -1627,6 +1645,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         StartDate?: string;
         /** @format date-time */
         EndDate?: string;
+        FilterGroupIds?: string[];
+        FilterEventType?: PccServer23CalendarEventsCalendarEventType[];
         Sorting?: string;
         /**
          * @format int32
@@ -1714,6 +1734,28 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         secure: true,
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCalendars
+     * @name AppCalendarsEventUpdate
+     * @summary Update an existing calendar event
+     * @request PUT:/api/app/calendars/event
+     * @secure
+     */
+    appCalendarsEventUpdate: (
+      data: PccServer23CalendarEventsPublicCalendarEventUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/calendars/event`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         ...params,
       }),
 
@@ -2241,13 +2283,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/app/recipe-medias
      * @secure
      */
-    appRecipeMediasCreate: (data: PccServer23RecipeMediasRecipeMediaCreateDto, params: RequestParams = {}) =>
+    appRecipeMediasCreate: (
+      data: {
+        /** @format binary */
+        file?: File;
+      },
+      query?: {
+        mediaType?: PccServer23RecipeMediasRecipeMediaType;
+        /** @format uuid */
+        recipeId?: string;
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<PccServer23RecipeMediasRecipeMediaDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/recipe-medias`,
         method: "POST",
+        query: query,
         body: data,
         secure: true,
-        type: ContentType.Json,
+        type: ContentType.FormData,
         format: "json",
         ...params,
       }),
@@ -2543,40 +2597,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/username-choices/username-choices`,
         method: "GET",
         format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Import
-     * @name AppTestImportDoWorkCreate
-     * @request POST:/api/app/test-import/do-work
-     */
-    appTestImportDoWorkCreate: (params: RequestParams = {}) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/test-import/do-work`,
-        method: "POST",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Import
-     * @name AppTestImportTryParseQuantityCreate
-     * @request POST:/api/app/test-import/try-parse-quantity
-     */
-    appTestImportTryParseQuantityCreate: (
-      query?: {
-        data?: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/test-import/try-parse-quantity`,
-        method: "POST",
-        query: query,
         ...params,
       }),
 

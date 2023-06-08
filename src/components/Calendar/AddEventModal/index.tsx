@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Cookies from "js-cookie";
 import { useAPI } from "../../../hooks/useAPI";
+import { PccServer23CalendarEventsCalendarEventType } from "../../../lib/api/api";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { ButtonRow } from "../../Global/ButtonRow";
@@ -46,7 +47,8 @@ export const AddEventModal: React.FC<Props> = ({
 }) => {
   const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
-  const [type, setType] = useState<string>("note");
+  const [type, setType] =
+    useState<PccServer23CalendarEventsCalendarEventType | undefined>();
   const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
@@ -59,10 +61,8 @@ export const AddEventModal: React.FC<Props> = ({
         description: "Test description",
         startDate: "2023-06-05T16:35:50.569Z",
         endDate: "2023-06-05T18:35:50.569Z",
-        curriculumId: "",
-        topicId: "",
-        activityId: "",
         groupId: "",
+        eventType: type,
       },
       {
         headers: {
@@ -71,15 +71,13 @@ export const AddEventModal: React.FC<Props> = ({
       },
     );
 
-    console.log(response);
-
     handleClose();
   };
 
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType("note");
+    setType("Note");
   };
 
   return (

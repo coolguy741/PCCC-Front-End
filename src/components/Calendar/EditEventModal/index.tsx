@@ -6,8 +6,7 @@ import { useAPI } from "../../../hooks/useAPI";
 import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
-import { EditNoteForm } from "../EditNoteForm";
-import { EditPublishForm } from "../EditPublishForm";
+import { convertTimeToSelectFormat, EditNoteForm } from "../EditNoteForm";
 import { EVENT_NAME_OBJECT } from "../PublishForm";
 
 export interface EventType {
@@ -49,6 +48,12 @@ export const EditEventModal: React.FC<Props> = ({
 }) => {
   const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
+  const [startTime, setStartTime] = useState(
+    convertTimeToSelectFormat(selectedEvent.start?.toString()),
+  );
+  const [endTime, setEndTime] = useState(
+    convertTimeToSelectFormat(selectedEvent.end?.toString()),
+  );
   const [eventType, setEventType] = useState<EventType | undefined>();
   const [noteDescription, setNoteDescription] = useState(
     selectedEvent.extendedProps.description,
@@ -87,8 +92,41 @@ export const EditEventModal: React.FC<Props> = ({
     handleClose();
   };
 
-  const handleEdit = () => {
-    console.log("EDIT");
+  const handleEdit = async () => {
+    const response = await api.appCalendarsEventUpdate(
+      {
+        id: selectedEvent.id,
+        description: noteDescription,
+        startDate: `${selectedDate}T${startTime}:00`,
+        endDate: `${selectedDate}T${endTime}:00`,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 204) {
+      const _events = await fetchEvents();
+
+      if (_events) {
+        removeEvents();
+
+        _events.forEach((item) => {
+          //@ts-ignore
+          addEvent({
+            ...item.calendarEvent,
+            textColor: "#F87C56",
+            backgroundColor: "#FEE5DD",
+            borderColor: "#ff0000",
+            display: "block",
+          });
+        });
+      }
+    }
+
+    handleClose();
   };
 
   const handleClose = () => {
@@ -117,25 +155,29 @@ export const EditEventModal: React.FC<Props> = ({
               onClick={handleDelete}
             />
           </div>
-          {selectedEvent.extendedProps.type === "note" ? (
-            <EditNoteForm
-              yPos={position.yPos}
-              selectedEvent={selectedEvent}
-              isOpen={isOpen}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-              noteDescription={noteDescription}
-              setNoteDescription={setNoteDescription}
-              handleEdit={handleEdit}
-            />
-          ) : (
+          {/* {selectedEvent.extendedProps.type === "note" ? ( */}
+          <EditNoteForm
+            yPos={position.yPos}
+            selectedEvent={selectedEvent}
+            isOpen={isOpen}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            noteDescription={noteDescription}
+            setNoteDescription={setNoteDescription}
+            handleEdit={handleEdit}
+            startTime={startTime}
+            setStartTime={setStartTime}
+            endTime={endTime}
+            setEndTime={setEndTime}
+          />
+          {/* ) : (
             <EditPublishForm
               yPos={position.yPos}
               selectedEvent={selectedEvent}
               type={selectedEvent.extendedProps.type}
               handleEdit={handleEdit}
             />
-          )}
+          )} */}
         </div>
       </div>
     </Style.Container>
