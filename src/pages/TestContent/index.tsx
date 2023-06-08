@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Title } from "../../components/ContentCreation/Title";
+import { ParagraphWithHeading } from "../../components/ContentCreation/ParagraphWithHeading";
 
 export const TestContentPage = () => {
   return (
@@ -7,7 +7,8 @@ export const TestContentPage = () => {
       <div className="cc-components"></div>
       <div className="cc-preview">
         {/* <ThemeComponent /> */}
-        <Title />
+        {/* <Title /> */}
+        <ParagraphWithHeading />
       </div>
     </Style.PageContainer>
   );
