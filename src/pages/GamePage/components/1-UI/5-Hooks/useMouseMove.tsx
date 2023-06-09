@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from "react";
+import { MouseEventFunctionType } from "../../../shared/Types/DefineTypes";
 
-const useMouseMove = (callback: (event: MouseEvent) => void) => {
+const useMouseMove = (callback: MouseEventFunctionType) => {
   // Handlers
   const handleMouseMoveCallback = useCallback(callback, [callback]);
 

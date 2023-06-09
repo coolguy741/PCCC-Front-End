@@ -21,7 +21,6 @@ const CursorMenuOption: FC<CursorMenuOptionPropTypes> = ({
   // Hooks
   const { cursorMenuOptionRef, cursorMenuOptionMeasureRef } =
     useCursorMenuOptionLogic({
-      type,
       animOffset,
       hoverTrigger,
       offsetFactor,

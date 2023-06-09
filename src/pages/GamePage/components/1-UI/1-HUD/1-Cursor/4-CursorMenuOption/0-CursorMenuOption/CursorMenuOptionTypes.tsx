@@ -1,7 +1,10 @@
 import { Vector2 } from "three";
 import { CursorMenuOptionTypes } from "../../../../../../globalState/modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
 import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
-import { RefDivType } from "../../../../../../shared/Types/RefTypes";
+import {
+  RefDivType,
+  RefMeaseureType,
+} from "../../../../../../shared/Types/RefTypes";
 import { InspectActionTypes } from "../../../5-Inspect/7-InspectData/INSPECT_DATA";
 import { MenuOptionStyleObjectType } from "./CursorMenuOptionDefines";
 
@@ -23,7 +26,6 @@ export interface CursorMenuOptionPropTypes {
 
 // Component Logic
 export interface UseCursorMenuOptionLogicPropTypes {
-  type: CursorMenuOptionTypes;
   animOffset: number;
   hoverTrigger: boolean;
   offsetFactor: Vector2;
@@ -38,9 +40,7 @@ export type UseCursorMenuOptionLogicReturnTypes = (
   props: UseCursorMenuOptionLogicPropTypes,
 ) => {
   cursorMenuOptionRef: RefDivType;
-  cursorMenuOptionMeasureRef: (
-    element: HTMLElement | SVGElement | null,
-  ) => void;
+  cursorMenuOptionMeasureRef: RefMeaseureType;
 };
 
 // Animations

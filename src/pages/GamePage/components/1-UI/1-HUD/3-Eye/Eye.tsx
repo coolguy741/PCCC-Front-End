@@ -3,6 +3,7 @@ import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
 import { POWER_1_INOUT } from "../../../../shared/Eases/Eases";
+import { ConstantVoidFunctionType } from "../../../../shared/Types/DefineTypes";
 import { RefDivType } from "../../../../shared/Types/RefTypes";
 import { useHotSpotRoute } from "../../../0-Game/4-Hooks/useHotSpotRoute";
 import { GARDENVIEW_FOV } from "../../../0-Game/5-Constants/0-Garden/GARDEN_FOV";
@@ -102,7 +103,7 @@ const Eye: FC = () => {
     lookAt: GARDENVIEW_LOOKAT_POSITION,
   });
 
-  const hideEye = useCallback(() => {
+  const hideEye: ConstantVoidFunctionType = useCallback((): void => {
     if (!eyeRef.current) return;
     setEyeDisabled(true);
     gsap.to(eyeRef.current, {
@@ -111,9 +112,9 @@ const Eye: FC = () => {
       ease: POWER_1_INOUT,
       overwrite: true,
     });
-  }, []);
+  }, [setEyeDisabled]);
 
-  const showEye = useCallback(() => {
+  const showEye: ConstantVoidFunctionType = useCallback((): void => {
     if (!eyeRef.current) return;
     gsap.to(eyeRef.current, {
       opacity: 1,
@@ -125,81 +126,84 @@ const Eye: FC = () => {
         setEyeDisabled(false);
       },
     });
-  }, []);
+  }, [setEyeDisabled]);
 
-  const handleGardenHotSpotTriggers = useCallback(() => {
-    switch (activeGardenHotSpot) {
-      case "ToolRack":
-        handleToolRackToGardenView.handleRouteTransistion();
-        break;
-      case "GardenHose":
-        handleGardenHoseToGardenView.handleRouteTransistion();
-        break;
-      case "SoilCorner":
-        handleSoilCornerToGardenView.handleRouteTransistion();
-        break;
-      case "PlantBox":
-        handlePlantBoxToGardenView.handleRouteTransistion();
-        break;
-      case "BigTree":
-        handleBigTreeToGardenView.handleRouteTransistion();
-        break;
-      default:
-        break;
-    }
-    hideEye();
-  }, [
-    hideEye,
-    activeGardenHotSpot,
-    handleBigTreeToGardenView,
-    handlePlantBoxToGardenView,
-    handleToolRackToGardenView,
-    handleGardenHoseToGardenView,
-    handleSoilCornerToGardenView,
-  ]);
+  const handleGardenHotSpotTriggers: ConstantVoidFunctionType =
+    useCallback((): void => {
+      switch (activeGardenHotSpot) {
+        case "ToolRack":
+          handleToolRackToGardenView.handleRouteTransistion();
+          break;
+        case "GardenHose":
+          handleGardenHoseToGardenView.handleRouteTransistion();
+          break;
+        case "SoilCorner":
+          handleSoilCornerToGardenView.handleRouteTransistion();
+          break;
+        case "PlantBox":
+          handlePlantBoxToGardenView.handleRouteTransistion();
+          break;
+        case "BigTree":
+          handleBigTreeToGardenView.handleRouteTransistion();
+          break;
+        default:
+          break;
+      }
+      hideEye();
+    }, [
+      hideEye,
+      activeGardenHotSpot,
+      handleBigTreeToGardenView,
+      handlePlantBoxToGardenView,
+      handleToolRackToGardenView,
+      handleGardenHoseToGardenView,
+      handleSoilCornerToGardenView,
+    ]);
 
-  const handleKitchenHotSpotTriggers = useCallback(() => {
-    switch (activeKitchenHotSpot) {
-      case "Overview":
-        handleKitchenViewToGardenView.handleRouteTransistion();
-        break;
-      case "Sink":
-        console.log("Sink");
-        break;
-      case "Oven":
-        console.log("Oven");
-        break;
-      case "Pantry":
-        console.log("Pantry");
-        break;
-      case "Workspace":
-        console.log("Workspace");
-        break;
-      default:
-        break;
-    }
-    hideEye();
-  }, [hideEye, activeKitchenHotSpot, handleKitchenViewToGardenView]);
+  const handleKitchenHotSpotTriggers: ConstantVoidFunctionType =
+    useCallback((): void => {
+      switch (activeKitchenHotSpot) {
+        case "Overview":
+          handleKitchenViewToGardenView.handleRouteTransistion();
+          break;
+        case "Sink":
+          console.log("Sink");
+          break;
+        case "Oven":
+          console.log("Oven");
+          break;
+        case "Pantry":
+          console.log("Pantry");
+          break;
+        case "Workspace":
+          console.log("Workspace");
+          break;
+        default:
+          break;
+      }
+      hideEye();
+    }, [hideEye, activeKitchenHotSpot, handleKitchenViewToGardenView]);
 
-  const handleGoBackToOverview = useCallback(() => {
-    if (menuActive) return;
+  const handleGoBackToOverview: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (menuActive) return;
 
-    if (activeLocation === "Garden") {
-      handleGardenHotSpotTriggers();
-    } else if (activeLocation === "Kitchen") {
-      handleKitchenHotSpotTriggers();
-    }
-  }, [
-    menuActive,
-    activeLocation,
-    handleGardenHotSpotTriggers,
-    handleKitchenHotSpotTriggers,
-  ]);
+      if (activeLocation === "Garden") {
+        handleGardenHotSpotTriggers();
+      } else if (activeLocation === "Kitchen") {
+        handleKitchenHotSpotTriggers();
+      }
+    }, [
+      menuActive,
+      activeLocation,
+      handleGardenHotSpotTriggers,
+      handleKitchenHotSpotTriggers,
+    ]);
 
   useEffect(() => {
     if (
-      (activeLocation === "Garden" && activeGardenHotSpot !== "Overview") ||
-      activeLocation === "Kitchen"
+      activeLocation === "Kitchen" ||
+      (activeLocation === "Garden" && activeGardenHotSpot !== "Overview")
     ) {
       showEye();
     }

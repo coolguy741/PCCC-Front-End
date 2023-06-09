@@ -1,0 +1,17 @@
+const FRIDGE_FOV = 40;
+const PANTRY_FOV = 40;
+const LOCKER_FOV = 40;
+const HYDROPONICS_FOV = 37;
+const SINK_FOV = 38;
+const STOVE_FOV = 37;
+const WORKSPACE_FOV = 38;
+
+export {
+  FRIDGE_FOV,
+  PANTRY_FOV,
+  LOCKER_FOV,
+  HYDROPONICS_FOV,
+  SINK_FOV,
+  STOVE_FOV,
+  WORKSPACE_FOV,
+};

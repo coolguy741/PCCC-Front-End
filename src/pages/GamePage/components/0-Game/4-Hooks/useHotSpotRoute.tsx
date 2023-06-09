@@ -17,7 +17,7 @@ import {
   playerCameraFullMouseRotationMultiplier,
   playerCameraInitMouseRotationMultiplier,
   playerCameraMouseRotationMultiplierFactor,
-} from "../2-Entities/0-Cameras/PlayerCameraDefines";
+} from "../2-Entities/0-Cameras/0-PlayerCamera/PlayerCameraDefines";
 import {
   animateMouseMultiplierFactor,
   animateRouteFov,

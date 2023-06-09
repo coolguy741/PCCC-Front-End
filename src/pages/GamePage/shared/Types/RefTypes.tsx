@@ -25,3 +25,6 @@ export type RefOrthographicCameraType =
 export type RefTimeoutType = MutableRefObject<ReturnType<
   typeof setTimeout
 > | null>;
+export type RefMeaseureType = (
+  element: HTMLElement | SVGElement | null,
+) => void;
