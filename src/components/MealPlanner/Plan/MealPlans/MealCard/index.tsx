@@ -11,17 +11,24 @@ interface MealCardProps {
   label: string | null;
   fixed?: boolean;
   onMealRemove?: () => void;
+  openRecipeModal?: (recipeId: number) => void;
 }
 
 export const MealCard: React.FC<MealCardProps> = ({
   meal,
   label,
   fixed,
+  openRecipeModal,
   onMealRemove,
 }) => {
   return (
     <Style.Container fixed={fixed}>
-      <Style.Card hasPlan={!!meal.description}>
+      <Style.Card
+        hasPlan={!!meal.description}
+        onDoubleClick={() => {
+          openRecipeModal?.(3);
+        }}
+      >
         <Style.ActionButtons className="button-actions">
           <Style.ActionbuttonWrapper onClick={onMealRemove}>
             <Icon name="trash" width="100%" height="100%" />
@@ -62,10 +69,8 @@ const Style = {
   Container: styled.section.attrs(({ fixed }: { fixed: boolean }) => ({
     fixed: fixed ?? false,
   }))`
-    padding: 5% 0;
     overflow: hidden;
     height: 100%;
-    min-height: 105px;
     width: ${({ fixed }) => (fixed ? "90px" : "100%")};
   `,
   Card: styled.article.attrs(({ hasPlan }: { hasPlan: boolean }) => ({
