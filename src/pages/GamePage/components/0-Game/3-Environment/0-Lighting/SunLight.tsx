@@ -8,50 +8,51 @@ const SunLight: FC = () => {
   const sunLightRef: RefDirectionalLightType = useRef(null);
 
   // Hooks
-  const { size, color, intensity } = useControls({
-    MainLight: folder(
-      {
-        intensity: {
-          value: 4,
-          min: 0,
-          max: 10,
-          step: 0.001,
-        },
-        color: "#faf5ac",
-        enable: true,
-        // positionX: {
-        //   value: -3.15,
-        //   min: -15,
-        //   max: 15,
-        //   step: 0.001,
-        // },
-        // positionY: {
-        //   value: 15,
-        //   min: -15,
-        //   max: 15,
-        //   step: 0.001,
-        // },
-        // positionZ: {
-        //   value: -3,
-        //   min: -15,
-        //   max: 15,
-        //   step: 0.001,
-        // },
-      },
-      { collapsed: true },
-    ),
-    shadows: folder(
-      {
-        shadowMap: folder(
-          {
-            size: 6,
+  const { size, color, intensity, positionX, positionY, positionZ } =
+    useControls({
+      MainLight: folder(
+        {
+          intensity: {
+            value: 4,
+            min: 0,
+            max: 10,
+            step: 0.001,
           },
-          { collapsed: true },
-        ),
-      },
-      { collapsed: true },
-    ),
-  });
+          color: "#faf5ac",
+          enable: true,
+          positionX: {
+            value: -5.4,
+            min: -15,
+            max: 15,
+            step: 0.001,
+          },
+          positionY: {
+            value: 10.7,
+            min: -15,
+            max: 15,
+            step: 0.001,
+          },
+          positionZ: {
+            value: 6,
+            min: -15,
+            max: 15,
+            step: 0.001,
+          },
+        },
+        { collapsed: true },
+      ),
+      shadows: folder(
+        {
+          shadowMap: folder(
+            {
+              size: 6,
+            },
+            { collapsed: true },
+          ),
+        },
+        { collapsed: true },
+      ),
+    });
 
   useEffect(() => {
     setTimeout(() => {
@@ -68,7 +69,7 @@ const SunLight: FC = () => {
       shadow-bias={-0.001}
       shadow-mapSize={2048}
       intensity={intensity}
-      position={[-3.15, 15, -3]}
+      position={[positionX, positionY, positionZ]}
     >
       <orthographicCamera
         attach="shadow-camera"

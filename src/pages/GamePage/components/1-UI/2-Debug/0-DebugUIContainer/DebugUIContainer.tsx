@@ -1,9 +1,10 @@
-import { FC, Fragment, memo, useCallback } from "react";
+import { FC, Fragment, memo, useCallback, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
 import DebugButton from "../1-DebugButton/DebugButton";
 import ActiveStateController from "../2-DebugActiveState/ActiveStateController";
 import DebugPlayerCameraTriggers from "../3-DebugPlayerCameraTriggers/DebugPlayerCameraTriggers";
+import KitchenCameraOptions from "../3-DebugPlayerCameraTriggers/KitchenCameraOptions";
 import DynamicFileController from "../4-DebugControllers/DynamicFileController";
 import LevaController from "../4-DebugControllers/LevaController";
 import VConsoleController from "../4-DebugControllers/VConsoleController";
@@ -19,9 +20,15 @@ const DebugUIContainer: FC = () => {
     shallow,
   );
 
+  const [showKitchenCam, setShowKitchenCam] = useState(false);
+
   const h = useCallback(() => {
     setIsDebugUIVisible(!isDebugUIVisible);
   }, [isDebugUIVisible, setIsDebugUIVisible]);
+
+  const k = useCallback(() => {
+    setShowKitchenCam((prev) => !prev);
+  }, [setShowKitchenCam]);
 
   return (
     <Fragment>
@@ -36,6 +43,17 @@ const DebugUIContainer: FC = () => {
         btnAction={h}
       />
 
+      <DebugButton
+        debugButtonStyleObject={{
+          "--debug-button-right": "0",
+          "--debug-button-bottom": "0",
+          "--debug-button-position": "fixed",
+          "--debug-button-margin-bottom": "15rem",
+        }}
+        btnContent={showKitchenCam ? "HIDEKITCHCAM" : "SHOWKITCHCAM"}
+        btnAction={k}
+      />
+
       <LevaController isDebugUIVisible={isDebugUIVisible} />
 
       {isDebugUIVisible && (
@@ -44,7 +62,11 @@ const DebugUIContainer: FC = () => {
           <VConsoleController />
           <DynamicFileController />
           <ActiveStateController />
-          <DebugPlayerCameraTriggers />
+          {showKitchenCam ? (
+            <KitchenCameraOptions />
+          ) : (
+            <DebugPlayerCameraTriggers />
+          )}
         </Fragment>
       )}
     </Fragment>

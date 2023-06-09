@@ -6,16 +6,15 @@ import PlayerCamera from "../2-Entities/0-Cameras/0-PlayerCamera/PlayerCamera";
 import GardenDebug from "../2-Entities/1-Garden/0-Garden/GardenDebug";
 import HotSpotLabels from "../2-Entities/2-HotSpotLabels/HotSpotLabels";
 import DynamicEnitity from "../2-Entities/3-DynamicEntity/DynamicEnitity";
-import Kitchen from "../2-Entities/5-Kitchen/Kitchen";
+import KitchenDebug from "../2-Entities/5-Kitchen/KitchenDebug";
 import Environment from "../3-Environment/Environment";
 import { GATE_POSITION } from "../5-Constants/0-Garden/GARDEN_POSITION";
 import SceneHelpers from "../6-Helpers/SceneHelpers";
 
 const GameStage: FC = () => {
   // Global State
-  const { activeCamera, isDebugMode, isDebugUIVisible } = useGlobalState(
+  const { activeCamera, isDebugUIVisible } = useGlobalState(
     (state) => ({
-      isDebugMode: state.isDebugMode,
       activeCamera: state.activeCamera,
       isDebugUIVisible: state.isDebugUIVisible,
     }),
@@ -36,7 +35,7 @@ const GameStage: FC = () => {
 
   return (
     <Fragment>
-      {isDebugMode && <Kitchen />}
+      <KitchenDebug />
       <GardenDebug />
       <DynamicEnitity />
       <PlayerCamera />
