@@ -84,8 +84,11 @@ const Style = {
     }
 
     ol {
+      list-style-type: none;
       column-count: 2;
       column-gap: 2.5%;
+      flex-grow: 1;
+      height: 80%;
     }
   `,
 };
