@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SingleBullet } from "../../components/ContentCreation/SingleBullet";
+import { DoubleBullet } from "../../components/ContentCreation/DoubleBullet";
 
 export const TestContentPage = () => {
   return (
@@ -13,7 +13,9 @@ export const TestContentPage = () => {
         {/* <DoubleImage /> */}
         {/* <NumberedParagraph /> */}
         {/* <ImageWithCaption /> */}
-        <SingleBullet />
+        {/* <SingleBullet /> */}
+        {/* <IngredientCard /> */}
+        <DoubleBullet />
       </div>
     </Style.PageContainer>
   );
