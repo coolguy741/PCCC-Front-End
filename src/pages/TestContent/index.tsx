@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NumberedParagraph } from "../../components/ContentCreation/NumberedParagraph";
+import { SingleBullet } from "../../components/ContentCreation/SingleBullet";
 
 export const TestContentPage = () => {
   return (
@@ -11,7 +11,9 @@ export const TestContentPage = () => {
         {/* <ParagraphWithHeading /> */}
         {/* <SingleImage /> */}
         {/* <DoubleImage /> */}
-        <NumberedParagraph />
+        {/* <NumberedParagraph /> */}
+        {/* <ImageWithCaption /> */}
+        <SingleBullet />
       </div>
     </Style.PageContainer>
   );
