@@ -12,17 +12,23 @@ interface PublishFormProps {
   yPos: string;
   type: string;
   isOpen: boolean;
+  handleAddEvent: () => void;
+  startTime: string;
+  setStartTime: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  endTime: string;
+  setEndTime: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
-
-// interface EventNameObject {
-//   [key: string]: string | undefined;
-// }
 
 export const StandardPublishForm = ({
   selectedDate,
   yPos,
   type,
   isOpen,
+  handleAddEvent,
+  startTime,
+  setStartTime,
+  endTime,
+  setEndTime,
 }: PublishFormProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -41,8 +47,8 @@ export const StandardPublishForm = ({
         <div className="date-picker">
           <label>{formatDate(selectedDate)}</label>
           <div className="date-picker-row">
-            <TimeSelect />
-            <TimeSelect />
+            <TimeSelect value={startTime} onChange={setStartTime} />
+            <TimeSelect value={endTime} onChange={setEndTime} />
             <div className="date-picker-row">
               <Checkbox />
               <label>All Day</label>
@@ -58,7 +64,7 @@ export const StandardPublishForm = ({
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
             />
-            <Button>Add</Button>
+            <Button onClick={handleAddEvent}>Add</Button>
           </div>
         </div>
       </div>

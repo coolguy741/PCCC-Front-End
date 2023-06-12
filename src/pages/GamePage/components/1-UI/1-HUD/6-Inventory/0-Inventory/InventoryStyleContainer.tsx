@@ -14,6 +14,7 @@ const InventoryStyleContainer = styled.div`
   justify-content: center;
   pointer-events: none;
   opacity: 0;
+  visibility: hidden;
 
   .inventory-book {
     width: 35vw;
@@ -25,13 +26,19 @@ const InventoryStyleContainer = styled.div`
     .inventory-wood {
       ${UserSelectNone};
       ${MarginPaddingNone};
+      img {
+        ${UserSelectNone};
+        ${MarginPaddingNone};
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .inventory-pages-shadow {
       ${UserSelectNone};
       ${MarginPaddingNone};
-      width: 90%;
-      height: 90%;
+      width: 87%;
+      height: 87%;
       position: absolute;
       border-radius: 2rem;
       box-shadow: 0px 0px 10px 7px rgba(0, 0, 0, 0.65);
@@ -42,6 +49,20 @@ const InventoryStyleContainer = styled.div`
       ${MarginPaddingNone};
       width: 32vw;
       position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .inventory-pages-svg {
+        position: absolute;
+      }
+      .inventory-pages-overlay {
+        position: relative;
+        margin-top: 0.1rem;
+        width: 97%;
+        height: 98%;
+        border-radius: 3rem;
+      }
     }
   }
 `;

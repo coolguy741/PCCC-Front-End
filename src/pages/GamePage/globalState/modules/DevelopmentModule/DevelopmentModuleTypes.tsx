@@ -13,4 +13,8 @@ export interface DevelopmentModuleTypes {
   setPGVideoLoaded: (pgVideoLoaded: boolean) => void;
   programBakeShadows: boolean;
   setProgramBakeShadows: (programBakeShadows: boolean) => void;
+  isDebugMode: boolean;
+  setIsDebugMode: (isDebugMode: boolean) => void;
+  dynamicKitchen: string | null;
+  setDynamicKitchen: (newKitchen: string) => void;
 }

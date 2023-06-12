@@ -11,6 +11,8 @@
 
 export interface PccServer23ActivitiesActivityCreateDto {
   name: string;
+  htmlData?: string | null;
+  tags?: string | null;
 }
 
 export interface PccServer23ActivitiesActivityDto {
@@ -30,12 +32,34 @@ export interface PccServer23ActivitiesActivityDto {
   /** @format date-time */
   deletionTime?: string | null;
   name?: string | null;
+  htmlData?: string | null;
+  tags?: string | null;
   concurrencyStamp?: string | null;
+  language?: string | null;
 }
 
 export interface PccServer23ActivitiesActivityUpdateDto {
   name: string;
+  htmlData?: string | null;
+  tags?: string | null;
   concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ActivitiesCustomActivityCreate {
+  name?: string | null;
+  htmlData?: string | null;
+}
+
+export interface PccServer23ActivitiesCustomMultiLingualActivityCreateDto {
+  english: PccServer23ActivitiesCustomActivityCreate;
+  french: PccServer23ActivitiesCustomActivityCreate;
+  tags?: string | null;
+}
+
+export interface PccServer23ActivitiesCustomMultiLingualActivityUpdateDto {
+  english: PccServer23ActivitiesActivityUpdateDto;
+  french: PccServer23ActivitiesActivityUpdateDto;
+  tags?: string | null;
 }
 
 export interface PccServer23BooksAddBookTranslationDto {
@@ -83,6 +107,7 @@ export interface PccServer23BooksCustomMultiLingualBookCreateDto {
 }
 
 export interface PccServer23CalendarEventsCalendarEventCreateDto {
+  title?: string | null;
   description?: string | null;
   type?: PccServer23CalendarEventsCalendarEventType;
   /** @format date-time */
@@ -97,8 +122,6 @@ export interface PccServer23CalendarEventsCalendarEventCreateDto {
   topicId?: string | null;
   /** @format uuid */
   activityId?: string | null;
-  /** @format uuid */
-  groupId?: string | null;
 }
 
 export interface PccServer23CalendarEventsCalendarEventDto {
@@ -112,11 +135,7 @@ export interface PccServer23CalendarEventsCalendarEventDto {
   lastModificationTime?: string | null;
   /** @format uuid */
   lastModifierId?: string | null;
-  isDeleted?: boolean;
-  /** @format uuid */
-  deleterId?: string | null;
-  /** @format date-time */
-  deletionTime?: string | null;
+  title?: string | null;
   description?: string | null;
   type?: PccServer23CalendarEventsCalendarEventType;
   /** @format date-time */
@@ -131,20 +150,21 @@ export interface PccServer23CalendarEventsCalendarEventDto {
   topicId?: string | null;
   /** @format uuid */
   activityId?: string | null;
-  /** @format uuid */
-  groupId?: string | null;
   concurrencyStamp?: string | null;
 }
 
 /** @format int32 */
 export enum PccServer23CalendarEventsCalendarEventType {
+  Value0 = 0,
   Value1 = 1,
   Value2 = 2,
   Value3 = 3,
   Value4 = 4,
+  Value5 = 5,
 }
 
 export interface PccServer23CalendarEventsCalendarEventUpdateDto {
+  title?: string | null;
   description?: string | null;
   type?: PccServer23CalendarEventsCalendarEventType;
   /** @format date-time */
@@ -159,8 +179,6 @@ export interface PccServer23CalendarEventsCalendarEventUpdateDto {
   topicId?: string | null;
   /** @format uuid */
   activityId?: string | null;
-  /** @format uuid */
-  groupId?: string | null;
   concurrencyStamp?: string | null;
 }
 
@@ -170,7 +188,48 @@ export interface PccServer23CalendarEventsCalendarEventWithNavigationPropertiesD
   curriculum?: PccServer23CurriculumsCurriculumDto;
   topic?: PccServer23TopicsTopicDto;
   activity?: PccServer23ActivitiesActivityDto;
-  group?: PccServer23GroupsGroupDto;
+}
+
+export interface PccServer23CalendarEventsPublicCalendarEventCreateDto {
+  title?: string | null;
+  description?: string | null;
+  /** @format date-time */
+  startDate?: string | null;
+  /** @format date-time */
+  endDate?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  /** @format uuid */
+  topicId?: string | null;
+  /** @format uuid */
+  activityId?: string | null;
+  /** @format uuid */
+  groupId?: string | null;
+}
+
+export interface PccServer23CalendarEventsPublicCalendarEventDto {
+  /** @format uuid */
+  id?: string;
+  title?: string | null;
+  description?: string | null;
+  type?: PccServer23CalendarEventsCalendarEventType;
+  /** @format date-time */
+  start?: string | null;
+  /** @format date-time */
+  end?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  /** @format uuid */
+  topicId?: string | null;
+  /** @format uuid */
+  activityId?: string | null;
+}
+
+export interface PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto {
+  calendarEvent?: PccServer23CalendarEventsPublicCalendarEventDto;
+  curriculum?: PccServer23CurriculumsCurriculumDto;
+  topic?: PccServer23TopicsTopicDto;
+  activity?: PccServer23ActivitiesActivityDto;
 }
 
 export interface PccServer23CalendarsCalendarCreateDto {
@@ -900,6 +959,38 @@ export interface PccServer23SharedLookupDto1SystemGuidSystemPrivateCoreLibVersio
   displayName?: string | null;
 }
 
+export interface PccServer23ThemesThemeCreateDto {
+  name?: string | null;
+  htmlData?: string | null;
+}
+
+export interface PccServer23ThemesThemeDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  name?: string | null;
+  htmlData?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ThemesThemeUpdateDto {
+  name?: string | null;
+  htmlData?: string | null;
+  concurrencyStamp?: string | null;
+}
+
 export interface PccServer23TopicsTopicCreateDto {
   name: string;
 }
@@ -1064,8 +1155,14 @@ export interface PccServer23UsersUserInGroupDto {
 
 export type SystemVoid = object;
 
-export interface VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarsCalendarWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
-  items?: PccServer23CalendarsCalendarWithNavigationPropertiesDto[] | null;
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23ActivitiesActivityDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto[] | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -1096,6 +1193,12 @@ export interface VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWith
 
 export interface VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   items?: PccServer23RecipesRecipeDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23ThemesThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23ThemesThemeDto[] | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -1342,64 +1445,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags CustomCalendars
-     * @name AppCalendarsDelete
-     * @request DELETE:/api/app/calendars/{id}
+     * @tags CustomActivities
+     * @name AppActivitiesList
+     * @summary Get list of activity
+     * @request GET:/api/app/activities
+     * @secure
      */
-    appCalendarsDelete: (id: string, params: RequestParams = {}) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars/${id}`,
-        method: "DELETE",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCalendars
-     * @name AppCalendarsUpdate
-     * @request PUT:/api/app/calendars/{id}
-     */
-    appCalendarsUpdate: (id: string, data: PccServer23CalendarsCalendarUpdateDto, params: RequestParams = {}) =>
-      this.request<PccServer23CalendarsCalendarDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars/${id}`,
-        method: "PUT",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCalendars
-     * @name AppCalendarsCreate
-     * @request POST:/api/app/calendars
-     */
-    appCalendarsCreate: (data: PccServer23CalendarsCalendarCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23CalendarsCalendarDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCalendars
-     * @name AppCalendarsMyCalendarList
-     * @request GET:/api/app/calendars/my-calendar
-     */
-    appCalendarsMyCalendarList: (
+    appActivitiesList: (
       query?: {
         FilterText?: string;
-        Description?: string;
-        /** @format uuid */
-        GroupId?: string;
+        Name?: string;
+        HtmlData?: string;
+        Tags?: string;
         Sorting?: string;
         /**
          * @format int32
@@ -1417,12 +1474,92 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarsCalendarWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpApplicationDtosPagedResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/calendars/my-calendar`,
+        path: `/api/app/activities`,
         method: "GET",
         query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomActivities
+     * @name AppActivitiesCreate
+     * @summary Create a new activity record
+     * @request POST:/api/app/activities
+     * @secure
+     */
+    appActivitiesCreate: (data: PccServer23ActivitiesCustomMultiLingualActivityCreateDto, params: RequestParams = {}) =>
+      this.request<PccServer23ActivitiesActivityDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/activities`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomActivities
+     * @name AppActivitiesDetail
+     * @summary Get activity record
+     * @request GET:/api/app/activities/{id}
+     * @secure
+     */
+    appActivitiesDetail: (id: string, params: RequestParams = {}) =>
+      this.request<PccServer23ActivitiesActivityDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/activities/${id}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomActivities
+     * @name AppActivitiesDelete
+     * @summary Delete activity record with id
+     * @request DELETE:/api/app/activities/{id}
+     * @secure
+     */
+    appActivitiesDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/activities/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomActivities
+     * @name AppActivitiesUpdate
+     * @summary Update an existing activity record's details
+     * @request PUT:/api/app/activities/{id}
+     * @secure
+     */
+    appActivitiesUpdate: (
+      id: string,
+      data: PccServer23ActivitiesCustomMultiLingualActivityUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23ActivitiesActivityDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/activities/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -1431,17 +1568,65 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomCalendars
-     * @name AppCalendarsGroupCalendarList
-     * @request GET:/api/app/calendars/group-calendar
+     * @name AppCalendarsMyCalendarEventsList
+     * @summary Get authenticated user's calendar events
+     * @request GET:/api/app/calendars/my-calendar-events
+     * @secure
      */
-    appCalendarsGroupCalendarList: (
+    appCalendarsMyCalendarEventsList: (
+      query?: {
+        FilterText?: string;
+        Description?: string;
+        /** @format date-time */
+        StartDate?: string;
+        /** @format date-time */
+        EndDate?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/calendars/my-calendar-events`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCalendars
+     * @name AppCalendarsGroupCalendarEventsList
+     * @summary Get a group's calendar events
+     * @request GET:/api/app/calendars/group-calendar-events
+     */
+    appCalendarsGroupCalendarEventsList: (
       query: {
         FilterText?: string;
         Description?: string;
         /** @format uuid */
         GroupId: string;
-        /** @format uuid */
-        UserId?: string;
+        /** @format date-time */
+        StartDate?: string;
+        /** @format date-time */
+        EndDate?: string;
         Sorting?: string;
         /**
          * @format int32
@@ -1459,10 +1644,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarsCalendarWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
-        path: `/api/app/calendars/group-calendar`,
+        path: `/api/app/calendars/group-calendar-events`,
         method: "GET",
         query: query,
         format: "json",
@@ -1474,12 +1659,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags CustomCalendars
      * @name AppCalendarsEventDelete
+     * @summary Delete an existing calendar event by id
      * @request DELETE:/api/app/calendars/{id}/event
+     * @secure
      */
     appCalendarsEventDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/calendars/${id}/event`,
         method: "DELETE",
+        secure: true,
         ...params,
       }),
 
@@ -1487,14 +1675,43 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomCalendars
-     * @name AppCalendarsEventCreate
-     * @request POST:/api/app/calendars/event
+     * @name AppCalendarsEventToMyCalendarCreate
+     * @summary Add calendar event for authenticated user
+     * @request POST:/api/app/calendars/event-to-my-calendar
+     * @secure
      */
-    appCalendarsEventCreate: (data: PccServer23CalendarEventsCalendarEventCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23CalendarEventsCalendarEventDto, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/calendars/event`,
+    appCalendarsEventToMyCalendarCreate: (
+      data: PccServer23CalendarEventsPublicCalendarEventCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23CalendarEventsPublicCalendarEventDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/calendars/event-to-my-calendar`,
         method: "POST",
         body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCalendars
+     * @name AppCalendarsEventToGroupCalendarCreate
+     * @summary Add calendar event for a group
+     * @request POST:/api/app/calendars/event-to-group-calendar
+     * @secure
+     */
+    appCalendarsEventToGroupCalendarCreate: (
+      data: PccServer23CalendarEventsPublicCalendarEventCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23CalendarEventsPublicCalendarEventDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/calendars/event-to-group-calendar`,
+        method: "POST",
+        body: data,
+        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -2178,6 +2395,123 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags CustomThemes
+     * @name AppThemesList
+     * @summary Get list of theme
+     * @request GET:/api/app/themes
+     * @secure
+     */
+    appThemesList: (
+      query?: {
+        FilterText?: string;
+        Name?: string;
+        HtmlData?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23ThemesThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/themes`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesCreate
+     * @summary Create new theme record.
+     * @request POST:/api/app/themes
+     * @secure
+     */
+    appThemesCreate: (data: PccServer23ThemesThemeCreateDto, params: RequestParams = {}) =>
+      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesDetail
+     * @summary Get a theme record with id
+     * @request GET:/api/app/themes/{id}
+     * @secure
+     */
+    appThemesDetail: (id: string, params: RequestParams = {}) =>
+      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/${id}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesDelete
+     * @summary Delete an existing theme record
+     * @request DELETE:/api/app/themes/{id}
+     * @secure
+     */
+    appThemesDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesUpdate
+     * @summary Update theme details
+     * @request PUT:/api/app/themes/{id}
+     * @secure
+     */
+    appThemesUpdate: (id: string, data: PccServer23ThemesThemeUpdateDto, params: RequestParams = {}) =>
+      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags CustomUsernameChoices
      * @name AppUsernameChoicesCheckUsernameAvailabilityCreate
      * @summary Check a username is taken up by existing users
@@ -2209,6 +2543,40 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/username-choices/username-choices`,
         method: "GET",
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Import
+     * @name AppTestImportDoWorkCreate
+     * @request POST:/api/app/test-import/do-work
+     */
+    appTestImportDoWorkCreate: (params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/test-import/do-work`,
+        method: "POST",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Import
+     * @name AppTestImportTryParseQuantityCreate
+     * @request POST:/api/app/test-import/try-parse-quantity
+     */
+    appTestImportTryParseQuantityCreate: (
+      query?: {
+        data?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/test-import/try-parse-quantity`,
+        method: "POST",
+        query: query,
         ...params,
       }),
 

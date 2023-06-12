@@ -1,5 +1,5 @@
 // import { mergeDeepLeft } from "ramda";
-import create from "zustand";
+import { create } from "zustand";
 // import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { GetState, GlobalStateTypes, SetState } from "./GlobalStateTypes";

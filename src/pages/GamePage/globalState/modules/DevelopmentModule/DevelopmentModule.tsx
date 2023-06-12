@@ -17,6 +17,11 @@ const DevelopmentModule = ({ set, get }: globalStateApiType) => {
       set({ dynamicGarden: newGarden });
     },
 
+    dynamicKitchen: null,
+    setDynamicKitchen: (newKitchen: string) => {
+      set({ dynamicKitchen: newKitchen });
+    },
+
     isDebugUIVisible: true,
     setIsDebugUIVisible: (isDebugUIVisible: boolean) => {
       set({ isDebugUIVisible });
@@ -35,6 +40,11 @@ const DevelopmentModule = ({ set, get }: globalStateApiType) => {
     programBakeShadows: false,
     setProgramBakeShadows: (programBakeShadows: boolean) => {
       set({ programBakeShadows });
+    },
+
+    isDebugMode: false,
+    setIsDebugMode: (isDebugMode: boolean) => {
+      set({ isDebugMode });
     },
   };
 };

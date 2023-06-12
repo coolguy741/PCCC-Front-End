@@ -40,6 +40,7 @@ export const SecurityQuestions = () => {
     schoolIdCode,
     schoolName,
     isCoordinator,
+    init,
   } = useSignUpStore();
 
   const {
@@ -77,7 +78,8 @@ export const SecurityQuestions = () => {
 
   useEffect(() => {
     getSecurityQuestions();
-  }, [getSecurityQuestions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const submitHandler = async ({
     password,
@@ -116,6 +118,7 @@ export const SecurityQuestions = () => {
       });
 
       if (response.status === 204) {
+        init();
         navigate("/signin");
       }
     } else {
@@ -133,6 +136,7 @@ export const SecurityQuestions = () => {
       });
 
       if (response.status === 204) {
+        init();
         navigate("/signin");
       }
     }

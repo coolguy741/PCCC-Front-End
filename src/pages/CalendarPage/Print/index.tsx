@@ -3,18 +3,13 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useEffect } from "react";
 import styled from "styled-components";
 import { capitalize } from "../../../lib/util/capitalize";
 import { formatDate } from "../../../lib/util/formatDate";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 
 export const CalendarPrintPage = () => {
-  const { events, getEvents } = useCalendarEventsStore((state) => state);
-
-  useEffect(() => {
-    getEvents();
-  }, [getEvents]);
+  const { events } = useCalendarEventsStore((state) => state);
 
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (

@@ -22,7 +22,7 @@ const Garden: FC = () => {
       {
         colorMultiplier: { r: 223, b: 238, g: 255 },
         aoIntensity: {
-          value: 0.75,
+          value: 1,
           min: 0,
           max: 1.5,
           step: 0.000001,

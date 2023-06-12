@@ -1,12 +1,4 @@
 import { motion } from "framer-motion";
-import styled from "styled-components";
-import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
-import { Icon } from "../../../Global/Icon";
-import { Typography } from "../../../Global/Typography";
-import { PlateFullPlanFilter } from "../Filter";
-import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
-import { PlateFullPlanSearch } from "../Search";
-
 import { useRef, useState } from "react";
 import {
   DragDropContext,
@@ -14,6 +6,16 @@ import {
   OnDragEndResponder,
   OnDragUpdateResponder,
 } from "react-beautiful-dnd";
+import styled from "styled-components";
+
+import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
+import { Icon } from "../../../Global/Icon";
+import { Typography } from "../../../Global/Typography";
+import { PlateFullPlanFilter } from "../Filter";
+import { RecipeModal } from "../RecipeModal";
+import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
+import { PlateFullPlanSearch } from "../Search";
+
 import { Tag } from "../Tag";
 import { mockMealPlanMenu, mockMealPlans } from "./mocks";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
@@ -31,7 +33,9 @@ export interface MealPlan {
 export const MealPlans = () => {
   const { selectedFilters, filters, changeSelectedFilters } =
     useMealPlannerStore();
-
+  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] =
+    useState<number | undefined>();
   const mainContentRef = useRef<HTMLDivElement>(null);
   const [mealPlans, setMealPlans] = useState(mockMealPlans);
   // TODO: unused variable
@@ -39,6 +43,11 @@ export const MealPlans = () => {
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
   const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
   const [destinationMeal, setDestinationMeal] = useState<MealPlan>();
+
+  const openRecipeModal = (recipeId: number) => {
+    setSelectedRecipeId(recipeId);
+    setIsRecipeModalOpen(true);
+  };
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const sourceIndex = result.source.index;
@@ -140,85 +149,94 @@ export const MealPlans = () => {
         translateY="-37%"
       />
       <Style.Pages>
-        <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
-          <Style.LeftPage>
-            <WeeklyMealPlan
-              mealPlans={mealPlans}
-              onMealRemove={onMealRemove}
-              dragUpdateStatus={dragUpdateStatus}
-              selectedMeal={selectedMeal}
-              destinationMeal={destinationMeal}
-            />
-          </Style.LeftPage>
-          <Style.Page>
-            <div className="page-title">
-              <img
-                src="/images/plate-full-planner/ribbon-label.svg"
-                alt="label"
+        <div>
+          <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
+            <Style.LeftPage>
+              <WeeklyMealPlan
+                mealPlans={mealPlans}
+                onMealRemove={onMealRemove}
+                openRecipeModal={openRecipeModal}
+                dragUpdateStatus={dragUpdateStatus}
+                selectedMeal={selectedMeal}
+                destinationMeal={destinationMeal}
               />
-              <Typography
-                variant="h4"
-                weight="semi-bold"
-                color="book-400"
-                as="h4"
-              >
-                Customize your meal plan
-              </Typography>
-            </div>
-            <div className="main-content" ref={mainContentRef}>
-              <Style.BorderScroll>
+            </Style.LeftPage>
+            <Style.Page>
+              <div className="page-title">
                 <img
-                  src="/images/plate-full-planner/scroll-border.svg"
-                  alt="scroll border"
+                  src="/images/plate-full-planner/ribbon-label.svg"
+                  alt="label"
                 />
-              </Style.BorderScroll>
-              <Style.BorderScroll position="bottom">
-                <img
-                  src="/images/plate-full-planner/scroll-border.svg"
-                  alt="scroll border"
-                />
-              </Style.BorderScroll>
-              <div>
-                <PlateFullPlanSearch />
-                <PlateFullPlanFilter
-                  filters={filters}
-                  selectedFilters={selectedFilters}
-                  setFilters={changeSelectedFilters}
-                />
-              </div>
-              <PlateFullPlannerScrollMenu
-                mealPlanMenu={mealPlanMenu}
-                rootRef={mainContentRef}
-              />
-            </div>
-            <Style.CoffeeStain
-              src="/images/plate-full-planner/coffee-stain.svg"
-              alt="coffee stainer on paper"
-            />
-            <Style.Fruit
-              src="/images/plate-full-planner/fruits.svg"
-              alt="fruit on paper"
-            />
-            <Style.BrownPaper>
-              <div className="brown-paper-content">
-                <Icon name="food" />
                 <Typography
-                  variant="h6"
-                  as="h6"
+                  variant="h4"
                   weight="semi-bold"
-                  color="book-50"
+                  color="book-400"
+                  as="h4"
                 >
-                  Roasted red pepper hummus with vegetables
+                  Customize your meal plan
                 </Typography>
               </div>
-              <img
-                src="/images/plate-full-planner/brown-paper.png"
-                alt="brown-paper"
+              <div className="main-content" ref={mainContentRef}>
+                <Style.BorderScroll>
+                  <img
+                    src="/images/plate-full-planner/scroll-border.svg"
+                    alt="scroll border"
+                  />
+                </Style.BorderScroll>
+                <Style.BorderScroll position="bottom">
+                  <img
+                    src="/images/plate-full-planner/scroll-border.svg"
+                    alt="scroll border"
+                  />
+                </Style.BorderScroll>
+                <div>
+                  <PlateFullPlanSearch />
+                  <PlateFullPlanFilter
+                    filters={filters}
+                    selectedFilters={selectedFilters}
+                    setFilters={changeSelectedFilters}
+                  />
+                </div>
+                <PlateFullPlannerScrollMenu
+                  mealPlanMenu={mealPlanMenu}
+                  rootRef={mainContentRef}
+                  openRecipeModal={openRecipeModal}
+                />
+              </div>
+              <Style.CoffeeStain
+                src="/images/plate-full-planner/coffee-stain.svg"
+                alt="coffee stainer on paper"
               />
-            </Style.BrownPaper>
-          </Style.Page>
-        </DragDropContext>
+              <Style.Fruit
+                src="/images/plate-full-planner/fruits.svg"
+                alt="fruit on paper"
+              />
+              <Style.BrownPaper>
+                <div className="brown-paper-content">
+                  <Icon name="food" />
+                  <Typography
+                    variant="h6"
+                    as="h6"
+                    weight="semi-bold"
+                    color="book-50"
+                  >
+                    Roasted red pepper hummus with vegetables
+                  </Typography>
+                </div>
+                <img
+                  src="/images/plate-full-planner/brown-paper.png"
+                  alt="brown-paper"
+                />
+              </Style.BrownPaper>
+            </Style.Page>
+          </DragDropContext>
+        </div>
       </Style.Pages>
+      <RecipeModal
+        isOpen={isRecipeModalOpen}
+        selectedRecipeId={selectedRecipeId}
+        close={() => setIsRecipeModalOpen(false)}
+      />
     </Style.Container>
   );
 };
@@ -240,24 +258,28 @@ const Style = {
     }
   `,
   Pages: styled.section`
-    display: grid;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 7%;
     position: absolute;
-    padding: 3% 4% 4% 3%;
-    grid-template-columns: 1fr 1fr;
-    gap: 4%;
+
+    & > div {
+      height: 100%;
+      position: relative;
+      display: flex;
+      padding: 3% 4% 0 3%;
+      gap: 6%;
+    }
   `,
   LeftPage: styled.div`
     margin-right: -2%;
-    height: ${window.innerHeight / window.innerWidth >= 0.625 ? 100 : 80}%;
+    width: 50%;
   `,
   Page: styled.div`
     position: relative;
     display: flex;
-    height: ${window.innerHeight / window.innerWidth >= 0.625 ? 100 : 80}%;
+    width: 50%;
     flex-direction: column;
     padding: 10px 0;
     overflow: hidden;

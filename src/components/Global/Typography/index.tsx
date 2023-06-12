@@ -157,8 +157,8 @@ const variantVStyles = (variant: TypographyVariant) => {
       `;
     case "paragraph3":
       return css`
-        font-size: 16px;
-        line-height: 20px;
+        font-size: 1.5vh;
+        line-height: 1.6vh;
       `;
 
     default:

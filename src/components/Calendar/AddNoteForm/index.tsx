@@ -13,6 +13,13 @@ interface AddNoteFormProps {
   isOpen: boolean;
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
+  handleAddEvent: () => void;
+  description?: string;
+  setDescription?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  startTime?: string;
+  setStartTime?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  endTime?: string;
+  setEndTime?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export const AddNoteForm = ({
@@ -21,19 +28,26 @@ export const AddNoteForm = ({
   isOpen,
   modalOpen,
   setModalOpen,
+  handleAddEvent,
+  setDescription,
+  description,
+  startTime,
+  setStartTime,
+  endTime,
+  setEndTime,
 }: AddNoteFormProps) => {
   return (
     <Style.Container>
       <div className="row">
         <div className="add-note">
           <label>Add note</label>
-          <TextArea />
+          <TextArea onChange={setDescription} value={description} />
         </div>
         <div className="date-picker">
           <label>{formatDate(selectedDate)}</label>
           <div className="date-picker-row">
-            <TimeSelect />
-            <TimeSelect />
+            <TimeSelect value={startTime} onChange={setStartTime} />
+            <TimeSelect value={endTime} onChange={setEndTime} />
             <div className="date-picker-row">
               <Checkbox />
               <label>All Day</label>
@@ -49,7 +63,7 @@ export const AddNoteForm = ({
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
             />
-            <Button>Add</Button>
+            <Button onClick={handleAddEvent}>Add</Button>
           </div>
         </div>
       </div>

@@ -40,6 +40,7 @@ const Style = {
     align-items: center;
     position: relative;
     transition: background 0.3s ease-in, box-shadow 0.3s ease-out;
+    margin-bottom: 3vh;
 
     .avatar {
       margin-right: ${convertToRelativeUnit(15, "vw")};

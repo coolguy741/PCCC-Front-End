@@ -93,7 +93,7 @@ const Style = {
     .users {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: ${convertToRelativeUnit(24, "vw")};
+      column-gap: ${convertToRelativeUnit(24, "vw")};
       position: relative;
     }
   `,

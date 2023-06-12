@@ -1,5 +1,10 @@
+import Cookies from "js-cookie";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { Select } from "../../Global/Select";
 import { AddNoteForm } from "../AddNoteForm";
 import { StandardPublishForm } from "../StandardPublishForm";
@@ -47,26 +52,69 @@ export const StandardAddEventModal: React.FC<Props> = ({
   selectedDate,
   close,
 }) => {
+  const { api } = useAPI();
+  const [description, setDescription] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [type, setType] = useState<string>("");
-  // const addEvent = useCalendarEventsStore((state) => state.addEvent);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
   }, [isConfirm, eventType]);
+  const { addEvent, removeEvents } = useCalendarEventsStore((state) => state);
 
-  // const handleAddEvent = (event: CalendarEvent) => {
-  //   addEvent({
-  //     title: event.group,
-  //     start: selectedDate,
-  //     type: eventType?.type,
-  //     description: `${event.curriculum.replaceAll(
-  //       "-",
-  //       " ",
-  //     )} ${event.topic.replaceAll("-", " ")} ${event.name}`,
-  //   });
-  //   handleClose();
-  // };
+  const handleAddEvent = async () => {
+    const response = await api.appCalendarsEventToMyCalendarCreate(
+      {
+        description: description,
+        curriculumId: "",
+        topicId: "",
+        activityId: "",
+        groupId: "",
+        startDate: `${selectedDate}T${startTime}`,
+        endDate: `${selectedDate}T${endTime}`,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      const _events = await fetchEvents();
+
+      if (_events) {
+        removeEvents();
+
+        _events.forEach((item) => {
+          //@ts-ignore
+          addEvent({
+            ...item.calendarEvent,
+            textColor: "#F87C56",
+            backgroundColor: "#FEE5DD",
+            borderColor: "#ff0000",
+            display: "block",
+          });
+        });
+      }
+    }
+
+    handleClose();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.currentTarget.value);
+  };
+
+  const handleStartTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStartTime(e.currentTarget.value);
+  };
+
+  const handleEndTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setEndTime(e.currentTarget.value);
+  };
 
   const handleClose = () => {
     close();
@@ -108,6 +156,13 @@ export const StandardAddEventModal: React.FC<Props> = ({
                 isOpen={isOpen}
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
+                handleAddEvent={handleAddEvent}
+                setDescription={handleChange}
+                description={description}
+                startTime={startTime}
+                setStartTime={handleStartTimeChange}
+                endTime={endTime}
+                setEndTime={handleEndTimeChange}
               />
             </>
           )}
@@ -121,6 +176,11 @@ export const StandardAddEventModal: React.FC<Props> = ({
                 selectedDate={selectedDate}
                 type={type}
                 isOpen={isOpen}
+                handleAddEvent={handleAddEvent}
+                startTime={startTime}
+                setStartTime={handleEndTimeChange}
+                endTime={endTime}
+                setEndTime={handleEndTimeChange}
               />
             </>
           )}

@@ -2,7 +2,6 @@ import { FC, memo } from "react";
 import StaticSVGLoader from "../../../3-Reusable/0-StaticSVGLoader.tsx/StaticSVGLoader";
 import { InventoryEquippedBGSVG } from "../6-InventorySVGAssets/InventoryEquippedBGSVG";
 import { InventoryEquippedBodySVG } from "../6-InventorySVGAssets/InventoryEquippedBodySVG";
-import { InventoryEquippedEyeSVG } from "../6-InventorySVGAssets/InventoryEquippedEyeSVG";
 import { InventoryEquippedHandsSVG } from "../6-InventorySVGAssets/InventoryEquippedHandsSVG";
 import { InventoryEquippedHeadSVG } from "../6-InventorySVGAssets/InventoryEquippedHeadSVG";
 import EquippedStyleContainer from "./EquippedStyleContainer";
@@ -17,7 +16,10 @@ const Equipped: FC = () => {
         />
       </div>
       <div className="equipped-content-container">
-        <h1 className="equipped-title">Equipped</h1>
+        <div className="equipped-title">
+          <div className="equipped-title-spacer" />
+          <h1 className="equipped-title-text">Equipped</h1>
+        </div>
         <div className="equipped-items">
           <div className="equipped-item">
             <StaticSVGLoader
@@ -25,24 +27,15 @@ const Equipped: FC = () => {
               svgPath={InventoryEquippedHeadSVG}
             />
           </div>
-          <hr className="equipped-break-line" />
-          <div className="equipped-item">
-            <StaticSVGLoader
-              id="equipped-eye-svg"
-              svgPath={InventoryEquippedEyeSVG}
-            />
-          </div>
-          <hr className="equipped-break-line" />
           <div className="equipped-item">
             <StaticSVGLoader
               id="equipped-hand-svg"
               svgPath={InventoryEquippedHandsSVG}
             />
           </div>
-          <hr className="equipped-break-line" />
           <div className="equipped-item">
             <StaticSVGLoader
-              id="equipped-body-svg"
+              id="equipped-eye-svg"
               svgPath={InventoryEquippedBodySVG}
             />
           </div>

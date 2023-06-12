@@ -3,36 +3,29 @@ import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import HUD from "../1-HUD/0-HUD/HUD";
-import GateDebugOptions from "../2-Debug/DebugPlayerCameraTriggers/GateDebugOptions";
-import DebugUIContainer from "../2-Debug/DebugUIContainer";
-import useWindowResize from "../5-Hooks/useWindowResize";
+import DebugUIContainer from "../2-Debug/0-DebugUIContainer/DebugUIContainer";
+import GateDebugOptions from "../2-Debug/3-DebugPlayerCameraTriggers/GateDebugOptions";
 
-interface UIContainerPropTypes {
-  debug?: boolean;
-}
-
-const UIContainer: FC<UIContainerPropTypes> = ({ debug }) => {
+const UIContainer: FC = () => {
   // Global State
-  const { activeLocation } = useGlobalState(
+  const { isDebugMode, activeLocation } = useGlobalState(
     (state) => ({
+      isDebugMode: state.isDebugMode,
       activeLocation: state.activeLocation,
     }),
     shallow,
   );
 
-  // Hooks
-  useWindowResize();
-
   return (
     <Fragment>
-      {debug ? (
+      {isDebugMode ? (
         <Fragment>
-          <HUD debug={debug} />
+          <HUD />
           <DebugUIContainer />
         </Fragment>
       ) : (
         <Fragment>
-          <HUD debug={debug} />
+          <HUD />
           {activeLocation === "Gate" && <GateDebugOptions />}
           <Leva flat collapsed hidden />
         </Fragment>
