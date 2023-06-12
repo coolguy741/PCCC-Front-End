@@ -1,40 +1,62 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { DoubleBullet } from "../../components/ContentCreation/DoubleBullet";
+import { DoubleImage } from "../../components/ContentCreation/DoubleImage";
 import DoubleImageIcon from "../../components/ContentCreation/Icons/doubleImage";
 import PWH from "../../components/ContentCreation/Icons/pwh";
 import PWN from "../../components/ContentCreation/Icons/pwn";
 import SingleImageIcon from "../../components/ContentCreation/Icons/singleImage";
 import TitleIcon from "../../components/ContentCreation/Icons/title";
+import { NumberedParagraph } from "../../components/ContentCreation/NumberedParagraph";
+import { ParagraphWithHeading } from "../../components/ContentCreation/ParagraphWithHeading";
+import { SingleImage } from "../../components/ContentCreation/SingleImage";
+import { Title } from "../../components/ContentCreation/Title";
+
+const contentComponents = {
+  title: <Title key="title" />,
+  pwh: <ParagraphWithHeading key="pwh" />,
+  np: <NumberedParagraph key="np" />,
+  si: <SingleImage key="si" />,
+  di: <DoubleImage key="di" />,
+};
+
+type Comp = "pwh" | "title" | "np" | "si" | "di";
 
 export const TestContentPage = () => {
+  const [comp, setComp] = useState<Comp>("title");
+
+  function changeComp(newState: Comp) {
+    if (comp !== newState) setComp(newState);
+  }
+
   return (
     <Style.PageContainer>
       <div className="cc-components">
-        <button>
+        <button onClick={() => changeComp("title")}>
           <p>Title card</p>
           <TitleIcon />
         </button>
-        <button>
+        <button onClick={() => changeComp("pwh")}>
           <p>Paragraph</p>
           <PWH />
         </button>
-        <button>
+        <button onClick={() => changeComp("np")}>
           <p>
             Paragraph with
             <br /> Number
           </p>
           <PWN />
         </button>
-        <button>
+        <button onClick={() => changeComp("si")}>
           <p>1x1 Image</p>
           <SingleImageIcon />
         </button>
-        <button>
+        <button onClick={() => changeComp("di")}>
           <p>1x2 Image</p>
           <DoubleImageIcon />
         </button>
       </div>
       <div className="cc-preview">
+        {contentComponents[comp]}
         {/* <ThemeComponent /> */}
         {/* <Title /> */}
         {/* <ParagraphWithHeading /> */}
@@ -44,7 +66,7 @@ export const TestContentPage = () => {
         {/* <ImageWithCaption /> */}
         {/* <SingleBullet /> */}
         {/* <IngredientCard /> */}
-        <DoubleBullet />
+        {/* <DoubleBullet /> */}
       </div>
     </Style.PageContainer>
   );
