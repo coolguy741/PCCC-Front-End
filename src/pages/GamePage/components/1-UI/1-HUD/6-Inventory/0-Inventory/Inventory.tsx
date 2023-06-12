@@ -4,7 +4,6 @@ import Equipped from "../4-Equipped/Equipped";
 
 import InventoryCategoryParent from "../5-InventoryCategories/0-InventoryCategoryParent/InventoryCategoryParent";
 import { InventoryPagesSVG } from "../6-InventorySVGAssets/InventoryPagesSVG";
-import { InventoryWoodBGSVG } from "../6-InventorySVGAssets/InventoryWoodBGSVG";
 import InventoryStyleContainer from "./InventoryStyleContainer";
 import { useInventoryLogic } from "./useInvetoryLogic";
 
@@ -21,9 +20,10 @@ const Inventory: FC = () => {
     >
       <div className="inventory-book">
         <div className="inventory-wood">
-          <StaticSVGLoader
-            id="inventory-wood-svg"
-            svgPath={InventoryWoodBGSVG}
+          <img
+            alt={"inventory-bg"}
+            draggable={false}
+            src={"/game_assets/ui_images/inventory/wood_bg.webp"}
           />
         </div>
 
@@ -35,6 +35,12 @@ const Inventory: FC = () => {
           <StaticSVGLoader
             id="inventory-pages-svg"
             svgPath={InventoryPagesSVG}
+          />
+          <img
+            className="inventory-pages-overlay"
+            alt={"pages-overlay"}
+            draggable={false}
+            src={"/game_assets/ui_images/inventory/cropped.webp"}
           />
         </div>
         <InventoryCategoryParent />

@@ -1,27 +1,23 @@
 import { useCallback, useEffect, useRef } from "react";
 import { ConstantVoidFunctionType } from "../../../../shared/Types/DefineTypes";
 import { RefDivType, RefImageType } from "../../../../shared/Types/RefTypes";
-import { HUDMenuOptionPropTypes } from "./HUDMenuOption";
 import {
   animateHUDMenuOptionBGIn,
   animateHUDMenuOptionBGOut,
   animateHUDMenuOptionIconIn,
   animateHUDMenuOptionIconOut,
 } from "./HUDMenuOptionAnimations";
+import {
+  UseHUDMenuOptionLogicReturnTypes,
+  UseHUDMenuOptionLogicType,
+} from "./HUDMenuOptionTypes";
 
-interface UseHUDMenuOptionLogicReturnTypes {
-  onPointerLeave: ConstantVoidFunctionType;
-  onPointerEnter: ConstantVoidFunctionType;
-  hudMenuOptionBGRef: RefDivType;
-  hudMenuOptionIconRef: RefImageType;
-}
-
-const useHUDMenuOptionLogic = ({
+const useHUDMenuOptionLogic: UseHUDMenuOptionLogicType = ({
   optionData,
   menuActive,
   activeHoveredHudMenuOption,
   setActiveHoveredHudMenuOption,
-}: HUDMenuOptionPropTypes): UseHUDMenuOptionLogicReturnTypes => {
+}): UseHUDMenuOptionLogicReturnTypes => {
   // Refs
   const hudMenuOptionBGRef: RefDivType = useRef(null);
   const hudMenuOptionIconRef: RefImageType = useRef(null);

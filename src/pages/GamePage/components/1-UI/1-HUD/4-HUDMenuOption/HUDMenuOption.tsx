@@ -1,17 +1,7 @@
 import { FC, memo } from "react";
-import { HUDMenuOptionDataType } from "./HUDMenuOptionDefines";
 import HUDMenuOptionStyleContainer from "./HUDMenuOptionStyleContainer";
+import { HUDMenuOptionPropTypes } from "./HUDMenuOptionTypes";
 import { useHUDMenuOptionLogic } from "./useHUDMenuOptionLogic";
-
-// Types
-export interface HUDMenuOptionPropTypes {
-  menuActive: boolean;
-  optionData: HUDMenuOptionDataType;
-  activeHoveredHudMenuOption: string | null;
-  setActiveHoveredHudMenuOption: (
-    activeHoveredHudMenuOption: string | null,
-  ) => void;
-}
 
 const HUDMenuOption: FC<HUDMenuOptionPropTypes> = ({
   optionData,

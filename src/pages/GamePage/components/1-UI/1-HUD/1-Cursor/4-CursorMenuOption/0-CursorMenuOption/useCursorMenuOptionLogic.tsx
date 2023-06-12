@@ -16,7 +16,6 @@ import {
 } from "./CursorMenuOptionTypes";
 
 const useCursorMenuOptionLogic: UseCursorMenuOptionLogicReturnTypes = ({
-  type,
   animOffset,
   hoverTrigger,
   offsetFactor,
@@ -35,7 +34,7 @@ const useCursorMenuOptionLogic: UseCursorMenuOptionLogicReturnTypes = ({
 
   // Local State
   const [cursorMenuOptionIsShowing, setCursorMenuOptionIsShowing] =
-    useState(false);
+    useState<boolean>(false);
 
   // Global State
   const { menuActive, cursorLocation } = useGlobalState(

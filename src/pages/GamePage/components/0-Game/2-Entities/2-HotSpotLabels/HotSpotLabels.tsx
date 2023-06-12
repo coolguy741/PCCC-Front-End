@@ -156,7 +156,6 @@ const HotSpotLabels = (props: JSX.IntrinsicElements["group"]) => {
       if (!materials["Material.001"].map) return;
       materials["Material.001"].map.encoding = sRGBEncoding;
     }
-    console.log(materials);
   }, [nodes, materials]);
 
   const showSatelliteInfoPoints = (

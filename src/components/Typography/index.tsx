@@ -48,7 +48,7 @@ export const DynamicTypography = styled(({ tag, children, ...props }) =>
   createElement(tag, props, children),
 )`
   color: ${({ color }) => `var(--${color})`};
-  margin: ${({ margin, mt, mb, mr, ml }) => getMargin(margin, mt, mr, mb, ml)};
+  margin: ${({ margin, mt, mr, mb, ml }) => getMargin(margin, mt, mr, mb, ml)};
   letter-spacing: ${({ letterSpacing }) => `${letterSpacing}`};
   font-weight: ${({ weight }) => weight};
   text-transform: ${({ textTransform }) => textTransform};

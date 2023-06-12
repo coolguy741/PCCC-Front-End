@@ -79,7 +79,7 @@ import { LessonAssessmentPage } from "./ReportsPage/LessonAssessment";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
 import { TempHomePage } from "./TempHomePage";
-import { ThemeDemoPage } from "./TempTheme";
+import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
 import { Topics } from "./TopicBuilderPage";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
@@ -87,12 +87,12 @@ import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
+  { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
   {
-    path: "/demo-theme",
-    element: <ThemeDemoPage />,
+    path: "/test-content",
+    element: <TestContentPage />,
     errorElement: <ErrorBoundary />,
   },
-  { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
   { path: "/landing", element: <TestLandingPage /> },
   {
     path: "/signin",
@@ -454,7 +454,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "gamedebug",
-    element: <GamePage debug />,
+    element: <GamePage />,
   },
   {
     path: "game",

@@ -35,6 +35,8 @@ const useInventoryLogic = (): UseInventoryLogicReturnTypes => {
 
     if (activeHoveredHudMenuOption === "inventory") {
       inventoryIsInRef.current = true;
+      inventoryContainerRef.current.style.visibility = "visible";
+
       animateInventoryIn(inventoryContainerRef.current, () => {
         if (!inventoryContainerRef.current) return;
         inventoryContainerRef.current.style.pointerEvents = "auto";
@@ -67,6 +69,7 @@ const useInventoryLogic = (): UseInventoryLogicReturnTypes => {
         animateInventoryOut(inventoryContainerRef.current, () => {
           if (!inventoryContainerRef.current) return;
           inventoryContainerRef.current.style.pointerEvents = "none";
+          inventoryContainerRef.current.style.visibility = "hidden";
         });
       }
     },
