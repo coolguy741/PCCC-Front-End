@@ -27,7 +27,7 @@ export function Title() {
         </p>
       </div>
       <figure className="tc-image">
-        <img src="/public/content-creation/theme-cc.png" alt="" />
+        <img src="/content-creation/theme-cc.png" alt="" />
         <figcaption></figcaption>
       </figure>
     </Style.Container>
