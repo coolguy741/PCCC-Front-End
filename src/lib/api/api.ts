@@ -153,18 +153,18 @@ export interface PccServer23CalendarEventsCalendarEventDto {
   concurrencyStamp?: string | null;
 }
 
-/** @format int32 */
+/** @format string */
 export enum PccServer23CalendarEventsCalendarEventType {
-  None = None,
-  Note = Note,
-  Activity = Activity,
-  Recipe = Recipe,
-  Assessment = Assessment,
-  MealtimeMoment = MealtimeMoment,
-  Foodway = Foodway,
-  EducatorNote = EducatorNote,
-  Topic = Topic,
-  DailyDiscovery = DailyDiscovery,
+  None = "None",
+  Note = "Note",
+  Activity = "Activity",
+  Recipe = "Recipe",
+  Assessment = "Assessment",
+  MealtimeMoment = "MealtimeMoment",
+  Foodway = "Foodway",
+  EducatorNote = "EducatorNote",
+  Topic = "Topic",
+  DailyDiscovery = "DailyDiscovery",
 }
 
 export interface PccServer23CalendarEventsCalendarEventUpdateDto {
@@ -755,8 +755,6 @@ export interface PccServer23IngredientsPublicIngredientDto {
   quantity?: string | null;
   measurement?: string | null;
   name?: string | null;
-  /** @format uuid */
-  recipeId?: string;
   language?: string | null;
 }
 
@@ -789,10 +787,10 @@ export interface PccServer23RecipeMediasRecipeMediaDto {
   concurrencyStamp?: string | null;
 }
 
-/** @format int32 */
+/** @format string */
 export enum PccServer23RecipeMediasRecipeMediaType {
-  Image = Image,
-  Video = Video,
+  Image = "Image",
+  Video = "Video",
 }
 
 export interface PccServer23RecipeMediasRecipeMediaUpdateDto {
@@ -931,11 +929,11 @@ export interface PccServer23SecurityQuestionChoicesSecurityQuestionChoiceDto {
   concurrencyStamp?: string | null;
 }
 
-/** @format int32 */
+/** @format string */
 export enum PccServer23SecurityQuestionChoicesSecurityQuestionChoiceType {
-  First = First,
-  Second = Second,
-  Third = Third,
+  First = "First",
+  Second = "Second",
+  Third = "Third",
 }
 
 export interface PccServer23SecurityQuestionChoicesSecurityQuestionChoiceUpdateDto {
@@ -1062,10 +1060,10 @@ export interface PccServer23UsernameChoicesUsernameChoiceDto {
   concurrencyStamp?: string | null;
 }
 
-/** @format int32 */
+/** @format string */
 export enum PccServer23UsernameChoicesUsernameChoiceType {
-  First = First,
-  Second = Second,
+  First = "First",
+  Second = "Second",
 }
 
 export interface PccServer23UsernameChoicesUsernameChoiceUpdateDto {
@@ -1207,8 +1205,8 @@ export interface VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWith
   totalCount?: number;
 }
 
-export interface VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
-  items?: PccServer23RecipesRecipeDto[] | null;
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23RecipesPublicRecipeDto[] | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -2339,7 +2337,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<
-        VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/recipes`,

@@ -78,6 +78,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         startDate: info.event.start.toISOString(),
         endDate: info.event.end.toISOString(),
         description: info.event.extendedProps.description,
+        eventType: info.event.extendedProps.type,
       },
       {
         headers: {
@@ -96,9 +97,12 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           //@ts-ignore
           addEvent({
             ...item.calendarEvent,
-            textColor: "#F87C56",
-            backgroundColor: "#FEE5DD",
-            borderColor: "#ff0000",
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
             display: "block",
           });
         });
@@ -116,9 +120,12 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         //@ts-ignore
         addEvent({
           ...item.calendarEvent,
-          textColor: "#F87C56",
-          backgroundColor: "#FEE5DD",
-          borderColor: "#ff0000",
+          textColor:
+            item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+          backgroundColor:
+            item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+          borderColor:
+            item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
           display: "block",
         });
       });
@@ -179,7 +186,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         expandRows={true}
         moreLinkClick="week"
         events={events}
-        eventDragStop={handleDragEvent}
+        eventDrop={handleDragEvent}
         {...props}
       />
       {showEventModal && (

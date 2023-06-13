@@ -47,6 +47,10 @@ export const AddEventModal: React.FC<Props> = ({
 }) => {
   const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"note" | "publish" | "">("");
+  const [description, setDescription] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [type, setType] =
     useState<PccServer23CalendarEventsCalendarEventType | undefined>();
   const addEvent = useCalendarEventsStore((state) => state.addEvent);
@@ -58,9 +62,9 @@ export const AddEventModal: React.FC<Props> = ({
   const handleAddEvent = async () => {
     const response = await api.appCalendarsEventToMyCalendarCreate(
       {
-        description: "Test description",
-        startDate: "2023-06-05T16:35:50.569Z",
-        endDate: "2023-06-05T18:35:50.569Z",
+        description: description,
+        startDate: `${selectedDate}T${startTime}`,
+        endDate: `${selectedDate}T${endTime}`,
         groupId: "",
         eventType: type,
       },
@@ -77,7 +81,19 @@ export const AddEventModal: React.FC<Props> = ({
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType("Note");
+    setModalType("");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.currentTarget.value);
+  };
+
+  const handleStartTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStartTime(e.currentTarget.value);
+  };
+
+  const handleEndTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setEndTime(e.currentTarget.value);
   };
 
   return (
@@ -95,20 +111,20 @@ export const AddEventModal: React.FC<Props> = ({
           <div className="btn-container">
             <ButtonRow>
               <button
-                className={type === "note" ? "active" : ""}
-                onClick={() => setType("note")}
+                className={modalType === "note" ? "active" : ""}
+                onClick={() => setModalType("note")}
               >
                 Add note
               </button>
               <button
-                className={type === "publish" ? "active" : ""}
-                onClick={() => setType("publish")}
+                className={modalType === "publish" ? "active" : ""}
+                onClick={() => setModalType("publish")}
               >
                 Publish
               </button>
             </ButtonRow>
           </div>
-          {type === "note" && (
+          {modalType === "note" && (
             <AddNoteForm
               yPos={position.yPos}
               selectedDate={selectedDate}
@@ -116,9 +132,15 @@ export const AddEventModal: React.FC<Props> = ({
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
               handleAddEvent={handleAddEvent}
+              setDescription={handleChange}
+              description={description}
+              startTime={startTime}
+              setStartTime={handleStartTimeChange}
+              endTime={endTime}
+              setEndTime={handleEndTimeChange}
             />
           )}
-          {type === "publish" && (
+          {modalType === "publish" && (
             <PublishForm
               yPos={position.yPos}
               selectedDate={selectedDate}

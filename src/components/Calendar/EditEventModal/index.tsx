@@ -80,9 +80,12 @@ export const EditEventModal: React.FC<Props> = ({
           //@ts-ignore
           addEvent({
             ...item.calendarEvent,
-            textColor: "#F87C56",
-            backgroundColor: "#FEE5DD",
-            borderColor: "#ff0000",
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
             display: "block",
           });
         });
@@ -99,6 +102,7 @@ export const EditEventModal: React.FC<Props> = ({
         description: noteDescription,
         startDate: `${selectedDate}T${startTime}:00`,
         endDate: `${selectedDate}T${endTime}:00`,
+        eventType: selectedEvent.extendedProps.type,
       },
       {
         headers: {
@@ -117,9 +121,12 @@ export const EditEventModal: React.FC<Props> = ({
           //@ts-ignore
           addEvent({
             ...item.calendarEvent,
-            textColor: "#F87C56",
-            backgroundColor: "#FEE5DD",
-            borderColor: "#ff0000",
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
             display: "block",
           });
         });

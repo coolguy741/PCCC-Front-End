@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
+import { PccServer23CalendarEventsCalendarEventType } from "../../../lib/api/api";
 import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
@@ -39,10 +40,14 @@ interface Props {
 
 const EVENTS = [
   "Note",
-  "Lesson Assessment",
-  "Recipe",
-  "Mealtime Moment",
   "Activity",
+  "Recipe",
+  "Assessment",
+  "Mealtime Moment",
+  "Foodway",
+  "Educator Note",
+  "Topic",
+  "Daily Discovery",
 ];
 
 export const StandardAddEventModal: React.FC<Props> = ({
@@ -57,7 +62,8 @@ export const StandardAddEventModal: React.FC<Props> = ({
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [type, setType] = useState<string>("");
+  const [type, setType] =
+    useState<PccServer23CalendarEventsCalendarEventType | undefined>();
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
@@ -71,6 +77,7 @@ export const StandardAddEventModal: React.FC<Props> = ({
         groupId: "",
         startDate: `${selectedDate}T${startTime}`,
         endDate: `${selectedDate}T${endTime}`,
+        eventType: type,
       },
       {
         headers: {
@@ -89,9 +96,12 @@ export const StandardAddEventModal: React.FC<Props> = ({
           //@ts-ignore
           addEvent({
             ...item.calendarEvent,
-            textColor: "#F87C56",
-            backgroundColor: "#FEE5DD",
-            borderColor: "#ff0000",
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
             display: "block",
           });
         });
@@ -116,7 +126,7 @@ export const StandardAddEventModal: React.FC<Props> = ({
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType("");
+    setType(undefined);
   };
 
   return (
@@ -133,8 +143,18 @@ export const StandardAddEventModal: React.FC<Props> = ({
         <div className="popup">
           <div className="header">
             <h3>Add</h3>
-            <Select value={type} onChange={(e) => setType(e.target.value)}>
-              <option>—</option>
+            <Select
+              value={type}
+              onChange={(e) =>
+                setType(
+                  e.target.value.replace(
+                    /\s/g,
+                    "",
+                  ) as PccServer23CalendarEventsCalendarEventType,
+                )
+              }
+            >
+              <option value={""}>—</option>
               {EVENTS.map((event) => (
                 <option key={event} value={event}>
                   {event}
