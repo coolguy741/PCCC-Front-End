@@ -1,14 +1,42 @@
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
 export function Title() {
+  const [mode, setMode] = useState<"view" | "edit">("view");
+  const [title, setTitle] = useState(
+    "With great power comes great responsibility",
+  );
+  const titleRef = useRef<HTMLTextAreaElement>(null);
+
+  function clickHandler() {
+    if (mode === "view") setMode("edit");
+    else setMode("view");
+  }
+
+  useEffect(() => {
+    if (mode === "edit" && titleRef.current) {
+      const end = title.length;
+      titleRef.current.setSelectionRange(end, end);
+      titleRef.current.focus();
+    }
+  }, [mode, title.length]);
+
   return (
     <Style.Container>
       <div className="tc-content">
-        <h1>
+        <h1 onDoubleClick={clickHandler}>
           <span className="tc-overview">Overview</span>
           <br />
-          With great power comes great responsibility
+          {mode === "view" ? (
+            title
+          ) : (
+            <textarea
+              onChange={(e) => setTitle(e.target.value)}
+              ref={titleRef}
+              defaultValue={title}
+            />
+          )}
         </h1>
         <p>
           Providing food for your loved ones is powerful. Throughout nature and
@@ -76,6 +104,22 @@ const Style = {
         border-radius: 12px;
         z-index: 2;
         padding-top: 4vh;
+
+        textarea {
+          border: none;
+          display: inline;
+          font-family: inherit;
+          font-size: inherit;
+          font-weight: inherit;
+          line-height: inherit;
+          background-color: unset;
+          padding: none;
+          width: auto;
+          resize: none;
+          color: green;
+          width: 100%;
+          border: 1px solid red;
+        }
       }
     }
 
