@@ -63,15 +63,15 @@ export function Title() {
 }
 
 const Style = {
-  Container: styled.main`
+  Container: styled.section`
     width: 100%;
-    height: 66.6%;
+    height: 100%;
     display: flex;
     align-items: flex-end;
     justify-content: center;
 
     .tc-content {
-      width: 30%;
+      width: 40%;
       height: 90%;
       z-index: 2;
 

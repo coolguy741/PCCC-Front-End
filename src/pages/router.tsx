@@ -81,6 +81,8 @@ import { SearchPage } from "./SearchPage";
 import { TempHomePage } from "./TempHomePage";
 import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
+import { Themes } from "./ThemeBuilderPage";
+import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
 import { Topics } from "./TopicBuilderPage";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
 import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
@@ -218,6 +220,14 @@ export const router = createBrowserRouter([
           },
           { path: "edit", element: <MealPlannerPage /> },
           { path: "grocery-list", element: <MealPlannerGroceryPage /> },
+        ],
+      },
+      {
+        path: "themes",
+        element: <PageTitleLayout title="Theme" icon="topic-orange-outlined" />,
+        children: [
+          { path: "", element: <Themes /> },
+          { path: "create", element: <ThemeCreatePage /> },
         ],
       },
       {

@@ -34,3 +34,12 @@ export interface Filter {
   label: string;
   value: string;
 }
+
+export interface ThemeComponent {
+  col: number;
+  row: number;
+  id: number;
+  title: string;
+  component: JSX.Element;
+  preview: JSX.Element;
+}

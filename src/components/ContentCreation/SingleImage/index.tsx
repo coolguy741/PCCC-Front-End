@@ -19,8 +19,8 @@ const Style = {
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(59.2764px);
     border-radius: 16px;
-    width: 30%;
-    height: 40%;
+    width: 100%;
+    height: 100%;
     padding: 2.5vh 2vw;
   `,
 };
