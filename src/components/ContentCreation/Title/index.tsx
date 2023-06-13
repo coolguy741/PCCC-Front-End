@@ -43,7 +43,7 @@ const Style = {
     justify-content: center;
 
     .tc-content {
-      width: 30%;
+      width: 40%;
       height: 90%;
       z-index: 2;
 

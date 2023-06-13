@@ -36,6 +36,10 @@ const Style = {
     height: 100%;
     display: flex;
     flex-direction: column;
+    & > p {
+      position: relative;
+      z-index: 1;
+    }
     & > div {
       background: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
@@ -49,6 +53,6 @@ const Style = {
 
   Content: styled.div`
     position: relative;
-    z-index: -1;
+    z-index: 0;
   `,
 };

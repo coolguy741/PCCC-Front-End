@@ -20,7 +20,9 @@ import { ParagraphWithHeading } from "../../components/ContentCreation/Paragraph
 import { SingleImage } from "../../components/ContentCreation/SingleImage";
 import { Title } from "../../components/ContentCreation/Title";
 import { ThemeComponent } from "../../pages/types";
+import Button from "../Button";
 import Scrollable from "../Global/Scrollable";
+import { ContentNavigator } from "./ContentNavigator";
 
 const components: ThemeComponent[] = [
   {
@@ -128,7 +130,7 @@ export const ContentBuilder = () => {
 
         for (let i = 0; i < 3; i++) {
           const component = components[themeGrid[0][0] - 1];
-          if (component.row === 2) {
+          if (component?.row === 2) {
             i += component.col - 1;
             tempComponents.push([component]);
           } else {
@@ -216,81 +218,105 @@ export const ContentBuilder = () => {
 
   return (
     <Style.Container>
-      <DragDropContext
-        onDragEnd={onDragEnd}
-        onDragUpdate={onDragUpdate}
-        onDragStart={onDragStart}
-      >
-        <Droppable droppableId="hello-drop" isDropDisabled={true}>
-          {(dropProvided, dropSnapshot) => (
-            <Style.Previews
-              {...dropProvided.droppableProps}
-              ref={dropProvided.innerRef}
-            >
-              <Scrollable>
-                {components.map((component, index) => (
-                  <Draggable
-                    draggableId={`component-${index}`}
-                    index={index}
-                    key={`component-${index}`}
-                  >
-                    {(provided, snapShot) => {
-                      return (
-                        <Style.Preview>
-                          <div className="preview-title">{component.title}</div>
-                          <div
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                            className="icon-container"
+      <ContentNavigator />
+      <Style.DragDropContainer>
+        <DragDropContext
+          onDragEnd={onDragEnd}
+          onDragUpdate={onDragUpdate}
+          onDragStart={onDragStart}
+        >
+          <Droppable droppableId="preview-drop" isDropDisabled={true}>
+            {(dropProvided, dropSnapshot) => (
+              <Style.Previews
+                {...dropProvided.droppableProps}
+                ref={dropProvided.innerRef}
+              >
+                <Scrollable>
+                  {components.map((component, index) => (
+                    <Draggable
+                      draggableId={`component-${index}`}
+                      index={index}
+                      key={`component-${index}`}
+                    >
+                      {(provided, snapShot) => {
+                        return (
+                          <Style.Preview>
+                            <div className="preview-title">
+                              {component.title}
+                            </div>
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              className="icon-container"
+                            >
+                              {snapShot.isDragging &&
+                              draggingComponent === index
+                                ? components[draggingComponent].preview
+                                : component.preview}
+                            </div>
+                          </Style.Preview>
+                        );
+                      }}
+                    </Draggable>
+                  ))}
+                  {dropProvided.placeholder}
+                </Scrollable>
+              </Style.Previews>
+            )}
+          </Droppable>
+          <Style.Slide>
+            <Droppable droppableId="drop">
+              {(dropProvided) => (
+                <Style.Content
+                  {...dropProvided.droppableProps}
+                  ref={dropProvided.innerRef}
+                >
+                  {themeComponents?.map((componentColumn, index) => (
+                    <Style.ComponentColumn key={`column-${index}`}>
+                      {Array.isArray(componentColumn) &&
+                        componentColumn?.length > 0 &&
+                        componentColumn.map((component) => (
+                          <Style.Component
+                            col={component?.col ?? 1}
+                            key={component.id}
                           >
-                            {snapShot.isDragging && draggingComponent === index
-                              ? components[draggingComponent].preview
-                              : component.preview}
-                          </div>
-                        </Style.Preview>
-                      );
-                    }}
-                  </Draggable>
-                ))}
-                {dropProvided.placeholder}
-              </Scrollable>
-            </Style.Previews>
-          )}
-        </Droppable>
-        <Droppable droppableId="world-drop">
-          {(dropProvided) => (
-            <Style.Content
-              {...dropProvided.droppableProps}
-              ref={dropProvided.innerRef}
-            >
-              {themeComponents?.map((componentColumn, index) => (
-                <Style.ComponentColumn key={`column-${index}`}>
-                  {Array.isArray(componentColumn) &&
-                    componentColumn?.length > 0 &&
-                    componentColumn.map((component) => (
-                      <Style.Component
-                        col={component?.col ?? 1}
-                        key={component.id}
-                      >
-                        {component?.component ?? ""}
-                      </Style.Component>
-                    ))}
-                </Style.ComponentColumn>
-              ))}
-            </Style.Content>
-          )}
-        </Droppable>
-      </DragDropContext>
+                            {component?.component ?? ""}
+                          </Style.Component>
+                        ))}
+                    </Style.ComponentColumn>
+                  ))}
+                </Style.Content>
+              )}
+            </Droppable>
+            <Style.ActionContainer>
+              <Button variant="yellow">Add Slide</Button>
+              <div className="flex">
+                <Button variant="yellow" className="mr-4">
+                  Save changes and exit
+                </Button>
+                <Button variant="orange">Save changes and continue</Button>
+              </div>
+            </Style.ActionContainer>
+          </Style.Slide>
+        </DragDropContext>
+      </Style.DragDropContainer>
     </Style.Container>
   );
 };
 
 const Style = {
   Container: styled.section`
-    width: 100%;
     display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    height: 100vh;
+  `,
+  DragDropContainer: styled.section`
+    width: 100%;
+    flex: auto;
     height: 100%;
+    display: flex;
     column-gap: 4%;
     overflow: hidden;
   `,
@@ -320,14 +346,17 @@ const Style = {
     }
   `,
   Content: styled.div`
-    width: 80%;
     display: flex;
     flex-direction: column;
     gap: 5%;
+    padding: 2vh;
+    background: white;
+    border-radius: 0.5rem;
+    flex: 1;
   `,
   ComponentColumn: styled.div`
     display: flex;
-    gap: 3%;
+    gap: 2%;
     height: 100%;
     row-gap: 5%;
   `,
@@ -335,6 +364,16 @@ const Style = {
     col: props.col ?? 1,
   }))`
     width: ${(props) =>
-      props.col * 30 + (props.col === 2 ? 3 : props.col === 3 ? 10 : 0)}%;
+      props.col * 32 + (props.col === 2 ? 2 : props.col === 3 ? 4 : 0)}%;
+  `,
+  ActionContainer: styled.div`
+    padding: 2vh 0;
+    display: flex;
+    justify-content: space-between;
+  `,
+  Slide: styled.section`
+    width: 80%;
+    display: flex;
+    flex-direction: column;
   `,
 };
