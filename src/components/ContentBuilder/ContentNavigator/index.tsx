@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import Button from "../../Button";
+import { ContentSlider } from "../Slider";
 
 export const ContentNavigator = () => {
   return (
@@ -13,6 +14,7 @@ export const ContentNavigator = () => {
       >
         Back to themes
       </Button>
+      <ContentSlider />
       <Button>Preview</Button>
     </Style.Container>
   );
