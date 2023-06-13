@@ -8,7 +8,7 @@ import { ContentListItemData } from "../ContentListItem";
 import { DropdownSelect } from "../DropdownSelect";
 import Scrollbar from "../Scrollable";
 
-type SelectOption = "Topic" | "Sort" | "Curriculum";
+type SelectOption = "Topic" | "Sort" | "Curriculum" | "Theme";
 interface ContentListAdminPageTemplateProps {
   title: string;
   selectsGroup: SelectOption[];
@@ -45,6 +45,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
               variant="orange"
               size="large"
               icon="add"
+              to="create"
               iconPosition="right"
             >
               {title === "Mealtime Moments Editor"
