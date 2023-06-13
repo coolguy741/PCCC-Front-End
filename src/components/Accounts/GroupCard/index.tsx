@@ -110,6 +110,7 @@ const Style = {
     border-radius: 16px;
     width: 49%;
     margin-bottom: ${convertToRelativeUnit(24, "vh")};
+    max-height: 28vh;
 
     .card-content {
       width: 100%;
