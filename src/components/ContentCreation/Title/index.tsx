@@ -2,8 +2,52 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 
+const titleState = {
+  tag: { mode: "view", text: "Overview" },
+  heading: {
+    mode: "view",
+    text: "With great power comes great responsibility",
+  },
+  desc: {
+    mode: "view",
+    text: `Providing food for your loved ones is powerful. Throughout nature and history, providers have helped their family groups and communities thrive and survive. But when you’re planting your own crops, or forging for food in nature, the real power is knowledge. There are
+many things to know, and many ways to know them. Let’s start simple:
+knowing the right tool for the job. Check out Activity 1 to identify
+common growing tools and discuss what they’re used for.`,
+  },
+  subHeading: {
+    mode: "view",
+    text: "Knowing how to stay safe",
+  },
+  subDesc: {
+    mode: "view",
+    text: `Garden Guardian safety tips and guidance can be found in all Power
+    Full Kids lessons. Watch for the Garden Guardian section and stay safe
+    when you grow.`,
+  },
+};
+
 export function Title() {
   const [mode, setMode] = useState<"view" | "edit">("view");
+  const [editState, setEditState] = useState(titleState);
+
+  function changeEditState(
+    tag: "tag" | "heading" | "desc" | "subHeading" | "subDesc",
+    newText: string,
+    mode: "view" | "edit",
+  ) {
+    if (mode === "edit")
+      return setEditState((prevState) => {
+        return {
+          ...prevState,
+          tag: {
+            ...prevState[tag],
+            mode: "view",
+          },
+        };
+      });
+  }
+
   const [title, setTitle] = useState(
     "With great power comes great responsibility",
   );
