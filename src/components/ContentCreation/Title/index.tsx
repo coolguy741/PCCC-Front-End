@@ -3,7 +3,15 @@ import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-const titleState = {
+type TitleType = "tag" | "heading" | "desc" | "subHeading" | "subDesc";
+interface ITile {
+  mode: "view" | "edit";
+  text: string;
+}
+
+type TitleState = Record<TitleType, ITile>;
+
+const titleState: TitleState = {
   tag: { mode: "view", text: "Overview" },
   heading: {
     mode: "view",
@@ -29,11 +37,9 @@ common growing tools and discuss what they’re used for.`,
 };
 
 export function Title() {
-  const [editState, setEditState] = useState(titleState);
+  const [editState, setEditState] = useState<TitleState>(titleState);
 
-  function changeEditState(
-    tag: "tag" | "heading" | "desc" | "subHeading" | "subDesc",
-  ) {
+  function changeEditState(tag: TitleType) {
     if (editState[tag].mode === "edit") {
       const newState = {
         ...editState,
@@ -55,10 +61,7 @@ export function Title() {
     }
   }
 
-  function changeText(
-    name: "tag" | "heading" | "desc" | "subHeading" | "subDesc",
-    newText: string,
-  ) {
+  function changeText(name: TitleType, newText: string) {
     const newState = {
       ...editState,
       [name]: {
