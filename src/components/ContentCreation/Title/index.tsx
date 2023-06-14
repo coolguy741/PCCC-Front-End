@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 const titleState = {
   tag: { mode: "view", text: "Overview" },
@@ -28,59 +29,63 @@ common growing tools and discuss what they’re used for.`,
 };
 
 export function Title() {
-  const [mode, setMode] = useState<"view" | "edit">("view");
   const [editState, setEditState] = useState(titleState);
 
   function changeEditState(
     tag: "tag" | "heading" | "desc" | "subHeading" | "subDesc",
-    newText: string,
     mode: "view" | "edit",
   ) {
-    if (mode === "edit")
-      return setEditState((prevState) => {
-        return {
-          ...prevState,
-          tag: {
-            ...prevState[tag],
-            mode: "view",
-          },
-        };
-      });
-  }
-
-  const [title, setTitle] = useState(
-    "With great power comes great responsibility",
-  );
-  const titleRef = useRef<HTMLTextAreaElement>(null);
-
-  function clickHandler() {
-    if (mode === "view") setMode("edit");
-    else setMode("view");
-  }
-
-  useEffect(() => {
-    if (mode === "edit" && titleRef.current) {
-      const end = title.length;
-      titleRef.current.setSelectionRange(end, end);
-      titleRef.current.focus();
+    if (mode === "edit") {
+      const newState = {
+        ...editState,
+        [tag]: {
+          ...editState[tag],
+          mode: "view",
+        },
+      };
+      setEditState(newState);
+    } else {
+      const newState = {
+        ...editState,
+        [tag]: {
+          ...editState[tag],
+          mode: "edit",
+        },
+      };
+      setEditState(newState);
     }
-  }, [mode, title.length]);
+  }
+
+  function changeText(
+    name: "tag" | "heading" | "desc" | "subHeading" | "subDesc",
+    newText: string,
+  ) {
+    const newState = {
+      ...editState,
+      [name]: {
+        ...editState[name],
+        text: newText,
+      },
+    };
+    setEditState(newState);
+  }
 
   return (
     <Style.Container>
       <div className="tc-content">
-        <h1 onDoubleClick={clickHandler}>
+        <h1
+          onDoubleClick={() =>
+            changeEditState("heading", editState.heading.mode as any)
+          }
+        >
           <span className="tc-overview">Overview</span>
           <br />
-          {mode === "view" ? (
-            title
-          ) : (
-            <textarea
-              onChange={(e) => setTitle(e.target.value)}
-              ref={titleRef}
-              defaultValue={title}
-            />
-          )}
+          <DoubleClickToEditComponent
+            mode={editState.heading.mode}
+            setText={changeText}
+            text={editState.heading.text}
+            name="heading"
+          />
         </h1>
         <p>
           Providing food for your loved ones is powerful. Throughout nature and
@@ -148,22 +153,6 @@ const Style = {
         border-radius: 12px;
         z-index: 2;
         padding-top: 4vh;
-
-        textarea {
-          border: none;
-          display: inline;
-          font-family: inherit;
-          font-size: inherit;
-          font-weight: inherit;
-          line-height: inherit;
-          background-color: unset;
-          padding: none;
-          width: auto;
-          resize: none;
-          color: green;
-          width: 100%;
-          border: 1px solid red;
-        }
       }
     }
 

@@ -1,33 +1,37 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
 
-export function DoubleClickToEditComponent({ mode, setText, text }: any) {
+export function DoubleClickToEditComponent({ mode, name, setText, text }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
-  useEffect(() => {
-    if (mode === "edit" && ref.current) {
-      const end = text.length;
-      text.current.setSelectionRange(end, end);
-      text.current.focus();
-    }
-  }, [mode, ref, text]);
+  console.log(mode, setText, text);
+  // useEffect(() => {
+  //   if (mode === "edit" && ref.current) {
+  //     const end = text.length;
+  //     text.current.setSelectionRange(end, end);
+  //     text.current.focus();
+  //   }
+  // }, [mode, ref, text]);
 
-  if (mode === "view") {
-    return text;
-  } else {
-    return (
-      <Style.Container
-        onChange={(e) => setText(e.target.value)}
-        ref={ref}
-        defaultValue={text}
-      />
-    );
+  function showComponent() {
+    if (mode === "view") {
+      return <>{text}</>;
+    } else {
+      return (
+        <Style.Container
+          onChange={(e) => setText(name, e.target.value)}
+          ref={ref}
+          defaultValue={text}
+        />
+      );
+    }
   }
+
+  return showComponent();
 }
 
 export const Style = {
   Container: styled.textarea`
     border: none;
-    display: inline;
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
