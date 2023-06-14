@@ -24,12 +24,6 @@ interface EditNoteFormProps {
   handleEdit: () => void;
 }
 
-export const convertTimeToSelectFormat = (time: string | undefined) => {
-  if (time && time.length > 6) {
-    return time.split(" ")[4].split(":")[0] + ":00";
-  } else return time;
-};
-
 export const EditNoteForm = ({
   yPos,
   isOpen,
@@ -58,11 +52,11 @@ export const EditNoteForm = ({
           <label>{formatDate(selectedEvent.start)}</label>
           <div className="date-picker-row">
             <TimeSelect
-              value={convertTimeToSelectFormat(startTime)}
+              value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
             />
             <TimeSelect
-              value={convertTimeToSelectFormat(endTime)}
+              value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
             />
             <div className="date-picker-row">

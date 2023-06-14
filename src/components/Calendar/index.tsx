@@ -4,7 +4,8 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Cookies from "js-cookie";
-import { useCallback, useEffect, useState } from "react";
+import { DateTime } from "luxon";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../hooks/useAPI";
 import { fetchEvents } from "../../lib/api/helpers/fetchEvents";
@@ -15,6 +16,7 @@ import { EditEventModal } from "./EditEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
   const { api } = useAPI();
+  const calendarRef = useRef();
   const { events, addEvent, removeEvents } = useCalendarEventsStore(
     (state) => state,
   );
@@ -67,16 +69,20 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDragEvent = async (info: any) => {
     console.log(
-      info.event.id,
-      info.event.start.toISOString(),
-      info.event.end.toISOString(),
+      DateTime.fromISO(info.event.start.toISOString())
+        .plus({ hours: DateTime.now().offset })
+        .toISO(),
     );
 
     const response = await api.appCalendarsEventUpdate(
       {
         id: info.event.id,
-        startDate: info.event.start.toISOString(),
-        endDate: info.event.end.toISOString(),
+        startDate: DateTime.fromISO(info.event.start.toISOString())
+          .plus({ minutes: DateTime.now().offset })
+          .toISO(),
+        endDate: DateTime.fromISO(info.event.end.toISOString())
+          .plus({ minutes: DateTime.now().offset })
+          .toISO(),
         description: info.event.extendedProps.description,
         eventType: info.event.extendedProps.type,
       },
@@ -136,10 +142,6 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     getEvents();
   }, [getEvents]);
 
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
-
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
     return (
       <Style.CustomEventTitle>
@@ -161,6 +163,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
       <FullCalendar
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
+        // timeZone="UTC"
         headerToolbar={{
           left: "prev,next today",
           center: "title",

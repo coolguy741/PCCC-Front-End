@@ -1,12 +1,13 @@
 import { EventImpl } from "@fullcalendar/core/internal";
 import Cookies from "js-cookie";
+import { DateTime } from "luxon";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
-import { convertTimeToSelectFormat, EditNoteForm } from "../EditNoteForm";
+import { EditNoteForm } from "../EditNoteForm";
 import { EVENT_NAME_OBJECT } from "../PublishForm";
 
 export interface EventType {
@@ -38,6 +39,16 @@ interface Props {
   selectedEvent: EventImpl;
 }
 
+const convertTimeToSelectFormat = (time: Date | undefined | null) => {
+  if (time) {
+    const iso = time.toISOString();
+    const datetime = DateTime.fromISO(iso);
+    const hour = datetime.hour;
+
+    return `${hour > 9 ? hour : `0${hour}`}:00`;
+  } else return;
+};
+
 export const EditEventModal: React.FC<Props> = ({
   isOpen = false,
   isConfirm = false,
@@ -49,10 +60,10 @@ export const EditEventModal: React.FC<Props> = ({
   const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
   const [startTime, setStartTime] = useState(
-    convertTimeToSelectFormat(selectedEvent.start?.toString()),
+    convertTimeToSelectFormat(selectedEvent.start),
   );
   const [endTime, setEndTime] = useState(
-    convertTimeToSelectFormat(selectedEvent.end?.toString()),
+    convertTimeToSelectFormat(selectedEvent.end),
   );
   const [eventType, setEventType] = useState<EventType | undefined>();
   const [noteDescription, setNoteDescription] = useState(
@@ -100,8 +111,8 @@ export const EditEventModal: React.FC<Props> = ({
       {
         id: selectedEvent.id,
         description: noteDescription,
-        startDate: `${selectedDate}T${startTime}:00`,
-        endDate: `${selectedDate}T${endTime}:00`,
+        startDate: `${selectedDate}T${startTime}`,
+        endDate: `${selectedDate}T${endTime}`,
         eventType: selectedEvent.extendedProps.type,
       },
       {

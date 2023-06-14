@@ -195,7 +195,7 @@ export const StandardAddEventModal: React.FC<Props> = ({
                 isOpen={isOpen}
                 handleAddEvent={handleAddEvent}
                 startTime={startTime}
-                setStartTime={handleEndTimeChange}
+                setStartTime={handleStartTimeChange}
                 endTime={endTime}
                 setEndTime={handleEndTimeChange}
               />
