@@ -42,6 +42,7 @@ export const Style = {
     resize: none;
     color: green;
     width: 100%;
+    height: inherit;
     border: 1px solid red;
   `,
 };

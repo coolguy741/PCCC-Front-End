@@ -33,9 +33,8 @@ export function Title() {
 
   function changeEditState(
     tag: "tag" | "heading" | "desc" | "subHeading" | "subDesc",
-    mode: "view" | "edit",
   ) {
-    if (mode === "edit") {
+    if (editState[tag].mode === "edit") {
       const newState = {
         ...editState,
         [tag]: {
@@ -73,11 +72,7 @@ export function Title() {
   return (
     <Style.Container>
       <div className="tc-content">
-        <h1
-          onDoubleClick={() =>
-            changeEditState("heading", editState.heading.mode as any)
-          }
-        >
+        <h1 onDoubleClick={() => changeEditState("heading")}>
           <span className="tc-overview">Overview</span>
           <br />
           <DoubleClickToEditComponent
@@ -87,11 +82,7 @@ export function Title() {
             name="heading"
           />
         </h1>
-        <p
-          onDoubleClick={() =>
-            changeEditState("desc", editState.desc.mode as any)
-          }
-        >
+        <p onDoubleClick={() => changeEditState("desc")}>
           <DoubleClickToEditComponent
             mode={editState.desc.mode}
             setText={changeText}
@@ -99,11 +90,7 @@ export function Title() {
             name="desc"
           />
         </p>
-        <h2
-          onDoubleClick={() =>
-            changeEditState("subHeading", editState.subHeading.mode as any)
-          }
-        >
+        <h2 onDoubleClick={() => changeEditState("subHeading")}>
           <DoubleClickToEditComponent
             mode={editState.subHeading.mode}
             setText={changeText}
@@ -111,11 +98,7 @@ export function Title() {
             name="subHeading"
           />
         </h2>
-        <p
-          onDoubleClick={() =>
-            changeEditState("subDesc", editState.subDesc.mode as any)
-          }
-        >
+        <p onDoubleClick={() => changeEditState("subDesc")}>
           <DoubleClickToEditComponent
             mode={editState.subDesc.mode}
             setText={changeText}
@@ -174,6 +157,7 @@ const Style = {
         border-radius: 12px;
         z-index: 2;
         padding-top: 4vh;
+        height: max-content;
       }
     }
 
@@ -183,6 +167,7 @@ const Style = {
       padding: 0 20px;
       line-height: 32px;
       color: #3d3d3d;
+      height: max-content;
     }
 
     p {
@@ -190,6 +175,7 @@ const Style = {
       padding: 0 20px;
       font-size: 1.5vh;
       color: #646464;
+      height: max-content;
     }
 
     figure {
