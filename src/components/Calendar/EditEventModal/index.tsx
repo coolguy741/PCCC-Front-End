@@ -111,8 +111,8 @@ export const EditEventModal: React.FC<Props> = ({
       {
         id: selectedEvent.id,
         description: noteDescription,
-        startDate: `${selectedDate}T${startTime}`,
-        endDate: `${selectedDate}T${endTime}`,
+        startDate: new Date(`${selectedDate}T${startTime}`).toISOString(),
+        endDate: new Date(`${selectedDate}T${endTime}`).toISOString(),
         eventType: selectedEvent.extendedProps.type,
       },
       {

@@ -63,8 +63,8 @@ export const AddEventModal: React.FC<Props> = ({
     const response = await api.appCalendarsEventToMyCalendarCreate(
       {
         description: description,
-        startDate: `${selectedDate}T${startTime}`,
-        endDate: `${selectedDate}T${endTime}`,
+        startDate: new Date(`${selectedDate}T${startTime}`).toISOString(),
+        endDate: new Date(`${selectedDate}T${endTime}`).toISOString(),
         groupId: "",
         eventType: type,
       },

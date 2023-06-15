@@ -75,8 +75,8 @@ export const StandardAddEventModal: React.FC<Props> = ({
       {
         description: description,
         groupId: "",
-        startDate: `${selectedDate}T${startTime}`,
-        endDate: `${selectedDate}T${endTime}`,
+        startDate: new Date(`${selectedDate}T${startTime}`).toISOString(),
+        endDate: new Date(`${selectedDate}T${endTime}`).toISOString(),
         eventType: type,
       },
       {

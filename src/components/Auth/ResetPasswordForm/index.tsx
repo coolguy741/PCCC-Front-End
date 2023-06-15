@@ -50,8 +50,6 @@ export const ResetPasswordForm = () => {
       secondQuestionAnswer: secondQuestionAnswer,
       thirdQuestionAnswer: thirdQuestionAnswer,
     });
-
-    console.log(response);
   };
 
   return (

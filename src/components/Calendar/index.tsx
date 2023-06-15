@@ -4,7 +4,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Cookies from "js-cookie";
-import { DateTime } from "luxon";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../hooks/useAPI";
@@ -68,21 +67,13 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDragEvent = async (info: any) => {
-    console.log(
-      DateTime.fromISO(info.event.start.toISOString())
-        .plus({ hours: DateTime.now().offset })
-        .toISO(),
-    );
-
     const response = await api.appCalendarsEventUpdate(
       {
         id: info.event.id,
-        startDate: DateTime.fromISO(info.event.start.toISOString())
-          .plus({ minutes: DateTime.now().offset })
-          .toISO(),
-        endDate: DateTime.fromISO(info.event.end.toISOString())
-          .plus({ minutes: DateTime.now().offset })
-          .toISO(),
+        startDate: new Date(
+          `${selectedDate}T${info.event.start}`,
+        ).toISOString(),
+        endDate: new Date(`${selectedDate}T${info.event.end}`).toISOString(),
         description: info.event.extendedProps.description,
         eventType: info.event.extendedProps.type,
       },
@@ -163,7 +154,6 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
       <FullCalendar
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        // timeZone="UTC"
         headerToolbar={{
           left: "prev,next today",
           center: "title",
