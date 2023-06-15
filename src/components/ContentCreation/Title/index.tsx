@@ -68,7 +68,7 @@ export function Title() {
             name="subHeading"
           />
         </h2>
-        <p onDoubleClick={() => changeEditState("subDesc")}>
+        <p>
           <DoubleClickToEditComponent
             mode={state.subDesc.mode}
             setText={changeText}
