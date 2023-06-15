@@ -1,7 +1,13 @@
 import { useRef } from "react";
 import styled from "styled-components";
 
-export function DoubleClickToEditComponent({ mode, name, setText, text }: any) {
+export function DoubleClickToEditComponent({
+  mode,
+  name,
+  setText,
+  text,
+  changeEditState,
+}: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
 
   // useEffect(() => {
@@ -12,15 +18,20 @@ export function DoubleClickToEditComponent({ mode, name, setText, text }: any) {
   //   }
   // }, [mode, ref, text]);
 
+  function switchOnDb() {
+    changeEditState(name);
+  }
+
   function showComponent() {
     if (mode === "view") {
-      return <>{text}</>;
+      return <span onDoubleClick={switchOnDb}>{text}</span>;
     } else {
       return (
         <Style.Container
           onChange={(e) => setText(name, e.target.value)}
           ref={ref}
           defaultValue={text}
+          onDoubleClick={switchOnDb}
         />
       );
     }
@@ -42,7 +53,7 @@ export const Style = {
     resize: none;
     color: green;
     width: 100%;
-    height: inherit;
+    height: max-content;
     border: 1px solid red;
   `,
 };

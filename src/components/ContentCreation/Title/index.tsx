@@ -81,22 +81,25 @@ export function Title() {
           <DoubleClickToEditComponent
             mode={editState.heading.mode}
             setText={changeText}
+            changeEditState={changeEditState}
             text={editState.heading.text}
             name="heading"
           />
         </h1>
-        <p onDoubleClick={() => changeEditState("desc")}>
+        <p>
           <DoubleClickToEditComponent
             mode={editState.desc.mode}
             setText={changeText}
+            changeEditState={changeEditState}
             text={editState.desc.text}
             name="desc"
           />
         </p>
-        <h2 onDoubleClick={() => changeEditState("subHeading")}>
+        <h2>
           <DoubleClickToEditComponent
             mode={editState.subHeading.mode}
             setText={changeText}
+            changeEditState={changeEditState}
             text={editState.subHeading.text}
             name="subHeading"
           />
@@ -105,6 +108,7 @@ export function Title() {
           <DoubleClickToEditComponent
             mode={editState.subDesc.mode}
             setText={changeText}
+            changeEditState={changeEditState}
             text={editState.subDesc.text}
             name="subDesc"
           />
@@ -131,7 +135,7 @@ const Style = {
       height: 90%;
       z-index: 2;
 
-      span {
+      span.tc-overview {
         font-weight: 600;
         font-size: ${conv(14, "vw")};
         text-transform: uppercase;
