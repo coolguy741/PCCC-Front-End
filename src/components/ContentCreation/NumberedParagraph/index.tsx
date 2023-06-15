@@ -4,18 +4,18 @@ import { Typography } from "../../Typography";
 export function NumberedParagraph() {
   return (
     <Style.Container>
-      <Typography size="12.5vh" mt="-4vh" weight={700} color="orange-500">
-        1
+      <Typography
+        size="12.5vh"
+        mt="-4vh"
+        ml="2vw"
+        mb="2vh"
+        weight={700}
+        color="orange-500"
+      >
+        2
       </Typography>
       <Style.Content>
-        <Typography
-          tag="h2"
-          size="2.75vh"
-          mt="-1.5vh"
-          mb="1.5vh"
-          weight={600}
-          color="neutral-800"
-        >
+        <Typography tag="h2" size="2.75vh" weight={600} color="neutral-800">
           Garden Guardian
         </Typography>
         <Typography color="neutral-600" size="1.65vh">
@@ -36,10 +36,12 @@ const Style = {
     height: 100%;
     display: flex;
     flex-direction: column;
+
     & > p {
       position: relative;
       z-index: 1;
     }
+
     & > div {
       background: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
