@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { formatDate } from "../../../lib/util/formatDate";
 import { getTimeFromDateString } from "../../../lib/util/getTimeFromDateString";
-import { EVENT_NAME_OBJECT } from "../PublishForm";
+import { TYPE_KEY_OBJ } from "../StandardPublishForm";
 
 export interface EventType {
   type: string;
@@ -67,7 +67,9 @@ export const PreviewEventModal: React.FC<Props> = ({
         <div className="popup">
           <div className="header">
             <h3>
-              {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type] || "Event"}
+              {TYPE_KEY_OBJ[
+                selectedEvent.extendedProps.type as keyof typeof TYPE_KEY_OBJ
+              ] || "Event"}
             </h3>
           </div>
           <div className="content">

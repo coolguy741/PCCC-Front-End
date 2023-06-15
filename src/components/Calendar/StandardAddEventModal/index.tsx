@@ -39,15 +39,15 @@ interface Props {
 }
 
 const EVENTS = [
-  "Note",
-  "Activity",
-  "Recipe",
-  "Assessment",
-  "Mealtime Moment",
-  "Foodway",
-  "Educator Note",
-  "Topic",
-  "Daily Discovery",
+  { value: "Note", label: "Note" },
+  { value: "Activity", label: "Activity" },
+  { value: "Recipe", label: "Recipe" },
+  { value: "Assessment", label: "Assessment" },
+  { value: "MealtimeMoment", label: "Mealtime Moment" },
+  { value: "Foodway", label: "Foodway" },
+  { value: "EducatorNote", label: "Educator Note" },
+  { value: "Topic", label: "Topic" },
+  { value: "DailyDiscovery", label: "Daily Discovery" },
 ];
 
 export const StandardAddEventModal: React.FC<Props> = ({
@@ -126,7 +126,10 @@ export const StandardAddEventModal: React.FC<Props> = ({
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType(undefined);
+    setType("None" as PccServer23CalendarEventsCalendarEventType);
+    setStartTime("");
+    setEndTime("");
+    setDescription("");
   };
 
   return (
@@ -156,8 +159,8 @@ export const StandardAddEventModal: React.FC<Props> = ({
             >
               <option value={""}>—</option>
               {EVENTS.map((event) => (
-                <option key={event} value={event}>
-                  {event}
+                <option key={event.value} value={event.value}>
+                  {event.label}
                 </option>
               ))}
             </Select>
@@ -183,7 +186,7 @@ export const StandardAddEventModal: React.FC<Props> = ({
               />
             </>
           )}
-          {!!type && type !== "Note" && (
+          {!!type && type !== "None" && type !== "Note" && (
             <>
               <div className="divider">
                 <div />

@@ -8,7 +8,7 @@ import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { EditNoteForm } from "../EditNoteForm";
-import { EVENT_NAME_OBJECT } from "../PublishForm";
+import { TYPE_KEY_OBJ } from "../StandardPublishForm";
 
 export interface EventType {
   type: string;
@@ -165,7 +165,14 @@ export const EditEventModal: React.FC<Props> = ({
       <div className="popup-container">
         <div className="popup">
           <div className="header">
-            <h3>Edit {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type]}</h3>
+            <h3>
+              Edit{" "}
+              {
+                TYPE_KEY_OBJ[
+                  selectedEvent.extendedProps.type as keyof typeof TYPE_KEY_OBJ
+                ]
+              }
+            </h3>
             <img
               src="/icons/delete.svg"
               width="18"

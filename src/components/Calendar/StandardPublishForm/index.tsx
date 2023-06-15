@@ -19,6 +19,18 @@ interface PublishFormProps {
   setEndTime: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
+export const TYPE_KEY_OBJ = {
+  Note: "Note",
+  Activity: "Activity",
+  Recipe: "Recipe",
+  Assessment: "Assessment",
+  MealtimeMoment: "Mealtime Moment",
+  Foodway: "Foodway",
+  EducatorNote: "Educator Note",
+  Topic: "Topic",
+  DailyDiscovery: "Daily Discovery",
+};
+
 export const StandardPublishForm = ({
   selectedDate,
   yPos,
@@ -36,7 +48,9 @@ export const StandardPublishForm = ({
     <Style.Container>
       <div className="row">
         <div className="select-event">
-          <label>Select {type}</label>
+          <label>
+            Select {TYPE_KEY_OBJ[type as keyof typeof TYPE_KEY_OBJ]}
+          </label>
           <Select height="3rem">
             <option value="">—</option>
             <option value="event1">Event 1</option>

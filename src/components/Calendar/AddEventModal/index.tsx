@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23CalendarEventsCalendarEventType } from "../../../lib/api/api";
+import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { ButtonRow } from "../../Global/ButtonRow";
@@ -53,7 +54,7 @@ export const AddEventModal: React.FC<Props> = ({
   const [endTime, setEndTime] = useState("");
   const [type, setType] =
     useState<PccServer23CalendarEventsCalendarEventType | undefined>();
-  const addEvent = useCalendarEventsStore((state) => state.addEvent);
+  const { addEvent, removeEvents } = useCalendarEventsStore((state) => state);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
@@ -75,13 +76,38 @@ export const AddEventModal: React.FC<Props> = ({
       },
     );
 
+    if (response.status === 200) {
+      const _events = await fetchEvents();
+
+      if (_events) {
+        removeEvents();
+
+        _events.forEach((item) => {
+          //@ts-ignore
+          addEvent({
+            ...item.calendarEvent,
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
+            display: "block",
+          });
+        });
+      }
+    }
+
     handleClose();
   };
 
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setModalType("");
+    setType("None" as PccServer23CalendarEventsCalendarEventType);
+    setStartTime("");
+    setEndTime("");
+    setDescription("");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -112,7 +138,10 @@ export const AddEventModal: React.FC<Props> = ({
             <ButtonRow>
               <button
                 className={modalType === "note" ? "active" : ""}
-                onClick={() => setModalType("note")}
+                onClick={() => {
+                  setModalType("note");
+                  setType("Note" as PccServer23CalendarEventsCalendarEventType);
+                }}
               >
                 Add note
               </button>

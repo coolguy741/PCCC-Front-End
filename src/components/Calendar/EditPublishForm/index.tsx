@@ -3,7 +3,7 @@ import { formatDate } from "../../../lib/util/formatDate";
 import Button from "../../Button";
 import { Checkbox } from "../../Global/Checkbox";
 import { Select } from "../../Global/Select";
-import { EVENT_NAME_OBJECT } from "../PublishForm";
+import { TYPE_KEY_OBJ } from "../PublishForm";
 import { TimeSelect } from "../TimeSelect";
 
 interface EditPublishFormProps {
@@ -36,7 +36,9 @@ export const EditPublishForm = ({
           </div>
         </div>
         <div className="group">
-          <label>Select {EVENT_NAME_OBJECT[type]}</label>
+          <label>
+            Select {TYPE_KEY_OBJ[type as keyof typeof TYPE_KEY_OBJ]}
+          </label>
           <div className="group-row">
             <Select height="3rem">
               <option value="">—</option>
