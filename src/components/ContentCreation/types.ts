@@ -14,3 +14,12 @@ export interface CCFormat {
   mode: "view" | "edit";
   text: string;
 }
+
+export type TitleType = "tag" | "heading" | "desc" | "subHeading" | "subDesc";
+export type PWithPType = "number" | "heading" | "desc";
+
+export type TagTypes = TitleType | PWithPType;
+
+export type TitleState = Record<TitleType, CCFormat>;
+
+export type State = Record<TagTypes, CCFormat>;

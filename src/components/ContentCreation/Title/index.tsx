@@ -2,13 +2,8 @@ import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { useContentCreation } from "../hooks/useContentCreation";
-import { CCFormat } from "../types";
 
-export type TitleType = "tag" | "heading" | "desc" | "subHeading" | "subDesc";
-
-type TitleState = Record<TitleType, CCFormat>;
-
-const titleState: TitleState = {
+const titleState: any = {
   tag: { mode: "view", text: "Overview" },
   heading: {
     mode: "view",

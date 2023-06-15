@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { TitleType } from "../Title";
-import { CCFormat } from "../types";
-
-type State = Record<TitleType, CCFormat>;
+import { State, TitleType } from "../types";
 
 export function useContentCreation(initialState: State) {
   const [state, setState] = useState<State>(initialState);
