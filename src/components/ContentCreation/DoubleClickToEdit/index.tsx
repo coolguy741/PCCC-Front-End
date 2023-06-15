@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export function DoubleClickToEditComponent({ mode, name, setText, text }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
-  console.log(mode, setText, text);
+
   // useEffect(() => {
   //   if (mode === "edit" && ref.current) {
   //     const end = text.length;
