@@ -2,15 +2,6 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { Vector3 } from "three";
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-
-type GLTFResult = GLTF & {
-  // TODO: Unknown Three.js Type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  nodes: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  materials: any;
-};
 
 interface GlobeProps {
   latitude?: number;
@@ -18,7 +9,9 @@ interface GlobeProps {
 }
 
 export const Globe = ({ latitude, longitude }: GlobeProps) => {
-  const { nodes, materials } = useGLTF("/models/earth.glb") as GLTFResult;
+  // TODO: Unknown Three.js Type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { nodes, materials } = useGLTF("/models/earth.glb") as any;
 
   // Function to convert longitude and latitude to 3D coordinates
   const latLongToVector3 = (lat: number, long: number, radius: number) => {
