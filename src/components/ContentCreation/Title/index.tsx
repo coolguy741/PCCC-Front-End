@@ -39,7 +39,7 @@ export function Title() {
   return (
     <Style.Container>
       <div className="tc-content">
-        <h1 onDoubleClick={() => changeEditState("heading")}>
+        <h1>
           <span className="tc-overview">Overview</span>
           <br />
           <DoubleClickToEditComponent
