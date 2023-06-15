@@ -1,15 +1,12 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { useContentCreation } from "../hooks/useContentCreation";
+import { CCFormat } from "../types";
 
-type TitleType = "tag" | "heading" | "desc" | "subHeading" | "subDesc";
-interface ITile {
-  mode: "view" | "edit";
-  text: string;
-}
+export type TitleType = "tag" | "heading" | "desc" | "subHeading" | "subDesc";
 
-type TitleState = Record<TitleType, ITile>;
+type TitleState = Record<TitleType, CCFormat>;
 
 const titleState: TitleState = {
   tag: { mode: "view", text: "Overview" },
@@ -37,40 +34,7 @@ common growing tools and discuss what they’re used for.`,
 };
 
 export function Title() {
-  const [editState, setEditState] = useState<TitleState>(titleState);
-
-  function changeEditState(tag: TitleType) {
-    if (editState[tag].mode === "edit") {
-      const newState = {
-        ...editState,
-        [tag]: {
-          ...editState[tag],
-          mode: "view",
-        },
-      };
-      setEditState(newState);
-    } else {
-      const newState = {
-        ...editState,
-        [tag]: {
-          ...editState[tag],
-          mode: "edit",
-        },
-      };
-      setEditState(newState);
-    }
-  }
-
-  function changeText(name: TitleType, newText: string) {
-    const newState = {
-      ...editState,
-      [name]: {
-        ...editState[name],
-        text: newText,
-      },
-    };
-    setEditState(newState);
-  }
+  const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   return (
     <Style.Container>
@@ -79,37 +43,37 @@ export function Title() {
           <span className="tc-overview">Overview</span>
           <br />
           <DoubleClickToEditComponent
-            mode={editState.heading.mode}
+            mode={state.heading.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={editState.heading.text}
+            text={state.heading.text}
             name="heading"
           />
         </h1>
         <p>
           <DoubleClickToEditComponent
-            mode={editState.desc.mode}
+            mode={state.desc.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={editState.desc.text}
+            text={state.desc.text}
             name="desc"
           />
         </p>
         <h2>
           <DoubleClickToEditComponent
-            mode={editState.subHeading.mode}
+            mode={state.subHeading.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={editState.subHeading.text}
+            text={state.subHeading.text}
             name="subHeading"
           />
         </h2>
         <p onDoubleClick={() => changeEditState("subDesc")}>
           <DoubleClickToEditComponent
-            mode={editState.subDesc.mode}
+            mode={state.subDesc.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={editState.subDesc.text}
+            text={state.subDesc.text}
             name="subDesc"
           />
         </p>

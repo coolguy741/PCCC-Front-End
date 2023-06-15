@@ -8,3 +8,9 @@ export enum ThemeComponents {
   AssessmentWritten = "assessment-written",
   Title = "title",
 }
+
+// current content component format
+export interface CCFormat {
+  mode: "view" | "edit";
+  text: string;
+}
