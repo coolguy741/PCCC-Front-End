@@ -7,13 +7,17 @@ import { TextArea } from "../../Global/TextArea";
 import { FitleredSelect } from "../FilteredSelect";
 import { TimeSelect } from "../TimeSelect";
 
-interface AddNoteFormProps {
+interface EditNoteFormProps {
   yPos: string;
   isOpen: boolean;
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   noteDescription: string;
   setNoteDescription: Dispatch<SetStateAction<string>>;
+  startTime: string | undefined;
+  setStartTime: Dispatch<SetStateAction<string | undefined>>;
+  endTime: string | undefined;
+  setEndTime: Dispatch<SetStateAction<string | undefined>>;
   // TODO: FullCalendar type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedEvent: any;
@@ -28,8 +32,12 @@ export const EditNoteForm = ({
   noteDescription,
   setNoteDescription,
   selectedEvent,
+  startTime,
+  setStartTime,
+  endTime,
+  setEndTime,
   handleEdit,
-}: AddNoteFormProps) => {
+}: EditNoteFormProps) => {
   return (
     <Style.Container>
       <div className="row">
@@ -43,8 +51,14 @@ export const EditNoteForm = ({
         <div className="date-picker">
           <label>{formatDate(selectedEvent.start)}</label>
           <div className="date-picker-row">
-            <TimeSelect />
-            <TimeSelect />
+            <TimeSelect
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            />
+            <TimeSelect
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            />
             <div className="date-picker-row">
               <Checkbox />
               <label>All Day</label>
@@ -60,7 +74,7 @@ export const EditNoteForm = ({
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
             />
-            <Button>Save</Button>
+            <Button onClick={handleEdit}>Save</Button>
           </div>
         </div>
       </div>

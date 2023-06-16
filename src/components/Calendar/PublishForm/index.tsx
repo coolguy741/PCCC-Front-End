@@ -16,11 +16,14 @@ interface EventNameObject {
   [key: string]: string | undefined;
 }
 
-export const EVENT_NAME_OBJECT: EventNameObject = {
-  mealtime: "Mealtime Moment",
-  foodways: "Foodway",
-  note: "Note",
-  assessment: "Lesson Assessment",
+const EVENTS = [
+  { value: "MealtimeMoment", label: "Mealtime Moment" },
+  { value: "Foodway", label: "Foodway" },
+];
+
+export const TYPE_KEY_OBJ = {
+  MealtimeMoment: "Mealtime Moment",
+  Foodway: "Foodway",
 };
 
 export const PublishForm = ({
@@ -38,9 +41,9 @@ export const PublishForm = ({
             <label>Add</label>
             <Select onChange={(e) => setType(e.target.value)} height="3rem">
               <option value="">—</option>
-              <option value="mealtime">Mealtime Moment</option>
-              <option value="foodways">Foodways</option>
-              <option value="assessment">Lesson Assessment</option>
+              {EVENTS.map((event) => (
+                <option value={event.value}>{event.label}</option>
+              ))}
             </Select>
           </>
         )}
@@ -58,7 +61,9 @@ export const PublishForm = ({
               </div>
             </div>
             <div className="group">
-              <label>Add {EVENT_NAME_OBJECT[type]}</label>
+              <label>
+                Add {TYPE_KEY_OBJ[type as keyof typeof TYPE_KEY_OBJ]}
+              </label>
               <div className="group-row">
                 <Select height="3rem">
                   <option value="">—</option>

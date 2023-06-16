@@ -1,5 +1,6 @@
 import { EventImpl } from "@fullcalendar/core/internal";
 import Cookies from "js-cookie";
+import { DateTime } from "luxon";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
@@ -7,8 +8,7 @@ import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { EditNoteForm } from "../EditNoteForm";
-import { EditPublishForm } from "../EditPublishForm";
-import { EVENT_NAME_OBJECT } from "../PublishForm";
+import { TYPE_KEY_OBJ } from "../StandardPublishForm";
 
 export interface EventType {
   type: string;
@@ -39,6 +39,16 @@ interface Props {
   selectedEvent: EventImpl;
 }
 
+const convertTimeToSelectFormat = (time: Date | undefined | null) => {
+  if (time) {
+    const iso = time.toISOString();
+    const datetime = DateTime.fromISO(iso);
+    const hour = datetime.hour;
+
+    return `${hour > 9 ? hour : `0${hour}`}:00`;
+  } else return;
+};
+
 export const EditEventModal: React.FC<Props> = ({
   isOpen = false,
   isConfirm = false,
@@ -49,6 +59,12 @@ export const EditEventModal: React.FC<Props> = ({
 }) => {
   const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
+  const [startTime, setStartTime] = useState(
+    convertTimeToSelectFormat(selectedEvent.start),
+  );
+  const [endTime, setEndTime] = useState(
+    convertTimeToSelectFormat(selectedEvent.end),
+  );
   const [eventType, setEventType] = useState<EventType | undefined>();
   const [noteDescription, setNoteDescription] = useState(
     selectedEvent.extendedProps.description,
@@ -75,9 +91,12 @@ export const EditEventModal: React.FC<Props> = ({
           //@ts-ignore
           addEvent({
             ...item.calendarEvent,
-            textColor: "#F87C56",
-            backgroundColor: "#FEE5DD",
-            borderColor: "#ff0000",
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
             display: "block",
           });
         });
@@ -87,8 +106,45 @@ export const EditEventModal: React.FC<Props> = ({
     handleClose();
   };
 
-  const handleEdit = () => {
-    console.log("EDIT");
+  const handleEdit = async () => {
+    const response = await api.appCalendarsEventUpdate(
+      {
+        id: selectedEvent.id,
+        description: noteDescription,
+        startDate: new Date(`${selectedDate}T${startTime}`).toISOString(),
+        endDate: new Date(`${selectedDate}T${endTime}`).toISOString(),
+        eventType: selectedEvent.extendedProps.type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 204) {
+      const _events = await fetchEvents();
+
+      if (_events) {
+        removeEvents();
+
+        _events.forEach((item) => {
+          //@ts-ignore
+          addEvent({
+            ...item.calendarEvent,
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
+            display: "block",
+          });
+        });
+      }
+    }
+
+    handleClose();
   };
 
   const handleClose = () => {
@@ -109,7 +165,14 @@ export const EditEventModal: React.FC<Props> = ({
       <div className="popup-container">
         <div className="popup">
           <div className="header">
-            <h3>Edit {EVENT_NAME_OBJECT[selectedEvent.extendedProps.type]}</h3>
+            <h3>
+              Edit{" "}
+              {
+                TYPE_KEY_OBJ[
+                  selectedEvent.extendedProps.type as keyof typeof TYPE_KEY_OBJ
+                ]
+              }
+            </h3>
             <img
               src="/icons/delete.svg"
               width="18"
@@ -117,25 +180,29 @@ export const EditEventModal: React.FC<Props> = ({
               onClick={handleDelete}
             />
           </div>
-          {selectedEvent.extendedProps.type === "note" ? (
-            <EditNoteForm
-              yPos={position.yPos}
-              selectedEvent={selectedEvent}
-              isOpen={isOpen}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-              noteDescription={noteDescription}
-              setNoteDescription={setNoteDescription}
-              handleEdit={handleEdit}
-            />
-          ) : (
+          {/* {selectedEvent.extendedProps.type === "note" ? ( */}
+          <EditNoteForm
+            yPos={position.yPos}
+            selectedEvent={selectedEvent}
+            isOpen={isOpen}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            noteDescription={noteDescription}
+            setNoteDescription={setNoteDescription}
+            handleEdit={handleEdit}
+            startTime={startTime}
+            setStartTime={setStartTime}
+            endTime={endTime}
+            setEndTime={setEndTime}
+          />
+          {/* ) : (
             <EditPublishForm
               yPos={position.yPos}
               selectedEvent={selectedEvent}
               type={selectedEvent.extendedProps.type}
               handleEdit={handleEdit}
             />
-          )}
+          )} */}
         </div>
       </div>
     </Style.Container>

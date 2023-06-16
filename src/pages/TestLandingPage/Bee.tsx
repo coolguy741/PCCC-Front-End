@@ -2,21 +2,12 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-
-type GLTFResult = GLTF & {
-  // TODO: Unknown Three.js Type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  nodes: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  materials: any;
-};
 
 export function Bee({ pos }: any) {
   const group = useRef<THREE.Group>(null);
-  const { nodes, materials, animations } = useGLTF(
-    "/models/bee.glb",
-  ) as GLTFResult;
+  // TODO: Unknown Three.js Type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { nodes, materials, animations } = useGLTF("/models/bee.glb") as any;
   const { actions } = useAnimations(animations, group);
   const width = window.innerWidth;
   const height = window.innerHeight;

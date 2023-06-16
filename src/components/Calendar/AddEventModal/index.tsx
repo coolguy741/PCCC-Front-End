@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import Cookies from "js-cookie";
 import { useAPI } from "../../../hooks/useAPI";
+import { PccServer23CalendarEventsCalendarEventType } from "../../../lib/api/api";
+import { fetchEvents } from "../../../lib/api/helpers/fetchEvents";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCalendarEventsStore } from "../../../stores/eventsStore";
 import { ButtonRow } from "../../Global/ButtonRow";
@@ -46,8 +48,13 @@ export const AddEventModal: React.FC<Props> = ({
 }) => {
   const { api } = useAPI();
   const [modalOpen, setModalOpen] = useState(false);
-  const [type, setType] = useState<string>("note");
-  const addEvent = useCalendarEventsStore((state) => state.addEvent);
+  const [modalType, setModalType] = useState<"note" | "publish" | "">("");
+  const [description, setDescription] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [type, setType] =
+    useState<PccServer23CalendarEventsCalendarEventType | undefined>();
+  const { addEvent, removeEvents } = useCalendarEventsStore((state) => state);
   const [eventType, setEventType] = useState<EventType | undefined>();
   const popupSize = useMemo<PopupSize>(() => {
     return isConfirm || !eventType ? "sm" : "md";
@@ -56,13 +63,11 @@ export const AddEventModal: React.FC<Props> = ({
   const handleAddEvent = async () => {
     const response = await api.appCalendarsEventToMyCalendarCreate(
       {
-        description: "Test description",
-        startDate: "2023-06-05T16:35:50.569Z",
-        endDate: "2023-06-05T18:35:50.569Z",
-        curriculumId: "",
-        topicId: "",
-        activityId: "",
+        description: description,
+        startDate: new Date(`${selectedDate}T${startTime}`).toISOString(),
+        endDate: new Date(`${selectedDate}T${endTime}`).toISOString(),
         groupId: "",
+        eventType: type,
       },
       {
         headers: {
@@ -71,7 +76,27 @@ export const AddEventModal: React.FC<Props> = ({
       },
     );
 
-    console.log(response);
+    if (response.status === 200) {
+      const _events = await fetchEvents();
+
+      if (_events) {
+        removeEvents();
+
+        _events.forEach((item) => {
+          //@ts-ignore
+          addEvent({
+            ...item.calendarEvent,
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
+            display: "block",
+          });
+        });
+      }
+    }
 
     handleClose();
   };
@@ -79,7 +104,22 @@ export const AddEventModal: React.FC<Props> = ({
   const handleClose = () => {
     close();
     setEventType(undefined);
-    setType("note");
+    setType("None" as PccServer23CalendarEventsCalendarEventType);
+    setStartTime("");
+    setEndTime("");
+    setDescription("");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.currentTarget.value);
+  };
+
+  const handleStartTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStartTime(e.currentTarget.value);
+  };
+
+  const handleEndTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setEndTime(e.currentTarget.value);
   };
 
   return (
@@ -97,20 +137,23 @@ export const AddEventModal: React.FC<Props> = ({
           <div className="btn-container">
             <ButtonRow>
               <button
-                className={type === "note" ? "active" : ""}
-                onClick={() => setType("note")}
+                className={modalType === "note" ? "active" : ""}
+                onClick={() => {
+                  setModalType("note");
+                  setType("Note" as PccServer23CalendarEventsCalendarEventType);
+                }}
               >
                 Add note
               </button>
               <button
-                className={type === "publish" ? "active" : ""}
-                onClick={() => setType("publish")}
+                className={modalType === "publish" ? "active" : ""}
+                onClick={() => setModalType("publish")}
               >
                 Publish
               </button>
             </ButtonRow>
           </div>
-          {type === "note" && (
+          {modalType === "note" && (
             <AddNoteForm
               yPos={position.yPos}
               selectedDate={selectedDate}
@@ -118,9 +161,15 @@ export const AddEventModal: React.FC<Props> = ({
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
               handleAddEvent={handleAddEvent}
+              setDescription={handleChange}
+              description={description}
+              startTime={startTime}
+              setStartTime={handleStartTimeChange}
+              endTime={endTime}
+              setEndTime={handleEndTimeChange}
             />
           )}
-          {type === "publish" && (
+          {modalType === "publish" && (
             <PublishForm
               yPos={position.yPos}
               selectedDate={selectedDate}

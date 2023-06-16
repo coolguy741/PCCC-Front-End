@@ -3,14 +3,19 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useCallback, useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useAPI } from "../../hooks/useAPI";
 import { fetchEvents } from "../../lib/api/helpers/fetchEvents";
 import { capitalize } from "../../lib/util/capitalize";
+import { STORAGE_KEY_JWT } from "../../pages/consts";
 import { useCalendarEventsStore } from "../../stores/eventsStore";
-import { PreviewEventModal } from "./PreviewEventModal";
+import { EditEventModal } from "./EditEventModal";
 
 export const Calendar: React.FC<CalendarOptions> = (props) => {
+  const { api } = useAPI();
+  const calendarRef = useRef();
   const { events, addEvent, removeEvents } = useCalendarEventsStore(
     (state) => state,
   );
@@ -29,7 +34,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDateClick = (info: any) => {
     const rectDOM = info.el.getBoundingClientRect();
-    setSelectedDate(info.dateStr);
+    setSelectedDate(info.event.start.toISOString().split("T")[0]);
 
     let xPos = "";
     let yPos = "";
@@ -60,6 +65,47 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   const handleClosePopup = () => {
     setShowEventModal(false);
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleDragEvent = async (info: any) => {
+    const response = await api.appCalendarsEventUpdate(
+      {
+        id: info.event.id,
+        startDate: new Date(
+          `${selectedDate}T${info.event.start}`,
+        ).toISOString(),
+        endDate: new Date(`${selectedDate}T${info.event.end}`).toISOString(),
+        description: info.event.extendedProps.description,
+        eventType: info.event.extendedProps.type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 204) {
+      const _events = await fetchEvents();
+
+      if (_events) {
+        removeEvents();
+
+        _events.forEach((item) => {
+          //@ts-ignore
+          addEvent({
+            ...item.calendarEvent,
+            textColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+            backgroundColor:
+              item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+            borderColor:
+              item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
+            display: "block",
+          });
+        });
+      }
+    }
+  };
 
   const getEvents = useCallback(async () => {
     const _events = await fetchEvents();
@@ -71,9 +117,12 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         //@ts-ignore
         addEvent({
           ...item.calendarEvent,
-          textColor: "#F87C56",
-          backgroundColor: "#FEE5DD",
-          borderColor: "#ff0000",
+          textColor:
+            item?.calendarEvent?.type === "Note" ? "#F87C56" : "#B97A00",
+          backgroundColor:
+            item?.calendarEvent?.type === "Note" ? "#FEE5DD" : "#FFEFBF",
+          borderColor:
+            item?.calendarEvent?.type === "Note" ? "#F87C5699" : "#B97A00",
           display: "block",
         });
       });
@@ -130,9 +179,10 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         expandRows={true}
         moreLinkClick="week"
         events={events}
+        eventDrop={handleDragEvent}
         {...props}
       />
-      {/* {showEventModal && (
+      {showEventModal && (
         <EditEventModal
           selectedDate={selectedDate}
           // TODO: non null assertion
@@ -142,8 +192,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           position={position}
           close={handleClosePopup}
         />
-      )} */}
-      {showEventModal && (
+      )}
+      {/* {showEventModal && (
         <PreviewEventModal
           selectedDate={selectedDate}
           // TODO: non null assertion
@@ -153,7 +203,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
           position={position}
           close={handleClosePopup}
         />
-      )}
+      )} */}
     </Style.Container>
   );
 };
