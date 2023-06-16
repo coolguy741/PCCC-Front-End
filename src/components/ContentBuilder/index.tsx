@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { BaseSyntheticEvent, useState } from "react";
 import {
   DragDropContext,
   Draggable,
   Droppable,
-  OnDragEndResponder,
   OnDragStartResponder,
   OnDragUpdateResponder,
 } from "react-beautiful-dnd";
@@ -19,48 +18,50 @@ import { NumberedParagraph } from "../../components/ContentCreation/NumberedPara
 import { ParagraphWithHeading } from "../../components/ContentCreation/ParagraphWithHeading";
 import { SingleImage } from "../../components/ContentCreation/SingleImage";
 import { Title } from "../../components/ContentCreation/Title";
+import { getPositions } from "../../lib/util/getPositions";
 import { ThemeComponent } from "../../pages/types";
 import Button from "../Button";
+import { Icon } from "../Global/Icon";
 import Scrollable from "../Global/Scrollable";
 import { ContentNavigator } from "./ContentNavigator";
 
 const components: ThemeComponent[] = [
   {
-    col: 3,
+    width: 3,
     id: 1,
-    row: 2,
+    height: 2,
     title: "Tile Card",
     preview: <TitleIcon />,
     component: <Title key="title" />,
   },
   {
-    col: 1,
+    width: 1,
     id: 2,
-    row: 1,
+    height: 1,
     title: "Paragraph",
     preview: <PWH />,
     component: <ParagraphWithHeading key="pwh" />,
   },
   {
     id: 3,
-    col: 1,
-    row: 1,
+    width: 1,
+    height: 1,
     title: "Paragraph with Number",
     preview: <PWN />,
     component: <NumberedParagraph key="np" />,
   },
   {
     id: 4,
-    col: 1,
-    row: 1,
+    width: 1,
+    height: 1,
     title: "1X1 Image",
     preview: <SingleImageIcon />,
     component: <SingleImage key="si" />,
   },
   {
     id: 5,
-    col: 2,
-    row: 1,
+    width: 2,
+    height: 1,
     title: "Double Image",
     preview: <DoubleImageIcon />,
     component: <DoubleImage key="di" />,
@@ -69,160 +70,92 @@ const components: ThemeComponent[] = [
 
 export const ContentBuilder = () => {
   const [draggingComponent, setDraggingComponent] = useState<number>();
-  const [rowCount, setRowCount] = useState<number>();
-  const [themeGrid, setThemeGrid] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-  ]);
-  const [prevThemeGrid, setPrevThemeGrid] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-  ]);
-  const [themeComponents, setThemeComponents] =
-    useState<ThemeComponent[][] | ThemeComponent[]>();
+  const [themeComponents, setThemeComponents] = useState<ThemeComponent[]>();
+  const [prevThemeComponents, setPrevThemeComponents] =
+    useState<ThemeComponent[]>();
 
-  const onDragEnd: OnDragEndResponder = (result) => {
-    setDraggingComponent(undefined);
-    if (!result.destination) {
-      setThemeGrid(() => [...prevThemeGrid]);
+  const checkDroppable = (droppableId: number, source: number) => {
+    const { width, height } = components[source];
+    const currentX = droppableId % 3;
+    const currentY = Math.floor(droppableId / 3);
+    const positions: number[] = getPositions(width, height, currentX, currentY);
+    const lastPosition = positions.sort()[positions.length - 1];
+    if (lastPosition !== undefined && lastPosition > 5) {
+      return false;
     }
+
+    return themeComponents
+      ? themeComponents.reduce((value, current) => {
+          if (!value) {
+            return value;
+          }
+          const { x, y, width, height } = current;
+          const componentPositions: number[] = getPositions(
+            width,
+            height,
+            x ?? 0,
+            y ?? 0,
+          );
+
+          return componentPositions.reduce(
+            (including, position) =>
+              including ? !positions.includes(position) : including,
+            true,
+          );
+        }, true)
+      : true;
+  };
+
+  const handleDelete = (event: BaseSyntheticEvent) => {
+    const {
+      target: { id },
+    } = event;
+    const [x, y] = id.split(",");
+
+    setThemeComponents((prev) => [
+      ...(prev
+        ? prev.filter(
+            (component) =>
+              !(component.x === parseInt(x) && component.y === parseInt(y)),
+          )
+        : []),
+    ]);
   };
 
   const onDragUpdate: OnDragUpdateResponder = (result) => {
-    // console.error(result);
+    if (result.destination) {
+      setThemeComponents(() => [...(prevThemeComponents ?? [])]);
+
+      const droppableId = parseInt(
+        result.destination.droppableId.split("-").pop() ?? "0",
+      );
+      const source = result.source.index;
+
+      if (checkDroppable(droppableId, source)) {
+        setThemeComponents((prev) => [
+          ...(prev ?? []),
+          {
+            ...components[source],
+            x: droppableId % 3,
+            y: Math.floor(droppableId / 3),
+          },
+        ]);
+      }
+    }
   };
+
   const onDragStart: OnDragStartResponder = (result) => {
-    setPrevThemeGrid(() => JSON.parse(JSON.stringify(themeGrid)));
+    setPrevThemeComponents(() => [...(themeComponents ?? [])]);
     setDraggingComponent(result.source.index);
   };
-
-  const getComponentsArray = useCallback(
-    (startCol: number, length: number) => {
-      const tempGrid = [...themeGrid].map((cols) =>
-        cols.filter(
-          (item, index) => index >= startCol && index < startCol + length,
-        ),
-      );
-      const tempComponents = [];
-
-      for (let j = 0; j < tempGrid.length; j++) {
-        const temp = [];
-        for (let i = 0; i < tempGrid[0].length; i++) {
-          if (tempGrid[j][i]) {
-            const component = components[tempGrid[j][i] - 1];
-
-            i += component.col - 1;
-            temp.push(component);
-          }
-        }
-
-        tempComponents.push(temp);
-      }
-      return tempComponents;
-    },
-    [themeGrid],
-  );
-
-  useEffect(() => {
-    if (rowCount) {
-      if (rowCount === 1) {
-        const tempComponents = [];
-
-        for (let i = 0; i < 3; i++) {
-          const component = components[themeGrid[0][0] - 1];
-          if (component?.row === 2) {
-            i += component.col - 1;
-            tempComponents.push([component]);
-          } else {
-            const otherComponent = components[themeGrid[1][0] - 1];
-            tempComponents.push(
-              getComponentsArray(
-                1,
-                otherComponent.col > component.col
-                  ? otherComponent.col
-                  : component.col,
-              ),
-            );
-          }
-        }
-        setThemeComponents(
-          tempComponents as ThemeComponent[] | ThemeComponent[][],
-        );
-      } else {
-        setThemeComponents(getComponentsArray(0, 3));
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [themeGrid, rowCount]);
-
-  const checkDroppable = useCallback(
-    (rows: number, cols: number, id: number) => {
-      for (let k = 0; k < (rows === 1 ? 2 : 1); k++) {
-        const tempThemeGrid = [...themeGrid];
-        let available = true;
-
-        for (let i = 0; i < 3; i++) {
-          available = true;
-          if (3 - i < cols) {
-            available = false;
-            break;
-          }
-          for (let j = i; j < i + cols; j++) {
-            if (rows === 1) {
-              if (themeGrid[k][j] === 0) {
-                tempThemeGrid[k][j] = id;
-              } else {
-                available = false;
-                break;
-              }
-            }
-            if (rows === 2) {
-              if (themeGrid[k][j] === 0 && themeGrid[k + 1][j] === 0) {
-                tempThemeGrid[k][j] = id;
-                tempThemeGrid[k + 1][j] = id;
-              } else {
-                available = false;
-                break;
-              }
-            }
-          }
-
-          if (available) {
-            break;
-          }
-        }
-        if (available) {
-          setThemeGrid(() => tempThemeGrid);
-          if (rows === 1 && !rowCount) {
-            setRowCount(2);
-          }
-          if (rows === 2) {
-            setRowCount(1);
-          }
-          break;
-        }
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [themeGrid],
-  );
-
-  useEffect(() => {
-    if (draggingComponent !== undefined) {
-      const rows = components[draggingComponent].row;
-      const cols = components[draggingComponent].col;
-      checkDroppable(rows, cols, components[draggingComponent].id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [draggingComponent]);
 
   return (
     <Style.Container>
       <ContentNavigator />
       <Style.DragDropContainer>
         <DragDropContext
-          onDragEnd={onDragEnd}
           onDragUpdate={onDragUpdate}
+          onDragEnd={() => true}
           onDragStart={onDragStart}
         >
           <Droppable droppableId="preview-drop" isDropDisabled={true}>
@@ -238,26 +171,21 @@ export const ContentBuilder = () => {
                       index={index}
                       key={`component-${index}`}
                     >
-                      {(provided, snapShot) => {
-                        return (
-                          <Style.Preview>
-                            <div className="preview-title">
-                              {component.title}
-                            </div>
-                            <div
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              ref={provided.innerRef}
-                              className="icon-container"
-                            >
-                              {snapShot.isDragging &&
-                              draggingComponent === index
-                                ? components[draggingComponent].preview
-                                : component.preview}
-                            </div>
-                          </Style.Preview>
-                        );
-                      }}
+                      {(provided, snapShot) => (
+                        <Style.Preview>
+                          <div className="preview-title">{component.title}</div>
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                            className="icon-container"
+                          >
+                            {snapShot.isDragging && draggingComponent === index
+                              ? components[draggingComponent].preview
+                              : component.preview}
+                          </div>
+                        </Style.Preview>
+                      )}
                     </Draggable>
                   ))}
                   {dropProvided.placeholder}
@@ -266,29 +194,56 @@ export const ContentBuilder = () => {
             )}
           </Droppable>
           <Style.Slide>
-            <Droppable droppableId="drop">
-              {(dropProvided) => (
-                <Style.Content
-                  {...dropProvided.droppableProps}
-                  ref={dropProvided.innerRef}
+            <Style.Content>
+              {Array.from({ length: 6 }).map((value, index) => (
+                <Droppable
+                  droppableId={`grid-drop-${index}`}
+                  key={`grid-${index}`}
                 >
-                  {themeComponents?.map((componentColumn, index) => (
-                    <Style.ComponentColumn key={`column-${index}`}>
-                      {Array.isArray(componentColumn) &&
-                        componentColumn?.length > 0 &&
-                        componentColumn.map((component) => (
-                          <Style.Component
-                            col={component?.col ?? 1}
-                            key={component.id}
-                          >
-                            {component?.component ?? ""}
-                          </Style.Component>
-                        ))}
-                    </Style.ComponentColumn>
-                  ))}
-                </Style.Content>
+                  {(dropProvided, draggingOverWith) => (
+                    <>
+                      <div
+                        {...dropProvided.droppableProps}
+                        ref={dropProvided.innerRef}
+                        style={{
+                          background: "var(--blue-500)",
+
+                          opacity: 0.15,
+                          borderRadius: "1rem",
+                        }}
+                      />
+                      <span style={{ display: "none" }}>
+                        {dropProvided.placeholder}
+                      </span>
+                    </>
+                  )}
+                </Droppable>
+              ))}
+              {themeComponents?.map(
+                ({ width, height, x, y, component }, index) => (
+                  <Style.Component
+                    key={`column-${index}`}
+                    {...{
+                      width,
+                      height,
+                      x,
+                      y,
+                    }}
+                  >
+                    <div className="delete-button-container">
+                      <Style.DeleteButton>
+                        <Icon
+                          name="trash"
+                          onClick={handleDelete}
+                          id={`${x},${y}`}
+                        />
+                      </Style.DeleteButton>
+                    </div>
+                    {component}
+                  </Style.Component>
+                ),
               )}
-            </Droppable>
+            </Style.Content>
             <Style.ActionContainer>
               <Button variant="yellow">Add Slide</Button>
               <div className="flex">
@@ -323,7 +278,7 @@ const Style = {
   Previews: styled.div`
     width: 20%;
     height: 100%;
-    background: white;
+    background: #ffffff50;
     padding: 2vh;
     border-radius: 0.5rem;
   `,
@@ -346,25 +301,39 @@ const Style = {
     }
   `,
   Content: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5%;
-    padding: 2vh;
-    background: white;
-    border-radius: 0.5rem;
-    flex: 1;
-  `,
-  ComponentColumn: styled.div`
-    display: flex;
-    gap: 2%;
     height: 100%;
-    row-gap: 5%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 1.87vh 1vw;
+    column-gap: 1.7%;
+    row-gap: 3.2%;
+    position: relative;
+    background: #ffffff50;
+    border-radius: 0.5rem;
+    .grid {
+      height: 100%;
+      background: gray;
+    }
   `,
-  Component: styled.div.attrs((props: { col: number }) => ({
-    col: props.col ?? 1,
-  }))`
-    width: ${(props) =>
-      props.col * 32 + (props.col === 2 ? 2 : props.col === 3 ? 4 : 0)}%;
+  Component: styled.div.attrs(
+    (props: { width: number; height: number; x: number; y: number }) => ({
+      width: props.width ?? 1,
+      height: props.height ?? 1,
+      x: props.x ?? 0,
+      y: props.y ?? 0,
+    }),
+  )`
+    position: absolute;
+    left: ${(props) => props.x * 33 + 1.3}%;
+    height: ${(props) => props.height * 46.2}%;
+    top: ${(props) => props.y * 49 + 2.5}%;
+    width: ${(props) => props.width * 31.5 + props.width - 1}%;
+    border-radius: 1rem;
+
+    .delete-button-container {
+      position: relative;
+    }
   `,
   ActionContainer: styled.div`
     padding: 2vh 0;
@@ -375,5 +344,11 @@ const Style = {
     width: 80%;
     display: flex;
     flex-direction: column;
+  `,
+  DeleteButton: styled.button`
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
   `,
 };
