@@ -1,7 +1,22 @@
 import styled from "styled-components";
 import { Typography } from "../../Typography";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { useContentCreation } from "../hooks/useContentCreation";
+
+const pWithPState: any = {
+  heading: {
+    mode: "view",
+    text: "Return to nature",
+  },
+  desc: {
+    mode: "view",
+    text: "Lastly, throughout the summer, we’re going to explore the world of food all around us, like the fruit trees that grow on your street, or wild blueberries in the woods. Gathering food from the environment is called foraging. When you’re foraging, the most important thing to know is how to know. How do we know when it’s safe to eat foraged food? In Activity 2 and 3 we’ll explore foraging, and all the ways of knowing when its safe and when it’s not.",
+  },
+};
 
 export function ParagraphWithHeading() {
+  const { state, changeEditState, changeText } =
+    useContentCreation(pWithPState);
   return (
     <Style.Container>
       <Typography
@@ -11,14 +26,22 @@ export function ParagraphWithHeading() {
         weight={600}
         color="neutral-800"
       >
-        Garden Guardian
+        <DoubleClickToEditComponent
+          mode={state.heading.mode}
+          setText={changeText}
+          changeEditState={changeEditState}
+          text={state.heading.text}
+          name="heading"
+        />
       </Typography>
       <Typography color="neutral-600" size="1.5vh">
-        Can you spot the difference between a shovel and a trowel, or tell which
-        wild mushrooms are safe to eat? This lesson contains 3 activities that
-        give participants the foundational knowledge needed to understand the
-        terminology, tools and safety considerations for growing at home or
-        foraging for food in nature.
+        <DoubleClickToEditComponent
+          mode={state.desc.mode}
+          setText={changeText}
+          changeEditState={changeEditState}
+          text={state.desc.text}
+          name="desc"
+        />
       </Typography>
     </Style.Container>
   );

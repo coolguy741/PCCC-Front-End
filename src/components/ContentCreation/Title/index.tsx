@@ -1,57 +1,76 @@
-import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { useContentCreation } from "../hooks/useContentCreation";
+
+const titleState: any = {
+  tag: { mode: "view", text: "Overview" },
+  heading: {
+    mode: "view",
+    text: "With great power comes great responsibility",
+  },
+  desc: {
+    mode: "view",
+    text: `Providing food for your loved ones is powerful. Throughout nature and history, providers have helped their family groups and communities thrive and survive. But when you’re planting your own crops, or forging for food in nature, the real power is knowledge. There are
+many things to know, and many ways to know them. Let’s start simple:
+knowing the right tool for the job. Check out Activity 1 to identify
+common growing tools and discuss what they’re used for.`,
+  },
+  subHeading: {
+    mode: "view",
+    text: "Knowing how to stay safe",
+  },
+  subDesc: {
+    mode: "view",
+    text: `Garden Guardian safety tips and guidance can be found in all Power
+    Full Kids lessons. Watch for the Garden Guardian section and stay safe
+    when you grow.`,
+  },
+};
 
 export function Title() {
-  const [mode, setMode] = useState<"view" | "edit">("view");
-  const [title, setTitle] = useState(
-    "With great power comes great responsibility",
-  );
-  const titleRef = useRef<HTMLTextAreaElement>(null);
-
-  function clickHandler() {
-    if (mode === "view") setMode("edit");
-    else setMode("view");
-  }
-
-  useEffect(() => {
-    if (mode === "edit" && titleRef.current) {
-      const end = title.length;
-      titleRef.current.setSelectionRange(end, end);
-      titleRef.current.focus();
-    }
-  }, [mode, title.length]);
+  const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   return (
     <Style.Container>
       <div className="tc-content">
-        <h1 onDoubleClick={clickHandler}>
+        <h1>
           <span className="tc-overview">Overview</span>
           <br />
-          {mode === "view" ? (
-            title
-          ) : (
-            <textarea
-              onChange={(e) => setTitle(e.target.value)}
-              ref={titleRef}
-              defaultValue={title}
-            />
-          )}
+          <DoubleClickToEditComponent
+            mode={state.heading.mode}
+            setText={changeText}
+            changeEditState={changeEditState}
+            text={state.heading.text}
+            name="heading"
+          />
         </h1>
         <p>
-          Providing food for your loved ones is powerful. Throughout nature and
-          history, providers have helped their family groups and communities
-          thrive and survive. But when you’re planting your own crops, or
-          forging for food in nature, the real power is knowledge. There are
-          many things to know, and many ways to know them. Let’s start simple:
-          knowing the right tool for the job. Check out Activity 1 to identify
-          common growing tools and discuss what they’re used for.
+          <DoubleClickToEditComponent
+            mode={state.desc.mode}
+            setText={changeText}
+            changeEditState={changeEditState}
+            text={state.desc.text}
+            name="desc"
+          />
         </p>
-        <h2>Knowing how to stay safe</h2>
+        <h2>
+          <DoubleClickToEditComponent
+            mode={state.subHeading.mode}
+            setText={changeText}
+            changeEditState={changeEditState}
+            text={state.subHeading.text}
+            name="subHeading"
+          />
+        </h2>
         <p>
-          Garden Guardian safety tips and guidance can be found in all Power
-          Full Kids lessons. Watch for the Garden Guardian section and stay safe
-          when you grow.
+          <DoubleClickToEditComponent
+            mode={state.subDesc.mode}
+            setText={changeText}
+            changeEditState={changeEditState}
+            text={state.subDesc.text}
+            name="subDesc"
+          />
         </p>
       </div>
       <figure className="tc-image">
@@ -75,7 +94,7 @@ const Style = {
       height: 90%;
       z-index: 2;
 
-      span {
+      span.tc-overview {
         font-weight: 600;
         font-size: ${conv(14, "vw")};
         text-transform: uppercase;
@@ -104,22 +123,7 @@ const Style = {
         border-radius: 12px;
         z-index: 2;
         padding-top: 4vh;
-
-        textarea {
-          border: none;
-          display: inline;
-          font-family: inherit;
-          font-size: inherit;
-          font-weight: inherit;
-          line-height: inherit;
-          background-color: unset;
-          padding: none;
-          width: auto;
-          resize: none;
-          color: green;
-          width: 100%;
-          border: 1px solid red;
-        }
+        height: max-content;
       }
     }
 
@@ -129,6 +133,7 @@ const Style = {
       padding: 0 20px;
       line-height: 32px;
       color: #3d3d3d;
+      height: max-content;
     }
 
     p {
@@ -136,6 +141,7 @@ const Style = {
       padding: 0 20px;
       font-size: 1.5vh;
       color: #646464;
+      height: max-content;
     }
 
     figure {
