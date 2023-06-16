@@ -72,10 +72,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     const response = await api.appCalendarsEventUpdate(
       {
         id: info.event.id,
-        startDate: new Date(
-          `${selectedDate}T${info.event.start}`,
-        ).toISOString(),
-        endDate: new Date(`${selectedDate}T${info.event.end}`).toISOString(),
+        startDate: info.event.start,
+        endDate: info.event.end,
         description: info.event.extendedProps.description,
         eventType: info.event.extendedProps.type,
       },
@@ -85,6 +83,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         },
       },
     );
+
+    console.log(response);
 
     if (response.status === 204) {
       const _events = await fetchEvents();
@@ -136,8 +136,6 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   }, [getEvents]);
 
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
-    console.log(eventInfo);
-
     if (eventInfo.view.type === "dayGridMonth") {
       return (
         <Style.CustomEventTitle>
@@ -236,6 +234,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         moreLinkClick="week"
         events={events}
         eventDrop={handleDragEvent}
+        eventResize={handleDragEvent}
         {...props}
       />
       {showEventModal && (

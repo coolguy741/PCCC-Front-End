@@ -1,10 +1,7 @@
-import { useMemo } from "react";
 import styled from "styled-components";
-
-import { AssessmentCalendar } from "./AssessmentCalendar";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+import { Calendar } from "../../Calendar";
 import { TCalendarType } from "./Calendar";
-import { PlanCalendar } from "./PlanCalendar";
-import { RecipeCalendar } from "./RecipeCalendar";
 
 interface Props {
   isOpen?: boolean;
@@ -17,31 +14,24 @@ export const CalendarModal: React.FC<Props> = ({
   type = "plan",
   close,
 }) => {
-  const isPlan = useMemo(() => type === "plan", [type]);
-  const isAssessment = useMemo(() => type === "assessment", [type]);
+  const handleClick = () => {
+    console.log("Click");
+  };
 
   return isOpen ? (
     <Style.ModalContainer>
       <div className="modal" onClick={close}></div>
       <Style.Modal>
-        <Style.ModalHeader>
-          <div>Select the day you would like to add your recipe</div>
-          <span onClick={close} className="icon-close">
-            x
-          </span>
-        </Style.ModalHeader>
         <Style.ModalBody>
-          <div className="calendar-mode">
-            <div className="selected-day">Monday 20</div>
-            <div>
-              <span>Day</span>
-              <span>Week</span>
-              <span className="active">Month</span>
-            </div>
-          </div>
-          {isPlan && <PlanCalendar />}
-          {isAssessment && <AssessmentCalendar />}
-          {!(isPlan || isAssessment) && <RecipeCalendar />}
+          <Calendar
+            height="750px"
+            dateClick={handleClick}
+            buttonText={{
+              month: "Month",
+              week: "Week",
+              day: "Day",
+            }}
+          />
         </Style.ModalBody>
       </Style.Modal>
     </Style.ModalContainer>
@@ -57,6 +47,7 @@ const Style = {
     bottom: 0;
     display: flex;
     align-items: center;
+    z-index: 9999;
 
     .modal {
       position: fixed;
@@ -71,13 +62,12 @@ const Style = {
     }
   `,
   Modal: styled.div`
-    max-width: 851px;
     position: relative;
-    border-radius: 5px;
+    border-radius: 20px;
     z-index: 2;
-    width: 90%;
+    width: 70%;
     margin: auto;
-    background: var(--white);
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")};
     padding: 5px;
   `,
   ModalHeader: styled.div`
@@ -95,7 +85,11 @@ const Style = {
     }
   `,
   ModalBody: styled.div`
-    padding: 10px;
+    padding: 2rem;
+
+    > div {
+      width: 100%;
+    }
 
     .calendar-mode {
       display: flex;
