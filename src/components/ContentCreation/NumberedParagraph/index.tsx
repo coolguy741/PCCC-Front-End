@@ -71,6 +71,7 @@ const Style = {
     width: 100%;
     height: 100%;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
 
     & > p {
@@ -81,9 +82,10 @@ const Style = {
     & > div {
       background: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-      padding: 5vh 2vw;
+      padding: 3vh 2vw;
       backdrop-filter: blur(59.2764px);
       border-radius: 16px;
+      heightL 100%
       flex: 1;
       margin-top: -10vh;
     }
