@@ -26,14 +26,7 @@ export function NumberedParagraph() {
   const { state, changeEditState, changeText } = useContentCreation(npState);
   return (
     <Style.Container>
-      <Typography
-        size="12.5vh"
-        mt="-4vh"
-        ml="2vw"
-        mb="2vh"
-        weight={700}
-        color="orange-500"
-      >
+      <Typography size="12.5vh" ml="2vw" weight={700} color="orange-500">
         <DoubleClickToEditComponent
           mode={state.number.mode}
           setText={changeText}
@@ -76,6 +69,7 @@ const Style = {
     & > p {
       position: relative;
       z-index: 1;
+      height: 12.5vh;
     }
 
     & > div {
@@ -85,7 +79,7 @@ const Style = {
       backdrop-filter: blur(59.2764px);
       border-radius: 16px;
       flex: 1;
-      margin-top: -10vh;
+      margin-top: -2.5vh;
     }
   `,
 
