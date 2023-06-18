@@ -28,6 +28,10 @@ export function DoubleClickToEditComponent({
     }
   }
 
+  // trim white space in between.
+  const regexPattern = /\s+/g;
+  text = text.replace(regexPattern, " ");
+
   function showComponent() {
     if (mode === "view") {
       return <span onClick={switchOnDb}>{text}</span>;
@@ -58,7 +62,7 @@ export const Style = {
     padding: none;
     width: auto;
     resize: none;
-    color: green;
+    color: red;
     width: 100%;
     height: 200px;
   `,
