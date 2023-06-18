@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 import styled from "styled-components";
 
 export function DoubleClickToEditComponent({
@@ -9,29 +10,36 @@ export function DoubleClickToEditComponent({
   changeEditState,
 }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
-
-  // useEffect(() => {
-  //   if (mode === "edit" && ref.current) {
-  //     const end = text.length;
-  //     text.current.setSelectionRange(end, end);
-  //     text.current.focus();
-  //   }
-  // }, [mode, ref, text]);
+  useEffect(() => {
+    if (mode === "edit" && ref.current) {
+      const end = text.length;
+      ref.current.setSelectionRange(end, end);
+      ref.current.focus();
+    }
+  }, [mode, ref, text]);
 
   function switchOnDb() {
     changeEditState(name);
   }
 
+  function handleKeyDown(e: { key: string }) {
+    if (e.key === "Enter") {
+      changeEditState(name);
+    }
+  }
+
   function showComponent() {
     if (mode === "view") {
-      return <span onDoubleClick={switchOnDb}>{text}</span>;
+      return <span onClick={switchOnDb}>{text}</span>;
     } else {
       return (
         <Style.Container
           onChange={(e) => setText(name, e.target.value)}
           ref={ref}
           defaultValue={text}
-          onDoubleClick={switchOnDb}
+          onClick={switchOnDb}
+          onKeyDown={handleKeyDown}
+          autoFocus
         />
       );
     }
@@ -41,19 +49,17 @@ export function DoubleClickToEditComponent({
 }
 
 export const Style = {
-  Container: styled.textarea`
+  Container: styled(TextareaAutosize)`
     border: none;
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
-    background-color: unset;
     padding: none;
     width: auto;
     resize: none;
     color: green;
     width: 100%;
-    height: max-content;
-    border: 1px solid red;
+    height: 200px;
   `,
 };
