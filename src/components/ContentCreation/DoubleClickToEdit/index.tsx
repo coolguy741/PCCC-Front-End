@@ -10,6 +10,8 @@ export function DoubleClickToEditComponent({
   changeEditState,
 }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
+
+  // take focus to the end of text.
   useEffect(() => {
     if (mode === "edit" && ref.current) {
       const end = text.length;
@@ -18,10 +20,12 @@ export function DoubleClickToEditComponent({
     }
   }, [mode, ref, text]);
 
-  function switchOnDb() {
+  // change edit / view state
+  function clickHandler() {
     changeEditState(name);
   }
 
+  // change edit / view on enter press
   function handleKeyDown(e: { key: string }) {
     if (e.key === "Enter") {
       changeEditState(name);
@@ -34,14 +38,14 @@ export function DoubleClickToEditComponent({
 
   function showComponent() {
     if (mode === "view") {
-      return <span onClick={switchOnDb}>{text}</span>;
+      return <span onClick={clickHandler}>{text}</span>;
     } else {
       return (
         <Style.Container
           onChange={(e) => setText(name, e.target.value)}
           ref={ref}
           defaultValue={text}
-          onClick={switchOnDb}
+          onClick={clickHandler}
           onKeyDown={handleKeyDown}
           autoFocus
         />
