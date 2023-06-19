@@ -19,7 +19,7 @@ export type CalendarEvent = {
 
 type PopupSize = "sm" | "md" | "lg";
 
-interface Props {
+interface ModalProps {
   position: {
     x: number;
     y: number;
@@ -34,7 +34,129 @@ interface Props {
   selectedEvent: EventImpl;
 }
 
-export const PreviewEventModal: React.FC<Props> = ({
+interface InnerProps {
+  selectedEvent: EventImpl;
+}
+
+const NoteRecipeActivityModal = ({ selectedEvent }: InnerProps) => {
+  return (
+    <>
+      <div className="header">
+        <h3>
+          {TYPE_KEY_OBJ[
+            selectedEvent.extendedProps.type as keyof typeof TYPE_KEY_OBJ
+          ] || "Event"}
+        </h3>
+      </div>
+      <div className="content">
+        <div className="row">
+          <div className="full-section">
+            <p>{selectedEvent.extendedProps.theme || "N/A"}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="section">
+            {selectedEvent.start && selectedEvent.end && (
+              <>
+                <h4>{formatDate(selectedEvent.start.toString())}</h4>
+                <p>
+                  {getTimeFromDateString(selectedEvent.start)} -{" "}
+                  {getTimeFromDateString(selectedEvent.end)}
+                </p>
+              </>
+            )}
+          </div>
+          <div className="section">
+            <h4>Group</h4>
+            <p>{selectedEvent.extendedProps.group || "N/A"}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const AssessmentEducatorNotesModal = ({ selectedEvent }: InnerProps) => {
+  return (
+    <>
+      <div className="header">
+        <h3>
+          {TYPE_KEY_OBJ[
+            selectedEvent.extendedProps.type as keyof typeof TYPE_KEY_OBJ
+          ] || "Event"}
+        </h3>
+      </div>
+      <div className="content">
+        <div className="row">
+          <div className="section">
+            <h4>{selectedEvent.extendedProps.curriculum || "N/A"}</h4>
+          </div>
+          <div className="section">
+            <h4>Theme</h4>
+            <p>{selectedEvent.extendedProps.theme || "N/A"}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="section">
+            {selectedEvent.start && selectedEvent.end && (
+              <>
+                <h4>{formatDate(selectedEvent.start.toString())}</h4>
+                <p>
+                  {getTimeFromDateString(selectedEvent.start)} -{" "}
+                  {getTimeFromDateString(selectedEvent.end)}
+                </p>
+              </>
+            )}
+          </div>
+          <div className="section">
+            <h4>Group</h4>
+            <p>{selectedEvent.extendedProps.group || "N/A"}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const FoodwaysMealtimeMomentModal = ({ selectedEvent }: InnerProps) => {
+  return (
+    <>
+      <div className="header">
+        <h3>
+          {TYPE_KEY_OBJ[
+            selectedEvent.extendedProps.type as keyof typeof TYPE_KEY_OBJ
+          ] || "Event"}
+        </h3>
+      </div>
+      <div className="content">
+        <div className="row">
+          <div className="section">
+            <h4>{selectedEvent.extendedProps.title || "N/A"}</h4>
+          </div>
+          <div className="section">
+            {selectedEvent.start && selectedEvent.end && (
+              <>
+                <h4>{formatDate(selectedEvent.start.toString())}</h4>
+                <p>
+                  {getTimeFromDateString(selectedEvent.start)} -{" "}
+                  {getTimeFromDateString(selectedEvent.end)}
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+        <div className="row">
+          <div className="section">
+            <h4>Group</h4>
+            <p>{selectedEvent.extendedProps.group || "N/A"}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const PreviewEventModal: React.FC<ModalProps> = ({
   isOpen = false,
   isConfirm = false,
   position,
@@ -65,42 +187,16 @@ export const PreviewEventModal: React.FC<Props> = ({
       <div className="popup-background" onClick={handleClose}></div>
       <div className="popup-container">
         <div className="popup">
-          <div className="header">
-            <h3>
-              {TYPE_KEY_OBJ[
-                selectedEvent.extendedProps.type as keyof typeof TYPE_KEY_OBJ
-              ] || "Event"}
-            </h3>
-          </div>
-          <div className="content">
-            <div className="row">
-              <div className="section">
-                <h4>Curriculum</h4>
-                <p>N/A</p>
-              </div>
-              <div className="section">
-                <h4>Topic</h4>
-                <p>Description</p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="section">
-                {selectedEvent.start && selectedEvent.end && (
-                  <>
-                    <h4>{formatDate(selectedEvent.start.toString())}</h4>
-                    <p>
-                      {getTimeFromDateString(selectedEvent.start)} -{" "}
-                      {getTimeFromDateString(selectedEvent.end)}
-                    </p>
-                  </>
-                )}
-              </div>
-              <div className="section">
-                <h4>Title</h4>
-                <p>{selectedEvent.title}</p>
-              </div>
-            </div>
-          </div>
+          {selectedEvent.extendedProps.type === "Note" ||
+          selectedEvent.extendedProps.type === "Recipe" ||
+          selectedEvent.extendedProps.type === "Activity" ? (
+            <NoteRecipeActivityModal selectedEvent={selectedEvent} />
+          ) : selectedEvent.extendedProps.type === "EducatorNote" ||
+            selectedEvent.extendedProps.type === "Assessment" ? (
+            <AssessmentEducatorNotesModal selectedEvent={selectedEvent} />
+          ) : (
+            <FoodwaysMealtimeMomentModal selectedEvent={selectedEvent} />
+          )}
         </div>
       </div>
     </Style.Container>
@@ -187,6 +283,10 @@ const Style = {
           flex-direction: column;
           gap: 1.25rem;
 
+          h4 {
+            font-weight: 600;
+          }
+
           .row {
             display: flex;
             flex-direction: row;
@@ -197,6 +297,13 @@ const Style = {
               flex-direction: column;
               gap: 0.75rem;
               width: 50%;
+            }
+
+            .full-section {
+              display: flex;
+              flex-direction: column;
+              gap: 0.75rem;
+              width: 100%;
             }
           }
         }
