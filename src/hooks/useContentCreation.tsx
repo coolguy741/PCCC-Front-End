@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { State, TitleType } from "../types";
+import { State, TitleType } from "../components/ContentCreation/types";
 
 export function useContentCreation(initialState: State) {
   const [state, setState] = useState<State>(initialState);
