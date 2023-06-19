@@ -38,7 +38,7 @@ export function DoubleClickToEditComponent({
 
   function showComponent() {
     if (mode === "view") {
-      return <span onClick={clickHandler}>{text}</span>;
+      return <Style.Span onClick={clickHandler}>{text}</Style.Span>;
     } else {
       return (
         <Style.Container
@@ -68,6 +68,9 @@ export const Style = {
     resize: none;
     color: red;
     width: 100%;
-    height: 200px;
+    cursor: pointer;
+  `,
+  Span: styled.span`
+    cursor: pointer;
   `,
 };
