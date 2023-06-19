@@ -5,7 +5,7 @@ import { BASE_API_URL } from "./consts";
 
 export const getGroups = async () => {
   const { api } = new Api({
-    baseUrl: BASE_API_URL,
+    baseURL: BASE_API_URL,
   });
 
   const response = await api.appGroupsMyCreatedGroupsList(
