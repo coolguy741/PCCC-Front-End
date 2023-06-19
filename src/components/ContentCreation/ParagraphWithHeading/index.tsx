@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { useContentCreation } from "../hooks/useContentCreation";
 
 const pWithPState: any = {
   heading: {
