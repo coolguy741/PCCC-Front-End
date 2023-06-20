@@ -3,10 +3,13 @@ import {
   DragDropContext,
   Draggable,
   Droppable,
+  OnDragEndResponder,
   OnDragStartResponder,
   OnDragUpdateResponder,
 } from "react-beautiful-dnd";
 import styled from "styled-components";
+import SwiperType, { Mousewheel, Scrollbar } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { DoubleImage } from "../../components/ContentCreation/DoubleImage";
 import DoubleImageIcon from "../../components/ContentCreation/Icons/doubleImage";
@@ -20,10 +23,17 @@ import { SingleImage } from "../../components/ContentCreation/SingleImage";
 import { Title } from "../../components/ContentCreation/Title";
 import { getPositions } from "../../lib/util/getPositions";
 import { ThemeComponent } from "../../pages/types";
-import Button from "../Button";
+import { useThemeStore } from "../../stores/themeStore";
 import { Icon } from "../Global/Icon";
 import Scrollable from "../Global/Scrollable";
+import { Typography } from "../Global/Typography";
+import { ThemeEditorActions } from "./Actions";
 import { ContentNavigator } from "./ContentNavigator";
+import { ThemeInfo } from "./ThemeInfo";
+
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/scrollbar";
 
 const components: ThemeComponent[] = [
   {
@@ -73,6 +83,7 @@ export const ContentBuilder = () => {
   const [themeComponents, setThemeComponents] = useState<ThemeComponent[]>();
   const [prevThemeComponents, setPrevThemeComponents] =
     useState<ThemeComponent[]>();
+  const { setSlide } = useThemeStore();
 
   const checkDroppable = (droppableId: number, source: number) => {
     const { width, height } = components[source];
@@ -149,13 +160,27 @@ export const ContentBuilder = () => {
     setDraggingComponent(result.source.index);
   };
 
+  const onSlideChange = (swiper: SwiperType) => {
+    setSlide(swiper.activeIndex);
+  };
+
+  const onDragEnd: OnDragEndResponder = (result) => {
+    if (!result.destination) {
+      setThemeComponents(() => [...(prevThemeComponents ?? [])]);
+    }
+  };
+
   return (
     <Style.Container>
       <ContentNavigator />
+      <Typography variant="h3" as="h3" weight="semi-bold">
+        Create Theme
+      </Typography>
+      <ThemeInfo />
       <Style.DragDropContainer>
         <DragDropContext
           onDragUpdate={onDragUpdate}
-          onDragEnd={() => true}
+          onDragEnd={onDragEnd}
           onDragStart={onDragStart}
         >
           <Droppable droppableId="preview-drop" isDropDisabled={true}>
@@ -194,65 +219,123 @@ export const ContentBuilder = () => {
             )}
           </Droppable>
           <Style.Slide>
-            <Style.Content>
-              {Array.from({ length: 6 }).map((value, index) => (
-                <Droppable
-                  droppableId={`grid-drop-${index}`}
-                  key={`grid-${index}`}
-                >
-                  {(dropProvided, draggingOverWith) => (
-                    <>
-                      <div
-                        {...dropProvided.droppableProps}
-                        ref={dropProvided.innerRef}
-                        style={{
-                          background: "var(--blue-500)",
+            <Swiper
+              slidesPerView={1}
+              mousewheel={true}
+              pagination={false}
+              effect="fade"
+              onSlideChange={onSlideChange}
+              direction={"vertical"}
+              speed={500}
+              modules={[Mousewheel, Scrollbar]}
+              className="theme-swiper-slide"
+            >
+              <SwiperSlide>
+                <Style.Content>
+                  {Array.from({ length: 6 }).map((value, index) => (
+                    <Droppable
+                      droppableId={`grid-test-drop-${index}`}
+                      key={`grid-test-${index}`}
+                    >
+                      {(dropProvided, draggingOverWith) => (
+                        <>
+                          <div
+                            {...dropProvided.droppableProps}
+                            ref={dropProvided.innerRef}
+                            style={{
+                              background: "var(--blue-500)",
 
-                          opacity: 0.15,
-                          borderRadius: "1rem",
+                              opacity: 0.15,
+                              borderRadius: "1rem",
+                            }}
+                          />
+                          <span style={{ display: "none" }}>
+                            {dropProvided.placeholder}
+                          </span>
+                        </>
+                      )}
+                    </Droppable>
+                  ))}
+                  {themeComponents?.map(
+                    ({ width, height, x, y, component }, index) => (
+                      <Style.Component
+                        key={`column-${index}`}
+                        {...{
+                          width,
+                          height,
+                          x,
+                          y,
                         }}
-                      />
-                      <span style={{ display: "none" }}>
-                        {dropProvided.placeholder}
-                      </span>
-                    </>
+                      >
+                        <div className="delete-button-container">
+                          <Style.DeleteButton>
+                            <Icon
+                              name="trash"
+                              onClick={handleDelete}
+                              id={`${x},${y}`}
+                            />
+                          </Style.DeleteButton>
+                        </div>
+                        {component}
+                      </Style.Component>
+                    ),
                   )}
-                </Droppable>
-              ))}
-              {themeComponents?.map(
-                ({ width, height, x, y, component }, index) => (
-                  <Style.Component
-                    key={`column-${index}`}
-                    {...{
-                      width,
-                      height,
-                      x,
-                      y,
-                    }}
-                  >
-                    <div className="delete-button-container">
-                      <Style.DeleteButton>
-                        <Icon
-                          name="trash"
-                          onClick={handleDelete}
-                          id={`${x},${y}`}
-                        />
-                      </Style.DeleteButton>
-                    </div>
-                    {component}
-                  </Style.Component>
-                ),
-              )}
-            </Style.Content>
-            <Style.ActionContainer>
-              <Button variant="yellow">Add Slide</Button>
-              <div className="flex">
-                <Button variant="yellow" className="mr-4">
-                  Save changes and exit
-                </Button>
-                <Button variant="orange">Save changes and continue</Button>
-              </div>
-            </Style.ActionContainer>
+                </Style.Content>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Style.Content>
+                  {Array.from({ length: 6 }).map((value, index) => (
+                    <Droppable
+                      droppableId={`grid-drop-${index}`}
+                      key={`grid-${index}`}
+                    >
+                      {(dropProvided, draggingOverWith) => (
+                        <>
+                          <div
+                            {...dropProvided.droppableProps}
+                            ref={dropProvided.innerRef}
+                            style={{
+                              background: "var(--blue-500)",
+
+                              opacity: 0.15,
+                              borderRadius: "1rem",
+                            }}
+                          />
+                          <span style={{ display: "none" }}>
+                            {dropProvided.placeholder}
+                          </span>
+                        </>
+                      )}
+                    </Droppable>
+                  ))}
+                  {themeComponents?.map(
+                    ({ width, height, x, y, component }, index) => (
+                      <Style.Component
+                        key={`column-${index}`}
+                        {...{
+                          width,
+                          height,
+                          x,
+                          y,
+                        }}
+                      >
+                        <div className="delete-button-container">
+                          <Style.DeleteButton>
+                            <Icon
+                              name="trash"
+                              onClick={handleDelete}
+                              id={`${x},${y}`}
+                            />
+                          </Style.DeleteButton>
+                        </div>
+                        {component}
+                      </Style.Component>
+                    ),
+                  )}
+                </Style.Content>
+              </SwiperSlide>
+            </Swiper>
+            <ThemeEditorActions />
           </Style.Slide>
         </DragDropContext>
       </Style.DragDropContainer>
@@ -276,7 +359,7 @@ const Style = {
     overflow: hidden;
   `,
   Previews: styled.div`
-    width: 20%;
+    width: 15%;
     height: 100%;
     background: #ffffff50;
     padding: 2vh;
@@ -335,15 +418,15 @@ const Style = {
       position: relative;
     }
   `,
-  ActionContainer: styled.div`
-    padding: 2vh 0;
-    display: flex;
-    justify-content: space-between;
-  `,
   Slide: styled.section`
-    width: 80%;
+    width: 85%;
     display: flex;
     flex-direction: column;
+
+    .theme-swiper-slide {
+      flex: 1;
+      margin: 0;
+    }
   `,
   DeleteButton: styled.button`
     position: absolute;
