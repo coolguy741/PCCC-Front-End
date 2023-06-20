@@ -257,6 +257,7 @@ const Style = {
     margin-right: 2rem;
     padding: 0.1vh 1vw;
     border-radius: 0.5rem;
+    width: 100%;
 
     * {
       white-space: nowrap;
@@ -270,7 +271,9 @@ const Style = {
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(59.2764px);
     border-radius: 16px;
+    overflow: hidden;
     width: 100%;
+    display: flex;
     height: 100%;
     padding: 1rem;
   `,
@@ -291,17 +294,9 @@ const Style = {
   Content: styled.div`
     height: 100%;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     padding: 1.87vh 1vw;
-    column-gap: 1.7%;
-    row-gap: 3.2%;
     position: relative;
     background: #ffffff50;
     border-radius: 0.5rem;
-    .grid {
-      height: 100%;
-      background: gray;
-    }
   `,
 };
