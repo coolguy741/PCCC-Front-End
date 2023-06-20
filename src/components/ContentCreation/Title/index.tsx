@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { useContentCreation } from "../hooks/useContentCreation";
 
 const titleState: any = {
   tag: { mode: "view", text: "Overview" },

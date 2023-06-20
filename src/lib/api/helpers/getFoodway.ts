@@ -6,7 +6,7 @@ import { BASE_API_URL } from "./consts";
 export const getFoodway = async (id: string | undefined) => {
   if (id) {
     const { api } = new Api({
-      baseUrl: BASE_API_URL,
+      baseURL: BASE_API_URL,
     });
 
     const response = await api.appFoodwaysDetail(id, {

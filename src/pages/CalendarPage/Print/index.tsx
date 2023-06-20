@@ -137,7 +137,7 @@ const Style = {
           }
 
           .event-content {
-            color: var(--black);
+            color: var(--neutral-600);
             font-size: 0.8rem;
           }
         }

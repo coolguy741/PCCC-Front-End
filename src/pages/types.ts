@@ -36,8 +36,10 @@ export interface Filter {
 }
 
 export interface ThemeComponent {
-  col: number;
-  row: number;
+  width: number;
+  height: number;
+  x?: number;
+  y?: number;
   id: number;
   title: string;
   component: JSX.Element;

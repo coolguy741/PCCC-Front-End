@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { useContentCreation } from "../hooks/useContentCreation";
 
 const npState: any = {
   number: {
@@ -26,14 +26,7 @@ export function NumberedParagraph() {
   const { state, changeEditState, changeText } = useContentCreation(npState);
   return (
     <Style.Container>
-      <Typography
-        size="12.5vh"
-        mt="-4vh"
-        ml="2vw"
-        mb="2vh"
-        weight={700}
-        color="orange-500"
-      >
+      <Typography size="12.5vh" ml="2vw" weight={700} color="orange-500">
         <DoubleClickToEditComponent
           mode={state.number.mode}
           setText={changeText}
@@ -71,21 +64,24 @@ const Style = {
     width: 100%;
     height: 100%;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
 
     & > p {
       position: relative;
       z-index: 1;
+      height: 12.5vh;
     }
 
     & > div {
       background: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-      padding: 5vh 2vw;
+      padding: 3vh 2vw;
       backdrop-filter: blur(59.2764px);
       border-radius: 16px;
+      heightL 100%
       flex: 1;
-      margin-top: -10vh;
+      margin-top: -2.5vh;
     }
   `,
 

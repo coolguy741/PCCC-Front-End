@@ -6,7 +6,7 @@ import { BASE_API_URL } from "./consts";
 
 export const getAuthenticatedUser = async () => {
   const { api } = new Api({
-    baseUrl: BASE_API_URL,
+    baseURL: BASE_API_URL,
   });
 
   try {

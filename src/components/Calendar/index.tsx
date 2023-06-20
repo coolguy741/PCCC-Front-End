@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { useAPI } from "../../hooks/useAPI";
 import { fetchEvents } from "../../lib/api/helpers/fetchEvents";
 import { capitalize } from "../../lib/util/capitalize";
+import { formatDate } from "../../lib/util/formatDate";
+import { getTimeFromDateString } from "../../lib/util/getTimeFromDateString";
 import { STORAGE_KEY_JWT } from "../../pages/consts";
 import { useCalendarEventsStore } from "../../stores/eventsStore";
 import { EditEventModal } from "./EditEventModal";
@@ -70,10 +72,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
     const response = await api.appCalendarsEventUpdate(
       {
         id: info.event.id,
-        startDate: new Date(
-          `${selectedDate}T${info.event.start}`,
-        ).toISOString(),
-        endDate: new Date(`${selectedDate}T${info.event.end}`).toISOString(),
+        startDate: info.event.start,
+        endDate: info.event.end,
         description: info.event.extendedProps.description,
         eventType: info.event.extendedProps.type,
       },
@@ -83,6 +83,8 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         },
       },
     );
+
+    console.log(response);
 
     if (response.status === 204) {
       const _events = await fetchEvents();
@@ -134,19 +136,71 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
   }, [getEvents]);
 
   const renderEventContent = (eventInfo: EventContentArg): JSX.Element => {
-    return (
-      <Style.CustomEventTitle>
-        <p className="event-title">
-          {capitalize(eventInfo.event?.extendedProps.type)}
-        </p>
-        <p className="event-content">
-          {eventInfo.event?.extendedProps.theme
-            ? `${eventInfo.event?.extendedProps.theme.toUpperCase()} — `
-            : null}{" "}
-          {eventInfo.event?.extendedProps.description}
-        </p>
-      </Style.CustomEventTitle>
-    );
+    if (eventInfo.view.type === "dayGridMonth") {
+      return (
+        <Style.CustomEventTitle>
+          <p className="event-title">
+            {capitalize(eventInfo.event?.extendedProps.type)}
+          </p>
+          <h4 className="event-content">
+            {eventInfo.event?.extendedProps.theme
+              ? `${eventInfo.event?.extendedProps.theme.toUpperCase()} — `
+              : "Theme Name"}{" "}
+            {eventInfo.event?.extendedProps.description}
+          </h4>
+        </Style.CustomEventTitle>
+      );
+    } else if (eventInfo.view.type === "timeGridWeek") {
+      return (
+        <Style.CustomEventTitle>
+          <p className="event-title">
+            {capitalize(eventInfo.event?.extendedProps.type)}
+          </p>
+          <h4 className="event-content">
+            {eventInfo.event?.extendedProps.theme
+              ? `${eventInfo.event?.extendedProps.theme.toUpperCase()} — `
+              : "Theme Name"}{" "}
+            {eventInfo.event?.extendedProps.description}
+          </h4>
+          {eventInfo.event.start && eventInfo.event.end && (
+            <>
+              <h4 className="event-content">
+                {formatDate(eventInfo.event.start.toString())}
+              </h4>
+              <h4 className="event-content">
+                {getTimeFromDateString(eventInfo.event.start)} -{" "}
+                {getTimeFromDateString(eventInfo.event.end)}
+              </h4>
+            </>
+          )}
+        </Style.CustomEventTitle>
+      );
+    } else {
+      return (
+        <Style.CustomEventTitle>
+          <p className="event-title">
+            {capitalize(eventInfo.event?.extendedProps.type)}
+          </p>
+          <h4 className="event-content">
+            {eventInfo.event?.extendedProps.theme
+              ? `${eventInfo.event?.extendedProps.theme.toUpperCase()} — `
+              : "Theme Name"}{" "}
+            {eventInfo.event?.extendedProps.description}
+          </h4>
+          {eventInfo.event.start && eventInfo.event.end && (
+            <>
+              <h4 className="event-content">
+                {formatDate(eventInfo.event.start.toString())}
+              </h4>
+              <h4 className="event-content">
+                {getTimeFromDateString(eventInfo.event.start)} -{" "}
+                {getTimeFromDateString(eventInfo.event.end)}
+              </h4>
+            </>
+          )}
+        </Style.CustomEventTitle>
+      );
+    }
   };
 
   return (
@@ -180,6 +234,7 @@ export const Calendar: React.FC<CalendarOptions> = (props) => {
         moreLinkClick="week"
         events={events}
         eventDrop={handleDragEvent}
+        eventResize={handleDragEvent}
         {...props}
       />
       {showEventModal && (
@@ -303,7 +358,7 @@ const Style = {
         }
 
         .event-content {
-          color: var(--black);
+          color: var(--neutral-600);
           font-size: 0.8rem;
         }
       }
@@ -336,6 +391,11 @@ const Style = {
       &.event-content {
         font-size: 9px;
       }
+    }
+
+    h4 {
+      font-weight: 600;
+      color: var(--neutral-600);
     }
   `,
 };

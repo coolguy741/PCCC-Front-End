@@ -110,6 +110,8 @@ const Style = {
           display: flex;
           flex-direction: row;
           gap: 1rem;
+          position: relative;
+          width: 100%;
 
           .date-picker-row {
             display: flex;

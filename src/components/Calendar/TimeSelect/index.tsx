@@ -7,7 +7,7 @@ interface TimeSelectProps {
 
 export const TimeSelect = ({ value, onChange }: TimeSelectProps) => {
   return (
-    <Select width="8rem" height="2.5rem" value={value} onChange={onChange}>
+    <Select width="90%" height="2.5rem" value={value} onChange={onChange}>
       <option value="01:00">1:00 AM</option>
       <option value="02:00">2:00 AM</option>
       <option value="03:00">3:00 AM</option>
