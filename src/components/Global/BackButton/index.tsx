@@ -4,12 +4,16 @@ import { ArrowLeft } from "../../Icons";
 
 interface BackButtonProps {
   onClick?: () => void;
+  text?: string;
 }
-export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
+export const BackButton: React.FC<BackButtonProps> = ({
+  onClick,
+  text = "Back",
+}) => {
   return (
     <Style.Container onClick={onClick}>
       <ArrowLeft />
-      Back
+      {text}
     </Style.Container>
   );
 };
