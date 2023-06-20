@@ -911,15 +911,9 @@ export interface PccServer23RecipesRecipeUpdateDto {
 }
 
 export interface PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput {
-  firstSecurityQuestions?:
-    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
-    | null;
-  secondSecurityQuestions?:
-    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
-    | null;
-  thirdSecurityQuestions?:
-    | PccServer23SecurityQuestionChoicesSecurityQuestionDto[]
-    | null;
+  firstSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
+  secondSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
+  thirdSecurityQuestions?: PccServer23SecurityQuestionChoicesSecurityQuestionDto[] | null;
 }
 
 export interface PccServer23SecurityQuestionChoicesSecurityQuestionChoiceCreateDto {
@@ -1182,9 +1176,7 @@ export interface VoloAbpApplicationDtosPagedResultDto1PccServer23ActivitiesActiv
 }
 
 export interface VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
-  items?:
-    | PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto[]
-    | null;
+  items?: PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto[] | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -1267,10 +1259,7 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, "data" | "pa
   body?: unknown;
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  "body" | "method" | "query" | "path"
->;
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
 export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
   securityWorker?: (
@@ -1385,9 +1374,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title PccServer23 API
  * @version v1
  */
-export class Api<
-  SecurityDataType extends unknown,
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   api = {
     /**
      * No description
@@ -1441,14 +1428,8 @@ export class Api<
      * @request POST:/api/app/activities
      * @secure
      */
-    appActivitiesCreate: (
-      data: PccServer23ActivitiesCustomMultiLingualActivityCreateDto,
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23ActivitiesActivityDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+    appActivitiesCreate: (data: PccServer23ActivitiesCustomMultiLingualActivityCreateDto, params: RequestParams = {}) =>
+      this.request<PccServer23ActivitiesActivityDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/activities`,
         method: "POST",
         body: data,
@@ -1468,10 +1449,7 @@ export class Api<
      * @secure
      */
     appActivitiesDetail: (id: string, params: RequestParams = {}) =>
-      this.request<
-        PccServer23ActivitiesActivityDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23ActivitiesActivityDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/activities/${id}`,
         method: "GET",
         secure: true,
@@ -1510,10 +1488,7 @@ export class Api<
       data: PccServer23ActivitiesCustomMultiLingualActivityUpdateDto,
       params: RequestParams = {},
     ) =>
-      this.request<
-        PccServer23ActivitiesActivityDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23ActivitiesActivityDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/activities/${id}`,
         method: "PUT",
         body: data,
@@ -1647,10 +1622,7 @@ export class Api<
       data: PccServer23CalendarEventsPublicCalendarEventCreateDto,
       params: RequestParams = {},
     ) =>
-      this.request<
-        PccServer23CalendarEventsPublicCalendarEventDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23CalendarEventsPublicCalendarEventDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/calendars/event-to-my-calendar`,
         method: "POST",
         body: data,
@@ -1673,10 +1645,7 @@ export class Api<
       data: PccServer23CalendarEventsPublicCalendarEventCreateDto,
       params: RequestParams = {},
     ) =>
-      this.request<
-        PccServer23CalendarEventsPublicCalendarEventDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23CalendarEventsPublicCalendarEventDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/calendars/event-to-group-calendar`,
         method: "POST",
         body: data,
@@ -1758,10 +1727,7 @@ export class Api<
      * @request POST:/api/app/foodways
      * @secure
      */
-    appFoodwaysCreate: (
-      data: PccServer23FoodwaysMultiLingualFoodwayCreateDto,
-      params: RequestParams = {},
-    ) =>
+    appFoodwaysCreate: (data: PccServer23FoodwaysMultiLingualFoodwayCreateDto, params: RequestParams = {}) =>
       this.request<
         PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
@@ -1784,10 +1750,7 @@ export class Api<
      * @request GET:/api/app/foodways/{id}
      */
     appFoodwaysDetail: (id: string, params: RequestParams = {}) =>
-      this.request<
-        PccServer23FoodwaysPublicFoodwayDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23FoodwaysPublicFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/foodways/${id}`,
         method: "GET",
         format: "json",
@@ -1917,14 +1880,8 @@ export class Api<
      * @request POST:/api/app/groups
      * @secure
      */
-    appGroupsCreate: (
-      data: PccServer23GroupsGroupCreateSelfDto,
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23GroupsGroupDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+    appGroupsCreate: (data: PccServer23GroupsGroupCreateSelfDto, params: RequestParams = {}) =>
+      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups`,
         method: "POST",
         body: data,
@@ -1969,15 +1926,8 @@ export class Api<
      * @request PUT:/api/app/groups/{id}
      * @secure
      */
-    appGroupsUpdate: (
-      id: string,
-      data: PccServer23GroupsGroupUpdateDto,
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23GroupsGroupDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+    appGroupsUpdate: (id: string, data: PccServer23GroupsGroupUpdateDto, params: RequestParams = {}) =>
+      this.request<PccServer23GroupsGroupDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups/${id}`,
         method: "PUT",
         body: data,
@@ -2015,10 +1965,7 @@ export class Api<
      * @request POST:/api/app/groups/join
      * @secure
      */
-    appGroupsJoinCreate: (
-      data: PccServer23GroupsGroupJoinDto,
-      params: RequestParams = {},
-    ) =>
+    appGroupsJoinCreate: (data: PccServer23GroupsGroupJoinDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups/join`,
         method: "POST",
@@ -2037,10 +1984,7 @@ export class Api<
      * @request POST:/api/app/groups/accept
      * @secure
      */
-    appGroupsAcceptCreate: (
-      data: PccServer23GroupsGroupAcceptDto,
-      params: RequestParams = {},
-    ) =>
+    appGroupsAcceptCreate: (data: PccServer23GroupsGroupAcceptDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups/accept`,
         method: "POST",
@@ -2059,10 +2003,7 @@ export class Api<
      * @request POST:/api/app/groups/reject
      * @secure
      */
-    appGroupsRejectCreate: (
-      data: PccServer23GroupsGroupRejectDto,
-      params: RequestParams = {},
-    ) =>
+    appGroupsRejectCreate: (data: PccServer23GroupsGroupRejectDto, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/groups/reject`,
         method: "POST",
@@ -2272,10 +2213,7 @@ export class Api<
       },
       params: RequestParams = {},
     ) =>
-      this.request<
-        PccServer23RecipeMediasRecipeMediaDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23RecipeMediasRecipeMediaDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/recipe-medias`,
         method: "POST",
         query: query,
@@ -2338,10 +2276,7 @@ export class Api<
      * @request POST:/api/app/recipes
      * @secure
      */
-    appRecipesCreate: (
-      data: PccServer23RecipesMultiLingualRecipeCreateDto,
-      params: RequestParams = {},
-    ) =>
+    appRecipesCreate: (data: PccServer23RecipesMultiLingualRecipeCreateDto, params: RequestParams = {}) =>
       this.request<
         PccServer23SharedIMultiLingualDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
@@ -2364,10 +2299,7 @@ export class Api<
      * @request GET:/api/app/recipes/{id}
      */
     appRecipesDetail: (id: string, params: RequestParams = {}) =>
-      this.request<
-        PccServer23RecipesPublicRecipeDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23RecipesPublicRecipeDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/recipes/${id}`,
         method: "GET",
         format: "json",
@@ -2400,11 +2332,7 @@ export class Api<
      * @request PUT:/api/app/recipes/{id}
      * @secure
      */
-    appRecipesUpdate: (
-      id: string,
-      data: PccServer23RecipesMultiLingualRecipeUpdateDto,
-      params: RequestParams = {},
-    ) =>
+    appRecipesUpdate: (id: string, data: PccServer23RecipesMultiLingualRecipeUpdateDto, params: RequestParams = {}) =>
       this.request<
         PccServer23SharedIMultiLingualDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
@@ -2426,18 +2354,15 @@ export class Api<
      * @summary Get list of security questions
      * @request GET:/api/app/security-question-choices/security-questions
      */
-    appSecurityQuestionChoicesSecurityQuestionsList: (
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
-        path: `/api/app/security-question-choices/security-questions`,
-        method: "GET",
-        format: "json",
-        ...params,
-      }),
+    appSecurityQuestionChoicesSecurityQuestionsList: (params: RequestParams = {}) =>
+      this.request<PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput, VoloAbpHttpRemoteServiceErrorResponse>(
+        {
+          path: `/api/app/security-question-choices/security-questions`,
+          method: "GET",
+          format: "json",
+          ...params,
+        },
+      ),
 
     /**
      * No description
@@ -2490,14 +2415,8 @@ export class Api<
      * @request POST:/api/app/themes
      * @secure
      */
-    appThemesCreate: (
-      data: PccServer23ThemesThemeCreateDto,
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23ThemesThemeDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+    appThemesCreate: (data: PccServer23ThemesThemeCreateDto, params: RequestParams = {}) =>
+      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/themes`,
         method: "POST",
         body: data,
@@ -2517,10 +2436,7 @@ export class Api<
      * @secure
      */
     appThemesDetail: (id: string, params: RequestParams = {}) =>
-      this.request<
-        PccServer23ThemesThemeDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/themes/${id}`,
         method: "GET",
         secure: true,
@@ -2554,15 +2470,8 @@ export class Api<
      * @request PUT:/api/app/themes/{id}
      * @secure
      */
-    appThemesUpdate: (
-      id: string,
-      data: PccServer23ThemesThemeUpdateDto,
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23ThemesThemeDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+    appThemesUpdate: (id: string, data: PccServer23ThemesThemeUpdateDto, params: RequestParams = {}) =>
+      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/themes/${id}`,
         method: "PUT",
         body: data,
@@ -2584,10 +2493,7 @@ export class Api<
       data: PccServer23UsernameChoicesCheckUsernameAvailabilityInput,
       params: RequestParams = {},
     ) =>
-      this.request<
-        PccServer23UsernameChoicesCheckUsernameAvailabilityOutput,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23UsernameChoicesCheckUsernameAvailabilityOutput, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/username-choices/check-username-availability`,
         method: "POST",
         body: data,
@@ -2605,10 +2511,7 @@ export class Api<
      * @request GET:/api/app/username-choices/username-choices
      */
     appUsernameChoicesUsernameChoicesList: (params: RequestParams = {}) =>
-      this.request<
-        PccServer23UsernameChoicesGetUsernameChoicesOutput,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23UsernameChoicesGetUsernameChoicesOutput, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/username-choices/username-choices`,
         method: "GET",
         format: "json",
@@ -2624,10 +2527,7 @@ export class Api<
 To create new user with professional role use: api/app/user/professional
  * @request POST:/api/app/user
  */
-    appUserCreate: (
-      data: PccServer23UsersCreateUserInput,
-      params: RequestParams = {},
-    ) =>
+    appUserCreate: (data: PccServer23UsersCreateUserInput, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user`,
         method: "POST",
@@ -2650,10 +2550,7 @@ To create new user with professional role use: api/app/user/professional
       },
       params: RequestParams = {},
     ) =>
-      this.request<
-        PccServer23UsersGetQuestionIdsOutput,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23UsersGetQuestionIdsOutput, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user/question-ids`,
         method: "GET",
         query: query,
@@ -2669,14 +2566,8 @@ To create new user with professional role use: api/app/user/professional
      * @summary Reset user password
      * @request POST:/api/app/user/reset-password
      */
-    appUserResetPasswordCreate: (
-      data: PccServer23UsersResetPasswordInput,
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23UsersResetPasswordOutput,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+    appUserResetPasswordCreate: (data: PccServer23UsersResetPasswordInput, params: RequestParams = {}) =>
+      this.request<PccServer23UsersResetPasswordOutput, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user/reset-password`,
         method: "POST",
         body: data,
@@ -2694,10 +2585,7 @@ To create new user with professional role use: api/app/user/professional
 To create new user with standard role use: api/app/user
  * @request POST:/api/app/user/professional
  */
-    appUserProfessionalCreate: (
-      data: PccServer23UsersCreateProfessionalUserInput,
-      params: RequestParams = {},
-    ) =>
+    appUserProfessionalCreate: (data: PccServer23UsersCreateProfessionalUserInput, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user/professional`,
         method: "POST",
@@ -2756,10 +2644,7 @@ To create new user with standard role use: api/app/user
      * @secure
      */
     appUserUserProfileList: (params: RequestParams = {}) =>
-      this.request<
-        PccServer23UsersGetUserProfileDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
+      this.request<PccServer23UsersGetUserProfileDto, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/user/user-profile`,
         method: "GET",
         secure: true,
