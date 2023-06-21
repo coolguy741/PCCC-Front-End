@@ -19,7 +19,7 @@ const options = [
 
 export const ThemeInfo = () => {
   const [tags, setTags] = useState(["foraging", "seeds"]);
-  const { slide } = useThemeStore();
+  const { slideIndex } = useThemeStore();
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -31,7 +31,7 @@ export const ThemeInfo = () => {
 
   return (
     <Style.Container>
-      <div style={{ width: "15%", alignItems: "end", display: "flex" }}>
+      <div style={{ width: "20%", alignItems: "end", display: "flex" }}>
         <Typography variant="h5" as="h5" weight="semi-bold">
           Components
         </Typography>
@@ -40,7 +40,7 @@ export const ThemeInfo = () => {
         <div className="flex">
           <Style.SlideDeleteButton>
             <Typography variant="h6" as="h6" weight="semi-bold">
-              Slide - {slide + 1}
+              Slide - {slideIndex + 1}
             </Typography>
             <Icon name="trash" />
           </Style.SlideDeleteButton>
@@ -69,7 +69,7 @@ const Style = {
   `,
   Info: styled.div`
     display: flex;
-    width: 85%;
+    width: 80%;
     justify-content: space-between;
   `,
   SlideDeleteButton: styled.button`
