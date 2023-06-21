@@ -55,8 +55,8 @@ const Style = {
 
       .img-delete {
         position: absolute;
-        top: 2.5%;
-        right: 2.5%;
+        top: 20px;
+        right: 20px;
       }
     }
   `,
