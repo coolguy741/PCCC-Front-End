@@ -1,12 +1,14 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import FileDropzone from "../../components/CloudDrive/FileDropzone";
 import { Folder } from "../../components/CloudDrive/Folder";
-import { Icon } from "../../components/Global/Icon";
 import Scrollbar from "../../components/Global/Scrollable";
-import DownloadIcon from "../../components/Icons/Download/download";
-import SharingIcon from "../../components/Icons/Sharing/sharing";
-import TrashIcon from "../../components/Icons/Trash/trash";
+// import { Icon } from "../../components/Global/Icon";
+// import DownloadIcon from "../../components/Icons/Download/download";
+import { File } from "../../components/CloudDrive/File";
+// import SharingIcon from "../../components/Icons/Sharing/sharing";
+// import TrashIcon from "../../components/Icons/Trash/trash";
 
 const FolderNames = [
   { name: "Documents", numberOfFiles: 100, icon: "file", capacity: 100 },
@@ -110,7 +112,22 @@ const files: FileInterface[] = [
   },
 ];
 
+const progress = [
+  { status: 100 },
+  { status: 100 },
+  { status: 40 },
+  { status: "Upload failed" },
+  { status: 40 },
+];
+
+interface Status {
+  index: number;
+  isOpen: boolean;
+}
+
 export const CloudDrivePage = () => {
+  const [isClicked, setIsClicked] = useState<string>("");
+  const [status, setStatus] = useState<Status>({ index: 0, isOpen: false });
   return (
     <Style.Container>
       <div className="folders-files-container">
@@ -119,11 +136,13 @@ export const CloudDrivePage = () => {
           <div className="content">
             {FolderNames.map(({ name, numberOfFiles, icon }) => (
               <Folder
+                key={name}
                 name={name}
                 numberOfFiles={numberOfFiles}
                 icon={icon}
                 width="18.5%"
                 height="100%"
+                setIsClicked={setIsClicked}
               />
             ))}
           </div>
@@ -142,46 +161,19 @@ export const CloudDrivePage = () => {
           </div>
           <div className="content">
             <Scrollbar thumbWidth="thin">
-              <Style.Table>
-                <thead>
-                  <tr>
-                    <th className="name">Name</th>
-                    <th className="sharing">Sharing</th>
-                    <th className="size">Size</th>
-                    <th className="date">Date</th>
-                    <th className="actions"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {files.map((file, index) => (
-                    <tr key={index}>
-                      <td className="name">
-                        <div className="icon-container">
-                          <Icon name={file.icon + "-dark-outlined"} />
-                        </div>
-                        <p>
-                          <b>{file.name}</b>
-                          {"." + file.fileNameExtension}
-                        </p>
-                      </td>
-                      <td className="sharing">{file.sharing}</td>
-                      <td className="size">{file.size}</td>
-                      <td className="date">{file.date}</td>
-                      <td className="actions">
-                        <SharingIcon
-                          fill={"var(--neutral-600)"}
-                          width={"20px"}
-                        />
-                        <DownloadIcon
-                          fill={"var(--neutral-600)"}
-                          width={"20px"}
-                        />
-                        <TrashIcon fill={"var(--neutral-600)"} width={"20px"} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Style.Table>
+              {files.map((file, index) => (
+                <File
+                  key={index}
+                  index={index}
+                  width="18.5%"
+                  height="200px"
+                  icon={file.icon}
+                  name={file.name}
+                  fileNameExtension={file.fileNameExtension}
+                  status={status}
+                  setStatus={setStatus}
+                />
+              ))}
             </Scrollbar>
           </div>
         </Style.Files>
@@ -198,22 +190,27 @@ export const CloudDrivePage = () => {
               <div className="value"></div>
             </div>
           </div>
-          <div className="folders">
-            {FolderNames.map(({ name, capacity, icon }) => (
-              <Folder
-                name={name}
-                capacity={capacity}
-                icon={icon}
-                width="100%"
-                height="7vh"
-              />
-            ))}
-          </div>
           <FileDropzone
             onFilesDropped={() => {
               alert("File Dropped");
             }}
           />
+          <div className="folders">
+            {isClicked
+              ? FolderNames.map(({ name, capacity, icon }, index) => (
+                  <Folder
+                    key={name}
+                    name={isClicked}
+                    capacity={capacity}
+                    icon={icon}
+                    width="100%"
+                    height="7vh"
+                    progress={progress[index]}
+                    setIsClicked={setIsClicked}
+                  />
+                ))
+              : ""}
+          </div>
         </div>
       </Style.CloudStorage>
     </Style.Container>
@@ -260,115 +257,24 @@ const Style = {
     }
 
     .content {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 24px;
+      padding-right: 16px;
+      gap: 16px;
+      isolation: isolate;
       width: 100%;
       height: 100%;
       border-radius: 16px;
       background: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(59.2764px);
-      padding: 2vh;
-      padding-right: 3vh;
       overflow: hidden;
+      position: relative;
     }
   `,
-  Table: styled.table`
-    width: 100%;
-    font-weight: 500;
-    color: var(--neutral-400);
-    border-collapse: collapse;
-    padding-right: 2vh;
 
-    thead {
-      font-weight: 1.5vh;
-      text-align: center;
-      border-bottom: 2px solid;
-      border-color: var(--neutral-400);
-
-      th {
-        padding-bottom: 1.33vh;
-      }
-
-      .name {
-        width: 25%;
-        text-align: start;
-      }
-
-      .sharing {
-        width: 17.5%;
-      }
-
-      .date {
-        width: 25%;
-      }
-
-      .size {
-        width: 17.5%;
-      }
-
-      .actions {
-        width: 15%;
-      }
-    }
-
-    tbody {
-      text-align: center;
-
-      tr {
-        border-bottom: 2px solid;
-        border-color: var(--neutral-400);
-      }
-
-      td {
-        font-size: 1.33vh;
-        height: 7vh;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .name {
-        width: 25%;
-        text-align: start;
-        display: flex;
-        justify-content: start;
-        gap: 1.33vh;
-
-        .icon-container {
-          height: 4vh;
-          aspect-ratio: 1/1;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: linear-gradient(
-            182.85deg,
-            rgba(255, 215, 96, 0.8) 2.47%,
-            rgba(255, 191, 0, 0.8) 97.72%
-          );
-          box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-          border-radius: 4px;
-
-          img {
-            width: 50%;
-            height: 50%;
-          }
-        }
-
-        p {
-          b {
-            color: var(--neutral-800);
-
-            &:hover {
-              color: red;
-            }
-          }
-        }
-      }
-
-      .actions {
-        display: flex;
-        justify-content: space-around;
-      }
-    }
-  `,
   CloudStorage: styled.div`
     flex-grow: 1;
     margin-top: 4.66vh;
