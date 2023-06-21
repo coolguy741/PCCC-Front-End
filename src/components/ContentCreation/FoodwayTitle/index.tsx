@@ -2,39 +2,30 @@ import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { Image } from "../Image/image";
 
 const titleState: any = {
   tag: { mode: "view", text: "Overview" },
   heading: {
     mode: "view",
-    text: "With great power comes great responsibility",
+    text: "Chocolate",
   },
   desc: {
     mode: "view",
     text: `Providing food for your loved ones is powerful. Throughout nature and history, providers have helped their family groups and communities thrive and survive. But when you’re planting your own crops, or forging for food in nature, the real power is knowledge. There are
-many things to know, and many ways to know them.`,
-  },
-  subHeading: {
-    mode: "view",
-    text: "Knowing how to stay safe",
-  },
-  subDesc: {
-    mode: "view",
-    text: `Garden Guardian safety tips and guidance can be found in all Power
-    Full Kids lessons. Watch for the Garden Guardian section and stay safe
-    when you grow.`,
+many things to know, and many ways to know them. Let’s start simple:
+knowing the right tool for the job. Check out Activity 1 to identify
+common growing tools and discuss what they’re used for.`,
   },
 };
 
-export function Title() {
+export function FoodwayTitle() {
   const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   return (
     <Style.Container>
       <div className="tc-content">
         <h1>
-          <span className="tc-overview">Overview</span>
+          <span className="tc-overview">Foodways</span>
           <br />
           <DoubleClickToEditComponent
             mode={state.heading.mode}
@@ -53,26 +44,11 @@ export function Title() {
             name="desc"
           />
         </p>
-        <h2>
-          <DoubleClickToEditComponent
-            mode={state.subHeading.mode}
-            setText={changeText}
-            changeEditState={changeEditState}
-            text={state.subHeading.text}
-            name="subHeading"
-          />
-        </h2>
-        <p>
-          <DoubleClickToEditComponent
-            mode={state.subDesc.mode}
-            setText={changeText}
-            changeEditState={changeEditState}
-            text={state.subDesc.text}
-            name="subDesc"
-          />
-        </p>
       </div>
-      <Image img="" />
+      <figure className="tc-image">
+        <img src="/content-creation/theme-cc.png" alt="" />
+        <figcaption></figcaption>
+      </figure>
     </Style.Container>
   );
 }

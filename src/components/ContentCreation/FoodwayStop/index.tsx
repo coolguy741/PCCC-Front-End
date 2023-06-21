@@ -1,58 +1,32 @@
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
+import { Globe } from "../../Foodways/Globe";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { Image } from "../Image/image";
 
 const titleState: any = {
-  tag: { mode: "view", text: "Overview" },
-  heading: {
-    mode: "view",
-    text: "With great power comes great responsibility",
-  },
-  desc: {
-    mode: "view",
-    text: `Providing food for your loved ones is powerful. Throughout nature and history, providers have helped their family groups and communities thrive and survive. But when you’re planting your own crops, or forging for food in nature, the real power is knowledge. There are
-many things to know, and many ways to know them.`,
-  },
   subHeading: {
     mode: "view",
-    text: "Knowing how to stay safe",
+    text: "Mesoamerica",
   },
   subDesc: {
     mode: "view",
-    text: `Garden Guardian safety tips and guidance can be found in all Power
-    Full Kids lessons. Watch for the Garden Guardian section and stay safe
-    when you grow.`,
+    text: "In Mesoamerica, chocolate was consumed by Olmec, Aztecs and Mayans, but the earliest known use of chocolate was by the Olmec around 1900 B.C.E.",
   },
 };
 
-export function Title() {
+export function FoodwayStop() {
   const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   return (
     <Style.Container>
-      <div className="tc-content">
-        <h1>
-          <span className="tc-overview">Overview</span>
-          <br />
-          <DoubleClickToEditComponent
-            mode={state.heading.mode}
-            setText={changeText}
-            changeEditState={changeEditState}
-            text={state.heading.text}
-            name="heading"
-          />
-        </h1>
-        <p>
-          <DoubleClickToEditComponent
-            mode={state.desc.mode}
-            setText={changeText}
-            changeEditState={changeEditState}
-            text={state.desc.text}
-            name="desc"
-          />
-        </p>
+      <div className="fw-content">
+        <Style.Image img="/public/content-creation/img-pattern.png">
+          <figure>
+            <img alt="" />
+            <figcaption></figcaption>
+          </figure>
+        </Style.Image>
         <h2>
           <DoubleClickToEditComponent
             mode={state.subHeading.mode}
@@ -72,7 +46,9 @@ export function Title() {
           />
         </p>
       </div>
-      <Image img="" />
+      <div className="fw-globe">
+        <Globe />
+      </div>
     </Style.Container>
   );
 }
@@ -85,10 +61,18 @@ const Style = {
     align-items: flex-end;
     justify-content: center;
 
-    .tc-content {
-      width: 40%;
-      height: 90%;
+    .fw-content {
+      width: 33%;
+      height: 100%;
       z-index: 2;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 4.97076px 19.883px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(73.6622px);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border-radius: 16px;
 
       span.tc-overview {
         font-weight: 600;
@@ -140,8 +124,8 @@ const Style = {
       height: max-content;
     }
 
-    figure {
-      width: 60%;
+    .fw-globe {
+      width: 67%;
       height: 100%;
       filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
       border-radius: 16px;
@@ -151,13 +135,21 @@ const Style = {
       place-items: center;
       overflow: hidden;
 
-      img {
-        position: absolute;
-      }
-
-      figcaption {
-        position: absolute;
+      canvas {
+        width: 50%;
       }
     }
+  `,
+
+  Image: styled.article<{ img: string }>`
+    background: ${({ img }) => `url(${img})`};
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(59.2764px);
+    border-radius: 16px;
+    width: 100%;
+    height: 50%;
+    padding: 2.5vh 2vw;
   `,
 };

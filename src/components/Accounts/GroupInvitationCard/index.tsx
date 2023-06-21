@@ -103,6 +103,7 @@ const Style = {
     .status-container {
       display: flex;
       justify-content: space-between;
+      gap: 1rem;
     }
 
     &:first-of-type {
