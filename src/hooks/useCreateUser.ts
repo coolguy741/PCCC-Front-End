@@ -3,7 +3,7 @@ import { Api } from "../lib/api/api";
 
 export const useCreateUser = () => {
   const [user] = useState(null);
-  const { api } = new Api({ baseUrl: "https://backend-dev.powerfullkids.ca" });
+  const { api } = new Api({ baseURL: "https://backend-dev.powerfullkids.ca" });
 
   // const getQuestions = async () => {
   //   const questions =

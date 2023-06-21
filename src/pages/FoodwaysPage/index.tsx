@@ -8,7 +8,7 @@ import { STORAGE_KEY_JWT } from "../consts";
 
 export const foodwaysPageLoader = async () => {
   const { api } = new Api({
-    baseUrl: BASE_API_URL,
+    baseURL: BASE_API_URL,
   });
 
   try {

@@ -36,6 +36,10 @@ const DynamicStyle = styled(({ tag, children, ...props }) =>
   margin: ${(props) => (props.thumbWidth === "thin" ? "0 -8px" : "0 -12px")};
   padding: ${(props) => (props.thumbWidth === "thin" ? "0 8px" : "0 12px")};
   overflow: auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: inherit;
   &::-webkit-scrollbar {
     width: ${(props) => (props.thumbWidth === "thin" ? "4px" : "8px")};
   }
