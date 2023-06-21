@@ -1,9 +1,9 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { useState, WheelEvent } from "react";
 import { Link, useRouteLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
-import { Globe } from "../../../components/Foodways/Globe";
+import { FoodwayStop } from "../../../components/Foodways/FoodwayStop";
+import { FoodwayTitle } from "../../../components/Foodways/FoodwayTitle";
 import { BackButton } from "../../../components/Global/BackButton";
 import { CalendarModal } from "../../../components/Global/CalendarModal";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
@@ -38,12 +38,20 @@ export const FoodwaysOverviewPage = () => {
     e.stopPropagation();
   };
 
+  const handleNext = () => {
+    if (foodway.foodwayStops) {
+      if (nav < foodway?.foodwayStops?.length) {
+        setNav((nav) => nav + 1);
+      }
+    }
+  };
+
   return (
     <>
       <Style.Container
         stops={foodway?.foodwayStops?.length}
         nav={nav}
-        onWheel={handleScroll}
+        // onWheel={handleScroll}
       >
         <div className="content">
           <div className="content__header">
@@ -54,93 +62,30 @@ export const FoodwaysOverviewPage = () => {
               <Link to="edit">
                 <Button variant="yellow">Edit</Button>
               </Link>
+              <Button variant="yellow">Publish</Button>
               <Link to="print">
                 <Button variant="yellow">Print</Button>
               </Link>
-              <Button
+              {/* <Button
                 variant="yellow"
                 onClick={() => setShowCalendarModal(true)}
               >
                 Add to calendar
-              </Button>
-              <Button>Publish</Button>
+              </Button> */}
             </div>
           </div>
           <div className="content__body">
             {foodway && (
               <>
-                <div className="content__body__left" onWheel={hijackScroll}>
-                  <h2>{foodway.title}</h2>
-
-                  <div className="content__body__left__text">
-                    <AnimatePresence>
-                      {foodway.foodwayStops && (
-                        <motion.img
-                          src={foodway.foodwayStops[nav].image!}
-                          key="foodways-image"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0, display: "none" }}
-                        />
-                      )}
-                      {foodway.foodwayStops && (
-                        <motion.h3
-                          key={foodway.foodwayStops[nav].location}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0, display: "none" }}
-                        >
-                          {foodway?.foodwayStops[nav].location}
-                        </motion.h3>
-                      )}
-                      {foodway.foodwayStops && (
-                        <motion.p
-                          key={foodway?.foodwayStops[nav].description}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0, display: "none" }}
-                        >
-                          {foodway?.foodwayStops[nav].description}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </div>
-                <div className="content__body__right">
-                  <div className="content__body__right__globe">
-                    <Globe />
-                  </div>
-                  <div className="content__body__right__timeline">
-                    {foodway.foodwayStops && (
-                      <div className="bubble">
-                        {foodway.foodwayStops[nav].timePeriod}
-                      </div>
-                    )}
-                    {foodway.foodwayStops &&
-                      foodway.foodwayStops.map((_, index) => (
-                        <div key={`stop-${index}`} className="stop">
-                          <div
-                            className={`point ${nav >= index && "active"} ${
-                              nav > index && "solid"
-                            }`}
-                          />
-                          {foodway.foodwayStops &&
-                            index !== foodway.foodwayStops.length - 1 && (
-                              <div
-                                className={`line ${
-                                  nav >= index + 1 && "active"
-                                }`}
-                              />
-                            )}
-                        </div>
-                      ))}
-                  </div>
-                </div>
+                {nav === 0 ? (
+                  <FoodwayTitle foodway={foodway} />
+                ) : (
+                  <FoodwayStop nav={nav} foodway={foodway} />
+                )}
               </>
             )}
           </div>
           <div className="content__bottom">
-            <img className="scroll" src="/images/icons/scroll.svg" width="35" />
             <div className="popup">
               <img src="/images/icons/info.svg" width="80" />
               <p>
@@ -149,6 +94,8 @@ export const FoodwaysOverviewPage = () => {
                 activity <span>Plant a seed, feed yourself!</span>
               </p>
             </div>
+            <img className="scroll" src="/images/icons/scroll.svg" width="35" />
+            <Button onClick={handleNext}>Next</Button>
           </div>
         </div>
       </Style.Container>
@@ -186,14 +133,11 @@ const Style = {
       }
 
       &__body {
-        display: grid;
         height: 60vh;
-        grid-template-columns: 5fr 7fr;
         position: relative;
+        width: 100%;
 
         &__left {
-          display: grid;
-          grid-template-rows: 100px 1fr;
           overflow: hidden;
           height: 100%;
 
@@ -286,7 +230,9 @@ const Style = {
             .bubble {
               position: absolute;
               top: ${({ nav, stops }) =>
-                `calc(${nav} * (100% / (${stops} - 1)) - (${nav} * 10px) - 9px)`};
+                `calc(${nav - 1} * (100% / (${stops} - 1)) - (${
+                  nav - 1
+                } * 10px) - 9px)`};
               left: -120px;
               transition: .4s top ease-in-out;
               background-color: var(--blue-300);
@@ -306,7 +252,7 @@ const Style = {
 
       &__bottom {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         height: 10vh;
         padding: 1rem;

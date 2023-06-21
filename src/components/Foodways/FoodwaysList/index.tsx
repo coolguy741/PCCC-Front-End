@@ -37,6 +37,7 @@ const Style = {
     align-items: flex-start;
     padding: 0px;
     gap: 40px;
+    width: 100%;
 
     .list-item {
       flex-basis: calc(50% - 20px);

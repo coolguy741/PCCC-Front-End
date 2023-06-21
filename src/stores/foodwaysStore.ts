@@ -7,33 +7,34 @@ interface ISlide {
 }
 
 interface FoodwayProp {
-  currentStep: number;
-  slide: number;
+  activeSlide: number;
+  totalSlides: number;
   lang: Language;
 }
 interface State extends FoodwayProp {
-  changeStep: (step: number) => void;
   addFoodwaySlide: () => void;
   getFoodwaySlide?: (index: number) => void;
   setLang: (lang: Language) => void;
-  setSlide: (slide: number) => void;
+  setActiveSlide: (slide: number) => void;
   init: () => void;
+  totalSlides: number;
 }
 
 const initialState: FoodwayProp = {
-  currentStep: 0,
-  slide: 0,
+  activeSlide: 0,
+  totalSlides: 1,
   lang: "en",
 };
 
 export const useFoodwayStore = create<State>()((set) => ({
   ...initialState,
-  changeStep: (step) => set(() => ({ currentStep: step })),
-  setSlide: (slide) => set(() => ({ slide })),
+  totalSlides: 1,
+  setActiveSlide: (activeSlide) => set(() => ({ activeSlide })),
   setLang: (lang: Language) =>
     set(() => ({
       lang,
     })),
   init: () => set(() => ({ ...initialState })),
-  addFoodwaySlide: () => set((state) => ({ slide: state.slide + 1 })),
+  addFoodwaySlide: () =>
+    set((state) => ({ totalSlides: state.totalSlides + 1 })),
 }));

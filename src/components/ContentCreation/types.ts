@@ -15,7 +15,14 @@ export interface CCFormat {
   text: string;
 }
 
-export type TitleType = "tag" | "heading" | "desc" | "subHeading" | "subDesc";
+export type TitleType =
+  | "tag"
+  | "heading"
+  | "desc"
+  | "subHeading"
+  | "subDesc"
+  | "title"
+  | "timePeriod";
 export type PWithPType = "number" | "heading" | "desc";
 
 export type TagTypes = TitleType | PWithPType;

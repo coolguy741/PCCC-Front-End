@@ -1,62 +1,30 @@
-import { useEffect } from "react";
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
+import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
-import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-
-const titleState: any = {
-  tag: { mode: "view", text: "Overview" },
-  heading: {
-    mode: "view",
-    text: "Click to edit",
-  },
-  desc: {
-    mode: "view",
-    text: "Click to edit.",
-  },
-};
 
 interface FoodwayTitleProps {
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
+  foodway: PccServer23FoodwaysFoodwayDto;
 }
 
-export function FoodwayTitle({ setTitle, setDescription }: FoodwayTitleProps) {
-  const { state, changeEditState, changeText } = useContentCreation(titleState);
-
-  useEffect(() => {
-    setTitle(state.heading.text);
-    setDescription(state.desc.text);
-  }, [state]);
-
+export function FoodwayTitle({ foodway }: FoodwayTitleProps) {
   return (
     <Style.Container>
-      <div className="tc-content">
-        <h1>
-          <span className="tc-overview">Foodways</span>
-          <br />
-          <DoubleClickToEditComponent
-            mode={state.heading.mode}
-            setText={changeText}
-            changeEditState={changeEditState}
-            text={state.heading.text}
-            name="heading"
-          />
-        </h1>
-        <p>
-          <DoubleClickToEditComponent
-            mode={state.desc.mode}
-            setText={changeText}
-            changeEditState={changeEditState}
-            text={state.desc.text}
-            name="desc"
-          />
-        </p>
-      </div>
-      <figure className="tc-image">
-        <img src="/content-creation/theme-cc.png" alt="" />
-        <figcaption></figcaption>
-      </figure>
+      {foodway && (
+        <>
+          <div className="tc-content">
+            <h1>
+              <span className="tc-overview">Foodways</span>
+              <br />
+              {foodway.title}
+            </h1>
+            <p>{foodway.info}</p>
+          </div>
+          <figure className="tc-image">
+            <img src="/content-creation/theme-cc.png" alt="" />
+            <figcaption></figcaption>
+          </figure>
+        </>
+      )}
     </Style.Container>
   );
 }
