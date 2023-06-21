@@ -2,61 +2,82 @@ import { create } from "zustand";
 
 import { Language, ThemeComponent } from "../pages/types";
 
-interface ISlide {
-  tag?: string;
-  components: ThemeComponent[];
+type TSlide = ThemeComponent[];
+
+interface IPage {
+  tags?: string;
+  curriculum?: string;
+  slides: ThemeComponent[][];
 }
 
 interface ThemeProp {
   currentStep: number;
-  slide: number;
-  lang: Language;
-  theme: ISlide[];
-  currentThemeSlide: ISlide;
-  overview: ISlide[];
-  educatorNotes: ISlide[];
+  currentLang: Language;
+  slideIndex: number;
+  theme: IPage[];
+  currentSlide: ThemeComponent[];
+  en: {
+    theme: IPage[];
+  };
+  fr: {
+    theme: IPage[];
+  };
 }
 interface State extends ThemeProp {
   changeStep: (step: number) => void;
-  updateTheme: (index: number, slide: ISlide) => void;
-  addThemeSlide: () => void;
-  getThemeSlide: (index: number) => void;
+  addSlide: () => void;
+  updateSlide: (slide: ThemeComponent[]) => void;
+  updatePage: (slide: ThemeComponent[]) => void;
   setLang: (lang: Language) => void;
-  setSlide: (slide: number) => void;
+  setSlideIndex: (slideIndex: number) => void;
   init: () => void;
 }
 
 const initialState: ThemeProp = {
   currentStep: 0,
-  slide: 0,
-  theme: [],
-  lang: "en",
-  currentThemeSlide: { components: [] },
-  overview: [],
-  educatorNotes: [],
+  slideIndex: 0,
+  theme: [{ slides: [[]] }],
+  currentLang: "en",
+  currentSlide: [],
+  en: {
+    theme: [],
+  },
+  fr: {
+    theme: [],
+  },
 };
 
 export const useThemeStore = create<State>()((set) => ({
   ...initialState,
-  changeStep: (step) => set(() => ({ currentStep: step })),
-  setSlide: (slide) => set(() => ({ slide })),
-  updateTheme: (index: number, slide: ISlide) =>
-    set((state) => ({
-      theme: state.theme.map((currentSlide, currentIndex) =>
-        currentIndex === index ? slide : currentSlide,
-      ),
+  changeStep: (currentStep) =>
+    set(({ theme }) => ({
+      currentStep,
+      theme:
+        theme.length > currentStep ? [...theme] : [...theme, { slides: [[]] }],
     })),
-  addThemeSlide: () =>
-    set((state) => ({
-      theme: [...state.theme, { components: [] }],
+  setSlideIndex: (slideIndex) => set(() => ({ slideIndex })),
+  updatePage: (slide) =>
+    set(({ theme, slideIndex, currentStep }) => ({
+      theme: theme.map((page, index) => {
+        if (index === currentStep) {
+          page.slides[slideIndex] = [...slide];
+        }
+        return page;
+      }) ?? [{ slides: [slide] }],
     })),
-  getThemeSlide: (index: number) =>
-    set((state) => ({
-      currentThemeSlide: state.theme[index],
+  updateSlide: (slide) => set(() => ({ currentSlide: slide })),
+  addSlide: () =>
+    set(({ theme, currentStep }) => ({
+      theme: theme.map((page, index) => {
+        if (index === currentStep) {
+          page.slides.push([]);
+        }
+        return page;
+      }) ?? [{ slides: [] }],
     })),
-  setLang: (lang: Language) =>
+  setLang: (currentLang: Language) =>
     set(() => ({
-      lang,
+      currentLang,
     })),
   init: () => set(() => ({ ...initialState })),
 }));

@@ -4,14 +4,14 @@ import { useThemeStore } from "../../../stores/themeStore";
 import Button from "../../Button";
 
 export const ThemeEditorActions = () => {
-  const { currentStep, changeStep, addThemeSlide } = useThemeStore();
+  const { currentStep, changeStep, addSlide } = useThemeStore();
 
   const handleSaveAndContinue = () => {
     changeStep(currentStep + 1);
   };
 
   const handleAddSlide = () => {
-    addThemeSlide();
+    addSlide();
   };
 
   return (
