@@ -116,7 +116,7 @@ export const TestContentPage = () => {
 
   return (
     <Style.PageContainer>
-      <Scrollable className="cc-components">
+      <Scrollable height="100vh" className="cc-components">
         {components.map(({ preview, title }) => (
           <button key={title} onClick={() => changeComp(title)}>
             <p>{title}</p>
@@ -131,17 +131,18 @@ export const TestContentPage = () => {
 
 const Style = {
   PageContainer: styled.div`
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     display: flex;
 
     .cc-components {
-      height: 100%;
+      height: 100vh;
       width: 15%;
       border: 0.5px solid rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex-wrap: nowrap;
 
       button {
         display: flex;
@@ -176,7 +177,7 @@ const Style = {
     }
 
     .cc-preview {
-      height: 100%;
+      height: 100vh;
       width: 85%;
       padding: 40px;
       display: grid;
