@@ -12,9 +12,7 @@ const titleState: any = {
   desc: {
     mode: "view",
     text: `Providing food for your loved ones is powerful. Throughout nature and history, providers have helped their family groups and communities thrive and survive. But when you’re planting your own crops, or forging for food in nature, the real power is knowledge. There are
-many things to know, and many ways to know them. Let’s start simple:
-knowing the right tool for the job. Check out Activity 1 to identify
-common growing tools and discuss what they’re used for.`,
+many things to know, and many ways to know them.`,
   },
   subHeading: {
     mode: "view",
