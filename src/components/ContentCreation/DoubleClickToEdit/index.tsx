@@ -63,6 +63,7 @@ export const Style = {
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
+    background: inherit;
     padding: none;
     width: auto;
     resize: none;
