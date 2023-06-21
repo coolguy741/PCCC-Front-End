@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { Image } from "../Image/image";
 
 const titleState: any = {
   tag: { mode: "view", text: "Overview" },
@@ -73,10 +74,7 @@ export function Title() {
           />
         </p>
       </div>
-      <figure className="tc-image">
-        <img src="/content-creation/theme-cc.png" alt="" />
-        <figcaption></figcaption>
-      </figure>
+      <Image img="" />
     </Style.Container>
   );
 }

@@ -1,115 +1,184 @@
+import _ from "lodash";
 import { useState } from "react";
 import styled from "styled-components";
+import { DoubleBullet } from "../../components/ContentCreation/DoubleBullet";
 import { DoubleImage } from "../../components/ContentCreation/DoubleImage";
-import DoubleImageIcon from "../../components/ContentCreation/Icons/doubleImage";
-import PWH from "../../components/ContentCreation/Icons/pwh";
-import PWN from "../../components/ContentCreation/Icons/pwn";
-import SingleImageIcon from "../../components/ContentCreation/Icons/singleImage";
-import TitleIcon from "../../components/ContentCreation/Icons/title";
+import {
+  AMC,
+  ATF,
+  AW,
+  DB,
+  DoubleImageIcon,
+  IC,
+  IWC,
+  PWH,
+  PWN,
+  SB,
+  SingleImageIcon,
+  TitleIcon,
+} from "../../components/ContentCreation/Icons";
+import { ImageWithCaption } from "../../components/ContentCreation/ImageWithCaption";
+import { IngredientCard } from "../../components/ContentCreation/IngredientCard";
+import { LessonAssessment } from "../../components/ContentCreation/LessonAssessment";
 import { NumberedParagraph } from "../../components/ContentCreation/NumberedParagraph";
 import { ParagraphWithHeading } from "../../components/ContentCreation/ParagraphWithHeading";
+import { SingleBullet } from "../../components/ContentCreation/SingleBullet";
 import { SingleImage } from "../../components/ContentCreation/SingleImage";
 import { Title } from "../../components/ContentCreation/Title";
+import Scrollable from "../../components/Global/Scrollable";
 
-const contentComponents = {
-  title: <Title key="title" />,
-  pwh: <ParagraphWithHeading key="pwh" />,
-  np: <NumberedParagraph key="np" />,
-  si: <SingleImage key="si" />,
-  di: <DoubleImage key="di" />,
-};
-
-type Comp = "pwh" | "title" | "np" | "si" | "di";
+const components = [
+  {
+    id: 1,
+    title: "Title Card",
+    preview: <TitleIcon />,
+    component: <Title key="title" />,
+  },
+  {
+    id: 2,
+    title: "Paragraph",
+    preview: <PWH />,
+    component: <ParagraphWithHeading key="pwh" />,
+  },
+  {
+    id: 3,
+    title: "Paragraph with Number",
+    preview: <PWN />,
+    component: <NumberedParagraph key="np" />,
+  },
+  {
+    id: 4,
+    title: "1X1 Image",
+    preview: <SingleImageIcon />,
+    component: <SingleImage key="si" />,
+  },
+  {
+    id: 5,
+    title: "1x2 Image",
+    preview: <DoubleImageIcon />,
+    component: <DoubleImage key="di" />,
+  },
+  {
+    id: 6,
+    title: "Assessment - Multiple Choice",
+    preview: <AMC />,
+    component: <LessonAssessment />,
+  },
+  {
+    id: 7,
+    title: "Assessment - True & False",
+    preview: <ATF />,
+    component: <LessonAssessment />,
+  },
+  {
+    id: 8,
+    title: "Assessment - Written",
+    preview: <AW />,
+    component: <LessonAssessment />,
+  },
+  {
+    id: 9,
+    title: "Image with Caption",
+    preview: <IWC />,
+    component: <ImageWithCaption key="iwc" />,
+  },
+  {
+    id: 10,
+    title: "Bullet 1",
+    preview: <SB />,
+    component: <SingleBullet />,
+  },
+  {
+    id: 10,
+    title: "Ingredient Card",
+    preview: <IC />,
+    component: <IngredientCard />,
+  },
+  {
+    id: 11,
+    title: "Bullet 2",
+    preview: <DB />,
+    component: <DoubleBullet />,
+  },
+];
 
 export const TestContentPage = () => {
-  const [comp, setComp] = useState<Comp>("title");
+  const [comp, setComp] = useState<string>("Title Card");
 
-  function changeComp(newState: Comp) {
+  function changeComp(newState: string) {
     if (comp !== newState) setComp(newState);
+  }
+
+  function getComp(state: string) {
+    const comp = _.find(components, { title: state });
+    return comp?.component;
   }
 
   return (
     <Style.PageContainer>
-      <div className="cc-components">
-        <button onClick={() => changeComp("title")}>
-          <p>Title card</p>
-          <TitleIcon />
-        </button>
-        <button onClick={() => changeComp("pwh")}>
-          <p>Paragraph</p>
-          <PWH />
-        </button>
-        <button onClick={() => changeComp("np")}>
-          <p>
-            Paragraph with
-            <br /> Number
-          </p>
-          <PWN />
-        </button>
-        <button onClick={() => changeComp("si")}>
-          <p>1x1 Image</p>
-          <SingleImageIcon />
-        </button>
-        <button onClick={() => changeComp("di")}>
-          <p>1x2 Image</p>
-          <DoubleImageIcon />
-        </button>
-      </div>
-      <div className="cc-preview">
-        {contentComponents[comp]}
-        {/* <ThemeComponent /> */}
-        {/* <Title /> */}
-        {/* <ParagraphWithHeading /> */}
-        {/* <SingleImage /> */}
-        {/* <DoubleImage /> */}
-        {/* <NumberedParagraph /> */}
-        {/* <ImageWithCaption /> */}
-        {/* <SingleBullet /> */}
-        {/* <IngredientCard /> */}
-        {/* <DoubleBullet /> */}
-      </div>
+      <Scrollable height="100vh" className="cc-components">
+        {components.map(({ preview, title }) => (
+          <button key={title} onClick={() => changeComp(title)}>
+            <p>{title}</p>
+            <div className="btn-icon">{preview}</div>
+          </button>
+        ))}
+      </Scrollable>
+      <div className="cc-preview">{getComp(comp)}</div>
     </Style.PageContainer>
   );
 };
 
 const Style = {
   PageContainer: styled.div`
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     display: flex;
 
     .cc-components {
-      height: 100%;
-      width: 10%;
+      height: 100vh;
+      width: 15%;
       border: 0.5px solid rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex-wrap: nowrap;
 
       button {
+        display: flex;
+        flex-direction: column;
+        margin: 30px 0;
         width: 90%;
-        padding: 1vh;
-        margin: 0.5vh 0;
 
         p {
-          width: max-content;
           font-weight: 400;
-          font-size: 14px;
+          font-size: 12px;
           line-height: 20px;
+          text-align: center;
           color: #3d3d3d;
-          margin-bottom: 1vh;
+          margin-bottom: 7.5px;
         }
-      }
 
-      svg {
-        width: 75%;
-        margin-bottom: 2vh;
+        div {
+          height: 100px;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(59.2764px);
+          border-radius: 8px;
+          display: grid;
+          place-items: center;
+
+          svg {
+            height: 50%;
+          }
+        }
       }
     }
 
     .cc-preview {
-      height: 100%;
-      width: 90%;
+      height: 100vh;
+      width: 85%;
       padding: 40px;
       display: grid;
       place-items: center;
