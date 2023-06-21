@@ -4,7 +4,6 @@ import { PageTitleLayout } from "../components/Global/PageTitleLayout";
 import { AuthLayout } from "../layouts/AuthLayout/authLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { ManageUsersLayout } from "../layouts/DashboardLayout/ManageUsersLayout";
-import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
@@ -141,10 +140,10 @@ export const router = createBrowserRouter([
         <Outlet />
       </DashboardLayout>
     ),
-    loader: async () => {
-      await getAuthenticatedUser();
-      return null;
-    },
+    // loader: async () => {
+    //   await getAuthenticatedUser();
+    //   return null;
+    // },
     children: [
       { path: "", element: <HomePage /> },
       { path: "search", element: <SearchPage /> },

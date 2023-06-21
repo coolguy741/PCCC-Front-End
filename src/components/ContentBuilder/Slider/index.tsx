@@ -1,22 +1,27 @@
 import styled from "styled-components";
 
+import { useThemeStore } from "../../../stores/themeStore";
+
+const tabs = [
+  "Theme",
+  "Overview",
+  "Educator notes",
+  "Assessment",
+  "Activities",
+  "Recipes",
+];
+
 export const ContentSlider = () => {
-  const tabs = [
-    "Theme",
-    "Overview",
-    "Educator notes",
-    "Assessment",
-    "Activities",
-    "Recipes",
-  ];
+  const { currentStep } = useThemeStore();
+
   return (
     <Style.SliderContainer>
-      <Style.Slider min={0} max={tabs.length} value={2}>
+      <Style.Slider min={0} max={tabs.length} value={currentStep}>
         <>
           {tabs.map((tab, index) => (
             <>
               <span
-                className={`slider-mark ${index < 2 ? "pass" : ""}`}
+                className={`slider-mark ${index < currentStep ? "pass" : ""}`}
                 key={`tab-${tab}`}
               >
                 {index + 1}
@@ -24,7 +29,9 @@ export const ContentSlider = () => {
                   {tab.replaceAll("-", " ")}
                 </span>
               </span>
-              <span className={`slider-bar ${index < 2 ? "pass" : ""}`}></span>
+              <span
+                className={`slider-bar ${index < currentStep ? "pass" : ""}`}
+              ></span>
             </>
           ))}
         </>
