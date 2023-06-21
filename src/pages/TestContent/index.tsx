@@ -3,17 +3,23 @@ import { useState } from "react";
 import styled from "styled-components";
 import { DoubleBullet } from "../../components/ContentCreation/DoubleBullet";
 import { DoubleImage } from "../../components/ContentCreation/DoubleImage";
-import DB from "../../components/ContentCreation/Icons/db";
-import DoubleImageIcon from "../../components/ContentCreation/Icons/doubleImage";
-import IC from "../../components/ContentCreation/Icons/ic";
-import IWC from "../../components/ContentCreation/Icons/iwc";
-import PWH from "../../components/ContentCreation/Icons/pwh";
-import PWN from "../../components/ContentCreation/Icons/pwn";
-import SB from "../../components/ContentCreation/Icons/sb";
-import SingleImageIcon from "../../components/ContentCreation/Icons/singleImage";
-import TitleIcon from "../../components/ContentCreation/Icons/title";
+import {
+  AMC,
+  ATF,
+  AW,
+  DB,
+  DoubleImageIcon,
+  IC,
+  IWC,
+  PWH,
+  PWN,
+  SB,
+  SingleImageIcon,
+  TitleIcon,
+} from "../../components/ContentCreation/Icons";
 import { ImageWithCaption } from "../../components/ContentCreation/ImageWithCaption";
 import { IngredientCard } from "../../components/ContentCreation/IngredientCard";
+import { LessonAssessment } from "../../components/ContentCreation/LessonAssessment";
 import { NumberedParagraph } from "../../components/ContentCreation/NumberedParagraph";
 import { ParagraphWithHeading } from "../../components/ContentCreation/ParagraphWithHeading";
 import { SingleBullet } from "../../components/ContentCreation/SingleBullet";
@@ -55,20 +61,20 @@ const components = [
   {
     id: 6,
     title: "Assessment - Multiple Choice",
-    preview: <TitleIcon />,
-    component: <Title key="title" />,
+    preview: <AMC />,
+    component: <LessonAssessment />,
   },
   {
     id: 7,
     title: "Assessment - True & False",
-    preview: <PWH />,
-    component: <ParagraphWithHeading key="pwh" />,
+    preview: <ATF />,
+    component: <LessonAssessment />,
   },
   {
     id: 8,
     title: "Assessment - Written",
-    preview: <PWN />,
-    component: <NumberedParagraph key="np" />,
+    preview: <AW />,
+    component: <LessonAssessment />,
   },
   {
     id: 9,
