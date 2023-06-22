@@ -1,13 +1,16 @@
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Image } from "../Image/image";
 
 export function ImageWithCaption() {
   return (
     <Style.Container>
       <div className="iwc-image">
-        <Image img="" />
+        <Image variant="img-only" img="" />
       </div>
-      <p>Forging: to find food in nature.</p>
+      <p>
+        <b>Forging:</b> to find food in nature.
+      </p>
     </Style.Container>
   );
 }
@@ -20,18 +23,20 @@ const Style = {
     border-radius: 16px;
     width: 100%;
     height: 100%;
-    padding: 0.75vh 0.5vw;
+    padding: 6px;
 
     .iwc-image {
       height: 75%;
       width: 100%;
+      border-radius: 12px 12px 0px 0px;
+      overflow: hidden;
     }
 
     p {
-      font-weight: 600;
+      font-weight: 400;
       font-size: 14px;
       line-height: 16px;
-      margin-top: 0.5%;
+      margin-top: ${convertToRelativeUnit(8, "vh")};
       color: var(--neutral-600);
     }
   `,
