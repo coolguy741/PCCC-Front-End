@@ -6,8 +6,24 @@ import {
 import { Typography } from "../../Typography";
 import { Image } from "../Image/image";
 import { MultipleSelection } from "./MultipleSelection";
+import { LATextArea } from "./TextArea";
+import { TrueOrFalse } from "./TrueFalse";
 
-export const LessonAssessment = () => {
+type LAVariant = "multiple" | "true-or-false" | "text-area";
+
+function switchLAView(variant?: LAVariant) {
+  switch (variant) {
+    case "multiple":
+      return <MultipleSelection />;
+    case "true-or-false":
+      return <TrueOrFalse />;
+    case "text-area":
+    default:
+      return <LATextArea />;
+  }
+}
+
+export const LessonAssessment = ({ variant }: { variant?: LAVariant }) => {
   return (
     <Style.Container>
       <article className="la-image">
@@ -35,9 +51,7 @@ export const LessonAssessment = () => {
             eiusmod tempor?
           </Typography>
         </hgroup>
-        <div className="la-content-input">
-          <MultipleSelection />
-        </div>
+        <div className="la-content-input">{switchLAView(variant)}</div>
       </article>
     </Style.Container>
   );
@@ -52,6 +66,7 @@ const Style = {
     backdrop-filter: blur(59.2764px);
     display: flex;
     background: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
 
     article.la-image {
       height: 100%;
@@ -61,7 +76,7 @@ const Style = {
     article.la-content {
       width: 60%;
       height: 100%;
-      padding: 70px 120px;
+      padding: 35px 60px;
       display: flex;
       flex-direction: column;
       justify-content: center;

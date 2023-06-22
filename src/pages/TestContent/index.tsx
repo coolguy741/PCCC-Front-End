@@ -62,19 +62,19 @@ const components = [
     id: 6,
     title: "Assessment - Multiple Choice",
     preview: <AMC />,
-    component: <LessonAssessment />,
+    component: <LessonAssessment variant="multiple" />,
   },
   {
     id: 7,
     title: "Assessment - True & False",
     preview: <ATF />,
-    component: <LessonAssessment />,
+    component: <LessonAssessment variant="true-or-false" />,
   },
   {
     id: 8,
     title: "Assessment - Written",
     preview: <AW />,
-    component: <LessonAssessment />,
+    component: <LessonAssessment variant="text-area" />,
   },
   {
     id: 9,
