@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Language } from "../../../../pages/types";
 
+import { Language } from "../../../../pages/types";
 import { useThemeStore } from "../../../../stores/themeStore";
 
 const languages: { value: Language; label: string }[] = [
@@ -9,7 +9,7 @@ const languages: { value: Language; label: string }[] = [
 ];
 
 export const LanguageToggle = () => {
-  const { setLang, lang } = useThemeStore();
+  const { setLang, currentLang } = useThemeStore();
   const toggleLanguage = (lang: Language) => {
     setLang(lang);
   };
@@ -19,7 +19,7 @@ export const LanguageToggle = () => {
       {languages.map((language) => (
         <div key={language.value}>
           <div
-            className={language.value === lang ? "active" : ""}
+            className={language.value === currentLang ? "active" : ""}
             onClick={() => toggleLanguage(language.value)}
           >
             {language.label}
@@ -33,8 +33,10 @@ export const LanguageToggle = () => {
 const Style = {
   Container: styled.section`
     display: flex;
-    padding: 0.5vh;
+    padding: 0.7vh;
+    margin-top: auto;
     background: #ffffff90;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
 
     & > div {
@@ -46,7 +48,7 @@ const Style = {
         padding-left: 0.5rem;
       }
       & > div {
-        padding: 0.5vh 0.7vw;
+        padding: 0.6vh 0.7vw;
         cursor: pointer;
         &.active {
           background: linear-gradient(#ffd760, #ffbf00);

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useThemeStore } from "../../../stores/themeStore";
 
+import { useThemeStore } from "../../../stores/themeStore";
 import { Icon } from "../../Global/Icon";
 import { Typography } from "../../Global/Typography";
 import { CurriculumSelect } from "./CurriculumSelect";
 import { LanguageToggle } from "./LangToggle";
+import { Search } from "./Search";
 import { Tags } from "./Tag";
 
 const options = [
@@ -19,7 +20,7 @@ const options = [
 
 export const ThemeInfo = () => {
   const [tags, setTags] = useState(["foraging", "seeds"]);
-  const { slideIndex } = useThemeStore();
+  const { slideIndex, currentStep } = useThemeStore();
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -31,29 +32,40 @@ export const ThemeInfo = () => {
 
   return (
     <Style.Container>
-      <div style={{ width: "20%", alignItems: "end", display: "flex" }}>
-        <Typography variant="h5" as="h5" weight="semi-bold">
-          Components
-        </Typography>
-      </div>
+      {currentStep < 4 && (
+        <div style={{ width: "20%", alignItems: "end", display: "flex" }}>
+          <Typography variant="h5" as="h5" weight="semi-bold">
+            Components
+          </Typography>
+        </div>
+      )}
       <Style.Info>
         <div className="flex">
-          <Style.SlideDeleteButton>
-            <Typography variant="h6" as="h6" weight="semi-bold">
-              Slide - {slideIndex + 1}
-            </Typography>
-            <Icon name="trash" />
-          </Style.SlideDeleteButton>
+          {currentStep < 4 ? (
+            <Style.SlideDeleteButton>
+              <Typography variant="h6" as="h6" weight="semi-bold">
+                Slide - {slideIndex + 1}
+              </Typography>
+              <Icon name="trash" />
+            </Style.SlideDeleteButton>
+          ) : (
+            <Search />
+          )}
           <LanguageToggle />
         </div>
+
         <div className="flex">
-          <CurriculumSelect
-            options={options}
-            onChange={(e) => {
-              return;
-            }}
-          />
-          <Tags tags={tags} addTag={addTag} deleteTag={deleteTag} />
+          {(currentStep === 2 || currentStep === 3) && (
+            <CurriculumSelect
+              options={options}
+              onChange={(e) => {
+                return;
+              }}
+            />
+          )}
+          {(currentStep === 0 || currentStep === 2) && (
+            <Tags tags={tags} addTag={addTag} deleteTag={deleteTag} />
+          )}
         </div>
       </Style.Info>
     </Style.Container>
@@ -80,6 +92,7 @@ const Style = {
     margin-right: 2rem;
     padding: 0.1vh 1vw;
     border-radius: 0.5rem;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
 
     * {
       white-space: nowrap;
