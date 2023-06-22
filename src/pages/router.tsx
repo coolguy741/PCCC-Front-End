@@ -55,7 +55,7 @@ import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
 import { MealtimeMomentPrintPage } from "./MealTimeMomentsPage/MealtimeMomentPrintPage";
-import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
+import { CreateMealtimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
 import { MealTimeMomentsEditMealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsEditMealTimeMomentPage";
 import { MealTimeMomentsPage } from "./MealTimeMomentsPage/MealtimeMomentsPage";
 import { MealTimeMomentsPreviewPage } from "./MealTimeMomentsPage/MealTimeMomentsPreviewPage";
@@ -254,7 +254,7 @@ export const router = createBrowserRouter([
         ),
         children: [
           { path: "", element: <MealTimeMomentsPage /> },
-          { path: "create", element: <MealTimeMomentsCreatePage /> },
+          { path: "create", element: <CreateMealtimeMomentPage /> },
           { path: "preview", element: <MealTimeMomentsPreviewPage /> },
           { path: ":mealtimeMoment", element: <MealTimeMomentPage /> },
           {
