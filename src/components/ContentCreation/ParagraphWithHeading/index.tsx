@@ -54,7 +54,9 @@ const Style = {
     backdrop-filter: blur(59.2764px);
     border-radius: 16px;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding: 2.5vh 2vw;
+    display: flex;
+    flex-direction: column;
   `,
 };

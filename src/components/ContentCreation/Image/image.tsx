@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Typography } from "../../Typography";
 import Add from "../Icons/add";
-import Delete from "../Icons/delete";
 import Shuffle from "../Icons/shuffle";
 
 export function Image({ img }: { img: string }) {
@@ -19,9 +18,9 @@ export function Image({ img }: { img: string }) {
             <button>
               <Shuffle />
             </button>
-            <button className="img-delete">
+            {/* <button className="img-delete">
               <Delete />
-            </button>
+            </button> */}
           </div>
           <Typography
             color="white"
@@ -48,6 +47,7 @@ const Style = {
       width: 100%;
       height: 100%;
       position: absolute;
+      top: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
