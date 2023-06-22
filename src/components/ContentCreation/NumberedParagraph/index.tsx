@@ -36,7 +36,7 @@ export function NumberedParagraph() {
         />
       </Typography>
       <Style.Content>
-        <Typography tag="h2" size="2.75vh" weight={600} color="neutral-800">
+        <Typography tag="h2" size="2.5vh" weight={600} color="neutral-800">
           <DoubleClickToEditComponent
             mode={state.heading.mode}
             setText={changeText}
@@ -65,7 +65,7 @@ const Style = {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 0vh;
+    margin-top: -2.75vh;
 
     & > p {
       position: relative;
