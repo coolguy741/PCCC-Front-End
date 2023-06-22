@@ -10,7 +10,7 @@ const pWithPState: any = {
   },
   desc: {
     mode: "view",
-    text: "Lastly, throughout the summer, we’re going to explore the world of food all around us, like the fruit trees that grow on your street, or wild blueberries in the woods. Gathering food from the environment is called foraging. When you’re foraging, the most important thing to know is how to know. How do we know when it’s safe to eat foraged food? In Activity 2 and 3 we’ll explore foraging, and all the ways of knowing when its safe and when it’s not.",
+    text: "Lastly, throughout the summer, we’re going to explore the world of food all around us, like the fruit trees that grow on your street, or wild blueberries in the woods. Gathering food from the environment is called foraging. When you’re foraging, the most important thing to know is how to know.",
   },
 };
 

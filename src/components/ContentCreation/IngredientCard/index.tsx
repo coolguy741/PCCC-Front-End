@@ -21,14 +21,6 @@ const ingredients = [
     amt: "1 cup",
     ingdt: "Chocolate chips",
   },
-  {
-    amt: "1 cup",
-    ingdt: "Honey",
-  },
-  {
-    amt: "1 tsp",
-    ingdt: "Pure vanilla extract",
-  },
 ];
 
 export function IngredientCard() {

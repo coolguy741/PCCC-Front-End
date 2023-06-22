@@ -3,10 +3,13 @@ import {
   DragDropContext,
   Draggable,
   Droppable,
+  OnDragEndResponder,
   OnDragStartResponder,
   OnDragUpdateResponder,
 } from "react-beautiful-dnd";
 import styled from "styled-components";
+import SwiperType, { Mousewheel, Scrollbar } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { DoubleImage } from "../../components/ContentCreation/DoubleImage";
 import DoubleImageIcon from "../../components/ContentCreation/Icons/doubleImage";
@@ -20,10 +23,24 @@ import { SingleImage } from "../../components/ContentCreation/SingleImage";
 import { Title } from "../../components/ContentCreation/Title";
 import { getPositions } from "../../lib/util/getPositions";
 import { ThemeComponent } from "../../pages/types";
-import Button from "../Button";
+import { useThemeStore } from "../../stores/themeStore";
+import { DoubleBullet } from "../ContentCreation/DoubleBullet";
+import { AMC, ATF, AW, DB, IC, IWC, SB } from "../ContentCreation/Icons";
+import { ImageWithCaption } from "../ContentCreation/ImageWithCaption";
+import { IngredientCard } from "../ContentCreation/IngredientCard";
+import { LessonAssessment } from "../ContentCreation/LessonAssessment";
+import { SingleBullet } from "../ContentCreation/SingleBullet";
 import { Icon } from "../Global/Icon";
 import Scrollable from "../Global/Scrollable";
+import { Typography } from "../Global/Typography";
+import { ThemeEditorActions } from "./Actions";
+import { Activities } from "./Activities";
 import { ContentNavigator } from "./ContentNavigator";
+import { ThemeInfo } from "./ThemeInfo";
+
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/scrollbar";
 
 const components: ThemeComponent[] = [
   {
@@ -66,14 +83,70 @@ const components: ThemeComponent[] = [
     preview: <DoubleImageIcon />,
     component: <DoubleImage key="di" />,
   },
+  {
+    id: 6,
+    width: 3,
+    height: 2,
+    title: "Assessment - Multiple Choice",
+    preview: <AMC />,
+    component: <LessonAssessment key="amc" />,
+  },
+  {
+    id: 7,
+    width: 3,
+    height: 2,
+    title: "Assessment - True & False",
+    preview: <ATF />,
+    component: <LessonAssessment key="atf" />,
+  },
+  {
+    id: 8,
+    width: 3,
+    height: 2,
+    title: "Assessment - Written",
+    preview: <AW />,
+    component: <LessonAssessment key="aw" />,
+  },
+  {
+    id: 9,
+    width: 1,
+    height: 1,
+    title: "Image with Caption",
+    preview: <IWC />,
+    component: <ImageWithCaption key="iwc" />,
+  },
+  {
+    id: 10,
+    width: 1,
+    height: 1,
+    title: "Bullet 1",
+    preview: <SB />,
+    component: <SingleBullet key="sb" />,
+  },
+  {
+    id: 10,
+    width: 1,
+    height: 1,
+    title: "Ingredient Card",
+    preview: <IC />,
+    component: <IngredientCard key="ic" />,
+  },
+  {
+    id: 11,
+    width: 2,
+    height: 1,
+    title: "Bullet 2",
+    preview: <DB />,
+    component: <DoubleBullet key="db" />,
+  },
 ];
 
 export const ContentBuilder = () => {
   const [draggingComponent, setDraggingComponent] = useState<number>();
-  const [themeComponents, setThemeComponents] = useState<ThemeComponent[]>();
   const [prevThemeComponents, setPrevThemeComponents] =
     useState<ThemeComponent[]>();
-
+  const { setSlideIndex, slideIndex, theme, currentStep, updatePage } =
+    useThemeStore();
   const checkDroppable = (droppableId: number, source: number) => {
     const { width, height } = components[source];
     const currentX = droppableId % 3;
@@ -84,6 +157,7 @@ export const ContentBuilder = () => {
       return false;
     }
 
+    const themeComponents = theme[currentStep].slides[slideIndex];
     return themeComponents
       ? themeComponents.reduce((value, current) => {
           if (!value) {
@@ -111,8 +185,9 @@ export const ContentBuilder = () => {
       target: { id },
     } = event;
     const [x, y] = id.split(",");
+    const prev = theme[currentStep].slides[slideIndex];
 
-    setThemeComponents((prev) => [
+    updatePage([
       ...(prev
         ? prev.filter(
             (component) =>
@@ -124,7 +199,7 @@ export const ContentBuilder = () => {
 
   const onDragUpdate: OnDragUpdateResponder = (result) => {
     if (result.destination) {
-      setThemeComponents(() => [...(prevThemeComponents ?? [])]);
+      updatePage([...(prevThemeComponents ?? [])]);
 
       const droppableId = parseInt(
         result.destination.droppableId.split("-").pop() ?? "0",
@@ -132,8 +207,8 @@ export const ContentBuilder = () => {
       const source = result.source.index;
 
       if (checkDroppable(droppableId, source)) {
-        setThemeComponents((prev) => [
-          ...(prev ?? []),
+        updatePage([
+          ...theme[currentStep].slides[slideIndex],
           {
             ...components[source],
             x: droppableId % 3,
@@ -145,117 +220,165 @@ export const ContentBuilder = () => {
   };
 
   const onDragStart: OnDragStartResponder = (result) => {
-    setPrevThemeComponents(() => [...(themeComponents ?? [])]);
+    setPrevThemeComponents(() => [...theme[currentStep].slides[slideIndex]]);
     setDraggingComponent(result.source.index);
+  };
+
+  const onSlideChange = (swiper: SwiperType) => {
+    setSlideIndex(swiper.activeIndex);
+  };
+
+  const onDragEnd: OnDragEndResponder = (result) => {
+    if (!result.destination) {
+      updatePage([...(prevThemeComponents ?? [])]);
+    }
+
+    updatePage(
+      !result.destination
+        ? [...(prevThemeComponents ?? [])]
+        : theme[currentStep].slides[slideIndex],
+    );
   };
 
   return (
     <Style.Container>
       <ContentNavigator />
-      <Style.DragDropContainer>
-        <DragDropContext
-          onDragUpdate={onDragUpdate}
-          onDragEnd={() => true}
-          onDragStart={onDragStart}
-        >
-          <Droppable droppableId="preview-drop" isDropDisabled={true}>
-            {(dropProvided, dropSnapshot) => (
-              <Style.Previews
-                {...dropProvided.droppableProps}
-                ref={dropProvided.innerRef}
-              >
-                <Scrollable>
-                  {components.map((component, index) => (
-                    <Draggable
-                      draggableId={`component-${index}`}
-                      index={index}
-                      key={`component-${index}`}
-                    >
-                      {(provided, snapShot) => (
-                        <Style.Preview>
-                          <div className="preview-title">{component.title}</div>
-                          <div
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                            className="icon-container"
-                          >
-                            {snapShot.isDragging && draggingComponent === index
-                              ? components[draggingComponent].preview
-                              : component.preview}
-                          </div>
-                        </Style.Preview>
-                      )}
-                    </Draggable>
-                  ))}
-                  {dropProvided.placeholder}
-                </Scrollable>
-              </Style.Previews>
-            )}
-          </Droppable>
-          <Style.Slide>
-            <Style.Content>
-              {Array.from({ length: 6 }).map((value, index) => (
-                <Droppable
-                  droppableId={`grid-drop-${index}`}
-                  key={`grid-${index}`}
+      <Typography variant="h3" as="h3" weight="semi-bold">
+        Create Theme
+      </Typography>
+      {currentStep > 3 && (
+        <Typography variant="h5" mt={4} as="h5" weight="semi-bold">
+          Select the activities you want to link to this theme
+        </Typography>
+      )}
+      <ThemeInfo />
+      {currentStep < 4 ? (
+        <Style.DragDropContainer>
+          <DragDropContext
+            onDragUpdate={onDragUpdate}
+            onDragEnd={onDragEnd}
+            onDragStart={onDragStart}
+          >
+            <Droppable droppableId="preview-drop" isDropDisabled={true}>
+              {(dropProvided, dropSnapshot) => (
+                <Style.Previews
+                  {...dropProvided.droppableProps}
+                  ref={dropProvided.innerRef}
                 >
-                  {(dropProvided, draggingOverWith) => (
-                    <>
-                      <div
-                        {...dropProvided.droppableProps}
-                        ref={dropProvided.innerRef}
-                        style={{
-                          background: "var(--blue-500)",
-
-                          opacity: 0.15,
-                          borderRadius: "1rem",
-                        }}
-                      />
-                      <span style={{ display: "none" }}>
-                        {dropProvided.placeholder}
-                      </span>
-                    </>
-                  )}
-                </Droppable>
-              ))}
-              {themeComponents?.map(
-                ({ width, height, x, y, component }, index) => (
-                  <Style.Component
-                    key={`column-${index}`}
-                    {...{
-                      width,
-                      height,
-                      x,
-                      y,
-                    }}
-                  >
-                    <div className="delete-button-container">
-                      <Style.DeleteButton>
-                        <Icon
-                          name="trash"
-                          onClick={handleDelete}
-                          id={`${x},${y}`}
-                        />
-                      </Style.DeleteButton>
-                    </div>
-                    {component}
-                  </Style.Component>
-                ),
+                  <Scrollable tag="div">
+                    {components.map((component, index) => (
+                      <Draggable
+                        draggableId={`component-${index}`}
+                        index={index}
+                        key={`component-${index}`}
+                      >
+                        {(provided, snapShot) => (
+                          <Style.Preview>
+                            <div className="preview-title">
+                              {component.title}
+                            </div>
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              className="icon-container"
+                            >
+                              {snapShot.isDragging &&
+                              draggingComponent === index
+                                ? components[draggingComponent].preview
+                                : component.preview}
+                            </div>
+                          </Style.Preview>
+                        )}
+                      </Draggable>
+                    ))}
+                    {dropProvided.placeholder}
+                  </Scrollable>
+                </Style.Previews>
               )}
-            </Style.Content>
-            <Style.ActionContainer>
-              <Button variant="yellow">Add Slide</Button>
-              <div className="flex">
-                <Button variant="yellow" className="mr-4">
-                  Save changes and exit
-                </Button>
-                <Button variant="orange">Save changes and continue</Button>
-              </div>
-            </Style.ActionContainer>
-          </Style.Slide>
-        </DragDropContext>
-      </Style.DragDropContainer>
+            </Droppable>
+            <Style.Slide>
+              <Swiper
+                slidesPerView={1}
+                mousewheel={true}
+                scrollbar={{
+                  hide: true,
+                }}
+                pagination={false}
+                effect="fade"
+                onSlideChange={onSlideChange}
+                direction={"vertical"}
+                speed={500}
+                modules={[Mousewheel, Scrollbar]}
+                className="theme-swiper-slide"
+              >
+                {theme[currentStep].slides.map((slide, sIndex) => (
+                  <SwiperSlide key={`slide-${sIndex}`}>
+                    <Style.ContentWrapper>
+                      <Style.Content>
+                        {Array.from({ length: 6 }).map((value, index) => (
+                          <Droppable
+                            droppableId={`grid-drop-${sIndex}-${index}`}
+                            key={`grid-test-${sIndex}-${index}`}
+                          >
+                            {(dropProvided, draggingOverWith) => (
+                              <>
+                                <div
+                                  {...dropProvided.droppableProps}
+                                  ref={dropProvided.innerRef}
+                                  style={{
+                                    background: "var(--blue-500)",
+
+                                    opacity: 0.15,
+                                    borderRadius: "1rem",
+                                  }}
+                                />
+                                <span style={{ display: "none" }}>
+                                  {dropProvided.placeholder}
+                                </span>
+                              </>
+                            )}
+                          </Droppable>
+                        ))}
+                        {slide?.map(
+                          ({ width, height, x, y, component }, index) => (
+                            <Style.Component
+                              key={`column-${index}`}
+                              {...{
+                                width,
+                                height,
+                                x,
+                                y,
+                              }}
+                            >
+                              <div className="delete-button-container">
+                                <Style.DeleteButton>
+                                  <Icon
+                                    name="trash"
+                                    onClick={handleDelete}
+                                    id={`${x},${y}`}
+                                  />
+                                </Style.DeleteButton>
+                              </div>
+                              {component}
+                            </Style.Component>
+                          ),
+                        )}
+                      </Style.Content>
+                    </Style.ContentWrapper>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <ThemeEditorActions />
+            </Style.Slide>
+          </DragDropContext>
+        </Style.DragDropContainer>
+      ) : (
+        <>
+          <Activities />
+          <ThemeEditorActions />
+        </>
+      )}
     </Style.Container>
   );
 };
@@ -284,6 +407,7 @@ const Style = {
   `,
   Preview: styled.div`
     height: 30%;
+    width: 100%;
     margin-bottom: 15%;
     display: flex;
     flex-direction: column;
@@ -300,9 +424,14 @@ const Style = {
       filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
     }
   `,
-  Content: styled.div`
+  ContentWrapper: styled.section`
+    display: flex;
     height: 100%;
+  `,
+  Content: styled.div`
+    flex: 1;
     width: 100%;
+    margin: 0.5vh 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 1.87vh 1vw;
@@ -335,15 +464,15 @@ const Style = {
       position: relative;
     }
   `,
-  ActionContainer: styled.div`
-    padding: 2vh 0;
-    display: flex;
-    justify-content: space-between;
-  `,
   Slide: styled.section`
     width: 80%;
     display: flex;
     flex-direction: column;
+
+    .theme-swiper-slide {
+      flex: 1;
+      margin: 0;
+    }
   `,
   DeleteButton: styled.button`
     position: absolute;

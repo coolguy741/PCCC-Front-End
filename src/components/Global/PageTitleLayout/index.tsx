@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Icon } from "../Icon";
 
@@ -37,6 +38,7 @@ const Style = {
     max-height: 100vh;
     font-family: "Noir Std";
     font-style: normal;
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")};
   `,
   Background: styled.div`
     position: absolute;
