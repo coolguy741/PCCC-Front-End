@@ -135,8 +135,6 @@ export const CreateFoodwaysPage = () => {
     setStopDescription([]);
   }, []);
 
-  console.log(stopTitle, stopTimePeriod, stopDescription);
-
   return (
     <Style.Container>
       <div className="buttons-container">

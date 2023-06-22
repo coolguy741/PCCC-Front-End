@@ -24,6 +24,12 @@ import { Title } from "../../components/ContentCreation/Title";
 import { getPositions } from "../../lib/util/getPositions";
 import { ThemeComponent } from "../../pages/types";
 import { useThemeStore } from "../../stores/themeStore";
+import { DoubleBullet } from "../ContentCreation/DoubleBullet";
+import { AMC, ATF, AW, DB, IC, IWC, SB } from "../ContentCreation/Icons";
+import { ImageWithCaption } from "../ContentCreation/ImageWithCaption";
+import { IngredientCard } from "../ContentCreation/IngredientCard";
+import { LessonAssessment } from "../ContentCreation/LessonAssessment";
+import { SingleBullet } from "../ContentCreation/SingleBullet";
 import { Icon } from "../Global/Icon";
 import Scrollable from "../Global/Scrollable";
 import { Typography } from "../Global/Typography";
@@ -76,6 +82,62 @@ const components: ThemeComponent[] = [
     title: "Double Image",
     preview: <DoubleImageIcon />,
     component: <DoubleImage key="di" />,
+  },
+  {
+    id: 6,
+    width: 3,
+    height: 2,
+    title: "Assessment - Multiple Choice",
+    preview: <AMC />,
+    component: <LessonAssessment key="amc" />,
+  },
+  {
+    id: 7,
+    width: 3,
+    height: 2,
+    title: "Assessment - True & False",
+    preview: <ATF />,
+    component: <LessonAssessment key="atf" />,
+  },
+  {
+    id: 8,
+    width: 3,
+    height: 2,
+    title: "Assessment - Written",
+    preview: <AW />,
+    component: <LessonAssessment key="aw" />,
+  },
+  {
+    id: 9,
+    width: 1,
+    height: 1,
+    title: "Image with Caption",
+    preview: <IWC />,
+    component: <ImageWithCaption key="iwc" />,
+  },
+  {
+    id: 10,
+    width: 1,
+    height: 1,
+    title: "Bullet 1",
+    preview: <SB />,
+    component: <SingleBullet key="sb" />,
+  },
+  {
+    id: 10,
+    width: 1,
+    height: 1,
+    title: "Ingredient Card",
+    preview: <IC />,
+    component: <IngredientCard key="ic" />,
+  },
+  {
+    id: 11,
+    width: 2,
+    height: 1,
+    title: "Bullet 2",
+    preview: <DB />,
+    component: <DoubleBullet key="db" />,
   },
 ];
 
