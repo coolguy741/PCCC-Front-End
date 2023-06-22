@@ -1,7 +1,9 @@
-import { useState } from "react";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import SwiperType, { Mousewheel, Scrollbar } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import Button from "../../../components/Button";
 import { LanguageToggle } from "../../../components/ContentBuilder/ThemeInfo/LangToggle";
 import { Tags } from "../../../components/ContentBuilder/ThemeInfo/Tag";
@@ -10,122 +12,97 @@ import { FoodwayTitle } from "../../../components/ContentCreation/FoodwayTitle";
 import { BackButton } from "../../../components/Global/BackButton";
 import { Icon } from "../../../components/Global/Icon";
 import { Typography } from "../../../components/Global/Typography";
+import { useAPI } from "../../../hooks/useAPI";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
+import { STORAGE_KEY_JWT } from "../../consts";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
 
+const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
+  const swiper = useSwiper();
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.slideTo(totalSlides);
+    }
+  }, [totalSlides, swiper]);
+
+  return null;
+};
+
 export const CreateFoodwaysPage = () => {
-  // const { api } = useAPI();
-  // const [title, setTitle] = useState("");
-  // const [stopTimePeriod, setStopTimePeriod] = useState("");
-  // const [stopDescription, setStopDescription] = useState("");
-  // const [description, setDescription] = useState("");
-  // const navigate = useNavigate();
-
-  // const handleCreate = async () => {
-  //   const response = await api.appFoodwaysCreate(
-  //     {
-  //       image: "/images/chocolate.jpg",
-  //       english: {
-  //         title: title,
-  //         info: description,
-  //         featureDate: "2023-05-26T19:41:06.252Z",
-  //         description: "Test description.",
-  //       },
-  //       french: {
-  //         title: title,
-  //         info: description,
-  //         featureDate: "2023-05-26T19:41:06.252Z",
-  //         description: "Test description.",
-  //       },
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-  //       },
-  //     },
-  //   );
-
-  //   console.log(response);
-
-  //   if (response.status === 200) {
-  //     const _response = await api.appFoodwayStopsCreate(
-  //       {
-  //         foodwayId: response.data.english?.id,
-  //         image: "/images/moment.jpg",
-  //         english: {
-  //           timePeriod: stopTimePeriod,
-  //           description: stopDescription,
-  //           location: "Canada",
-  //         },
-  //         french: {
-  //           timePeriod: stopTimePeriod,
-  //           description: stopDescription,
-  //           location: "Canada",
-  //         },
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-  //         },
-  //       },
-  //     );
-
-  //     console.log(_response);
-
-  //     await api.appFoodwayStopsCreate(
-  //       {
-  //         foodwayId: response.data?.english?.id,
-  //         image: "/images/moment.jpg",
-  //         english: {
-  //           timePeriod: stopTimePeriod,
-  //           description: stopDescription,
-  //           location: "Canada",
-  //         },
-  //         french: {
-  //           timePeriod: stopTimePeriod,
-  //           description: stopDescription,
-  //           location: "Canada",
-  //         },
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-  //         },
-  //       },
-  //     );
-
-  //     await api.appFoodwayStopsCreate(
-  //       {
-  //         foodwayId: response.data?.english?.id,
-  //         image: "/images/moment.jpg",
-  //         english: {
-  //           timePeriod: stopTimePeriod,
-  //           description: stopDescription,
-  //           location: "Canada",
-  //         },
-  //         french: {
-  //           timePeriod: stopTimePeriod,
-  //           description: stopDescription,
-  //           location: "Canada",
-  //         },
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-  //         },
-  //       },
-  //     );
-
-  //     if (_response.status === 200) {
-  //       navigate("/dashboard/foodways");
-  //     }
-  //   }
-  // };
+  const { api } = useAPI();
+  const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [tags, setTags] = useState(["foraging", "seeds"]);
-  const { slide, addFoodwaySlide, setSlide } = useFoodwayStore();
+  const [stopTimePeriod, setStopTimePeriod] = useState<undefined[] | string[]>(
+    [],
+  );
+  const [stopTitle, setStopTitle] = useState<undefined[] | string[]>([]);
+  const [stopDescription, setStopDescription] = useState<
+    undefined[] | string[]
+  >([]);
+  const { activeSlide, addFoodwaySlide, init, setActiveSlide, totalSlides } =
+    useFoodwayStore();
+
+  const handleCreate = async () => {
+    const response = await api.appFoodwaysCreate(
+      {
+        image: "/images/chocolate.jpg",
+        english: {
+          title: title,
+          info: description,
+          featureDate: "2023-05-26T19:41:06.252Z",
+          description: "Test description.",
+        },
+        french: {
+          title: title,
+          info: description,
+          featureDate: "2023-05-26T19:41:06.252Z",
+          description: "Test description.",
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      let _response;
+      stopTitle.forEach(async (_, index) => {
+        _response = await api.appFoodwayStopsCreate(
+          {
+            foodwayId: response.data.english?.id,
+            image: "/images/moment.jpg",
+            english: {
+              location: stopTitle[index],
+              description: stopDescription[index],
+              timePeriod: stopTimePeriod[index] || "1999",
+            },
+            french: {
+              location: stopTitle[index],
+              description: stopDescription[index],
+              timePeriod: stopTimePeriod[index] || "1999",
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+            },
+          },
+        );
+
+        if (_response.status === 200) {
+          navigate("/dashboard/foodways");
+        }
+      });
+    }
+  };
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -148,13 +125,22 @@ export const CreateFoodwaysPage = () => {
   };
 
   const onSlideChange = (swiper: SwiperType) => {
-    setSlide(swiper.activeIndex);
+    setActiveSlide(swiper.activeIndex);
   };
+
+  useEffect(() => {
+    init();
+    setStopTitle([]);
+    setStopTimePeriod([]);
+    setStopDescription([]);
+  }, []);
+
+  console.log(stopTitle, stopTimePeriod, stopDescription);
 
   return (
     <Style.Container>
       <div className="buttons-container">
-        <BackButton />
+        <BackButton onClick={() => navigate("/dashboard/foodways")} />
         <Button>Preview</Button>
       </div>
 
@@ -166,7 +152,7 @@ export const CreateFoodwaysPage = () => {
         <div className="flex">
           <Style.SlideDeleteButton>
             <Typography variant="h6" as="h6" weight="semi-bold">
-              Slide - {slide + 1}
+              Slide - {activeSlide + 1}
             </Typography>
             <Icon name="trash" />
           </Style.SlideDeleteButton>
@@ -190,16 +176,32 @@ export const CreateFoodwaysPage = () => {
             modules={[Mousewheel, Scrollbar]}
             className="theme-swiper-slide"
           >
-            <SwiperSlide>
-              <Style.Content>
-                <FoodwayTitle key="title" />
-              </Style.Content>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Style.Content>
-                <FoodwayStop />
-              </Style.Content>
-            </SwiperSlide>
+            {new Array(totalSlides).fill(null).map((_, index) => {
+              // console.log(slide, index);
+              return (
+                <SwiperSlide key={`slide-${index}`}>
+                  <Style.Content>
+                    {index === 0 ? (
+                      <FoodwayTitle
+                        setTitle={setTitle}
+                        setDescription={setDescription}
+                      />
+                    ) : (
+                      <FoodwayStop
+                        index={index}
+                        stopTitle={stopTitle}
+                        stopTimePeriod={stopTimePeriod}
+                        stopDescription={stopDescription}
+                        setStopTimePeriod={setStopTimePeriod}
+                        setStopDescription={setStopDescription}
+                        setStopTitle={setStopTitle}
+                      />
+                    )}
+                  </Style.Content>
+                </SwiperSlide>
+              );
+            })}
+            <SlideOnUpdate totalSlides={totalSlides} />
           </Swiper>
         </Style.Slide>
       </Style.ContentBuilder>
@@ -208,7 +210,7 @@ export const CreateFoodwaysPage = () => {
           Add Slide
         </Button>
         <div className="flex">
-          <Button variant="yellow" className="mr-4" onClick={handleSaveAndExit}>
+          <Button variant="yellow" className="mr-4" onClick={handleCreate}>
             Save changes and exit
           </Button>
           <Button variant="orange" onClick={handleSaveAndContinue}>
@@ -285,6 +287,7 @@ const Style = {
   Slide: styled.section`
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     .theme-swiper-slide {
       flex: 1;

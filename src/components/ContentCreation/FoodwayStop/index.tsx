@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
@@ -5,18 +6,54 @@ import { Globe } from "../../Foodways/Globe";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 const titleState: any = {
-  subHeading: {
+  title: {
     mode: "view",
-    text: "Mesoamerica",
+    text: "Click to edit",
   },
-  subDesc: {
+  desc: {
     mode: "view",
-    text: "In Mesoamerica, chocolate was consumed by Olmec, Aztecs and Mayans, but the earliest known use of chocolate was by the Olmec around 1900 B.C.E.",
+    text: "Click to edit.",
+  },
+  timePeriod: {
+    mode: "view",
+    text: "Click to edit.",
   },
 };
 
-export function FoodwayStop() {
+interface FoodwayStopProps {
+  index: number;
+  stopTitle: string[] | undefined[];
+  stopTimePeriod: string[] | undefined[];
+  stopDescription: string[] | undefined[];
+  setStopTitle: (stopTitle: string[] | undefined[]) => void;
+  setStopTimePeriod: (stopTimePeriod: string[] | undefined[]) => void;
+  setStopDescription: (stopDescription: string[] | undefined[]) => void;
+}
+
+export function FoodwayStop({
+  index,
+  stopTitle,
+  stopTimePeriod,
+  stopDescription,
+  setStopTitle,
+  setStopTimePeriod,
+  setStopDescription,
+}: FoodwayStopProps) {
   const { state, changeEditState, changeText } = useContentCreation(titleState);
+
+  useEffect(() => {
+    const newStopTitleArr = stopTitle.slice();
+    const newStopTimePeriodArr = stopTimePeriod.slice();
+    const newStopDescriptionArr = stopDescription.slice();
+
+    newStopTitleArr[index] = state.title.text;
+    newStopTimePeriodArr[index] = state.timePeriod.text;
+    newStopDescriptionArr[index] = state.desc.text;
+
+    setStopTitle(newStopTitleArr);
+    setStopTimePeriod(newStopTimePeriodArr);
+    setStopDescription(newStopDescriptionArr);
+  }, [state]);
 
   return (
     <Style.Container>
@@ -29,20 +66,20 @@ export function FoodwayStop() {
         </Style.Image>
         <h2>
           <DoubleClickToEditComponent
-            mode={state.subHeading.mode}
+            mode={state.title.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.subHeading.text}
-            name="subHeading"
+            text={state.title.text}
+            name="title"
           />
         </h2>
         <p>
           <DoubleClickToEditComponent
-            mode={state.subDesc.mode}
+            mode={state.desc.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.subDesc.text}
-            name="subDesc"
+            text={state.desc.text}
+            name="desc"
           />
         </p>
       </div>
@@ -73,6 +110,7 @@ const Style = {
       flex-direction: column;
       gap: 1rem;
       border-radius: 16px;
+      flex-grow: 1;
 
       span.tc-overview {
         font-weight: 600;
@@ -134,6 +172,7 @@ const Style = {
       display: grid;
       place-items: center;
       overflow: hidden;
+      flex-grow: 2;
 
       canvas {
         width: 50%;
