@@ -1,13 +1,17 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 import { useThemeStore } from "../../../stores/themeStore";
 import Button from "../../Button";
+import { ConfirmModal } from "../ConfirmModal";
 
 export const ThemeEditorActions = () => {
   const { currentStep, changeStep, addSlide } = useThemeStore();
-
+  const [showingConfirmModal, setShowingConfirmModal] = useState(false);
   const handleSaveAndContinue = () => {
-    changeStep(currentStep + 1);
+    currentStep < 5
+      ? changeStep(currentStep + 1)
+      : setShowingConfirmModal(true);
   };
 
   const handleAddSlide = () => {
@@ -29,6 +33,10 @@ export const ThemeEditorActions = () => {
           Save changes and continue
         </Button>
       </div>
+      <ConfirmModal
+        isOpen={showingConfirmModal}
+        close={() => setShowingConfirmModal(false)}
+      />
     </Style.ActionContainer>
   );
 };

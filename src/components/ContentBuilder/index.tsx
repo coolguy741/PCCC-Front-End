@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import {
   DragDropContext,
   Draggable,
@@ -9,7 +9,7 @@ import {
 } from "react-beautiful-dnd";
 import styled from "styled-components";
 import SwiperType, { Mousewheel, Scrollbar } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 import { DoubleImage } from "../../components/ContentCreation/DoubleImage";
 import DoubleImageIcon from "../../components/ContentCreation/Icons/doubleImage";
@@ -34,7 +34,7 @@ import { Icon } from "../Global/Icon";
 import Scrollable from "../Global/Scrollable";
 import { Typography } from "../Global/Typography";
 import { ThemeEditorActions } from "./Actions";
-import { Activities } from "./Activities";
+import { ActivitiesAndRecipes } from "./ActivitiesAndRecipes";
 import { ContentNavigator } from "./ContentNavigator";
 import { ThemeInfo } from "./ThemeInfo";
 
@@ -141,6 +141,18 @@ const components: ThemeComponent[] = [
   },
 ];
 
+const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
+  const swiper = useSwiper();
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.slideTo(totalSlides);
+    }
+  }, [totalSlides, swiper]);
+
+  return null;
+};
+
 export const ContentBuilder = () => {
   const [draggingComponent, setDraggingComponent] = useState<number>();
   const [prevThemeComponents, setPrevThemeComponents] =
@@ -153,6 +165,7 @@ export const ContentBuilder = () => {
     const currentY = Math.floor(droppableId / 3);
     const positions: number[] = getPositions(width, height, currentX, currentY);
     const lastPosition = positions.sort()[positions.length - 1];
+
     if (lastPosition !== undefined && lastPosition > 5) {
       return false;
     }
@@ -220,7 +233,9 @@ export const ContentBuilder = () => {
   };
 
   const onDragStart: OnDragStartResponder = (result) => {
-    setPrevThemeComponents(() => [...theme[currentStep].slides[slideIndex]]);
+    setPrevThemeComponents(() => [
+      ...(theme[currentStep].slides[slideIndex] ?? []),
+    ]);
     setDraggingComponent(result.source.index);
   };
 
@@ -248,7 +263,8 @@ export const ContentBuilder = () => {
       </Typography>
       {currentStep > 3 && (
         <Typography variant="h5" mt={4} as="h5" weight="semi-bold">
-          Select the activities you want to link to this theme
+          Select the {currentStep === 4 ? "activities" : "recipes"} you want to
+          link to this theme
         </Typography>
       )}
       <ThemeInfo />
@@ -260,7 +276,7 @@ export const ContentBuilder = () => {
             onDragStart={onDragStart}
           >
             <Droppable droppableId="preview-drop" isDropDisabled={true}>
-              {(dropProvided, dropSnapshot) => (
+              {(dropProvided) => (
                 <Style.Previews
                   {...dropProvided.droppableProps}
                   ref={dropProvided.innerRef}
@@ -321,7 +337,7 @@ export const ContentBuilder = () => {
                             droppableId={`grid-drop-${sIndex}-${index}`}
                             key={`grid-test-${sIndex}-${index}`}
                           >
-                            {(dropProvided, draggingOverWith) => (
+                            {(dropProvided) => (
                               <>
                                 <div
                                   {...dropProvided.droppableProps}
@@ -368,6 +384,7 @@ export const ContentBuilder = () => {
                     </Style.ContentWrapper>
                   </SwiperSlide>
                 ))}
+                <SlideOnUpdate totalSlides={theme[currentStep].slides.length} />
               </Swiper>
               <ThemeEditorActions />
             </Style.Slide>
@@ -375,7 +392,7 @@ export const ContentBuilder = () => {
         </Style.DragDropContainer>
       ) : (
         <>
-          <Activities />
+          <ActivitiesAndRecipes />
           <ThemeEditorActions />
         </>
       )}

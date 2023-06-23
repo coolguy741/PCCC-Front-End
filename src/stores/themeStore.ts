@@ -2,8 +2,6 @@ import { create } from "zustand";
 
 import { Language, ThemeComponent } from "../pages/types";
 
-type TSlide = ThemeComponent[];
-
 interface IPage {
   tags?: string;
   curriculum?: string;
@@ -16,6 +14,8 @@ interface ThemeProp {
   slideIndex: number;
   theme: IPage[];
   currentSlide: ThemeComponent[];
+  activityIds: string[];
+  recipeIds: string[];
   en: {
     theme: IPage[];
   };
@@ -26,11 +26,14 @@ interface ThemeProp {
 interface State extends ThemeProp {
   changeStep: (step: number) => void;
   addSlide: () => void;
-  updateSlide: (slide: ThemeComponent[]) => void;
   updatePage: (slide: ThemeComponent[]) => void;
   setLang: (lang: Language) => void;
   setSlideIndex: (slideIndex: number) => void;
+  setItemIds: (activityId: string) => void;
+  removeItemId: (activityId: string) => void;
   init: () => void;
+  deleteSlide: () => void;
+  continueWithFrench: () => void;
 }
 
 const initialState: ThemeProp = {
@@ -39,6 +42,8 @@ const initialState: ThemeProp = {
   theme: [{ slides: [[]] }],
   currentLang: "en",
   currentSlide: [],
+  activityIds: [],
+  recipeIds: [],
   en: {
     theme: [],
   },
@@ -55,6 +60,24 @@ export const useThemeStore = create<State>()((set) => ({
       theme:
         theme.length > currentStep ? [...theme] : [...theme, { slides: [[]] }],
     })),
+  setItemIds: (itemId) =>
+    set(({ activityIds, recipeIds, currentStep }) => ({
+      activityIds: currentStep === 4 ? [...activityIds, itemId] : activityIds,
+      recipeIds: currentStep === 5 ? [...recipeIds, itemId] : recipeIds,
+    })),
+  removeItemId: (itemId) =>
+    set(({ activityIds, recipeIds, currentStep }) => ({
+      activityIds: [
+        ...(currentStep === 4
+          ? activityIds.filter((id) => id === itemId)
+          : activityIds),
+      ],
+      recipeIds: [
+        ...(currentStep === 5
+          ? recipeIds.filter((id) => id === itemId)
+          : recipeIds),
+      ],
+    })),
   setSlideIndex: (slideIndex) => set(() => ({ slideIndex })),
   updatePage: (slide) =>
     set(({ theme, slideIndex, currentStep }) => ({
@@ -65,19 +88,44 @@ export const useThemeStore = create<State>()((set) => ({
         return page;
       }) ?? [{ slides: [slide] }],
     })),
-  updateSlide: (slide) => set(() => ({ currentSlide: slide })),
   addSlide: () =>
     set(({ theme, currentStep }) => ({
-      theme: theme.map((page, index) => {
-        if (index === currentStep) {
-          page.slides.push([]);
-        }
-        return page;
-      }) ?? [{ slides: [] }],
+      theme: [
+        ...(theme.map((page, index) => {
+          if (index === currentStep) {
+            page.slides.push([]);
+          }
+
+          return { ...page };
+        }) ?? [{ slides: [] }]),
+      ],
     })),
   setLang: (currentLang: Language) =>
     set(() => ({
       currentLang,
+    })),
+  deleteSlide: () =>
+    set(({ theme, slideIndex, currentStep }) => ({
+      theme: [
+        ...theme.map((page, index) => {
+          if (index === currentStep) {
+            const slides = [
+              ...page.slides.filter((slide, index) => index !== slideIndex),
+            ];
+
+            page.slides = [...slides];
+          }
+          return { ...page };
+        }),
+      ],
+      slideIndex: slideIndex > 0 ? slideIndex - 1 : slideIndex,
+    })),
+  continueWithFrench: () =>
+    set(({ theme }) => ({
+      currentStep: 0,
+      en: { theme },
+      theme: [{ slides: [[]] }],
+      currentLang: "fr",
     })),
   init: () => set(() => ({ ...initialState })),
 }));
