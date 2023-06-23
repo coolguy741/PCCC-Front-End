@@ -10,7 +10,7 @@ import { SaveChangesModal } from "../../../components/Global/SaveChangesModal";
 import { SmallButton } from "../../../components/Global/SmallButton";
 import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-edit.json";
 
-export const MealTimeMomentsEditMealTimeMomentPage = () => {
+export const EditMealtimeMomentPage = () => {
   const [lang, setLang] = useState<string>(
     localStorage.getItem("lang") ?? "en",
   );

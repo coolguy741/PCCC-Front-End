@@ -40,7 +40,6 @@ import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
-import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import GamePage from "./GamePage/GamePage";
 import { GamesPage } from "./GamesPage";
@@ -53,12 +52,11 @@ import { MealPlannerGroceryPrintPage } from "./MealPlannerPage/Grocery/Print";
 import { MealPlannerPrintPage } from "./MealPlannerPage/Print";
 import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
-import { MealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentPage";
-import { MealtimeMomentPrintPage } from "./MealTimeMomentsPage/MealtimeMomentPrintPage";
-import { MealTimeMomentsCreatePage } from "./MealTimeMomentsPage/MealTimeMomentsCreatePage";
-import { MealTimeMomentsEditMealTimeMomentPage } from "./MealTimeMomentsPage/MealTimeMomentsEditMealTimeMomentPage";
-import { MealTimeMomentsPage } from "./MealTimeMomentsPage/MealtimeMomentsPage";
-import { MealTimeMomentsPreviewPage } from "./MealTimeMomentsPage/MealTimeMomentsPreviewPage";
+import { MealtimeMomentsPage } from "./MealtimeMomentsPage/";
+import { CreateMealtimeMomentPage } from "./MealtimeMomentsPage/Create";
+import { EditMealtimeMomentPage } from "./MealtimeMomentsPage/Edit";
+import { MealtimeMomentOverviewPage } from "./MealtimeMomentsPage/Overview";
+import { MealtimeMomentPrintPage } from "./MealtimeMomentsPage/Print";
 import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
 import { ProfilePage } from "./Profile";
@@ -253,13 +251,31 @@ export const router = createBrowserRouter([
           />
         ),
         children: [
-          { path: "", element: <MealTimeMomentsPage /> },
-          { path: "create", element: <MealTimeMomentsCreatePage /> },
-          { path: "preview", element: <MealTimeMomentsPreviewPage /> },
-          { path: ":mealtimeMoment", element: <MealTimeMomentPage /> },
+          { path: "", element: <MealtimeMomentsPage /> },
+          { path: "create", element: <CreateMealtimeMomentPage /> },
           {
-            path: ":mealtimeMoment/edit",
-            element: <MealTimeMomentsEditMealTimeMomentPage />,
+            path: ":id",
+            children: [
+              {
+                path: "",
+                element: <MealtimeMomentOverviewPage />,
+                id: "mealtime-moment",
+                // loader: async ({ params }) => {
+                //   const mealtimeMoment = await getMealtimeMoment(params.id);
+
+                //   return mealtimeMoment;
+                // },
+              },
+              {
+                path: "edit",
+                element: <EditMealtimeMomentPage />,
+                // loader: async ({ params }) => {
+                //   const mealtimeMoment = await getMealtimeMoment(params.id);
+
+                //   return mealtimeMoment;
+                // },
+              },
+            ],
           },
         ],
       },
@@ -275,9 +291,9 @@ export const router = createBrowserRouter([
           { path: "", element: <ActivitiesPage /> },
           { path: "create", element: <ActivitiesCreatePage /> },
           { path: "preview", element: <ActivitiesPreviewPage /> },
-          { path: ":mealtimeMoment", element: <ActivityPage /> },
+          { path: ":activiy", element: <ActivityPage /> },
           {
-            path: ":mealtimeMoment/edit",
+            path: ":activity/edit",
             element: <ActivitiesEditPage />,
           },
         ],
@@ -319,7 +335,6 @@ export const router = createBrowserRouter([
                   return foodway;
                 },
               },
-              { path: "preview", element: <FoodwaysPreviewPage /> },
             ],
           },
         ],
