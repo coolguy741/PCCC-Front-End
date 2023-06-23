@@ -89,7 +89,7 @@ const components: ThemeComponent[] = [
     height: 2,
     title: "Assessment - Multiple Choice",
     preview: <AMC />,
-    component: <LessonAssessment key="amc" />,
+    component: <LessonAssessment variant="multiple" key="amc" />,
   },
   {
     id: 7,
@@ -97,7 +97,7 @@ const components: ThemeComponent[] = [
     height: 2,
     title: "Assessment - True & False",
     preview: <ATF />,
-    component: <LessonAssessment key="atf" />,
+    component: <LessonAssessment variant="true-or-false" key="atf" />,
   },
   {
     id: 8,
@@ -105,7 +105,7 @@ const components: ThemeComponent[] = [
     height: 2,
     title: "Assessment - Written",
     preview: <AW />,
-    component: <LessonAssessment key="aw" />,
+    component: <LessonAssessment variant="text-area" key="aw" />,
   },
   {
     id: 9,
