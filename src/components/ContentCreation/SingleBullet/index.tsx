@@ -21,7 +21,7 @@ const initialState = {
 };
 
 export function SingleBullet() {
-  const { state, changeEditState, changeText } = useContentCreation(
+  const { state, changeEditState, changeText, deleteText } = useContentCreation(
     initialState as any,
   );
   const listLength = Object.keys(state).length;
@@ -30,15 +30,25 @@ export function SingleBullet() {
     <Style.Container>
       <figcaption>Directions</figcaption>
       <ol>
-        {_.times(listLength, (time) => (
+        {_.times(listLength, (listNameMinusOne) => (
           <li>
-            <span className="sb-list">{time + 1}</span>
+            <span
+              className="sb-list"
+              onClick={() =>
+                deleteText(
+                  listNameMinusOne,
+                  (state as any)[listNameMinusOne].text,
+                )
+              }
+            >
+              {listNameMinusOne + 1}
+            </span>
             <p>
               {" "}
               <DoubleClickToEditComponent
-                mode={(state as any)[time].mode}
-                name={time}
-                text={(state as any)[time].text}
+                mode={(state as any)[listNameMinusOne].mode}
+                name={listNameMinusOne}
+                text={(state as any)[listNameMinusOne].text}
                 changeEditState={changeEditState}
                 setText={changeText}
               />

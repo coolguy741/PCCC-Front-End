@@ -37,5 +37,9 @@ export function useContentCreation(initialState: State) {
     setState(newState);
   }
 
-  return { state, changeEditState, changeText };
+  function deleteText(name: any, text: string) {
+    console.log(name, state, text);
+  }
+
+  return { state, changeEditState, changeText, deleteText };
 }
