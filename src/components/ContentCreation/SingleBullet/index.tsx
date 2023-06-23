@@ -1,24 +1,38 @@
+import _ from "lodash";
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
+
+const initialState = {
+  0: {
+    mode: "view",
+    text: "Combine all the ingredients together in a large bowl, mix until well combined.",
+  },
+  1: {
+    mode: "view",
+    text: "Refrigerate for about 30 minutes",
+  },
+  2: {
+    mode: "view",
+    text: `Scoop out a tablespoon portion of mixture, roll each portion in the
+    palm of your hands and place each ball into a resealable container for
+    storage.`,
+  },
+};
 
 export function SingleBullet() {
+  const { state, changeEditState } = useContentCreation(initialState as any);
+  const listLength = Object.keys(state).length;
+
   return (
     <Style.Container>
       <figcaption>Directions</figcaption>
       <ol>
-        <li>
-          <span>1</span>
-          Combine all the ingredients together in a large bowl, mix until well
-          combined.
-        </li>
-        <li>
-          <span>2</span>Refrigerate for about 30 minutes
-        </li>
-        <li>
-          <span>3</span>
-          Scoop out a tablespoon portion of mixture, roll each portion in the
-          palm of your hands and place each ball into a resealable container for
-          storage.
-        </li>
+        {_.times(listLength, (time) => (
+          <li>
+            <span>{time + 1}</span>
+            {(state as any)[time].text}
+          </li>
+        ))}
       </ol>
     </Style.Container>
   );
@@ -49,6 +63,7 @@ const Style = {
       line-height: 16px;
       color: #646464;
       margin-bottom: 1.25vh;
+      align-items: center;
     }
 
     span {
