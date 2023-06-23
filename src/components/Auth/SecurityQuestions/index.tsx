@@ -19,6 +19,16 @@ interface SecurityQuestion {
 }
 
 export const SecurityQuestions = () => {
+  const { api } = useAPI();
+  const navigate = useNavigate();
+  const [isPassword6Chars, setIsPassword6Chars] = useState<boolean>(false);
+  const [isPasswordLowercase, setIsPasswordLowercase] =
+    useState<boolean>(false);
+  const [isPasswordUppercase, setIsPasswordUppercase] =
+    useState<boolean>(false);
+  const [isPasswordNumber, setIsPasswordNumber] = useState<boolean>(false);
+  const [isPasswordSpecialChar, setIsPasswordSpecialChar] =
+    useState<boolean>(false);
   const [firstSecurityQuestions, setFirstSecurityQuestions] = useState<
     SecurityQuestion[] | null | undefined
   >([]);
@@ -60,10 +70,6 @@ export const SecurityQuestions = () => {
       thirdSecurityQuestionId: "",
     },
   });
-
-  const navigate = useNavigate();
-
-  const { api } = useAPI();
 
   const getSecurityQuestions = useCallback(async () => {
     const { data } =
@@ -142,12 +148,50 @@ export const SecurityQuestions = () => {
     }
   };
 
+  useEffect(() => {
+    if (watch("password").length >= 6) {
+      setIsPassword6Chars(true);
+    } else {
+      setIsPassword6Chars(false);
+    }
+
+    if (/[A-Z]/.test(watch("password"))) {
+      setIsPasswordUppercase(true);
+    } else {
+      setIsPasswordUppercase(false);
+    }
+
+    if (/[a-z]/.test(watch("password"))) {
+      setIsPasswordLowercase(true);
+    } else {
+      setIsPasswordLowercase(false);
+    }
+
+    if (/[0-9]/.test(watch("password"))) {
+      setIsPasswordNumber(true);
+    } else {
+      setIsPasswordNumber(false);
+    }
+
+    //eslint-disable-next-line
+    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(watch("password"))) {
+      setIsPasswordSpecialChar(true);
+    } else {
+      setIsPasswordSpecialChar(false);
+    }
+  }, [watch("password")]);
+
   return (
     <Style.Container
       onSubmit={handleSubmit(submitHandler)}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      isPasswordLowercase={isPasswordLowercase}
+      isPassword6Chars={isPassword6Chars}
+      isPasswordNumber={isPasswordNumber}
+      isPasswordSpecialChar={isPasswordSpecialChar}
+      isPasswordUppercase={isPasswordUppercase}
     >
       <section className="sign-up-password">
         <h1>Sign Up</h1>
@@ -197,6 +241,24 @@ export const SecurityQuestions = () => {
               )}
             />
           </fieldset>
+          <div className="requirements">
+            <div className="six-chars">
+              <span />
+              At least 6 characters
+            </div>
+            <div className="lowercase">
+              <span />
+              One lowercase character
+            </div>
+            <div className="uppercase">
+              <span />
+              One uppercase character
+            </div>
+            <div className="number-special">
+              <span />
+              One number and special character
+            </div>
+          </div>
         </article>
       </section>
 
@@ -355,7 +417,13 @@ export const SecurityQuestions = () => {
 };
 
 const Style = {
-  Container: styled(motion.form)`
+  Container: styled(motion.form)<{
+    isPassword6Chars: boolean;
+    isPasswordLowercase: boolean;
+    isPasswordUppercase: boolean;
+    isPasswordNumber: boolean;
+    isPasswordSpecialChar: boolean;
+  }>`
     width: 80%;
     height: auto;
     display: flex;
@@ -402,6 +470,58 @@ const Style = {
       .password {
         ${glassBackground};
         margin-top: ${convertToRelativeUnit(35, "vh")};
+
+        .requirements {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+
+          div {
+            color: var(--neutral-600);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: ${convertToRelativeUnit(16, "vh")};
+
+            span {
+              display: block;
+              box-shadow: 0 0 0 1px var(--neutral-500);
+              width: 17px;
+              height: 17px;
+              border-radius: 50%;
+            }
+          }
+
+          .six-chars {
+            span {
+              background-color: ${(props) =>
+                props.isPassword6Chars ? "var(--green-500)" : ""};
+            }
+          }
+
+          .lowercase {
+            span {
+              background-color: ${(props) =>
+                props.isPasswordLowercase ? "var(--green-500)" : ""};
+            }
+          }
+
+          .uppercase {
+            span {
+              background-color: ${(props) =>
+                props.isPasswordUppercase ? "var(--green-500)" : ""};
+            }
+          }
+
+          .number-special {
+            span {
+              background-color: ${(props) =>
+                props.isPasswordNumber && props.isPasswordSpecialChar
+                  ? "var(--green-500)"
+                  : ""};
+            }
+          }
+        }
       }
 
       // TODO: Make unique component, avoid repetition.
