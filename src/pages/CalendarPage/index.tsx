@@ -92,7 +92,7 @@ export const CalendarPage = () => {
             </div>
           </Style.CalendarSideMenu>
         </Style.CalendarContainer>
-        {user?.role === "admin" && (
+        {user?.role === "professional" && (
           <AddEventModal
             position={position}
             isOpen={isOpen}
