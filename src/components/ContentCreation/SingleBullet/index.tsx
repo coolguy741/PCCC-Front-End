@@ -1,6 +1,7 @@
 import _ from "lodash";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 const initialState = {
   0: {
@@ -20,7 +21,9 @@ const initialState = {
 };
 
 export function SingleBullet() {
-  const { state, changeEditState } = useContentCreation(initialState as any);
+  const { state, changeEditState, changeText } = useContentCreation(
+    initialState as any,
+  );
   const listLength = Object.keys(state).length;
 
   return (
@@ -29,8 +32,17 @@ export function SingleBullet() {
       <ol>
         {_.times(listLength, (time) => (
           <li>
-            <span>{time + 1}</span>
-            {(state as any)[time].text}
+            <span className="sb-list">{time + 1}</span>
+            <p>
+              {" "}
+              <DoubleClickToEditComponent
+                mode={(state as any)[time].mode}
+                name={time}
+                text={(state as any)[time].text}
+                changeEditState={changeEditState}
+                setText={changeText}
+              />
+            </p>
           </li>
         ))}
       </ol>
@@ -58,15 +70,19 @@ const Style = {
 
     li {
       display: flex;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 16px;
-      color: #646464;
       margin-bottom: 1.25vh;
       align-items: center;
     }
 
-    span {
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #646464;
+      width: 100%;
+    }
+
+    span.sb-list {
       background: linear-gradient(180deg, #f87c56 0%, #f65321 91.9%);
       border-radius: 80.1418px;
       font-size: 2vh;
