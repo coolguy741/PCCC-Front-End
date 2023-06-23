@@ -31,7 +31,7 @@ export function Image({
             weight={600}
             size={convertToRelativeUnit(16, "vh")}
           >
-            Add Image or Video
+            {variant === "img-only" ? "Add Image" : "Add Image or Video"}
           </Typography>
         </div>
       )}
