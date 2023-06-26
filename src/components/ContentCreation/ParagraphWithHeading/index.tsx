@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { ThemeComponentProps } from "../types";
 
 const pWithPState: any = {
   heading: {
@@ -14,9 +15,15 @@ const pWithPState: any = {
   },
 };
 
-export function ParagraphWithHeading() {
-  const { state, changeEditState, changeText } =
-    useContentCreation(pWithPState);
+export function ParagraphWithHeading({
+  componentState,
+  slideIndex,
+  componentIndex,
+}: ThemeComponentProps) {
+  const { state, changeEditState, changeText } = useContentCreation(
+    componentState ?? pWithPState,
+  );
+
   return (
     <Style.Container>
       <Typography

@@ -1,10 +1,12 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { Image } from "../Image/image";
+import { ThemeComponentProps } from "../types";
 
-const titleState: any = {
+const initialState: any = {
   tag: { mode: "view", text: "Overview" },
   heading: {
     mode: "view",
@@ -27,8 +29,22 @@ many things to know, and many ways to know them.`,
   },
 };
 
-export function Title() {
-  const { state, changeEditState, changeText } = useContentCreation(titleState);
+export function Title({
+  componentState,
+  slideIndex,
+  componentIndex,
+}: ThemeComponentProps) {
+  const { state, changeEditState, changeText, setComponentPosition } =
+    useContentCreation(componentState ?? initialState);
+
+  useEffect(() => {
+    if (slideIndex !== undefined && componentIndex !== undefined) {
+      setComponentPosition({
+        slideIndex,
+        componentIndex,
+      });
+    }
+  }, [slideIndex, componentIndex, setComponentPosition]);
 
   return (
     <Style.Container>

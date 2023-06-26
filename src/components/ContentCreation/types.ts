@@ -30,3 +30,9 @@ export type TagTypes = TitleType | PWithPType;
 export type TitleState = Record<TitleType, CCFormat>;
 
 export type State = Record<TagTypes, CCFormat>;
+
+export type ThemeComponentProps = {
+  componentState?: State;
+  slideIndex?: number;
+  componentIndex?: number;
+};

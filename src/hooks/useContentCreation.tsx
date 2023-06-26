@@ -1,8 +1,15 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import { State, TitleType } from "../components/ContentCreation/types";
+import { useThemeStore } from "../stores/themeStore";
 
 export function useContentCreation(initialState: State) {
   const [state, setState] = useState<State>(initialState);
+  const [componentPosition, setComponentPosition] =
+    useState<{ slideIndex: number; componentIndex: number }>();
+  const { updatePageState } = useThemeStore();
+  const { pathname } = useLocation();
 
   function changeEditState(tag: TitleType) {
     if (state[tag].mode === "edit") {
@@ -15,14 +22,16 @@ export function useContentCreation(initialState: State) {
       };
       setState(newState);
     } else {
-      const newState = {
-        ...state,
-        [tag]: {
-          ...state[tag],
-          mode: "edit",
-        },
-      };
-      setState(newState);
+      if (!pathname.endsWith("preview")) {
+        const newState = {
+          ...state,
+          [tag]: {
+            ...state[tag],
+            mode: "edit",
+          },
+        };
+        setState(newState);
+      }
     }
   }
 
@@ -34,8 +43,14 @@ export function useContentCreation(initialState: State) {
         text: newText,
       },
     };
+    componentPosition &&
+      updatePageState(
+        componentPosition.slideIndex,
+        componentPosition.componentIndex,
+        newState,
+      );
     setState(newState);
   }
 
-  return { state, changeEditState, changeText };
+  return { state, changeEditState, changeText, setComponentPosition };
 }

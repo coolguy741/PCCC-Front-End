@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { ThemeComponentProps } from "../types";
 
 const npState: any = {
   number: {
@@ -19,8 +20,14 @@ const npState: any = {
   },
 };
 
-export function NumberedParagraph() {
-  const { state, changeEditState, changeText } = useContentCreation(npState);
+export function NumberedParagraph({
+  componentState,
+  slideIndex,
+  componentIndex,
+}: ThemeComponentProps) {
+  const { state, changeEditState, changeText } = useContentCreation(
+    componentState ?? npState,
+  );
   return (
     <Style.Container>
       <Typography size="8vh" ml="2vw" weight={700} color="orange-500">

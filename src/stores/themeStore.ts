@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+import { State as ComponentState } from "../components/ContentCreation/types";
 import { Language, ThemeComponent } from "../pages/types";
 
 interface IPage {
@@ -27,6 +28,11 @@ interface State extends ThemeProp {
   changeStep: (step: number) => void;
   addSlide: () => void;
   updatePage: (slide: ThemeComponent[]) => void;
+  updatePageState: (
+    slideIndex: number,
+    index: number,
+    state: ComponentState,
+  ) => void;
   setLang: (lang: Language) => void;
   setSlideIndex: (slideIndex: number) => void;
   setItemIds: (activityId: string) => void;
@@ -79,7 +85,7 @@ export const useThemeStore = create<State>()((set) => ({
       ],
     })),
   setSlideIndex: (slideIndex) => set(() => ({ slideIndex })),
-  updatePage: (slide) =>
+  updatePage: (slide: ThemeComponent[]) =>
     set(({ theme, slideIndex, currentStep }) => ({
       theme: theme.map((page, index) => {
         if (index === currentStep) {
@@ -126,6 +132,15 @@ export const useThemeStore = create<State>()((set) => ({
       en: { theme },
       theme: [{ slides: [[]] }],
       currentLang: "fr",
+    })),
+  updatePageState: (sIndex, componentIndex, componentState) =>
+    set(({ theme, currentStep }) => ({
+      theme: theme.map((page, index) => {
+        if (index === currentStep) {
+          page.slides[sIndex][componentIndex].componentState = componentState;
+        }
+        return page;
+      }),
     })),
   init: () => set(() => ({ ...initialState })),
 }));
