@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { State, TitleType } from "../components/ContentCreation/types";
+import { TitleType } from "../components/ContentCreation/types";
 
-export function useContentCreation(initialState: State) {
-  const [state, setState] = useState<State>(initialState);
+export function useContentCreation(initialState: any) {
+  const [state, setState] = useState<any>(initialState);
 
   function changeEditState(tag: TitleType) {
     if (state[tag].mode === "edit") {
@@ -37,9 +37,27 @@ export function useContentCreation(initialState: State) {
     setState(newState);
   }
 
-  function deleteText(name: any, text: string) {
-    console.log(name, state, text);
+  function deleteListItem(name: any) {
+    let stateCopy = [...state];
+    delete stateCopy[name];
+
+    // delete leaves an "empty" value in the array
+    // removed with filter
+    stateCopy = stateCopy.filter(Boolean);
+
+    setState(stateCopy);
   }
 
-  return { state, changeEditState, changeText, deleteText };
+  function addListItem() {
+    const newState = [
+      ...state,
+      {
+        mode: "view",
+        text: "click to edit",
+      },
+    ];
+    setState(newState);
+  }
+
+  return { state, changeEditState, changeText, deleteListItem, addListItem };
 }

@@ -3,27 +3,26 @@ import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-const initialState = {
-  0: {
+const initialState = [
+  {
     mode: "view",
     text: "Combine all the ingredients together in a large bowl, mix until well combined.",
   },
-  1: {
+  {
     mode: "view",
     text: "Refrigerate for about 30 minutes",
   },
-  2: {
+  {
     mode: "view",
     text: `Scoop out a tablespoon portion of mixture, roll each portion in the
     palm of your hands and place each ball into a resealable container for
     storage.`,
   },
-};
+];
 
 export function SingleBullet() {
-  const { state, changeEditState, changeText, deleteText } = useContentCreation(
-    initialState as any,
-  );
+  const { state, changeEditState, changeText, deleteListItem } =
+    useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
@@ -31,15 +30,10 @@ export function SingleBullet() {
       <figcaption>Directions</figcaption>
       <ol>
         {_.times(listLength, (listNameMinusOne) => (
-          <li>
+          <li key={listNameMinusOne}>
             <span
               className="sb-list"
-              onClick={() =>
-                deleteText(
-                  listNameMinusOne,
-                  (state as any)[listNameMinusOne].text,
-                )
-              }
+              onClick={() => deleteListItem(listNameMinusOne)}
             >
               {listNameMinusOne + 1}
             </span>
