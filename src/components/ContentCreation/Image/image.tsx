@@ -4,7 +4,13 @@ import { Typography } from "../../Typography";
 import Add from "../Icons/add";
 import Shuffle from "../Icons/shuffle";
 
-export function Image({ img }: { img: string }) {
+export function Image({
+  img,
+  variant,
+}: {
+  img: string;
+  variant?: "img-only" | "all";
+}) {
   return (
     <Style.Container>
       <img src={img} alt="" />
@@ -18,9 +24,6 @@ export function Image({ img }: { img: string }) {
             <button>
               <Shuffle />
             </button>
-            {/* <button className="img-delete">
-              <Delete />
-            </button> */}
           </div>
           <Typography
             color="white"
@@ -28,7 +31,7 @@ export function Image({ img }: { img: string }) {
             weight={600}
             size={convertToRelativeUnit(16, "vh")}
           >
-            Add Image or Video
+            {variant === "img-only" ? "Add Image" : "Add Image or Video"}
           </Typography>
         </div>
       )}

@@ -1,3 +1,4 @@
+import Spline from "@splinetool/react-spline";
 import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
@@ -75,7 +76,7 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
         <Button to={tile.buttonLink}>{tile.buttonText}</Button>
       </article>
 
-      <article className="image-container" onClick={handleClick}>
+      <article className="canvas-container" onClick={handleClick}>
         {isShowingBubble && (
           <div className="bubble-container">
             <SpeechBubble
@@ -86,10 +87,12 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
             </SpeechBubble>
           </div>
         )}
-        <img
+        <Spline scene="https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode" />
+
+        {/* <img
           src={tile.image}
           alt={`${tile.titleFirstLine} ${tile.titleSecondLine}`}
-        />
+        /> */}
       </article>
     </Style.PageContainer>
   );
@@ -108,11 +111,16 @@ const Style = {
 
     article {
       width: 42.5%;
+      z-index: 1;
     }
 
-    .image-container {
-      width: 55%;
-      margin-top: 5%;
+    .canvas-container {
+      width: 100vw;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
 
       .bubble-container {
         position: relative;
@@ -120,9 +128,9 @@ const Style = {
         place-items: center;
       }
 
-      img {
+      /* img {
         width: 100%;
-      }
+      } */
     }
   `,
 };

@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { State, TitleType } from "../components/ContentCreation/types";
+import {
+  CCFormat,
+  State,
+  TitleType,
+} from "../components/ContentCreation/types";
 import { useThemeStore } from "../stores/themeStore";
 
 export function useContentCreation(initialState: State) {
@@ -52,5 +56,34 @@ export function useContentCreation(initialState: State) {
     setState(newState);
   }
 
-  return { state, changeEditState, changeText, setComponentPosition };
+  function deleteListItem(name: any) {
+    let stateCopy = [...(state as unknown as CCFormat[])];
+    delete stateCopy[name];
+
+    // delete leaves an "empty" value in the array
+    // removed with filter
+    stateCopy = stateCopy.filter(Boolean);
+
+    setState(stateCopy as unknown as State);
+  }
+
+  function addListItem() {
+    const newState = [
+      ...(state as unknown as CCFormat[]),
+      {
+        mode: "view",
+        text: "click to edit",
+      },
+    ];
+    setState(newState as unknown as State);
+  }
+
+  return {
+    state,
+    changeEditState,
+    changeText,
+    deleteListItem,
+    addListItem,
+    setComponentPosition,
+  };
 }

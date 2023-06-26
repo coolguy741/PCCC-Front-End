@@ -45,7 +45,7 @@ export const MealPlanGenerator = () => {
       exit={{ opacity: 0 }}
       layout
     >
-      {user?.role !== "admin" && (
+      {user?.role !== "professional" && (
         <>
           <Tag
             title="Input recipes"

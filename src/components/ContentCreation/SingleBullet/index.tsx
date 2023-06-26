@@ -1,24 +1,54 @@
+import _ from "lodash";
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+
+const initialState = [
+  {
+    mode: "view",
+    text: "Combine all the ingredients together in a large bowl, mix until well combined.",
+  },
+  {
+    mode: "view",
+    text: "Refrigerate for about 30 minutes",
+  },
+  {
+    mode: "view",
+    text: `Scoop out a tablespoon portion of mixture, roll each portion in the
+    palm of your hands and place each ball into a resealable container for
+    storage.`,
+  },
+];
 
 export function SingleBullet() {
+  const { state, changeEditState, changeText, deleteListItem } =
+    useContentCreation(initialState as any);
+  const listLength = Object.keys(state).length;
+
   return (
     <Style.Container>
       <figcaption>Directions</figcaption>
       <ol>
-        <li>
-          <span>1</span>
-          Combine all the ingredients together in a large bowl, mix until well
-          combined.
-        </li>
-        <li>
-          <span>2</span>Refrigerate for about 30 minutes
-        </li>
-        <li>
-          <span>3</span>
-          Scoop out a tablespoon portion of mixture, roll each portion in the
-          palm of your hands and place each ball into a resealable container for
-          storage.
-        </li>
+        {_.times(listLength, (listNameMinusOne) => (
+          <li key={listNameMinusOne}>
+            <span
+              className="sb-list"
+              onClick={() => deleteListItem(listNameMinusOne)}
+            >
+              {listNameMinusOne + 1}
+            </span>
+            <p>
+              {" "}
+              <DoubleClickToEditComponent
+                mode={(state as any)[listNameMinusOne].mode}
+                name={listNameMinusOne}
+                text={(state as any)[listNameMinusOne].text}
+                changeEditState={changeEditState}
+                setText={changeText}
+              />
+            </p>
+          </li>
+        ))}
       </ol>
     </Style.Container>
   );
@@ -44,14 +74,19 @@ const Style = {
 
     li {
       display: flex;
+      margin-bottom: 1.25vh;
+      align-items: center;
+    }
+
+    p {
       font-weight: 400;
       font-size: 14px;
       line-height: 16px;
       color: #646464;
-      margin-bottom: 1.25vh;
+      width: 100%;
     }
 
-    span {
+    span.sb-list {
       background: linear-gradient(180deg, #f87c56 0%, #f65321 91.9%);
       border-radius: 80.1418px;
       font-size: 2vh;

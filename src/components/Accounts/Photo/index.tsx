@@ -16,7 +16,7 @@ export const Photo = ({
   return (
     <Style.Container size={width}>
       <img className="image" src={src} alt={alt} width={width} height={width} />
-      {role !== "Admin" && (
+      {role !== "professional" && (
         <img
           className="icon"
           src={
