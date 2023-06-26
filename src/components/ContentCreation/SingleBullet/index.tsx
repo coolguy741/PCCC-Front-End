@@ -3,42 +3,46 @@ import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-const initialState = {
-  0: {
+const initialState = [
+  {
     mode: "view",
     text: "Combine all the ingredients together in a large bowl, mix until well combined.",
   },
-  1: {
+  {
     mode: "view",
     text: "Refrigerate for about 30 minutes",
   },
-  2: {
+  {
     mode: "view",
     text: `Scoop out a tablespoon portion of mixture, roll each portion in the
     palm of your hands and place each ball into a resealable container for
     storage.`,
   },
-};
+];
 
 export function SingleBullet() {
-  const { state, changeEditState, changeText } = useContentCreation(
-    initialState as any,
-  );
+  const { state, changeEditState, changeText, deleteListItem } =
+    useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
     <Style.Container>
       <figcaption>Directions</figcaption>
       <ol>
-        {_.times(listLength, (time) => (
-          <li>
-            <span className="sb-list">{time + 1}</span>
+        {_.times(listLength, (listNameMinusOne) => (
+          <li key={listNameMinusOne}>
+            <span
+              className="sb-list"
+              onClick={() => deleteListItem(listNameMinusOne)}
+            >
+              {listNameMinusOne + 1}
+            </span>
             <p>
               {" "}
               <DoubleClickToEditComponent
-                mode={(state as any)[time].mode}
-                name={time}
-                text={(state as any)[time].text}
+                mode={(state as any)[listNameMinusOne].mode}
+                name={listNameMinusOne}
+                text={(state as any)[listNameMinusOne].text}
                 changeEditState={changeEditState}
                 setText={changeText}
               />
