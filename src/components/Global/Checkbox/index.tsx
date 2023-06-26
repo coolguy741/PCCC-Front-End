@@ -30,6 +30,7 @@ const Style = {
     &[type="checkbox"] {
       -webkit-appearance: none;
       appearance: none;
+      cursor: pointer;
       background-color: #fff;
       padding: 0;
       margin: 0;
