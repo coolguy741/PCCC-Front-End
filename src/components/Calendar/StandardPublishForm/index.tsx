@@ -63,7 +63,7 @@ export const StandardPublishForm = ({
           <div className="date-picker-row">
             <TimeSelect value={startTime} onChange={setStartTime} />
             <TimeSelect value={endTime} onChange={setEndTime} />
-            <div className="date-picker-row">
+            <div className="all-day-btn">
               <Checkbox />
               <label>All Day</label>
             </div>
@@ -116,11 +116,12 @@ const Style = {
           flex-direction: row;
           gap: 1rem;
 
-          .date-picker-row {
+          .all-day-btn {
             display: flex;
             gap: 1.5rem;
             justify-content: center;
             align-items: center;
+            min-width: 25%;
           }
         }
       }

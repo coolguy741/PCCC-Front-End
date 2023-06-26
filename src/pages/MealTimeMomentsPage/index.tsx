@@ -1,25 +1,17 @@
-import styled from "styled-components";
-import { MealtimeMomentsHeader } from "../../components/MealtimeMoment/MealtimeMomentsHeader";
+import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
+import mockData from "../../lib/mockData/activities/activities.json";
 
-interface MealtimeMomentsBuilderPageProps {
-  children: JSX.Element;
-}
+export const MealtimeMomentsPage = () => {
+  const handleSelectionChange = (id: number, isSelected: boolean) => {
+    return;
+  };
 
-export const MealtimeMomentsBuilderPage = ({
-  children,
-}: MealtimeMomentsBuilderPageProps) => {
   return (
-    <Style.Container>
-      <MealtimeMomentsHeader />
-      <div className="content">{children}</div>
-    </Style.Container>
+    <ContentListAdminPageTemplate
+      title={"Mealtime Moments"}
+      selectsGroup={["Sort"]}
+      listData={mockData.activities}
+      onSelectionChange={handleSelectionChange}
+    />
   );
-};
-
-const Style = {
-  Container: styled.div`
-    .content {
-      padding: 11px 0px;
-    }
-  `,
 };
