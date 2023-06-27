@@ -164,7 +164,7 @@ export const CloudDrivePage = () => {
                 <Typography
                   color="white"
                   weight={600}
-                  size={convertToRelativeUnit(18, "vh")}
+                  size={convertToRelativeUnit(15, "vh")}
                 >
                   Upload
                 </Typography>
@@ -193,7 +193,7 @@ const Style = {
 
       .cd-folders-menu {
         width: 100%;
-        height: 15%;
+        height: 18%;
       }
     }
 
@@ -214,12 +214,12 @@ const Style = {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 2.5vh;
+        margin-bottom: 1.5vh;
 
         div {
           display: flex;
           height: 100%;
-          width: 25%;
+          width: 27.5%;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -239,7 +239,7 @@ const Style = {
 
           button.cdf-upload {
             display: flex;
-            padding: 10px 20px;
+            padding: 10px 25px;
             justify-content: center;
             align-items: center;
             background: var(
