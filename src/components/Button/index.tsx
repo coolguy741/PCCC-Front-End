@@ -16,6 +16,7 @@ export interface ButtonProps
   fullWidth?: boolean;
   icon?: string | JSX.Element;
   iconPosition?: string;
+  dontRotate?: boolean;
 }
 
 function Button({
@@ -214,11 +215,11 @@ function getButtonSize(props: ButtonProps) {
 
 function getButtonSVGAnim(props: ButtonProps) {
   const { iconPosition } = props;
-  let rotateAngle;
+  let rotateAngle = "0deg";
 
   if (iconPosition === "left") {
     rotateAngle = "45deg";
-  } else {
+  } else if (iconPosition === "right") {
     rotateAngle = "-45deg";
   }
 
