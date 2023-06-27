@@ -138,9 +138,19 @@ export const CloudDrivePage = () => {
           <CDHeader />
         </div>
         <div className="cd-files-menu">
-          <Typography tag="h2" color="neutral-800" weight={600}>
-            Files
-          </Typography>
+          <div className="cdf-menu-options">
+            <Typography
+              tag="h2"
+              size="2.5vh"
+              color="neutral-800"
+              weight={600}
+              mb="1vh"
+            >
+              Files
+            </Typography>
+            <div></div>
+          </div>
+          <article className="cd-content"></article>
         </div>
       </section>
       <section className="cloud-drive-storage "></section>
@@ -156,18 +166,37 @@ const Style = {
     justify-content: space-between;
 
     .cloud-drive-folders {
-      width: 71%;
+      width: 76%;
+      display: flex;
+      flex-direction: column;
 
       .cd-folders-menu {
         width: 100%;
-        height: 18.5%;
+        height: 15%;
       }
     }
 
     .cloud-drive-storage {
-      width: 27.5%;
+      width: 22.5%;
       margin-top: 4.5vh;
       ${glassBackground};
+    }
+
+    .cd-files-menu {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .cdf-menu-options {
+        height: 5vh;
+        width: 100%;
+      }
+
+      article.cd-content {
+        flex-grow: 1;
+        border-radius: 16px;
+        ${glassBackground};
+      }
     }
   `,
 };

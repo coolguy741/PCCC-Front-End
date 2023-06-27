@@ -14,7 +14,7 @@ export function CDHeader() {
 const Style = {
   Container: styled.article`
     width: 100%;
-    height: 7.5vh;
+    height: 6.5vh;
     display: flex;
     justify-content: space-between;
 
