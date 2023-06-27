@@ -1,10 +1,37 @@
-import _ from "lodash";
 import styled from "styled-components";
+
+const folder_options = [
+  {
+    title: "Documents",
+    description: "",
+    icon: "",
+  },
+  {
+    title: "Documents",
+    description: "",
+    icon: "",
+  },
+  {
+    title: "Documents",
+    description: "",
+    icon: "",
+  },
+  {
+    title: "Documents",
+    description: "",
+    icon: "",
+  },
+  {
+    title: "Documents",
+    description: "",
+    icon: "",
+  },
+];
 
 export function CDHeader() {
   return (
     <Style.Container>
-      {_.times(5, () => (
+      {folder_options.map(() => (
         <button></button>
       ))}
     </Style.Container>
@@ -14,7 +41,7 @@ export function CDHeader() {
 const Style = {
   Container: styled.article`
     width: 100%;
-    height: 6.5vh;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
 
