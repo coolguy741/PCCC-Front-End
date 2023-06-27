@@ -59,5 +59,23 @@ export function useContentCreation(initialState: any) {
     setState(newState);
   }
 
-  return { state, changeEditState, changeText, deleteListItem, addListItem };
+  function addTimelineStop(name: string) {
+    const newState = {
+      ...state,
+      [name]: {
+        mode: "view",
+        text: "Edit",
+      },
+    };
+    setState(newState);
+  }
+
+  return {
+    state,
+    changeEditState,
+    changeText,
+    deleteListItem,
+    addListItem,
+    addTimelineStop,
+  };
 }
