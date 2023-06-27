@@ -82,9 +82,6 @@ import { TestLandingPage } from "./TestLandingPage";
 import { Themes } from "./ThemeBuilderPage";
 import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
 import { ThemeCreatePreviewPage } from "./ThemeBuilderPage/Create/Preview";
-import { Topics } from "./TopicBuilderPage";
-import { TopicCreatePage } from "./TopicBuilderPage/Create";
-import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
@@ -228,20 +225,6 @@ export const router = createBrowserRouter([
           { path: "", element: <Themes /> },
           { path: "create", element: <ThemeCreatePage /> },
           { path: "preview", element: <ThemeCreatePreviewPage /> },
-        ],
-      },
-      {
-        path: "topics",
-        element: <PageTitleLayout title="Topic" icon="topic-orange-outlined" />,
-        children: [
-          { path: "", element: <Topics /> },
-          { path: "create/:slug", element: <TopicCreatePage /> },
-          {
-            path: "preview/create/:slug",
-            element: <TopicOverviewPage isCreatePreview />,
-          },
-          { path: ":id/:slug/edit", element: <TopicCreatePage /> },
-          { path: ":id/:slug", element: <TopicOverviewPage /> },
         ],
       },
       {

@@ -17,7 +17,7 @@ interface Props {
 
 const fields = [
   "all",
-  "topics",
+  "themes",
   "activities",
   "recipes",
   "mealtime-moments",

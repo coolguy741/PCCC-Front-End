@@ -75,6 +75,17 @@ export function useContentCreation(initialState: State) {
     setState(newState as unknown as State);
   }
 
+  function addTimelineStop(name: string) {
+    const newState = {
+      ...state,
+      [name]: {
+        mode: "view",
+        text: "Edit",
+      },
+    };
+    setState(newState);
+  }
+
   return {
     state,
     changeEditState,
@@ -82,5 +93,6 @@ export function useContentCreation(initialState: State) {
     deleteListItem,
     addListItem,
     setComponentPosition,
+    addTimelineStop,
   };
 }
