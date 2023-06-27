@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const npState: any = {
   number: {
@@ -19,13 +19,17 @@ const npState: any = {
   },
 };
 
-export function NumberedParagraph() {
-  const { state, changeEditState, changeText } = useContentCreation(npState);
+function NumberedParagraphComponent({
+  state,
+  changeEditState,
+  changeText,
+  viewMode,
+}: ComponentProps) {
   return (
     <Style.Container>
       <Typography size="8vh" ml="2vw" weight={700} color="orange-500">
         <DoubleClickToEditComponent
-          mode={state.number.mode}
+          mode={viewMode(state.number.mode)}
           setText={changeText}
           changeEditState={changeEditState}
           text={state.number.text}
@@ -35,7 +39,7 @@ export function NumberedParagraph() {
       <Style.Content>
         <Typography tag="h2" size="2.5vh" weight={600} color="neutral-800">
           <DoubleClickToEditComponent
-            mode={state.heading.mode}
+            mode={viewMode(state.heading.mode)}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.heading.text}
@@ -44,7 +48,7 @@ export function NumberedParagraph() {
         </Typography>
         <Typography color="neutral-600" size="1.65vh">
           <DoubleClickToEditComponent
-            mode={state.desc.mode}
+            mode={viewMode(state.desc.mode)}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.desc.text}
@@ -55,6 +59,11 @@ export function NumberedParagraph() {
     </Style.Container>
   );
 }
+
+export const NumberedParagraph = withThemeStore(
+  NumberedParagraphComponent,
+  npState,
+);
 
 const Style = {
   Container: styled.article`

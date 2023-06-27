@@ -20,7 +20,7 @@ const options = [
 
 export const ThemeInfo = () => {
   const [tags, setTags] = useState(["foraging", "seeds"]);
-  const { slideIndex, currentStep } = useThemeStore();
+  const { slideIndex, currentStep, deleteSlide } = useThemeStore();
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -42,7 +42,10 @@ export const ThemeInfo = () => {
       <Style.Info>
         <div className="flex">
           {currentStep < 4 ? (
-            <Style.SlideDeleteButton>
+            <Style.SlideDeleteButton
+              onClick={deleteSlide}
+              disabled={slideIndex === 0}
+            >
               <Typography variant="h6" as="h6" weight="semi-bold">
                 Slide - {slideIndex + 1}
               </Typography>

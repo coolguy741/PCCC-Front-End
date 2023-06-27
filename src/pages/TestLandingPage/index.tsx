@@ -21,7 +21,7 @@ export const TestLandingPage = () => {
         </div>
         <div className="odd">
           <h1>Panel 1</h1>
-          <Spline scene="https://prod.spline.design/75VaWhQ6daSyqN2c/scene.splinecode" />
+          <Spline scene="https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode" />
         </div>
         <div>
           <h1>Panel 2</h1>

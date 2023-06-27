@@ -81,6 +81,7 @@ import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
 import { Themes } from "./ThemeBuilderPage";
 import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
+import { ThemeCreatePreviewPage } from "./ThemeBuilderPage/Create/Preview";
 import { Topics } from "./TopicBuilderPage";
 import { TopicCreatePage } from "./TopicBuilderPage/Create";
 import { TopicOverviewPage } from "./TopicBuilderPage/Overview";
@@ -226,6 +227,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <Themes /> },
           { path: "create", element: <ThemeCreatePage /> },
+          { path: "preview", element: <ThemeCreatePreviewPage /> },
         ],
       },
       {

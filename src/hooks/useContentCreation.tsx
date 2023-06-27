@@ -1,16 +1,26 @@
 import { useState } from "react";
-import { TitleType } from "../components/ContentCreation/types";
 
-export function useContentCreation(initialState: any) {
-  const [state, setState] = useState<any>(initialState);
+import {
+  CCFormat,
+  ComponentViewMode,
+  State,
+  TitleType,
+} from "../components/ContentCreation/types";
+import { useThemeStore } from "../stores/themeStore";
+
+export function useContentCreation(initialState: State) {
+  const [state, setState] = useState<State>(initialState);
+  const [componentPosition, setComponentPosition] =
+    useState<{ slideIndex: number; componentIndex: number }>();
+  const { updatePageState } = useThemeStore();
 
   function changeEditState(tag: TitleType) {
-    if (state[tag].mode === "edit") {
+    if (state[tag].mode === ComponentViewMode.EDIT) {
       const newState = {
         ...state,
         [tag]: {
           ...state[tag],
-          mode: "view",
+          mode: ComponentViewMode.VIEW,
         },
       };
       setState(newState);
@@ -19,7 +29,7 @@ export function useContentCreation(initialState: any) {
         ...state,
         [tag]: {
           ...state[tag],
-          mode: "edit",
+          mode: ComponentViewMode.EDIT,
         },
       };
       setState(newState);
@@ -34,30 +44,43 @@ export function useContentCreation(initialState: any) {
         text: newText,
       },
     };
+    componentPosition &&
+      updatePageState(
+        componentPosition.slideIndex,
+        componentPosition.componentIndex,
+        newState,
+      );
     setState(newState);
   }
 
   function deleteListItem(name: any) {
-    let stateCopy = [...state];
+    let stateCopy = [...(state as unknown as CCFormat[])];
     delete stateCopy[name];
 
     // delete leaves an "empty" value in the array
     // removed with filter
     stateCopy = stateCopy.filter(Boolean);
 
-    setState(stateCopy);
+    setState(stateCopy as unknown as State);
   }
 
   function addListItem() {
     const newState = [
-      ...state,
+      ...(state as unknown as CCFormat[]),
       {
-        mode: "view",
+        mode: ComponentViewMode.VIEW,
         text: "click to edit",
       },
     ];
-    setState(newState);
+    setState(newState as unknown as State);
   }
 
-  return { state, changeEditState, changeText, deleteListItem, addListItem };
+  return {
+    state,
+    changeEditState,
+    changeText,
+    deleteListItem,
+    addListItem,
+    setComponentPosition,
+  };
 }
