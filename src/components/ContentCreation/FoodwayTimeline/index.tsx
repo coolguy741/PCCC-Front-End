@@ -18,7 +18,7 @@ export const FoodwayTimeline = ({
 }: FoodwayTimelineProps) => {
   const titleState = useMemo(() => ({}), [totalSlides]);
   const { state, changeEditState, changeText, addTimelineStop } =
-    useContentCreation(titleState);
+    useContentCreation(titleState as any);
 
   useEffect(() => {
     addTimelineStop(`stop${totalSlides - 1}`);
@@ -30,8 +30,9 @@ export const FoodwayTimeline = ({
 
     const newStopTimeArr = stopTime.slice();
 
-    if (state[`stop${activeSlide}`]) {
-      newStopTimeArr[activeSlide] = state[`stop${activeSlide}`].text;
+    if (state[`stop${activeSlide}` as keyof typeof state]) {
+      newStopTimeArr[activeSlide] =
+        state[`stop${activeSlide}` as keyof typeof state].text;
     }
 
     setStopTime(newStopTimeArr);
@@ -44,12 +45,16 @@ export const FoodwayTimeline = ({
           <div className="bubble">
             {activeSlide === 0
               ? "Intro"
-              : state[`stop${activeSlide}`] && (
+              : state[`stop${activeSlide}` as keyof typeof state] && (
                   <DoubleClickToEditComponent
-                    mode={state[`stop${activeSlide}`].mode}
+                    mode={
+                      state[`stop${activeSlide}` as keyof typeof state].mode
+                    }
                     setText={changeText}
                     changeEditState={changeEditState}
-                    text={state[`stop${activeSlide}`].text}
+                    text={
+                      state[`stop${activeSlide}` as keyof typeof state].text
+                    }
                     name={`stop${activeSlide}`}
                   />
                 )}
