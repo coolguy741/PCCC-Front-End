@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 import {
   CCFormat,
+  ComponentViewMode,
   State,
   TitleType,
 } from "../components/ContentCreation/types";
@@ -13,29 +13,26 @@ export function useContentCreation(initialState: State) {
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
   const { updatePageState } = useThemeStore();
-  const { pathname } = useLocation();
 
   function changeEditState(tag: TitleType) {
-    if (state[tag].mode === "edit") {
+    if (state[tag].mode === ComponentViewMode.EDIT) {
       const newState = {
         ...state,
         [tag]: {
           ...state[tag],
-          mode: "view",
+          mode: ComponentViewMode.VIEW,
         },
       };
       setState(newState);
     } else {
-      if (!pathname.endsWith("preview")) {
-        const newState = {
-          ...state,
-          [tag]: {
-            ...state[tag],
-            mode: "edit",
-          },
-        };
-        setState(newState);
-      }
+      const newState = {
+        ...state,
+        [tag]: {
+          ...state[tag],
+          mode: ComponentViewMode.EDIT,
+        },
+      };
+      setState(newState);
     }
   }
 
@@ -71,7 +68,7 @@ export function useContentCreation(initialState: State) {
     const newState = [
       ...(state as unknown as CCFormat[]),
       {
-        mode: "view",
+        mode: ComponentViewMode.VIEW,
         text: "click to edit",
       },
     ];

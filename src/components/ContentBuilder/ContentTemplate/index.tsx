@@ -20,9 +20,9 @@ const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
 };
 
 export const ContentTemplate: React.FC<{
-  editable?: boolean;
+  isEditable?: boolean;
   handleDelete?: (event: BaseSyntheticEvent) => void;
-}> = ({ editable = true, handleDelete }) => {
+}> = ({ isEditable = true, handleDelete }) => {
   const { setSlideIndex, theme, currentStep } = useThemeStore();
 
   const onSlideChange = (swiper: SwiperType) => {
@@ -48,7 +48,7 @@ export const ContentTemplate: React.FC<{
         <SwiperSlide key={`slide-${sIndex}`}>
           <Style.ContentWrapper>
             <Style.Content>
-              {editable &&
+              {isEditable &&
                 Array.from({ length: 6 }).map((value, index) => (
                   <Droppable
                     droppableId={`grid-drop-${sIndex}-${index}`}
@@ -99,6 +99,7 @@ export const ContentTemplate: React.FC<{
                       slideIndex: sIndex,
                       componentIndex: index,
                       componentState,
+                      isEditable,
                     })}
                   </Style.Component>
                 ),

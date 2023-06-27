@@ -2,9 +2,29 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 import { ThemeComponent } from "../../../pages/types";
-import { PWH, PWN, TitleIcon } from "../../ContentCreation/Icons";
+import { DoubleBullet } from "../../ContentCreation/DoubleBullet";
+import { DoubleImage } from "../../ContentCreation/DoubleImage";
+import {
+  AMC,
+  ATF,
+  AW,
+  DB,
+  DoubleImageIcon,
+  IC,
+  IWC,
+  PWH,
+  PWN,
+  SB,
+  SingleImageIcon,
+  TitleIcon,
+} from "../../ContentCreation/Icons";
+import { ImageWithCaption } from "../../ContentCreation/ImageWithCaption";
+import { IngredientCard } from "../../ContentCreation/IngredientCard";
+import { LessonAssessment } from "../../ContentCreation/LessonAssessment";
 import { NumberedParagraph } from "../../ContentCreation/NumberedParagraph";
 import { ParagraphWithHeading } from "../../ContentCreation/ParagraphWithHeading";
+import { SingleBullet } from "../../ContentCreation/SingleBullet";
+import { SingleImage } from "../../ContentCreation/SingleImage";
 import { Title } from "../../ContentCreation/Title";
 import { ThemeComponentProps } from "../../ContentCreation/types";
 import Scrollable from "../../Global/Scrollable";
@@ -38,80 +58,78 @@ export const components: ThemeComponent[] = [
       <NumberedParagraph key="np" {...props} />
     ),
   },
-  // {
-  //   id: 4,
-  //   width: 1,
-  //   height: 1,
-  //   title: "1X1 Image",
-  //   preview: <SingleImageIcon />,
-  //   component: (props: ThemeComponentProps) => (
-  //     <SingleImage key="si" {...props} />,
-  //   )
-  // },
-  // {
-  //   id: 5,
-  //   width: 2,
-  //   height: 1,
-  //   title: "Double Image",
-  //   preview: <DoubleImageIcon />,
-  //   component: <DoubleImage key="di" />,
-  // },
-  // {
-  //   id: 6,
-  //   width: 3,
-  //   height: 2,
-  //   title: "Assessment - Multiple Choice",
-  //   preview: <AMC />,
-  //   component: <LessonAssessment key="amc" />,
-  // },
-  // {
-  //   id: 7,
-  //   width: 3,
-  //   height: 2,
-  //   title: "Assessment - True & False",
-  //   preview: <ATF />,
-  //   component: <LessonAssessment key="atf" />,
-  // },
-  // {
-  //   id: 8,
-  //   width: 3,
-  //   height: 2,
-  //   title: "Assessment - Written",
-  //   preview: <AW />,
-  //   component: <LessonAssessment key="aw" />,
-  // },
-  // {
-  //   id: 9,
-  //   width: 1,
-  //   height: 1,
-  //   title: "Image with Caption",
-  //   preview: <IWC />,
-  //   component: <ImageWithCaption key="iwc" />,
-  // },
-  // {
-  //   id: 10,
-  //   width: 1,
-  //   height: 1,
-  //   title: "Bullet 1",
-  //   preview: <SB />,
-  //   component: <SingleBullet key="sb" />,
-  // },
-  // {
-  //   id: 10,
-  //   width: 1,
-  //   height: 1,
-  //   title: "Ingredient Card",
-  //   preview: <IC />,
-  //   component: <IngredientCard key="ic" />,
-  // },
-  // {
-  //   id: 11,
-  //   width: 2,
-  //   height: 1,
-  //   title: "Bullet 2",
-  //   preview: <DB />,
-  //   component: <DoubleBullet key="db" />,
-  // },
+  {
+    id: 4,
+    width: 1,
+    height: 1,
+    title: "1X1 Image",
+    preview: <SingleImageIcon />,
+    component: (props: ThemeComponentProps) => <SingleImage key="si" />,
+  },
+  {
+    id: 5,
+    width: 2,
+    height: 1,
+    title: "Double Image",
+    preview: <DoubleImageIcon />,
+    component: (props: ThemeComponentProps) => <DoubleImage key="di" />,
+  },
+  {
+    id: 6,
+    width: 3,
+    height: 2,
+    title: "Assessment - Multiple Choice",
+    preview: <AMC />,
+    component: (props: ThemeComponentProps) => <LessonAssessment key="amc" />,
+  },
+  {
+    id: 7,
+    width: 3,
+    height: 2,
+    title: "Assessment - True & False",
+    preview: <ATF />,
+    component: (props: ThemeComponentProps) => <LessonAssessment key="atf" />,
+  },
+  {
+    id: 8,
+    width: 3,
+    height: 2,
+    title: "Assessment - Written",
+    preview: <AW />,
+    component: (props: ThemeComponentProps) => <LessonAssessment key="aw" />,
+  },
+  {
+    id: 9,
+    width: 1,
+    height: 1,
+    title: "Image with Caption",
+    preview: <IWC />,
+    component: (props: ThemeComponentProps) => <ImageWithCaption key="iwc" />,
+  },
+  {
+    id: 10,
+    width: 1,
+    height: 1,
+    title: "Bullet 1",
+    preview: <SB />,
+    component: (props: ThemeComponentProps) => <SingleBullet key="sb" />,
+  },
+  {
+    id: 10,
+    width: 1,
+    height: 1,
+    title: "Ingredient Card",
+    preview: <IC />,
+    component: (props: ThemeComponentProps) => <IngredientCard key="ic" />,
+  },
+  {
+    id: 11,
+    width: 2,
+    height: 1,
+    title: "Bullet 2",
+    preview: <DB />,
+    component: (props: ThemeComponentProps) => <DoubleBullet key="db" />,
+  },
 ];
 
 export const ContentBuilderCards: React.FC<{

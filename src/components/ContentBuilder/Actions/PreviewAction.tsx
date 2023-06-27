@@ -65,6 +65,7 @@ const Style = {
   MessageWithSunny: styled.div`
     display: flex;
     position: absolute;
+    top: -40%;
 
     .message {
       background: #ffffff;
@@ -93,7 +94,7 @@ const Style = {
     img {
       position: absolute;
       top: -20%;
-      transform: translate(-5%);
+      transform: translate(10%);
       width: 6vw;
     }
   `,

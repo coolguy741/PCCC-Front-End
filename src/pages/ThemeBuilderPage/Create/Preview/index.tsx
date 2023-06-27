@@ -8,7 +8,7 @@ export const ThemeCreatePreviewPage = () => {
   return (
     <Style.Slide>
       <ContentNavigator />
-      <ContentTemplate editable={false} />
+      <ContentTemplate isEditable={false} />
       <PreviewAction />
     </Style.Slide>
   );

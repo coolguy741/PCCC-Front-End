@@ -10,8 +10,13 @@ export enum ThemeComponents {
 }
 
 // current content component format
+export enum ComponentViewMode {
+  VIEW = "view",
+  EDIT = "edit",
+}
+
 export interface CCFormat {
-  mode: "view" | "edit";
+  mode: ComponentViewMode;
   text: string;
 }
 
@@ -34,5 +39,6 @@ export type State = Record<TagTypes, CCFormat>;
 export type ThemeComponentProps = {
   componentState?: State;
   slideIndex?: number;
+  isEditable?: boolean;
   componentIndex?: number;
 };
