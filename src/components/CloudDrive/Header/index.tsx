@@ -39,7 +39,7 @@ export function CDHeader() {
   return (
     <Style.Container>
       {folder_options.map(({ title, description, icon }) => (
-        <button>
+        <button key={title}>
           <div>{icon}</div>
           <figure>
             <Typography
