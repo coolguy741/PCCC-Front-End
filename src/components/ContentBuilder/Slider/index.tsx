@@ -10,6 +10,28 @@ const tabs = [
   "Activities",
   "Recipes",
 ];
+const Tab: React.FC<{ index: number; currentStep: number; tab: string }> = ({
+  index,
+  currentStep,
+  tab,
+}) => {
+  const { changeStep } = useThemeStore();
+
+  return (
+    <>
+      <span
+        className={`slider-mark ${index < currentStep ? "pass" : ""}`}
+        onClick={() => changeStep(index)}
+      >
+        {index + 1}
+        <span className="slider-label" key={`label-${tab}`}>
+          {tab.replaceAll("-", " ")}
+        </span>
+      </span>
+      <span className={`slider-bar ${index < currentStep ? "pass" : ""}`} />
+    </>
+  );
+};
 
 export const ContentSlider = () => {
   const { currentStep } = useThemeStore();
@@ -17,24 +39,14 @@ export const ContentSlider = () => {
   return (
     <Style.SliderContainer>
       <Style.Slider min={0} max={tabs.length} value={currentStep}>
-        <>
-          {tabs.map((tab, index) => (
-            <>
-              <span
-                className={`slider-mark ${index < currentStep ? "pass" : ""}`}
-                key={`tab-${tab}`}
-              >
-                {index + 1}
-                <span className="slider-label" key={`label-${tab}`}>
-                  {tab.replaceAll("-", " ")}
-                </span>
-              </span>
-              <span
-                className={`slider-bar ${index < currentStep ? "pass" : ""}`}
-              ></span>
-            </>
-          ))}
-        </>
+        {tabs.map((tab, index) => (
+          <Tab
+            index={index}
+            tab={tab}
+            currentStep={currentStep}
+            key={`tab-${tab}`}
+          />
+        ))}
       </Style.Slider>
     </Style.SliderContainer>
   );
