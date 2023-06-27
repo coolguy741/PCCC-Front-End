@@ -21,7 +21,7 @@ const Tab: React.FC<{ index: number; currentStep: number; tab: string }> = ({
     <>
       <span
         className={`slider-mark ${index < currentStep ? "pass" : ""}`}
-        onClick={() => changeStep(index)}
+        onClick={() => index < currentStep && changeStep(index)}
       >
         {index + 1}
         <span className="slider-label" key={`label-${tab}`}>
