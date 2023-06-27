@@ -30,7 +30,7 @@ export const PageTitleLayout: React.FC<PageTitleLayoutProps> = ({
 
 const Style = {
   PageContainer: styled.div`
-    padding: 7vh 40px 2.5vh 64px;
+    padding: 7vh 32px 2.5vh 64px;
     display: flex;
     height: 100vh;
     flex-direction: column;

@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { CDHeader } from "../../components/CloudDrive/Header";
+import { Typography } from "../../components/Typography";
+import { glassBackground } from "../../styles/helpers/glassBackground";
 // import { Icon } from "../../components/Global/Icon";
 // import SharingIcon from "../../components/Icons/Sharing/sharing";
 // import TrashIcon from "../../components/Icons/Trash/trash";
@@ -121,7 +124,25 @@ interface Status {
 export const CloudDrivePage = () => {
   return (
     <Style.Container>
-      <section className="cloud-drive-folders"></section>
+      <section className="cloud-drive-folders">
+        <div className="cd-folders-menu">
+          <Typography
+            tag="h2"
+            size="2.5vh"
+            color="neutral-800"
+            weight={600}
+            mb="1vh"
+          >
+            Folders
+          </Typography>
+          <CDHeader />
+        </div>
+        <div className="cd-files-menu">
+          <Typography tag="h2" color="neutral-800" weight={600}>
+            Files
+          </Typography>
+        </div>
+      </section>
       <section className="cloud-drive-storage "></section>
     </Style.Container>
   );
@@ -130,6 +151,23 @@ export const CloudDrivePage = () => {
 const Style = {
   Container: styled.div`
     height: 100%;
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+
+    .cloud-drive-folders {
+      width: 71%;
+
+      .cd-folders-menu {
+        width: 100%;
+        height: 18.5%;
+      }
+    }
+
+    .cloud-drive-storage {
+      width: 27.5%;
+      margin-top: 4.5vh;
+      ${glassBackground};
+    }
   `,
 };
