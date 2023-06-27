@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
 import { CDHeader } from "../../components/CloudDrive/Header";
 import CDAdd from "../../components/CloudDrive/Icons/cd-add";
 import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
@@ -6,124 +7,6 @@ import CDList from "../../components/CloudDrive/Icons/cd-list";
 import { Typography } from "../../components/Typography";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../styles/helpers/glassBackground";
-// import { Icon } from "../../components/Global/Icon";
-// import SharingIcon from "../../components/Icons/Sharing/sharing";
-// import TrashIcon from "../../components/Icons/Trash/trash";
-
-const FolderNames = [
-  { name: "Documents", numberOfFiles: 100, icon: "file", capacity: 100 },
-  { name: "Videos", numberOfFiles: 100, icon: "camera", capacity: 100 },
-  { name: "Images", numberOfFiles: 100, icon: "image", capacity: 100 },
-  { name: "Audio", numberOfFiles: 100, icon: "music", capacity: 100 },
-  { name: "Download", numberOfFiles: 100, icon: "download", capacity: 100 },
-];
-
-interface FileInterface {
-  name: string;
-  icon: string;
-  fileNameExtension: string;
-  type: string;
-  sharing: string;
-  size: string;
-  date: string;
-}
-
-const files: FileInterface[] = [
-  {
-    name: "Assessment",
-    icon: "file",
-    fileNameExtension: "pdf",
-    type: "document",
-    sharing: "self",
-    size: "2 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Recipe",
-    fileNameExtension: "mp4",
-    icon: "camera",
-    type: "video",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Assessment",
-    fileNameExtension: "pdf",
-    icon: "file",
-    type: "document",
-    sharing: "self",
-    size: "2 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Recipe",
-    fileNameExtension: "mp4",
-    icon: "camera",
-    type: "video",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-];
-
-const progress = [
-  { status: 100 },
-  { status: 100 },
-  { status: 40 },
-  { status: "Upload failed" },
-  { status: 40 },
-];
-
-interface Status {
-  index: number;
-  isOpen: boolean;
-}
 
 export const CloudDrivePage = () => {
   return (
@@ -174,7 +57,7 @@ export const CloudDrivePage = () => {
           <article className="cd-content"></article>
         </div>
       </section>
-      <section className="cloud-drive-storage "></section>
+      <CloudStorage className="cloud-drive-storage" />
     </Style.Container>
   );
 };
@@ -201,6 +84,7 @@ const Style = {
       width: 22.5%;
       margin-top: 4.5vh;
       ${glassBackground};
+      padding: 12px;
     }
 
     .cd-files-menu {
