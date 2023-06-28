@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SwiperType, { Mousewheel, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Button from "../../../components/Button";
-import { PreviewAction } from "../../../components/ContentBuilder/Actions/PreviewAction";
+import { PreviewAction } from "../../../components/ContentBuilder/Components/Actions/PreviewAction";
 import { FoodwayStop } from "../../../components/Foodways/FoodwayStop";
 import { FoodwayTimeline } from "../../../components/Foodways/FoodwayTimeline";
 import { FoodwayTitle } from "../../../components/Foodways/FoodwayTitle";
