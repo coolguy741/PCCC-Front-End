@@ -6,6 +6,11 @@ import {
 export type Unit = "each" | "liter" | "grams";
 export type Color = "orange" | "red" | "blue" | "green" | "yellow" | "neutral";
 export type Language = "en" | "fr";
+export enum ContentBuilderType {
+  THEMES = "themes",
+  ACTIVITIES = "activities",
+  RECIPES = "recipes",
+}
 
 export interface Material {
   unit: Unit;

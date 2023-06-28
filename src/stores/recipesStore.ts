@@ -10,9 +10,9 @@ interface IContent {
 }
 
 interface ThemeProp {
+  maxPageCount: number;
   currentStep: number;
   currentLang: Language;
-  maxPageCount: number;
   slideIndex: number;
   contents: IContent[];
   currentSlide: ThemeComponent[];
@@ -25,7 +25,7 @@ interface ThemeProp {
     contents: IContent[];
   };
 }
-export interface ThemeStoreState extends ThemeProp {
+export interface RecipesStoreState extends ThemeProp {
   changeStep: (step: number) => void;
   addSlide: () => void;
   updatePage: (slide: ThemeComponent[]) => void;
@@ -45,7 +45,7 @@ export interface ThemeStoreState extends ThemeProp {
 
 const initialState: ThemeProp = {
   currentStep: 0,
-  maxPageCount: 6,
+  maxPageCount: 1,
   slideIndex: 0,
   contents: [{ slides: [[]] }],
   currentLang: "en",
@@ -60,7 +60,7 @@ const initialState: ThemeProp = {
   },
 };
 
-export const useThemeStore = create<ThemeStoreState>()((set) => ({
+export const useRecipesStore = create<RecipesStoreState>()((set) => ({
   ...initialState,
   changeStep: (currentStep) =>
     set(({ contents }) => ({

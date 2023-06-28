@@ -4,8 +4,9 @@ import styled from "styled-components";
 import SwiperType from "swiper";
 import { useSwiper } from "swiper/react";
 import Button from "../../../components/Button";
-import { LanguageToggle } from "../../../components/ContentBuilder/ThemeInfo/LangToggle";
-import { Tags } from "../../../components/ContentBuilder/ThemeInfo/Tag";
+import { LanguageToggle } from "../../../components/ContentBuilder/Components/ContentInfo/LangToggle";
+import { Tags } from "../../../components/ContentBuilder/Components/ContentInfo/Tag";
+import { MedaltimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
 import { BackButton } from "../../../components/Global/BackButton";
 import { Icon } from "../../../components/Global/Icon";
 import { Typography } from "../../../components/Global/Typography";
@@ -15,7 +16,6 @@ import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-import { MedaltimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
 
 const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
   const swiper = useSwiper();

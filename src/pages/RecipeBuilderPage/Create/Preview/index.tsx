@@ -1,12 +1,12 @@
 import { ContentBuilderPreview } from "../../../../components/ContentBuilder/Preview";
-import { useThemeStore } from "../../../../stores/themeStore";
+import { useRecipesStore } from "../../../../stores/recipesStore";
 import { ContentBuilderType } from "../../../types";
 
-export const ThemePreviewPage = () => {
+export const RecipePreviewPage = () => {
   return (
     <ContentBuilderPreview
-      type={ContentBuilderType.THEMES}
-      store={useThemeStore()}
+      type={ContentBuilderType.RECIPES}
+      store={useRecipesStore()}
     />
   );
 };

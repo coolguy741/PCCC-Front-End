@@ -20,9 +20,15 @@ export function withThemeStore<P extends ThemeComponentProps>(
   initialState: State,
 ) {
   return function (props: P) {
-    const { componentIndex, componentState, slideIndex, isEditable } = props;
+    const {
+      componentIndex,
+      componentState,
+      slideIndex,
+      isEditable,
+      updatePageState,
+    } = props;
     const { setComponentPosition, state, changeEditState, changeText } =
-      useContentCreation(componentState ?? initialState);
+      useContentCreation(componentState ?? initialState, updatePageState);
 
     useEffect(() => {
       if (slideIndex !== undefined && componentIndex !== undefined) {
