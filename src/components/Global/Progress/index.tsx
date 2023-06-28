@@ -13,7 +13,7 @@ const Style = {
     box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(59.27639389038086px);
     width: 100%;
-    height: 2.5vh;
+    height: ${({ variant }) => (variant === "thick" ? "2.5vh" : "0.25vh")};
     overflow: hidden;
 
     &[value] {

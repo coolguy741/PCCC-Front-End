@@ -3,6 +3,45 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { Progress } from "../../Global/Progress";
 import { Typography } from "../../Typography";
 import FileDropzone from "../FileDropzone";
+import { UploadOption } from "../UploadOption";
+
+const dummy_uploads = [
+  {
+    status: "finished",
+    tag: "mp3",
+    size: "23mb",
+    name: "Audio.mp3",
+    percentage: 100,
+  },
+  {
+    status: "finished",
+    tag: "mp3",
+    size: "23mb",
+    name: "Audio.mp3",
+    percentage: 100,
+  },
+  {
+    status: "uploading",
+    tag: "mp3",
+    size: "23mb",
+    name: "Audio.mp3",
+    percentage: 40,
+  },
+  {
+    status: "errored",
+    tag: "mp3",
+    size: "53mb",
+    name: "Audio.mp3",
+    percentage: 100,
+  },
+  {
+    status: "uploading",
+    tag: "mp3",
+    size: "23mb",
+    name: "Audio.mp3",
+    percentage: 40,
+  },
+];
 
 type Props = {
   className?: string;
@@ -26,6 +65,15 @@ export function CloudStorage(props: Props) {
         <Progress variant="thick" />
       </article>
       <FileDropzone />
+      <div className="cloud-storage-uploads">
+        {dummy_uploads.map((upload, idx) => (
+          <UploadOption
+            key={idx}
+            status={upload.status as any}
+            upload={upload}
+          />
+        ))}
+      </div>
     </Style.Container>
   );
 }
