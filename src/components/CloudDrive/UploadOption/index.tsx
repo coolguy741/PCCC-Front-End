@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Progress } from "../../Global/Progress";
 import { Typography } from "../../Typography";
+import CDAudio from "../Icons/cd-audio";
 import CDCancel from "../Icons/cd-cancel";
 import CDRefresh from "../Icons/cd-refresh";
 
@@ -11,21 +13,44 @@ interface Props {
 
 export function UploadOption(props: Props) {
   const { status, upload } = props;
+
+  function colorOnError(normalColor: string) {
+    if (status === "errored") return "red-500";
+    else return normalColor;
+  }
+
   return (
     <Style.Container status={status}>
       <div className="upload-options">
-        <div className="">
+        <div className="upload-misc">
           <div className="uo-start">
-            <div className="uo-img"></div>
-            <Typography>
+            <div className="uo-img">
+              <CDAudio />
+            </div>
+            <Typography
+              tag="h4"
+              color={colorOnError("neutral-800")}
+              size="1.6vh"
+            >
               {upload.name}
               <br />
-              {upload.size}
+              <Typography color={colorOnError("neutral-400")} size="1.3vh">
+                {upload.size}
+              </Typography>
             </Typography>
           </div>
-          <div className="uo-end"></div>
+          <div className="uo-end">
+            <Typography
+              tag="p"
+              color={colorOnError("neutral-400")}
+              size="1.3vh"
+              mt="2vh"
+            >
+              {status === "errored" ? "failed" : `${upload.percentage}%`}
+            </Typography>
+          </div>
         </div>
-        <Progress variant="thin" />
+        <Progress hasError={status === "errored"} variant="thin" />
       </div>
       <div className="upload-status">
         {status === "errored" ? <CDRefresh /> : <CDCancel />}
@@ -41,9 +66,44 @@ export const Style = {
     align-items: center;
     justify-content: space-between;
     height: 7.5vh;
+    margin-bottom: 1vh;
 
     .upload-options {
-      width: 80%;
+      width: 82.5%;
+      display: flex;
+      flex-direction: column;
+
+      .uo-start,
+      .upload-misc {
+        display: flex;
+      }
+
+      .upload-misc {
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1vh;
+      }
+
+      .uo-img {
+        height: ${convertToRelativeUnit(40, "vh")};
+        display: grid;
+        place-items: center;
+        aspect-ratio: 1 / 1;
+        border-radius: 4px;
+        background: var(
+          --gradient-ui-card,
+          linear-gradient(
+            180deg,
+            rgba(255, 215, 96, 0.8) 0%,
+            rgba(255, 191, 0, 0.8) 100%
+          )
+        );
+        margin-right: 10px;
+
+        svg {
+          height: 50%;
+        }
+      }
     }
 
     .upload-status {

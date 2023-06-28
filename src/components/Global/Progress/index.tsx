@@ -1,13 +1,23 @@
 import styled from "styled-components";
 
-export function Progress({ variant }: { variant: "thin" | "thick" }) {
+interface Props {
+  variant: "thin" | "thick";
+  hasError?: boolean;
+}
+
+export function Progress({ variant, hasError }: Props) {
   return (
-    <Style.Container value={80} max={100} variant={variant}></Style.Container>
+    <Style.Container
+      value={80}
+      max={100}
+      variant={variant}
+      hasError={hasError}
+    />
   );
 }
 
 const Style = {
-  Container: styled.progress<{ variant: "thin" | "thick" }>`
+  Container: styled.progress<Partial<Props>>`
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
@@ -26,10 +36,10 @@ const Style = {
       }
 
       &::-webkit-progress-value {
-        background: var(
-          --gradient-green,
-          linear-gradient(180deg, #4cde96 0%, #20ad67 100%)
-        );
+        background: ${({ hasError }) =>
+          hasError
+            ? "var(--red-500)"
+            : "var(--gradient-green, linear-gradient(180deg, #4cde96 0%, #20ad67 100%))"};
       }
     }
   `,
