@@ -25,6 +25,7 @@ const HUD: FC = () => {
         <HUDMenuOptionStage />
         <Inspect />
         <Inventory />
+        {/* <Settings /> */}
         <Cursor />
         <ToolTip />
       </Fragment>
@@ -35,6 +36,7 @@ const HUD: FC = () => {
       <HUDMenuOptionStage />
       <Inspect />
       <Inventory />
+      {/* <Settings /> */}
       <Cursor />
       <ToolTip />
     </Fragment>
