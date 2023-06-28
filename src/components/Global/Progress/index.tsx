@@ -3,12 +3,13 @@ import styled from "styled-components";
 interface Props {
   variant: "thin" | "thick";
   hasError?: boolean;
+  value?: number | null;
 }
 
-export function Progress({ variant, hasError }: Props) {
+export function Progress({ variant, hasError, value }: Props) {
   return (
     <Style.Container
-      value={80}
+      value={value ?? 80}
       max={100}
       variant={variant}
       hasError={hasError}

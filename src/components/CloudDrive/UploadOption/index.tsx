@@ -50,7 +50,11 @@ export function UploadOption(props: Props) {
             </Typography>
           </div>
         </div>
-        <Progress hasError={status === "errored"} variant="thin" />
+        <Progress
+          hasError={status === "errored"}
+          value={upload.percentage}
+          variant="thin"
+        />
       </div>
       <div className="upload-status">
         {status === "errored" ? <CDRefresh /> : <CDCancel />}
