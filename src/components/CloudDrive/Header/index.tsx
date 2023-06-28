@@ -97,6 +97,7 @@ const Style = {
         backdrop-filter: blur(59.27639389038086px);
         display: grid;
         place-items: center;
+        transition: background 0.3s linear;
       }
 
       figure {
@@ -115,6 +116,10 @@ const Style = {
           rgba(255, 215, 96, 0.8) 0%,
           rgba(255, 191, 0, 0.8) 100%
         );
+
+        div {
+          background: #ffefbf;
+        }
       }
     }
   `,
