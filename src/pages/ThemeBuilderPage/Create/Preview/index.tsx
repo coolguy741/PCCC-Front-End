@@ -1,7 +1,12 @@
-export const TopicCreatePreviewPage = () => {
+import { ContentBuilderPreview } from "../../../../components/ContentBuilder/Preview";
+import { useThemeStore } from "../../../../stores/themeStore";
+import { ContentBuilderType } from "../../../types";
+
+export const ThemePreviewPage = () => {
   return (
-    <>
-      <h1>Topic Create Preview Page</h1>
-    </>
+    <ContentBuilderPreview
+      type={ContentBuilderType.THEMES}
+      store={useThemeStore()}
+    />
   );
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const pWithPState: any = {
   heading: {
@@ -14,9 +14,12 @@ const pWithPState: any = {
   },
 };
 
-export function ParagraphWithHeading() {
-  const { state, changeEditState, changeText } =
-    useContentCreation(pWithPState);
+function ParagraphWithHeadingComponent({
+  state,
+  changeEditState,
+  changeText,
+  viewMode,
+}: ComponentProps) {
   return (
     <Style.Container>
       <Typography
@@ -27,7 +30,7 @@ export function ParagraphWithHeading() {
         color="neutral-800"
       >
         <DoubleClickToEditComponent
-          mode={state.heading.mode}
+          mode={viewMode(state.heading.mode)}
           setText={changeText}
           changeEditState={changeEditState}
           text={state.heading.text}
@@ -36,7 +39,7 @@ export function ParagraphWithHeading() {
       </Typography>
       <Typography color="neutral-600" size="1.5vh">
         <DoubleClickToEditComponent
-          mode={state.desc.mode}
+          mode={viewMode(state.desc.mode)}
           setText={changeText}
           changeEditState={changeEditState}
           text={state.desc.text}
@@ -46,6 +49,11 @@ export function ParagraphWithHeading() {
     </Style.Container>
   );
 }
+
+export const ParagraphWithHeading = withThemeStore(
+  ParagraphWithHeadingComponent,
+  pWithPState,
+);
 
 const Style = {
   Container: styled.article`

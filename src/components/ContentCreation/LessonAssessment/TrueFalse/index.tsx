@@ -1,13 +1,19 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../../styles/helpers/convertToRelativeUnits";
 import { Checkbox } from "../../../Global/Checkbox";
 import { Typography } from "../../../Typography";
 
 export function TrueOrFalse() {
+  const [state, setState] = useState<boolean>(true);
+
+  function changeOption() {
+    setState((prevState) => !prevState);
+  }
   return (
     <Style.Container>
       <fieldset>
-        <Checkbox />
+        <Checkbox onClick={changeOption} checked={state} />
         <Typography
           tag="label"
           weight={600}
@@ -19,7 +25,7 @@ export function TrueOrFalse() {
         </Typography>
       </fieldset>
       <fieldset>
-        <Checkbox />
+        <Checkbox onClick={changeOption} checked={!state} />
         <Typography
           tag="label"
           weight={600}

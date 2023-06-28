@@ -23,35 +23,28 @@ const titleState: any = {
 interface FoodwayStopProps {
   index: number;
   stopTitle: string[] | undefined[];
-  stopTimePeriod: string[] | undefined[];
   stopDescription: string[] | undefined[];
   setStopTitle: (stopTitle: string[] | undefined[]) => void;
-  setStopTimePeriod: (stopTimePeriod: string[] | undefined[]) => void;
   setStopDescription: (stopDescription: string[] | undefined[]) => void;
 }
 
 export function FoodwayStop({
   index,
   stopTitle,
-  stopTimePeriod,
   stopDescription,
   setStopTitle,
-  setStopTimePeriod,
   setStopDescription,
 }: FoodwayStopProps) {
   const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   useEffect(() => {
     const newStopTitleArr = stopTitle.slice();
-    const newStopTimePeriodArr = stopTimePeriod.slice();
     const newStopDescriptionArr = stopDescription.slice();
 
     newStopTitleArr[index] = state.title.text;
-    newStopTimePeriodArr[index] = state.timePeriod.text;
     newStopDescriptionArr[index] = state.desc.text;
 
     setStopTitle(newStopTitleArr);
-    setStopTimePeriod(newStopTimePeriodArr);
     setStopDescription(newStopDescriptionArr);
   }, [state]);
 

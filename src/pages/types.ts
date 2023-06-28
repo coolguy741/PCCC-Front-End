@@ -1,6 +1,16 @@
+import {
+  State,
+  ThemeComponentProps,
+} from "../components/ContentCreation/types";
+
 export type Unit = "each" | "liter" | "grams";
 export type Color = "orange" | "red" | "blue" | "green" | "yellow" | "neutral";
 export type Language = "en" | "fr";
+export enum ContentBuilderType {
+  THEMES = "themes",
+  ACTIVITIES = "activities",
+  RECIPES = "recipes",
+}
 
 export interface Material {
   unit: Unit;
@@ -43,6 +53,7 @@ export interface ThemeComponent {
   y?: number;
   id: number;
   title: string;
-  component: JSX.Element;
+  component: (state: ThemeComponentProps) => JSX.Element;
   preview: JSX.Element;
+  componentState?: State;
 }

@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
+
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { Image } from "../Image/image";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
-const titleState: any = {
+const initialState: any = {
   tag: { mode: "view", text: "Overview" },
   heading: {
     mode: "view",
@@ -27,9 +28,12 @@ many things to know, and many ways to know them.`,
   },
 };
 
-export function Title() {
-  const { state, changeEditState, changeText } = useContentCreation(titleState);
-
+function TitleComponent({
+  state,
+  changeEditState,
+  changeText,
+  viewMode,
+}: ComponentProps) {
   return (
     <Style.Container>
       <div className="tc-content">
@@ -37,7 +41,7 @@ export function Title() {
           <span className="tc-overview">Overview</span>
           <br />
           <DoubleClickToEditComponent
-            mode={state.heading.mode}
+            mode={viewMode(state.heading.mode)}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.heading.text}
@@ -46,7 +50,7 @@ export function Title() {
         </h1>
         <p>
           <DoubleClickToEditComponent
-            mode={state.desc.mode}
+            mode={viewMode(state.desc.mode)}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.desc.text}
@@ -55,7 +59,7 @@ export function Title() {
         </p>
         <h2>
           <DoubleClickToEditComponent
-            mode={state.subHeading.mode}
+            mode={viewMode(state.subHeading.mode)}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.subHeading.text}
@@ -64,7 +68,7 @@ export function Title() {
         </h2>
         <p>
           <DoubleClickToEditComponent
-            mode={state.subDesc.mode}
+            mode={viewMode(state.subDesc.mode)}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.subDesc.text}
@@ -76,6 +80,8 @@ export function Title() {
     </Style.Container>
   );
 }
+
+export const Title = withThemeStore(TitleComponent, initialState);
 
 const Style = {
   Container: styled.section`

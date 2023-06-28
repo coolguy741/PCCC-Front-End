@@ -5,8 +5,8 @@ import styled from "styled-components";
 import SwiperType, { Mousewheel, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import Button from "../../../components/Button";
-import { LanguageToggle } from "../../../components/ContentBuilder/ThemeInfo/LangToggle";
-import { Tags } from "../../../components/ContentBuilder/ThemeInfo/Tag";
+import { LanguageToggle } from "../../../components/ContentBuilder/Components/ContentInfo/LangToggle";
+import { Tags } from "../../../components/ContentBuilder/Components/ContentInfo/Tag";
 import { FoodwayStop } from "../../../components/ContentCreation/FoodwayStop";
 import { FoodwayTitle } from "../../../components/ContentCreation/FoodwayTitle";
 import { BackButton } from "../../../components/Global/BackButton";
@@ -19,6 +19,7 @@ import { STORAGE_KEY_JWT } from "../../consts";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
+import { FoodwayTimeline } from "../../../components/ContentCreation/FoodwayTimeline";
 
 const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
   const swiper = useSwiper();
@@ -38,10 +39,8 @@ export const CreateFoodwaysPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState(["foraging", "seeds"]);
-  const [stopTimePeriod, setStopTimePeriod] = useState<undefined[] | string[]>(
-    [],
-  );
   const [stopTitle, setStopTitle] = useState<undefined[] | string[]>([]);
+  const [stopTime, setStopTime] = useState<undefined[] | string[]>([]);
   const [stopDescription, setStopDescription] = useState<
     undefined[] | string[]
   >([]);
@@ -72,6 +71,10 @@ export const CreateFoodwaysPage = () => {
       },
     );
 
+    stopTitle.shift();
+    stopDescription.shift();
+    stopTime.shift();
+
     if (response.status === 200) {
       let _response;
       stopTitle.forEach(async (_, index) => {
@@ -79,15 +82,16 @@ export const CreateFoodwaysPage = () => {
           {
             foodwayId: response.data.english?.id,
             image: "/images/moment.jpg",
+            order: index,
             english: {
               location: stopTitle[index],
               description: stopDescription[index],
-              timePeriod: stopTimePeriod[index] || "1999",
+              timePeriod: stopTime[index] || "",
             },
             french: {
               location: stopTitle[index],
               description: stopDescription[index],
-              timePeriod: stopTimePeriod[index] || "1999",
+              timePeriod: stopTime[index] || "",
             },
           },
           {
@@ -131,8 +135,8 @@ export const CreateFoodwaysPage = () => {
   useEffect(() => {
     init();
     setStopTitle([]);
-    setStopTimePeriod([]);
     setStopDescription([]);
+    setStopTime([]);
   }, []);
 
   return (
@@ -162,46 +166,54 @@ export const CreateFoodwaysPage = () => {
         </div>
       </Style.Info>
       <Style.ContentBuilder>
-        <Style.Slide>
-          <Swiper
-            slidesPerView={1}
-            mousewheel={true}
-            pagination={false}
-            effect="fade"
-            onSlideChange={onSlideChange}
-            direction={"vertical"}
-            speed={500}
-            modules={[Mousewheel, Scrollbar]}
-            className="theme-swiper-slide"
-          >
-            {new Array(totalSlides).fill(null).map((_, index) => {
-              // console.log(slide, index);
-              return (
-                <SwiperSlide key={`slide-${index}`}>
-                  <Style.Content>
-                    {index === 0 ? (
-                      <FoodwayTitle
-                        setTitle={setTitle}
-                        setDescription={setDescription}
-                      />
-                    ) : (
-                      <FoodwayStop
-                        index={index}
-                        stopTitle={stopTitle}
-                        stopTimePeriod={stopTimePeriod}
-                        stopDescription={stopDescription}
-                        setStopTimePeriod={setStopTimePeriod}
-                        setStopDescription={setStopDescription}
-                        setStopTitle={setStopTitle}
-                      />
-                    )}
-                  </Style.Content>
-                </SwiperSlide>
-              );
-            })}
-            <SlideOnUpdate totalSlides={totalSlides} />
-          </Swiper>
-        </Style.Slide>
+        <div className="content">
+          <Style.Slide>
+            <Swiper
+              slidesPerView={1}
+              mousewheel={true}
+              pagination={false}
+              effect="fade"
+              onSlideChange={onSlideChange}
+              direction={"vertical"}
+              speed={500}
+              modules={[Mousewheel, Scrollbar]}
+              className="theme-swiper-slide"
+            >
+              {new Array(totalSlides).fill(null).map((_, index) => {
+                // console.log(slide, index);
+                return (
+                  <SwiperSlide key={`slide-${index}`}>
+                    <Style.Content>
+                      {index === 0 ? (
+                        <FoodwayTitle
+                          setTitle={setTitle}
+                          setDescription={setDescription}
+                        />
+                      ) : (
+                        <FoodwayStop
+                          index={index}
+                          stopTitle={stopTitle}
+                          stopDescription={stopDescription}
+                          setStopDescription={setStopDescription}
+                          setStopTitle={setStopTitle}
+                        />
+                      )}
+                    </Style.Content>
+                  </SwiperSlide>
+                );
+              })}
+              <SlideOnUpdate totalSlides={totalSlides} />
+            </Swiper>
+          </Style.Slide>
+        </div>
+        <div className="timeline">
+          <FoodwayTimeline
+            totalSlides={totalSlides}
+            activeSlide={activeSlide}
+            stopTime={stopTime}
+            setStopTime={setStopTime}
+          />
+        </div>
       </Style.ContentBuilder>
       <Style.ActionContainer>
         <Button variant="yellow" onClick={handleAddSlide}>
@@ -267,15 +279,23 @@ const Style = {
     display: flex;
   `,
   ContentBuilder: styled.div`
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(59.2764px);
-    border-radius: 16px;
     overflow: hidden;
     width: 100%;
     display: flex;
     height: 100%;
-    padding: 1rem;
+
+    .content {
+      display: flex;
+      height: 100%;
+      width: 90%;
+      overflow: hidden;
+      width: 90%;
+    }
+
+    .timeline {
+      width: 10%;
+      height: 100%;
+    }
   `,
   ActionContainer: styled.section`
     padding: 2vh 0;
@@ -295,9 +315,8 @@ const Style = {
   Content: styled.div`
     height: 100%;
     width: 100%;
-    padding: 1.87vh 1vw;
     position: relative;
-    background: #ffffff50;
     border-radius: 0.5rem;
+    padding: 0.5rem 0;
   `,
 };

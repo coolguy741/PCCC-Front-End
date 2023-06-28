@@ -1,218 +1,63 @@
-import { useState } from "react";
 import styled from "styled-components";
-import Button from "../../components/Button";
-import FileDropzone from "../../components/CloudDrive/FileDropzone";
-import { Folder } from "../../components/CloudDrive/Folder";
-import Scrollbar from "../../components/Global/Scrollable";
-// import { Icon } from "../../components/Global/Icon";
-// import DownloadIcon from "../../components/Icons/Download/download";
-import { File } from "../../components/CloudDrive/File";
-// import SharingIcon from "../../components/Icons/Sharing/sharing";
-// import TrashIcon from "../../components/Icons/Trash/trash";
-
-const FolderNames = [
-  { name: "Documents", numberOfFiles: 100, icon: "file", capacity: 100 },
-  { name: "Videos", numberOfFiles: 100, icon: "camera", capacity: 100 },
-  { name: "Images", numberOfFiles: 100, icon: "image", capacity: 100 },
-  { name: "Audio", numberOfFiles: 100, icon: "music", capacity: 100 },
-  { name: "Download", numberOfFiles: 100, icon: "download", capacity: 100 },
-];
-
-interface FileInterface {
-  name: string;
-  icon: string;
-  fileNameExtension: string;
-  type: string;
-  sharing: string;
-  size: string;
-  date: string;
-}
-
-const files: FileInterface[] = [
-  {
-    name: "Assessment",
-    icon: "file",
-    fileNameExtension: "pdf",
-    type: "document",
-    sharing: "self",
-    size: "2 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Recipe",
-    fileNameExtension: "mp4",
-    icon: "camera",
-    type: "video",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Assessment",
-    fileNameExtension: "pdf",
-    icon: "file",
-    type: "document",
-    sharing: "self",
-    size: "2 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Recipe",
-    fileNameExtension: "mp4",
-    icon: "camera",
-    type: "video",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-  {
-    name: "Coconut",
-    fileNameExtension: "jpeg",
-    icon: "image",
-    type: "image",
-    sharing: "self",
-    size: "200 MB",
-    date: "Sat, 27 May 2023",
-  },
-];
-
-const progress = [
-  { status: 100 },
-  { status: 100 },
-  { status: 40 },
-  { status: "Upload failed" },
-  { status: 40 },
-];
-
-interface Status {
-  index: number;
-  isOpen: boolean;
-}
+import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
+import { CDHeader } from "../../components/CloudDrive/Header";
+import CDAdd from "../../components/CloudDrive/Icons/cd-add";
+import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
+import CDList from "../../components/CloudDrive/Icons/cd-list";
+import { Typography } from "../../components/Typography";
+import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
+import { glassBackground } from "../../styles/helpers/glassBackground";
 
 export const CloudDrivePage = () => {
-  const [isClicked, setIsClicked] = useState<string>("");
-  const [status, setStatus] = useState<Status>({ index: 0, isOpen: false });
   return (
     <Style.Container>
-      <div className="folders-files-container">
-        <Style.Folders>
-          <h3>Folders</h3>
-          <div className="content">
-            {FolderNames.map(({ name, numberOfFiles, icon }) => (
-              <Folder
-                key={name}
-                name={name}
-                numberOfFiles={numberOfFiles}
-                icon={icon}
-                width="18.5%"
-                height="100%"
-                setIsClicked={setIsClicked}
-              />
-            ))}
-          </div>
-        </Style.Folders>
-        <Style.Files>
-          <div className="title-container">
-            <h3>Files</h3>
-            <Button
-              variant="orange"
-              size="large"
-              icon="add"
-              iconPosition="left"
-            >
-              Upload
-            </Button>
-          </div>
-          <div className="content">
-            <Scrollbar thumbWidth="thin">
-              {files.map((file, index) => (
-                <File
-                  key={index}
-                  index={index}
-                  width="18.5%"
-                  height="200px"
-                  icon={file.icon}
-                  name={file.name}
-                  fileNameExtension={file.fileNameExtension}
-                  status={status}
-                  setStatus={setStatus}
-                />
-              ))}
-            </Scrollbar>
-          </div>
-        </Style.Files>
-      </div>
-      <Style.CloudStorage>
-        <h3>Cloud Storage</h3>
-        <div className="content">
-          <div className="total-capacity">
-            <div className="text">
-              <p>Documents</p>
-              <p>20/200 GB left</p>
-            </div>
-            <div className="value-container">
-              <div className="value"></div>
-            </div>
-          </div>
-          <FileDropzone
-            onFilesDropped={() => {
-              alert("File Dropped");
-            }}
-          />
-          <div className="folders">
-            {isClicked
-              ? FolderNames.map(({ name, capacity, icon }, index) => (
-                  <Folder
-                    key={name}
-                    name={isClicked}
-                    capacity={capacity}
-                    icon={icon}
-                    width="100%"
-                    height="7vh"
-                    progress={progress[index]}
-                    setIsClicked={setIsClicked}
-                  />
-                ))
-              : ""}
-          </div>
+      <section className="cloud-drive-folders">
+        <div className="cd-folders-menu">
+          <Typography
+            tag="h2"
+            size="2.5vh"
+            color="neutral-800"
+            weight={600}
+            mb="1vh"
+          >
+            Folders
+          </Typography>
+          <CDHeader />
         </div>
-      </Style.CloudStorage>
+        <div className="cd-files-menu">
+          <div className="cdf-menu-options">
+            <Typography
+              tag="h2"
+              size="2.5vh"
+              color="neutral-800"
+              weight={600}
+              mb="1vh"
+            >
+              Files
+            </Typography>
+            <div>
+              <button className="cdf-view-option active">
+                <CDGallery />
+              </button>
+              <button className="cdf-view-option">
+                <CDList />
+              </button>
+              <button className="cdf-upload">
+                <CDAdd />
+                <Typography
+                  color="white"
+                  weight={600}
+                  size={convertToRelativeUnit(15, "vh")}
+                >
+                  Upload
+                </Typography>
+              </button>
+            </div>
+          </div>
+          <article className="cd-content"></article>
+        </div>
+      </section>
+      <CloudStorage className="cloud-drive-storage" />
     </Style.Container>
   );
 };
@@ -220,121 +65,86 @@ export const CloudDrivePage = () => {
 const Style = {
   Container: styled.div`
     height: 100%;
+    width: 100%;
     display: flex;
-    gap: 2vh;
-    overflow: auto;
+    justify-content: space-between;
 
-    .folders-files-container {
-      width: 75%;
+    .cloud-drive-folders {
+      width: 76%;
       display: flex;
       flex-direction: column;
-      gap: 2.66vh;
-    }
-  `,
-  Folders: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1.33vh;
 
-    .content {
-      width: 100%;
-      height: 7vh;
-      display: flex;
-      justify-content: space-between;
-    }
-  `,
-
-  Files: styled.div`
-    overflow: auto;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.33vh;
-    .title-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      .cd-folders-menu {
+        width: 100%;
+        height: 18%;
+      }
     }
 
-    .content {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      padding: 24px;
-      padding-right: 16px;
-      gap: 16px;
-      isolation: isolate;
-      width: 100%;
-      height: 100%;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.5);
-      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(59.2764px);
-      overflow: hidden;
-      position: relative;
+    .cloud-drive-storage {
+      width: 22.5%;
+      margin-top: 4.5vh;
+      ${glassBackground};
+      padding: 12px;
     }
-  `,
 
-  CloudStorage: styled.div`
-    flex-grow: 1;
-    margin-top: 4.66vh;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(59.2764px);
-    border-radius: 16px;
-    padding: 2vh;
-    display: flex;
-    flex-direction: column;
-    gap: 2.66vh;
-
-    .content {
-      width: 100%;
-      height: 100%;
+    .cd-files-menu {
       display: flex;
       flex-direction: column;
-      gap: 2vh;
+      flex-grow: 1;
 
-      .total-capacity {
+      .cdf-menu-options {
+        height: 5vh;
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        gap: 0.66vh;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5vh;
 
-        .text {
-          font-size: 1.58vh;
-          font-weight: 500;
-          color: var(--neutral-600);
+        div {
           display: flex;
+          height: 100%;
+          width: 27.5%;
+          display: flex;
+          align-items: center;
           justify-content: space-between;
-        }
 
-        .value-container {
-          width: 100%;
-          height: 3.5vh;
-          box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-          backdrop-filter: blur(59.2764px);
-          border-radius: 4px;
-
-          .value {
+          button.cdf-view-option {
+            border-radius: 50%;
+            aspect-ratio: 1 / 1;
             height: 100%;
-            width: 50%;
-            z-index: 2;
-            background: linear-gradient(
-              177.73deg,
-              #4cde96 1.85%,
-              #20ad67 98.05%
+            display: grid;
+            place-items: center;
+          }
+
+          button.active {
+            background: #fff;
+            box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+          }
+
+          button.cdf-upload {
+            display: flex;
+            padding: 10px 25px;
+            justify-content: center;
+            align-items: center;
+            background: var(
+              --gradient-orange,
+              linear-gradient(180deg, #f87c56 0%, #f65321 100%)
             );
-            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(59.2764px);
-            border-radius: 4px;
+            box-shadow: 0px 4px 5px 0px rgba(248, 124, 86, 0.4);
+            border-radius: 80px;
+
+            svg {
+              margin-right: 9px;
+            }
           }
         }
       }
 
-      .folders {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 1.33vh;
+      article.cd-content {
+        flex-grow: 1;
+        border-radius: 16px;
+        ${glassBackground};
+        padding: ${convertToRelativeUnit(24, "vh")};
       }
     }
   `,
