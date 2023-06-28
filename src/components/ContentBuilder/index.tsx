@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useMemo, useState } from "react";
 import {
   DragDropContext,
   OnDragEndResponder,
@@ -8,28 +8,55 @@ import {
 import styled from "styled-components";
 
 import { getPositions } from "../../lib/util/getPositions";
-import { ThemeComponent } from "../../pages/types";
-import { useThemeStore } from "../../stores/themeStore";
-import { ThemeEditorActions } from "./Actions";
-import { ActivitiesAndRecipes } from "./ActivitiesAndRecipes";
-import { components, ContentBuilderCards } from "./Cards";
-import { ContentBuilderHeader } from "./ContentBuilderHeader";
-import { ContentTemplate } from "./ContentTemplate";
+import { ContentBuilderType, ThemeComponent } from "../../pages/types";
+import { ActivitiesStoreState } from "../../stores/activitiesStore";
+import { RecipesStoreState } from "../../stores/recipesStore";
+import { ThemeStoreState } from "../../stores/themeStore";
+import { ContentEditorActions } from "./Components/Actions";
+import { ActivitiesAndRecipes } from "./Components/ActivitiesAndRecipes";
+import { components, ContentBuilderCards } from "./Components/Cards";
+import { ContentBuilderHeader } from "./Components/ContentBuilderHeader";
+import { ContentTemplate } from "./Components/ContentTemplate";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
 
-export const ContentBuilder = () => {
+export interface ContentBuilderProps {
+  type: ContentBuilderType;
+  store: ThemeStoreState | ActivitiesStoreState | RecipesStoreState;
+}
+
+export const ContentBuilder: React.FC<ContentBuilderProps> = ({
+  type,
+  store,
+}) => {
   const [draggingComponent, setDraggingComponent] = useState<number>();
   const [showingMessage, setShowingMessage] = useState(false);
-  const [prevThemeComponents, setPrevThemeComponents] =
+  const [prevContentComponents, setPrevContentComponents] =
     useState<ThemeComponent[]>();
-  const { slideIndex, theme, currentStep, updatePage } = useThemeStore();
+
+  const {
+    slideIndex,
+    contents,
+    maxPageCount,
+    currentStep,
+    updatePage,
+    updatePageState,
+    setSlideIndex,
+    changeStep,
+    addSlide,
+    deleteSlide,
+  } = store;
 
   useEffect(() => {
     setShowingMessage(false);
   }, [slideIndex, currentStep]);
+
+  const slides = useMemo(
+    () => contents[currentStep].slides,
+    [contents, currentStep],
+  );
 
   const checkDroppable = (droppableId: number, source: number) => {
     const { width, height } = components[source];
@@ -42,7 +69,7 @@ export const ContentBuilder = () => {
       return false;
     }
 
-    const themeComponents = theme[currentStep].slides[slideIndex];
+    const themeComponents = slides[slideIndex];
 
     return themeComponents
       ? themeComponents.reduce((value, current) => {
@@ -68,7 +95,7 @@ export const ContentBuilder = () => {
 
   const onDragUpdate: OnDragUpdateResponder = (result) => {
     if (result.destination) {
-      updatePage([...(prevThemeComponents ?? [])]);
+      updatePage([...(prevContentComponents ?? [])]);
 
       const droppableId = parseInt(
         result.destination.droppableId.split("-").pop() ?? "0",
@@ -77,7 +104,7 @@ export const ContentBuilder = () => {
 
       if (checkDroppable(droppableId, source)) {
         updatePage([
-          ...theme[currentStep].slides[slideIndex],
+          ...slides[slideIndex],
           {
             ...components[source],
             x: droppableId % 3,
@@ -96,7 +123,7 @@ export const ContentBuilder = () => {
       target: { id },
     } = event;
     const [x, y] = id.split(",");
-    const prev = theme[currentStep].slides[slideIndex];
+    const prev = slides[slideIndex];
 
     setShowingMessage(false);
     updatePage([
@@ -110,23 +137,27 @@ export const ContentBuilder = () => {
   };
 
   const onDragStart: OnDragStartResponder = (result) => {
-    setPrevThemeComponents(() => [
-      ...(theme[currentStep].slides[slideIndex] ?? []),
-    ]);
+    setPrevContentComponents(() => [...(slides[slideIndex] ?? [])]);
     setDraggingComponent(result.source.index);
   };
 
   const onDragEnd: OnDragEndResponder = (result) => {
     updatePage(
       !result.destination
-        ? [...(prevThemeComponents ?? [])]
-        : theme[currentStep].slides[slideIndex],
+        ? [...(prevContentComponents ?? [])]
+        : slides[slideIndex],
     );
   };
 
   return (
     <Style.Container>
-      <ContentBuilderHeader />
+      <ContentBuilderHeader
+        type={type}
+        step={currentStep}
+        slideIndex={slideIndex}
+        currentStep={currentStep}
+        deleteSlide={deleteSlide}
+      />
       {currentStep < 4 ? (
         <Style.DragDropContainer>
           <DragDropContext
@@ -136,15 +167,31 @@ export const ContentBuilder = () => {
           >
             <ContentBuilderCards draggingComponent={draggingComponent} />
             <Style.Slide>
-              <ContentTemplate handleDelete={handleDelete} />
-              <ThemeEditorActions showingMessage={showingMessage} />
+              <ContentTemplate
+                handleDelete={handleDelete}
+                setSlideIndex={setSlideIndex}
+                updatePageState={updatePageState}
+                slides={slides}
+              />
+              <ContentEditorActions
+                currentStep={currentStep}
+                changeStep={changeStep}
+                addSlide={addSlide}
+                maxPageCount={maxPageCount}
+                showingMessage={showingMessage}
+              />
             </Style.Slide>
           </DragDropContext>
         </Style.DragDropContainer>
       ) : (
         <>
           <ActivitiesAndRecipes />
-          <ThemeEditorActions />
+          <ContentEditorActions
+            currentStep={currentStep}
+            maxPageCount={maxPageCount}
+            changeStep={changeStep}
+            addSlide={addSlide}
+          />
         </>
       )}
     </Style.Container>
@@ -172,7 +219,7 @@ const Style = {
     display: flex;
     flex-direction: column;
 
-    .theme-swiper-slide {
+    .content-swiper-slide {
       flex: 1;
       margin: 0;
     }

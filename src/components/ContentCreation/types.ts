@@ -41,4 +41,5 @@ export type ThemeComponentProps = {
   slideIndex?: number;
   isEditable?: boolean;
   componentIndex?: number;
+  updatePageState?: (slideIndex: number, index: number, state: State) => void;
 };

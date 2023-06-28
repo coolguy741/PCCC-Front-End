@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { State as ComponentState } from "../components/ContentCreation/types";
 import { Language, ThemeComponent } from "../pages/types";
 
-interface IPage {
+interface IContent {
   tags?: string;
   curriculum?: string;
   slides: ThemeComponent[][];
@@ -12,19 +12,20 @@ interface IPage {
 interface ThemeProp {
   currentStep: number;
   currentLang: Language;
+  maxPageCount: number;
   slideIndex: number;
-  theme: IPage[];
+  contents: IContent[];
   currentSlide: ThemeComponent[];
   activityIds: string[];
   recipeIds: string[];
   en: {
-    theme: IPage[];
+    contents: IContent[];
   };
   fr: {
-    theme: IPage[];
+    contents: IContent[];
   };
 }
-interface State extends ThemeProp {
+export interface ThemeStoreState extends ThemeProp {
   changeStep: (step: number) => void;
   addSlide: () => void;
   updatePage: (slide: ThemeComponent[]) => void;
@@ -44,27 +45,30 @@ interface State extends ThemeProp {
 
 const initialState: ThemeProp = {
   currentStep: 0,
+  maxPageCount: 6,
   slideIndex: 0,
-  theme: [{ slides: [[]] }],
+  contents: [{ slides: [[]] }],
   currentLang: "en",
   currentSlide: [],
   activityIds: [],
   recipeIds: [],
   en: {
-    theme: [],
+    contents: [],
   },
   fr: {
-    theme: [],
+    contents: [],
   },
 };
 
-export const useThemeStore = create<State>()((set) => ({
+export const useThemeStore = create<ThemeStoreState>()((set) => ({
   ...initialState,
   changeStep: (currentStep) =>
-    set(({ theme }) => ({
+    set(({ contents }) => ({
       currentStep,
-      theme:
-        theme.length > currentStep ? [...theme] : [...theme, { slides: [[]] }],
+      contents:
+        contents.length > currentStep
+          ? [...contents]
+          : [...contents, { slides: [[]] }],
     })),
   setItemIds: (itemId) =>
     set(({ activityIds, recipeIds, currentStep }) => ({
@@ -86,8 +90,8 @@ export const useThemeStore = create<State>()((set) => ({
     })),
   setSlideIndex: (slideIndex) => set(() => ({ slideIndex })),
   updatePage: (slide: ThemeComponent[]) =>
-    set(({ theme, slideIndex, currentStep }) => ({
-      theme: theme.map((page, index) => {
+    set(({ contents, slideIndex, currentStep }) => ({
+      contents: contents.map((page, index) => {
         if (index === currentStep) {
           page.slides[slideIndex] = [...slide];
         }
@@ -95,9 +99,9 @@ export const useThemeStore = create<State>()((set) => ({
       }) ?? [{ slides: [slide] }],
     })),
   addSlide: () =>
-    set(({ theme, currentStep }) => ({
-      theme: [
-        ...(theme.map((page, index) => {
+    set(({ contents, currentStep }) => ({
+      contents: [
+        ...(contents.map((page, index) => {
           if (index === currentStep) {
             page.slides.push([]);
           }
@@ -111,9 +115,9 @@ export const useThemeStore = create<State>()((set) => ({
       currentLang,
     })),
   deleteSlide: () =>
-    set(({ theme, slideIndex, currentStep }) => ({
-      theme: [
-        ...theme.map((page, index) => {
+    set(({ contents, slideIndex, currentStep }) => ({
+      contents: [
+        ...contents.map((page, index) => {
           if (index === currentStep) {
             const slides = [
               ...page.slides.filter((slide, index) => index !== slideIndex),
@@ -127,15 +131,15 @@ export const useThemeStore = create<State>()((set) => ({
       slideIndex: slideIndex > 0 ? slideIndex - 1 : slideIndex,
     })),
   continueWithFrench: () =>
-    set(({ theme }) => ({
+    set(({ contents }) => ({
       currentStep: 0,
-      en: { theme },
-      theme: [{ slides: [[]] }],
+      en: { contents },
+      contents: [{ slides: [[]] }],
       currentLang: "fr",
     })),
   updatePageState: (sIndex, componentIndex, componentState) =>
-    set(({ theme, currentStep }) => ({
-      theme: theme.map((page, index) => {
+    set(({ contents, currentStep }) => ({
+      contents: contents.map((page, index) => {
         if (index === currentStep) {
           page.slides[sIndex][componentIndex].componentState = componentState;
         }

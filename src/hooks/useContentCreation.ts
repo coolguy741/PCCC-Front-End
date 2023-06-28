@@ -6,13 +6,14 @@ import {
   State,
   TitleType,
 } from "../components/ContentCreation/types";
-import { useThemeStore } from "../stores/themeStore";
 
-export function useContentCreation(initialState: State) {
+export function useContentCreation(
+  initialState: State,
+  updatePageState?: (slideIndex: number, index: number, state: State) => void,
+) {
   const [state, setState] = useState<State>(initialState);
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
-  const { updatePageState } = useThemeStore();
 
   function changeEditState(tag: TitleType) {
     if (state[tag].mode === ComponentViewMode.EDIT) {
@@ -45,6 +46,7 @@ export function useContentCreation(initialState: State) {
       },
     };
     componentPosition &&
+      updatePageState &&
       updatePageState(
         componentPosition.slideIndex,
         componentPosition.componentIndex,

@@ -21,11 +21,11 @@ import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/L
 import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
 import { AchievementsPage } from "./AchievementsPage";
 import { ActivitiesPage } from "./ActivitiesBuilderPage";
-import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/ActivitiesCreatePage";
 import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
-import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/ActivitiesPreviewPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/Create";
+import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/Create/Preview";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
 import { ResetPasswordPage } from "./AuthPage/ResetPasswordPage";
 import { SecurityQuestionsPage } from "./AuthPage/SecurityQuestionsPage";
@@ -62,12 +62,12 @@ import { PrintPage } from "./PrintPage";
 import { ProfilePage } from "./Profile";
 import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 import { RecipesPage } from "./RecipeBuilderPage";
+import { RecipeCreatePage } from "./RecipeBuilderPage/Create";
+import { RecipePreviewPage } from "./RecipeBuilderPage/Create/Preview";
 import { RecipePage } from "./RecipeBuilderPage/RecipePage";
 import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
-import { RecipesCreatePreviewRecipePage } from "./RecipeBuilderPage/RecipesCreatePreviewRecipePage";
-import { RecipesCreateRecipePage } from "./RecipeBuilderPage/RecipesCreateRecipePage";
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
 import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
 import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
@@ -81,7 +81,7 @@ import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
 import { Themes } from "./ThemeBuilderPage";
 import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
-import { ThemeCreatePreviewPage } from "./ThemeBuilderPage/Create/Preview";
+import { ThemePreviewPage } from "./ThemeBuilderPage/Create/Preview";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
@@ -224,7 +224,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <Themes /> },
           { path: "create", element: <ThemeCreatePage /> },
-          { path: "preview", element: <ThemeCreatePreviewPage /> },
+          { path: "preview", element: <ThemePreviewPage /> },
         ],
       },
       {
@@ -331,13 +331,13 @@ export const router = createBrowserRouter([
         ),
         children: [
           { path: "", element: <RecipesPage /> },
-          { path: "create", element: <RecipesCreateRecipePage /> },
+          { path: "create", element: <RecipeCreatePage /> },
+          {
+            path: "preview",
+            element: <RecipePreviewPage />,
+          },
           { path: ":recipe", element: <RecipePage /> },
           { path: ":recipe/edit", element: <RecipesEditRecipePage /> },
-          {
-            path: ":recipe/preview",
-            element: <RecipesCreatePreviewRecipePage />,
-          },
           {
             path: "lesson-assessment/create",
             element: <RecipesCreateLessonAssessment />,

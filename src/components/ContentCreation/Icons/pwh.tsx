@@ -10,12 +10,12 @@ export default function PWH(props: IconProps) {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path d="M0 3H71" stroke="#11A5FF" stroke-width="6" />
-      <path d="M0 20H169" stroke="#88D2FF" stroke-width="3" />
-      <path d="M0 32H169" stroke="#88D2FF" stroke-width="3" />
-      <path d="M0 43H169" stroke="#88D2FF" stroke-width="3" />
-      <path d="M0 53H169" stroke="#88D2FF" stroke-width="3" />
-      <path d="M0 63H169" stroke="#88D2FF" stroke-width="3" />
+      <path d="M0 3H71" stroke="#11A5FF" strokeWidth="6" />
+      <path d="M0 20H169" stroke="#88D2FF" strokeWidth="3" />
+      <path d="M0 32H169" stroke="#88D2FF" strokeWidth="3" />
+      <path d="M0 43H169" stroke="#88D2FF" strokeWidth="3" />
+      <path d="M0 53H169" stroke="#88D2FF" strokeWidth="3" />
+      <path d="M0 63H169" stroke="#88D2FF" strokeWidth="3" />
     </svg>
   );
 }

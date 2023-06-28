@@ -19,7 +19,7 @@ const Scrollable: React.FC<ScrollbarProps> = ({
   return (
     <DynamicStyle
       className={className ? className : ""}
-      thumbWidth={thumbWidth}
+      thumbwidth={thumbWidth}
       height={height}
       tag={tag}
     >
@@ -33,11 +33,11 @@ const DynamicStyle = styled(({ tag, children, ...props }) =>
   createElement(tag, props, children),
 )`
   height: ${(props) => props.height};
-  margin: ${(props) => (props.thumbWidth === "thin" ? "0 -8px" : "0 -12px")};
-  padding: ${(props) => (props.thumbWidth === "thin" ? "0 8px" : "0 12px")};
+  margin: ${(props) => (props.thumbwidth === "thin" ? "0 -8px" : "0 -12px")};
+  padding: ${(props) => (props.thumbwidth === "thin" ? "0 8px" : "0 12px")};
   overflow: auto;
   &::-webkit-scrollbar {
-    width: ${(props) => (props.thumbWidth === "thin" ? "4px" : "8px")};
+    width: ${(props) => (props.thumbwidth === "thin" ? "4px" : "8px")};
   }
   &::-webkit-scrollbar-track {
   }
@@ -50,7 +50,7 @@ const DynamicStyle = styled(({ tag, children, ...props }) =>
   }
 
   scrollbar-color: var(--blue-300) rgba(0, 0, 0, 0);
-  scrollbar-width: ${(props) => (props.thumbWidth === "thin" ? "4px" : "8px")};
+  scrollbar-width: ${(props) => (props.thumbwidth === "thin" ? "4px" : "8px")};
 
   /* Firefox specific styles */
   @supports (-moz-appearance: none) {
