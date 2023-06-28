@@ -1,22 +1,33 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-interface FoodwayTimelineProps {
+interface EditFoodwayTimelineProps {
   totalSlides: number;
   activeSlide: number;
   stopTime: string[] | undefined[];
   setStopTime: (stopTime: string[] | undefined[]) => void;
+  initialStopTimes?: (string | null | undefined)[];
 }
 
-export const FoodwayTimeline = ({
+export const EditFoodwayTimeline = ({
   totalSlides,
   activeSlide,
   stopTime,
   setStopTime,
-}: FoodwayTimelineProps) => {
-  const titleState = useMemo(() => ({}), [totalSlides]);
+  initialStopTimes,
+}: EditFoodwayTimelineProps) => {
+  const titleState =
+    initialStopTimes &&
+    initialStopTimes.reduce(
+      (acc, curr, index) => ({
+        ...acc,
+        [`stop${index}`]: { mode: "view", text: curr || "Edit" },
+      }),
+      {},
+    );
+
   const { state, changeEditState, changeText, addTimelineStop } =
     useContentCreation(titleState as any);
 
@@ -42,15 +53,15 @@ export const FoodwayTimeline = ({
           <div className="bubble">
             {activeSlide === 0
               ? "Intro"
-              : state[`stop${activeSlide}` as keyof typeof state] && (
+              : state[`stop${activeSlide - 1}` as keyof typeof state] && (
                   <DoubleClickToEditComponent
                     mode={
-                      state[`stop${activeSlide}` as keyof typeof state].mode
+                      state[`stop${activeSlide - 1}` as keyof typeof state].mode
                     }
                     setText={changeText}
                     changeEditState={changeEditState}
                     text={
-                      state[`stop${activeSlide}` as keyof typeof state].text
+                      state[`stop${activeSlide - 1}` as keyof typeof state].text
                     }
                     name={`stop${activeSlide}`}
                   />
