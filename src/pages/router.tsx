@@ -52,7 +52,7 @@ import { MealPlannerGroceryPrintPage } from "./MealPlannerPage/Grocery/Print";
 import { MealPlannerPrintPage } from "./MealPlannerPage/Print";
 import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
-import { MealtimeMomentsPage } from "./MealtimeMomentsPage/";
+import { MealtimeMomentsPage } from "./MealtimeMomentsPage";
 import { CreateMealtimeMomentPage } from "./MealtimeMomentsPage/Create";
 import { EditMealtimeMomentPage } from "./MealtimeMomentsPage/Edit";
 import { MealtimeMomentOverviewPage } from "./MealtimeMomentsPage/Overview";
