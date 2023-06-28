@@ -8,7 +8,7 @@ type Props = {
 export function CloudStorage(props: Props) {
   return (
     <Style.Container {...props}>
-      <Typography color="neutral-900" weight={600} size="2.5vh">
+      <Typography color="neutral-900" weight={600} size="2.35vh">
         Cloud Storage
       </Typography>
     </Style.Container>

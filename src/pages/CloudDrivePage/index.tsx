@@ -84,7 +84,7 @@ const Style = {
       width: 22.5%;
       margin-top: 4.5vh;
       ${glassBackground};
-      padding: 12px;
+      padding: 15px 15px;
     }
 
     .cd-files-menu {
