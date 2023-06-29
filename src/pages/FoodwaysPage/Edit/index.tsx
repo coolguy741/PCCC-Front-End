@@ -51,8 +51,14 @@ export const EditFoodwaysPage = () => {
   const [stopDescription, setStopDescription] = useState<
     undefined[] | string[]
   >([]);
-  const { activeSlide, addFoodwaySlide, init, setActiveSlide, totalSlides } =
-    useFoodwayStore();
+  const {
+    activeSlide,
+    addFoodwaySlide,
+    init,
+    setActiveSlide,
+    totalSlides,
+    setTotalSlides,
+  } = useFoodwayStore();
 
   // const [title, setTitle] = useState(foodway.title);
 
@@ -110,6 +116,12 @@ export const EditFoodwaysPage = () => {
     setStopTime([]);
   }, []);
 
+  useEffect(() => {
+    setTotalSlides(
+      (foodway.foodwayStops?.length && foodway.foodwayStops?.length + 1) || 1,
+    );
+  }, []);
+
   return (
     <Style.Container>
       <div className="buttons-container">
@@ -158,15 +170,27 @@ export const EditFoodwaysPage = () => {
                   description={foodway.info}
                 />
               </SwiperSlide>
-              {foodway.foodwayStops &&
-                foodway.foodwayStops.map((stop, index) => (
+              {totalSlides &&
+                new Array(totalSlides - 1).fill(null).map((stop, index) => (
                   <SwiperSlide key={`slide-${index + 1}`}>
                     <Style.Content>
                       <FoodwayStop
                         index={index}
-                        initialStopTitle={stop.location}
-                        initialStopDescription={stop.description}
-                        initialTimePeriod={stop.timePeriod}
+                        initialStopTitle={
+                          foodway.foodwayStops && foodway.foodwayStops[index]
+                            ? foodway.foodwayStops[index].location
+                            : "Click to edit2"
+                        }
+                        initialStopDescription={
+                          foodway.foodwayStops && foodway.foodwayStops[index]
+                            ? foodway.foodwayStops[index].description
+                            : "Click to edit"
+                        }
+                        initialTimePeriod={
+                          foodway.foodwayStops && foodway.foodwayStops[index]
+                            ? foodway.foodwayStops[index].timePeriod
+                            : "Edit"
+                        }
                         stopTitle={stopTitle}
                         stopDescription={stopDescription}
                         setStopDescription={setStopDescription}
@@ -181,11 +205,7 @@ export const EditFoodwaysPage = () => {
         </div>
         <div className="timeline">
           <EditFoodwayTimeline
-            totalSlides={
-              foodway.foodwayStops?.length
-                ? foodway.foodwayStops?.length + 1
-                : 0
-            }
+            totalSlides={totalSlides}
             activeSlide={activeSlide}
             stopTime={stopTime}
             setStopTime={setStopTime}

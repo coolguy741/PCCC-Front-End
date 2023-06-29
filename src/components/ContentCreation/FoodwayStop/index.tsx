@@ -44,8 +44,8 @@ export function FoodwayStop({
   const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   useEffect(() => {
-    const newStopTitleArr = stopTitle.slice();
-    const newStopDescriptionArr = stopDescription.slice();
+    const newStopTitleArr = stopTitle;
+    const newStopDescriptionArr = stopDescription;
 
     newStopTitleArr[index] = state.title.text;
     newStopDescriptionArr[index] = state.desc.text;

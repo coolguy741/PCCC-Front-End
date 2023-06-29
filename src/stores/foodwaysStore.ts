@@ -18,6 +18,7 @@ interface State extends FoodwayProp {
   setActiveSlide: (slide: number) => void;
   init: () => void;
   totalSlides: number;
+  setTotalSlides: (totalSlides: number) => void;
 }
 
 const initialState: FoodwayProp = {
@@ -37,4 +38,6 @@ export const useFoodwayStore = create<State>()((set) => ({
   init: () => set(() => ({ ...initialState })),
   addFoodwaySlide: () =>
     set((state) => ({ totalSlides: state.totalSlides + 1 })),
+  setTotalSlides: (totalSlides: number) =>
+    set(() => ({ totalSlides: totalSlides })),
 }));
