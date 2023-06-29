@@ -17,7 +17,7 @@ const LoadButtonBGSVG: FC = () => {
         <path
           d="M179.481 18.5545L184.639 58.2883C185.97 68.5393 177.835 77.5576 167.501 77.2871L12.3797 73.2263C5.41722 73.0441 0.351912 66.5527 1.86766 59.7547L12.3227 12.8656C13.8475 6.02672 19.9154 1.16279 26.9223 1.16279L159.686 1.16279C169.717 1.16279 178.19 8.60698 179.481 18.5545Z"
           stroke="url(#paint0_linear_2044_108650)"
-          stroke-width="2.32561"
+          strokeWidth="2.32561"
         />
       </g>
       <defs>
@@ -29,8 +29,8 @@ const LoadButtonBGSVG: FC = () => {
           y2="-4.9004"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#AC5F18" />
-          <stop offset="1" stop-color="#D98E37" />
+          <stop stopColor="#AC5F18" />
+          <stop offset="1" stopColor="#D98E37" />
         </linearGradient>
       </defs>
     </svg>

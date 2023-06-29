@@ -17,7 +17,7 @@ const EngButtonSVG: FC = () => {
         <path
           d="M100.425 10.697L98.7479 30.4462C98.3347 35.3127 94.3221 39.0866 89.4394 39.201L42.4771 40.3013C37.7914 40.4111 33.9002 36.7088 33.7769 32.0234L33.2052 10.2983C33.0935 6.05229 36.5527 2.57435 40.7993 2.66321L94.2032 3.78079C97.8848 3.85784 100.736 7.02779 100.425 10.697Z"
           stroke="url(#paint1_linear_2178_108211)"
-          stroke-width="3.99185"
+          strokeWidth="3.99185"
         />
       </g>
       <path
@@ -44,9 +44,9 @@ const EngButtonSVG: FC = () => {
           width="77.6248"
           height="48.8196"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -80,8 +80,8 @@ const EngButtonSVG: FC = () => {
           y2="40.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#11A5FF" />
-          <stop offset="1" stop-color="#006BAC" />
+          <stop stopColor="#11A5FF" />
+          <stop offset="1" stopColor="#006BAC" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2178_108211"
@@ -91,8 +91,8 @@ const EngButtonSVG: FC = () => {
           y2="40.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#11A5FF" />
-          <stop offset="0.712241" stop-color="#013F65" />
+          <stop stopColor="#11A5FF" />
+          <stop offset="0.712241" stopColor="#013F65" />
         </linearGradient>
       </defs>
     </svg>

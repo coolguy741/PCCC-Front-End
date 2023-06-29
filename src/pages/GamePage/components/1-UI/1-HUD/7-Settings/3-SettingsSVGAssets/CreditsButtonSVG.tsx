@@ -17,7 +17,7 @@ const CreditsButtonSVG: FC = () => {
         <path
           d="M171.49 14.0525L168.081 46.4381C167.221 54.604 160.165 60.6973 151.961 60.3587L21.7381 54.9838C16.4337 54.7648 11.9187 51.0523 10.679 45.8901L3.14755 14.5294C1.79332 8.89038 6.0415 3.45909 11.8407 3.41526L160.82 2.2893C167.174 2.24127 172.156 7.73311 171.49 14.0525Z"
           stroke="url(#paint1_linear_2179_108213)"
-          stroke-width="3.99185"
+          strokeWidth="3.99185"
         />
       </g>
       <path
@@ -48,9 +48,9 @@ const CreditsButtonSVG: FC = () => {
           width="179.036"
           height="69.2605"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -84,8 +84,8 @@ const CreditsButtonSVG: FC = () => {
           y2="60.9609"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#11A5FF" />
-          <stop offset="1" stop-color="#006BAC" />
+          <stop stopColor="#11A5FF" />
+          <stop offset="1" stopColor="#006BAC" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2179_108213"
@@ -95,8 +95,8 @@ const CreditsButtonSVG: FC = () => {
           y2="60.9609"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#11A5FF" />
-          <stop offset="0.712241" stop-color="#013F65" />
+          <stop stopColor="#11A5FF" />
+          <stop offset="0.712241" stopColor="#013F65" />
         </linearGradient>
       </defs>
     </svg>

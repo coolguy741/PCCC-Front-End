@@ -1,19 +1,17 @@
 import { FC, memo } from "react";
 import StaticSVGLoader from "../../../3-Reusable/0-StaticSVGLoader.tsx/StaticSVGLoader";
-import AudioSliders from "../1-AudioSliders/AudioSliders";
-import CreditsButtonBGSVG from "../2-SettingsSVGAssets/CreditsButtonBGSVG";
-import CreditsButtonSVG from "../2-SettingsSVGAssets/CreditsButtonSVG";
-import EngButtonSVG from "../2-SettingsSVGAssets/EngButtonSVG";
-import ExitSettingsButtonSVG from "../2-SettingsSVGAssets/ExitSettingsButtonSVG";
-import FrenchButtonSVG from "../2-SettingsSVGAssets/FrenchButtonSVG";
-import LanguageBGSVG from "../2-SettingsSVGAssets/LanguageBGSVG";
-import LoadButtonBGSVG from "../2-SettingsSVGAssets/LoadButtonBGSVG";
-import LoadButtonSVG from "../2-SettingsSVGAssets/LoadButtonSVG";
-import QuitButtonBGSVG from "../2-SettingsSVGAssets/QuitButtonBGSVG";
-import QuitButtonSVG from "../2-SettingsSVGAssets/QuitButtonSVG";
-import SaveButtonBGSVG from "../2-SettingsSVGAssets/SaveButtonBGSVG";
-import SaveButtonSVG from "../2-SettingsSVGAssets/SaveButtonSVG";
-import { SettingsTabSVG } from "../2-SettingsSVGAssets/SettingsTabSVG";
+import AudioSliders from "../1-AudioSliders/0-AudioSliders/AudioSliders";
+import LanguageController from "../2-LanguageController/LanguageController";
+import CreditsButtonBGSVG from "../3-SettingsSVGAssets/CreditsButtonBGSVG";
+import CreditsButtonSVG from "../3-SettingsSVGAssets/CreditsButtonSVG";
+import ExitSettingsButtonSVG from "../3-SettingsSVGAssets/ExitSettingsButtonSVG";
+import LoadButtonBGSVG from "../3-SettingsSVGAssets/LoadButtonBGSVG";
+import LoadButtonSVG from "../3-SettingsSVGAssets/LoadButtonSVG";
+import QuitButtonBGSVG from "../3-SettingsSVGAssets/QuitButtonBGSVG";
+import QuitButtonSVG from "../3-SettingsSVGAssets/QuitButtonSVG";
+import SaveButtonBGSVG from "../3-SettingsSVGAssets/SaveButtonBGSVG";
+import SaveButtonSVG from "../3-SettingsSVGAssets/SaveButtonSVG";
+import { SettingsTabSVG } from "../3-SettingsSVGAssets/SettingsTabSVG";
 import SettingsStyleContainer from "./SettingsStyleContainer";
 
 const Settings: FC = () => {
@@ -61,19 +59,7 @@ const Settings: FC = () => {
           </div>
 
           <div className="language-credits">
-            <div className="language-button">
-              <div className="language-button-bg">
-                <LanguageBGSVG />
-              </div>
-              <div className="eng-french-buttons">
-                <div className="english">
-                  <EngButtonSVG />
-                </div>
-                <div className="french">
-                  <FrenchButtonSVG />
-                </div>
-              </div>
-            </div>
+            <LanguageController />
             <div className="credits-button">
               <div className="credits-button-bg">
                 <CreditsButtonBGSVG />

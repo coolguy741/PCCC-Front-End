@@ -1,7 +1,18 @@
 import { Howl } from "howler";
-import { PCCCAudioType, PCCCVolumeKeysType } from "./AudioModuleTypes";
+import {
+  PCCCAudioKeysType,
+  PCCCAudioType,
+  PCCCVolumeKeysType,
+} from "./AudioModuleTypes";
 
 const PCCCAudioFadeDuration = 250;
+
+const MusicSliderKeys: PCCCAudioKeysType[] = ["PCCCTheme"];
+const SoundSliderKeys: PCCCAudioKeysType[] = [
+  "ClickUp",
+  "ClickDown",
+  "InventoryNotification",
+];
 
 const PCCCVolumeKeys: PCCCVolumeKeysType = {
   PCCCTheme: 0.5,
@@ -33,4 +44,10 @@ const PCCCAudio: PCCCAudioType = {
   }),
 };
 
-export { PCCCAudio, PCCCVolumeKeys, PCCCAudioFadeDuration };
+export {
+  PCCCAudio,
+  PCCCVolumeKeys,
+  MusicSliderKeys,
+  SoundSliderKeys,
+  PCCCAudioFadeDuration,
+};

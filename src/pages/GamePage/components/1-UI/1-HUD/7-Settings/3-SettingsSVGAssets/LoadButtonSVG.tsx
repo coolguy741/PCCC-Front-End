@@ -17,7 +17,7 @@ const LoadButtonSVG: FC = () => {
         <path
           d="M166.409 51.5907L162.882 15.6354C162.123 7.898 155.617 1.99909 147.842 1.99909L21.6054 1.99909C16.0412 1.99909 11.2703 5.97209 10.2633 11.4445L3.35516 48.9835C2.38202 54.2716 6.36446 59.1779 11.7397 59.3131L155.859 62.9366C162.07 63.0927 167.016 57.7744 166.409 51.5907Z"
           stroke="url(#paint1_linear_2044_108679)"
-          stroke-width="3.87602"
+          strokeWidth="3.87602"
         />
       </g>
       <path
@@ -52,9 +52,9 @@ const LoadButtonSVG: FC = () => {
           width="173.33"
           height="71.7937"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -88,8 +88,8 @@ const LoadButtonSVG: FC = () => {
           y2="1.99908"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FF9900" />
-          <stop offset="1" stop-color="#FFCD00" />
+          <stop stopColor="#FF9900" />
+          <stop offset="1" stopColor="#FFCD00" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2044_108679"
@@ -99,8 +99,8 @@ const LoadButtonSVG: FC = () => {
           y2="1.99908"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.208333" stop-color="#DC4F00" />
-          <stop offset="1" stop-color="#FFCD00" />
+          <stop offset="0.208333" stopColor="#DC4F00" />
+          <stop offset="1" stopColor="#FFCD00" />
         </linearGradient>
       </defs>
     </svg>

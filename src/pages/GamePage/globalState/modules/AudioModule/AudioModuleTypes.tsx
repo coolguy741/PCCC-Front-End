@@ -22,4 +22,6 @@ export interface AudioModuleTypes {
   stopAudio: (key: PCCCAudioKeysType) => void;
   setIsGlobalMute: (isGlobalMute: boolean) => void;
   setMuted: (key: PCCCAudioKeysType, muteState: boolean) => void;
+  setVolume: (key: PCCCAudioKeysType, volume: number) => void;
+  PCCCActiveVolumeKeys: PCCCVolumeKeysType;
 }

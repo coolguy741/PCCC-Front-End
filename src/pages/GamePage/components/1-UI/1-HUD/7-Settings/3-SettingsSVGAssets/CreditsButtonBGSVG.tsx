@@ -17,7 +17,7 @@ const CreditsButtonBGSVG: FC = () => {
         <path
           d="M192.061 62.5237L197.296 20.3831C198.557 10.2375 190.558 1.31918 180.335 1.47213L15.8674 3.933C8.75748 4.03938 3.5914 10.7272 5.2843 17.6335L16.3029 62.5836C17.8865 69.0441 23.5461 73.6826 30.1918 73.9668L171.399 80.0059C181.789 80.4502 190.779 72.8435 192.061 62.5237Z"
           stroke="url(#paint0_linear_2044_108652)"
-          stroke-width="2.32561"
+          strokeWidth="2.32561"
         />
       </g>
       <defs>
@@ -28,9 +28,9 @@ const CreditsButtonBGSVG: FC = () => {
           width="196.792"
           height="82.8794"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -64,8 +64,8 @@ const CreditsButtonBGSVG: FC = () => {
           y2="86.0912"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#AC5F18" />
-          <stop offset="1" stop-color="#D98E37" />
+          <stop stopColor="#AC5F18" />
+          <stop offset="1" stopColor="#D98E37" />
         </linearGradient>
       </defs>
     </svg>

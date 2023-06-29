@@ -14,7 +14,7 @@ const ExitSettingsButtonSVG: FC = () => {
           d="M112.715 59.4744L112.945 58.0266C116.882 33.2492 98.1306 10.6607 73.0519 9.96926L49.1314 9.30972C28.2428 8.73378 10.788 25.0896 10.0061 45.9715L9.7962 51.5782C8.96556 73.7633 24.9549 93.0227 46.9142 96.2873L59.8928 98.2168C85.1448 101.971 108.709 84.6876 112.715 59.4744Z"
           fill="#392200"
           stroke="url(#paint0_linear_2044_108718)"
-          stroke-width="2.89381"
+          strokeWidth="2.89381"
         />
         <g filter="url(#filter1_d_2044_108718)">
           <path
@@ -24,7 +24,7 @@ const ExitSettingsButtonSVG: FC = () => {
           <path
             d="M22.228 52.2037L23.4229 43.5202C25.3455 29.5492 37.3547 19.1859 51.4566 19.3284C57.4042 19.3885 63.3347 19.9772 69.1781 21.0874L80.4272 23.2247C93.6605 25.7389 102.96 37.7003 102.135 51.1451L101.523 61.1174C100.677 74.9034 89.7571 85.9343 75.9803 86.9204L71.0317 87.2746C63.7178 87.7981 56.3677 87.4493 49.1363 86.2355L46.977 85.873C30.9805 83.188 20.0167 68.2725 22.228 52.2037Z"
             stroke="url(#paint2_linear_2044_108718)"
-            stroke-width="4.05325"
+            strokeWidth="4.05325"
           />
         </g>
         <path
@@ -43,8 +43,8 @@ const ExitSettingsButtonSVG: FC = () => {
           <path
             d="M51.0898 43.1484L73.3637 65.4223M73.4463 43.0664L51.1724 65.3403"
             stroke="#680909"
-            stroke-width="13"
-            stroke-linecap="round"
+            strokeWidth="13"
+            strokeLinecap="round"
           />
         </g>
       </g>
@@ -56,9 +56,9 @@ const ExitSettingsButtonSVG: FC = () => {
           width="114.597"
           height="101.328"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -91,9 +91,9 @@ const ExitSettingsButtonSVG: FC = () => {
           width="90.7799"
           height="79.5327"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -126,9 +126,9 @@ const ExitSettingsButtonSVG: FC = () => {
           width="35.3564"
           height="39.356"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -162,8 +162,8 @@ const ExitSettingsButtonSVG: FC = () => {
           y2="102.171"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#4F260A" />
-          <stop offset="1" stop-color="#D86C1F" />
+          <stop stopColor="#4F260A" />
+          <stop offset="1" stopColor="#D86C1F" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2044_108718"
@@ -173,8 +173,8 @@ const ExitSettingsButtonSVG: FC = () => {
           y2="22.8199"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.145833" stop-color="#CA2B20" />
-          <stop offset="1" stop-color="#E74F44" />
+          <stop offset="0.145833" stopColor="#CA2B20" />
+          <stop offset="1" stopColor="#E74F44" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_2044_108718"
@@ -184,8 +184,8 @@ const ExitSettingsButtonSVG: FC = () => {
           y2="22.8199"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#73241F" />
-          <stop offset="1" stop-color="#FF8178" />
+          <stop stopColor="#73241F" />
+          <stop offset="1" stopColor="#FF8178" />
         </linearGradient>
       </defs>
     </svg>

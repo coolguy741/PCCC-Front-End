@@ -17,7 +17,7 @@ const QuitButtonSVG: FC = () => {
         <path
           d="M4.02852 60.8137L8.27125 20.5143C9.34809 10.2861 18.1859 2.65397 28.4619 3.0781L191.456 9.80559C198.155 10.0821 203.841 14.8058 205.342 21.3407L213.548 57.0795C215.145 64.035 209.966 70.708 202.832 70.8874L17.6284 75.5438C9.57778 75.7463 3.18534 68.8225 4.02852 60.8137Z"
           stroke="url(#paint1_linear_2181_108215)"
-          stroke-width="5"
+          strokeWidth="5"
         />
       </g>
       <path
@@ -48,9 +48,9 @@ const QuitButtonSVG: FC = () => {
           width="222.886"
           height="86.4873"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -84,8 +84,8 @@ const QuitButtonSVG: FC = () => {
           y2="2.3238"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#CA2B20" />
-          <stop offset="0.716412" stop-color="#E74F44" />
+          <stop stopColor="#CA2B20" />
+          <stop offset="0.716412" stopColor="#E74F44" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2181_108215"
@@ -95,8 +95,8 @@ const QuitButtonSVG: FC = () => {
           y2="2.3238"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#73241F" />
-          <stop offset="1" stop-color="#FF8178" />
+          <stop stopColor="#73241F" />
+          <stop offset="1" stopColor="#FF8178" />
         </linearGradient>
       </defs>
     </svg>

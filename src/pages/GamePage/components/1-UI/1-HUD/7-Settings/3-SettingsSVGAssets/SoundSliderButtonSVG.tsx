@@ -5,7 +5,7 @@ const SoundSliderButtonSVG: FC = () => {
     <svg
       width={"100%"}
       height={"100%"}
-      viewBox="0 0 109 98"
+      viewBox="-10 -10 128 116"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -13,7 +13,7 @@ const SoundSliderButtonSVG: FC = () => {
         d="M54.846 92.9018L68.2616 92.155C89.7073 90.9611 105.928 72.286 104.109 50.8843L103.783 47.0581C101.995 26.0196 85.3731 9.29448 64.3462 7.37497L45.6643 5.66953C23.7046 3.66487 4.54397 20.4623 3.65742 42.4955C2.50609 71.1096 26.253 94.4936 54.846 92.9018Z"
         fill="#392200"
         stroke="url(#paint0_linear_2113_108023)"
-        stroke-width="2.89381"
+        strokeWidth="2.89381"
       />
       <g filter="url(#filter0_d_2113_108023)">
         <path
@@ -23,7 +23,7 @@ const SoundSliderButtonSVG: FC = () => {
         <path
           d="M14.2553 46.8423L15.4503 38.1589C17.3729 24.1879 29.382 13.8246 43.484 13.9671C49.4316 14.0272 55.3621 14.6158 61.2054 15.7261L72.4545 17.8633C85.6879 20.3776 94.9877 32.339 94.1624 45.7837L93.5503 55.756C92.704 69.5421 81.7844 80.573 68.0077 81.5591L63.059 81.9133C55.7452 82.4368 48.3951 82.0879 41.1637 80.8742L39.0043 80.5117C23.0078 77.8267 12.044 62.9112 14.2553 46.8423Z"
           stroke="url(#paint2_linear_2113_108023)"
-          stroke-width="4.05325"
+          strokeWidth="4.05325"
         />
       </g>
       <g filter="url(#filter1_i_2113_108023)">
@@ -60,9 +60,9 @@ const SoundSliderButtonSVG: FC = () => {
           width="90.7796"
           height="79.5327"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -95,9 +95,9 @@ const SoundSliderButtonSVG: FC = () => {
           width="41.3545"
           height="43.0496"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -131,8 +131,8 @@ const SoundSliderButtonSVG: FC = () => {
           y2="0.404294"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#4F260A" />
-          <stop offset="1" stop-color="#D86C1F" />
+          <stop stopColor="#4F260A" />
+          <stop offset="1" stopColor="#D86C1F" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2113_108023"
@@ -142,8 +142,8 @@ const SoundSliderButtonSVG: FC = () => {
           y2="52.4847"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FF8A00" />
-          <stop offset="1" stop-color="#FFC700" />
+          <stop stopColor="#FF8A00" />
+          <stop offset="1" stopColor="#FFC700" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_2113_108023"
@@ -153,8 +153,8 @@ const SoundSliderButtonSVG: FC = () => {
           y2="52.4847"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FF8A00" />
-          <stop offset="1" stop-color="#FFC700" />
+          <stop stopColor="#FF8A00" />
+          <stop offset="1" stopColor="#FFC700" />
         </linearGradient>
       </defs>
     </svg>

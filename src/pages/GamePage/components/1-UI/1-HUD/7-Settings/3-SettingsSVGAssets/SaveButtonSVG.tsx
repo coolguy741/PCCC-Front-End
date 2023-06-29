@@ -17,7 +17,7 @@ const SaveButtonSVG: FC = () => {
         <path
           d="M3.54977 14.299L7.14446 48.4428C7.80733 54.7391 13.2477 59.4373 19.5734 59.1762L148.844 53.8406C154.037 53.6263 158.445 49.9644 159.609 44.8985L165.97 17.1937C167.208 11.8017 163.193 6.62879 157.663 6.48974L14.0924 2.88006C7.85158 2.72315 2.89613 8.09048 3.54977 14.299Z"
           stroke="url(#paint1_linear_2044_108688)"
-          stroke-width="3.87602"
+          strokeWidth="3.87602"
         />
       </g>
       <path
@@ -53,9 +53,9 @@ const SaveButtonSVG: FC = () => {
           width="172.782"
           height="67.1629"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -89,8 +89,8 @@ const SaveButtonSVG: FC = () => {
           y2="59.6405"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFCD00" />
-          <stop offset="1" stop-color="#FF9900" />
+          <stop stopColor="#FFCD00" />
+          <stop offset="1" stopColor="#FF9900" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2044_108688"
@@ -100,8 +100,8 @@ const SaveButtonSVG: FC = () => {
           y2="59.6405"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.184545" stop-color="#FFCD00" />
-          <stop offset="1" stop-color="#DC4F00" />
+          <stop offset="0.184545" stopColor="#FFCD00" />
+          <stop offset="1" stopColor="#DC4F00" />
         </linearGradient>
       </defs>
     </svg>
