@@ -179,7 +179,7 @@ export const EditFoodwaysPage = () => {
                         initialStopTitle={
                           foodway.foodwayStops && foodway.foodwayStops[index]
                             ? foodway.foodwayStops[index].location
-                            : "Click to edit2"
+                            : "Click to edit"
                         }
                         initialStopDescription={
                           foodway.foodwayStops && foodway.foodwayStops[index]
