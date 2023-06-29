@@ -7,7 +7,7 @@ import { LanguageChooser } from "../../../components/Global/LanguageChooser";
 import { Text } from "../../../components/Global/Text";
 import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-edit.json";
 
-export const MealTimeMomentsPreviewPage = () => {
+export const MealtimeMomentsPreviewPage = () => {
   const navigate = useNavigate();
   const [lang, setLang] = useState<string>(
     localStorage.getItem("lang") ?? "en",
