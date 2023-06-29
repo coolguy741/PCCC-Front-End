@@ -41,10 +41,15 @@ const Style = {
     font-style: normal;
     ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")};
 
-    h1 {
+    hgroup {
+      display: flex;
+      align-items: center;
       gap: 0.5vw;
-      color: var(--orange-500);
       margin-bottom: 0.5vh;
+    }
+
+    h1 {
+      color: var(--orange-500);
 
       img {
         height: 3.5vh;

@@ -5,53 +5,52 @@ import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertTo
 import { Globe } from "../../Foodways/Globe";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-const titleState: any = {
-  title: {
-    mode: "view",
-    text: "Click to edit",
-  },
-  desc: {
-    mode: "view",
-    text: "Click to edit.",
-  },
-  timePeriod: {
-    mode: "view",
-    text: "Click to edit.",
-  },
-};
-
 interface FoodwayStopProps {
   index: number;
   stopTitle: string[] | undefined[];
-  stopTimePeriod: string[] | undefined[];
   stopDescription: string[] | undefined[];
   setStopTitle: (stopTitle: string[] | undefined[]) => void;
-  setStopTimePeriod: (stopTimePeriod: string[] | undefined[]) => void;
   setStopDescription: (stopDescription: string[] | undefined[]) => void;
+  initialTimePeriod?: string | null;
+  initialStopTitle?: string | null;
+  initialStopDescription?: string | null;
 }
 
 export function FoodwayStop({
   index,
   stopTitle,
-  stopTimePeriod,
   stopDescription,
   setStopTitle,
-  setStopTimePeriod,
   setStopDescription,
+  initialStopTitle,
+  initialStopDescription,
+  initialTimePeriod,
 }: FoodwayStopProps) {
+  const titleState: any = {
+    title: {
+      mode: "view",
+      text: initialStopTitle || "Click to edit",
+    },
+    desc: {
+      mode: "view",
+      text: initialStopDescription || "Click to edit.",
+    },
+    timePeriod: {
+      mode: "view",
+      text: initialTimePeriod || "Click to edit.",
+    },
+  };
+
   const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   useEffect(() => {
     const newStopTitleArr = stopTitle.slice();
-    const newStopTimePeriodArr = stopTimePeriod.slice();
     const newStopDescriptionArr = stopDescription.slice();
 
     newStopTitleArr[index] = state.title.text;
-    newStopTimePeriodArr[index] = state.timePeriod.text;
     newStopDescriptionArr[index] = state.desc.text;
 
     setStopTitle(newStopTitleArr);
-    setStopTimePeriod(newStopTimePeriodArr);
     setStopDescription(newStopDescriptionArr);
   }, [state]);
 

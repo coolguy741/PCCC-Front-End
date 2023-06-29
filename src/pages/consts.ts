@@ -36,7 +36,6 @@ export const MENUS: Menu[] = [
 
     subMenus: [
       { label: "Themes", to: "themes", icon: "topic", auth: true },
-      { label: "Topics", to: "topics", icon: "topic", auth: true },
       { label: "Activities", to: "activities", icon: "activities" },
       { label: "Recipes", to: "recipes", icon: "recipe" },
       { label: "Foodways", to: "foodways", icon: "foodways" },

@@ -13,7 +13,7 @@ import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertTo
 
 const fields = [
   "all",
-  "topics",
+  "themes",
   "activities",
   "recipes",
   "mealtime-moments",

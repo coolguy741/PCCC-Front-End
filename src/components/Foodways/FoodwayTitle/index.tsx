@@ -11,15 +11,15 @@ export function FoodwayTitle({ foodway }: FoodwayTitleProps) {
     <Style.Container>
       {foodway && (
         <>
-          <div className="tc-content">
+          <div className="fw-content">
             <h1>
-              <span className="tc-overview">Foodways</span>
+              <span className="fw-overview">Foodways</span>
               <br />
               {foodway.title}
             </h1>
             <p>{foodway.info}</p>
           </div>
-          <figure className="tc-image">
+          <figure className="fw-image">
             <img src="/content-creation/theme-cc.png" alt="" />
             <figcaption></figcaption>
           </figure>
@@ -37,12 +37,12 @@ const Style = {
     align-items: flex-end;
     justify-content: center;
 
-    .tc-content {
+    .fw-content {
       width: 40%;
       height: 90%;
       z-index: 2;
 
-      span.tc-overview {
+      span.fw-overview {
         font-weight: 600;
         font-size: ${conv(14, "vw")};
         text-transform: uppercase;
@@ -105,6 +105,8 @@ const Style = {
 
       img {
         position: absolute;
+        width: 100%;
+        height: 100%;
       }
 
       figcaption {

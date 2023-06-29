@@ -1,13 +1,9 @@
-import { useMatch } from "react-router-dom";
 import { ContentBuilder } from "../../../components/ContentBuilder";
+import { useThemeStore } from "../../../stores/themeStore";
+import { ContentBuilderType } from "../../types";
 
 export const ThemeCreatePage = () => {
-  const createRoute = useMatch("/dashboard/topics/create/:slug");
-  const editRoute = useMatch("/dashboard/topics/:id/:slug/edit");
-  const tab = (createRoute ?? editRoute)?.params.slug ?? "topic";
-  const topicId = editRoute?.params.id
-    ? parseInt(editRoute?.params.id)
-    : undefined;
-
-  return <ContentBuilder />;
+  return (
+    <ContentBuilder type={ContentBuilderType.THEMES} store={useThemeStore()} />
+  );
 };
