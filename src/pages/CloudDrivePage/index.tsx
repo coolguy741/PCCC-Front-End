@@ -1,14 +1,134 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
+import { CDGalleryView } from "../../components/CloudDrive/GalleryView";
 import { CDHeader } from "../../components/CloudDrive/Header";
 import CDAdd from "../../components/CloudDrive/Icons/cd-add";
 import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
 import CDList from "../../components/CloudDrive/Icons/cd-list";
+import { CDListView } from "../../components/CloudDrive/ListView";
 import { Typography } from "../../components/Typography";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../styles/helpers/glassBackground";
 
-export const CloudDrivePage = () => {
+const dummy_content = [
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+];
+
+export function CloudDrivePage() {
+  const [view, setView] = useState<"list" | "gallery">("list");
+
   return (
     <Style.Container>
       <section className="cloud-drive-folders">
@@ -36,10 +156,18 @@ export const CloudDrivePage = () => {
               Files
             </Typography>
             <div>
-              <button className="cdf-view-option active">
+              <button
+                className={`cdf-view-option ${
+                  view === "gallery" ? "active" : ""
+                }`}
+                onClick={() => setView("gallery")}
+              >
                 <CDGallery />
               </button>
-              <button className="cdf-view-option">
+              <button
+                className={`cdf-view-option ${view === "list" ? "active" : ""}`}
+                onClick={() => setView("list")}
+              >
                 <CDList />
               </button>
               <button className="cdf-upload">
@@ -54,13 +182,19 @@ export const CloudDrivePage = () => {
               </button>
             </div>
           </div>
-          <article className="cd-content"></article>
+          <article className="cd-content">
+            {view === "list" ? (
+              <CDListView list_items={dummy_content} />
+            ) : (
+              <CDGalleryView list_items={dummy_content} />
+            )}
+          </article>
         </div>
       </section>
       <CloudStorage className="cloud-drive-storage" />
     </Style.Container>
   );
-};
+}
 
 const Style = {
   Container: styled.div`
@@ -84,7 +218,7 @@ const Style = {
       width: 22.5%;
       margin-top: 4.5vh;
       ${glassBackground};
-      padding: 12px;
+      padding: 15px 20px;
     }
 
     .cd-files-menu {
@@ -114,6 +248,7 @@ const Style = {
             height: 100%;
             display: grid;
             place-items: center;
+            transition: background 0.3s linear;
           }
 
           button.active {
@@ -141,7 +276,7 @@ const Style = {
       }
 
       article.cd-content {
-        flex-grow: 1;
+        height: 63vh;
         border-radius: 16px;
         ${glassBackground};
         padding: ${convertToRelativeUnit(24, "vh")};

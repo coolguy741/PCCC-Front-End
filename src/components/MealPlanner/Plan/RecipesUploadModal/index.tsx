@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-
-import FileDropzone from "../../../CloudDrive/FileDropzone";
+import FileDropzone from "../../../FileDropzone";
 import { Icon } from "../../../Global/Icon";
 import { Modal, ModalProps } from "../../../Global/Modal";
 
@@ -9,8 +8,8 @@ export const RecipesUploadModal: React.FC<Omit<ModalProps, "children">> = ({
   ...props
 }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [isUploading, setIsUpploading] = useState<boolean>(false);
-  const [isUploaded, setIsUpploaded] = useState<boolean>(false);
+  const [isUploading] = useState<boolean>(false);
+  const [isUploaded] = useState<boolean>(false);
 
   const handleClose = () => {
     setFile(undefined);
