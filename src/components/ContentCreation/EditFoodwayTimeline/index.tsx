@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
@@ -18,7 +18,6 @@ export const EditFoodwayTimeline = ({
   setStopTime,
   initialStopTimes,
 }: EditFoodwayTimelineProps) => {
-  const firstUpdate = useRef(true);
   const stopArr = useMemo(() => ["0", ...(initialStopTimes as string[])], []);
 
   const titleState =
@@ -41,15 +40,19 @@ export const EditFoodwayTimeline = ({
   }, [totalSlides]);
 
   useEffect(() => {
-    const newStopTimeArr = stopTime.slice();
+    const newStopTimeArr = stopTime;
 
-    if (state[`stop${activeSlide}` as keyof typeof state]) {
-      newStopTimeArr[activeSlide] =
-        state[`stop${activeSlide}` as keyof typeof state].text;
-    }
+    new Array(totalSlides).fill(null).map((_, index) => {
+      if (state[`stop${index}` as keyof typeof state]) {
+        newStopTimeArr[index] =
+          state[`stop${index}` as keyof typeof state].text;
+      }
+    });
 
     setStopTime(newStopTimeArr);
-  }, [state, totalSlides, activeSlide]);
+
+    console.log(stopTime);
+  }, [totalSlides, stopTime, state]);
 
   return (
     <Style.Container activeSlide={activeSlide} totalSlides={totalSlides}>
