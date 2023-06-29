@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
@@ -18,9 +18,12 @@ export const EditFoodwayTimeline = ({
   setStopTime,
   initialStopTimes,
 }: EditFoodwayTimelineProps) => {
+  const firstUpdate = useRef(true);
+  const stopArr = useMemo(() => ["0", ...(initialStopTimes as string[])], []);
+
   const titleState =
-    initialStopTimes &&
-    initialStopTimes.reduce(
+    stopArr &&
+    stopArr.reduce(
       (acc, curr, index) => ({
         ...acc,
         [`stop${index}`]: { mode: "view", text: curr || "Edit" },
@@ -32,7 +35,9 @@ export const EditFoodwayTimeline = ({
     useContentCreation(titleState as any);
 
   useEffect(() => {
-    addTimelineStop(`stop${totalSlides - 1}`);
+    if (state[`stop${totalSlides - 1}` as keyof typeof state] === undefined) {
+      addTimelineStop(`stop${totalSlides - 1}`);
+    }
   }, [totalSlides]);
 
   useEffect(() => {
@@ -53,15 +58,15 @@ export const EditFoodwayTimeline = ({
           <div className="bubble">
             {activeSlide === 0
               ? "Intro"
-              : state[`stop${activeSlide - 1}` as keyof typeof state] && (
+              : state[`stop${activeSlide}` as keyof typeof state] && (
                   <DoubleClickToEditComponent
                     mode={
-                      state[`stop${activeSlide - 1}` as keyof typeof state].mode
+                      state[`stop${activeSlide}` as keyof typeof state].mode
                     }
                     setText={changeText}
                     changeEditState={changeEditState}
                     text={
-                      state[`stop${activeSlide - 1}` as keyof typeof state].text
+                      state[`stop${activeSlide}` as keyof typeof state].text
                     }
                     name={`stop${activeSlide}`}
                   />
