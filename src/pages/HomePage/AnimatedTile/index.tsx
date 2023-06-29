@@ -1,5 +1,5 @@
-import Spline from "@splinetool/react-spline";
-import { useState } from "react";
+// import Spline from "@splinetool/react-spline";
+import React, { Suspense, useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
@@ -10,6 +10,8 @@ import {
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Tile } from "../tile_data";
+
+const Spline = React.lazy(() => import("@splinetool/react-spline"));
 
 const h3Props = {
   tag: "h3",
@@ -34,11 +36,20 @@ function showSubtitleWithException(subtitle: string) {
 }
 
 export const AnimatedTile = ({ tile }: { tile: Tile }) => {
+  const spline = useRef();
   const [isShowingBubble, setIsShowingBubble] = useState(false);
 
   const handleClick = () => {
     setIsShowingBubble(true);
   };
+
+  function onLoad(splineApp: any) {
+    spline.current = splineApp;
+  }
+
+  function onHover() {
+    console.log("Hover");
+  }
 
   return (
     <Style.PageContainer
@@ -87,12 +98,27 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
             </SpeechBubble>
           </div>
         )}
-        <Spline scene="https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode" />
 
-        {/* <img
-          src={tile.image}
-          alt={`${tile.titleFirstLine} ${tile.titleSecondLine}`}
-        /> */}
+        {tile.id === "cook" ? (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Spline
+              scene="https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode"
+              onLoad={onLoad}
+              // onMouseHover={onHover}
+            />
+          </Suspense>
+        ) : tile.id === "mealtime" ? (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Spline scene="https://prod.spline.design/E-xcIdDrzq-0WTxA/scene.splinecode" />
+          </Suspense>
+        ) : (
+          <div className="img-container">
+            <img
+              src={tile.image}
+              alt={`${tile.titleFirstLine} ${tile.titleSecondLine}`}
+            />
+          </div>
+        )}
       </article>
     </Style.PageContainer>
   );
@@ -128,9 +154,14 @@ const Style = {
         place-items: center;
       }
 
-      /* img {
+      .img-container {
         width: 100%;
-      } */
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 7 vw;
+      }
     }
   `,
 };
