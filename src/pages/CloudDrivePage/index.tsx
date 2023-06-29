@@ -100,10 +100,18 @@ export function CloudDrivePage() {
               Files
             </Typography>
             <div>
-              <button className="cdf-view-option active">
+              <button
+                className={`cdf-view-option ${
+                  view === "gallery" ? "active" : ""
+                }`}
+                onClick={() => setView("gallery")}
+              >
                 <CDGallery />
               </button>
-              <button className="cdf-view-option">
+              <button
+                className={`cdf-view-option ${view === "list" ? "active" : ""}`}
+                onClick={() => setView("list")}
+              >
                 <CDList />
               </button>
               <button className="cdf-upload">
@@ -184,6 +192,7 @@ const Style = {
             height: 100%;
             display: grid;
             place-items: center;
+            transition: background 0.3s linear;
           }
 
           button.active {
