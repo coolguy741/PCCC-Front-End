@@ -50,8 +50,6 @@ export const EditFoodwayTimeline = ({
     });
 
     setStopTime(newStopTimeArr);
-
-    console.log(stopTime);
   }, [totalSlides, stopTime, state]);
 
   return (
