@@ -68,6 +68,62 @@ const dummy_content = [
     date: "Sat, 27 May 2023",
     size: "2mb",
   },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
+  {
+    name: "Assessment.pdf",
+    sharing: "Self",
+    type: "doc",
+    date: "Sat, 27 May 2023",
+    size: "2mb",
+  },
 ];
 
 export function CloudDrivePage() {

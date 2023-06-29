@@ -44,7 +44,7 @@ export function CDListView(props: any) {
               <div className="cd-list-image">
                 <CDAudio />
               </div>
-              <Typography size="1.75vh" weight={500}>
+              <Typography tag="h4" size="1.75vh" weight={500}>
                 {el.name}
               </Typography>
             </figure>
