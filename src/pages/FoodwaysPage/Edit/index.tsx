@@ -7,8 +7,8 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import Button from "../../../components/Button";
 import { LanguageToggle } from "../../../components/ContentBuilder/Components/ContentInfo/LangToggle";
 import { Tags } from "../../../components/ContentBuilder/Components/ContentInfo/Tag";
+import { EditFoodwayTimeline } from "../../../components/ContentCreation/EditFoodwayTimeline";
 import { FoodwayStop } from "../../../components/ContentCreation/FoodwayStop";
-import { FoodwayTimeline } from "../../../components/ContentCreation/FoodwayTimeline";
 import { FoodwayTitle } from "../../../components/ContentCreation/FoodwayTitle";
 import { BackButton } from "../../../components/Global/BackButton";
 import { Icon } from "../../../components/Global/Icon";
@@ -42,7 +42,7 @@ export const EditFoodwaysPage = () => {
   const { api } = useAPI();
   const navigate = useNavigate();
   const params = useParams();
-  const foodways = useLoaderData() as PccServer23FoodwaysFoodwayDto[];
+  const foodway = useLoaderData() as PccServer23FoodwaysFoodwayDto;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState(["foraging", "seeds"]);
@@ -51,8 +51,14 @@ export const EditFoodwaysPage = () => {
   const [stopDescription, setStopDescription] = useState<
     undefined[] | string[]
   >([]);
-  const { activeSlide, addFoodwaySlide, init, setActiveSlide, totalSlides } =
-    useFoodwayStore();
+  const {
+    activeSlide,
+    addFoodwaySlide,
+    init,
+    setActiveSlide,
+    totalSlides,
+    setTotalSlides,
+  } = useFoodwayStore();
 
   // const [title, setTitle] = useState(foodway.title);
 
@@ -110,6 +116,12 @@ export const EditFoodwaysPage = () => {
     setStopTime([]);
   }, []);
 
+  useEffect(() => {
+    setTotalSlides(
+      (foodway.foodwayStops?.length && foodway.foodwayStops?.length + 1) || 1,
+    );
+  }, []);
+
   return (
     <Style.Container>
       <div className="buttons-container">
@@ -150,39 +162,56 @@ export const EditFoodwaysPage = () => {
               modules={[Mousewheel, Scrollbar]}
               className="theme-swiper-slide"
             >
-              {new Array(totalSlides).fill(null).map((_, index) => {
-                // console.log(slide, index);
-                return (
-                  <SwiperSlide key={`slide-${index}`}>
+              <SwiperSlide key="slide-0">
+                <FoodwayTitle
+                  setTitle={setTitle}
+                  setDescription={setDescription}
+                  title={foodway.title}
+                  description={foodway.info}
+                />
+              </SwiperSlide>
+              {totalSlides &&
+                new Array(totalSlides - 1).fill(null).map((stop, index) => (
+                  <SwiperSlide key={`slide-${index + 1}`}>
                     <Style.Content>
-                      {index === 0 ? (
-                        <FoodwayTitle
-                          setTitle={setTitle}
-                          setDescription={setDescription}
-                        />
-                      ) : (
-                        <FoodwayStop
-                          index={index}
-                          stopTitle={stopTitle}
-                          stopDescription={stopDescription}
-                          setStopDescription={setStopDescription}
-                          setStopTitle={setStopTitle}
-                        />
-                      )}
+                      <FoodwayStop
+                        index={index}
+                        initialStopTitle={
+                          foodway.foodwayStops && foodway.foodwayStops[index]
+                            ? foodway.foodwayStops[index].location
+                            : "Click to edit"
+                        }
+                        initialStopDescription={
+                          foodway.foodwayStops && foodway.foodwayStops[index]
+                            ? foodway.foodwayStops[index].description
+                            : "Click to edit"
+                        }
+                        initialTimePeriod={
+                          foodway.foodwayStops && foodway.foodwayStops[index]
+                            ? foodway.foodwayStops[index].timePeriod
+                            : "Edit"
+                        }
+                        stopTitle={stopTitle}
+                        stopDescription={stopDescription}
+                        setStopDescription={setStopDescription}
+                        setStopTitle={setStopTitle}
+                      />
                     </Style.Content>
                   </SwiperSlide>
-                );
-              })}
+                ))}
               <SlideOnUpdate totalSlides={totalSlides} />
             </Swiper>
           </Style.Slide>
         </div>
         <div className="timeline">
-          <FoodwayTimeline
+          <EditFoodwayTimeline
             totalSlides={totalSlides}
             activeSlide={activeSlide}
             stopTime={stopTime}
             setStopTime={setStopTime}
+            initialStopTimes={foodway.foodwayStops?.map(
+              (stop) => stop.timePeriod,
+            )}
           />
         </div>
       </Style.ContentBuilder>

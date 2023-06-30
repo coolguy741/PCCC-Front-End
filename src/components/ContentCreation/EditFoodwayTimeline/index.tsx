@@ -3,37 +3,54 @@ import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-interface FoodwayTimelineProps {
+interface EditFoodwayTimelineProps {
   totalSlides: number;
   activeSlide: number;
   stopTime: string[] | undefined[];
   setStopTime: (stopTime: string[] | undefined[]) => void;
+  initialStopTimes?: (string | null | undefined)[];
 }
 
-export const FoodwayTimeline = ({
+export const EditFoodwayTimeline = ({
   totalSlides,
   activeSlide,
   stopTime,
   setStopTime,
-}: FoodwayTimelineProps) => {
-  const titleState = useMemo(() => ({}), [totalSlides]);
+  initialStopTimes,
+}: EditFoodwayTimelineProps) => {
+  const stopArr = useMemo(() => ["0", ...(initialStopTimes as string[])], []);
+
+  const titleState =
+    stopArr &&
+    stopArr.reduce(
+      (acc, curr, index) => ({
+        ...acc,
+        [`stop${index}`]: { mode: "view", text: curr || "Edit" },
+      }),
+      {},
+    );
+
   const { state, changeEditState, changeText, addTimelineStop } =
     useContentCreation(titleState as any);
 
   useEffect(() => {
-    addTimelineStop(`stop${totalSlides - 1}`);
+    if (state[`stop${totalSlides - 1}` as keyof typeof state] === undefined) {
+      addTimelineStop(`stop${totalSlides - 1}`);
+    }
   }, [totalSlides]);
 
   useEffect(() => {
-    const newStopTimeArr = stopTime.slice();
+    const newStopTimeArr = stopTime;
 
-    if (state[`stop${activeSlide}` as keyof typeof state]) {
-      newStopTimeArr[activeSlide] =
-        state[`stop${activeSlide}` as keyof typeof state].text;
-    }
+    new Array(totalSlides).fill(null).map((_, index) => {
+      if (state[`stop${index}` as keyof typeof state]) {
+        newStopTimeArr[index] =
+          state[`stop${index}` as keyof typeof state].text;
+      }
+    });
 
     setStopTime(newStopTimeArr);
-  }, [state, totalSlides, activeSlide]);
+  }, [totalSlides, stopTime, state]);
 
   return (
     <Style.Container activeSlide={activeSlide} totalSlides={totalSlides}>
