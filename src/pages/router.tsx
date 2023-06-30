@@ -193,13 +193,26 @@ export const router = createBrowserRouter([
             <Outlet />
           </ReportsPage>
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <Navigate to="./lesson-assessment" /> },
           { path: "lesson-assessment", element: <LessonAssessmentPage /> },
           { path: "impact-reporting", element: <ImpactReportingPage /> },
         ],
       },
-      { path: "group-organizer", element: <GroupOrganizerPage /> },
+      {
+        path: "group-organizer",
+        element: <GroupOrganizerPage />,
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
+      },
       {
         path: "plate-full-planner",
         element: (
@@ -207,6 +220,11 @@ export const router = createBrowserRouter([
             <Outlet />
           </>
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <MealPlannerPage /> },
           { path: ":recipe", element: <MealPlannerRecipePage /> },
@@ -221,6 +239,11 @@ export const router = createBrowserRouter([
       {
         path: "themes",
         element: <PageTitleLayout title="Theme" icon="topic-orange-outlined" />,
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <Themes /> },
           { path: "create", element: <ThemeCreatePage /> },
@@ -235,6 +258,11 @@ export const router = createBrowserRouter([
             icon="mealtime-moments-orange-outlined"
           />
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <MealtimeMomentsPage /> },
           { path: "create", element: <CreateMealtimeMomentPage /> },
@@ -272,6 +300,11 @@ export const router = createBrowserRouter([
             icon="activities-orange-outlined"
           />
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <ActivitiesPage /> },
           { path: "create", element: <ActivitiesCreatePage /> },
@@ -288,6 +321,11 @@ export const router = createBrowserRouter([
         element: (
           <PageTitleLayout title="Foodways" icon="foodways-orange-outlined" />
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           {
             path: "",
@@ -329,6 +367,11 @@ export const router = createBrowserRouter([
         element: (
           <PageTitleLayout title="Recipes" icon="Recipes-orange-outlined" />
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <RecipesPage /> },
           { path: "create", element: <RecipeCreatePage /> },
@@ -364,18 +407,44 @@ export const router = createBrowserRouter([
             icon="profile-orange-outlined"
           />
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [
           { path: "", element: <ProfilePage /> },
           { path: "settings", element: <ProfileSettingsPage /> },
         ],
       },
-      { path: "calendar", element: <CalendarPage /> },
-      { path: "achievements", element: <AchievementsPage /> },
+      {
+        path: "calendar",
+        element: <CalendarPage />,
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
+      },
+      {
+        path: "achievements",
+        element: <AchievementsPage />,
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
+      },
       { path: "games", element: <GamesPage /> },
       {
         path: "cloud-drive",
         element: <PageTitleLayout title="Cloud Drive" />,
         children: [{ path: "", element: <CloudDrivePage /> }],
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
       },
       {
         path: "discover-together",
@@ -401,6 +470,11 @@ export const router = createBrowserRouter([
             icon="notifications-orange-outlined"
           />
         ),
+        loader: async () => {
+          await redirectIfNotLoggedIn();
+
+          return null;
+        },
         children: [{ path: "", element: <NotificationsPage /> }],
       },
     ],
