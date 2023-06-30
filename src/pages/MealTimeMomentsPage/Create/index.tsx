@@ -38,7 +38,7 @@ export const CreateMealtimeMomentPage = () => {
     <Style.Container>
       <div className="buttons-container">
         <BackButton onClick={() => navigate("/dashboard/mealtime-moments")} />
-        <Button>Preview</Button>
+        <Button onClick={() => navigate("../preview")}>Preview</Button>
       </div>
 
       <Typography variant="h4" as="h4" weight="semi-bold">

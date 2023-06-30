@@ -10,6 +10,8 @@ export enum ContentBuilderType {
   THEMES = "themes",
   ACTIVITIES = "activities",
   RECIPES = "recipes",
+  MEALTIME_MOMENTS = "mealtime-moments",
+  FOODWAYS = "foodways",
 }
 
 export interface Material {
@@ -56,4 +58,10 @@ export interface ThemeComponent {
   component: (state: ThemeComponentProps) => JSX.Element;
   preview: JSX.Element;
   componentState?: State;
+}
+
+export interface FoodwayStop {
+  location: string[] | undefined[];
+  description: string[] | undefined[];
+  timePeriod: string[] | undefined[];
 }

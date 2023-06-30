@@ -3,7 +3,6 @@ import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertTo
 import { Globe } from "../../Foodways/Globe";
 
 export function FoodwayStop({ stop }: any) {
-  console.log(stop);
   return (
     <Style.Container>
       <div className="fw-content">

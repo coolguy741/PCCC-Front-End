@@ -40,6 +40,7 @@ import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
 import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
+import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
 import GamePage from "./GamePage/GamePage";
 import { GamesPage } from "./GamesPage";
@@ -56,6 +57,7 @@ import { MealtimeMomentsPage } from "./MealtimeMomentsPage";
 import { CreateMealtimeMomentPage } from "./MealtimeMomentsPage/Create";
 import { EditMealtimeMomentPage } from "./MealtimeMomentsPage/Edit";
 import { MealtimeMomentOverviewPage } from "./MealtimeMomentsPage/Overview";
+import { MealtimeMomentsPreviewPage } from "./MealtimeMomentsPage/Preview";
 import { MealtimeMomentPrintPage } from "./MealtimeMomentsPage/Print";
 import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
@@ -266,6 +268,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <MealtimeMomentsPage /> },
           { path: "create", element: <CreateMealtimeMomentPage /> },
+          { path: "preview", element: <MealtimeMomentsPreviewPage /> },
           {
             path: ":id",
             children: [
@@ -335,6 +338,10 @@ export const router = createBrowserRouter([
           {
             path: "create",
             element: <CreateFoodwaysPage />,
+          },
+          {
+            path: "preview",
+            element: <FoodwaysPreviewPage />,
           },
           {
             path: ":id",

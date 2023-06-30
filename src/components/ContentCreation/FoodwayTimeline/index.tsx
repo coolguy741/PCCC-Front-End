@@ -16,7 +16,14 @@ export const FoodwayTimeline = ({
   stopTime,
   setStopTime,
 }: FoodwayTimelineProps) => {
-  const titleState = useMemo(() => ({}), [totalSlides]);
+  const titleState = useMemo(
+    () =>
+      stopTime.length
+        ? stopTime.map((stop) => ({ mode: "view", text: stop }))
+        : {},
+    [totalSlides],
+  );
+
   const { state, changeEditState, changeText, addTimelineStop } =
     useContentCreation(titleState as any);
 
@@ -25,7 +32,7 @@ export const FoodwayTimeline = ({
   }, [totalSlides]);
 
   useEffect(() => {
-    const newStopTimeArr = stopTime.slice();
+    const newStopTimeArr = stopTime;
 
     if (state[`stop${activeSlide}` as keyof typeof state]) {
       newStopTimeArr[activeSlide] =
