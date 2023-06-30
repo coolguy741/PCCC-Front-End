@@ -4,11 +4,11 @@ import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 import { BACK_1_OUT } from "../../../../../shared/Eases/Eases";
 import { RefDivType } from "../../../../../shared/Types/RefTypes";
-import EngButtonSVG from "../3-SettingsSVGAssets/EngButtonSVG";
-import EnglishInActiveButton from "../3-SettingsSVGAssets/EnglishInActiveButton";
-import FrenchButtonSVG from "../3-SettingsSVGAssets/FrenchButtonSVG";
-import FrenchInActiveButtonSVG from "../3-SettingsSVGAssets/FrenchInActiveButtonSVG";
-import LanguageBGSVG from "../3-SettingsSVGAssets/LanguageBGSVG";
+import EngButtonSVG from "../4-SettingsSVGAssets/EngButtonSVG";
+import EnglishInActiveButton from "../4-SettingsSVGAssets/EnglishInActiveButton";
+import FrenchButtonSVG from "../4-SettingsSVGAssets/FrenchButtonSVG";
+import FrenchInActiveButtonSVG from "../4-SettingsSVGAssets/FrenchInActiveButtonSVG";
+import LanguageBGSVG from "../4-SettingsSVGAssets/LanguageBGSVG";
 import LanguageControllerStyleContainer from "./LanguageControllerStyleContainer";
 
 const LanguageController: FC = () => {

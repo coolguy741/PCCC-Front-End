@@ -73,7 +73,6 @@ const SettingsStyleContainer = styled.div`
       justify-content: center;
       width: 80%;
 
-      .save-button,
       .load-button {
         display: flex;
         align-items: center;
@@ -81,19 +80,10 @@ const SettingsStyleContainer = styled.div`
         flex-grow: 1;
         position: relative;
 
-        .save-button-bg,
         .load-button-bg {
           position: relative;
           width: 100%;
           height: 100%;
-        }
-
-        .save-button-svg {
-          position: absolute;
-          width: 94%;
-          height: 100%;
-          margin-top: 0.25vw;
-          margin-left: 0.15vw;
         }
 
         .load-button-svg {

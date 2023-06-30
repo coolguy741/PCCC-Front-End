@@ -47,6 +47,31 @@ const SliderStyleContainer = styled.div`
       width: 6vw;
       border-radius: 100%;
       touch-action: none;
+
+      .slider-btn-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        .static {
+          position: relative;
+        }
+
+        .pressed {
+          opacity: 0;
+          position: absolute;
+          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .pressed:active {
+          opacity: 1;
+        }
+      }
+
+      .slider-btn-container:active {
+        transform: scale(0.9);
+      }
     }
   }
 `;

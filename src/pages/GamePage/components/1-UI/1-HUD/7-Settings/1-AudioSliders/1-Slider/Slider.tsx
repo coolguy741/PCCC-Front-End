@@ -9,8 +9,10 @@ import {
 import { PCCCAudioKeysType } from "../../../../../../globalState/modules/AudioModule/AudioModuleTypes";
 import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import { RefDivType } from "../../../../../../shared/Types/RefTypes";
-import MusicSliderButtonSVG from "../../3-SettingsSVGAssets/MusicSliderButtonSVG";
-import SoundSliderButtonSVG from "../../3-SettingsSVGAssets/SoundSliderButtonSVG";
+import MusicPressedSVG from "../../4-SettingsSVGAssets/MusicPressedSVG";
+import MusicSliderButtonSVG from "../../4-SettingsSVGAssets/MusicSliderButtonSVG";
+import SoundPressedSVG from "../../4-SettingsSVGAssets/SoundPressedSVG";
+import SoundSliderButtonSVG from "../../4-SettingsSVGAssets/SoundSliderButtonSVG";
 import { handleInvertCount } from "./SliderConstants";
 import SliderStyleContainer from "./SliderStyleContainer";
 import { SliderPropTypes } from "./SliderTypes";
@@ -78,11 +80,18 @@ const Slider: FC<SliderPropTypes> = ({ type }) => {
       </div>
       <div className="slider-fill-button" ref={sliderFillButtonRef}>
         <div {...bindDrag()} ref={sliderButtonRef} className="slider-btn">
-          {type === "music" ? (
-            <MusicSliderButtonSVG />
-          ) : (
-            <SoundSliderButtonSVG />
-          )}
+          <div className="slider-btn-container">
+            <div className="static">
+              {type === "music" ? (
+                <MusicSliderButtonSVG />
+              ) : (
+                <SoundSliderButtonSVG />
+              )}
+            </div>
+            <div className="pressed">
+              {type === "music" ? <MusicPressedSVG /> : <SoundPressedSVG />}
+            </div>
+          </div>
         </div>
       </div>
     </SliderStyleContainer>

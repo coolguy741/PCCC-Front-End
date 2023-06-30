@@ -2,16 +2,14 @@ import { FC, memo } from "react";
 import StaticSVGLoader from "../../../3-Reusable/0-StaticSVGLoader.tsx/StaticSVGLoader";
 import AudioSliders from "../1-AudioSliders/0-AudioSliders/AudioSliders";
 import LanguageController from "../2-LanguageController/LanguageController";
-import CreditsButtonBGSVG from "../3-SettingsSVGAssets/CreditsButtonBGSVG";
-import CreditsButtonSVG from "../3-SettingsSVGAssets/CreditsButtonSVG";
-import ExitSettingsButtonSVG from "../3-SettingsSVGAssets/ExitSettingsButtonSVG";
-import LoadButtonBGSVG from "../3-SettingsSVGAssets/LoadButtonBGSVG";
-import LoadButtonSVG from "../3-SettingsSVGAssets/LoadButtonSVG";
-import QuitButtonBGSVG from "../3-SettingsSVGAssets/QuitButtonBGSVG";
-import QuitButtonSVG from "../3-SettingsSVGAssets/QuitButtonSVG";
-import SaveButtonBGSVG from "../3-SettingsSVGAssets/SaveButtonBGSVG";
-import SaveButtonSVG from "../3-SettingsSVGAssets/SaveButtonSVG";
-import { SettingsTabSVG } from "../3-SettingsSVGAssets/SettingsTabSVG";
+import Save from "../3-Save/Save";
+import Load from "../4-Load/Load";
+import CreditsButtonBGSVG from "../4-SettingsSVGAssets/CreditsButtonBGSVG";
+import CreditsButtonSVG from "../4-SettingsSVGAssets/CreditsButtonSVG";
+import ExitSettingsButtonSVG from "../4-SettingsSVGAssets/ExitSettingsButtonSVG";
+import QuitButtonBGSVG from "../4-SettingsSVGAssets/QuitButtonBGSVG";
+import QuitButtonSVG from "../4-SettingsSVGAssets/QuitButtonSVG";
+import { SettingsTabSVG } from "../4-SettingsSVGAssets/SettingsTabSVG";
 import SettingsStyleContainer from "./SettingsStyleContainer";
 
 const Settings: FC = () => {
@@ -40,22 +38,8 @@ const Settings: FC = () => {
           <AudioSliders />
 
           <div className="save-load">
-            <div className="save-button">
-              <div className="save-button-bg">
-                <SaveButtonBGSVG />
-              </div>
-              <div className="save-button-svg">
-                <SaveButtonSVG />
-              </div>
-            </div>
-            <div className="load-button">
-              <div className="load-button-bg">
-                <LoadButtonBGSVG />
-              </div>
-              <div className="load-button-svg">
-                <LoadButtonSVG />
-              </div>
-            </div>
+            <Save />
+            <Load />
           </div>
 
           <div className="language-credits">
