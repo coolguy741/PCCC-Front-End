@@ -1,38 +1,72 @@
+import _ from "lodash";
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import CCListAdd from "../Icons/list-add";
+import CCListDelete from "../Icons/list-delete";
+import CCListMinus from "../Icons/list-minus";
+
+const initialState = [
+  {
+    mode: "view",
+    text: "Combine all the ingredients together in a large bowl, mix until well combined.",
+  },
+  {
+    mode: "view",
+    text: "Refrigerate for about 30 minutes",
+  },
+  {
+    mode: "view",
+    text: `Scoop out a tablespoon portion of mixture, roll each portion in the
+    palm of your hands and place each ball into a resealable container for
+    storage.`,
+  },
+  {
+    mode: "view",
+    text: "Combine all the ingredients together in a large bowl, mix until well combined.",
+  },
+  {
+    mode: "view",
+    text: "Refrigerate for about 30 minutes",
+  },
+  {
+    mode: "view",
+    text: `Scoop out a tablespoon portion of mixture, roll each portion in the
+    palm of your hands and place each ball into a resealable container for
+    storage.`,
+  },
+];
 
 export function DoubleBullet() {
+  const { state, changeEditState, changeText, deleteListItem, addListItem } =
+    useContentCreation(initialState as any);
+  const listLength = Object.keys(state).length;
   return (
     <Style.Container>
-      <figcaption>Directions</figcaption>
+      <figcaption>
+        <h2>Directions</h2>
+        <div className="cc-sb-actions">
+          <CCListAdd onClick={addListItem} />
+          <CCListMinus onClick={deleteListItem} />
+          <CCListDelete />
+        </div>
+      </figcaption>
       <ol>
-        <li>
-          <span>1</span>
-          Combine all the ingredients together in a large bowl, mix until well
-          combined.
-        </li>
-        <li>
-          <span>2</span>Refrigerate for about 30 minutes
-        </li>
-        <li>
-          <span>3</span>
-          Scoop out a tablespoon portion of mixture, roll each portion in the
-          palm of your hands and place each ball into a resealable container for
-          storage.
-        </li>
-        <li>
-          <span>4</span>
-          Combine all the ingredients together in a large bowl, mix until well
-          combined.
-        </li>
-        <li>
-          <span>5</span>Refrigerate for about 30 minutes
-        </li>
-        <li>
-          <span>6</span>
-          Scoop out a tablespoon portion of mixture, roll each portion in the
-          palm of your hands and place each ball into a resealable container for
-          storage.
-        </li>
+        {_.times(listLength, (listNameMinusOne) => (
+          <li key={listNameMinusOne}>
+            <span className="db-list">{listNameMinusOne + 1}</span>
+            <p>
+              {" "}
+              <DoubleClickToEditComponent
+                mode={(state as any)[listNameMinusOne].mode}
+                name={listNameMinusOne}
+                text={(state as any)[listNameMinusOne].text}
+                changeEditState={changeEditState}
+                setText={changeText}
+              />
+            </p>
+          </li>
+        ))}
       </ol>
     </Style.Container>
   );
@@ -45,7 +79,7 @@ const Style = {
     backdrop-filter: blur(59.2764px);
     border-radius: 16px;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding: 2.5vh 2vw;
 
     figcaption {
@@ -54,19 +88,37 @@ const Style = {
       line-height: 28px;
       color: #3d3d3d;
       margin-bottom: 1.5vh;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+
+      div {
+        width: 15%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     li {
       display: flex;
+      margin-bottom: 1.25vh;
+      align-items: center;
+      width: 48.5%;
+    }
+
+    p {
       font-weight: 400;
       font-size: 14px;
       line-height: 16px;
       color: #646464;
-      margin-bottom: 1.25vh;
       width: 100%;
+      word-wrap: break-word;
+      width: 95%;
     }
 
-    span {
+    span.db-list {
       background: linear-gradient(180deg, #f87c56 0%, #f65321 91.9%);
       border-radius: 80.1418px;
       font-size: 2vh;
@@ -85,10 +137,10 @@ const Style = {
 
     ol {
       list-style-type: none;
-      column-count: 2;
-      column-gap: 2.5%;
       flex-grow: 1;
-      height: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
     }
   `,
 };
