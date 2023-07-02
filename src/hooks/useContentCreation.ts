@@ -55,13 +55,14 @@ export function useContentCreation(
     setState(newState);
   }
 
-  function deleteListItem(name: any) {
+  function deleteListItem() {
     let stateCopy = [...(state as unknown as CCFormat[])];
-    delete stateCopy[name];
+    delete stateCopy[stateCopy.length - 1];
 
     // delete leaves an "empty" value in the array
     // removed with filter
     stateCopy = stateCopy.filter(Boolean);
+    console.log("CLICKING!!!!!!!!", stateCopy);
 
     setState(stateCopy as unknown as State);
   }
