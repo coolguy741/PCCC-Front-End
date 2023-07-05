@@ -1,49 +1,48 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../../../components/Global/Button";
-import { AlignmentStyle } from "../../../components/Global/Container";
-import { LanguageChooser } from "../../../components/Global/LanguageChooser";
-import { Text } from "../../../components/Global/Text";
-import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-edit.json";
+
+import { PreviewAction } from "../../../components/ContentBuilder/Components/Actions/PreviewAction";
+import { ContentNavigator } from "../../../components/ContentBuilder/Components/ContentNavigator";
+import { MealtimeMomentsContentTemplate } from "../../../components/ContentBuilder/Components/MealtimeMomentsContentTemplate";
+import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
+import { ContentBuilderType } from "../../types";
 
 export const MealtimeMomentsPreviewPage = () => {
-  const navigate = useNavigate();
-  const [lang, setLang] = useState<string>(
-    localStorage.getItem("lang") ?? "en",
-  );
-
-  const handleBack = () => {
-    navigate(-1);
-  };
+  const { title, description } = useMealtimeMomentsStore();
 
   return (
-    <Style.PageContainer>
-      <AlignmentStyle.LeftAlignedContainer>
-        <Button onClick={handleBack}>Back</Button>
-      </AlignmentStyle.LeftAlignedContainer>
-      <AlignmentStyle.CenterAlignedContainer>
-        <LanguageChooser lang={lang} setLang={setLang} />
-      </AlignmentStyle.CenterAlignedContainer>
-      <h2>{lang === "en" ? mockData.en.title : mockData.fr.title}</h2>
-      <Style.Content>
-        <Text>
-          {lang === "en" ? mockData.en.overview : mockData.fr.overview}
-        </Text>
-        <Style.StyledImage
-          src={lang === "en" ? mockData.en.image : mockData.fr.image}
-          alt={lang === "en" ? mockData.en.alt : mockData.fr.alt}
-        />
-      </Style.Content>
-    </Style.PageContainer>
+    <Style.Slide>
+      <ContentNavigator type={ContentBuilderType.MEALTIME_MOMENTS} />
+      <MealtimeMomentsContentTemplate
+        isEditable={false}
+        title={title}
+        description={description}
+      />
+      <PreviewAction />
+    </Style.Slide>
   );
 };
 
 const Style = {
-  PageContainer: styled.div``,
-  Content: styled.div`
+  Slide: styled.section`
+    width: 100%;
     display: flex;
-    gap: 50px;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 2%;
+    height: 100%;
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 80%;
+      overflow: hidden;
+
+      .content-swiper-slide {
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+    }
   `,
-  StyledImage: styled.img``,
 };
