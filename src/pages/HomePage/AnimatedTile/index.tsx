@@ -111,6 +111,10 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
           <Suspense fallback={<div>Loading...</div>}>
             <Spline scene="https://prod.spline.design/E-xcIdDrzq-0WTxA/scene.splinecode" />
           </Suspense>
+        ) : tile.id === "discover" ? (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Spline scene="https://prod.spline.design/e-Ytpv047VfjsTtx/scene.splinecode" />
+          </Suspense>
         ) : (
           <div className="img-container">
             <img

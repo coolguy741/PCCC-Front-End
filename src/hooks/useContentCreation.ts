@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   CCFormat,
@@ -12,6 +12,7 @@ export function useContentCreation(
   updatePageState?: (slideIndex: number, index: number, state: State) => void,
 ) {
   const [state, setState] = useState<State>(initialState);
+  const [timelineState, setTimelineState] = useState<State>(initialState);
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
 
@@ -37,11 +38,55 @@ export function useContentCreation(
     }
   }
 
+  function changeTimelineEditState(tag: TitleType) {
+    if (timelineState[tag].mode === ComponentViewMode.EDIT) {
+      console.log("VIEW FIRE");
+
+      const newState = {
+        ...timelineState,
+        [tag]: {
+          ...timelineState[tag],
+          mode: ComponentViewMode.VIEW,
+        },
+      };
+      setTimelineState(newState);
+    } else {
+      console.log("EDIT FIRE");
+
+      const newState = {
+        ...timelineState,
+        [tag]: {
+          ...timelineState[tag],
+          mode: ComponentViewMode.EDIT,
+        },
+      };
+      setTimelineState(newState);
+    }
+  }
+
   function changeText(name: TitleType, newText: string) {
     const newState = {
       ...state,
       [name]: {
         ...state[name],
+        text: newText,
+      },
+    };
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        componentPosition.slideIndex,
+        componentPosition.componentIndex,
+        newState,
+      );
+    setState(newState);
+  }
+
+  function timelineChangeText(name: TitleType, newText: string) {
+    const newState = {
+      ...timelineState,
+      [name]: {
+        ...timelineState[name],
         text: newText,
       },
     };
@@ -88,6 +133,25 @@ export function useContentCreation(
     setState(newState);
   }
 
+  useEffect(() => {
+    const timeline = Object.values(state)
+      .map((value) => {
+        return {
+          mode: value.mode,
+          text: value.text,
+        };
+      })
+      .reduce(
+        (acc, curr, index) => ({
+          ...acc,
+          [`stop${index}`]: { mode: curr.mode, text: curr.text },
+        }),
+        [],
+      );
+
+    setTimelineState(timeline as unknown as State);
+  }, [state]);
+
   return {
     state,
     changeEditState,
@@ -96,5 +160,8 @@ export function useContentCreation(
     addListItem,
     setComponentPosition,
     addTimelineStop,
+    timelineState,
+    changeTimelineEditState,
+    timelineChangeText,
   };
 }

@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { FoodwayStop as FoodwayStopType } from "../../../../pages/types";
 import { State } from "../../../ContentCreation/types";
 import { FoodwayStop } from "../../../Foodways/FoodwayStop";
+import { FoodwayTimelinePreview } from "../../../Foodways/FoodwayTimelinePreview";
 import { FoodwayTitle } from "../../../Foodways/FoodwayTitle";
 
 const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
@@ -27,6 +28,7 @@ export const FoodwaysContentTemplate: React.FC<{
   updatePageState?: (slideIndex: number, index: number, state: State) => void;
   title: string;
   description: string;
+  nav: number;
 }> = ({
   isEditable = true,
   handleDelete,
@@ -35,58 +37,62 @@ export const FoodwaysContentTemplate: React.FC<{
   updatePageState,
   title,
   description,
+  nav,
 }) => {
   const onSlideChange = (swiper: SwiperType) => {
     setSlideIndex(swiper.activeIndex);
   };
 
-  console.log(slides);
   return (
-    <Swiper
-      slidesPerView={1}
-      mousewheel={true}
-      scrollbar={{
-        hide: true,
-      }}
-      pagination={false}
-      effect="fade"
-      onSlideChange={onSlideChange}
-      direction={"vertical"}
-      speed={500}
-      modules={[Mousewheel, Scrollbar]}
-      className="content-swiper-slide"
-    >
-      <SwiperSlide>
-        <Style.ContentWrapper>
-          <Style.Content>
-            <FoodwayTitle foodway={{ title: title, info: description }} />
-          </Style.Content>
-        </Style.ContentWrapper>
-      </SwiperSlide>
+    <>
+      <Swiper
+        slidesPerView={1}
+        mousewheel={true}
+        pagination={false}
+        effect="fade"
+        onSlideChange={onSlideChange}
+        direction={"vertical"}
+        speed={500}
+        modules={[Mousewheel, Scrollbar]}
+        className="content-swiper-slide"
+      >
+        <SwiperSlide>
+          <Style.ContentWrapper>
+            <Style.Content>
+              <FoodwayTitle foodway={{ title: title, info: description }} />
+            </Style.Content>
+          </Style.ContentWrapper>
+        </SwiperSlide>
 
-      {slides?.map((slide, index) => {
-        console.log(slide);
-
-        return (
-          <SwiperSlide key={`slide-${index}`}>
-            <Style.ContentWrapper>
-              <Style.Content>
-                <FoodwayStop
-                  stop={{
-                    location: slide.location ? slide.location[index] : "",
-                    description: slide.description
-                      ? slide.description[index]
-                      : "",
-                    timePeriod: slide.timePeriod ? slide.timePeriod[index] : "",
-                  }}
-                />
-              </Style.Content>
-            </Style.ContentWrapper>
-          </SwiperSlide>
-        );
-      })}
-      {isEditable && <SlideOnUpdate totalSlides={slides.length} />}
-    </Swiper>
+        {slides?.map((slide, index) => {
+          return (
+            <SwiperSlide key={`slide-${index}`}>
+              <Style.ContentWrapper>
+                <Style.Content>
+                  <FoodwayStop
+                    stop={{
+                      location: slide.location ? slide.location[index] : "",
+                      description: slide.description
+                        ? slide.description[index]
+                        : "",
+                      timePeriod: slide.timePeriod
+                        ? slide.timePeriod[index]
+                        : "",
+                    }}
+                  />
+                </Style.Content>
+              </Style.ContentWrapper>
+            </SwiperSlide>
+          );
+        })}
+        {isEditable && <SlideOnUpdate totalSlides={slides.length} />}
+      </Swiper>
+      <FoodwayTimelinePreview
+        totalSlides={slides.length + 1}
+        activeSlide={nav}
+        slides={slides}
+      />
+    </>
   );
 };
 
@@ -104,7 +110,6 @@ const Style = {
     column-gap: 1.7%;
     row-gap: 3.2%;
     position: relative;
-    background: #ffffff50;
     border-radius: 0.5rem;
     .grid {
       height: 100%;
