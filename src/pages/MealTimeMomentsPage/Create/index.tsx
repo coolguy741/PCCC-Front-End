@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import Button from "../../../components/Button";
@@ -11,11 +11,14 @@ import { Typography } from "../../../components/Global/Typography";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
+import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
 
 export const CreateMealtimeMomentPage = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const { title, description, setTitle, setDescription } =
+    useMealtimeMomentsStore();
+  const [_title, _setTitle] = useState(title || "");
+  const [_description, _setDescription] = useState(description || "");
   const [tags, setTags] = useState(["foraging", "seeds"]);
 
   const addTag = (tag: string) => {
@@ -33,6 +36,11 @@ export const CreateMealtimeMomentPage = () => {
   const handleCreate = () => {
     console.log("Save and exit");
   };
+
+  useEffect(() => {
+    setTitle(_title);
+    setDescription(_description);
+  }, [_title, _description]);
 
   return (
     <Style.Container>
@@ -55,8 +63,10 @@ export const CreateMealtimeMomentPage = () => {
       </Style.Info>
       <Style.ContentBuilder>
         <MedaltimeMomentTitle
-          setTitle={setTitle}
-          setDescription={setDescription}
+          setTitle={_setTitle}
+          setDescription={_setDescription}
+          title={title}
+          description={description}
         />
       </Style.ContentBuilder>
       <Style.ActionContainer>

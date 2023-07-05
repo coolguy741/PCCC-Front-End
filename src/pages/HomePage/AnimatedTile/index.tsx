@@ -115,6 +115,10 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
           <Suspense fallback={<div>Loading...</div>}>
             <Spline scene="https://prod.spline.design/e-Ytpv047VfjsTtx/scene.splinecode" />
           </Suspense>
+        ) : tile.id === "foodways" ? (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Spline scene="https://prod.spline.design/cSsgh0BV9i3GO7hH/scene.splinecode" />
+          </Suspense>
         ) : (
           <div className="img-container">
             <img
@@ -156,6 +160,8 @@ const Style = {
         position: relative;
         display: grid;
         place-items: center;
+        top: 25%;
+        right: 10%;
       }
 
       .img-container {
