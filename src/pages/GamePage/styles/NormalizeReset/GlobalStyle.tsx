@@ -117,6 +117,7 @@ const GlobalStyle = createGlobalStyle`
         ${MarginPaddingNone}
         border: none;
         background: none;
+        cursor: none;
     }
 
     ${Fonts}

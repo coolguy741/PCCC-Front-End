@@ -1,5 +1,11 @@
 import { Vector2 } from "three";
 
+export type activeHoveredHudMenuOptionType =
+  | "inventory"
+  | "recipe_book"
+  | "settings"
+  | "goal_list";
+
 export interface UIModuleTypes {
   windowSize: Vector2;
   cursorSize: Vector2;
@@ -8,8 +14,8 @@ export interface UIModuleTypes {
   windowResizeEventTrigger: number;
   setWindowResizeEventTrigger: () => void;
   setIsCursorDown: (isCursorDown: boolean) => void;
-  activeHoveredHudMenuOption: null | string;
+  activeHoveredHudMenuOption: activeHoveredHudMenuOptionType | null;
   setActiveHoveredHudMenuOption: (
-    newHoveredHudMenuOption: string | null,
+    newHoveredHudMenuOption: activeHoveredHudMenuOptionType | null,
   ) => void;
 }

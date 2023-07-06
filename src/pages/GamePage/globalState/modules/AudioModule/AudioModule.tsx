@@ -10,6 +10,7 @@ const AudioModule = ({ set, get }: globalStateApiType) => {
   return {
     PCCCAudio,
     PCCCVolumeKeys,
+    PCCCActiveVolumeKeys: { ...PCCCVolumeKeys },
 
     playAudio: (key: PCCCAudioKeysType) => {
       const targetVO = get().PCCCAudio[key];
@@ -29,8 +30,9 @@ const AudioModule = ({ set, get }: globalStateApiType) => {
     setMuted: (key: PCCCAudioKeysType, muteState: boolean) => {
       const audioKey = get().PCCCAudio[key];
       const audioKeyCurrentVolume = audioKey.volume();
-      const targetVolumeKey = get().PCCCVolumeKeys[key];
+
       if (muteState) {
+        get().PCCCActiveVolumeKeys[key] = audioKey.volume();
         audioKey.fade(audioKeyCurrentVolume, 0, PCCCAudioFadeDuration);
         setTimeout(() => {
           audioKey.mute(true);
@@ -39,10 +41,15 @@ const AudioModule = ({ set, get }: globalStateApiType) => {
         audioKey.mute(false);
         audioKey.fade(
           audioKeyCurrentVolume,
-          targetVolumeKey,
+          get().PCCCActiveVolumeKeys[key],
           PCCCAudioFadeDuration,
         );
       }
+    },
+
+    setVolume: (key: PCCCAudioKeysType, volume: number) => {
+      const audioKey = get().PCCCAudio[key];
+      audioKey.fade(audioKey.volume(), volume, 50);
     },
   };
 };

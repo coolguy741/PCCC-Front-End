@@ -5,13 +5,15 @@ import { DevelopmentModuleTypes } from "./modules/DevelopmentModule/DevelopmentM
 import { InteractiveGameEntityModuleTypes } from "./modules/InteractiveGameEntityModule/InteractiveGameEntityModuleTypes";
 import { InventoryModuleTypes } from "./modules/InventoryModule/InventoryModuleTypes";
 import { LocationModuleTypes } from "./modules/LocationModule/LocationModuleTypes";
+import { SettingsModuleTypes } from "./modules/SettingsModule/SettingsModuleTypes";
 import { UIModuleTypes } from "./modules/UIModule/UIModuleTypes";
 
 export interface GlobalStateTypes
   extends UIModuleTypes,
-    LocationModuleTypes,
-    CameraModuleTypes,
     AudioModuleTypes,
+    CameraModuleTypes,
+    LocationModuleTypes,
+    SettingsModuleTypes,
     InventoryModuleTypes,
     DevelopmentModuleTypes,
     AchievementModuleTypes,

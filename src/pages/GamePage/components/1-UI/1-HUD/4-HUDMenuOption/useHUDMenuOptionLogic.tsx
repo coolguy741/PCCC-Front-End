@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../../globalState/useGlobalState";
 import { ConstantVoidFunctionType } from "../../../../shared/Types/DefineTypes";
 import { RefDivType, RefImageType } from "../../../../shared/Types/RefTypes";
 import {
@@ -22,9 +24,18 @@ const useHUDMenuOptionLogic: UseHUDMenuOptionLogicType = ({
   const hudMenuOptionBGRef: RefDivType = useRef(null);
   const hudMenuOptionIconRef: RefImageType = useRef(null);
 
+  const { isSettingsPanelOpen, setIsSettingsPanelOpen } = useGlobalState(
+    (state) => ({
+      isSettingsPanelOpen: state.isSettingsPanelOpen,
+      setIsSettingsPanelOpen: state.setIsSettingsPanelOpen,
+    }),
+    shallow,
+  );
+
   // Handlers
   const onPointerEnter: ConstantVoidFunctionType = useCallback((): void => {
     if (menuActive) return;
+    if (isSettingsPanelOpen) return;
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
 
@@ -34,19 +45,47 @@ const useHUDMenuOptionLogic: UseHUDMenuOptionLogicType = ({
       hudMenuOptionIconRef.current,
       optionData.animIconLanding,
     );
-  }, [menuActive, optionData, setActiveHoveredHudMenuOption]);
+
+    if (optionData.name === "settings") {
+      setIsSettingsPanelOpen(true);
+    }
+  }, [
+    menuActive,
+    optionData,
+    isSettingsPanelOpen,
+    setIsSettingsPanelOpen,
+    setActiveHoveredHudMenuOption,
+  ]);
 
   const onPointerLeave: ConstantVoidFunctionType = useCallback((): void => {
     if (menuActive) return;
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
 
-    if (activeHoveredHudMenuOption !== "inventory") {
+    if (
+      activeHoveredHudMenuOption !== "inventory" &&
+      activeHoveredHudMenuOption !== "settings"
+    ) {
       setActiveHoveredHudMenuOption(null);
       animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
       animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
     }
   }, [menuActive, setActiveHoveredHudMenuOption, activeHoveredHudMenuOption]);
+
+  useEffect(() => {
+    if (!hudMenuOptionBGRef.current) return;
+    if (!hudMenuOptionIconRef.current) return;
+    if (isSettingsPanelOpen) return;
+    if (optionData.name !== "settings") return;
+    setActiveHoveredHudMenuOption(null);
+    animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
+    animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
+  }, [
+    optionData,
+    onPointerLeave,
+    isSettingsPanelOpen,
+    setActiveHoveredHudMenuOption,
+  ]);
 
   // TODO: Kanui - This only covers the inventory condition
   useEffect(() => {
