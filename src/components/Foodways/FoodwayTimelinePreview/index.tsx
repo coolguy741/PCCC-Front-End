@@ -3,27 +3,27 @@ import styled from "styled-components";
 interface FoodwayTimelineProps {
   activeSlide: number;
   totalSlides: number;
-  foodway: any;
+  slides: any;
 }
 
-export const FoodwayTimeline = ({
+export const FoodwayTimelinePreview = ({
   activeSlide,
   totalSlides,
-  foodway,
+  slides,
 }: FoodwayTimelineProps) => {
   return (
-    <Style.Container activeSlide={activeSlide} totalSlides={totalSlides}>
+    <Style.Container activeSlide={activeSlide} totalSlides={totalSlides - 1}>
       {totalSlides && (
         <div className="bubble-container">
           <div className="bubble">
             {activeSlide === 0
               ? "Intro"
-              : foodway.foodwayStops[activeSlide - 1].timePeriod}
+              : slides[activeSlide].timePeriod[activeSlide]}
           </div>
         </div>
       )}
       {totalSlides &&
-        new Array(totalSlides).fill(null).map((_, index) => (
+        new Array(totalSlides - 1).fill(null).map((_, index) => (
           <div key={`stop-${index}`} className="stop">
             <div
               className={`point ${activeSlide >= index && "active"} ${
@@ -48,6 +48,7 @@ const Style = {
   align-items: flex-end;
   flex-direction: column;
   padding: 1rem 0;
+  width: 10%;
 
   .stop {
     height: ${({ totalSlides }) => `calc(100% / (${totalSlides} - 1))`};

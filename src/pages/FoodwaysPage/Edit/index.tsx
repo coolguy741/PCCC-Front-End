@@ -114,6 +114,7 @@ export const EditFoodwaysPage = () => {
     setStopTitle([]);
     setStopDescription([]);
     setStopTime([]);
+    setActiveSlide(0);
   }, []);
 
   useEffect(() => {
