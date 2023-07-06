@@ -57,3 +57,9 @@ export interface ThemeComponent {
   preview: JSX.Element;
   componentState?: State;
 }
+
+export interface IContent {
+  tags?: string;
+  curriculum?: string;
+  slides: ThemeComponent[][];
+}

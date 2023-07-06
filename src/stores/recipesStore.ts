@@ -1,20 +1,19 @@
 import { create } from "zustand";
 
+import { components } from "../components/ContentBuilder/Components/Cards";
 import { State as ComponentState } from "../components/ContentCreation/types";
-import { Language, ThemeComponent } from "../pages/types";
-
-interface IContent {
-  tags?: string;
-  curriculum?: string;
-  slides: ThemeComponent[][];
-}
+import { IContent, Language, ThemeComponent } from "../pages/types";
+import { PccServer23RecipesRecipeDto } from "./../lib/api/api";
 
 interface ThemeProp {
+  id?: string;
   maxPageCount: number;
+  recipes?: PccServer23RecipesRecipeDto[] | null;
   currentStep: number;
   currentLang: Language;
   slideIndex: number;
   contents: IContent[];
+  detail?: IContent[];
   currentSlide: ThemeComponent[];
   activityIds: string[];
   recipeIds: string[];
@@ -26,6 +25,7 @@ interface ThemeProp {
   };
 }
 export interface RecipesStoreState extends ThemeProp {
+  setDetail: (content: IContent[]) => void;
   changeStep: (step: number) => void;
   addSlide: () => void;
   updatePage: (slide: ThemeComponent[]) => void;
@@ -40,14 +40,17 @@ export interface RecipesStoreState extends ThemeProp {
   removeItemId: (activityId: string) => void;
   init: () => void;
   deleteSlide: () => void;
+  updateId: (id: string | undefined) => void;
   continueWithFrench: () => void;
+  getDetailId: (index: number) => string | undefined;
 }
 
 const initialState: ThemeProp = {
   currentStep: 0,
   maxPageCount: 1,
   slideIndex: 0,
-  contents: [{ slides: [[]] }],
+  contents: [{ slides: [[components[0]]] }],
+  detail: undefined,
   currentLang: "en",
   currentSlide: [],
   activityIds: [],
@@ -60,8 +63,10 @@ const initialState: ThemeProp = {
   },
 };
 
-export const useRecipesStore = create<RecipesStoreState>()((set) => ({
+export const useRecipesStore = create<RecipesStoreState>()((set, get) => ({
   ...initialState,
+  updateId: (id) => set(() => ({ id })),
+  setDetail: (detail) => set(() => ({ detail })),
   changeStep: (currentStep) =>
     set(({ contents }) => ({
       currentStep,
@@ -118,7 +123,7 @@ export const useRecipesStore = create<RecipesStoreState>()((set) => ({
     set(({ contents, slideIndex, currentStep }) => ({
       contents: [
         ...contents.map((page, index) => {
-          if (index === currentStep) {
+          if (index === currentStep && currentStep + slideIndex !== 0) {
             const slides = [
               ...page.slides.filter((slide, index) => index !== slideIndex),
             ];
@@ -134,7 +139,7 @@ export const useRecipesStore = create<RecipesStoreState>()((set) => ({
     set(({ contents }) => ({
       currentStep: 0,
       en: { contents },
-      contents: [{ slides: [[]] }],
+      contents: [{ slides: [[components[0]]] }],
       currentLang: "fr",
     })),
   updatePageState: (sIndex, componentIndex, componentState) =>
@@ -146,5 +151,6 @@ export const useRecipesStore = create<RecipesStoreState>()((set) => ({
         return page;
       }),
     })),
+  getDetailId: (index: number) => get().recipes?.[index - 1].id,
   init: () => set(() => ({ ...initialState })),
 }));

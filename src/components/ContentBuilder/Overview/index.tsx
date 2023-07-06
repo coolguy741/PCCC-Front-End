@@ -1,7 +1,7 @@
 import { ContentBuilderProps } from "..";
 import { Content } from "../Components/Content";
 
-export const ContentBuilderPreview: React.FC<ContentBuilderProps> = ({
+export const ContentBuilderOverview: React.FC<ContentBuilderProps> = ({
   type,
   store,
 }) => {

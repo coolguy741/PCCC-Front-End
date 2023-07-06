@@ -1,53 +1,22 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { ActivityContent } from "../../../components/Activities/ActivityContent";
-import { ActivityTip } from "../../../components/Activities/ActivityTip";
-import { Button } from "../../../components/Global/Button";
+import { useEffect } from "react";
+
+import { ContentBuilderOverview } from "../../../components/ContentBuilder/Overview";
+import { useContentActions } from "../../../hooks/useContentActions";
+import { useActivitiesStore } from "../../../stores/activitiesStore";
+import { ContentBuilderType } from "../../types";
 
 export const ActivityPage = () => {
-  const navigate = useNavigate();
+  const { getContent } = useContentActions();
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
-  const handleEdit = () => {
-    navigate("./edit");
-  };
-
-  const handlePrint = () => {
-    navigate("./print");
-  };
+  useEffect(() => {
+    getContent(ContentBuilderType.ACTIVITIES);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <Style.PageContainer>
-      <Style.ButtonGroup>
-        <Button onClick={handleBack}>Back</Button>
-        <Style.SubButtonGroup>
-          <Button onClick={handleEdit}>Edit</Button>
-          <Button onClick={handlePrint}>Print</Button>
-        </Style.SubButtonGroup>
-      </Style.ButtonGroup>
-      <ActivityContent />
-      <ActivityTip activityLink1="#" activityLink2="#" />
-    </Style.PageContainer>
+    <ContentBuilderOverview
+      type={ContentBuilderType.ACTIVITIES}
+      store={useActivitiesStore()}
+    />
   );
-};
-
-const Style = {
-  PageContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  `,
-  ButtonGroup: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  `,
-  SubButtonGroup: styled.div`
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  `,
 };

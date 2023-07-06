@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
+import { useContentActions } from "../../../../hooks/useContentActions";
+import { ContentBuilderType } from "../../../../pages/types";
 
 import Button from "../../../Button";
 import { Typography } from "../../../Global/Typography";
@@ -11,6 +13,7 @@ interface Props {
   currentStep: number;
   maxPageCount: number;
   addSlide: () => void;
+  type?: ContentBuilderType;
   changeStep: (step: number) => void;
 }
 
@@ -19,9 +22,11 @@ export const ContentEditorActions: React.FC<Props> = ({
   changeStep,
   addSlide,
   maxPageCount,
+  type = ContentBuilderType.THEMES,
   showingMessage = false,
 }) => {
   const [showingConfirmModal, setShowingConfirmModal] = useState(false);
+  const { saveContent, updateIdInStore } = useContentActions();
 
   const handleSaveAndContinue = () => {
     currentStep < maxPageCount - 1
@@ -31,6 +36,12 @@ export const ContentEditorActions: React.FC<Props> = ({
 
   const handleAddSlide = () => {
     addSlide();
+  };
+
+  const handleSaveAndExit = async () => {
+    const response = await saveContent(type);
+
+    updateIdInStore(response?.id, type);
   };
 
   return (
@@ -68,7 +79,7 @@ export const ContentEditorActions: React.FC<Props> = ({
         )}
       </AnimatePresence>
       <div className="flex ml-auto">
-        <Button variant="yellow" className="mr-4">
+        <Button variant="yellow" className="mr-4" onClick={handleSaveAndExit}>
           Save changes and exit
         </Button>
         <Button variant="orange" onClick={handleSaveAndContinue}>

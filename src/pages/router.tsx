@@ -82,6 +82,7 @@ import { TestLandingPage } from "./TestLandingPage";
 import { Themes } from "./ThemeBuilderPage";
 import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
 import { ThemePreviewPage } from "./ThemeBuilderPage/Create/Preview";
+import { ThemePrintPage } from "./ThemeBuilderPage/Print";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
@@ -272,11 +273,12 @@ export const router = createBrowserRouter([
             icon="activities-orange-outlined"
           />
         ),
+        // loader: foodwaysPageLoader,
         children: [
           { path: "", element: <ActivitiesPage /> },
           { path: "create", element: <ActivitiesCreatePage /> },
           { path: "preview", element: <ActivitiesPreviewPage /> },
-          { path: ":activiy", element: <ActivityPage /> },
+          { path: ":activity", element: <ActivityPage /> },
           {
             path: ":activity/edit",
             element: <ActivitiesEditPage />,
@@ -453,6 +455,10 @@ export const router = createBrowserRouter([
       {
         path: "dashboard/activities/:activity/print",
         element: <ActivityPrintPage />,
+      },
+      {
+        path: "dashboard/themes/:slug/print",
+        element: <ThemePrintPage />,
       },
       {
         path: "dashboard/mealtime-moments/:mealtime-moment/print",

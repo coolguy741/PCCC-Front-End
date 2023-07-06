@@ -1,7 +1,9 @@
 import { create } from "zustand";
 
+import { components } from "../components/ContentBuilder/Components/Cards";
 import { State as ComponentState } from "../components/ContentCreation/types";
 import { Language, ThemeComponent } from "../pages/types";
+import { PccServer23ThemesThemeDto } from "./../lib/api/api";
 
 interface IContent {
   tags?: string;
@@ -10,6 +12,8 @@ interface IContent {
 }
 
 interface ThemeProp {
+  id?: string;
+  themes?: PccServer23ThemesThemeDto[] | null;
   currentStep: number;
   currentLang: Language;
   maxPageCount: number;
@@ -41,13 +45,15 @@ export interface ThemeStoreState extends ThemeProp {
   init: () => void;
   deleteSlide: () => void;
   continueWithFrench: () => void;
+  updateId: (id: string | undefined) => void;
+  getDetailId: (index: number) => string | undefined;
 }
 
 const initialState: ThemeProp = {
   currentStep: 0,
   maxPageCount: 6,
   slideIndex: 0,
-  contents: [{ slides: [[]] }],
+  contents: [{ slides: [[components[0]]] }],
   currentLang: "en",
   currentSlide: [],
   activityIds: [],
@@ -60,8 +66,9 @@ const initialState: ThemeProp = {
   },
 };
 
-export const useThemeStore = create<ThemeStoreState>()((set) => ({
+export const useThemeStore = create<ThemeStoreState>()((set, get) => ({
   ...initialState,
+  updateId: (id) => set(() => ({ id })),
   changeStep: (currentStep) =>
     set(({ contents }) => ({
       currentStep,
@@ -118,7 +125,7 @@ export const useThemeStore = create<ThemeStoreState>()((set) => ({
     set(({ contents, slideIndex, currentStep }) => ({
       contents: [
         ...contents.map((page, index) => {
-          if (index === currentStep) {
+          if (index === currentStep && currentStep + slideIndex !== 0) {
             const slides = [
               ...page.slides.filter((slide, index) => index !== slideIndex),
             ];
@@ -134,7 +141,7 @@ export const useThemeStore = create<ThemeStoreState>()((set) => ({
     set(({ contents }) => ({
       currentStep: 0,
       en: { contents },
-      contents: [{ slides: [[]] }],
+      contents: [{ slides: [[components[0]]] }],
       currentLang: "fr",
     })),
   updatePageState: (sIndex, componentIndex, componentState) =>
@@ -146,5 +153,6 @@ export const useThemeStore = create<ThemeStoreState>()((set) => ({
         return page;
       }),
     })),
+  getDetailId: (index: number) => get().themes?.[index - 1].id,
   init: () => set(() => ({ ...initialState })),
 }));
