@@ -1,5 +1,6 @@
 import { Vector2 } from "three";
 import { globalStateApiType } from "../../GlobalStateTypes";
+import { activeHoveredHudMenuOptionType } from "./UIModuleTypes";
 
 const UIModule = ({ set, get }: globalStateApiType) => {
   return {
@@ -20,7 +21,9 @@ const UIModule = ({ set, get }: globalStateApiType) => {
     },
 
     activeHoveredHudMenuOption: null,
-    setActiveHoveredHudMenuOption: (newHoveredHudMenuOption: string | null) => {
+    setActiveHoveredHudMenuOption: (
+      newHoveredHudMenuOption: activeHoveredHudMenuOptionType | null,
+    ) => {
       set({ activeHoveredHudMenuOption: newHoveredHudMenuOption });
     },
   };

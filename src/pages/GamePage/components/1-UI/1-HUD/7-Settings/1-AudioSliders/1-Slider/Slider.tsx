@@ -9,10 +9,10 @@ import {
 import { PCCCAudioKeysType } from "../../../../../../globalState/modules/AudioModule/AudioModuleTypes";
 import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import { RefDivType } from "../../../../../../shared/Types/RefTypes";
-import MusicPressedSVG from "../../4-SettingsSVGAssets/MusicPressedSVG";
-import MusicSliderButtonSVG from "../../4-SettingsSVGAssets/MusicSliderButtonSVG";
-import SoundPressedSVG from "../../4-SettingsSVGAssets/SoundPressedSVG";
-import SoundSliderButtonSVG from "../../4-SettingsSVGAssets/SoundSliderButtonSVG";
+import MusicPressedSVG from "../../13-SettingsSVGAssets/MusicPressedSVG";
+import MusicSliderButtonSVG from "../../13-SettingsSVGAssets/MusicSliderButtonSVG";
+import SoundPressedSVG from "../../13-SettingsSVGAssets/SoundPressedSVG";
+import SoundSliderButtonSVG from "../../13-SettingsSVGAssets/SoundSliderButtonSVG";
 import { handleInvertCount } from "./SliderConstants";
 import SliderStyleContainer from "./SliderStyleContainer";
 import { SliderPropTypes } from "./SliderTypes";

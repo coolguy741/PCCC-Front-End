@@ -4,11 +4,11 @@ import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 import { BACK_1_OUT } from "../../../../../shared/Eases/Eases";
 import { RefDivType } from "../../../../../shared/Types/RefTypes";
-import EngButtonSVG from "../4-SettingsSVGAssets/EngButtonSVG";
-import EnglishInActiveButton from "../4-SettingsSVGAssets/EnglishInActiveButton";
-import FrenchButtonSVG from "../4-SettingsSVGAssets/FrenchButtonSVG";
-import FrenchInActiveButtonSVG from "../4-SettingsSVGAssets/FrenchInActiveButtonSVG";
-import LanguageBGSVG from "../4-SettingsSVGAssets/LanguageBGSVG";
+import EngButtonSVG from "../13-SettingsSVGAssets/EngButtonSVG";
+import EnglishInActiveButton from "../13-SettingsSVGAssets/EnglishInActiveButton";
+import FrenchButtonSVG from "../13-SettingsSVGAssets/FrenchButtonSVG";
+import FrenchInActiveButtonSVG from "../13-SettingsSVGAssets/FrenchInActiveButtonSVG";
+import LanguageBGSVG from "../13-SettingsSVGAssets/LanguageBGSVG";
 import LanguageControllerStyleContainer from "./LanguageControllerStyleContainer";
 
 const LanguageController: FC = () => {
@@ -69,12 +69,12 @@ const LanguageController: FC = () => {
   }, [activeLanguage, setActiveLanguage]);
 
   return (
-    <LanguageControllerStyleContainer onClick={handleLanguageToggle}>
+    <LanguageControllerStyleContainer>
       <div className="language-button-bg">
         <LanguageBGSVG />
       </div>
       <div className="eng-french-buttons">
-        <div className="english">
+        <div className="english" onClick={handleLanguageToggle}>
           <div className="eng-inactive" ref={englishInActiveRef}>
             <EnglishInActiveButton />
           </div>
@@ -83,7 +83,7 @@ const LanguageController: FC = () => {
           </div>
         </div>
 
-        <div className="french">
+        <div className="french" onClick={handleLanguageToggle}>
           <div className="fr-inactive" ref={frenchInActiveRef}>
             <FrenchInActiveButtonSVG />
           </div>

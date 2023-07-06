@@ -15,31 +15,13 @@ const SettingsStyleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  opacity: 0;
 
   .settings-modal {
     position: relative;
     width: 100%;
     height: 100%;
-
-    .settings-tab-container {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      top: 10vw;
-      left: -5vw;
-      .settings-svg-container {
-        position: absolute;
-        width: 70%;
-      }
-      .settings-tab-text {
-        position: relative;
-        color: black;
-        transform: rotate(-90deg);
-        font-size: 1.75vw;
-        font-weight: bold;
-      }
-    }
 
     .settings-bg {
       position: absolute;
@@ -49,10 +31,10 @@ const SettingsStyleContainer = styled.div`
     }
 
     .settings-exit-button {
-      position: absolute;
       top: 0;
       right: 0;
       width: 20%;
+      position: absolute;
       transform: translate(35%, -35%);
     }
 
@@ -102,28 +84,6 @@ const SettingsStyleContainer = styled.div`
       align-items: center;
       justify-content: center;
       width: 80%;
-
-      .credits-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-grow: 1;
-        position: relative;
-
-        .credits-button-bg {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
-
-        .credits-button-svg {
-          position: absolute;
-          width: 94%;
-          margin-top: 0.5vw;
-          margin-left: 0.5vw;
-          z-index: 1;
-        }
-      }
     }
 
     .quit-button {
