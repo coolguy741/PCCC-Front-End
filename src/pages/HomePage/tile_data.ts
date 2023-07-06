@@ -1,4 +1,5 @@
 export interface Tile {
+  id: string;
   titleFirstLine: string;
   titleSecondLine: string;
   titleColor: string;
@@ -19,6 +20,7 @@ export interface Tile {
 
 export const dashboard_tiles: Tile[] = [
   {
+    id: "discover",
     titleFirstLine: "Discover",
     titleSecondLine: "Together",
     titleColor: "orange-600",
@@ -38,6 +40,7 @@ export const dashboard_tiles: Tile[] = [
     },
   },
   {
+    id: "grow",
     titleFirstLine: "Grow",
     titleSecondLine: "Together",
     titleColor: "green-600",
@@ -57,6 +60,7 @@ export const dashboard_tiles: Tile[] = [
     },
   },
   {
+    id: "cook",
     titleFirstLine: "Cook",
     titleSecondLine: "Together",
     titleColor: "blue-600",
@@ -76,6 +80,7 @@ export const dashboard_tiles: Tile[] = [
     },
   },
   {
+    id: "games",
     titleFirstLine: "Games",
     titleSecondLine: "",
     titleColor: "orange-600",
@@ -95,6 +100,7 @@ export const dashboard_tiles: Tile[] = [
     },
   },
   {
+    id: "foodways",
     titleFirstLine: "Foodways",
     titleSecondLine: "",
     titleColor: "green-600",
@@ -114,6 +120,7 @@ export const dashboard_tiles: Tile[] = [
     },
   },
   {
+    id: "mealtime",
     titleFirstLine: "Mealtime",
     titleSecondLine: "Moments",
     titleColor: "blue-600",
@@ -135,6 +142,7 @@ export const dashboard_tiles: Tile[] = [
 ];
 
 export const meal_planner_tile: Tile = {
+  id: "meal-planner",
   titleFirstLine: "Meal",
   titleSecondLine: "Planner",
   titleColor: "orange-600",

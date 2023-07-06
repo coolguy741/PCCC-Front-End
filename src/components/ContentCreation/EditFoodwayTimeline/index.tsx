@@ -1,16 +1,57 @@
+import { useEffect, useMemo } from "react";
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-interface FoodwayTimelineProps {
-  activeSlide: number;
+interface EditFoodwayTimelineProps {
   totalSlides: number;
-  foodway: any;
+  activeSlide: number;
+  stopTime: string[] | undefined[];
+  setStopTime: (stopTime: string[] | undefined[]) => void;
+  initialStopTimes?: (string | null | undefined)[];
 }
 
-export const FoodwayTimeline = ({
-  activeSlide,
+export const EditFoodwayTimeline = ({
   totalSlides,
-  foodway,
-}: FoodwayTimelineProps) => {
+  activeSlide,
+  stopTime,
+  setStopTime,
+  initialStopTimes,
+}: EditFoodwayTimelineProps) => {
+  const stopArr = useMemo(() => ["0", ...(initialStopTimes as string[])], []);
+
+  const titleState =
+    stopArr &&
+    stopArr.reduce(
+      (acc, curr, index) => ({
+        ...acc,
+        [`stop${index}`]: { mode: "view", text: curr || "Edit" },
+      }),
+      {},
+    );
+
+  const { state, changeEditState, changeText, addTimelineStop } =
+    useContentCreation(titleState as any);
+
+  useEffect(() => {
+    if (state[`stop${totalSlides - 1}` as keyof typeof state] === undefined) {
+      addTimelineStop(`stop${totalSlides - 1}`);
+    }
+  }, [totalSlides]);
+
+  useEffect(() => {
+    const newStopTimeArr = stopTime;
+
+    new Array(totalSlides).fill(null).map((_, index) => {
+      if (state[`stop${index}` as keyof typeof state]) {
+        newStopTimeArr[index] =
+          state[`stop${index}` as keyof typeof state].text;
+      }
+    });
+
+    setStopTime(newStopTimeArr);
+  }, [totalSlides, stopTime, state]);
+
   return (
     <Style.Container activeSlide={activeSlide} totalSlides={totalSlides}>
       {totalSlides && (
@@ -18,7 +59,19 @@ export const FoodwayTimeline = ({
           <div className="bubble">
             {activeSlide === 0
               ? "Intro"
-              : foodway.foodwayStops[activeSlide - 1].timePeriod}
+              : state[`stop${activeSlide}` as keyof typeof state] && (
+                  <DoubleClickToEditComponent
+                    mode={
+                      state[`stop${activeSlide}` as keyof typeof state].mode
+                    }
+                    setText={changeText}
+                    changeEditState={changeEditState}
+                    text={
+                      state[`stop${activeSlide}` as keyof typeof state].text
+                    }
+                    name={`stop${activeSlide}`}
+                  />
+                )}
           </div>
         </div>
       )}

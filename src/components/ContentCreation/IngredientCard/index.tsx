@@ -1,37 +1,63 @@
+import _ from "lodash";
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-const ingredients = [
+const initialState = [
   {
+    mode: "view",
     amt: "2 cups",
     ingdt: "Quick oats",
   },
   {
+    mode: "view",
     amt: "11/3 cup",
     ingdt: "Coconut flakes",
   },
   {
+    mode: "view",
     amt: "1 cup",
     ingdt: "Creamy nut butter of your choice",
   },
   {
+    mode: "view",
     amt: "1 cup",
     ingdt: "Ground flaxseed",
   },
   {
+    mode: "view",
     amt: "1 cup",
     ingdt: "Chocolate chips",
   },
 ];
 
 export function IngredientCard() {
+  const { state, changeEditState, changeText, deleteListItem, addListItem } =
+    useContentCreation(initialState as any);
+  const listLength = Object.keys(state).length;
+
   return (
     <Style.Container>
       <figcaption>Ingredients</figcaption>
       <ol>
-        {ingredients.map(({ amt, ingdt }) => (
+        {_.times(listLength, (listNameMinusOne) => (
           <li>
-            <span>{amt}</span>
-            {ingdt}
+            <span className="ic-span">
+              <DoubleClickToEditComponent
+                mode={(state as any)[listNameMinusOne].mode}
+                name={listNameMinusOne}
+                text={(state as any)[listNameMinusOne].amt}
+                changeEditState={changeEditState}
+                setText={changeText}
+              />
+            </span>
+            <DoubleClickToEditComponent
+              mode={(state as any)[listNameMinusOne].mode}
+              name={listNameMinusOne}
+              text={(state as any)[listNameMinusOne].ingdt}
+              changeEditState={changeEditState}
+              setText={changeText}
+            />
           </li>
         ))}
       </ol>
@@ -66,7 +92,7 @@ const Style = {
       margin-bottom: 1.25vh;
     }
 
-    span {
+    span.ic-span {
       width: 27.5%;
       font-weight: 600;
       font-size: 14px;

@@ -4,24 +4,31 @@ import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-const titleState: any = {
-  tag: { mode: "view", text: "Overview" },
-  heading: {
-    mode: "view",
-    text: "Click to edit",
-  },
-  desc: {
-    mode: "view",
-    text: "Click to edit.",
-  },
-};
-
 interface FoodwayTitleProps {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
+  title?: string | null;
+  description?: string | null;
 }
 
-export function FoodwayTitle({ setTitle, setDescription }: FoodwayTitleProps) {
+export function FoodwayTitle({
+  setTitle,
+  setDescription,
+  title,
+  description,
+}: FoodwayTitleProps) {
+  const titleState: any = {
+    tag: { mode: "view", text: "Overview" },
+    heading: {
+      mode: "view",
+      text: title || "Click to edit",
+    },
+    desc: {
+      mode: "view",
+      text: description || "Click to edit.",
+    },
+  };
+
   const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   useEffect(() => {

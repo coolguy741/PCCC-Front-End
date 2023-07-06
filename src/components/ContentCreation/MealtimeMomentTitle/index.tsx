@@ -4,27 +4,31 @@ import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
-const titleState: any = {
-  tag: { mode: "view", text: "Overview" },
-  heading: {
-    mode: "view",
-    text: "Click to edit",
-  },
-  desc: {
-    mode: "view",
-    text: "Click to edit.",
-  },
-};
-
 interface MedaltimeMomentTitleProps {
+  title?: string;
+  description?: string;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
 }
 
 export function MedaltimeMomentTitle({
+  title,
+  description,
   setTitle,
   setDescription,
 }: MedaltimeMomentTitleProps) {
+  const titleState: any = {
+    tag: { mode: "view", text: "Overview" },
+    heading: {
+      mode: "view",
+      text: title || "Click to edit",
+    },
+    desc: {
+      mode: "view",
+      text: description || "Click to edit.",
+    },
+  };
+
   const { state, changeEditState, changeText } = useContentCreation(titleState);
 
   useEffect(() => {

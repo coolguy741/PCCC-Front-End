@@ -1,42 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import SwiperType from "swiper";
-import { useSwiper } from "swiper/react";
 import Button from "../../../components/Button";
 import { LanguageToggle } from "../../../components/ContentBuilder/Components/ContentInfo/LangToggle";
 import { Tags } from "../../../components/ContentBuilder/Components/ContentInfo/Tag";
 import { MedaltimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
 import { BackButton } from "../../../components/Global/BackButton";
-import { Icon } from "../../../components/Global/Icon";
 import { Typography } from "../../../components/Global/Typography";
-import { useAPI } from "../../../hooks/useAPI";
-import { useFoodwayStore } from "../../../stores/foodwaysStore";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-
-const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
-  const swiper = useSwiper();
-
-  useEffect(() => {
-    if (swiper) {
-      swiper.slideTo(totalSlides);
-    }
-  }, [totalSlides, swiper]);
-
-  return null;
-};
+import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
 
 export const CreateMealtimeMomentPage = () => {
-  const { api } = useAPI();
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const { title, description, setTitle, setDescription } =
+    useMealtimeMomentsStore();
+  const [_title, _setTitle] = useState(title || "");
+  const [_description, _setDescription] = useState(description || "");
   const [tags, setTags] = useState(["foraging", "seeds"]);
-  const { activeSlide, addFoodwaySlide, init, setActiveSlide, totalSlides } =
-    useFoodwayStore();
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -54,23 +37,16 @@ export const CreateMealtimeMomentPage = () => {
     console.log("Save and exit");
   };
 
-  const handleAddSlide = () => {
-    addFoodwaySlide();
-  };
-
-  const onSlideChange = (swiper: SwiperType) => {
-    setActiveSlide(swiper.activeIndex);
-  };
-
   useEffect(() => {
-    init();
-  }, []);
+    setTitle(_title);
+    setDescription(_description);
+  }, [_title, _description]);
 
   return (
     <Style.Container>
       <div className="buttons-container">
         <BackButton onClick={() => navigate("/dashboard/mealtime-moments")} />
-        <Button>Preview</Button>
+        <Button onClick={() => navigate("../preview")}>Preview</Button>
       </div>
 
       <Typography variant="h4" as="h4" weight="semi-bold">
@@ -79,12 +55,6 @@ export const CreateMealtimeMomentPage = () => {
 
       <Style.Info>
         <div className="flex">
-          <Style.SlideDeleteButton>
-            <Typography variant="h6" as="h6" weight="semi-bold">
-              Slide - {activeSlide + 1}
-            </Typography>
-            <Icon name="trash" />
-          </Style.SlideDeleteButton>
           <LanguageToggle />
         </div>
         <div className="flex">
@@ -93,8 +63,10 @@ export const CreateMealtimeMomentPage = () => {
       </Style.Info>
       <Style.ContentBuilder>
         <MedaltimeMomentTitle
-          setTitle={setTitle}
-          setDescription={setDescription}
+          setTitle={_setTitle}
+          setDescription={_setDescription}
+          title={title}
+          description={description}
         />
       </Style.ContentBuilder>
       <Style.ActionContainer>

@@ -46,12 +46,12 @@ export function CDHeader() {
               color="neutral-800"
               tag="p"
               weight={500}
-              size="2.15vh"
+              size="2vh"
               mb=".15vh"
             >
               {title}
             </Typography>
-            <Typography color="neutral-600" tag="span" size="1.4vh">
+            <Typography color="neutral-600" tag="span" size="1.3vh">
               {description}
             </Typography>
           </figure>
@@ -75,14 +75,15 @@ const Style = {
       height: 100%;
       width: 18.5%;
       display: flex;
-      padding: 10px;
+      padding: 1.5vh;
       align-items: center;
       justify-content: space-between;
       transition: background 0.3s linear;
+      backdrop-filter: blur(59.27639389038086px);
 
       div {
-        height: 100%;
         width: 30%;
+        aspect-ratio: 1 / 1;
         border-radius: 4px;
         background: var(
           --gradient-ui-card,
@@ -96,6 +97,7 @@ const Style = {
         backdrop-filter: blur(59.27639389038086px);
         display: grid;
         place-items: center;
+        transition: background 0.3s linear;
       }
 
       figure {
@@ -108,7 +110,16 @@ const Style = {
       }
 
       &:hover {
-        background: #fff;
+        /* background: #fff; */
+        background: linear-gradient(
+          180deg,
+          rgba(255, 215, 96, 0.8) 0%,
+          rgba(255, 191, 0, 0.8) 100%
+        );
+
+        div {
+          background: #ffefbf;
+        }
       }
     }
   `,

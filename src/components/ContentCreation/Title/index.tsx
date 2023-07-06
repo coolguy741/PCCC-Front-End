@@ -16,16 +16,17 @@ const initialState: any = {
     text: `Providing food for your loved ones is powerful. Throughout nature and history, providers have helped their family groups and communities thrive and survive. But when you’re planting your own crops, or forging for food in nature, the real power is knowledge. There are
 many things to know, and many ways to know them.`,
   },
-  subHeading: {
-    mode: "view",
-    text: "Knowing how to stay safe",
-  },
-  subDesc: {
-    mode: "view",
-    text: `Garden Guardian safety tips and guidance can be found in all Power
-    Full Kids lessons. Watch for the Garden Guardian section and stay safe
-    when you grow.`,
-  },
+  // nm: commented out post Kareem review.
+  // subHeading: {
+  //   mode: "view",
+  //   text: "Knowing how to stay safe",
+  // },
+  // subDesc: {
+  //   mode: "view",
+  //   text: `Garden Guardian safety tips and guidance can be found in all Power
+  //   Full Kids lessons. Watch for the Garden Guardian section and stay safe
+  //   when you grow.`,
+  // },
 };
 
 function TitleComponent({
@@ -57,7 +58,7 @@ function TitleComponent({
             name="desc"
           />
         </p>
-        <h2>
+        {/* <h2>
           <DoubleClickToEditComponent
             mode={viewMode(state.subHeading.mode)}
             setText={changeText}
@@ -74,7 +75,7 @@ function TitleComponent({
             text={state.subDesc.text}
             name="subDesc"
           />
-        </p>
+        </p> */}
       </div>
       <Image img="" />
     </Style.Container>

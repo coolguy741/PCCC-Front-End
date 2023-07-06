@@ -2,6 +2,9 @@ import _ from "lodash";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import CCListAdd from "../Icons/list-add";
+import CCListDelete from "../Icons/list-delete";
+import CCListMinus from "../Icons/list-minus";
 
 const initialState = [
   {
@@ -21,22 +24,24 @@ const initialState = [
 ];
 
 export function SingleBullet() {
-  const { state, changeEditState, changeText, deleteListItem } =
+  const { state, changeEditState, changeText, deleteListItem, addListItem } =
     useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
     <Style.Container>
-      <figcaption>Directions</figcaption>
+      <figcaption>
+        <h2>Directions</h2>
+        <div className="cc-sb-actions">
+          <CCListAdd onClick={addListItem} />
+          <CCListMinus onClick={deleteListItem} />
+          <CCListDelete />
+        </div>
+      </figcaption>
       <ol>
         {_.times(listLength, (listNameMinusOne) => (
           <li key={listNameMinusOne}>
-            <span
-              className="sb-list"
-              onClick={() => deleteListItem(listNameMinusOne)}
-            >
-              {listNameMinusOne + 1}
-            </span>
+            <span className="sb-list">{listNameMinusOne + 1}</span>
             <p>
               {" "}
               <DoubleClickToEditComponent
@@ -70,6 +75,17 @@ const Style = {
       line-height: 28px;
       color: #3d3d3d;
       margin-bottom: 1.5vh;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+
+      div {
+        width: 15%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     li {

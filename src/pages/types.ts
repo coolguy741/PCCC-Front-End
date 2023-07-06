@@ -10,6 +10,8 @@ export enum ContentBuilderType {
   THEMES = "themes",
   ACTIVITIES = "activities",
   RECIPES = "recipes",
+  MEALTIME_MOMENTS = "mealtime-moments",
+  FOODWAYS = "foodways",
 }
 
 export interface Material {
@@ -71,4 +73,10 @@ export interface MockContentsDto {
   topic?: string;
   title?: string;
   description?: string;
+}
+
+export interface FoodwayStop {
+  location: string[] | undefined[];
+  description: string[] | undefined[];
+  timePeriod: string[] | undefined[];
 }
