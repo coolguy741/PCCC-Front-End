@@ -8,6 +8,7 @@ export function DoubleClickToEditComponent({
   setText,
   text,
   changeEditState,
+  amtOrIngdt,
 }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
 
@@ -42,7 +43,7 @@ export function DoubleClickToEditComponent({
     } else {
       return (
         <Style.Container
-          onChange={(e) => setText(name, e.target.value)}
+          onChange={(e) => setText(name, e.target.value, amtOrIngdt)}
           ref={ref}
           defaultValue={text}
           onClick={clickHandler}
