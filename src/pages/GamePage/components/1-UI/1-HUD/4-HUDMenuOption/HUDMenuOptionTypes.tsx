@@ -1,4 +1,5 @@
 import { Vector2 } from "three";
+import { activeHoveredHudMenuOptionType } from "../../../../globalState/modules/UIModule/UIModuleTypes";
 import { ConstantVoidFunctionType } from "../../../../shared/Types/DefineTypes";
 import { RefDivType, RefImageType } from "../../../../shared/Types/RefTypes";
 
@@ -25,7 +26,7 @@ export interface HUDMenuOptionStyleObjectType {
 }
 
 export interface HUDMenuOptionDataType {
-  name: string;
+  name: activeHoveredHudMenuOptionType;
   label: string;
   iconURL: string;
   animIconLanding: Vector2;
@@ -36,9 +37,9 @@ export interface HUDMenuOptionDataType {
 export interface HUDMenuOptionPropTypes {
   menuActive: boolean;
   optionData: HUDMenuOptionDataType;
-  activeHoveredHudMenuOption: string | null;
+  activeHoveredHudMenuOption: activeHoveredHudMenuOptionType | null;
   setActiveHoveredHudMenuOption: (
-    activeHoveredHudMenuOption: string | null,
+    activeHoveredHudMenuOption: activeHoveredHudMenuOptionType | null,
   ) => void;
 }
 
