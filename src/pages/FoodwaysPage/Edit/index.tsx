@@ -65,8 +65,6 @@ export const EditFoodwaysPage = () => {
     },
   };
 
-  console.log(foodway);
-
   const handleEdit = async () => {
     if (params.id && title) {
       const response = await api.appFoodwaysUpdate(
@@ -115,8 +113,6 @@ export const EditFoodwaysPage = () => {
           stopResponses = [...stopResponses, stopResponse];
         }
       }
-
-      console.log(stopResponses);
 
       if (response.status === 200) navigate("/dashboard/foodways");
     }
