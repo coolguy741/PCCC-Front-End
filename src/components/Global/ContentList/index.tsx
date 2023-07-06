@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { ContentListItem } from "../ContentListItem";
 
 interface ContentListProps {
-  listData: PccServer23ActivitiesActivityDto[];
+  listData: PccServer23ActivitiesActivityDto[] | MockContentsDto[];
   selectable?: boolean;
   onSelectionChange?: (id: string, isSelected: boolean) => void;
 }

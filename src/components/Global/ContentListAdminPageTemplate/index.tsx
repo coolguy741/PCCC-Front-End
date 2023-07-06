@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import React from "react";
 import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
 import { ContentList } from "../ContentList";
@@ -12,7 +13,7 @@ type SelectOption = "Topic" | "Sort" | "Curriculum" | "Theme";
 interface ContentListAdminPageTemplateProps {
   title: string;
   selectsGroup: SelectOption[];
-  listData: PccServer23ActivitiesActivityDto[];
+  listData: PccServer23ActivitiesActivityDto[] | MockContentsDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
 }
 

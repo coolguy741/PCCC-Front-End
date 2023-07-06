@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Checkbox } from "../Checkbox";
 
@@ -15,7 +16,7 @@ export interface ContentListItemData {
 }
 
 interface ContentListItemProps {
-  data: PccServer23ActivitiesActivityDto;
+  data: PccServer23ActivitiesActivityDto | MockContentsDto;
   selectable?: boolean;
   onSelectedChange?: (id: string, isSelected: boolean) => void;
 }

@@ -8,7 +8,7 @@ import { STORAGE_KEY_JWT } from "../consts";
 
 export const Themes = () => {
   const { api } = useAPI();
-  const handleSelectionChange = (id: number, isSelected: boolean) => {
+  const handleSelectionChange = (id: string, isSelected: boolean) => {
     return;
   };
   useEffect(() => {

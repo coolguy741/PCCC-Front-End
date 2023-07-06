@@ -63,3 +63,12 @@ export interface IContent {
   curriculum?: string;
   slides: ThemeComponent[][];
 }
+
+export interface MockContentsDto {
+  id: number;
+  image?: string;
+  alt?: string;
+  topic?: string;
+  title?: string;
+  description?: string;
+}
