@@ -20,8 +20,9 @@ export const AchievementsModal: React.FC<AchievementsModalProps> = ({
           achievements.map((achievement, index) => (
             <Style.Achievement key={`achievement-${index}`}>
               <img
-                src={`/images/achievements/${achievement.badge}.svg`}
+                src={`/images/achievements/achievement${achievement.badge}.png`}
                 alt={`achievement-${achievement.badge}`}
+                width="120px"
               />
               <Typography variant="paragraph2" ml={3}>
                 {achievement.description}
