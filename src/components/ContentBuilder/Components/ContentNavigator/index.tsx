@@ -32,7 +32,10 @@ export const ContentNavigator: React.FC<Props> = ({ type }) => {
           >
             Edit
           </Button>
-          <Button variant="yellow" to={`/dashboard/${type}/print`}>
+          {/* <a href={`/dashboard/${type}/print`} target="_blank" rel="noreferrer">
+            <Button variant="yellow">Print</Button>
+          </a> */}
+          <Button variant="yellow" to={`/dashboard/${type}/slug/print`}>
             Print
           </Button>
         </div>

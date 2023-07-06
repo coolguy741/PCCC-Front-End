@@ -2,7 +2,7 @@ import { ContentListAdminPageTemplate } from "../../components/Global/ContentLis
 import mockData from "../../lib/mockData/activities/activities.json";
 
 export const Topics = () => {
-  const handleSelectionChange = (id: number, isSelected: boolean) => {
+  const handleSelectionChange = (id: string, isSelected: boolean) => {
     return;
   };
 

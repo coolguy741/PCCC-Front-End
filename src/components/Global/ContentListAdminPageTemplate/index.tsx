@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 import React from "react";
+import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
 import { ContentList } from "../ContentList";
-import { ContentListItemData } from "../ContentListItem";
 import { DropdownSelect } from "../DropdownSelect";
 import Scrollbar from "../Scrollable";
 
@@ -12,8 +13,8 @@ type SelectOption = "Topic" | "Sort" | "Curriculum" | "Theme";
 interface ContentListAdminPageTemplateProps {
   title: string;
   selectsGroup: SelectOption[];
-  listData: ContentListItemData[];
-  onSelectionChange: (id: number, isSelected: boolean) => void;
+  listData: PccServer23ActivitiesActivityDto[] | MockContentsDto[];
+  onSelectionChange: (id: string, isSelected: boolean) => void;
 }
 
 const OPTIONS = ["name1", "name2", "name3"];

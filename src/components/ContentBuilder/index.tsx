@@ -177,6 +177,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
                 currentStep={currentStep}
                 changeStep={changeStep}
                 addSlide={addSlide}
+                type={type}
                 maxPageCount={maxPageCount}
                 showingMessage={showingMessage}
               />

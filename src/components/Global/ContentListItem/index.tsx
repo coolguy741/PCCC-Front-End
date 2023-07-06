@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Checkbox } from "../Checkbox";
 
@@ -14,9 +16,9 @@ export interface ContentListItemData {
 }
 
 interface ContentListItemProps {
-  data: ContentListItemData;
+  data: PccServer23ActivitiesActivityDto | MockContentsDto;
   selectable?: boolean;
-  onSelectedChange?: (id: number, isSelected: boolean) => void;
+  onSelectedChange?: (id: string, isSelected: boolean) => void;
 }
 
 export const ContentListItem: React.FC<ContentListItemProps> = ({
@@ -28,17 +30,23 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsSelected(!isSelected);
-    onSelectedChange && onSelectedChange(data.id, event.target.checked);
+    onSelectedChange &&
+      onSelectedChange(data.id as string, event.target.checked);
   };
 
   return (
     <Style.Container>
-      <img src={data.image} alt={data.alt} />
+      <img
+        src="/images/deleteLater/ContentSampleImage.png"
+        alt="/images/deleteLater/ContentSampleImage.png"
+      />
       <Style.Content>
-        {data.topic && <Style.Topic>{"Topic: " + data.topic}</Style.Topic>}
-        {data.date && <Style.Date>{"Feature date: " + data.date}</Style.Date>}
-        <Style.Title>{data.title}</Style.Title>
-        <Style.Description>{data.description}</Style.Description>
+        <Style.Topic>{"Topic: " + "Garden Guardian"}</Style.Topic>
+        <Style.Title>Lorem Ipsum</Style.Title>
+        <Style.Description>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Style.Description>
       </Style.Content>
       {selectable && (
         <Style.InputContainer>
