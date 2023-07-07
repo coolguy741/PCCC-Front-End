@@ -5,27 +5,32 @@ import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 const initialState = [
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "2 cups",
     ingdt: "Quick oats",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "11/3 cup",
     ingdt: "Coconut flakes",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "1 cup",
     ingdt: "Creamy nut butter of your choice",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "1 cup",
     ingdt: "Ground flaxseed",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "1 cup",
     ingdt: "Chocolate chips",
   },
@@ -45,7 +50,7 @@ export function IngredientCard() {
           <li>
             <span className="ic-span">
               <DoubleClickToEditComponent
-                mode={(state as any)[listNameMinusOne].mode}
+                mode={(state as any)[listNameMinusOne].aMode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].amt}
                 changeEditState={changeEditState}
@@ -54,7 +59,7 @@ export function IngredientCard() {
               />
             </span>
             <DoubleClickToEditComponent
-              mode={(state as any)[listNameMinusOne].mode}
+              mode={(state as any)[listNameMinusOne].iMode}
               name={listNameMinusOne}
               text={(state as any)[listNameMinusOne].ingdt}
               changeEditState={changeEditState}

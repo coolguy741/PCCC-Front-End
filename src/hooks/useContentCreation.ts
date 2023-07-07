@@ -16,7 +16,52 @@ export function useContentCreation(
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
 
-  function changeEditState(tag: TitleType) {
+  function changeEditState(tag: TitleType, amtOrIngdt?: "amt" | "ingdt") {
+    let newState;
+    if (amtOrIngdt) {
+      if (amtOrIngdt === "amt") {
+        if (state[tag].aMode === ComponentViewMode.VIEW) {
+          newState = {
+            ...state,
+            [tag]: {
+              ...state[tag],
+              aMode: ComponentViewMode.EDIT,
+            },
+          };
+          return setState(newState);
+        } else {
+          newState = {
+            ...state,
+            [tag]: {
+              ...state[tag],
+              aMode: ComponentViewMode.VIEW,
+            },
+          };
+          return setState(newState);
+        }
+      } else {
+        if (state[tag].iMode === ComponentViewMode.VIEW) {
+          newState = {
+            ...state,
+            [tag]: {
+              ...state[tag],
+              iMode: ComponentViewMode.EDIT,
+            },
+          };
+          return setState(newState);
+        } else {
+          newState = {
+            ...state,
+            [tag]: {
+              ...state[tag],
+              iMode: ComponentViewMode.VIEW,
+            },
+          };
+          return setState(newState);
+        }
+      }
+    }
+
     if (state[tag].mode === ComponentViewMode.EDIT) {
       const newState = {
         ...state,
@@ -25,7 +70,7 @@ export function useContentCreation(
           mode: ComponentViewMode.VIEW,
         },
       };
-      setState(newState);
+      return setState(newState);
     } else {
       const newState = {
         ...state,
@@ -34,7 +79,7 @@ export function useContentCreation(
           mode: ComponentViewMode.EDIT,
         },
       };
-      setState(newState);
+      return setState(newState);
     }
   }
 
