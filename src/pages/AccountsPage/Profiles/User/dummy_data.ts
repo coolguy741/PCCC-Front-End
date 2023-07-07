@@ -23,71 +23,71 @@ export const groups: PccServer23UsersUserInGroupDto[] = [
 
 export const achievements: Achievement[] = [
   {
-    badge: "badge1",
+    badge: "1",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge3",
+    badge: "3",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge2",
+    badge: "2",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge4",
+    badge: "4",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge5",
+    badge: "5",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge6",
+    badge: "6",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge1",
+    badge: "1",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge2",
+    badge: "2",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge3",
+    badge: "3",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge4",
+    badge: "4",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge5",
+    badge: "5",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge6",
+    badge: "6",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge3",
+    badge: "3",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge2",
+    badge: "2",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge4",
+    badge: "4",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge5",
+    badge: "5",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
   {
-    badge: "badge7",
+    badge: "7",
     description: "Yorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   },
 ];

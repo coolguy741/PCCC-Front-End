@@ -76,7 +76,7 @@ export const MealPlannerRecipePage = () => {
         close={close}
         type={isAssessment ? "assessment" : "recipe"}
       />
-      <PrintModal isOpen={isPrintModalOpen} close={closePrintModal} />
+      <PrintModal isOpen={true} close={closePrintModal} />
       <EditConfirmModal isOpen={isConfirmModalOpen} close={closeConfirmModal} />
     </Style.PageContainer>
   );
