@@ -2,50 +2,64 @@ import _ from "lodash";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import CCListAdd from "../Icons/list-add";
+import CCListDelete from "../Icons/list-delete";
+import CCListMinus from "../Icons/list-minus";
 
 const initialState = [
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "2 cups",
     ingdt: "Quick oats",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "11/3 cup",
     ingdt: "Coconut flakes",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "1 cup",
     ingdt: "Creamy nut butter of your choice",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "1 cup",
     ingdt: "Ground flaxseed",
   },
   {
-    mode: "view",
+    aMode: "view",
+    iMode: "view",
     amt: "1 cup",
     ingdt: "Chocolate chips",
   },
 ];
 
 export function IngredientCard() {
-  const { state, changeEditState, changeText } = useContentCreation(
-    initialState as any,
-  );
+  const { state, changeEditState, changeText, addListItem, deleteListItem } =
+    useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
     <Style.Container>
-      <figcaption>Ingredients</figcaption>
+      <figcaption>
+        <h2>Ingredients</h2>
+        <div className="cc-sb-actions">
+          <CCListAdd onClick={() => addListItem(true)} />
+          <CCListMinus onClick={deleteListItem} />
+          <CCListDelete />
+        </div>
+      </figcaption>
       <ol>
         {_.times(listLength, (listNameMinusOne) => (
           <li>
             <span className="ic-span">
               <DoubleClickToEditComponent
-                mode={(state as any)[listNameMinusOne].mode}
+                mode={(state as any)[listNameMinusOne].aMode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].amt}
                 changeEditState={changeEditState}
@@ -53,14 +67,16 @@ export function IngredientCard() {
                 amtOrIngdt="amt"
               />
             </span>
-            <DoubleClickToEditComponent
-              mode={(state as any)[listNameMinusOne].mode}
-              name={listNameMinusOne}
-              text={(state as any)[listNameMinusOne].ingdt}
-              changeEditState={changeEditState}
-              setText={changeText}
-              amtOrIngdt="ingdt"
-            />
+            <p>
+              <DoubleClickToEditComponent
+                mode={(state as any)[listNameMinusOne].iMode}
+                name={listNameMinusOne}
+                text={(state as any)[listNameMinusOne].ingdt}
+                changeEditState={changeEditState}
+                setText={changeText}
+                amtOrIngdt="ingdt"
+              />
+            </p>
           </li>
         ))}
       </ol>
@@ -75,15 +91,29 @@ const Style = {
     backdrop-filter: blur(59.2764px);
     border-radius: 16px;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding: 2.5vh 2vw;
 
     figcaption {
-      font-weight: 600;
-      font-size: 23px;
-      line-height: 28px;
-      color: #3d3d3d;
       margin-bottom: 1.5vh;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+
+      h2 {
+        font-weight: 600;
+        font-size: 23px;
+        line-height: 28px;
+        color: #3d3d3d;
+      }
+
+      div {
+        width: 15%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     li {
@@ -101,6 +131,10 @@ const Style = {
       font-size: 14px;
       line-height: 16px;
       color: #646464;
+    }
+
+    p {
+      width: 70%;
     }
 
     ol {

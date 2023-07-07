@@ -46,7 +46,7 @@ export function DoubleBullet() {
       <figcaption>
         <h2>Directions</h2>
         <div className="cc-sb-actions">
-          <CCListAdd onClick={addListItem} />
+          <CCListAdd onClick={() => addListItem()} />
           <CCListMinus onClick={deleteListItem} />
           <CCListDelete />
         </div>
@@ -83,15 +83,18 @@ const Style = {
     padding: 2.5vh 2vw;
 
     figcaption {
-      font-weight: 600;
-      font-size: 23px;
-      line-height: 28px;
-      color: #3d3d3d;
       margin-bottom: 1.5vh;
       display: flex;
       width: 100%;
       align-items: center;
       justify-content: space-between;
+
+      h2 {
+        font-weight: 600;
+        font-size: 23px;
+        line-height: 28px;
+        color: #3d3d3d;
+      }
 
       div {
         width: 15%;
