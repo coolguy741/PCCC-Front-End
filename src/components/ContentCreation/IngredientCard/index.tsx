@@ -49,7 +49,7 @@ export function IngredientCard() {
       <figcaption>
         <h2>Ingredients</h2>
         <div className="cc-sb-actions">
-          <CCListAdd onClick={addListItem} />
+          <CCListAdd onClick={() => addListItem(true)} />
           <CCListMinus onClick={deleteListItem} />
           <CCListDelete />
         </div>

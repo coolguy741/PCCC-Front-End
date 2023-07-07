@@ -33,7 +33,7 @@ export function SingleBullet() {
       <figcaption>
         <h2>Directions</h2>
         <div className="cc-sb-actions">
-          <CCListAdd onClick={addListItem} />
+          <CCListAdd onClick={() => addListItem()} />
           <CCListMinus onClick={deleteListItem} />
           <CCListDelete />
         </div>

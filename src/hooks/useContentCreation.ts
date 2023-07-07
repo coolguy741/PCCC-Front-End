@@ -171,15 +171,29 @@ export function useContentCreation(
     setState(stateCopy as unknown as State);
   }
 
-  function addListItem() {
-    const newState = [
+  function addListItem(amtOrIngdt?: boolean) {
+    let newState;
+    if (amtOrIngdt) {
+      newState = [
+        ...(state as unknown as CCFormat[]),
+        {
+          aMode: ComponentViewMode.VIEW,
+          iMode: ComponentViewMode.VIEW,
+          amt: "Click to edit",
+          ingdt: "Click to edit",
+        },
+      ];
+      return setState(newState as unknown as State);
+    }
+
+    newState = [
       ...(state as unknown as CCFormat[]),
       {
         mode: ComponentViewMode.VIEW,
         text: "click to edit",
       },
     ];
-    setState(newState as unknown as State);
+    return setState(newState as unknown as State);
   }
 
   function addTimelineStop(name: string) {
