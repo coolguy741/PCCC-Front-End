@@ -57,16 +57,16 @@ export const useContentActions = () => {
                   themeStore.id,
                   {
                     name: "hello",
-                    htmlData: JSON.stringify(themeStore.contents),
+                    jsonData: JSON.stringify(themeStore.contents),
                   },
                   header,
                 )
                 .then((res) => res.data)
             : await api
-                .appThemesCreate(
+                .appThemesNewThemeCreate(
                   {
                     name: "hello",
-                    htmlData: JSON.stringify(themeStore.contents),
+                    jsonData: JSON.stringify(themeStore.contents),
                   },
                   header,
                 )
@@ -79,11 +79,11 @@ export const useContentActions = () => {
                   {
                     english: {
                       name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
+                      jsonData: JSON.stringify(themeStore.contents),
                     },
                     french: {
                       name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
+                      jsonData: JSON.stringify(themeStore.contents),
                     },
                     tags: "garden",
                   },
@@ -95,11 +95,11 @@ export const useContentActions = () => {
                   {
                     english: {
                       name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
+                      jsonData: JSON.stringify(themeStore.contents),
                     },
                     french: {
                       name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
+                      jsonData: JSON.stringify(themeStore.contents),
                     },
                     tags: "garden",
                   },
