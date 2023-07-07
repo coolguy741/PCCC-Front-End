@@ -2,6 +2,9 @@ import _ from "lodash";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import CCListAdd from "../Icons/list-add";
+import CCListDelete from "../Icons/list-delete";
+import CCListMinus from "../Icons/list-minus";
 
 const initialState = [
   {
@@ -37,14 +40,20 @@ const initialState = [
 ];
 
 export function IngredientCard() {
-  const { state, changeEditState, changeText } = useContentCreation(
-    initialState as any,
-  );
+  const { state, changeEditState, changeText, addListItem, deleteListItem } =
+    useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
     <Style.Container>
-      <figcaption>Ingredients</figcaption>
+      <figcaption>
+        <h2>Ingredients</h2>
+        <div className="cc-sb-actions">
+          <CCListAdd onClick={addListItem} />
+          <CCListMinus onClick={deleteListItem} />
+          <CCListDelete />
+        </div>
+      </figcaption>
       <ol>
         {_.times(listLength, (listNameMinusOne) => (
           <li>
@@ -86,11 +95,25 @@ const Style = {
     padding: 2.5vh 2vw;
 
     figcaption {
-      font-weight: 600;
-      font-size: 23px;
-      line-height: 28px;
-      color: #3d3d3d;
       margin-bottom: 1.5vh;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+
+      h2 {
+        font-weight: 600;
+        font-size: 23px;
+        line-height: 28px;
+        color: #3d3d3d;
+      }
+
+      div {
+        width: 15%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     li {
