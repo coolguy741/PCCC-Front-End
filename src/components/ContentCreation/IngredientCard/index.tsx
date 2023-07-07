@@ -32,8 +32,9 @@ const initialState = [
 ];
 
 export function IngredientCard() {
-  const { state, changeEditState, changeText, deleteListItem, addListItem } =
-    useContentCreation(initialState as any);
+  const { state, changeEditState, changeText } = useContentCreation(
+    initialState as any,
+  );
   const listLength = Object.keys(state).length;
 
   return (
@@ -49,6 +50,7 @@ export function IngredientCard() {
                 text={(state as any)[listNameMinusOne].amt}
                 changeEditState={changeEditState}
                 setText={changeText}
+                amtOrIngdt="amt"
               />
             </span>
             <DoubleClickToEditComponent
@@ -57,6 +59,7 @@ export function IngredientCard() {
               text={(state as any)[listNameMinusOne].ingdt}
               changeEditState={changeEditState}
               setText={changeText}
+              amtOrIngdt="ingdt"
             />
           </li>
         ))}

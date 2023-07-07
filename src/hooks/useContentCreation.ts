@@ -64,14 +64,29 @@ export function useContentCreation(
     }
   }
 
-  function changeText(name: TitleType, newText: string) {
-    const newState = {
-      ...state,
-      [name]: {
-        ...state[name],
-        text: newText,
-      },
-    };
+  function changeText(
+    name: TitleType,
+    newText: string,
+    amtOrIngdt?: "amt" | "ingdt",
+  ) {
+    let newState;
+    if (amtOrIngdt) {
+      newState = {
+        ...state,
+        [name]: {
+          ...state[name],
+          [amtOrIngdt]: newText,
+        },
+      };
+    } else {
+      newState = {
+        ...state,
+        [name]: {
+          ...state[name],
+          text: newText,
+        },
+      };
+    }
     componentPosition &&
       updatePageState &&
       updatePageState(

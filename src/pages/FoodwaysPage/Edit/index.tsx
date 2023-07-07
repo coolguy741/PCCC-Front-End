@@ -59,8 +59,11 @@ export const EditFoodwaysPage = () => {
     totalSlides,
     setTotalSlides,
   } = useFoodwayStore();
-
-  // const [title, setTitle] = useState(foodway.title);
+  const headers = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+    },
+  };
 
   const handleEdit = async () => {
     if (params.id && title) {
@@ -69,19 +72,49 @@ export const EditFoodwaysPage = () => {
         {
           english: {
             title: title,
+            info: description,
+            description: description,
+            featureDate: new Date().toISOString(),
           },
           french: {
             title: title,
+            info: description,
+            description: description,
+            featureDate: new Date().toISOString(),
           },
+          image: "",
         },
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-          },
-        },
+        headers,
       );
 
-      if (response.status === 200) navigate("/dashboard/accounts/groups");
+      let stopResponses: any = [];
+      for (let i = 0; i < stopTitle.length; i++) {
+        if (foodway.foodwayStops && foodway.foodwayStops[i]) {
+          const stopResponse = await api.appFoodwayStopsUpdate(
+            foodway.foodwayStops[i].id!,
+            {
+              english: {
+                description: stopDescription[i],
+                location: stopTitle[i],
+                timePeriod: stopTime[i + 1] || "",
+              },
+              french: {
+                description: stopDescription[i],
+                location: stopTitle[i],
+                timePeriod: stopTime[i + 1] || "",
+              },
+              image: "",
+              concurrencyStamp: "string",
+              foodwayId: params.id,
+            },
+            headers,
+          );
+
+          stopResponses = [...stopResponses, stopResponse];
+        }
+      }
+
+      if (response.status === 200) navigate("/dashboard/foodways");
     }
   };
 

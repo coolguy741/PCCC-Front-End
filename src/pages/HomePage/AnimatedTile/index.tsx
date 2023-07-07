@@ -35,6 +35,21 @@ function showSubtitleWithException(subtitle: string) {
   }
 }
 
+interface iSpline {
+  [key: string]: string;
+}
+
+const SPLINE_ARR: iSpline = {
+  cook: "https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode",
+  mealtime: "https://prod.spline.design/E-xcIdDrzq-0WTxA/scene.splinecode",
+  discover: "https://prod.spline.design/e-Ytpv047VfjsTtx/scene.splinecode",
+  foodways: "https://prod.spline.design/cSsgh0BV9i3GO7hH/scene.splinecode",
+  games: "https://prod.spline.design/3frOmFqEaKmLo27V/scene.splinecode",
+  grow: "https://prod.spline.design/irggER2hPUI63Ktf/scene.splinecode",
+  "meal-planner":
+    "https://prod.spline.design/mxVllMtfWXBcJ1ey/scene.splinecode",
+};
+
 export const AnimatedTile = ({ tile }: { tile: Tile }) => {
   const spline = useRef();
   const [isShowingBubble, setIsShowingBubble] = useState(false);
@@ -98,35 +113,9 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
             </SpeechBubble>
           </div>
         )}
-
-        {tile.id === "cook" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline
-              scene="https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode"
-              onLoad={onLoad}
-              // onMouseHover={onHover}
-            />
-          </Suspense>
-        ) : tile.id === "mealtime" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline scene="https://prod.spline.design/E-xcIdDrzq-0WTxA/scene.splinecode" />
-          </Suspense>
-        ) : tile.id === "discover" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline scene="https://prod.spline.design/e-Ytpv047VfjsTtx/scene.splinecode" />
-          </Suspense>
-        ) : tile.id === "foodways" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline scene="https://prod.spline.design/cSsgh0BV9i3GO7hH/scene.splinecode" />
-          </Suspense>
-        ) : (
-          <div className="img-container">
-            <img
-              src={tile.image}
-              alt={`${tile.titleFirstLine} ${tile.titleSecondLine}`}
-            />
-          </div>
-        )}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Spline scene={SPLINE_ARR[tile.id]} onLoad={onLoad} />
+        </Suspense>
       </article>
     </Style.PageContainer>
   );
