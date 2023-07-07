@@ -1,9 +1,10 @@
 import { create } from "zustand";
+import { Language } from "./../pages/types";
 
 import { components } from "../components/ContentBuilder/Components/Cards";
 import { State as ComponentState } from "../components/ContentCreation/types";
 import { PccServer23ActivitiesActivityDto } from "../lib/api/api";
-import { Language, ThemeComponent } from "../pages/types";
+import { ThemeComponent } from "../pages/types";
 
 interface IContent {
   tags?: string;
@@ -22,11 +23,20 @@ interface ThemeProp {
   currentSlide: ThemeComponent[];
   activityIds: string[];
   recipeIds: string[];
+  tags?: string[];
   en: {
-    contents: IContent[];
+    name?: string;
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
   fr: {
-    contents: IContent[];
+    name?: string;
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
 }
 export interface ActivitiesStoreState extends ThemeProp {
@@ -62,10 +72,10 @@ const initialState: ThemeProp = {
   activityIds: [],
   recipeIds: [],
   en: {
-    contents: [],
+    jsonData: [],
   },
   fr: {
-    contents: [],
+    jsonData: [],
   },
 };
 
@@ -122,10 +132,19 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
           }) ?? [{ slides: [] }]),
         ],
       })),
-    setLang: (currentLang: Language) =>
-      set(() => ({
-        currentLang,
-      })),
+    setLang: (newLang: Language) =>
+      set(({ contents, currentLang, ...state }) => {
+        state[newLang].jsonData = contents;
+        state.currentStep = 0;
+        state.slideIndex = 0;
+        return {
+          ...state,
+          contents: state[currentLang].jsonData.length
+            ? state[currentLang].jsonData
+            : [{ slides: [[components[0]]] }],
+          currentLang: newLang,
+        };
+      }),
     deleteSlide: () =>
       set(({ contents, slideIndex, currentStep }) => ({
         contents: [
@@ -145,13 +164,19 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
     continueWithFrench: () =>
       set(({ contents }) => ({
         currentStep: 0,
-        en: { contents },
+        en: { jsonData: contents },
         contents: [{ slides: [[components[0]]] }],
         currentLang: "fr",
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
-      set(({ contents, currentStep }) => ({
+      set(({ contents, currentStep, currentLang, ...state }) => ({
         contents: contents.map((page, index) => {
+          if (!sIndex && !index) {
+            state[currentLang].title = state[currentLang].title =
+              componentState.heading.text;
+            state[currentLang].description = componentState.desc.text;
+            state[currentLang].topic = componentState.tag.text;
+          }
           if (index === currentStep) {
             page.slides[sIndex][componentIndex].componentState = componentState;
           }

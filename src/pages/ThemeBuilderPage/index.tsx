@@ -25,7 +25,8 @@ export const Themes = () => {
           )
           .then((res) => res.data);
       })();
-  }, [api]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ContentListAdminPageTemplate

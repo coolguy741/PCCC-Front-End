@@ -21,19 +21,29 @@ export const useContentActions = () => {
     },
   };
 
-  const getContent = useCallback(
-    async (type: ContentBuilderType) => {
-      console.log(params);
-      // const id = (
-      //   type === ContentBuilderType.THEMES
-      //     ? themeStore
-      //     : type === ContentBuilderType.ACTIVITIES
-      //     ? activityStore
-      //     : recipeStore
-      // ).getDetailId(1);
-    },
-    [api],
-  );
+  const getContent = useCallback(async (type: ContentBuilderType) => {
+    const { item } = params as { item: string };
+    let response;
+    switch (type) {
+      case ContentBuilderType.THEMES:
+        response = await api.appThemesDetail(item).then((res) => res.data);
+        break;
+      case ContentBuilderType.ACTIVITIES:
+        response = await api.appActivitiesDetail(item).then((res) => res.data);
+        break;
+      case ContentBuilderType.RECIPES:
+        response = await api.appRecipesDetail(item).then((res) => res.data);
+        break;
+    }
+    console.log(response);
+    // const id = (
+    //   type === ContentBuilderType.THEMES
+    //     ? themeStore
+    //     : type === ContentBuilderType.ACTIVITIES
+    //     ? activityStore
+    //     : recipeStore
+    // ).getDetailId(1);
+  }, []);
 
   const updateIdInStore = (
     id: string | undefined,
@@ -49,6 +59,7 @@ export const useContentActions = () => {
 
   const saveContent = useCallback(
     async (type: ContentBuilderType) => {
+      let data;
       switch (type) {
         case ContentBuilderType.THEMES:
           return themeStore.id
@@ -56,8 +67,15 @@ export const useContentActions = () => {
                 .appThemesUpdate(
                   themeStore.id,
                   {
-                    name: "hello",
-                    htmlData: JSON.stringify(themeStore.contents),
+                    english: {
+                      ...themeStore.en,
+                      jsonData: JSON.stringify(themeStore.en.jsonData),
+                    },
+                    french: {
+                      ...themeStore.fr,
+                      jsonData: JSON.stringify(themeStore.fr.jsonData),
+                    },
+                    tags: themeStore.tags?.join(","),
                   },
                   header,
                 )
@@ -65,46 +83,45 @@ export const useContentActions = () => {
             : await api
                 .appThemesCreate(
                   {
-                    name: "hello",
-                    htmlData: JSON.stringify(themeStore.contents),
+                    english: {
+                      ...themeStore.en,
+                      jsonData: JSON.stringify(themeStore.en.jsonData),
+                    },
+                    french: {
+                      ...themeStore.fr,
+                      jsonData: JSON.stringify(themeStore.fr.jsonData),
+                    },
+                    tags: themeStore.tags?.join(","),
                   },
                   header,
                 )
                 .then((res) => res.data);
         case ContentBuilderType.ACTIVITIES:
+          data = {
+            english: {
+              ...activityStore.en,
+              jsonData: JSON.stringify(
+                activityStore.currentLang === "en"
+                  ? activityStore.contents
+                  : activityStore.en.jsonData,
+              ),
+            },
+            french: {
+              ...activityStore.fr,
+              jsonData: JSON.stringify(
+                activityStore.currentLang === "fr"
+                  ? activityStore.contents
+                  : activityStore.fr.jsonData,
+              ),
+            },
+            tags: activityStore.tags?.join(","),
+          };
           return activityStore.id
             ? await api
-                .appActivitiesUpdate(
-                  activityStore.id,
-                  {
-                    english: {
-                      name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
-                    },
-                    french: {
-                      name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
-                    },
-                    tags: "garden",
-                  },
-                  header,
-                )
+                .appActivitiesUpdate(activityStore.id, data, header)
                 .then((res) => res.data)
             : await api
-                .appActivitiesCreate(
-                  {
-                    english: {
-                      name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
-                    },
-                    french: {
-                      name: "hello",
-                      htmlData: JSON.stringify(themeStore.contents),
-                    },
-                    tags: "garden",
-                  },
-                  header,
-                )
+                .appActivitiesCreate(data, header)
                 .then((res) => res.data);
       }
     },

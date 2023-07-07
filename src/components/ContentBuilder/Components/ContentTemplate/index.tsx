@@ -106,7 +106,7 @@ export const ContentTemplate: React.FC<{
                     {component({
                       slideIndex: sIndex,
                       componentIndex: index,
-                      componentState,
+                      state: componentState,
                       isEditable,
                       updatePageState,
                     })}

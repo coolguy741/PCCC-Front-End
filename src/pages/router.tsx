@@ -313,9 +313,9 @@ export const router = createBrowserRouter([
           { path: "", element: <ActivitiesPage /> },
           { path: "create", element: <ActivitiesCreatePage /> },
           { path: "preview", element: <ActivitiesPreviewPage /> },
-          { path: ":activity", element: <ActivityPage /> },
+          { path: ":item", element: <ActivityPage /> },
           {
-            path: ":activity/edit",
+            path: ":item/edit",
             element: <ActivitiesEditPage />,
           },
         ],
@@ -387,8 +387,8 @@ export const router = createBrowserRouter([
             path: "preview",
             element: <RecipePreviewPage />,
           },
-          { path: ":recipe", element: <RecipePage /> },
-          { path: ":recipe/edit", element: <RecipesEditRecipePage /> },
+          { path: ":item", element: <RecipePage /> },
+          { path: ":item/edit", element: <RecipesEditRecipePage /> },
           {
             path: "lesson-assessment/create",
             element: <RecipesCreateLessonAssessment />,

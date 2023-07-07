@@ -11,7 +11,11 @@
 
 export interface PccServer23ActivitiesActivityCreateDto {
   name: string;
-  htmlData?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
   tags?: string | null;
 }
 
@@ -32,34 +36,248 @@ export interface PccServer23ActivitiesActivityDto {
   /** @format date-time */
   deletionTime?: string | null;
   name?: string | null;
-  htmlData?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
   tags?: string | null;
-  concurrencyStamp?: string | null;
   language?: string | null;
+  concurrencyStamp?: string | null;
 }
 
 export interface PccServer23ActivitiesActivityUpdateDto {
   name: string;
-  htmlData?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
   tags?: string | null;
   concurrencyStamp?: string | null;
 }
 
-export interface PccServer23ActivitiesCustomActivityCreate {
+export interface PccServer23ActivitiesCustomMultiLingualActivityCreate {
   name?: string | null;
-  htmlData?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
 }
 
 export interface PccServer23ActivitiesCustomMultiLingualActivityCreateDto {
-  english: PccServer23ActivitiesCustomActivityCreate;
-  french: PccServer23ActivitiesCustomActivityCreate;
+  english: PccServer23ActivitiesCustomMultiLingualActivityCreate;
+  french: PccServer23ActivitiesCustomMultiLingualActivityCreate;
+  image?: string | null;
   tags?: string | null;
 }
 
+export interface PccServer23ActivitiesCustomMultiLingualActivityUpdate {
+  name?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
+}
+
 export interface PccServer23ActivitiesCustomMultiLingualActivityUpdateDto {
-  english: PccServer23ActivitiesActivityUpdateDto;
-  french: PccServer23ActivitiesActivityUpdateDto;
+  english: PccServer23ActivitiesCustomMultiLingualActivityUpdate;
+  french: PccServer23ActivitiesCustomMultiLingualActivityUpdate;
+  image?: string | null;
   tags?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ActivitiesPublicActivityDto {
+  name?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  tags?: string | null;
+  language?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestionChoiceUserAnswerCreateDto {
+  answer: string;
+  /** @format uuid */
+  identityUserId?: string | null;
+  /** @format uuid */
+  assessmentQuestionId?: string;
+}
+
+export interface PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestionChoiceUserAnswerCreateInput {
+  answer: string;
+  /** @format uuid */
+  assessmentQuestionId?: string;
+}
+
+export interface PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestionChoiceUserAnswerDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  answer?: string | null;
+  /** @format uuid */
+  identityUserId?: string | null;
+  /** @format uuid */
+  assessmentQuestionId?: string;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestionChoiceUserAnswerUpdateDto {
+  answer: string;
+  /** @format uuid */
+  identityUserId?: string | null;
+  /** @format uuid */
+  assessmentQuestionId?: string;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestionChoiceUserAnswerWithNavigationPropertiesDto {
+  assessmentQuestionChoiceUserAnswer?: PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestionChoiceUserAnswerDto;
+  identityUser?: any;
+  assessmentQuestion?: PccServer23AssessmentQuestionsAssessmentQuestionDto;
+}
+
+export interface PccServer23AssessmentQuestionsAssessmentQuestionCreateDto {
+  englishDescription?: string | null;
+  frenchDescription?: string | null;
+  /** @format int32 */
+  order?: number;
+  /** @format uuid */
+  themeId?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  answer?: PccServer23AssessmentQuestionsMCQModelDto;
+}
+
+export interface PccServer23AssessmentQuestionsAssessmentQuestionDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  englishDescription?: string | null;
+  frenchDescription?: string | null;
+  /** @format int32 */
+  order?: number;
+  /** @format uuid */
+  themeId?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AssessmentQuestionsAssessmentQuestionUpdateDto {
+  englishDescription?: string | null;
+  frenchDescription?: string | null;
+  /** @format int32 */
+  order?: number;
+  /** @format uuid */
+  themeId?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AssessmentQuestionsAssessmentQuestionWithNavigationPropertiesDto {
+  assessmentQuestion?: PccServer23AssessmentQuestionsAssessmentQuestionDto;
+  theme?: PccServer23ThemesThemeDto;
+  curriculum?: PccServer23CurriculumsCurriculumDto;
+}
+
+export interface PccServer23AssessmentQuestionsMCQChoiceModel {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  valid?: boolean;
+}
+
+export interface PccServer23AssessmentQuestionsMCQChoiceModelDto {
+  englishDescription?: string | null;
+  frenchDescription?: string | null;
+  valid?: boolean;
+}
+
+export interface PccServer23AssessmentQuestionsMCQModelDto {
+  choiceOne?: PccServer23AssessmentQuestionsMCQChoiceModel;
+  choiceTwo?: PccServer23AssessmentQuestionsMCQChoiceModel;
+  choiceThree?: PccServer23AssessmentQuestionsMCQChoiceModel;
+  choiceFour?: PccServer23AssessmentQuestionsMCQChoiceModel;
+}
+
+export interface PccServer23AssessmentQuestionsMultiLingualAssessmentQuestionCreateDto {
+  englishDescription: string;
+  frenchDescription: string;
+  answer?: PccServer23AssessmentQuestionsMCQChoiceModelDto[] | null;
+  /** @format int32 */
+  order?: number;
+  /** @format uuid */
+  themeId?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+}
+
+export interface PccServer23AssessmentQuestionsMultiLingualAssessmentQuestionUpdateDto {
+  englishDescription: string;
+  frenchDescription: string;
+  answer?: PccServer23AssessmentQuestionsMCQChoiceModelDto[] | null;
+  /** @format int32 */
+  order?: number;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AssessmentQuestionsUserCompletedAssessmentDto {
+  /** @format uuid */
+  assessmentQuestionId?: string;
+  assessmentQuestionEnglishDesc?: string | null;
+  assessmentQuestionFrenchDesc?: string | null;
+  userName?: string | null;
+  /** @format uuid */
+  assessmentQuestionAnswerId?: string;
+}
+
+export interface PccServer23AvatarsAvatarCreateDto {
+  name?: string | null;
+  imageUrl: string;
+}
+
+export interface PccServer23AvatarsAvatarDto {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  imageUrl?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AvatarsAvatarUpdateDto {
+  name?: string | null;
+  imageUrl: string;
+  concurrencyStamp?: string | null;
 }
 
 export interface PccServer23BooksAddBookTranslationDto {
@@ -163,7 +381,7 @@ export enum PccServer23CalendarEventsCalendarEventType {
   MealtimeMoment = "MealtimeMoment",
   Foodway = "Foodway",
   EducatorNote = "EducatorNote",
-  Topic = "Topic",
+  Theme = "Theme",
   DailyDiscovery = "DailyDiscovery",
 }
 
@@ -296,6 +514,85 @@ export interface PccServer23CalendarsCalendarWithNavigationPropertiesDto {
   calendarEvent?: PccServer23CalendarEventsCalendarEventDto;
 }
 
+export interface PccServer23CurriculumRecipesCurriculumRecipeCreateDto {
+  title?: string | null;
+  topic?: string | null;
+  image?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+}
+
+export interface PccServer23CurriculumRecipesCurriculumRecipeDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  image?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+  language?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23CurriculumRecipesCurriculumRecipeUpdateDto {
+  title?: string | null;
+  topic?: string | null;
+  image?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23CurriculumRecipesCustomCustomCurriculumRecipeCreateDto {
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
+}
+
+export interface PccServer23CurriculumRecipesCustomCustomCurriculumRecipeUpdateDto {
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
+}
+
+export interface PccServer23CurriculumRecipesCustomMultiLingualCurriculumRecipeCreateDto {
+  english: PccServer23CurriculumRecipesCustomCustomCurriculumRecipeCreateDto;
+  french: PccServer23CurriculumRecipesCustomCustomCurriculumRecipeCreateDto;
+  image?: string | null;
+}
+
+export interface PccServer23CurriculumRecipesCustomMultiLingualCurriculumRecipeUpdateDto {
+  english: PccServer23CurriculumRecipesCustomCustomCurriculumRecipeUpdateDto;
+  french: PccServer23CurriculumRecipesCustomCustomCurriculumRecipeUpdateDto;
+  image?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23CurriculumRecipesPublicCurriculumRecipeDto {
+  title?: string | null;
+  topic?: string | null;
+  image?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+  language?: string | null;
+  concurrencyStamp?: string | null;
+}
+
 export interface PccServer23CurriculumsCurriculumCreateDto {
   name: string;
 }
@@ -345,6 +642,54 @@ export interface PccServer23DynamicPermissionsDynamicPermissionUpdateDto {
   displayName?: string | null;
   active?: boolean;
   concurrencyStamp?: string | null;
+}
+
+export interface PccServer23EducatorNotesEducatorNoteCreateDto {
+  title?: string | null;
+  englishDesc?: string | null;
+  frenchDesc?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+}
+
+export interface PccServer23EducatorNotesEducatorNoteDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  title?: string | null;
+  englishDesc?: string | null;
+  frenchDesc?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23EducatorNotesEducatorNoteUpdateDto {
+  title?: string | null;
+  englishDesc?: string | null;
+  frenchDesc?: string | null;
+  /** @format uuid */
+  curriculumId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23EducatorNotesEducatorNoteWithNavigationPropertiesDto {
+  educatorNote?: PccServer23EducatorNotesEducatorNoteDto;
+  curriculum?: PccServer23CurriculumsCurriculumDto;
+  theme?: PccServer23ThemesThemeDto;
 }
 
 export interface PccServer23FoodwayStopsFoodwayStopCreate {
@@ -758,6 +1103,28 @@ export interface PccServer23IngredientsPublicIngredientDto {
   language?: string | null;
 }
 
+export interface PccServer23MealPlansMealPlanCreateDto {
+  data?: string | null;
+}
+
+export interface PccServer23MealPlansMealPlanDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  data?: string | null;
+}
+
+export interface PccServer23MealPlansMealPlanUpdateDto {
+  data?: string | null;
+}
+
 export interface PccServer23RecipeMediasRecipeMediaCreateDto {
   mediaType?: PccServer23RecipeMediasRecipeMediaType;
   fileType: string;
@@ -958,6 +1325,16 @@ export interface PccServer23SharedDownloadTokenResultDto {
   token?: string | null;
 }
 
+export interface PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  english?: PccServer23ActivitiesPublicActivityDto;
+  french?: PccServer23ActivitiesPublicActivityDto;
+}
+
+export interface PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  english?: PccServer23CurriculumRecipesPublicCurriculumRecipeDto;
+  french?: PccServer23CurriculumRecipesPublicCurriculumRecipeDto;
+}
+
 export interface PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsPublicFoodwayStopDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   english?: PccServer23FoodwayStopsPublicFoodwayStopDto;
   french?: PccServer23FoodwayStopsPublicFoodwayStopDto;
@@ -979,9 +1356,148 @@ export interface PccServer23SharedLookupDto1SystemGuidSystemPrivateCoreLibVersio
   displayName?: string | null;
 }
 
+export interface PccServer23ThemeActivitiesThemeActivityCreateDto {
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  activityId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+}
+
+export interface PccServer23ThemeActivitiesThemeActivityDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  activityId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ThemeActivitiesThemeActivityUpdateDto {
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  activityId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ThemeActivitiesThemeActivityWithNavigationPropertiesDto {
+  themeActivity?: PccServer23ThemeActivitiesThemeActivityDto;
+  activity?: PccServer23ActivitiesActivityDto;
+  theme?: PccServer23ThemesThemeDto;
+}
+
+export interface PccServer23ThemeRecipesThemeRecipeCreateDto {
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  curriculumRecipeId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+}
+
+export interface PccServer23ThemeRecipesThemeRecipeDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  curriculumRecipeId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ThemeRecipesThemeRecipeUpdateDto {
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  curriculumRecipeId?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ThemeRecipesThemeRecipeWithNavigationPropertiesDto {
+  themeRecipe?: PccServer23ThemeRecipesThemeRecipeDto;
+  curriculumRecipe?: PccServer23CurriculumRecipesCurriculumRecipeDto;
+  theme?: PccServer23ThemesThemeDto;
+}
+
+export interface PccServer23ThemesCustomAddEducatorNoteInput {
+  title?: string | null;
+  englishDesc?: string | null;
+  frenchDesc?: string | null;
+  /** @format uuid */
+  curriculumId: string;
+  /** @format uuid */
+  themeId: string;
+}
+
+export interface PccServer23ThemesCustomCreateNewThemeOutput {
+  /** @format uuid */
+  themeId?: string;
+}
+
+export interface PccServer23ThemesPublicThemeCreateDto {
+  name?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+}
+
+export interface PccServer23ThemesPublicThemeUpdateDto {
+  name?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+  concurrencyStamp?: string | null;
+}
+
 export interface PccServer23ThemesThemeCreateDto {
   name?: string | null;
-  htmlData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+  status?: PccServer23ThemesThemeStatus;
 }
 
 export interface PccServer23ThemesThemeDto {
@@ -1001,13 +1517,29 @@ export interface PccServer23ThemesThemeDto {
   /** @format date-time */
   deletionTime?: string | null;
   name?: string | null;
-  htmlData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+  status?: PccServer23ThemesThemeStatus;
   concurrencyStamp?: string | null;
+}
+
+/** @format string */
+export enum PccServer23ThemesThemeStatus {
+  Preview = "Preview",
+  Complete = "Complete",
 }
 
 export interface PccServer23ThemesThemeUpdateDto {
   name?: string | null;
-  htmlData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  jsonData?: string | null;
+  status?: PccServer23ThemesThemeStatus;
   concurrencyStamp?: string | null;
 }
 
@@ -1098,6 +1630,8 @@ export interface PccServer23UsersCreateProfessionalUserInput {
   /** @format uuid */
   thirdSecurityQuestionId?: string;
   thirdSecurityQuestionAnswer?: string | null;
+  /** @format uuid */
+  avatarId?: string;
 }
 
 export interface PccServer23UsersCreateUserInput {
@@ -1115,6 +1649,8 @@ export interface PccServer23UsersCreateUserInput {
   /** @format uuid */
   thirdSecurityQuestionId?: string;
   thirdSecurityQuestionAnswer?: string | null;
+  /** @format uuid */
+  avatarId?: string;
 }
 
 export interface PccServer23UsersGetQuestionIdsOutput {
@@ -1181,10 +1717,36 @@ export interface VoloAbpApplicationDtosPagedResultDto1PccServer23ActivitiesActiv
   totalCount?: number;
 }
 
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23AssessmentQuestionsAssessmentQuestionWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?:
+    | PccServer23AssessmentQuestionsAssessmentQuestionWithNavigationPropertiesDto[]
+    | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23AssessmentQuestionsUserCompletedAssessmentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23AssessmentQuestionsUserCompletedAssessmentDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23AvatarsAvatarDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23AvatarsAvatarDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
 export interface VoloAbpApplicationDtosPagedResultDto1PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   items?:
     | PccServer23CalendarEventsPublicCalendarEventWithNavigationPropertiesDto[]
     | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23CurriculumRecipesCurriculumRecipeDto[] | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -1215,6 +1777,22 @@ export interface VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWith
 
 export interface VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   items?: PccServer23RecipesPublicRecipeDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23ThemeActivitiesThemeActivityWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?:
+    | PccServer23ThemeActivitiesThemeActivityWithNavigationPropertiesDto[]
+    | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23ThemeRecipesThemeRecipeWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?:
+    | PccServer23ThemeRecipesThemeRecipeWithNavigationPropertiesDto[]
+    | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -1435,13 +2013,16 @@ export class Api<
      * @name AppActivitiesList
      * @summary Get list of activity
      * @request GET:/api/app/activities
-     * @secure
      */
     appActivitiesList: (
       query?: {
         FilterText?: string;
         Name?: string;
-        HtmlData?: string;
+        JsonData?: string;
+        Title?: string;
+        Image?: string;
+        Topic?: string;
+        Description?: string;
         Tags?: string;
         Sorting?: string;
         /**
@@ -1456,6 +2037,7 @@ export class Api<
          * @max 2147483647
          */
         MaxResultCount?: number;
+        language?: string;
       },
       params: RequestParams = {},
     ) =>
@@ -1466,7 +2048,6 @@ export class Api<
         path: `/api/app/activities`,
         method: "GET",
         query: query,
-        secure: true,
         format: "json",
         ...params,
       }),
@@ -1478,20 +2059,18 @@ export class Api<
      * @name AppActivitiesCreate
      * @summary Create a new activity record
      * @request POST:/api/app/activities
-     * @secure
      */
     appActivitiesCreate: (
       data: PccServer23ActivitiesCustomMultiLingualActivityCreateDto,
       params: RequestParams = {},
     ) =>
       this.request<
-        PccServer23ActivitiesActivityDto,
+        PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/activities`,
         method: "POST",
         body: data,
-        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -1504,16 +2083,14 @@ export class Api<
      * @name AppActivitiesDetail
      * @summary Get activity record
      * @request GET:/api/app/activities/{id}
-     * @secure
      */
     appActivitiesDetail: (id: string, params: RequestParams = {}) =>
       this.request<
-        PccServer23ActivitiesActivityDto,
+        PccServer23ActivitiesPublicActivityDto,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/activities/${id}`,
         method: "GET",
-        secure: true,
         format: "json",
         ...params,
       }),
@@ -1542,7 +2119,6 @@ export class Api<
      * @name AppActivitiesUpdate
      * @summary Update an existing activity record's details
      * @request PUT:/api/app/activities/{id}
-     * @secure
      */
     appActivitiesUpdate: (
       id: string,
@@ -1550,14 +2126,274 @@ export class Api<
       params: RequestParams = {},
     ) =>
       this.request<
-        PccServer23ActivitiesActivityDto,
+        PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
         VoloAbpHttpRemoteServiceErrorResponse
       >({
         path: `/api/app/activities/${id}`,
         method: "PUT",
         body: data,
-        secure: true,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestionChoiceUserAnswers
+     * @name AppAssessmentQuestionChoiceUserAnswersCreate
+     * @request POST:/api/app/assessment-question-choice-user-answers
+     */
+    appAssessmentQuestionChoiceUserAnswersCreate: (
+      data: PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestionChoiceUserAnswerCreateInput,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/assessment-question-choice-user-answers`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestions
+     * @name AppAssessmentQuestionsList
+     * @request GET:/api/app/assessment-questions
+     */
+    appAssessmentQuestionsList: (
+      query?: {
+        FilterText?: string;
+        EnglishDescription?: string;
+        FrenchDescription?: string;
+        /** @format int32 */
+        OrderMin?: number;
+        /** @format int32 */
+        OrderMax?: number;
+        /** @format uuid */
+        ThemeId?: string;
+        /** @format uuid */
+        CurriculumId?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23AssessmentQuestionsAssessmentQuestionWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/assessment-questions`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestions
+     * @name AppAssessmentQuestionsCreate
+     * @request POST:/api/app/assessment-questions
+     */
+    appAssessmentQuestionsCreate: (
+      data: PccServer23AssessmentQuestionsMultiLingualAssessmentQuestionCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23AssessmentQuestionsAssessmentQuestionDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/assessment-questions`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestions
+     * @name AppAssessmentQuestionsDetail
+     * @request GET:/api/app/assessment-questions/{id}
+     */
+    appAssessmentQuestionsDetail: (id: string, params: RequestParams = {}) =>
+      this.request<
+        PccServer23AssessmentQuestionsAssessmentQuestionDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/assessment-questions/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestions
+     * @name AppAssessmentQuestionsDelete
+     * @request DELETE:/api/app/assessment-questions/{id}
+     */
+    appAssessmentQuestionsDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/assessment-questions/${id}`,
+        method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestions
+     * @name AppAssessmentQuestionsUpdate
+     * @request PUT:/api/app/assessment-questions/{id}
+     */
+    appAssessmentQuestionsUpdate: (
+      id: string,
+      data: PccServer23AssessmentQuestionsMultiLingualAssessmentQuestionUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23AssessmentQuestionsAssessmentQuestionDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/assessment-questions/${id}`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestions
+     * @name AppAssessmentQuestionsAssessmentQuestionAnswersList
+     * @request GET:/api/app/assessment-questions/assessment-question-answers
+     */
+    appAssessmentQuestionsAssessmentQuestionAnswersList: (
+      query?: {
+        /** @format uuid */
+        AssessmentQuestionId?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23AssessmentQuestionsMCQChoiceModelDto[],
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/assessment-questions/assessment-question-answers`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAssessmentQuestions
+     * @name AppAssessmentQuestionsUserCompletedAssessmentsList
+     * @summary Add translation for an existing assessment question record
+     * @request GET:/api/app/assessment-questions/user-completed-assessments
+     */
+    appAssessmentQuestionsUserCompletedAssessmentsList: (
+      query?: {
+        /** @format uuid */
+        AssessmentQuestionId?: string;
+        FilterText?: string;
+        Name?: string;
+        /** @format int32 */
+        OrderMin?: number;
+        /** @format int32 */
+        OrderMax?: number;
+        /** @format uuid */
+        ThemeId?: string;
+        /** @format uuid */
+        CurriculumId?: string;
+        /** @format uuid */
+        UserId?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23AssessmentQuestionsUserCompletedAssessmentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/assessment-questions/user-completed-assessments`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomAvatars
+     * @name AppAvatarsList
+     * @summary Get list of avatars
+     * @request GET:/api/app/avatars
+     */
+    appAvatarsList: (
+      query?: {
+        FilterText?: string;
+        Name?: string;
+        ImageUrl?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23AvatarsAvatarDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/avatars`,
+        method: "GET",
+        query: query,
         format: "json",
         ...params,
       }),
@@ -1744,6 +2580,137 @@ export class Api<
         body: data,
         secure: true,
         type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCurriculumRecipes
+     * @name AppCurriculumRecipesList
+     * @summary Get list of curriculum recipe
+     * @request GET:/api/app/curriculum-recipes
+     */
+    appCurriculumRecipesList: (
+      query?: {
+        FilterText?: string;
+        Title?: string;
+        Topic?: string;
+        Image?: string;
+        Description?: string;
+        JsonData?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+        language?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/curriculum-recipes`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCurriculumRecipes
+     * @name AppCurriculumRecipesCreate
+     * @summary Create a new curriculum recipe record
+     * @request POST:/api/app/curriculum-recipes
+     * @secure
+     */
+    appCurriculumRecipesCreate: (
+      data: PccServer23CurriculumRecipesCustomMultiLingualCurriculumRecipeCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/curriculum-recipes`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCurriculumRecipes
+     * @name AppCurriculumRecipesDetail
+     * @summary Get curriculum recipe record
+     * @request GET:/api/app/curriculum-recipes/{id}
+     */
+    appCurriculumRecipesDetail: (id: string, params: RequestParams = {}) =>
+      this.request<
+        PccServer23CurriculumRecipesPublicCurriculumRecipeDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/curriculum-recipes/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCurriculumRecipes
+     * @name AppCurriculumRecipesDelete
+     * @summary Delete curriculum recipe record with id
+     * @request DELETE:/api/app/curriculum-recipes/{id}
+     */
+    appCurriculumRecipesDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/curriculum-recipes/${id}`,
+        method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCurriculumRecipes
+     * @name AppCurriculumRecipesUpdate
+     * @summary Update an existing curriculum recipe record's details
+     * @request PUT:/api/app/curriculum-recipes/{id}
+     * @secure
+     */
+    appCurriculumRecipesUpdate: (
+      id: string,
+      data: PccServer23CurriculumRecipesCustomMultiLingualCurriculumRecipeUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/curriculum-recipes/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
         ...params,
       }),
 
@@ -2481,17 +3448,285 @@ export class Api<
     /**
      * No description
      *
+     * @tags CustomThemeActivities
+     * @name AppThemeActivitiesList
+     * @request GET:/api/app/theme-activities
+     * @secure
+     */
+    appThemeActivitiesList: (
+      query?: {
+        FilterText?: string;
+        Name?: string;
+        Description?: string;
+        /** @format uuid */
+        ActivityId?: string;
+        /** @format uuid */
+        ThemeId?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23ThemeActivitiesThemeActivityWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-activities`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeActivities
+     * @name AppThemeActivitiesCreate
+     * @request POST:/api/app/theme-activities
+     * @secure
+     */
+    appThemeActivitiesCreate: (
+      data: PccServer23ThemeActivitiesThemeActivityCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23ThemeActivitiesThemeActivityDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-activities`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeActivities
+     * @name AppThemeActivitiesDetail
+     * @request GET:/api/app/theme-activities/{id}
+     * @secure
+     */
+    appThemeActivitiesDetail: (id: string, params: RequestParams = {}) =>
+      this.request<
+        PccServer23ThemeActivitiesThemeActivityDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-activities/${id}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeActivities
+     * @name AppThemeActivitiesDelete
+     * @request DELETE:/api/app/theme-activities/{id}
+     * @secure
+     */
+    appThemeActivitiesDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/theme-activities/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeActivities
+     * @name AppThemeActivitiesUpdate
+     * @request PUT:/api/app/theme-activities/{id}
+     * @secure
+     */
+    appThemeActivitiesUpdate: (
+      id: string,
+      data: PccServer23ThemeActivitiesThemeActivityUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23ThemeActivitiesThemeActivityDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-activities/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeRecipes
+     * @name AppThemeRecipesList
+     * @request GET:/api/app/theme-recipes
+     * @secure
+     */
+    appThemeRecipesList: (
+      query?: {
+        FilterText?: string;
+        Name?: string;
+        Description?: string;
+        /** @format uuid */
+        CurriculumRecipeId?: string;
+        /** @format uuid */
+        ThemeId?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23ThemeRecipesThemeRecipeWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-recipes`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeRecipes
+     * @name AppThemeRecipesCreate
+     * @request POST:/api/app/theme-recipes
+     * @secure
+     */
+    appThemeRecipesCreate: (
+      data: PccServer23ThemeRecipesThemeRecipeCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23ThemeRecipesThemeRecipeDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-recipes`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeRecipes
+     * @name AppThemeRecipesDetail
+     * @request GET:/api/app/theme-recipes/{id}
+     * @secure
+     */
+    appThemeRecipesDetail: (id: string, params: RequestParams = {}) =>
+      this.request<
+        PccServer23ThemeRecipesThemeRecipeDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-recipes/${id}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeRecipes
+     * @name AppThemeRecipesDelete
+     * @request DELETE:/api/app/theme-recipes/{id}
+     * @secure
+     */
+    appThemeRecipesDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/theme-recipes/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemeRecipes
+     * @name AppThemeRecipesUpdate
+     * @request PUT:/api/app/theme-recipes/{id}
+     * @secure
+     */
+    appThemeRecipesUpdate: (
+      id: string,
+      data: PccServer23ThemeRecipesThemeRecipeUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23ThemeRecipesThemeRecipeDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/theme-recipes/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags CustomThemes
      * @name AppThemesList
      * @summary Get list of theme
      * @request GET:/api/app/themes
-     * @secure
      */
     appThemesList: (
       query?: {
         FilterText?: string;
         Name?: string;
-        HtmlData?: string;
+        Title?: string;
+        Image?: string;
+        Topic?: string;
+        Description?: string;
+        JsonData?: string;
+        Status?: PccServer23ThemesThemeStatus;
         Sorting?: string;
         /**
          * @format int32
@@ -2515,33 +3750,6 @@ export class Api<
         path: `/api/app/themes`,
         method: "GET",
         query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomThemes
-     * @name AppThemesCreate
-     * @summary Create new theme record.
-     * @request POST:/api/app/themes
-     * @secure
-     */
-    appThemesCreate: (
-      data: PccServer23ThemesThemeCreateDto,
-      params: RequestParams = {},
-    ) =>
-      this.request<
-        PccServer23ThemesThemeDto,
-        VoloAbpHttpRemoteServiceErrorResponse
-      >({
-        path: `/api/app/themes`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -2553,7 +3761,6 @@ export class Api<
      * @name AppThemesDetail
      * @summary Get a theme record with id
      * @request GET:/api/app/themes/{id}
-     * @secure
      */
     appThemesDetail: (id: string, params: RequestParams = {}) =>
       this.request<
@@ -2562,7 +3769,6 @@ export class Api<
       >({
         path: `/api/app/themes/${id}`,
         method: "GET",
-        secure: true,
         format: "json",
         ...params,
       }),
@@ -2574,13 +3780,11 @@ export class Api<
      * @name AppThemesDelete
      * @summary Delete an existing theme record
      * @request DELETE:/api/app/themes/{id}
-     * @secure
      */
     appThemesDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/themes/${id}`,
         method: "DELETE",
-        secure: true,
         ...params,
       }),
 
@@ -2591,11 +3795,10 @@ export class Api<
      * @name AppThemesUpdate
      * @summary Update theme details
      * @request PUT:/api/app/themes/{id}
-     * @secure
      */
     appThemesUpdate: (
       id: string,
-      data: PccServer23ThemesThemeUpdateDto,
+      data: PccServer23ThemesPublicThemeUpdateDto,
       params: RequestParams = {},
     ) =>
       this.request<
@@ -2605,7 +3808,54 @@ export class Api<
         path: `/api/app/themes/${id}`,
         method: "PUT",
         body: data,
-        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesEducatorNoteCreate
+     * @summary Add educator note for a theme with a curriculum id
+     * @request POST:/api/app/themes/educator-note
+     */
+    appThemesEducatorNoteCreate: (
+      data: PccServer23ThemesCustomAddEducatorNoteInput,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23EducatorNotesEducatorNoteDto,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/themes/educator-note`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesNewThemeCreate
+     * @summary Creates a new theme in preview mode and returns Id
+     * @request POST:/api/app/themes/new-theme
+     */
+    appThemesNewThemeCreate: (
+      data: PccServer23ThemesPublicThemeCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23ThemesCustomCreateNewThemeOutput,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/themes/new-theme`,
+        method: "POST",
+        body: data,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -2651,6 +3901,58 @@ export class Api<
         path: `/api/app/username-choices/username-choices`,
         method: "GET",
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags MealPlanner
+     * @name AppTestMealPlannerMealPlanList
+     * @request GET:/api/app/test-meal-planner/meal-plan
+     */
+    appTestMealPlannerMealPlanList: (
+      query?: {
+        /** @format date-time */
+        StartDate?: string;
+        /** @format date-time */
+        EndDate?: string;
+        DaysOfWeek?: any[];
+        /** @format int32 */
+        MealsPerDay?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23RecipesPublicRecipeDto[],
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/test-meal-planner/meal-plan`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags MealPlanner
+     * @name AppTestMealPlannerImportSpreadsheetCreate
+     * @request POST:/api/app/test-meal-planner/import-spreadsheet
+     */
+    appTestMealPlannerImportSpreadsheetCreate: (
+      data: {
+        /** @format binary */
+        file?: File;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/test-meal-planner/import-spreadsheet`,
+        method: "POST",
+        body: data,
+        type: ContentType.FormData,
         ...params,
       }),
 

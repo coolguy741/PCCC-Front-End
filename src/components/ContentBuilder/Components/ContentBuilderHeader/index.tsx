@@ -1,4 +1,4 @@
-import { ContentBuilderType } from "../../../../pages/types";
+import { ContentBuilderType, Language } from "../../../../pages/types";
 import { Typography } from "../../../Global/Typography";
 import { ContentInfo } from "../ContentInfo";
 import { ContentNavigator } from "../ContentNavigator";
@@ -9,6 +9,8 @@ interface Props {
   slideIndex: number;
   currentStep: number;
   deleteSlide: () => void;
+  setLang: (lang: Language) => void;
+  currentLang: Language;
 }
 
 export const ContentBuilderHeader: React.FC<Props> = ({

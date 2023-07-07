@@ -27,7 +27,8 @@ export const ActivitiesPage = () => {
           .then((res) => res.data);
         setActivities(activities.items);
       })();
-  }, [api]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ContentListAdminPageTemplate

@@ -41,11 +41,13 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
     contents,
     maxPageCount,
     currentStep,
+    currentLang,
     updatePage,
     updatePageState,
     setSlideIndex,
     changeStep,
     addSlide,
+    setLang,
     deleteSlide,
   } = store;
 
@@ -156,6 +158,8 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
         step={currentStep}
         slideIndex={slideIndex}
         currentStep={currentStep}
+        setLang={setLang}
+        currentLang={currentLang}
         deleteSlide={deleteSlide}
       />
       {currentStep < 4 ? (

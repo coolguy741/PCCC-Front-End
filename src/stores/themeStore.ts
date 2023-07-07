@@ -22,11 +22,20 @@ interface ThemeProp {
   currentSlide: ThemeComponent[];
   activityIds: string[];
   recipeIds: string[];
+  tags?: string[];
   en: {
-    contents: IContent[];
+    name?: string;
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
   fr: {
-    contents: IContent[];
+    name?: string;
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
 }
 export interface ThemeStoreState extends ThemeProp {
@@ -59,10 +68,10 @@ const initialState: ThemeProp = {
   activityIds: [],
   recipeIds: [],
   en: {
-    contents: [],
+    jsonData: [],
   },
   fr: {
-    contents: [],
+    jsonData: [],
   },
 };
 
@@ -140,7 +149,7 @@ export const useThemeStore = create<ThemeStoreState>()((set, get) => ({
   continueWithFrench: () =>
     set(({ contents }) => ({
       currentStep: 0,
-      en: { contents },
+      en: { jsonData: contents },
       contents: [{ slides: [[components[0]]] }],
       currentLang: "fr",
     })),

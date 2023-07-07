@@ -16,6 +16,10 @@ export function useContentCreation(
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
 
+  useEffect(() => {
+    initialState && setState(initialState);
+  }, [initialState]);
+
   function changeEditState(tag: TitleType) {
     if (state[tag].mode === ComponentViewMode.EDIT) {
       const newState = {

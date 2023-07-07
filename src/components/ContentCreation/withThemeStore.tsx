@@ -22,11 +22,12 @@ export function withThemeStore<P extends ThemeComponentProps>(
   return function (props: P) {
     const {
       componentIndex,
-      componentState,
+      state: componentState,
       slideIndex,
       isEditable,
       updatePageState,
     } = props;
+
     const { setComponentPosition, state, changeEditState, changeText } =
       useContentCreation(componentState ?? initialState, updatePageState);
 

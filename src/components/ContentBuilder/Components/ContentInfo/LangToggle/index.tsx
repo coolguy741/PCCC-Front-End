@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
 import { Language } from "../../../../../pages/types";
-import { useThemeStore } from "../../../../../stores/themeStore";
 
 const languages: { value: Language; label: string }[] = [
   { value: "en", label: "Eng" },
   { value: "fr", label: "Fr" },
 ];
 
-export const LanguageToggle = () => {
-  const { setLang, currentLang } = useThemeStore();
+interface Props {
+  setLang: (lang: Language) => void;
+  lang: Language;
+}
+
+export const LanguageToggle: React.FC<Props> = ({
+  setLang,
+  lang: currentLang,
+}) => {
   const toggleLanguage = (lang: Language) => {
     setLang(lang);
   };
