@@ -58,14 +58,16 @@ export function IngredientCard() {
                 amtOrIngdt="amt"
               />
             </span>
-            <DoubleClickToEditComponent
-              mode={(state as any)[listNameMinusOne].iMode}
-              name={listNameMinusOne}
-              text={(state as any)[listNameMinusOne].ingdt}
-              changeEditState={changeEditState}
-              setText={changeText}
-              amtOrIngdt="ingdt"
-            />
+            <p>
+              <DoubleClickToEditComponent
+                mode={(state as any)[listNameMinusOne].iMode}
+                name={listNameMinusOne}
+                text={(state as any)[listNameMinusOne].ingdt}
+                changeEditState={changeEditState}
+                setText={changeText}
+                amtOrIngdt="ingdt"
+              />
+            </p>
           </li>
         ))}
       </ol>
@@ -106,6 +108,10 @@ const Style = {
       font-size: 14px;
       line-height: 16px;
       color: #646464;
+    }
+
+    p {
+      width: 70%;
     }
 
     ol {
