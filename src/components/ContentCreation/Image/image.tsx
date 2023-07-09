@@ -1,5 +1,7 @@
 import styled from "styled-components";
+import { usePatterns } from "../../../hooks/usePatterns";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+import { Patterns } from "../../Patterns";
 import { Typography } from "../../Typography";
 import Add from "../Icons/add";
 import Shuffle from "../Icons/shuffle";
@@ -11,17 +13,18 @@ export function Image({
   img: string;
   variant?: "img-only" | "all";
 }) {
+  const { shuffleImage } = usePatterns();
   return (
     <Style.Container>
       <img src={img} alt="" />
       <figcaption></figcaption>
       {!img && (
-        <div className="empty-img">
+        <Patterns className="empty-img">
           <div className="img-btn-group">
             <button>
               <Add />
             </button>
-            <button>
+            <button onClick={shuffleImage}>
               <Shuffle />
             </button>
           </div>
@@ -33,7 +36,7 @@ export function Image({
           >
             {variant === "img-only" ? "Add Image" : "Add Image or Video"}
           </Typography>
-        </div>
+        </Patterns>
       )}
     </Style.Container>
   );
@@ -41,26 +44,17 @@ export function Image({
 
 const Style = {
   Container: styled.figure`
-    background-color: rgba(0, 0, 0, 0.1);
     position: relative;
     width: 100%;
     height: 100%;
 
     .empty-img {
-      width: 100%;
-      height: 100%;
       position: absolute;
       top: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
-      .img-delete {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-      }
     }
   `,
 };
