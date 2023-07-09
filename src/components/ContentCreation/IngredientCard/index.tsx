@@ -56,7 +56,7 @@ export function IngredientCard() {
       </figcaption>
       <ol>
         {_.times(listLength, (listNameMinusOne) => (
-          <li>
+          <li key={listNameMinusOne}>
             <span className="ic-span">
               <DoubleClickToEditComponent
                 mode={(state as any)[listNameMinusOne].aMode}
