@@ -24,8 +24,13 @@ const initialState = [
 ];
 
 export function SingleBullet() {
-  const { state, changeEditState, changeText, deleteListItem, addListItem } =
-    useContentCreation(initialState as any);
+  const {
+    state,
+    changeListEditState,
+    changeListText,
+    deleteListItem,
+    addListItem,
+  } = useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
@@ -48,8 +53,8 @@ export function SingleBullet() {
                 mode={(state as any)[listNameMinusOne].mode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].text}
-                changeEditState={changeEditState}
-                setText={changeText}
+                changeEditState={changeListEditState}
+                setText={changeListText}
               />
             </p>
           </li>

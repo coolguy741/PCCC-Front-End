@@ -8,60 +8,15 @@ import {
 } from "../components/ContentCreation/types";
 
 export function useContentCreation(
-  initialState: State,
+  initialState: any,
   updatePageState?: (slideIndex: number, index: number, state: State) => void,
 ) {
-  const [state, setState] = useState<State>(initialState);
-  const [timelineState, setTimelineState] = useState<State>(initialState);
+  const [state, setState] = useState<any>(initialState);
+  const [timelineState, setTimelineState] = useState<any>(initialState);
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
 
   function changeEditState(tag: TitleType, amtOrIngdt?: "amt" | "ingdt") {
-    let newState;
-    if (amtOrIngdt) {
-      if (amtOrIngdt === "amt") {
-        if (state[tag].aMode === ComponentViewMode.VIEW) {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              aMode: ComponentViewMode.EDIT,
-            },
-          };
-          return setState(newState);
-        } else {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              aMode: ComponentViewMode.VIEW,
-            },
-          };
-          return setState(newState);
-        }
-      } else {
-        if (state[tag].iMode === ComponentViewMode.VIEW) {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              iMode: ComponentViewMode.EDIT,
-            },
-          };
-          return setState(newState);
-        } else {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              iMode: ComponentViewMode.VIEW,
-            },
-          };
-          return setState(newState);
-        }
-      }
-    }
-
     if (state[tag].mode === ComponentViewMode.EDIT) {
       const newState = {
         ...state,
@@ -80,6 +35,61 @@ export function useContentCreation(
         },
       };
       return setState(newState);
+    }
+  }
+
+  function changeListEditState(tag: number, amtOrIngdt?: "amt" | "ingdt") {
+    if (amtOrIngdt) {
+      if (amtOrIngdt === "amt") {
+        if (state[tag].aMode === ComponentViewMode.VIEW) {
+          const indexValue = { ...state[tag], aMode: ComponentViewMode.EDIT };
+          let stateCopy = state;
+          stateCopy = stateCopy.map((s: any, idx: number) =>
+            idx === tag ? indexValue : s,
+          );
+          return setState(stateCopy);
+        } else {
+          const indexValue = { ...state[tag], aMode: ComponentViewMode.VIEW };
+          let stateCopy = state;
+          stateCopy = stateCopy.map((s: any, idx: number) =>
+            idx === tag ? indexValue : s,
+          );
+          return setState(stateCopy);
+        }
+      } else {
+        if (state[tag].iMode === ComponentViewMode.VIEW) {
+          const indexValue = { ...state[tag], iMode: ComponentViewMode.EDIT };
+          let stateCopy = state;
+          stateCopy = stateCopy.map((s: any, idx: number) =>
+            idx === tag ? indexValue : s,
+          );
+          return setState(stateCopy);
+        } else {
+          const indexValue = { ...state[tag], iMode: ComponentViewMode.VIEW };
+          let stateCopy = state;
+          stateCopy = stateCopy.map((s: any, idx: number) =>
+            idx === tag ? indexValue : s,
+          );
+          return setState(stateCopy);
+        }
+      }
+    }
+
+    if (state[tag].mode === ComponentViewMode.EDIT) {
+      const indexValue = { ...state[tag], mode: ComponentViewMode.VIEW };
+      let stateCopy = state;
+      console.log(stateCopy);
+      stateCopy = stateCopy.map((s: any, idx: number) =>
+        idx === tag ? indexValue : s,
+      );
+      return setState(stateCopy);
+    } else {
+      const indexValue = { ...state[tag], mode: ComponentViewMode.EDIT };
+      let stateCopy = state;
+      stateCopy = stateCopy.map((s: any, idx: number) =>
+        idx === tag ? indexValue : s,
+      );
+      return setState(stateCopy);
     }
   }
 
@@ -107,6 +117,38 @@ export function useContentCreation(
       };
       setTimelineState(newState);
     }
+  }
+
+  function changeListText(
+    name: number,
+    newText: string,
+    amtOrIngdt?: "amt" | "ingdt",
+  ) {
+    let newState;
+    if (amtOrIngdt) {
+      const indexValue = { ...state[name], [amtOrIngdt]: newText };
+      let stateCopy = state;
+      stateCopy = stateCopy.map((s: any, idx: number) =>
+        idx === name ? indexValue : s,
+      );
+      newState = stateCopy;
+    } else {
+      const indexValue = { ...state[name], text: newText };
+      let stateCopy = state;
+      stateCopy = stateCopy.map((s: any, idx: number) =>
+        idx === name ? indexValue : s,
+      );
+      newState = stateCopy;
+    }
+
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        componentPosition.slideIndex,
+        componentPosition.componentIndex,
+        newState,
+      );
+    setState(newState);
   }
 
   function changeText(
@@ -211,8 +253,8 @@ export function useContentCreation(
     const timeline = Object.values(state)
       .map((value) => {
         return {
-          mode: value.mode,
-          text: value.text,
+          mode: (value as any).mode,
+          text: (value as any).text,
         };
       })
       .reduce(
@@ -237,5 +279,7 @@ export function useContentCreation(
     timelineState,
     changeTimelineEditState,
     timelineChangeText,
+    changeListEditState,
+    changeListText,
   };
 }
