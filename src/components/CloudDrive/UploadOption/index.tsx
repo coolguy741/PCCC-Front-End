@@ -5,15 +5,15 @@ import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
 import CDCancel from "../Icons/cd-cancel";
 import CDRefresh from "../Icons/cd-refresh";
+import { roundToOneDecimal } from "../ListView";
 
 interface Props {
-  status: "uploading" | "finished" | "errored";
+  status?: "uploading" | "finished" | "errored";
   upload?: any;
+  progress?: number;
 }
 
-export function UploadOption(props: Props) {
-  const { status, upload } = props;
-
+export function UploadOption({ status, upload, progress }: Props) {
   function colorOnError(normalColor: string) {
     if (status === "errored") return "red-500";
     else return normalColor;
@@ -35,7 +35,7 @@ export function UploadOption(props: Props) {
               {upload.name}
               <br />
               <Typography color={colorOnError("neutral-400")} size="1.3vh">
-                {upload.size}
+                {roundToOneDecimal(upload.size)} MB
               </Typography>
             </Typography>
           </div>
@@ -46,13 +46,15 @@ export function UploadOption(props: Props) {
               size="1.3vh"
               mt="2vh"
             >
-              {status === "errored" ? "failed" : `${upload.percentage}%`}
+              {status === "errored"
+                ? "failed"
+                : `${((progress && progress * 100) || 0).toFixed(0)}%`}
             </Typography>
           </div>
         </div>
         <Progress
           hasError={status === "errored"}
-          value={upload.percentage}
+          value={progress && progress * 100}
           variant="thin"
         />
       </div>
