@@ -1,19 +1,68 @@
 import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+import { Typography } from "../../Typography";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { Image } from "../Image/image";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
-export function ImageWithCaption() {
+const iWithCState: any = {
+  heading: {
+    mode: "view",
+    text: "Forging:",
+  },
+  desc: {
+    mode: "view",
+    text: "to find food in nature.",
+  },
+  img: {
+    src: "",
+  },
+};
+
+export function ImageWithCaption({
+  state,
+  changeEditState,
+  changeText,
+  viewMode,
+}: ComponentProps) {
   return (
     <Style.Container>
       <div className="iwc-image">
         <Image variant="img-only" img="" />
       </div>
-      <p>
-        <b>Forging:</b> to find food in nature.
-      </p>
+      <Typography
+        weight={400}
+        size="1vh"
+        lineHeight="105%"
+        mt="8vh"
+        color="neutral-600"
+      >
+        <b>
+          {" "}
+          <DoubleClickToEditComponent
+            mode={viewMode(state.heading.mode)}
+            setText={changeText}
+            changeEditState={changeEditState}
+            text={state.heading.text}
+            name="heading"
+          />
+        </b>{" "}
+        <DoubleClickToEditComponent
+          mode={viewMode(state.desc.mode)}
+          setText={changeText}
+          changeEditState={changeEditState}
+          text={state.desc.text}
+          name="desc"
+        />
+      </Typography>
     </Style.Container>
   );
 }
+
+export const ParagraphWithHeading = withThemeStore(
+  ImageWithCaption,
+  iWithCState,
+);
 
 const Style = {
   Container: styled.figure`
