@@ -7,6 +7,12 @@ import {
   TitleType,
 } from "../components/ContentCreation/types";
 
+function alterArrayContentState(state: any, idx: number, indexValue: number) {
+  const stateCopy = state;
+  stateCopy.map((s: any, index: number) => (index === idx ? indexValue : s));
+  return stateCopy;
+}
+
 export function useContentCreation(
   initialState: any,
   updatePageState?: (slideIndex: number, index: number, state: State) => void,
@@ -38,58 +44,33 @@ export function useContentCreation(
     }
   }
 
-  function changeListEditState(tag: number, amtOrIngdt?: "amt" | "ingdt") {
+  function changeListEditState(index: number, amtOrIngdt?: "amt" | "ingdt") {
     if (amtOrIngdt) {
       if (amtOrIngdt === "amt") {
-        if (state[tag].aMode === ComponentViewMode.VIEW) {
-          const indexValue = { ...state[tag], aMode: ComponentViewMode.EDIT };
-          let stateCopy = state;
-          stateCopy = stateCopy.map((s: any, idx: number) =>
-            idx === tag ? indexValue : s,
-          );
-          return setState(stateCopy);
+        if (state[index].aMode === ComponentViewMode.VIEW) {
+          const indexValue = { ...state[index], aMode: ComponentViewMode.EDIT };
+          return setState(alterArrayContentState(state, index, indexValue));
         } else {
-          const indexValue = { ...state[tag], aMode: ComponentViewMode.VIEW };
-          let stateCopy = state;
-          stateCopy = stateCopy.map((s: any, idx: number) =>
-            idx === tag ? indexValue : s,
-          );
-          return setState(stateCopy);
+          const indexValue = { ...state[index], aMode: ComponentViewMode.VIEW };
+          return setState(alterArrayContentState(state, index, indexValue));
         }
       } else {
-        if (state[tag].iMode === ComponentViewMode.VIEW) {
-          const indexValue = { ...state[tag], iMode: ComponentViewMode.EDIT };
-          let stateCopy = state;
-          stateCopy = stateCopy.map((s: any, idx: number) =>
-            idx === tag ? indexValue : s,
-          );
-          return setState(stateCopy);
+        if (state[index].iMode === ComponentViewMode.VIEW) {
+          const indexValue = { ...state[index], iMode: ComponentViewMode.EDIT };
+          return setState(alterArrayContentState(state, index, indexValue));
         } else {
-          const indexValue = { ...state[tag], iMode: ComponentViewMode.VIEW };
-          let stateCopy = state;
-          stateCopy = stateCopy.map((s: any, idx: number) =>
-            idx === tag ? indexValue : s,
-          );
-          return setState(stateCopy);
+          const indexValue = { ...state[index], iMode: ComponentViewMode.VIEW };
+          return setState(alterArrayContentState(state, index, indexValue));
         }
       }
     }
 
-    if (state[tag].mode === ComponentViewMode.EDIT) {
-      const indexValue = { ...state[tag], mode: ComponentViewMode.VIEW };
-      let stateCopy = state;
-      console.log(stateCopy);
-      stateCopy = stateCopy.map((s: any, idx: number) =>
-        idx === tag ? indexValue : s,
-      );
-      return setState(stateCopy);
+    if (state[index].mode === ComponentViewMode.EDIT) {
+      const indexValue = { ...state[index], mode: ComponentViewMode.VIEW };
+      return setState(alterArrayContentState(state, index, indexValue));
     } else {
-      const indexValue = { ...state[tag], mode: ComponentViewMode.EDIT };
-      let stateCopy = state;
-      stateCopy = stateCopy.map((s: any, idx: number) =>
-        idx === tag ? indexValue : s,
-      );
-      return setState(stateCopy);
+      const indexValue = { ...state[index], mode: ComponentViewMode.EDIT };
+      return setState(alterArrayContentState(state, index, indexValue));
     }
   }
 
@@ -120,25 +101,17 @@ export function useContentCreation(
   }
 
   function changeListText(
-    name: number,
+    index: number,
     newText: string,
     amtOrIngdt?: "amt" | "ingdt",
   ) {
     let newState;
     if (amtOrIngdt) {
-      const indexValue = { ...state[name], [amtOrIngdt]: newText };
-      let stateCopy = state;
-      stateCopy = stateCopy.map((s: any, idx: number) =>
-        idx === name ? indexValue : s,
-      );
-      newState = stateCopy;
+      const indexValue = { ...state[index], [amtOrIngdt]: newText };
+      newState = alterArrayContentState(state, index, indexValue);
     } else {
-      const indexValue = { ...state[name], text: newText };
-      let stateCopy = state;
-      stateCopy = stateCopy.map((s: any, idx: number) =>
-        idx === name ? indexValue : s,
-      );
-      newState = stateCopy;
+      const indexValue = { ...state[index], text: newText };
+      newState = alterArrayContentState(state, index, indexValue);
     }
 
     componentPosition &&
