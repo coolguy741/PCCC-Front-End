@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Progress } from "../../Global/Progress";
@@ -5,49 +6,17 @@ import { Typography } from "../../Typography";
 import FileDropzone from "../FileDropzone";
 import { UploadOption } from "../UploadOption";
 
-const dummy_uploads = [
-  {
-    status: "finished",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 100,
-  },
-  {
-    status: "finished",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 100,
-  },
-  {
-    status: "uploading",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 40,
-  },
-  {
-    status: "errored",
-    tag: "mp3",
-    size: "53mb",
-    name: "Audio.mp3",
-    percentage: 100,
-  },
-  {
-    status: "uploading",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 40,
-  },
-];
-
 type Props = {
   className?: string;
+  sizeOccupied: number;
 };
 
 export function CloudStorage(props: Props) {
+  const [uploads, setUploads] = useState([]);
+  const [progress, setProgress] = useState();
+
+  console.log(progress);
+
   return (
     <Style.Container {...props}>
       <Typography color="neutral-900" weight={600} size="2.35vh">
@@ -59,18 +28,19 @@ export function CloudStorage(props: Props) {
             Documents
           </Typography>
           <Typography color="neutral-600" weight={500} size="1.75vh">
-            20/200 GB left
+            {Math.round(200 - props.sizeOccupied / 1000000000)}/200 GB left
           </Typography>
         </div>
-        <Progress variant="thick" />
+        <Progress variant="thick" value={props.sizeOccupied / 20000000000} />
       </article>
-      <FileDropzone />
+      <FileDropzone setUploads={setUploads} setProgress={setProgress} />
       <div className="cloud-storage-uploads">
-        {dummy_uploads.map((upload, idx) => (
+        {uploads.map((upload, idx) => (
           <UploadOption
             key={idx}
-            status={upload.status as any}
-            upload={upload}
+            // status={upload.status as any}
+            upload={upload[0]}
+            progress={progress}
           />
         ))}
       </div>
