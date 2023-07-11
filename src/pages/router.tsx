@@ -21,7 +21,6 @@ import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/L
 import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
 import { AchievementsPage } from "./AchievementsPage";
 import { ActivitiesPage } from "./ActivitiesBuilderPage";
-import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/Create";
@@ -316,7 +315,7 @@ export const router = createBrowserRouter([
           { path: ":item", element: <ActivityPage /> },
           {
             path: ":item/edit",
-            element: <ActivitiesEditPage />,
+            element: <ActivitiesCreatePage />,
           },
         ],
       },

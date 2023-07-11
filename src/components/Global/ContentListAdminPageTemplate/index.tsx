@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 import React from "react";
-import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import {
+  PccServer23ActivitiesActivityDto,
+  PccServer23CurriculumRecipesCurriculumRecipeDto,
+} from "../../../lib/api/api";
 import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
@@ -13,14 +16,18 @@ type SelectOption = "Topic" | "Sort" | "Curriculum" | "Theme";
 interface ContentListAdminPageTemplateProps {
   title: string;
   selectsGroup: SelectOption[];
-  listData: PccServer23ActivitiesActivityDto[] | MockContentsDto[];
+  listData:
+    | PccServer23ActivitiesActivityDto[]
+    | PccServer23CurriculumRecipesCurriculumRecipeDto[]
+    | MockContentsDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
+  handleDelete: () => void;
 }
 
 const OPTIONS = ["name1", "name2", "name3"];
 
 export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplateProps> =
-  ({ title, selectsGroup, listData, onSelectionChange }) => {
+  ({ title, selectsGroup, listData, onSelectionChange, handleDelete }) => {
     return (
       <>
         <Style.InputGroup>
@@ -39,7 +46,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             ))}
           </Style.SelectGroup>
           <Style.ButtonGroup>
-            <Button variant="yellow" size="large">
+            <Button variant="yellow" size="large" onClick={handleDelete}>
               Delete
             </Button>
             <Button

@@ -1,12 +1,14 @@
-import { BaseSyntheticEvent, useEffect } from "react";
+import { BaseSyntheticEvent, useCallback, useEffect } from "react";
 import { Droppable } from "react-beautiful-dnd";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
-import SwiperType, { Mousewheel, Scrollbar } from "swiper";
+import SwiperType, { Mousewheel, Pagination, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 import { ThemeComponent } from "../../../../pages/types";
 import { State } from "../../../ContentCreation/types";
 import { Icon } from "../../../Global/Icon";
+import { components } from "../Cards";
 
 const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
   const swiper = useSwiper();
@@ -33,23 +35,32 @@ export const ContentTemplate: React.FC<{
   setSlideIndex,
   updatePageState,
 }) => {
-  const onSlideChange = (swiper: SwiperType) => {
-    setSlideIndex(swiper.activeIndex);
-  };
+  const { item } = useParams();
+  const { pathname } = useLocation();
+  const onSlideChange = useCallback(
+    (swiper: SwiperType) => {
+      setSlideIndex(swiper.activeIndex);
+    },
+    [setSlideIndex],
+  );
 
   return (
     <Swiper
       slidesPerView={1}
       mousewheel={true}
-      scrollbar={{
-        hide: true,
-      }}
-      pagination={false}
+      scrollbar={
+        item && !pathname.includes("edit")
+          ? false
+          : {
+              hide: true,
+            }
+      }
+      pagination={!!item && !pathname.includes("edit")}
       effect="fade"
       onSlideChange={onSlideChange}
       direction={"vertical"}
       speed={500}
-      modules={[Mousewheel, Scrollbar]}
+      modules={[Mousewheel, Pagination, Scrollbar]}
       className="content-swiper-slide"
     >
       {slides.map((slide, sIndex) => (
@@ -82,7 +93,10 @@ export const ContentTemplate: React.FC<{
                   </Droppable>
                 ))}
               {slide?.map(
-                ({ width, height, x, y, component, componentState }, index) => (
+                (
+                  { width, height, x, y, component, componentState, id },
+                  index,
+                ) => (
                   <Style.Component
                     key={`column-${index}`}
                     {...{
@@ -103,13 +117,21 @@ export const ContentTemplate: React.FC<{
                         </Style.DeleteButton>
                       </div>
                     )}
-                    {component({
-                      slideIndex: sIndex,
-                      componentIndex: index,
-                      state: componentState,
-                      isEditable,
-                      updatePageState,
-                    })}
+                    {component
+                      ? component({
+                          slideIndex: sIndex,
+                          componentIndex: index,
+                          state: componentState,
+                          isEditable,
+                          updatePageState,
+                        })
+                      : components[id - 1].component({
+                          slideIndex: sIndex,
+                          componentIndex: index,
+                          state: componentState,
+                          isEditable,
+                          updatePageState,
+                        })}
                   </Style.Component>
                 ),
               )}

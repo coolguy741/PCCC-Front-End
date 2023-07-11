@@ -13,13 +13,13 @@ interface IContent {
 
 interface ThemeProp {
   id?: string;
+  concurrencyStamp?: string;
   themes?: PccServer23ThemesThemeDto[] | null;
   currentStep: number;
   currentLang: Language;
   maxPageCount: number;
   slideIndex: number;
   contents: IContent[];
-  currentSlide: ThemeComponent[];
   activityIds: string[];
   recipeIds: string[];
   tags?: string[];
@@ -39,6 +39,7 @@ interface ThemeProp {
   };
 }
 export interface ThemeStoreState extends ThemeProp {
+  updateDetail: (jsonData: IContent[]) => void;
   changeStep: (step: number) => void;
   addSlide: () => void;
   updatePage: (slide: ThemeComponent[]) => void;
@@ -64,7 +65,6 @@ const initialState: ThemeProp = {
   slideIndex: 0,
   contents: [{ slides: [[components[0]]] }],
   currentLang: "en",
-  currentSlide: [],
   activityIds: [],
   recipeIds: [],
   en: {
@@ -77,6 +77,7 @@ const initialState: ThemeProp = {
 
 export const useThemeStore = create<ThemeStoreState>()((set, get) => ({
   ...initialState,
+  updateDetail: (contents) => set(() => ({ contents })),
   updateId: (id) => set(() => ({ id })),
   changeStep: (currentStep) =>
     set(({ contents }) => ({

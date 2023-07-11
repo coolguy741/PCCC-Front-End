@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useAPI } from "../../hooks/useAPI";
@@ -9,9 +9,26 @@ import { STORAGE_KEY_JWT } from "../consts";
 export const ActivitiesPage = () => {
   const { activities, setActivities } = useActivitiesStore();
   const { api } = useAPI();
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const handleSelectionChange = (id: string, isSelected: boolean) => {
-    return;
+    setSelectedIds((prevIds) => {
+      return [
+        ...prevIds.filter((prevId) => prevId !== id),
+        isSelected ? id : "",
+      ].filter(Boolean);
+    });
   };
+
+  const handleDelete = async () => {
+    for (const id of selectedIds) {
+      await api.appActivitiesDelete(id, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     api &&
       (async () => {
@@ -36,6 +53,7 @@ export const ActivitiesPage = () => {
       selectsGroup={["Curriculum", "Topic", "Sort"]}
       listData={activities ?? []}
       onSelectionChange={handleSelectionChange}
+      handleDelete={handleDelete}
     />
   );
 };

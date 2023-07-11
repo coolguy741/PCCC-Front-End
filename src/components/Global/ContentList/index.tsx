@@ -42,11 +42,9 @@ const Style = {
     padding: 0px;
     gap: ${convertToRelativeUnit(40, "vw")};
   `,
-  ItemContainer: styled.div`
-    flex-basis: calc(50% - ${convertToRelativeUnit(20, "vw")});
-  `,
 };
 
 const StyledLink = styled(Link)`
+  overflow: hidden;
   flex-basis: calc(50% - ${convertToRelativeUnit(20, "vw")});
 `;

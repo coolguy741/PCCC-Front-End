@@ -1,6 +1,11 @@
 import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
+import {
+  PccServer23ActivitiesActivityDto,
+  PccServer23CurriculumRecipesCurriculumRecipeDto,
+  PccServer23ThemesThemeDto,
+} from "../lib/api/api";
 
 import { STORAGE_KEY_JWT } from "../pages/consts";
 import { ContentBuilderType } from "../pages/types";
@@ -11,7 +16,7 @@ import { useAPI } from "./useAPI";
 
 export const useContentActions = () => {
   const { api } = useAPI();
-  const params = useParams();
+  const { item } = useParams();
   const themeStore = useThemeStore();
   const activityStore = useActivitiesStore();
   const recipeStore = useRecipesStore();
@@ -20,30 +25,50 @@ export const useContentActions = () => {
       Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
     },
   };
+  const currentLang = localStorage.getItem("lang") ?? "en";
 
-  const getContent = useCallback(async (type: ContentBuilderType) => {
-    const { item } = params as { item: string };
-    let response;
-    switch (type) {
-      case ContentBuilderType.THEMES:
-        response = await api.appThemesDetail(item).then((res) => res.data);
-        break;
-      case ContentBuilderType.ACTIVITIES:
-        response = await api.appActivitiesDetail(item).then((res) => res.data);
-        break;
-      case ContentBuilderType.RECIPES:
-        response = await api.appRecipesDetail(item).then((res) => res.data);
-        break;
-    }
-    console.log(response);
-    // const id = (
-    //   type === ContentBuilderType.THEMES
-    //     ? themeStore
-    //     : type === ContentBuilderType.ACTIVITIES
-    //     ? activityStore
-    //     : recipeStore
-    // ).getDetailId(1);
-  }, []);
+  const getContent = useCallback(
+    async (type: ContentBuilderType) => {
+      if (!item) {
+        return false;
+      }
+
+      let response:
+        | PccServer23ThemesThemeDto
+        | PccServer23ActivitiesActivityDto
+        | PccServer23CurriculumRecipesCurriculumRecipeDto;
+
+      switch (type) {
+        case ContentBuilderType.THEMES:
+          response = await api.appThemesDetail(item).then((res) => res.data);
+          // themeStore.updateDetail(JSON.parse(response?.jsonData ?? ""));
+          break;
+        case ContentBuilderType.ACTIVITIES:
+          response = await api
+            .appActivitiesDetail(item)
+            .then((res) => res.data);
+          activityStore.updateDetail({
+            contents: JSON.parse(response?.jsonData ?? ""),
+            id: item,
+            concurrencyStamp: response.concurrencyStamp ?? "",
+            [currentLang]: {
+              title: response.title,
+              description: response.description,
+              topic: response.topic,
+            },
+          });
+          break;
+        case ContentBuilderType.RECIPES:
+          response = await api
+            .appCurriculumRecipesDetail(item)
+            .then((res) => res.data);
+          recipeStore.updateDetail(JSON.parse(response?.jsonData ?? ""));
+          recipeStore.updateId(item);
+          break;
+      }
+    },
+    [item, api, activityStore, recipeStore, currentLang],
+  );
 
   const updateIdInStore = (
     id: string | undefined,
@@ -100,6 +125,7 @@ export const useContentActions = () => {
           data = {
             english: {
               ...activityStore.en,
+              name: "activity",
               jsonData: JSON.stringify(
                 activityStore.currentLang === "en"
                   ? activityStore.contents
@@ -108,6 +134,7 @@ export const useContentActions = () => {
             },
             french: {
               ...activityStore.fr,
+              name: "activity",
               jsonData: JSON.stringify(
                 activityStore.currentLang === "fr"
                   ? activityStore.contents
@@ -116,12 +143,44 @@ export const useContentActions = () => {
             },
             tags: activityStore.tags?.join(","),
           };
+
           return activityStore.id
             ? await api
-                .appActivitiesUpdate(activityStore.id, data, header)
+                .appActivitiesUpdate(
+                  activityStore.id,
+                  { ...data, concurrencyStamp: activityStore.concurrencyStamp },
+                  header,
+                )
                 .then((res) => res.data)
             : await api
                 .appActivitiesCreate(data, header)
+                .then((res) => res.data);
+        case ContentBuilderType.RECIPES:
+          data = {
+            english: {
+              ...recipeStore.en,
+              jsonData: JSON.stringify(
+                recipeStore.currentLang === "en"
+                  ? recipeStore.contents
+                  : recipeStore.en.jsonData,
+              ),
+            },
+            french: {
+              ...recipeStore.fr,
+              jsonData: JSON.stringify(
+                recipeStore.currentLang === "fr"
+                  ? recipeStore.contents
+                  : recipeStore.fr.jsonData,
+              ),
+            },
+            tags: recipeStore.tags?.join(","),
+          };
+          return recipeStore.id
+            ? await api
+                .appCurriculumRecipesUpdate(recipeStore.id, data, header)
+                .then((res) => res.data)
+            : await api
+                .appCurriculumRecipesCreate(data, header)
                 .then((res) => res.data);
       }
     },

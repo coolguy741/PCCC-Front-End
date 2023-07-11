@@ -1,4 +1,10 @@
-import { BaseSyntheticEvent, useEffect, useMemo, useState } from "react";
+import {
+  BaseSyntheticEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   DragDropContext,
   OnDragEndResponder,
@@ -60,96 +66,118 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
     [contents, currentStep],
   );
 
-  const checkDroppable = (droppableId: number, source: number) => {
-    const { width, height } = components[source];
-    const currentX = droppableId % 3;
-    const currentY = Math.floor(droppableId / 3);
-    const positions: number[] = getPositions(width, height, currentX, currentY);
-    const lastPosition = positions.sort()[positions.length - 1];
-
-    if (lastPosition !== undefined && lastPosition > 5) {
-      return false;
-    }
-
-    const themeComponents = slides[slideIndex];
-
-    return themeComponents
-      ? themeComponents.reduce((value, current) => {
-          if (!value) {
-            return value;
-          }
-          const { x, y, width, height } = current;
-          const componentPositions: number[] = getPositions(
-            width,
-            height,
-            x ?? 0,
-            y ?? 0,
-          );
-
-          return componentPositions.reduce(
-            (including, position) =>
-              including ? !positions.includes(position) : including,
-            true,
-          );
-        }, true)
-      : true;
-  };
-
-  const onDragUpdate: OnDragUpdateResponder = (result) => {
-    if (result.destination) {
-      updatePage([...(prevContentComponents ?? [])]);
-
-      const droppableId = parseInt(
-        result.destination.droppableId.split("-").pop() ?? "0",
+  const checkDroppable = useCallback(
+    (droppableId: number, source: number) => {
+      const { width, height } = components[source];
+      const currentX = droppableId % 3;
+      const currentY = Math.floor(droppableId / 3);
+      const positions: number[] = getPositions(
+        width,
+        height,
+        currentX,
+        currentY,
       );
-      const source = result.source.index;
+      const lastPosition = positions.sort()[positions.length - 1];
 
-      if (checkDroppable(droppableId, source)) {
-        updatePage([
-          ...slides[slideIndex],
-          {
-            ...components[source],
-            x: droppableId % 3,
-            y: Math.floor(droppableId / 3),
-          },
-        ]);
-        setShowingMessage(false);
-      } else {
-        setShowingMessage(true);
+      if (lastPosition !== undefined && lastPosition > 5) {
+        return false;
       }
-    }
-  };
 
-  const handleDelete = (event: BaseSyntheticEvent) => {
-    const {
-      target: { id },
-    } = event;
-    const [x, y] = id.split(",");
-    const prev = slides[slideIndex];
+      const themeComponents = slides[slideIndex];
 
-    setShowingMessage(false);
-    updatePage([
-      ...(prev
-        ? prev.filter(
-            (component) =>
-              !(component.x === parseInt(x) && component.y === parseInt(y)),
-          )
-        : []),
-    ]);
-  };
+      return themeComponents
+        ? themeComponents.reduce((value, current) => {
+            if (!value) {
+              return value;
+            }
+            const { x, y, width, height } = current;
+            const componentPositions: number[] = getPositions(
+              width,
+              height,
+              x ?? 0,
+              y ?? 0,
+            );
 
-  const onDragStart: OnDragStartResponder = (result) => {
-    setPrevContentComponents(() => [...(slides[slideIndex] ?? [])]);
-    setDraggingComponent(result.source.index);
-  };
+            return componentPositions.reduce(
+              (including, position) =>
+                including ? !positions.includes(position) : including,
+              true,
+            );
+          }, true)
+        : true;
+    },
+    [slideIndex, slides],
+  );
 
-  const onDragEnd: OnDragEndResponder = (result) => {
-    updatePage(
-      !result.destination
-        ? [...(prevContentComponents ?? [])]
-        : slides[slideIndex],
-    );
-  };
+  const onDragUpdate: OnDragUpdateResponder = useCallback(
+    (result) => {
+      if (result.destination) {
+        updatePage([...(prevContentComponents ?? [])]);
+
+        const droppableId = parseInt(
+          result.destination.droppableId.split("-").pop() ?? "0",
+        );
+        const source = result.source.index;
+
+        if (checkDroppable(droppableId, source)) {
+          updatePage([
+            ...slides[slideIndex],
+            {
+              ...components[source],
+              x: droppableId % 3,
+              y: Math.floor(droppableId / 3),
+            },
+          ]);
+          setShowingMessage(false);
+        } else {
+          setShowingMessage(true);
+        }
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [prevContentComponents, setShowingMessage],
+  );
+
+  const handleDelete = useCallback(
+    (event: BaseSyntheticEvent) => {
+      const {
+        target: { id },
+      } = event;
+      const [x, y] = id.split(",");
+      const prev = slides[slideIndex];
+      setShowingMessage(false);
+      updatePage([
+        ...(prev
+          ? prev.filter(
+              (component) =>
+                !(component.x === parseInt(x) && component.y === parseInt(y)),
+            )
+          : []),
+      ]);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [slideIndex, slides],
+  );
+
+  const onDragStart: OnDragStartResponder = useCallback(
+    (result) => {
+      setPrevContentComponents(() => [...(slides[slideIndex] ?? [])]);
+      setDraggingComponent(result.source.index);
+    },
+    [slideIndex, slides],
+  );
+
+  const onDragEnd: OnDragEndResponder = useCallback(
+    (result) => {
+      updatePage(
+        !result.destination
+          ? [...(prevContentComponents ?? [])]
+          : slides[slideIndex],
+      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [slideIndex, slides],
+  );
 
   return (
     <Style.Container>
