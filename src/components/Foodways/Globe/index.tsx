@@ -2,10 +2,21 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useRef, useState } from "react";
 import { Group, Vector3 } from "three";
+import { GLTF } from "three-stdlib";
 import { Marker } from "../Marker";
+
+type GLTFResult = GLTF & {
+  nodes: {
+    globe: THREE.Mesh;
+  };
+  materials: {
+    foodways_mat: THREE.MeshStandardMaterial;
+  };
+};
 
 export const Globe = () => {
   const markerRef = useRef<Group>(null);
+  const { nodes, materials } = useGLTF("/models/globe.glb") as GLTFResult;
   const [marker, setMarker] = useState({
     position: { x: 0, y: 0, z: 0 },
   });
@@ -30,17 +41,25 @@ export const Globe = () => {
   return (
     <Canvas style={{ height: "100%" }}>
       <Suspense fallback={null}>
-        <OrbitControls enableZoom={false} />
+        <OrbitControls
+          enableZoom={false}
+          onClick={(e) => e.stopPropagation()}
+        />
         <rectAreaLight position={[-3, 3, 3]} />
-        <ambientLight intensity={0.3} />
-        <mesh onClick={handleClick}>
-          <sphereBufferGeometry args={[2.65, 32, 32]} />
-          <meshBasicMaterial color="blue" wireframe />
-        </mesh>
+        <ambientLight intensity={2} />
+        <group dispose={null} scale={[8, 8, 8]}>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.globe.geometry}
+            onClick={handleClick}
+            material={materials.foodways_mat}
+          />
+        </group>
         <Marker ref={markerRef} />
       </Suspense>
     </Canvas>
   );
 };
 
-useGLTF.preload("/earth.glb");
+useGLTF.preload("/models/globe.glb");

@@ -204,6 +204,7 @@ export const CreateFoodwaysPage = () => {
               effect="fade"
               onSlideChange={onSlideChange}
               direction={"vertical"}
+              allowTouchMove={false}
               speed={500}
               modules={[Mousewheel, Scrollbar]}
               className="theme-swiper-slide"

@@ -56,6 +56,7 @@ export const FoodwaysOverviewPage = () => {
               direction={"vertical"}
               speed={500}
               modules={[Mousewheel, Scrollbar]}
+              allowTouchMove={false}
               className="theme-swiper-slide"
             >
               <SwiperSlide key={`slide-${0}`}>
