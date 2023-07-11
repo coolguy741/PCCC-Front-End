@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Progress } from "../../Global/Progress";
+import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
 import FileDropzone from "../FileDropzone";
 import { UploadOption } from "../UploadOption";
@@ -13,9 +14,7 @@ type Props = {
 
 export function CloudStorage(props: Props) {
   const [uploads, setUploads] = useState([]);
-  const [progress, setProgress] = useState();
-
-  console.log(progress);
+  const [progress, setProgress] = useState([]);
 
   return (
     <Style.Container {...props}>
@@ -33,17 +32,20 @@ export function CloudStorage(props: Props) {
         </div>
         <Progress variant="thick" value={props.sizeOccupied / 20000000000} />
       </article>
-      <FileDropzone setUploads={setUploads} setProgress={setProgress} />
-      <div className="cloud-storage-uploads">
+      <FileDropzone
+        setUploads={setUploads}
+        setProgress={setProgress}
+        uploads={uploads}
+      />
+      <Style.Uploads>
         {uploads.map((upload, idx) => (
           <UploadOption
             key={idx}
             // status={upload.status as any}
-            upload={upload[0]}
-            progress={progress}
+            upload={upload}
           />
         ))}
-      </div>
+      </Style.Uploads>
     </Style.Container>
   );
 }
@@ -59,5 +61,10 @@ const Style = {
         margin-bottom: ${convertToRelativeUnit(8, "vh")};
       }
     }
+  `,
+
+  Uploads: styled(Scrollable)`
+    height: calc(48vh - ${convertToRelativeUnit(48, "vh")});
+    position: relative;
   `,
 };
