@@ -80,6 +80,7 @@ const components = [
     id: 9,
     title: "Image with Caption",
     preview: <IWC />,
+    // @ts-ignore
     component: <ImageWithCaption key="iwc" />,
   },
   {

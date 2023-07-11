@@ -104,6 +104,7 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "Image with Caption",
     preview: <IWC />,
+    // @ts-ignore
     component: (props: ThemeComponentProps) => <ImageWithCaption key="iwc" />,
   },
   {
