@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useUserStore } from "../../../stores/userStore";
@@ -11,16 +12,16 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
-import { MessageBox } from "../../Global/MessageBox";
+import { ErrorMessage } from "../ErrorMessage";
 
 export const SignInForm = () => {
   const { connect } = useAPI();
   const navigate = useNavigate();
   const { setForgetType } = useUserStore();
+  const [error, setError] = useState("");
   const {
     control,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -36,6 +37,8 @@ export const SignInForm = () => {
     username: string;
     password: string;
   }) => {
+    setError("");
+
     connect
       .tokenCreate({
         username,
@@ -51,12 +54,8 @@ export const SignInForm = () => {
           navigate("/dashboard");
         }
       })
-      .catch(({ error }) => {
-        setError("username", { type: "custom", message: "" });
-        setError("password", {
-          type: "custom",
-          message: error.error_description,
-        });
+      .catch((error) => {
+        setError(error.response.data.error_description);
       });
   };
 
@@ -114,9 +113,7 @@ export const SignInForm = () => {
               />
             )}
           />
-          {errors.password?.type === "custom" && (
-            <MessageBox text={errors.password?.message ?? ""} />
-          )}
+          {error && <ErrorMessage error={error} />}
         </fieldset>
         <p className="forgot">
           Forgot your{" "}

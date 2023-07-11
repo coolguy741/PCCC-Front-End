@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -10,9 +10,10 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
-import { MessageBox } from "../../Global/MessageBox";
+import { ErrorMessage } from "../ErrorMessage";
 
 export const ForgotForm = () => {
+  const [error, setError] = useState("");
   const { changeStep } = useSignInStore();
   const {
     forgetType,
@@ -26,7 +27,6 @@ export const ForgotForm = () => {
   const {
     control,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -60,11 +60,8 @@ export const ForgotForm = () => {
           setThirdQuestionId(thirdQuestionId ?? "");
           changeStep(1);
         })
-        .catch(({ error: { error } }) => {
-          setError("username", {
-            type: "custom",
-            message: error.details,
-          });
+        .catch((error) => {
+          setError(error.response.data.error.details);
         });
     }
   };
@@ -135,11 +132,7 @@ export const ForgotForm = () => {
               )}
             />
           )}
-          {(errors.username?.type ?? errors.email?.type) === "custom" && (
-            <MessageBox
-              text={errors.username?.message ?? errors.email?.message ?? ""}
-            />
-          )}
+          {error && <ErrorMessage error={error} />}
         </fieldset>
         {forgetType === "username" && (
           <span>
