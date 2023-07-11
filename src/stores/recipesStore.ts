@@ -59,7 +59,7 @@ const initialState: ThemeProp = {
   currentStep: 0,
   maxPageCount: 1,
   slideIndex: 0,
-  contents: [{ slides: [[components[0]]] }],
+  contents: [{ slides: [[{ ...components[0] }]] }],
   currentLang: "en",
   en: {
     jsonData: [],
@@ -72,7 +72,18 @@ const initialState: ThemeProp = {
 export const useRecipesStore = create<RecipesStoreState>()((set, get) => ({
   ...initialState,
   updateDetail: (contents) => set(() => ({ contents })),
-  setRecipes: (recipes) => set(() => ({ recipes })),
+  setRecipes: (recipes) =>
+    set(() => ({
+      ...initialState,
+      recipes,
+      contents: [{ slides: [[{ ...components[0] }]] }],
+      en: {
+        jsonData: [],
+      },
+      fr: {
+        jsonData: [],
+      },
+    })),
   updateId: (id) => set(() => ({ id })),
   changeStep: (currentStep) =>
     set(({ contents }) => ({
@@ -104,10 +115,21 @@ export const useRecipesStore = create<RecipesStoreState>()((set, get) => ({
         }) ?? [{ slides: [] }]),
       ],
     })),
-  setLang: (currentLang: Language) =>
-    set(() => ({
-      currentLang,
-    })),
+  setLang: (newLang: Language) =>
+    set(({ contents, currentLang, ...state }) => {
+      return {
+        [currentLang]: {
+          ...state[currentLang],
+          jsonData: [...contents],
+        },
+        currentStep: 0,
+        slideIndex: 0,
+        contents: state[newLang].jsonData.length
+          ? [...state[newLang].jsonData]
+          : [{ slides: [[{ ...components[0] }]] }],
+        currentLang: newLang,
+      };
+    }),
   deleteSlide: () =>
     set(({ contents, slideIndex, currentStep }) => ({
       contents: [
@@ -128,7 +150,7 @@ export const useRecipesStore = create<RecipesStoreState>()((set, get) => ({
     set(({ contents }) => ({
       currentStep: 0,
       en: { jsonData: contents },
-      contents: [{ slides: [[components[0]]] }],
+      contents: [{ slides: [[{ ...components[0] }]] }],
       currentLang: "fr",
     })),
   updatePageState: (sIndex, componentIndex, componentState) =>

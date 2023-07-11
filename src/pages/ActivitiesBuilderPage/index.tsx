@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useAPI } from "../../hooks/useAPI";
@@ -8,6 +8,7 @@ import { STORAGE_KEY_JWT } from "../consts";
 
 export const ActivitiesPage = () => {
   const { activities, setActivities } = useActivitiesStore();
+  const [isDeleted, setIsDeleted] = useState(true);
   const { api } = useAPI();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const handleSelectionChange = (id: string, isSelected: boolean) => {
@@ -19,7 +20,7 @@ export const ActivitiesPage = () => {
     });
   };
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     for (const id of selectedIds) {
       await api.appActivitiesDelete(id, {
         headers: {
@@ -27,10 +28,13 @@ export const ActivitiesPage = () => {
         },
       });
     }
-  };
+    setIsDeleted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIds]);
 
   useEffect(() => {
     api &&
+      isDeleted &&
       (async () => {
         const activities = await api
           .appActivitiesList(
@@ -43,9 +47,10 @@ export const ActivitiesPage = () => {
           )
           .then((res) => res.data);
         setActivities(activities.items);
+        setIsDeleted(false);
       })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isDeleted]);
 
   return (
     <ContentListAdminPageTemplate

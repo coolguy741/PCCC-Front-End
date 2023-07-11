@@ -101,19 +101,17 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
       })),
     updateId: (id) => set(() => ({ id })),
     setActivities: (activities) =>
-      set(() => {
-        return {
-          ...initialState,
-          activities,
-          contents: [{ slides: [[{ ...components[0] }]] }],
-          en: {
-            jsonData: [],
-          },
-          fr: {
-            jsonData: [],
-          },
-        };
-      }),
+      set(() => ({
+        ...initialState,
+        activities,
+        contents: [{ slides: [[{ ...components[0] }]] }],
+        en: {
+          jsonData: [],
+        },
+        fr: {
+          jsonData: [],
+        },
+      })),
     changeStep: (currentStep) =>
       set(({ contents }) => ({
         currentStep,
@@ -153,8 +151,8 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
           },
           currentStep: 0,
           slideIndex: 0,
-          contents: state[currentLang].jsonData.length
-            ? [...state[currentLang].jsonData]
+          contents: state[newLang].jsonData.length
+            ? [...state[newLang].jsonData]
             : [{ slides: [[{ ...components[0] }]] }],
           currentLang: newLang,
         };
