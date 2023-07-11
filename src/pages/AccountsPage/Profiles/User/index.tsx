@@ -89,7 +89,10 @@ export const AccountsUserProfilePage = () => {
                 openGroupsModal={openGroupsModal}
               />
               <UserActivity userData={userData} />
-              <UserAchievements openAchievementsModal={openAchievementsModal} />
+              <UserAchievements
+                openAchievementsModal={openAchievementsModal}
+                achievements={achievements}
+              />
             </>
           )}
         </section>

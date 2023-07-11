@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { Achievement } from "../../../pages/Profile";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 
 export function UserAchievements({
   openAchievementsModal,
+  achievements,
 }: {
   openAchievementsModal: () => void;
+  achievements: Achievement[];
 }) {
   return (
     <Style.Container className="achievements">
@@ -13,13 +16,19 @@ export function UserAchievements({
         <button onClick={openAchievementsModal}>View all</button>
       </hgroup>
       <div className="achievements-icons">
-        <figure></figure>
-        <figure></figure>
-        <figure></figure>
-        <figure></figure>
-        <figure></figure>
-        <figure></figure>
-        <figure></figure>
+        {!!achievements && achievements.length > 0 ? (
+          achievements.map((achievement, index) => (
+            <Style.Achievement key={`achievement-${index}`}>
+              <img
+                src={`/images/achievements/achievement${achievement.badge}.png`}
+                alt={`achievement-${achievement.badge}`}
+                width="120px"
+              />
+            </Style.Achievement>
+          ))
+        ) : (
+          <div>There are no achievements.</div>
+        )}
       </div>
     </Style.Container>
   );
@@ -48,4 +57,5 @@ const Style = {
       border: 2px solid white;
     }
   `,
+  Achievement: styled.div``,
 };

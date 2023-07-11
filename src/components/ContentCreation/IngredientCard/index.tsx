@@ -40,8 +40,13 @@ const initialState = [
 ];
 
 export function IngredientCard() {
-  const { state, changeEditState, changeText, addListItem, deleteListItem } =
-    useContentCreation(initialState as any);
+  const {
+    state,
+    changeListEditState,
+    changeListText,
+    addListItem,
+    deleteListItem,
+  } = useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
@@ -56,14 +61,14 @@ export function IngredientCard() {
       </figcaption>
       <ol>
         {_.times(listLength, (listNameMinusOne) => (
-          <li>
+          <li key={listNameMinusOne}>
             <span className="ic-span">
               <DoubleClickToEditComponent
                 mode={(state as any)[listNameMinusOne].aMode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].amt}
-                changeEditState={changeEditState}
-                setText={changeText}
+                changeEditState={changeListEditState}
+                setText={changeListText}
                 amtOrIngdt="amt"
               />
             </span>
@@ -72,8 +77,8 @@ export function IngredientCard() {
                 mode={(state as any)[listNameMinusOne].iMode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].ingdt}
-                changeEditState={changeEditState}
-                setText={changeText}
+                changeEditState={changeListEditState}
+                setText={changeListText}
                 amtOrIngdt="ingdt"
               />
             </p>

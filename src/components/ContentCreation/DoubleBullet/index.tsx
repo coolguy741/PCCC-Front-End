@@ -38,8 +38,13 @@ const initialState = [
 ];
 
 export function DoubleBullet() {
-  const { state, changeEditState, changeText, deleteListItem, addListItem } =
-    useContentCreation(initialState as any);
+  const {
+    state,
+    changeListEditState,
+    changeListText,
+    deleteListItem,
+    addListItem,
+  } = useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
   return (
     <Style.Container>
@@ -61,8 +66,8 @@ export function DoubleBullet() {
                 mode={(state as any)[listNameMinusOne].mode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].text}
-                changeEditState={changeEditState}
-                setText={changeText}
+                changeEditState={changeListEditState}
+                setText={changeListText}
               />
             </p>
           </li>
