@@ -1,21 +1,73 @@
-import React from "react";
+import Cookies from "js-cookie";
+import Dropzone from "react-dropzone";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Api } from "../../../lib/api/api";
+import { BASE_API_URL } from "../../../lib/api/helpers/consts";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { Typography } from "../../Typography";
-import CDUpload from "../Icons/cd-upload";
 
-const FileDropzone: React.FC = () => {
+interface FileDropZoneProps {
+  setProgress: (progress: any) => void;
+  setUploads: (uploads: any) => void;
+}
+
+const FileDropzone = ({ setProgress, setUploads }: FileDropZoneProps) => {
+  const navigate = useNavigate();
+  const { api } = new Api({
+    baseURL: BASE_API_URL,
+  });
+
+  const onDrop = async (file: any) => {
+    setUploads((uploads: any) => [...uploads, file]);
+
+    const response = await api.appCloudDriveUploadFileCreate(
+      { file: file },
+      { folder: "files" },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.progress) {
+            setProgress(progressEvent.progress);
+          }
+        },
+      },
+    );
+
+    if (response.status === 204 || response.status === 200) {
+      navigate("./");
+    }
+  };
+
   return (
     <Style.Container>
-      <CDUpload />
-      <Typography weight={400} tag="h4" size="1.5vh" color="neutral-400">
-        <Typography tag="span" color="blue-500">
-          <u>Click to upload</u>
-        </Typography>{" "}
-        or drag and drop
-      </Typography>
-      <Typography size="1.25vh" color="neutral-400">
-        Maximum file size 50 MB.
-      </Typography>
+      <Dropzone onDrop={onDrop}>
+        {({ getRootProps, getInputProps }) => (
+          <section className="wfp--dropzone">
+            <div {...getRootProps({ className: "wfp--dropzone__input" })}>
+              <input {...getInputProps()} />
+              <div>
+                <Typography
+                  weight={400}
+                  tag="h4"
+                  size="1.5vh"
+                  color="neutral-400"
+                >
+                  <Typography tag="span" color="blue-500">
+                    <u>Click to upload</u>
+                  </Typography>{" "}
+                  or drag and drop
+                </Typography>
+                <Typography size="1.25vh" color="neutral-400">
+                  Maximum file size 50 MB.
+                </Typography>
+              </div>
+            </div>
+          </section>
+        )}
+      </Dropzone>
     </Style.Container>
   );
 };
@@ -33,6 +85,12 @@ const Style = {
     align-items: center;
     justify-content: center;
     margin-bottom: 12px;
+
+    .wfp--dropzone__input {
+      div {
+        cursor: pointer;
+      }
+    }
   `,
 };
 

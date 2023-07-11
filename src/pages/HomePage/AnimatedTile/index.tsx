@@ -22,16 +22,21 @@ const h3Props = {
   weight: "700",
 } as BaseTypographyProps;
 
-function showSubtitleWithException(subtitle: string) {
+function showSubtitleWithException(subtitle: string, color: string) {
   if (subtitle) {
     if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
       return (
-        <Typography {...h3Props}>
+        <Typography {...h3Props} color={color}>
           Sunny's Place:
           <br />A Bee-utifull Food Adventure
         </Typography>
       );
-    } else return <Typography {...h3Props}>{subtitle}</Typography>;
+    } else
+      return (
+        <Typography {...h3Props} color={color}>
+          {subtitle}
+        </Typography>
+      );
   }
 }
 
@@ -87,15 +92,17 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
             {tile.titleFirstLine}
           </Typography>
           <br />
-          {tile.titleSecondLine}
+          <Typography tag="span" color={tile.titleSecondColor}>
+            {tile.titleSecondLine}
+          </Typography>
         </Typography>
-        {showSubtitleWithException(tile.subtitle)}
+        {showSubtitleWithException(tile.subtitle, tile.titleSecondColor)}
         <Typography
           weight={500}
           size="2.25vh"
           lineHeight="115%"
           mb={convertToRelativeUnit(48, "vh")}
-          color="neutral-700"
+          color={tile.titleSecondColor}
         >
           {tile.description}
         </Typography>

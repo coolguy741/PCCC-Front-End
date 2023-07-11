@@ -24,8 +24,13 @@ const initialState = [
 ];
 
 export function SingleBullet() {
-  const { state, changeEditState, changeText, deleteListItem, addListItem } =
-    useContentCreation(initialState as any);
+  const {
+    state,
+    changeListEditState,
+    changeListText,
+    deleteListItem,
+    addListItem,
+  } = useContentCreation(initialState as any);
   const listLength = Object.keys(state).length;
 
   return (
@@ -33,7 +38,7 @@ export function SingleBullet() {
       <figcaption>
         <h2>Directions</h2>
         <div className="cc-sb-actions">
-          <CCListAdd onClick={addListItem} />
+          <CCListAdd onClick={() => addListItem()} />
           <CCListMinus onClick={deleteListItem} />
           <CCListDelete />
         </div>
@@ -48,8 +53,8 @@ export function SingleBullet() {
                 mode={(state as any)[listNameMinusOne].mode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].text}
-                changeEditState={changeEditState}
-                setText={changeText}
+                changeEditState={changeListEditState}
+                setText={changeListText}
               />
             </p>
           </li>
@@ -70,15 +75,18 @@ const Style = {
     padding: 2.5vh 2vw;
 
     figcaption {
-      font-weight: 600;
-      font-size: 23px;
-      line-height: 28px;
-      color: #3d3d3d;
       margin-bottom: 1.5vh;
       display: flex;
       width: 100%;
       align-items: center;
       justify-content: space-between;
+
+      h2 {
+        font-weight: 600;
+        font-size: 23px;
+        line-height: 28px;
+        color: #3d3d3d;
+      }
 
       div {
         width: 15%;

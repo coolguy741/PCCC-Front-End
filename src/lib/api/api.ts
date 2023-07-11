@@ -855,6 +855,7 @@ export interface PccServer23FoodwaysPublicFoodwayDto {
   featureDate?: string;
   description?: string | null;
   language?: string | null;
+  concurrencyStamp?: string | null;
   foodwayStops?: PccServer23FoodwayStopsPublicFoodwayStopDto[] | null;
 }
 
@@ -1226,6 +1227,7 @@ export interface PccServer23RecipesPublicRecipeDto {
   tags?: string | null;
   directions?: string | null;
   language?: string | null;
+  concurrencyStamp?: string | null;
   medias?: PccServer23RecipeMediasRecipeMediaDto[] | null;
   ingredients?: PccServer23IngredientsPublicIngredientDto[] | null;
 }

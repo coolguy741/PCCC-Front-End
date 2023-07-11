@@ -18,6 +18,8 @@ export enum ComponentViewMode {
 export interface CCFormat {
   mode: ComponentViewMode;
   text: string;
+  aMode?: string;
+  iMode?: string;
 }
 
 export type TitleType =

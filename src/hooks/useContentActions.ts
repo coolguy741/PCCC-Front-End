@@ -106,7 +106,7 @@ export const useContentActions = () => {
                 )
                 .then((res) => res.data)
             : await api
-                .appThemesCreate(
+                .appThemesNewThemeCreate(
                   {
                     english: {
                       ...themeStore.en,
