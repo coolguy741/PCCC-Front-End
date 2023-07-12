@@ -176,7 +176,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
       );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [slideIndex, slides],
+    [slideIndex, slides, prevContentComponents],
   );
 
   return (

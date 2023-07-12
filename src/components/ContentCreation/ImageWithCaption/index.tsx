@@ -3,6 +3,7 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { Image } from "../Image/image";
+import { ObjectState } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const iWithCState: any = {
@@ -19,12 +20,14 @@ const iWithCState: any = {
   },
 };
 
-export function ImageWithCaption({
+export function ImageWithCaptionComponent({
   state,
   changeEditState,
   changeText,
   viewMode,
 }: ComponentProps) {
+  const componentState = state as ObjectState;
+
   return (
     <Style.Container>
       <div className="iwc-image">
@@ -40,18 +43,18 @@ export function ImageWithCaption({
         <b>
           {" "}
           <DoubleClickToEditComponent
-            mode={viewMode(state.heading.mode)}
+            mode={viewMode(componentState.heading.mode)}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.heading.text}
+            text={componentState.heading.text}
             name="heading"
           />
         </b>{" "}
         <DoubleClickToEditComponent
-          mode={viewMode(state.desc.mode)}
+          mode={viewMode(componentState.desc.mode)}
           setText={changeText}
           changeEditState={changeEditState}
-          text={state.desc.text}
+          text={componentState.desc.text}
           name="desc"
         />
       </Typography>
@@ -59,8 +62,8 @@ export function ImageWithCaption({
   );
 }
 
-export const ParagraphWithHeading = withThemeStore(
-  ImageWithCaption,
+export const ImageWithCaption = withThemeStore(
+  ImageWithCaptionComponent,
   iWithCState,
 );
 

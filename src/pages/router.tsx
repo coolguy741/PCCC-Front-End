@@ -70,7 +70,6 @@ import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
-import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
 import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
 import { ReportsPage } from "./ReportsPage";
 import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
@@ -387,7 +386,7 @@ export const router = createBrowserRouter([
             element: <RecipePreviewPage />,
           },
           { path: ":item", element: <RecipePage /> },
-          { path: ":item/edit", element: <RecipesEditRecipePage /> },
+          { path: ":item/edit", element: <RecipeCreatePage /> },
           {
             path: "lesson-assessment/create",
             element: <RecipesCreateLessonAssessment />,

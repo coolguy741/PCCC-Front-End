@@ -105,7 +105,9 @@ export const components: ThemeComponent[] = [
     title: "Image with Caption",
     preview: <IWC />,
     // @ts-ignore
-    component: (props: ThemeComponentProps) => <ImageWithCaption key="iwc" />,
+    component: (props: ThemeComponentProps) => (
+      <ImageWithCaption key="iwc" {...props} />
+    ),
   },
   {
     id: 10,
@@ -113,7 +115,9 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "Bullet 1",
     preview: <SB />,
-    component: (props: ThemeComponentProps) => <SingleBullet key="sb" />,
+    component: (props: ThemeComponentProps) => (
+      <SingleBullet key="sb" {...props} />
+    ),
   },
   {
     id: 10,

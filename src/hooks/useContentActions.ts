@@ -2,10 +2,10 @@ import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import {
-  PccServer23ActivitiesActivityDto,
-  PccServer23CurriculumRecipesCurriculumRecipeDto,
+  PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
   PccServer23ThemesThemeDto,
 } from "../lib/api/api";
+import { PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "./../lib/api/api";
 
 import { STORAGE_KEY_JWT } from "../pages/consts";
 import { ContentBuilderType } from "../pages/types";
@@ -35,8 +35,8 @@ export const useContentActions = () => {
 
       let response:
         | PccServer23ThemesThemeDto
-        | PccServer23ActivitiesActivityDto
-        | PccServer23CurriculumRecipesCurriculumRecipeDto;
+        | PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
+        | PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
 
       switch (type) {
         case ContentBuilderType.THEMES:
@@ -44,26 +44,63 @@ export const useContentActions = () => {
           // themeStore.updateDetail(JSON.parse(response?.jsonData ?? ""));
           break;
         case ContentBuilderType.ACTIVITIES:
-          response = await api
+          response = (await api
             .appActivitiesDetail(item)
-            .then((res) => res.data);
+            .then(
+              (res) => res.data,
+            )) as PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
+
           activityStore.updateDetail({
-            contents: JSON.parse(response?.jsonData ?? ""),
+            contents: JSON.parse(
+              response[currentLang === "en" ? "english" : "french"]?.jsonData ??
+                "",
+            ),
             id: item,
-            concurrencyStamp: response.concurrencyStamp ?? "",
-            [currentLang]: {
-              title: response.title,
-              description: response.description,
-              topic: response.topic,
+            concurrencyStamp:
+              response[currentLang === "en" ? "english" : "french"]
+                ?.concurrencyStamp ?? "",
+            en: {
+              title: response.english?.title ?? "",
+              topic: response.english?.topic ?? "",
+              description: response.english?.description ?? "",
+              jsonData: JSON.parse(response.english?.jsonData ?? ""),
+            },
+            fr: {
+              title: response.french?.title ?? "",
+              topic: response.french?.topic ?? "",
+              description: response.french?.description ?? "",
+              jsonData: JSON.parse(response.french?.jsonData ?? "[]"),
             },
           });
           break;
         case ContentBuilderType.RECIPES:
-          response = await api
+          response = (await api
             .appCurriculumRecipesDetail(item)
-            .then((res) => res.data);
-          recipeStore.updateDetail(JSON.parse(response?.jsonData ?? ""));
-          recipeStore.updateId(item);
+            .then(
+              (res) => res.data,
+            )) as PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
+          recipeStore.updateDetail({
+            contents: JSON.parse(
+              response[currentLang === "en" ? "english" : "french"]?.jsonData ??
+                "",
+            ),
+            id: item,
+            concurrencyStamp:
+              response[currentLang === "en" ? "english" : "french"]
+                ?.concurrencyStamp ?? "",
+            en: {
+              title: response.english?.title ?? "",
+              topic: response.english?.topic ?? "",
+              description: response.english?.description ?? "",
+              jsonData: JSON.parse(response.english?.jsonData ?? ""),
+            },
+            fr: {
+              title: response.french?.title ?? "",
+              topic: response.french?.topic ?? "",
+              description: response.french?.description ?? "",
+              jsonData: JSON.parse(response.french?.jsonData ?? "[]"),
+            },
+          });
           break;
       }
     },
@@ -177,7 +214,11 @@ export const useContentActions = () => {
           };
           return recipeStore.id
             ? await api
-                .appCurriculumRecipesUpdate(recipeStore.id, data, header)
+                .appCurriculumRecipesUpdate(
+                  recipeStore.id,
+                  { ...data, concurrencyStamp: recipeStore.concurrencyStamp },
+                  header,
+                )
                 .then((res) => res.data)
             : await api
                 .appCurriculumRecipesCreate(data, header)

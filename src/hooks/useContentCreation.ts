@@ -9,8 +9,9 @@ import {
 
 function alterArrayContentState(state: any, idx: number, indexValue: number) {
   const stateCopy = state;
-  stateCopy.map((s: any, index: number) => (index === idx ? indexValue : s));
-  return stateCopy;
+  return stateCopy.map((s: any, index: number) =>
+    index === idx ? indexValue : s,
+  );
 }
 
 export function useContentCreation(

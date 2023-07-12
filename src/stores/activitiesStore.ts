@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { CCFormat } from "./../components/ContentCreation/types";
 import { Language } from "./../pages/types";
 
 import { components } from "../components/ContentBuilder/Components/Cards";
@@ -6,7 +7,7 @@ import { State as ComponentState } from "../components/ContentCreation/types";
 import { PccServer23ActivitiesActivityDto } from "../lib/api/api";
 import { ThemeComponent } from "../pages/types";
 
-interface IContent {
+export interface IContent {
   tags?: string;
   curriculum?: string;
   slides: ThemeComponent[][];
@@ -23,14 +24,12 @@ interface ThemeProp {
   contents: IContent[];
   tags?: string[];
   en: {
-    name?: string;
     title?: string;
     topic?: string;
     description?: string;
     jsonData: IContent[];
   };
   fr: {
-    name?: string;
     title?: string;
     topic?: string;
     description?: string;
@@ -46,11 +45,13 @@ export interface ActivitiesStoreState extends ThemeProp {
       title?: string;
       topic?: string;
       description?: string;
+      jsonData?: IContent[];
     };
     fr?: {
       title?: string;
       topic?: string;
       description?: string;
+      jsonData?: IContent[];
     };
   }) => void;
   changeStep: (step: number) => void;
@@ -184,10 +185,15 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
       set(({ contents, currentStep, currentLang, ...state }) => ({
         contents: contents.map((page, index) => {
           if (!sIndex && !index) {
-            state[currentLang].title = state[currentLang].title =
-              componentState.heading.text;
-            state[currentLang].description = componentState.desc.text;
-            state[currentLang].topic = componentState.tag.text;
+            state[currentLang].title = state[currentLang].title = (
+              componentState as Record<string, CCFormat>
+            ).heading.text;
+            state[currentLang].description = (
+              componentState as Record<string, CCFormat>
+            ).desc.text;
+            state[currentLang].topic = (
+              componentState as Record<string, CCFormat>
+            ).tag.text;
           }
           if (index === currentStep) {
             page.slides[sIndex][componentIndex].componentState = componentState;

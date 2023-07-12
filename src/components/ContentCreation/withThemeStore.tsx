@@ -13,6 +13,14 @@ export type ComponentProps = {
   state: State;
   changeText: (name: TitleType, newText: string) => void;
   changeEditState: (tag: TitleType) => void;
+  changeListEditState: (index: number, amtOrIngdt?: "amt" | "ingdt") => void;
+  changeListText: (
+    index: number,
+    newText: string,
+    amtOrIngdt?: "amt" | "ingdt",
+  ) => void;
+  deleteListItem: () => void;
+  addListItem: (amtOrIngdt?: boolean) => void;
 };
 
 export function withThemeStore<P extends ThemeComponentProps>(
@@ -28,8 +36,16 @@ export function withThemeStore<P extends ThemeComponentProps>(
       updatePageState,
     } = props;
 
-    const { setComponentPosition, state, changeEditState, changeText } =
-      useContentCreation(componentState ?? initialState, updatePageState);
+    const {
+      setComponentPosition,
+      state,
+      changeEditState,
+      changeText,
+      changeListEditState,
+      changeListText,
+      deleteListItem,
+      addListItem,
+    } = useContentCreation(componentState ?? initialState, updatePageState);
 
     useEffect(() => {
       if (slideIndex !== undefined && componentIndex !== undefined) {
@@ -53,6 +69,10 @@ export function withThemeStore<P extends ThemeComponentProps>(
         changeEditState={changeEditState}
         changeText={changeText}
         viewMode={viewMode}
+        changeListEditState={changeListEditState}
+        changeListText={changeListText}
+        deleteListItem={deleteListItem}
+        addListItem={addListItem}
       />
     );
   };

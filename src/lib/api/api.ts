@@ -1665,7 +1665,7 @@ export interface PccServer23UsersCreateUserInput {
   thirdSecurityQuestionId?: string;
   thirdSecurityQuestionAnswer?: string | null;
   /** @format uuid */
-  avatarId?: string;
+  avatarId?: string | null;
 }
 
 export interface PccServer23UsersGetQuestionIdsOutput {
@@ -2033,7 +2033,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/activities/{id}
      */
     appActivitiesDetail: (id: string, params: RequestParams = {}) =>
-      this.request<PccServer23ActivitiesPublicActivityDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/activities/${id}`,
         method: "GET",
         format: "json",
@@ -2047,13 +2050,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppActivitiesDelete
      * @summary Delete activity record with id
      * @request DELETE:/api/app/activities/{id}
-     * @secure
      */
     appActivitiesDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/activities/${id}`,
         method: "DELETE",
-        secure: true,
         ...params,
       }),
 
@@ -2701,7 +2702,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCurriculumRecipesCreate
      * @summary Create a new curriculum recipe record
      * @request POST:/api/app/curriculum-recipes
-     * @secure
      */
     appCurriculumRecipesCreate: (
       data: PccServer23CurriculumRecipesCustomMultiLingualCurriculumRecipeCreateDto,
@@ -2714,7 +2714,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/curriculum-recipes`,
         method: "POST",
         body: data,
-        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -2729,7 +2728,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/curriculum-recipes/{id}
      */
     appCurriculumRecipesDetail: (id: string, params: RequestParams = {}) =>
-      this.request<PccServer23CurriculumRecipesPublicCurriculumRecipeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/curriculum-recipes/${id}`,
         method: "GET",
         format: "json",
@@ -2758,7 +2760,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCurriculumRecipesUpdate
      * @summary Update an existing curriculum recipe record's details
      * @request PUT:/api/app/curriculum-recipes/{id}
-     * @secure
      */
     appCurriculumRecipesUpdate: (
       id: string,
@@ -2772,7 +2773,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/curriculum-recipes/${id}`,
         method: "PUT",
         body: data,
-        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,

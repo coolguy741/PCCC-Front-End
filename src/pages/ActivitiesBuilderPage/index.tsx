@@ -8,7 +8,7 @@ import { STORAGE_KEY_JWT } from "../consts";
 
 export const ActivitiesPage = () => {
   const { activities, setActivities } = useActivitiesStore();
-  const [isDeleted, setIsDeleted] = useState(true);
+  const [isNeededToReload, setIsNeededToReload] = useState(true);
   const { api } = useAPI();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const handleSelectionChange = (id: string, isSelected: boolean) => {
@@ -28,13 +28,13 @@ export const ActivitiesPage = () => {
         },
       });
     }
-    setIsDeleted(true);
+    setIsNeededToReload(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIds]);
 
   useEffect(() => {
     api &&
-      isDeleted &&
+      isNeededToReload &&
       (async () => {
         const activities = await api
           .appActivitiesList(
@@ -47,10 +47,10 @@ export const ActivitiesPage = () => {
           )
           .then((res) => res.data);
         setActivities(activities.items);
-        setIsDeleted(false);
+        setIsNeededToReload(false);
       })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleted]);
+  }, [isNeededToReload]);
 
   return (
     <ContentListAdminPageTemplate

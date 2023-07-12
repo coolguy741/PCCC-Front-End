@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { ObjectState } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const pWithPState: any = {
@@ -20,6 +21,8 @@ function ParagraphWithHeadingComponent({
   changeText,
   viewMode,
 }: ComponentProps) {
+  const componentState = state as ObjectState;
+
   return (
     <Style.Container>
       <Typography
@@ -30,19 +33,19 @@ function ParagraphWithHeadingComponent({
         color="neutral-800"
       >
         <DoubleClickToEditComponent
-          mode={viewMode(state.heading.mode)}
+          mode={viewMode(componentState.heading.mode)}
           setText={changeText}
           changeEditState={changeEditState}
-          text={state.heading.text}
+          text={componentState.heading.text}
           name="heading"
         />
       </Typography>
       <Typography color="neutral-600" size="1.5vh">
         <DoubleClickToEditComponent
-          mode={viewMode(state.desc.mode)}
+          mode={viewMode(componentState.desc.mode)}
           setText={changeText}
           changeEditState={changeEditState}
-          text={state.desc.text}
+          text={componentState.desc.text}
           name="desc"
         />
       </Typography>
