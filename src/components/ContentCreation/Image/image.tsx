@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
+import { usePatterns } from "../../../hooks/usePatterns";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Patterns } from "../../Patterns";
 import { Typography } from "../../Typography";
@@ -15,6 +16,7 @@ export function Image({
   variant?: "img-only" | "all";
 }) {
   const { toggle, modal } = useModal();
+  const { currentPattern, shufflePattern } = usePatterns();
 
   return (
     <>
@@ -22,13 +24,13 @@ export function Image({
         <img src={img} alt="" />
         <figcaption></figcaption>
         {!img && (
-          <Patterns className="empty-img" pattern={0}>
+          <Patterns className="empty-img" pattern={currentPattern}>
             <div className="img-btn-group">
               <button>
                 <Add onClick={toggle} />
               </button>
               <button>
-                <Shuffle />
+                <Shuffle onClick={shufflePattern} />
               </button>
             </div>
             <Typography

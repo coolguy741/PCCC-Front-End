@@ -13,11 +13,9 @@ export function usePatterns() {
 
   function shufflePattern() {
     if (currentPattern !== patternLength - 1)
-      setCurrentPattern((prevState) => prevState++);
+      setCurrentPattern(currentPattern + 1);
     else setCurrentPattern(0);
   }
-
-  console.log(currentPattern);
 
   return { currentPattern, shufflePattern };
 }
