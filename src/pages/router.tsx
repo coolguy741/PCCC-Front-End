@@ -15,10 +15,16 @@ import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
 import { AccountsGroupPage } from "./AccountsPage/Groups/Group";
 import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
-import { AccountsProfilesPage } from "./AccountsPage/Profiles";
+import {
+  AccountsProfilesPage,
+  profilesPageLoader,
+} from "./AccountsPage/Profiles";
 import { AccountsUserLessonAssessmentPage } from "./AccountsPage/Profiles/LessonAssessment";
 import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/LessonAssessmentPrint";
-import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
+import {
+  AccountsUserProfilePage,
+  profilePageLoader,
+} from "./AccountsPage/Profiles/User";
 import { AchievementsPage } from "./AchievementsPage";
 import { ActivitiesPage } from "./ActivitiesBuilderPage";
 import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
@@ -161,8 +167,16 @@ export const router = createBrowserRouter([
         },
         children: [
           { path: "", element: <Navigate to="./profiles" /> },
-          { path: "profiles", element: <AccountsProfilesPage /> },
-          { path: "profiles/:user", element: <AccountsUserProfilePage /> },
+          {
+            path: "profiles",
+            element: <AccountsProfilesPage />,
+            loader: profilesPageLoader,
+          },
+          {
+            path: "profiles/:user",
+            element: <AccountsUserProfilePage />,
+            loader: profilePageLoader,
+          },
           {
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
@@ -178,7 +192,11 @@ export const router = createBrowserRouter([
             },
           },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
-          { path: "groups/:group", element: <AccountsGroupPage /> },
+          {
+            path: "groups/:group",
+            element: <AccountsGroupPage />,
+            children: [],
+          },
           {
             path: "groups/:group/edit",
             element: <AccountsEditGroupPage />,

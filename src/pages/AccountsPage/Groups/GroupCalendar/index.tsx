@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
 import { Calendar } from "../../../../components/Calendar";
@@ -14,19 +14,17 @@ const checkboxOptions = [
 ];
 
 export const AccountsGroupCalendarPage = () => {
-  const handleCheckboxChange = () => {
-    return "handle check box";
-  };
+  const navigate = useNavigate();
 
   return (
     <Style.PageContainer>
       <div className="header">
         <Typography tag="h2">Group Calendar</Typography>
-        <BackButton />
+        <BackButton onClick={() => navigate("../")} />
       </div>
       <Style.CalendarContainer>
         <Calendar
-          height="650px"
+          height="65vh"
           buttonText={{
             month: "Month",
             week: "Week",
