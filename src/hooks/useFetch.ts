@@ -43,6 +43,12 @@ export function useFetch<T = unknown>(
 
   const [state, dispatch] = useReducer(fetchReducer, initialState);
 
+  // const { api } = new Api({
+  //   headers: {
+  //     baseURL: BASE_API_URL,
+  //   },
+  // });
+
   useEffect(() => {
     // Do nothing if the url is not given
     if (!url) return;
@@ -60,6 +66,12 @@ export function useFetch<T = unknown>(
 
       try {
         const response = await fetch(url, options);
+        // const response = await api[url]({
+        //   ...options,
+        //   headers: {
+        //     Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        //   },
+        // });
         if (!response.ok) {
           throw new Error(response.statusText);
         }
