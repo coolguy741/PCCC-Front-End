@@ -83,7 +83,7 @@ export function FoodwayStop({
         </p>
       </div>
       <div className="fw-globe">
-        <Globe />
+        <Globe disableSoftOrbit />
       </div>
     </Style.Container>
   );
