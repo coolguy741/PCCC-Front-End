@@ -3,9 +3,10 @@ import { patternArray } from "../../hooks/usePatterns";
 import { PatternProps } from "./types";
 
 export function Patterns(props: PatternProps) {
+  const { pattern = 0, className, children } = props;
   return (
-    <Style.Container pattern={0} className={props.className}>
-      {props.children}
+    <Style.Container pattern={pattern} className={className}>
+      {children}
     </Style.Container>
   );
 }

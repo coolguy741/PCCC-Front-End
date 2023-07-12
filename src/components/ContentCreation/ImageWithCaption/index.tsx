@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { Image } from "../Image/image";
-import { ComponentProps, withThemeStore } from "../withThemeStore";
+import { withThemeStore } from "../withThemeStore";
 
 const iWithCState: any = {
   heading: {
@@ -19,12 +20,9 @@ const iWithCState: any = {
   },
 };
 
-export function ImageWithCaption({
-  state,
-  changeEditState,
-  changeText,
-  viewMode,
-}: ComponentProps) {
+export function ImageWithCaption() {
+  const { state, changeText, changeEditState } =
+    useContentCreation(iWithCState);
   return (
     <Style.Container>
       <div className="iwc-image">
@@ -40,7 +38,7 @@ export function ImageWithCaption({
         <b>
           {" "}
           <DoubleClickToEditComponent
-            mode={viewMode(state.heading.mode)}
+            mode={state.heading.mode}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.heading.text}
@@ -48,7 +46,7 @@ export function ImageWithCaption({
           />
         </b>{" "}
         <DoubleClickToEditComponent
-          mode={viewMode(state.desc.mode)}
+          mode={state.desc.mode}
           setText={changeText}
           changeEditState={changeEditState}
           text={state.desc.text}

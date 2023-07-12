@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 export const patternArray = [
   "grapes",
   "apples",
@@ -7,27 +7,15 @@ export const patternArray = [
   "yellows",
 ];
 
-interface State {
-  pattern: number;
-  shufflePattern: () => void;
-}
+export function usePatterns() {
+  const [currentPattern, setCurrentPattern] = useState(0);
+  const patternLength = patternArray.length;
 
-const initialState: State = {
-  pattern: 0,
-  shufflePattern: () => undefined,
-};
-
-export const PatternContext = createContext<State>(initialState);
-
-export function PatternProvider() {
-  const [currentPattern, setPattern] = useState<number>(0);
-  const maxLength = patternArray.length - 1;
-
-  function shuffleImage() {
-    console.log("firing");
-    if (currentPattern >= maxLength) setPattern(0);
-    else setPattern((prevState) => prevState++);
+  function shufflePattern() {
+    if (currentPattern !== patternLength - 1)
+      setCurrentPattern(currentPattern + 1);
+    else setCurrentPattern(0);
   }
 
-  const value = { currentPattern, shuffleImage };
+  return { currentPattern, shufflePattern };
 }
