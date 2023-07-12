@@ -12,6 +12,7 @@ import Button from "../../Button";
 import { DropdownSelect, SelectOption } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
 import { Info } from "../../Icons";
+import { ErrorMessage } from "../ErrorMessage";
 
 interface SecurityQuestion {
   id?: string;
@@ -21,6 +22,7 @@ interface SecurityQuestion {
 export const SecurityQuestions = () => {
   const { api } = useAPI();
   const navigate = useNavigate();
+  const [error, setError] = useState<string>("");
   const [isPassword6Chars, setIsPassword6Chars] = useState<boolean>(false);
   const [isPasswordLowercase, setIsPasswordLowercase] =
     useState<boolean>(false);
@@ -104,47 +106,56 @@ export const SecurityQuestions = () => {
     thirdSecurityQuestionId: string;
     thirdSecurityAnswer: string;
   }) => {
-    if (isCoordinator) {
-      const response = await api.appUserProfessionalCreate({
-        birthYear,
-        province,
-        username: `${firstUsername}${secondUsername}${thirdUsername}`,
-        password,
-        email,
-        name,
-        title,
-        schoolIdCode,
-        school: schoolName,
-        firstSecurityQuestionId,
-        firstSecurityQuestionAnswer: firstSecurityAnswer,
-        secondSecurityQuestionId,
-        secondSecurityQuestionAnswer: secondSecurityAnswer,
-        thirdSecurityQuestionId,
-        thirdSecurityQuestionAnswer: thirdSecurityAnswer,
-      });
+    setError("");
 
-      if (response.status === 204) {
-        init();
-        navigate("/signin");
-      }
-    } else {
-      const response = await api.appUserCreate({
-        birthYear,
-        province,
-        username: `${firstUsername}${secondUsername}${thirdUsername}`,
-        password,
-        firstSecurityQuestionId,
-        firstSecurityQuestionAnswer: firstSecurityAnswer,
-        secondSecurityQuestionId,
-        secondSecurityQuestionAnswer: secondSecurityAnswer,
-        thirdSecurityQuestionId,
-        thirdSecurityQuestionAnswer: thirdSecurityAnswer,
-      });
+    try {
+      if (isCoordinator) {
+        const response = await api.appUserProfessionalCreate({
+          birthYear,
+          province,
+          username: `${firstUsername}${secondUsername}${thirdUsername}`,
+          password,
+          email,
+          name,
+          title,
+          schoolIdCode,
+          school: schoolName,
+          firstSecurityQuestionId,
+          firstSecurityQuestionAnswer: firstSecurityAnswer,
+          secondSecurityQuestionId,
+          secondSecurityQuestionAnswer: secondSecurityAnswer,
+          thirdSecurityQuestionId,
+          thirdSecurityQuestionAnswer: thirdSecurityAnswer,
+        });
 
-      if (response.status === 204) {
-        init();
-        navigate("/signin");
+        if (response.status === 204) {
+          init();
+          navigate("/signin");
+        } else {
+          console.log(response);
+        }
+      } else {
+        const response = await api.appUserCreate({
+          birthYear,
+          province,
+          username: `${firstUsername}${secondUsername}${thirdUsername}`,
+          password,
+          firstSecurityQuestionId,
+          firstSecurityQuestionAnswer: firstSecurityAnswer,
+          secondSecurityQuestionId,
+          secondSecurityQuestionAnswer: secondSecurityAnswer,
+          thirdSecurityQuestionId,
+          thirdSecurityQuestionAnswer: thirdSecurityAnswer,
+        });
+
+        if (response.status === 204) {
+          init();
+          navigate("/signin");
+        }
       }
+    } catch (error) {
+      // @ts-ignore
+      setError(error.response.data.error.details);
     }
   };
 
@@ -241,6 +252,7 @@ export const SecurityQuestions = () => {
               )}
             />
           </fieldset>
+          {error && <ErrorMessage error={error} />}
           <div className="requirements">
             <div className="six-chars">
               <span />

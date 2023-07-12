@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { trimStringByLength } from "../../../lib/util/trimStringByLength";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Progress } from "../../Global/Progress";
 import { Typography } from "../../Typography";
@@ -32,7 +33,7 @@ export function UploadOption({ status, upload, progress }: Props) {
               color={colorOnError("neutral-800")}
               size="1.6vh"
             >
-              {upload.name}
+              {trimStringByLength(upload.name, 22)}
               <br />
               <Typography color={colorOnError("neutral-400")} size="1.3vh">
                 {roundToOneDecimal(upload.size)} MB
@@ -48,13 +49,13 @@ export function UploadOption({ status, upload, progress }: Props) {
             >
               {status === "errored"
                 ? "failed"
-                : `${((progress && progress * 100) || 0).toFixed(0)}%`}
+                : `${(upload.progress * 100 || 0).toFixed(0)}%`}
             </Typography>
           </div>
         </div>
         <Progress
           hasError={status === "errored"}
-          value={progress && progress * 100}
+          value={upload.progress && upload.progress * 100}
           variant="thin"
         />
       </div>
@@ -88,6 +89,10 @@ export const Style = {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1vh;
+      }
+
+      progress {
+        background-color: "red";
       }
 
       .uo-img {

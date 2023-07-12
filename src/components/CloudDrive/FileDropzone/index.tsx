@@ -10,35 +10,61 @@ import { Typography } from "../../Typography";
 interface FileDropZoneProps {
   setProgress: (progress: any) => void;
   setUploads: (uploads: any) => void;
+  uploads: any;
 }
 
-const FileDropzone = ({ setProgress, setUploads }: FileDropZoneProps) => {
+const FileDropzone = ({
+  setProgress,
+  setUploads,
+  uploads,
+}: FileDropZoneProps) => {
   const navigate = useNavigate();
   const { api } = new Api({
     baseURL: BASE_API_URL,
   });
 
-  const onDrop = async (file: any) => {
-    setUploads((uploads: any) => [...uploads, file]);
+  const onDrop = (files: any) => {
+    files.forEach(async (file: any, index: number) => {
+      setUploads((uploads: any) => [
+        ...uploads,
+        { name: file.name, size: file.size, progress: 0 },
+      ]);
 
-    const response = await api.appCloudDriveUploadFileCreate(
-      { file: file },
-      { folder: "files" },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-        onUploadProgress: (progressEvent) => {
-          if (progressEvent.progress) {
-            setProgress(progressEvent.progress);
-          }
-        },
-      },
-    );
+      await api.appCloudDriveUploadFileCreate(
+        { file: file },
+        { folder: "files" },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+          onUploadProgress: (progressEvent) => {
+            if (progressEvent.progress) {
+              setUploads((prevState: any) => {
+                console.log(prevState);
 
-    if (response.status === 204 || response.status === 200) {
-      navigate("./");
-    }
+                return prevState.map((e: any, i: number) => {
+                  return i === prevState.length - files.length + index
+                    ? {
+                        name: prevState[prevState.length - files.length + index]
+                          .name,
+                        size: prevState[prevState.length - files.length + index]
+                          .size,
+                        progress: progressEvent.progress,
+                      }
+                    : e;
+                });
+              });
+            }
+          },
+        },
+      );
+
+      if (index === files.length - 1) {
+        console.log(index, files.length - 1);
+
+        navigate("./");
+      }
+    });
   };
 
   return (
