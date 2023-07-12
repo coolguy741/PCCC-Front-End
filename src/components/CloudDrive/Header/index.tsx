@@ -2,44 +2,58 @@ import styled from "styled-components";
 import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
 import CDDocument from "../Icons/cd-document";
-import CDDownload from "../Icons/cd-download";
 import CDImage from "../Icons/cd-image";
 import CDVideo from "../Icons/cd-video";
 
-const folder_options = [
+export interface CloudDriveFileType {
+  id: "images" | "documents" | "video" | "audio";
+  title: string;
+  description: string;
+  icon: JSX.Element;
+}
+
+const Buttons: CloudDriveFileType[] = [
   {
-    title: "Documents",
-    description: "100 Files / 5 GB",
-    icon: <CDDocument />,
-  },
-  {
-    title: "Videos",
-    description: "0 Files / 0 MB",
-    icon: <CDVideo />,
-  },
-  {
+    id: "images",
     title: "Images",
     description: "1012 Files / 3.2 GB",
     icon: <CDImage />,
   },
   {
+    id: "documents",
+    title: "Documents",
+    description: "100 Files / 5 GB",
+    icon: <CDDocument />,
+  },
+  {
+    id: "video",
+    title: "Videos",
+    description: "0 Files / 0 MB",
+    icon: <CDVideo />,
+  },
+  {
+    id: "audio",
     title: "Audio",
     description: "12 Files / 140 MB",
     icon: <CDAudio />,
   },
-
-  {
-    title: "Download",
-    description: "12 Files / 321 MB",
-    icon: <CDDownload />,
-  },
 ];
 
-export function CDHeader() {
+export function CDHeader({
+  type,
+  setType,
+}: {
+  type: "images" | "documents" | "video" | "audio";
+  setType: (type: "images" | "documents" | "video" | "audio") => void;
+}) {
   return (
     <Style.Container>
-      {folder_options.map(({ title, description, icon }) => (
-        <button key={title}>
+      {Buttons.map(({ title, description, icon, id }) => (
+        <button
+          key={title}
+          className={id === type ? "active" : ""}
+          onClick={() => setType(id)}
+        >
           <div>{icon}</div>
           <figure>
             <Typography
@@ -67,13 +81,14 @@ const Style = {
     height: 8vh;
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
 
     button {
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
       height: 100%;
-      width: 18.5%;
+      width: 100%;
       display: flex;
       padding: 1.5vh;
       align-items: center;
@@ -82,7 +97,7 @@ const Style = {
       backdrop-filter: blur(59.27639389038086px);
 
       div {
-        width: 30%;
+        width: 20%;
         aspect-ratio: 1 / 1;
         border-radius: 4px;
         background: var(
@@ -101,7 +116,7 @@ const Style = {
       }
 
       figure {
-        width: 65%;
+        width: 70%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -109,7 +124,8 @@ const Style = {
         height: 100%;
       }
 
-      &:hover {
+      &:hover,
+      &.active {
         /* background: #fff; */
         background: linear-gradient(
           180deg,

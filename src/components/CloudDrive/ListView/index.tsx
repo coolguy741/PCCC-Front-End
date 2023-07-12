@@ -63,29 +63,30 @@ export function CDListView({ files }: any) {
         </Typography>
       </figure>
       <div className="cd-list-content">
-        {files.map((el: any) => (
-          <Style.Item>
-            <figure>
-              <div className="cd-list-image">
-                <CDAudio />
-              </div>
-              <Typography tag="h4" size="1.75vh" weight={500}>
-                {el.fileName}
+        {files.files &&
+          files.files.map((el: any) => (
+            <Style.Item>
+              <figure>
+                <div className="cd-list-image">
+                  <CDAudio />
+                </div>
+                <Typography tag="h4" size="1.75vh" weight={500}>
+                  {el.fileName}
+                </Typography>
+              </figure>
+              <Typography {...table_text_props}>
+                {roundToOneDecimal(el.size)} MB
               </Typography>
-            </figure>
-            <Typography {...table_text_props}>
-              {roundToOneDecimal(el.size)} MB
-            </Typography>
-            <Typography {...table_text_props}>
-              {formatDate(el.uploadedAt)}
-            </Typography>
-            <div className="cd-list-options">
-              <CDShare />
-              <CDDownload />
-              <CDDelete onClick={() => handleDelete(el.relativePath)} />
-            </div>
-          </Style.Item>
-        ))}
+              <Typography {...table_text_props}>
+                {formatDate(el.uploadedAt)}
+              </Typography>
+              <div className="cd-list-options">
+                <CDShare />
+                <CDDownload />
+                <CDDelete onClick={() => handleDelete(el.relativePath)} />
+              </div>
+            </Style.Item>
+          ))}
       </div>
     </Style.Container>
   );

@@ -56,8 +56,14 @@ export const useContentActions = () => {
                 .appThemesUpdate(
                   themeStore.id,
                   {
-                    name: "hello",
-                    jsonData: JSON.stringify(themeStore.contents),
+                    english: {
+                      name: "hello",
+                      jsonData: JSON.stringify(themeStore.contents),
+                    },
+                    french: {
+                      name: "hello",
+                      jsonData: JSON.stringify(themeStore.contents),
+                    },
                   },
                   header,
                 )
@@ -65,8 +71,14 @@ export const useContentActions = () => {
             : await api
                 .appThemesNewThemeCreate(
                   {
-                    name: "hello",
-                    jsonData: JSON.stringify(themeStore.contents),
+                    english: {
+                      name: "hello",
+                      jsonData: JSON.stringify(themeStore.contents),
+                    },
+                    french: {
+                      name: "hello",
+                      jsonData: JSON.stringify(themeStore.contents),
+                    },
                   },
                   header,
                 )

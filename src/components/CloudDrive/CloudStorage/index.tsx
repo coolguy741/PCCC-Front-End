@@ -10,14 +10,14 @@ import { UploadOption } from "../UploadOption";
 type Props = {
   className?: string;
   sizeOccupied: number;
+  type: "images" | "documents" | "video" | "audio";
 };
 
-export function CloudStorage(props: Props) {
+export function CloudStorage({ className, sizeOccupied, type }: Props) {
   const [uploads, setUploads] = useState([]);
-  const [progress, setProgress] = useState([]);
 
   return (
-    <Style.Container {...props}>
+    <Style.Container className={className}>
       <Typography color="neutral-900" weight={600} size="2.35vh">
         Cloud Storage
       </Typography>
@@ -27,23 +27,15 @@ export function CloudStorage(props: Props) {
             Documents
           </Typography>
           <Typography color="neutral-600" weight={500} size="1.75vh">
-            {Math.round(200 - props.sizeOccupied / 1000000000)}/200 GB left
+            {Math.round(200 - sizeOccupied / 1000000000)}/200 GB left
           </Typography>
         </div>
-        <Progress variant="thick" value={props.sizeOccupied / 20000000000} />
+        <Progress variant="thick" value={sizeOccupied / 20000000000} />
       </article>
-      <FileDropzone
-        setUploads={setUploads}
-        setProgress={setProgress}
-        uploads={uploads}
-      />
+      <FileDropzone setUploads={setUploads} uploads={uploads} type={type} />
       <Style.Uploads>
         {uploads.map((upload, idx) => (
-          <UploadOption
-            key={idx}
-            // status={upload.status as any}
-            upload={upload}
-          />
+          <UploadOption key={idx} upload={upload} />
         ))}
       </Style.Uploads>
     </Style.Container>

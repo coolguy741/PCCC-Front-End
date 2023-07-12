@@ -6,7 +6,7 @@ import { GalleryItem } from "./item";
 export function CDGalleryView({ files }: any) {
   return (
     <Style.Container thumbWidth="thin">
-      {files.map((el: any, idx: number) => (
+      {files?.map((el: any, idx: number) => (
         <GalleryItem el={el} idx={idx} />
       ))}
     </Style.Container>

@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
@@ -29,11 +29,14 @@ export const cloudDrivePageLoader = async () => {
   });
 
   try {
-    const response = await api.appCloudDriveDriveFilesList({
-      headers: {
-        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+    const response = await api.appCloudDriveDriveFilesList(
+      { folder: "images" },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
       },
-    });
+    );
 
     if (response.status === 200) {
       return response.data;
@@ -47,7 +50,45 @@ export const cloudDrivePageLoader = async () => {
 
 export function CloudDrivePage() {
   const data: any = useLoaderData();
+  const [files, setFiles] = useState(data.files as any);
   const [view, setView] = useState<"list" | "gallery">("list");
+  const [type, setType] =
+    useState<"documents" | "video" | "images" | "audio">("images");
+
+  const fetchFiles = async (
+    type: "images" | "video" | "documents" | "audio",
+  ) => {
+    const { api } = new Api({
+      baseURL: BASE_API_URL,
+    });
+
+    try {
+      const response = await api.appCloudDriveDriveFilesList(
+        { folder: type },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        setFiles(response.data as any);
+
+        return response.data;
+      } else return null;
+    } catch (error: unknown) {
+      console.warn(error);
+
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    fetchFiles(type);
+  }, [type]);
+
+  console.log(data);
 
   return (
     <Style.Container>
@@ -62,7 +103,7 @@ export function CloudDrivePage() {
           >
             Folders
           </Typography>
-          <CDHeader />
+          <CDHeader type={type} setType={setType} />
         </div>
         <div className="cd-files-menu">
           <div className="cdf-menu-options">
@@ -104,15 +145,16 @@ export function CloudDrivePage() {
           </div>
           <article className="cd-content">
             {view === "list" ? (
-              <CDListView files={data.files} />
+              <CDListView files={files} />
             ) : (
-              <CDGalleryView files={data.files} />
+              <CDGalleryView files={files} />
             )}
           </article>
         </div>
       </section>
       <CloudStorage
         className="cloud-drive-storage"
+        type={type}
         sizeOccupied={data.stats.sizeOccupied}
       />
     </Style.Container>

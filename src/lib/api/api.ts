@@ -89,6 +89,8 @@ export interface PccServer23ActivitiesCustomMultiLingualActivityUpdateDto {
 }
 
 export interface PccServer23ActivitiesPublicActivityDto {
+  /** @format uuid */
+  id?: string;
   name?: string | null;
   jsonData?: string | null;
   title?: string | null;
@@ -589,6 +591,8 @@ export interface PccServer23CurriculumRecipesCustomMultiLingualCurriculumRecipeU
 }
 
 export interface PccServer23CurriculumRecipesPublicCurriculumRecipeDto {
+  /** @format uuid */
+  id?: string;
   title?: string | null;
   topic?: string | null;
   image?: string | null;
@@ -1365,6 +1369,11 @@ export interface PccServer23SharedIMultiLingualDto1PccServer23RecipesPublicRecip
   french?: PccServer23RecipesPublicRecipeDto;
 }
 
+export interface PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  english?: PccServer23ThemesPublicThemeDto;
+  french?: PccServer23ThemesPublicThemeDto;
+}
+
 export interface PccServer23SharedLookupDto1SystemGuidSystemPrivateCoreLibVersion7000CultureNeutralPublicKeyToken7Cec85D7Bea7798E {
   /** @format uuid */
   id?: string;
@@ -1481,27 +1490,46 @@ export interface PccServer23ThemesCustomAddEducatorNoteInput {
   themeId: string;
 }
 
-export interface PccServer23ThemesCustomCreateNewThemeOutput {
+export interface PccServer23ThemesMultiLingualThemeCreate {
+  name?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
+}
+
+export interface PccServer23ThemesMultiLingualThemeCreateDto {
+  english: PccServer23ThemesMultiLingualThemeCreate;
+  french: PccServer23ThemesMultiLingualThemeCreate;
+  image?: string | null;
+}
+
+export interface PccServer23ThemesMultiLingualThemeUpdate {
+  name?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
+}
+
+export interface PccServer23ThemesMultilingualThemeUpdateDto {
+  english: PccServer23ThemesMultiLingualThemeUpdate;
+  french: PccServer23ThemesMultiLingualThemeUpdate;
+  image?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ThemesPublicThemeDto {
   /** @format uuid */
-  themeId?: string;
-}
-
-export interface PccServer23ThemesPublicThemeCreateDto {
+  id?: string;
   name?: string | null;
   title?: string | null;
   image?: string | null;
   topic?: string | null;
   description?: string | null;
   jsonData?: string | null;
-}
-
-export interface PccServer23ThemesPublicThemeUpdateDto {
-  name?: string | null;
-  title?: string | null;
-  image?: string | null;
-  topic?: string | null;
-  description?: string | null;
-  jsonData?: string | null;
+  status?: PccServer23ThemesThemeStatus;
+  language?: string | null;
   concurrencyStamp?: string | null;
 }
 
@@ -1538,6 +1566,7 @@ export interface PccServer23ThemesThemeDto {
   description?: string | null;
   jsonData?: string | null;
   status?: PccServer23ThemesThemeStatus;
+  language?: string | null;
   concurrencyStamp?: string | null;
 }
 
@@ -2565,10 +2594,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppCloudDriveDriveFilesList
      * @request GET:/api/app/cloud-drive/drive-files
      */
-    appCloudDriveDriveFilesList: (params: RequestParams = {}) =>
+    appCloudDriveDriveFilesList: (
+      query?: {
+        folder?: string;
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<any, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/cloud-drive/drive-files`,
         method: "GET",
+        query: query,
         ...params,
       }),
 
@@ -2587,64 +2622,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     ) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/cloud-drive/drive-file`,
-        method: "DELETE",
-        query: query,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCloudDrive
-     * @name AppCloudDriveUploadFileUserDriveCreate
-     * @request POST:/api/app/cloud-drive/upload-file-user-drive
-     * @secure
-     */
-    appCloudDriveUploadFileUserDriveCreate: (
-      data: {
-        /** @format binary */
-        file?: File;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<any, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/cloud-drive/upload-file-user-drive`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.FormData,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCloudDrive
-     * @name AppCloudDriveDriveFilesUserDriveList
-     * @request GET:/api/app/cloud-drive/drive-files-user-drive
-     */
-    appCloudDriveDriveFilesUserDriveList: (params: RequestParams = {}) =>
-      this.request<any, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/cloud-drive/drive-files-user-drive`,
-        method: "GET",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags CustomCloudDrive
-     * @name AppCloudDriveDriveFileCurrentUserDelete
-     * @request DELETE:/api/app/cloud-drive/drive-file-current-user
-     */
-    appCloudDriveDriveFileCurrentUserDelete: (
-      query?: {
-        relativePath?: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/cloud-drive/drive-file-current-user`,
         method: "DELETE",
         query: query,
         ...params,
@@ -3519,7 +3496,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/themes/{id}
      */
     appThemesDetail: (id: string, params: RequestParams = {}) =>
-      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/themes/${id}`,
         method: "GET",
         format: "json",
@@ -3549,8 +3529,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Update theme details
      * @request PUT:/api/app/themes/{id}
      */
-    appThemesUpdate: (id: string, data: PccServer23ThemesPublicThemeUpdateDto, params: RequestParams = {}) =>
-      this.request<PccServer23ThemesThemeDto, VoloAbpHttpRemoteServiceErrorResponse>({
+    appThemesUpdate: (id: string, data: PccServer23ThemesMultilingualThemeUpdateDto, params: RequestParams = {}) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/themes/${id}`,
         method: "PUT",
         body: data,
@@ -3585,8 +3568,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Creates a new theme in preview mode and returns Id
      * @request POST:/api/app/themes/new-theme
      */
-    appThemesNewThemeCreate: (data: PccServer23ThemesPublicThemeCreateDto, params: RequestParams = {}) =>
-      this.request<PccServer23ThemesCustomCreateNewThemeOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+    appThemesNewThemeCreate: (data: PccServer23ThemesMultiLingualThemeCreateDto, params: RequestParams = {}) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/themes/new-theme`,
         method: "POST",
         body: data,
