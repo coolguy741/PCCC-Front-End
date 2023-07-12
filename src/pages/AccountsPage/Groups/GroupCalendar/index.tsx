@@ -1,17 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../../components/Button";
 import { Calendar } from "../../../../components/Calendar";
 import { CalendarFilter } from "../../../../components/Calendar/Filter/Index";
 import { BackButton } from "../../../../components/Global/BackButton";
 import { Typography } from "../../../../components/Typography";
-
-const checkboxOptions = [
-  { label: "Meal Plan", value: "Meal Plan" },
-  { label: "Activities", value: "Activities" },
-  { label: "Recipies", value: "Recipies" },
-  { label: "Assessment", value: "Assessment" },
-];
 
 export const AccountsGroupCalendarPage = () => {
   const navigate = useNavigate();
@@ -24,7 +17,7 @@ export const AccountsGroupCalendarPage = () => {
       </div>
       <Style.CalendarContainer>
         <Calendar
-          height="65vh"
+          height="78%"
           buttonText={{
             month: "Month",
             week: "Week",
@@ -46,34 +39,21 @@ export const AccountsGroupCalendarPage = () => {
 
 const Style = {
   PageContainer: styled.div`
+    padding: 20px;
+    height: 100vh;
+    margin-left: -32px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+
     .header {
       display: flex;
       justify-content: space-between;
-      align-self: center;
       flex-direction: column;
-      margin-top: 1rem;
+      margin: 1rem 0;
+      height: 10%;
     }
-
-    .row {
-      display: flex;
-
-      .calendar-container {
-        width: 70%;
-        margin-right: 20px;
-      }
-
-      .inputs-container {
-        margin-top: 20px;
-        font-size: 1.2rem;
-
-        .checkboxGroup-container {
-          margin-top: 30px;
-        }
-      }
-    }
-  `,
-  AlignCenteredLink: styled(Link)`
-    align-self: center;
   `,
   CalendarContainer: styled.div`
     width: 100%;
@@ -81,6 +61,7 @@ const Style = {
     overflow: hidden;
     display: flex;
     padding-bottom: 1vw;
+    position: relative;
   `,
   CalendarSideMenu: styled.aside`
     padding-top: 1%;

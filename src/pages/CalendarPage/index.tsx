@@ -75,7 +75,7 @@ export const CalendarPage = () => {
 
         <Style.CalendarContainer>
           <Calendar
-            height="750px"
+            height="100%"
             dateClick={handleDateClick}
             buttonText={{
               month: "Month",
