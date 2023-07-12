@@ -56,7 +56,7 @@ export const Style = {
     width: 100%;
     height: 100%;
     min-height: 100vh;
-    z-index: 25;
+    z-index: 250;
     position: fixed;
     top: 0;
     left: 0;

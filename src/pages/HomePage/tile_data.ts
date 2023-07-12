@@ -3,6 +3,7 @@ export interface Tile {
   titleFirstLine: string;
   titleSecondLine: string;
   titleColor: string;
+  titleSecondColor: string;
   subtitle: string;
   gradientStart: string;
   gradientEnd: string;
@@ -24,6 +25,7 @@ export const dashboard_tiles: Tile[] = [
     titleFirstLine: "Discover",
     titleSecondLine: "Together",
     titleColor: "orange-600",
+    titleSecondColor: "orange-900",
     subtitle: "",
     gradientStart: "#FEE5DD",
     gradientEnd: "#FFF5CC",
@@ -44,6 +46,7 @@ export const dashboard_tiles: Tile[] = [
     titleFirstLine: "Grow",
     titleSecondLine: "Together",
     titleColor: "green-600",
+    titleSecondColor: "green-900",
     subtitle: "",
     gradientStart: "#D2F7E5",
     gradientEnd: "#FFF5CC",
@@ -64,6 +67,7 @@ export const dashboard_tiles: Tile[] = [
     titleFirstLine: "Cook",
     titleSecondLine: "Together",
     titleColor: "blue-600",
+    titleSecondColor: "blue-900",
     subtitle: "",
     gradientStart: "#C4E8FF",
     gradientEnd: "#D2F7E5",
@@ -84,6 +88,7 @@ export const dashboard_tiles: Tile[] = [
     titleFirstLine: "Games",
     titleSecondLine: "",
     titleColor: "orange-600",
+    titleSecondColor: "orange-900",
     subtitle: "Sunny's Place: A Bee-utifull Food Adventure",
     gradientStart: "#FEE5DD",
     gradientEnd: "#FFF5CC",
@@ -104,6 +109,7 @@ export const dashboard_tiles: Tile[] = [
     titleFirstLine: "Foodways",
     titleSecondLine: "",
     titleColor: "green-600",
+    titleSecondColor: "green-900",
     subtitle: "A world of food",
     gradientStart: "#D2F7E5",
     gradientEnd: "#FFF5CC",
@@ -124,6 +130,7 @@ export const dashboard_tiles: Tile[] = [
     titleFirstLine: "Mealtime",
     titleSecondLine: "Moments",
     titleColor: "blue-600",
+    titleSecondColor: "blue-900",
     subtitle: "Food & friendship",
     gradientStart: "#C4E8FF",
     gradientEnd: "#D2F7E5",
@@ -143,9 +150,10 @@ export const dashboard_tiles: Tile[] = [
 
 export const meal_planner_tile: Tile = {
   id: "meal-planner",
-  titleFirstLine: "Meal",
+  titleFirstLine: "Plate full",
   titleSecondLine: "Planner",
   titleColor: "orange-600",
+  titleSecondColor: "orange-900",
   subtitle: "Lettuce help you build a meal plan",
   gradientStart: "#FEE5DD",
   gradientEnd: "#FFF5CC",

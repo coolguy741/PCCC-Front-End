@@ -41,6 +41,7 @@ export const ContentEditorActions: React.FC<Props> = ({
   const handleSaveAndExit = async () => {
     const response = await saveContent(type);
 
+    // @ts-ignore
     updateIdInStore(response?.id, type);
   };
 

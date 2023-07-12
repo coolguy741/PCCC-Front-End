@@ -20,7 +20,7 @@ export function GalleryItem(props: any) {
           <div className="cdg-thumbnail">
             <CDAudio />
           </div>
-          {trimStringByLength(el.name, 10)}
+          {trimStringByLength(el.fileName, 10)}
         </Typography>
         <button onClick={() => setShowOptions((prevState) => !prevState)}>
           <CDOptions />

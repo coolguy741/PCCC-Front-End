@@ -3,12 +3,10 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import Scrollable from "../../Global/Scrollable";
 import { GalleryItem } from "./item";
 
-export function CDGalleryView(props: any) {
-  const { list_items } = props;
-
+export function CDGalleryView({ files }: any) {
   return (
     <Style.Container thumbWidth="thin">
-      {list_items.map((el: any, idx: number) => (
+      {files.map((el: any, idx: number) => (
         <GalleryItem el={el} idx={idx} />
       ))}
     </Style.Container>

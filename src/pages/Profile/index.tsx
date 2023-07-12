@@ -78,7 +78,10 @@ export const ProfilePage = () => {
             <UserLessonAssesment userData={userData} />
             <UserGroups userData={userData} openGroupsModal={openGroupsModal} />
             <UserActivity userData={userData} />
-            <UserAchievements openAchievementsModal={openAchievementsModal} />
+            <UserAchievements
+              openAchievementsModal={openAchievementsModal}
+              achievements={achievements}
+            />
           </>
         )}
       </section>

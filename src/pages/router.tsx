@@ -33,7 +33,7 @@ import { SignInPage } from "./AuthPage/SignInPage";
 import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
-import { CloudDrivePage } from "./CloudDrivePage";
+import { CloudDrivePage, cloudDrivePageLoader } from "./CloudDrivePage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
@@ -447,7 +447,13 @@ export const router = createBrowserRouter([
       {
         path: "cloud-drive",
         element: <PageTitleLayout title="Cloud Drive" />,
-        children: [{ path: "", element: <CloudDrivePage /> }],
+        children: [
+          {
+            path: "",
+            element: <CloudDrivePage />,
+            loader: cloudDrivePageLoader,
+          },
+        ],
         loader: async () => {
           await redirectIfNotLoggedIn();
 

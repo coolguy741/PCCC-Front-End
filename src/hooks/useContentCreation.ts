@@ -7,61 +7,22 @@ import {
   TitleType,
 } from "../components/ContentCreation/types";
 
+function alterArrayContentState(state: any, idx: number, indexValue: number) {
+  const stateCopy = state;
+  stateCopy.map((s: any, index: number) => (index === idx ? indexValue : s));
+  return stateCopy;
+}
+
 export function useContentCreation(
-  initialState: State,
+  initialState: any,
   updatePageState?: (slideIndex: number, index: number, state: State) => void,
 ) {
-  const [state, setState] = useState<State>(initialState);
-  const [timelineState, setTimelineState] = useState<State>(initialState);
+  const [state, setState] = useState<any>(initialState);
+  const [timelineState, setTimelineState] = useState<any>(initialState);
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
 
   function changeEditState(tag: TitleType, amtOrIngdt?: "amt" | "ingdt") {
-    let newState;
-    if (amtOrIngdt) {
-      if (amtOrIngdt === "amt") {
-        if (state[tag].aMode === ComponentViewMode.VIEW) {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              aMode: ComponentViewMode.EDIT,
-            },
-          };
-          return setState(newState);
-        } else {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              aMode: ComponentViewMode.VIEW,
-            },
-          };
-          return setState(newState);
-        }
-      } else {
-        if (state[tag].iMode === ComponentViewMode.VIEW) {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              iMode: ComponentViewMode.EDIT,
-            },
-          };
-          return setState(newState);
-        } else {
-          newState = {
-            ...state,
-            [tag]: {
-              ...state[tag],
-              iMode: ComponentViewMode.VIEW,
-            },
-          };
-          return setState(newState);
-        }
-      }
-    }
-
     if (state[tag].mode === ComponentViewMode.EDIT) {
       const newState = {
         ...state,
@@ -80,6 +41,36 @@ export function useContentCreation(
         },
       };
       return setState(newState);
+    }
+  }
+
+  function changeListEditState(index: number, amtOrIngdt?: "amt" | "ingdt") {
+    if (amtOrIngdt) {
+      if (amtOrIngdt === "amt") {
+        if (state[index].aMode === ComponentViewMode.VIEW) {
+          const indexValue = { ...state[index], aMode: ComponentViewMode.EDIT };
+          return setState(alterArrayContentState(state, index, indexValue));
+        } else {
+          const indexValue = { ...state[index], aMode: ComponentViewMode.VIEW };
+          return setState(alterArrayContentState(state, index, indexValue));
+        }
+      } else {
+        if (state[index].iMode === ComponentViewMode.VIEW) {
+          const indexValue = { ...state[index], iMode: ComponentViewMode.EDIT };
+          return setState(alterArrayContentState(state, index, indexValue));
+        } else {
+          const indexValue = { ...state[index], iMode: ComponentViewMode.VIEW };
+          return setState(alterArrayContentState(state, index, indexValue));
+        }
+      }
+    }
+
+    if (state[index].mode === ComponentViewMode.EDIT) {
+      const indexValue = { ...state[index], mode: ComponentViewMode.VIEW };
+      return setState(alterArrayContentState(state, index, indexValue));
+    } else {
+      const indexValue = { ...state[index], mode: ComponentViewMode.EDIT };
+      return setState(alterArrayContentState(state, index, indexValue));
     }
   }
 
@@ -107,6 +98,30 @@ export function useContentCreation(
       };
       setTimelineState(newState);
     }
+  }
+
+  function changeListText(
+    index: number,
+    newText: string,
+    amtOrIngdt?: "amt" | "ingdt",
+  ) {
+    let newState;
+    if (amtOrIngdt) {
+      const indexValue = { ...state[index], [amtOrIngdt]: newText };
+      newState = alterArrayContentState(state, index, indexValue);
+    } else {
+      const indexValue = { ...state[index], text: newText };
+      newState = alterArrayContentState(state, index, indexValue);
+    }
+
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        componentPosition.slideIndex,
+        componentPosition.componentIndex,
+        newState,
+      );
+    setState(newState);
   }
 
   function changeText(
@@ -211,8 +226,8 @@ export function useContentCreation(
     const timeline = Object.values(state)
       .map((value) => {
         return {
-          mode: value.mode,
-          text: value.text,
+          mode: (value as any).mode,
+          text: (value as any).text,
         };
       })
       .reduce(
@@ -237,5 +252,7 @@ export function useContentCreation(
     timelineState,
     changeTimelineEditState,
     timelineChangeText,
+    changeListEditState,
+    changeListText,
   };
 }

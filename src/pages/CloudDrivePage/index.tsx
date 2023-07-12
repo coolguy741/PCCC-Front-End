@@ -1,4 +1,6 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
 import { CDGalleryView } from "../../components/CloudDrive/GalleryView";
@@ -8,125 +10,43 @@ import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
 import CDList from "../../components/CloudDrive/Icons/cd-list";
 import { CDListView } from "../../components/CloudDrive/ListView";
 import { Typography } from "../../components/Typography";
+import { Api } from "../../lib/api/api";
+import { BASE_API_URL } from "../../lib/api/helpers/consts";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../styles/helpers/glassBackground";
+import { STORAGE_KEY_JWT } from "../consts";
 
-const dummy_content = [
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-  {
-    name: "Assessment.pdf",
-    sharing: "Self",
-    type: "doc",
-    date: "Sat, 27 May 2023",
-    size: "2mb",
-  },
-];
+export interface CloudDriveFileType {
+  filename: string;
+  url: string;
+  size: number;
+  relativePath: string;
+}
+
+export const cloudDrivePageLoader = async () => {
+  const { api } = new Api({
+    baseURL: BASE_API_URL,
+  });
+
+  try {
+    const response = await api.appCloudDriveDriveFilesList({
+      headers: {
+        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else return null;
+  } catch (error: unknown) {
+    console.warn(error);
+
+    return null;
+  }
+};
 
 export function CloudDrivePage() {
+  const data: any = useLoaderData();
   const [view, setView] = useState<"list" | "gallery">("list");
 
   return (
@@ -184,14 +104,17 @@ export function CloudDrivePage() {
           </div>
           <article className="cd-content">
             {view === "list" ? (
-              <CDListView list_items={dummy_content} />
+              <CDListView files={data.files} />
             ) : (
-              <CDGalleryView list_items={dummy_content} />
+              <CDGalleryView files={data.files} />
             )}
           </article>
         </div>
       </section>
-      <CloudStorage className="cloud-drive-storage" />
+      <CloudStorage
+        className="cloud-drive-storage"
+        sizeOccupied={data.stats.sizeOccupied}
+      />
     </Style.Container>
   );
 }
