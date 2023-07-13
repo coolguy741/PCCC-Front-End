@@ -3,12 +3,13 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import Scrollable from "../../Global/Scrollable";
 import { GalleryItem } from "./item";
 
-export function CDGalleryView({ files }: any) {
+export function CDGalleryView({ data }: any) {
   return (
     <Style.Container thumbWidth="thin">
-      {files?.map((el: any, idx: number) => (
-        <GalleryItem el={el} idx={idx} />
-      ))}
+      {data.files &&
+        data.files.map((el: any, idx: number) => (
+          <GalleryItem el={el} idx={idx} />
+        ))}
     </Style.Container>
   );
 }

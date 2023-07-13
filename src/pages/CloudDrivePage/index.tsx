@@ -12,6 +12,10 @@ import { CDListView } from "../../components/CloudDrive/ListView";
 import { Typography } from "../../components/Typography";
 import { Api } from "../../lib/api/api";
 import { BASE_API_URL } from "../../lib/api/helpers/consts";
+import {
+  getCloudDriveStore,
+  useCloudDriveStore,
+} from "../../stores/cloudDriveStore";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../styles/helpers/glassBackground";
 import { STORAGE_KEY_JWT } from "../consts";
@@ -24,13 +28,15 @@ export interface CloudDriveFileType {
 }
 
 export const cloudDrivePageLoader = async () => {
+  const state = getCloudDriveStore();
+
   const { api } = new Api({
     baseURL: BASE_API_URL,
   });
 
   try {
     const response = await api.appCloudDriveDriveFilesList(
-      { folder: "images" },
+      { folder: state.type },
       {
         headers: {
           Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
@@ -49,11 +55,10 @@ export const cloudDrivePageLoader = async () => {
 };
 
 export function CloudDrivePage() {
-  const data: any = useLoaderData();
-  const [files, setFiles] = useState(data.files as any);
+  const loaderData: any = useLoaderData();
+  const [data, setData] = useState(loaderData as any);
   const [view, setView] = useState<"list" | "gallery">("list");
-  const [type, setType] =
-    useState<"documents" | "video" | "images" | "audio">("images");
+  const { type, setType } = useCloudDriveStore();
 
   const fetchFiles = async (
     type: "images" | "video" | "documents" | "audio",
@@ -73,7 +78,7 @@ export function CloudDrivePage() {
       );
 
       if (response.status === 200) {
-        setFiles(response.data as any);
+        setData(response.data as any);
 
         return response.data;
       } else return null;
@@ -88,7 +93,9 @@ export function CloudDrivePage() {
     fetchFiles(type);
   }, [type]);
 
-  console.log(data);
+  useEffect(() => {
+    setData(loaderData as any);
+  }, [loaderData]);
 
   return (
     <Style.Container>
@@ -145,9 +152,9 @@ export function CloudDrivePage() {
           </div>
           <article className="cd-content">
             {view === "list" ? (
-              <CDListView files={files} />
+              <CDListView data={data} />
             ) : (
-              <CDGalleryView files={files} />
+              <CDGalleryView data={data} />
             )}
           </article>
         </div>

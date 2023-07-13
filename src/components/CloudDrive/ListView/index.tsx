@@ -25,7 +25,7 @@ const table_text_props = {
   color: "neutral-400",
 };
 
-export function CDListView({ files }: any) {
+export function CDListView({ data }: any) {
   const { api } = useAPI();
   const navigate = useNavigate();
 
@@ -60,8 +60,8 @@ export function CDListView({ files }: any) {
         </Typography>
       </figure>
       <div className="cd-list-content">
-        {files.files &&
-          files.files.map((el: any) => (
+        {data.files &&
+          data.files.map((el: any) => (
             <Style.Item>
               <figure>
                 <div className="cd-list-image">
