@@ -1,4 +1,10 @@
+import { formatDate } from "@fullcalendar/core";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAPI } from "../../../hooks/useAPI";
+import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import CDAudio from "../../CloudDrive/Icons/cd-audio";
 import CDDelete from "../../CloudDrive/Icons/cd-delete";
@@ -19,16 +25,32 @@ const table_text_props = {
   color: "neutral-400",
 };
 
-export function UploadList(props: any) {
-  const { list_items } = props;
+export function UploadList({ files }: any) {
+  const { api } = useAPI();
+  const navigate = useNavigate();
+
+  const handleDelete = async (path: string) => {
+    const response = await api.appCloudDriveDriveFileDelete(
+      {
+        relativePath: path,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 204) {
+      navigate("./");
+    }
+  };
+
   return (
     <Style.Container thumbWidth="thin">
       <figure className="cd-list-header">
         <Typography tag="label" {...text_props}>
           Name
-        </Typography>
-        <Typography tag="label" {...text_props}>
-          Sharing
         </Typography>
         <Typography tag="label" {...text_props}>
           Size
@@ -38,23 +60,26 @@ export function UploadList(props: any) {
         </Typography>
       </figure>
       <div className="cd-list-content">
-        {list_items.map((el: any) => (
+        {files.map((el: any) => (
           <Style.Item>
             <figure>
               <div className="cd-list-image">
                 <CDAudio />
               </div>
               <Typography tag="h4" size="1.75vh" weight={500}>
-                {el.name}
+                {el.fileName}
               </Typography>
             </figure>
-            <Typography {...table_text_props}>{el.sharing}</Typography>
-            <Typography {...table_text_props}>{el.size}</Typography>
-            <Typography {...table_text_props}>{el.date}</Typography>
+            <Typography {...table_text_props}>
+              {roundToOneDecimal(el.size)} MB
+            </Typography>
+            <Typography {...table_text_props}>
+              {formatDate(el.uploadedAt)}
+            </Typography>
             <div className="cd-list-options">
               <CDShare />
               <CDDownload />
-              <CDDelete />
+              <CDDelete onClick={() => handleDelete(el.relativePath)} />
             </div>
           </Style.Item>
         ))}

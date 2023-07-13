@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
 import { trimStringByLength } from "../../../lib/util/trimStringByLength";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Progress } from "../../Global/Progress";
@@ -6,7 +7,6 @@ import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
 import CDCancel from "../Icons/cd-cancel";
 import CDRefresh from "../Icons/cd-refresh";
-import { roundToOneDecimal } from "../ListView";
 
 interface Props {
   status?: "uploading" | "finished" | "errored";
