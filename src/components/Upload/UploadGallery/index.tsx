@@ -4,13 +4,15 @@ import { GalleryItem } from "../../CloudDrive/GalleryView/item";
 import Scrollable from "../../Global/Scrollable";
 
 export function UploadGallery(props: any) {
-  const { list_items } = props;
+  const { files } = props;
+  console.log(files);
 
   return (
     <Style.Container thumbWidth="thin">
-      {list_items.map((el: any, idx: number) => (
-        <GalleryItem el={el} idx={idx} />
-      ))}
+      {files.map((el: any, idx: number) => {
+        console.log(el);
+        return <GalleryItem el={el} idx={idx} />;
+      })}
     </Style.Container>
   );
 }

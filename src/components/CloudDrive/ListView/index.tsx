@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { formatDate } from "../../../lib/util/formatDate";
+import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Scrollable from "../../Global/Scrollable";
@@ -23,10 +24,6 @@ const table_text_props = {
   weight: 500,
   color: "neutral-400",
 };
-
-export function roundToOneDecimal(bytes: number) {
-  return Math.round((bytes / 1024 / 1024) * 10) / 10;
-}
 
 export function CDListView({ files }: any) {
   const { api } = useAPI();
