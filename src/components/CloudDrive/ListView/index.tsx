@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
@@ -28,6 +29,8 @@ const table_text_props = {
 export function CDListView({ data, search }: { data: any; search: string }) {
   const { api } = useAPI();
   const navigate = useNavigate();
+  const [sortBy, setSortBy] = useState<"name" | "size" | "date">("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const handleDelete = async (path: string) => {
     const response = await api.appCloudDriveDriveFileDelete(
@@ -49,14 +52,56 @@ export function CDListView({ data, search }: { data: any; search: string }) {
   return (
     <Style.Container thumbWidth="thin">
       <figure className="cd-list-header">
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("name");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Name
+          {sortBy === "name" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("size");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Size
+          {sortBy === "size" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("date");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Date
+          {sortBy === "date" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
       </figure>
       <div className="cd-list-content">
@@ -67,6 +112,31 @@ export function CDListView({ data, search }: { data: any; search: string }) {
 
               if (e.fileName.toLowerCase().includes(search.toLowerCase()))
                 return e;
+            })
+            .sort((a: any, b: any) => {
+              if (sortBy === "name") {
+                if (sortOrder === "asc") {
+                  return a.fileName.localeCompare(b.fileName);
+                } else {
+                  return b.fileName.localeCompare(a.fileName);
+                }
+              } else if (sortBy === "size") {
+                if (sortOrder === "asc") {
+                  return a.size - b.size;
+                } else {
+                  return b.size - a.size;
+                }
+              } else if (sortBy === "date") {
+                if (sortOrder === "asc") {
+                  return new Date(a.uploadedAt) > new Date(b.uploadedAt)
+                    ? 1
+                    : -1;
+                } else {
+                  return new Date(a.uploadedAt) < new Date(b.uploadedAt)
+                    ? 1
+                    : -1;
+                }
+              }
             })
             .map((el: any) => (
               <Style.Item>
@@ -110,6 +180,16 @@ const Style = {
 
       label {
         display: block;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        user-select: none;
+
+        .desc {
+          transform: rotate(180deg);
+        }
       }
 
       label:first-of-type {

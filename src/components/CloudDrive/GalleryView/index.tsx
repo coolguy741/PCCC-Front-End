@@ -3,13 +3,18 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import Scrollable from "../../Global/Scrollable";
 import { GalleryItem } from "./item";
 
-export function CDGalleryView({ data }: any) {
+export function CDGalleryView({ data, search }: { data: any; search: string }) {
   return (
     <Style.Container thumbWidth="thin">
       {data.files &&
-        data.files.map((el: any, idx: number) => (
-          <GalleryItem el={el} idx={idx} />
-        ))}
+        data.files
+          .filter((e: any) => {
+            if (search === "") return e;
+
+            if (e.fileName.toLowerCase().includes(search.toLowerCase()))
+              return e;
+          })
+          .map((el: any, idx: number) => <GalleryItem el={el} idx={idx} />)}
     </Style.Container>
   );
 }
