@@ -83,6 +83,7 @@ import { Themes } from "./ThemeBuilderPage";
 import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
 import { ThemePreviewPage } from "./ThemeBuilderPage/Create/Preview";
 import { ThemePrintPage } from "./ThemeBuilderPage/Print";
+import { ThemePage } from "./ThemeBuilderPage/ThemePage";
 import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
@@ -241,13 +242,15 @@ export const router = createBrowserRouter([
         path: "themes",
         element: <PageTitleLayout title="Theme" icon="topic-orange-outlined" />,
         loader: async () => {
-          await redirectIfNotLoggedIn();
+          // await redirectIfNotLoggedIn();
 
           return null;
         },
         children: [
           { path: "", element: <Themes /> },
           { path: "create", element: <ThemeCreatePage /> },
+          { path: ":item", element: <ThemePage /> },
+          { path: ":item/edit", element: <ThemeCreatePage /> },
           { path: "preview", element: <ThemePreviewPage /> },
         ],
       },
@@ -312,10 +315,7 @@ export const router = createBrowserRouter([
           { path: "create", element: <ActivitiesCreatePage /> },
           { path: "preview", element: <ActivitiesPreviewPage /> },
           { path: ":item", element: <ActivityPage /> },
-          {
-            path: ":item/edit",
-            element: <ActivitiesCreatePage />,
-          },
+          { path: ":item/edit", element: <ActivitiesCreatePage /> },
         ],
       },
       {

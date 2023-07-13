@@ -36,7 +36,7 @@ export const ActivitiesPage = () => {
     api &&
       isNeededToReload &&
       (async () => {
-        const activities = await api
+        const response = await api
           .appActivitiesList(
             {},
             {
@@ -46,7 +46,7 @@ export const ActivitiesPage = () => {
             },
           )
           .then((res) => res.data);
-        setActivities(activities.items);
+        setActivities(response.items);
         setIsNeededToReload(false);
       })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

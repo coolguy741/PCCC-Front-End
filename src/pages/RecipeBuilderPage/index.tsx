@@ -36,7 +36,7 @@ export const RecipesPage = () => {
     api &&
       isNeededToReload &&
       (async () => {
-        const recipes = await api
+        const response = await api
           .appCurriculumRecipesList(
             {},
             {
@@ -46,7 +46,7 @@ export const RecipesPage = () => {
             },
           )
           .then((res) => res.data);
-        setRecipes(recipes.items);
+        setRecipes(response.items);
         setIsNeededToReload(false);
       })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

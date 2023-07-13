@@ -4,6 +4,7 @@ import React from "react";
 import {
   PccServer23ActivitiesActivityDto,
   PccServer23CurriculumRecipesCurriculumRecipeDto,
+  PccServer23ThemesThemeDto,
 } from "../../../lib/api/api";
 import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
@@ -18,6 +19,7 @@ interface ContentListAdminPageTemplateProps {
   selectsGroup: SelectOption[];
   listData:
     | PccServer23ActivitiesActivityDto[]
+    | PccServer23ThemesThemeDto[]
     | PccServer23CurriculumRecipesCurriculumRecipeDto[]
     | MockContentsDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
