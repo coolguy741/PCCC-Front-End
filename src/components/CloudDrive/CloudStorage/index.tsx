@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+import Button from "../../Button";
 import { Progress } from "../../Global/Progress";
 import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
@@ -38,6 +39,11 @@ export function CloudStorage({ className, sizeOccupied, type }: Props) {
           <UploadOption key={idx} upload={upload} />
         ))}
       </Style.Uploads>
+      <Style.ClearButton>
+        <Button variant="yellow" fullWidth onClick={() => setUploads([])}>
+          Clear All
+        </Button>
+      </Style.ClearButton>
     </Style.Container>
   );
 }
@@ -56,7 +62,10 @@ const Style = {
   `,
 
   Uploads: styled(Scrollable)`
-    height: calc(48vh - ${convertToRelativeUnit(48, "vh")});
+    height: calc(43vh - ${convertToRelativeUnit(48, "vh")});
     position: relative;
+  `,
+  ClearButton: styled.div`
+    margin-top: 1rem;
   `,
 };

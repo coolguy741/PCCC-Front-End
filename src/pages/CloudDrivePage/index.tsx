@@ -9,6 +9,7 @@ import CDAdd from "../../components/CloudDrive/Icons/cd-add";
 import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
 import CDList from "../../components/CloudDrive/Icons/cd-list";
 import { CDListView } from "../../components/CloudDrive/ListView";
+import { Input } from "../../components/Global/Input";
 import { Typography } from "../../components/Typography";
 import { Api } from "../../lib/api/api";
 import { BASE_API_URL } from "../../lib/api/helpers/consts";
@@ -56,9 +57,10 @@ export const cloudDrivePageLoader = async () => {
 
 export function CloudDrivePage() {
   const loaderData: any = useLoaderData();
+  const { type, setType } = useCloudDriveStore();
+  const [search, setSearch] = useState("");
   const [data, setData] = useState(loaderData as any);
   const [view, setView] = useState<"list" | "gallery">("list");
-  const { type, setType } = useCloudDriveStore();
 
   const fetchFiles = async (
     type: "images" | "video" | "documents" | "audio",
@@ -123,6 +125,11 @@ export function CloudDrivePage() {
             >
               Files
             </Typography>
+            <Input
+              placeholder="Search by name"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
             <div>
               <button
                 className={`cdf-view-option ${
@@ -152,9 +159,9 @@ export function CloudDrivePage() {
           </div>
           <article className="cd-content">
             {view === "list" ? (
-              <CDListView data={data} />
+              <CDListView data={data} search={search} />
             ) : (
-              <CDGalleryView data={data} />
+              <CDGalleryView data={data} search={search} />
             )}
           </article>
         </div>
@@ -205,14 +212,20 @@ const Style = {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1.5vh;
+        gap: 1rem;
+
+        h2 {
+          margin: 0;
+        }
 
         div {
           display: flex;
           height: 100%;
-          width: 27.5%;
+          width: auto;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 1rem;
 
           button.cdf-view-option {
             border-radius: 50%;

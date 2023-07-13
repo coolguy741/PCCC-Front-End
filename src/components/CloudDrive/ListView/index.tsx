@@ -25,7 +25,7 @@ const table_text_props = {
   color: "neutral-400",
 };
 
-export function CDListView({ data }: any) {
+export function CDListView({ data, search }: { data: any; search: string }) {
   const { api } = useAPI();
   const navigate = useNavigate();
 
@@ -61,29 +61,36 @@ export function CDListView({ data }: any) {
       </figure>
       <div className="cd-list-content">
         {data.files &&
-          data.files.map((el: any) => (
-            <Style.Item>
-              <figure>
-                <div className="cd-list-image">
-                  <CDAudio />
-                </div>
-                <Typography tag="h4" size="1.75vh" weight={500}>
-                  {el.fileName}
+          data.files
+            .filter((e: any) => {
+              if (search === "") return e;
+
+              if (e.fileName.toLowerCase().includes(search.toLowerCase()))
+                return e;
+            })
+            .map((el: any) => (
+              <Style.Item>
+                <figure>
+                  <div className="cd-list-image">
+                    <CDAudio />
+                  </div>
+                  <Typography tag="h4" size="1.75vh" weight={500}>
+                    {el.fileName}
+                  </Typography>
+                </figure>
+                <Typography {...table_text_props}>
+                  {roundToOneDecimal(el.size)} MB
                 </Typography>
-              </figure>
-              <Typography {...table_text_props}>
-                {roundToOneDecimal(el.size)} MB
-              </Typography>
-              <Typography {...table_text_props}>
-                {formatDate(el.uploadedAt)}
-              </Typography>
-              <div className="cd-list-options">
-                <CDShare />
-                <CDDownload />
-                <CDDelete onClick={() => handleDelete(el.relativePath)} />
-              </div>
-            </Style.Item>
-          ))}
+                <Typography {...table_text_props}>
+                  {formatDate(el.uploadedAt)}
+                </Typography>
+                <div className="cd-list-options">
+                  <CDShare />
+                  <CDDownload />
+                  <CDDelete onClick={() => handleDelete(el.relativePath)} />
+                </div>
+              </Style.Item>
+            ))}
       </div>
     </Style.Container>
   );
