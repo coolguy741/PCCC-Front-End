@@ -2,57 +2,63 @@ import styled from "styled-components";
 import { Checkbox } from "../../Global/Checkbox";
 import Scrollbar from "../../Global/Scrollable";
 
-export const CalendarFilter = () => {
+export const CalendarFilter = ({
+  groupCalendar = false,
+}: {
+  groupCalendar?: boolean;
+}) => {
   return (
     <Style.Container>
-      <Style.GroupsFilterContainer>
-        <Scrollbar className="groups-filter">
-          <div>
-            <Checkbox type="checkbox" defaultChecked={true} />
-            <label>Self</label>
-          </div>
-          <div>
-            <Checkbox
-              type="checkbox"
-              defaultChecked={true}
-              colorOption="green"
-            />
-            <label>Group A</label>
-          </div>
-          <div>
-            <Checkbox
-              type="checkbox"
-              defaultChecked={true}
-              colorOption="green"
-            />
-            <label>Group B</label>
-          </div>
-          <div>
-            <Checkbox
-              type="checkbox"
-              defaultChecked={true}
-              colorOption="green"
-            />
-            <label>Group C</label>
-          </div>
-          <div>
-            <Checkbox
-              type="checkbox"
-              defaultChecked={true}
-              colorOption="green"
-            />
-            <label>Group D</label>
-          </div>
-          <div>
-            <Checkbox
-              type="checkbox"
-              defaultChecked={true}
-              colorOption="green"
-            />
-            <label>Group E</label>
-          </div>
-        </Scrollbar>
-      </Style.GroupsFilterContainer>
+      {!groupCalendar && (
+        <Style.GroupsFilterContainer>
+          <Scrollbar className="groups-filter">
+            <div>
+              <Checkbox type="checkbox" defaultChecked={true} />
+              <label>Self</label>
+            </div>
+            <div>
+              <Checkbox
+                type="checkbox"
+                defaultChecked={true}
+                colorOption="green"
+              />
+              <label>Group A</label>
+            </div>
+            <div>
+              <Checkbox
+                type="checkbox"
+                defaultChecked={true}
+                colorOption="green"
+              />
+              <label>Group B</label>
+            </div>
+            <div>
+              <Checkbox
+                type="checkbox"
+                defaultChecked={true}
+                colorOption="green"
+              />
+              <label>Group C</label>
+            </div>
+            <div>
+              <Checkbox
+                type="checkbox"
+                defaultChecked={true}
+                colorOption="green"
+              />
+              <label>Group D</label>
+            </div>
+            <div>
+              <Checkbox
+                type="checkbox"
+                defaultChecked={true}
+                colorOption="green"
+              />
+              <label>Group E</label>
+            </div>
+          </Scrollbar>
+        </Style.GroupsFilterContainer>
+      )}
       <Style.SubjectsFilterContainer>
         <Scrollbar className="subjects-filter">
           <div>

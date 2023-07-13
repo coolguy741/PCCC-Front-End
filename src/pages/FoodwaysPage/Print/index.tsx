@@ -21,7 +21,7 @@ export const FoodwaysPrintPage = () => {
           </div>
           <div className="content__body__main">
             <div className="content__body__main__globe">
-              <Globe />
+              <Globe disableDrag disableMarker disableSoftOrbit />
             </div>
             <div className="content__body__main__text">
               <h3>Mesoamerica</h3>

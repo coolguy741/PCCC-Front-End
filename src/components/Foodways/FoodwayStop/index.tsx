@@ -16,7 +16,7 @@ export function FoodwayStop({ stop }: any) {
         <p>{stop.description}</p>
       </div>
       <div className="fw-globe">
-        <Globe />
+        <Globe disableDrag disableMarker />
       </div>
     </Style.Container>
   );

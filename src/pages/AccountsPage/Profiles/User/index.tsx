@@ -15,6 +15,8 @@ import { UserActivity } from "../../../../components/Profile/Activity";
 import { UserGroups } from "../../../../components/Profile/Groups";
 import { UserLessonAssesment } from "../../../../components/Profile/LessonAssesment";
 import { UserProfileInfo } from "../../../../components/Profile/ProfileInfo";
+import { Api } from "../../../../lib/api/api";
+import { BASE_API_URL } from "../../../../lib/api/helpers/consts";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 import { MockUserType } from "../../../../types/user";
 import { STORAGE_KEY_JWT } from "../../../consts";
@@ -23,6 +25,31 @@ import { achievements, groups } from "./dummy_data";
 export type Achievement = {
   badge: string;
   description: string;
+};
+
+export const profilePageLoader = async () => {
+  const { api } = new Api({
+    baseURL: BASE_API_URL,
+  });
+
+  try {
+    const response = await api.appUserUsersList(
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      return response.data.items;
+    }
+  } catch (error: unknown) {
+    console.warn(error);
+  }
+
+  return null;
 };
 
 export const AccountsUserProfilePage = () => {
