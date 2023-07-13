@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
 import { CDGalleryView } from "../../components/CloudDrive/GalleryView";
@@ -11,6 +11,7 @@ import CDList from "../../components/CloudDrive/Icons/cd-list";
 import { CDListView } from "../../components/CloudDrive/ListView";
 import { Input } from "../../components/Global/Input";
 import { Typography } from "../../components/Typography";
+import { useAPI } from "../../hooks/useAPI";
 import { Api } from "../../lib/api/api";
 import { BASE_API_URL } from "../../lib/api/helpers/consts";
 import {
@@ -61,6 +62,8 @@ export function CloudDrivePage() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState(loaderData as any);
   const [view, setView] = useState<"list" | "gallery">("list");
+  const navigate = useNavigate();
+  const { api } = useAPI();
 
   const fetchFiles = async (
     type: "images" | "video" | "documents" | "audio",
@@ -88,6 +91,23 @@ export function CloudDrivePage() {
       console.warn(error);
 
       return null;
+    }
+  };
+
+  const handleDelete = async (path: string) => {
+    const response = await api.appCloudDriveDriveFileDelete(
+      {
+        relativePath: path,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 204) {
+      navigate("./");
     }
   };
 
@@ -159,9 +179,19 @@ export function CloudDrivePage() {
           </div>
           <article className="cd-content">
             {view === "list" ? (
-              <CDListView data={data} search={search} />
+              <CDListView
+                data={data}
+                search={search}
+                type={type}
+                handleDelete={handleDelete}
+              />
             ) : (
-              <CDGalleryView data={data} search={search} />
+              <CDGalleryView
+                data={data}
+                search={search}
+                type={type}
+                handleDelete={handleDelete}
+              />
             )}
           </article>
         </div>

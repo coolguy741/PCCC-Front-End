@@ -7,6 +7,7 @@ import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
 import CDCancel from "../Icons/cd-cancel";
 import CDRefresh from "../Icons/cd-refresh";
+import CDSuccess from "../Icons/cd-success";
 
 interface Props {
   status?: "uploading" | "finished" | "errored";
@@ -60,7 +61,13 @@ export function UploadOption({ status, upload, progress }: Props) {
         />
       </div>
       <div className="upload-status">
-        {status === "errored" ? <CDRefresh /> : <CDCancel />}
+        {status === "errored" ? (
+          <CDRefresh />
+        ) : upload.progress === 1 ? (
+          <CDSuccess />
+        ) : (
+          <CDCancel />
+        )}
       </div>
     </Style.Container>
   );

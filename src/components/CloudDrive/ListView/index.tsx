@@ -1,18 +1,19 @@
-import Cookies from "js-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { formatDate } from "../../../lib/util/formatDate";
 import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
-import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
 import CDDelete from "../Icons/cd-delete";
+import CDDocument from "../Icons/cd-document";
 import CDDownload from "../Icons/cd-download";
+import CDImage from "../Icons/cd-image";
 import CDShare from "../Icons/cd-share";
+import CDVideo from "../Icons/cd-video";
 
 const text_props = {
   size: "1.75vh",
@@ -26,28 +27,28 @@ const table_text_props = {
   color: "neutral-400",
 };
 
-export function CDListView({ data, search }: { data: any; search: string }) {
+export const ICONS = {
+  images: <CDImage />,
+  documents: <CDDocument />,
+  video: <CDVideo />,
+  audio: <CDAudio />,
+};
+
+export function CDListView({
+  data,
+  search,
+  type,
+  handleDelete,
+}: {
+  data: any;
+  search: string;
+  type: "images" | "video" | "documents" | "audio";
+  handleDelete: (path: string) => void;
+}) {
   const { api } = useAPI();
   const navigate = useNavigate();
   const [sortBy, setSortBy] = useState<"name" | "size" | "date">("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-
-  const handleDelete = async (path: string) => {
-    const response = await api.appCloudDriveDriveFileDelete(
-      {
-        relativePath: path,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      },
-    );
-
-    if (response.status === 204) {
-      navigate("./");
-    }
-  };
 
   return (
     <Style.Container thumbWidth="thin">
@@ -141,9 +142,7 @@ export function CDListView({ data, search }: { data: any; search: string }) {
             .map((el: any) => (
               <Style.Item>
                 <figure>
-                  <div className="cd-list-image">
-                    <CDAudio />
-                  </div>
+                  <div className="cd-list-image">{ICONS[type]}</div>
                   <Typography tag="h4" size="1.75vh" weight={500}>
                     {el.fileName}
                   </Typography>
