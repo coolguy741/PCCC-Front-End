@@ -1,16 +1,21 @@
-import Cookies from "js-cookie";
 import { useCallback, useEffect, useState } from "react";
 
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
-import { useAPI } from "../../hooks/useAPI";
+import { useFetch } from "../../hooks/useFetch";
+import { PccServer23ThemesThemeDto } from "../../lib/api/api";
 import { useThemeStore } from "../../stores/themeStore";
-import { STORAGE_KEY_JWT } from "../consts";
 
 export const Themes = () => {
-  const { api } = useAPI();
   const { themes, setThemes } = useThemeStore();
-  const [isNeededToReload, setIsNeededToReload] = useState(true);
+  const [isNeededToReload, setIsNeededToReload] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const { fetchData: deleteTheme } = useFetch("appThemesDelete", {});
+  const { isLoading, data, fetchData } = useFetch<{
+    total: number;
+    items: PccServer23ThemesThemeDto[];
+  }>("appThemesList", {}, undefined, true);
 
   const handleSelectionChange = (id: string, isSelected: boolean) => {
     setSelectedIds((prevIds) => {
@@ -20,38 +25,29 @@ export const Themes = () => {
       ].filter(Boolean);
     });
   };
-  useEffect(() => {
-    api &&
-      isNeededToReload &&
-      (async () => {
-        const response = await api
-          .appThemesList(
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-              },
-            },
-          )
-          .then((res) => res.data);
-        setThemes(response.items);
-        setIsNeededToReload(false);
-      })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNeededToReload]);
 
   const handleDelete = useCallback(async () => {
+    setIsDeleting(true);
     for (const id of selectedIds) {
-      await api.appThemesDelete(id, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      });
+      await deleteTheme?.(id);
     }
     setIsNeededToReload(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIds]);
 
+  useEffect(() => {
+    isNeededToReload && fetchData?.(undefined, undefined, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNeededToReload]);
+
+  useEffect(() => {
+    if (data) {
+      setThemes(data.items);
+      setIsNeededToReload(false);
+      setIsDeleting(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
   return (
     <ContentListAdminPageTemplate
       title={"Themes"}
@@ -59,6 +55,7 @@ export const Themes = () => {
       listData={themes ?? []}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
+      isLoading={isDeleting || isLoading}
     />
   );
 };
