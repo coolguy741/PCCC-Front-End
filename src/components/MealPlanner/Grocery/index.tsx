@@ -98,7 +98,7 @@ const Style = {
     justify-content: flex-start;
     align-items: center;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 25px;
     line-height: 32px;
     color: var(--neutral-800);
     gap: 18px;
@@ -106,7 +106,7 @@ const Style = {
   MaterialList: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 14px;
     padding: 0px;
     width: 100%;
   `,
@@ -118,7 +118,7 @@ const Style = {
 
     .material-name {
       font-weight: 500;
-      font-size: 23px;
+      font-size: 20px;
       line-height: 28px;
       color: var(--neutral-600);
       flex-grow: 1;
@@ -130,7 +130,7 @@ const Style = {
       flex-shrink: 1;
       text-align: center;
       font-weight: 500;
-      font-size: 19px;
+      font-size: 17px;
       line-height: 24px;
       color: var(--neutral-600);
     }
