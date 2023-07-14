@@ -73,7 +73,7 @@ export function CDListView({
   }, [data]);
 
   return (
-    <Style.Container thumbWidth="thin" id="scroll-target">
+    <Style.Container>
       <figure className="cd-list-header">
         <Typography
           tag="label"
@@ -127,71 +127,72 @@ export function CDListView({
           )}
         </Typography>
       </figure>
-      <div id="cd-list-content">
-        <InfiniteScroll
-          dataLength={displayedItems.length}
-          next={getMoreItems}
-          hasMore={displayedItems.length < data.length}
-          loader={<h4>Loading...</h4>}
-          scrollableTarget="scroll-target"
-        >
-          {displayedItems
-            .sort((a: any, b: any) => {
-              if (sortBy === "name") {
-                if (sortOrder === "asc") {
-                  return a.fileName.localeCompare(b.fileName);
-                } else {
-                  return b.fileName.localeCompare(a.fileName);
+      <Scrollable thumbWidth="thin" id="scroll-target">
+        <div id="cd-list-content">
+          <InfiniteScroll
+            dataLength={displayedItems.length}
+            next={getMoreItems}
+            hasMore={displayedItems.length < data.length}
+            loader={<h4>Loading...</h4>}
+            scrollableTarget="scroll-target"
+          >
+            {displayedItems
+              .sort((a: any, b: any) => {
+                if (sortBy === "name") {
+                  if (sortOrder === "asc") {
+                    return a.fileName.localeCompare(b.fileName);
+                  } else {
+                    return b.fileName.localeCompare(a.fileName);
+                  }
+                } else if (sortBy === "size") {
+                  if (sortOrder === "asc") {
+                    return a.size - b.size;
+                  } else {
+                    return b.size - a.size;
+                  }
+                } else if (sortBy === "date") {
+                  if (sortOrder === "asc") {
+                    return new Date(a.uploadedAt) > new Date(b.uploadedAt)
+                      ? 1
+                      : -1;
+                  } else {
+                    return new Date(a.uploadedAt) < new Date(b.uploadedAt)
+                      ? 1
+                      : -1;
+                  }
                 }
-              } else if (sortBy === "size") {
-                if (sortOrder === "asc") {
-                  return a.size - b.size;
-                } else {
-                  return b.size - a.size;
-                }
-              } else if (sortBy === "date") {
-                if (sortOrder === "asc") {
-                  return new Date(a.uploadedAt) > new Date(b.uploadedAt)
-                    ? 1
-                    : -1;
-                } else {
-                  return new Date(a.uploadedAt) < new Date(b.uploadedAt)
-                    ? 1
-                    : -1;
-                }
-              }
-            })
-            .map((el: any) => (
-              <Style.Item>
-                <figure>
-                  <div className="cd-list-image">{ICONS[type]}</div>
-                  <Typography tag="h4" size="1.75vh" weight={500}>
-                    {el.fileName}
+              })
+              .map((el: any) => (
+                <Style.Item>
+                  <figure>
+                    <div className="cd-list-image">{ICONS[type]}</div>
+                    <Typography tag="h4" size="1.75vh" weight={500}>
+                      {el.fileName}
+                    </Typography>
+                  </figure>
+                  <Typography {...table_text_props}>
+                    {roundToOneDecimal(el.size)} MB
                   </Typography>
-                </figure>
-                <Typography {...table_text_props}>
-                  {roundToOneDecimal(el.size)} MB
-                </Typography>
-                <Typography {...table_text_props}>
-                  {formatDate(el.uploadedAt)}
-                </Typography>
-                <div className="cd-list-options">
-                  <CDShare />
-                  <CDDownload />
-                  <CDDelete onClick={() => handleDelete(el.relativePath)} />
-                </div>
-              </Style.Item>
-            ))}
-        </InfiniteScroll>
-      </div>
+                  <Typography {...table_text_props}>
+                    {formatDate(el.uploadedAt)}
+                  </Typography>
+                  <div className="cd-list-options">
+                    <CDShare />
+                    <CDDownload />
+                    <CDDelete onClick={() => handleDelete(el.relativePath)} />
+                  </div>
+                </Style.Item>
+              ))}
+          </InfiniteScroll>
+        </div>
+      </Scrollable>
     </Style.Container>
   );
 }
 
 const Style = {
-  Container: styled(Scrollable)`
-    // height of container minus padding
-    height: calc(63vh - ${convertToRelativeUnit(48, "vh")});
+  Container: styled.div`
+    height: calc(60vh - ${convertToRelativeUnit(48, "vh")});
     position: relative;
 
     figure.cd-list-header {
