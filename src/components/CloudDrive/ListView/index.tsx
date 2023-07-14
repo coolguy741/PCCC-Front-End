@@ -1,16 +1,19 @@
-import Cookies from "js-cookie";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
 import { formatDate } from "../../../lib/util/formatDate";
-import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
 import CDDelete from "../Icons/cd-delete";
+import CDDocument from "../Icons/cd-document";
 import CDDownload from "../Icons/cd-download";
+import CDImage from "../Icons/cd-image";
 import CDShare from "../Icons/cd-share";
+import CDVideo from "../Icons/cd-video";
 
 const text_props = {
   size: "1.75vh",
@@ -24,68 +27,139 @@ const table_text_props = {
   color: "neutral-400",
 };
 
-export function roundToOneDecimal(bytes: number) {
-  return Math.round((bytes / 1024 / 1024) * 10) / 10;
-}
+export const ICONS = {
+  images: <CDImage />,
+  documents: <CDDocument />,
+  video: <CDVideo />,
+  audio: <CDAudio />,
+};
 
-export function CDListView({ files }: any) {
+export function CDListView({
+  data,
+  search,
+  type,
+  handleDelete,
+}: {
+  data: any;
+  search: string;
+  type: "images" | "video" | "documents" | "audio";
+  handleDelete: (path: string) => void;
+}) {
   const { api } = useAPI();
   const navigate = useNavigate();
-
-  const handleDelete = async (path: string) => {
-    const response = await api.appCloudDriveDriveFileDelete(
-      {
-        relativePath: path,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      },
-    );
-
-    if (response.status === 204) {
-      navigate("./");
-    }
-  };
+  const [sortBy, setSortBy] = useState<"name" | "size" | "date">("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   return (
     <Style.Container thumbWidth="thin">
       <figure className="cd-list-header">
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("name");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Name
+          {sortBy === "name" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("size");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Size
+          {sortBy === "size" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("date");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Date
+          {sortBy === "date" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
       </figure>
       <div className="cd-list-content">
-        {files.map((el: any) => (
-          <Style.Item>
-            <figure>
-              <div className="cd-list-image">
-                <CDAudio />
-              </div>
-              <Typography tag="h4" size="1.75vh" weight={500}>
-                {el.fileName}
-              </Typography>
-            </figure>
-            <Typography {...table_text_props}>
-              {roundToOneDecimal(el.size)} MB
-            </Typography>
-            <Typography {...table_text_props}>
-              {formatDate(el.uploadedAt)}
-            </Typography>
-            <div className="cd-list-options">
-              <CDShare />
-              <CDDownload />
-              <CDDelete onClick={() => handleDelete(el.relativePath)} />
-            </div>
-          </Style.Item>
-        ))}
+        {data.files &&
+          data.files
+            .filter((e: any) => {
+              if (search === "") return e;
+
+              if (e.fileName.toLowerCase().includes(search.toLowerCase()))
+                return e;
+            })
+            .sort((a: any, b: any) => {
+              if (sortBy === "name") {
+                if (sortOrder === "asc") {
+                  return a.fileName.localeCompare(b.fileName);
+                } else {
+                  return b.fileName.localeCompare(a.fileName);
+                }
+              } else if (sortBy === "size") {
+                if (sortOrder === "asc") {
+                  return a.size - b.size;
+                } else {
+                  return b.size - a.size;
+                }
+              } else if (sortBy === "date") {
+                if (sortOrder === "asc") {
+                  return new Date(a.uploadedAt) > new Date(b.uploadedAt)
+                    ? 1
+                    : -1;
+                } else {
+                  return new Date(a.uploadedAt) < new Date(b.uploadedAt)
+                    ? 1
+                    : -1;
+                }
+              }
+            })
+            .map((el: any) => (
+              <Style.Item>
+                <figure>
+                  <div className="cd-list-image">{ICONS[type]}</div>
+                  <Typography tag="h4" size="1.75vh" weight={500}>
+                    {el.fileName}
+                  </Typography>
+                </figure>
+                <Typography {...table_text_props}>
+                  {roundToOneDecimal(el.size)} MB
+                </Typography>
+                <Typography {...table_text_props}>
+                  {formatDate(el.uploadedAt)}
+                </Typography>
+                <div className="cd-list-options">
+                  <CDShare />
+                  <CDDownload />
+                  <CDDelete onClick={() => handleDelete(el.relativePath)} />
+                </div>
+              </Style.Item>
+            ))}
       </div>
     </Style.Container>
   );
@@ -105,6 +179,16 @@ const Style = {
 
       label {
         display: block;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        user-select: none;
+
+        .desc {
+          transform: rotate(180deg);
+        }
       }
 
       label:first-of-type {

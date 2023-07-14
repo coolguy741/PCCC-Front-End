@@ -8,16 +8,12 @@ import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { Typography } from "../../Typography";
 
 interface FileDropZoneProps {
-  setProgress: (progress: any) => void;
   setUploads: (uploads: any) => void;
   uploads: any;
+  type: "images" | "documents" | "video" | "audio";
 }
 
-const FileDropzone = ({
-  setProgress,
-  setUploads,
-  uploads,
-}: FileDropZoneProps) => {
+const FileDropzone = ({ setUploads, type }: FileDropZoneProps) => {
   const navigate = useNavigate();
   const { api } = new Api({
     baseURL: BASE_API_URL,
@@ -32,7 +28,7 @@ const FileDropzone = ({
 
       await api.appCloudDriveUploadFileCreate(
         { file: file },
-        { folder: "files" },
+        { folder: type },
         {
           headers: {
             Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
@@ -40,8 +36,6 @@ const FileDropzone = ({
           onUploadProgress: (progressEvent) => {
             if (progressEvent.progress) {
               setUploads((prevState: any) => {
-                console.log(prevState);
-
                 return prevState.map((e: any, i: number) => {
                   return i === prevState.length - files.length + index
                     ? {
@@ -60,8 +54,6 @@ const FileDropzone = ({
       );
 
       if (index === files.length - 1) {
-        console.log(index, files.length - 1);
-
         navigate("./");
       }
     });

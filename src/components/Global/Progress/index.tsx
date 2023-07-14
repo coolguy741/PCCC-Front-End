@@ -9,7 +9,7 @@ interface Props {
 export function Progress({ variant, hasError, value }: Props) {
   return (
     <Style.Container
-      value={value || 80}
+      value={value || 0}
       max={100}
       variant={variant}
       hasError={hasError}

@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
 import { CDGalleryView } from "../../components/CloudDrive/GalleryView";
@@ -9,9 +9,15 @@ import CDAdd from "../../components/CloudDrive/Icons/cd-add";
 import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
 import CDList from "../../components/CloudDrive/Icons/cd-list";
 import { CDListView } from "../../components/CloudDrive/ListView";
+import { Input } from "../../components/Global/Input";
 import { Typography } from "../../components/Typography";
+import { useAPI } from "../../hooks/useAPI";
 import { Api } from "../../lib/api/api";
 import { BASE_API_URL } from "../../lib/api/helpers/consts";
+import {
+  getCloudDriveStore,
+  useCloudDriveStore,
+} from "../../stores/cloudDriveStore";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../styles/helpers/glassBackground";
 import { STORAGE_KEY_JWT } from "../consts";
@@ -24,6 +30,8 @@ export interface CloudDriveFileType {
 }
 
 export const cloudDrivePageLoader = async () => {
+  const state = getCloudDriveStore();
+
   const { api } = new Api({
     baseURL: BASE_API_URL,
   });
@@ -49,8 +57,67 @@ export const cloudDrivePageLoader = async () => {
 };
 
 export function CloudDrivePage() {
-  const data: any = useLoaderData();
+  const loaderData: any = useLoaderData();
+  const { type, setType } = useCloudDriveStore();
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState(loaderData as any);
   const [view, setView] = useState<"list" | "gallery">("list");
+  const navigate = useNavigate();
+  const { api } = useAPI();
+
+  const fetchFiles = async (
+    type: "images" | "video" | "documents" | "audio",
+  ) => {
+    const { api } = new Api({
+      baseURL: BASE_API_URL,
+    });
+
+    try {
+      const response = await api.appCloudDriveDriveFilesList(
+        { folder: type },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        setData(response.data as any);
+
+        return response.data;
+      } else return null;
+    } catch (error: unknown) {
+      console.warn(error);
+
+      return null;
+    }
+  };
+
+  const handleDelete = async (path: string) => {
+    const response = await api.appCloudDriveDriveFileDelete(
+      {
+        relativePath: path,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
+      },
+    );
+
+    if (response.status === 204) {
+      navigate("./");
+    }
+  };
+
+  useEffect(() => {
+    fetchFiles(type);
+  }, [type]);
+
+  useEffect(() => {
+    setData(loaderData as any);
+  }, [loaderData]);
 
   return (
     <Style.Container>
@@ -65,7 +132,7 @@ export function CloudDrivePage() {
           >
             Folders
           </Typography>
-          <CDHeader />
+          <CDHeader type={type} setType={setType} />
         </div>
         <div className="cd-files-menu">
           <div className="cdf-menu-options">
@@ -78,6 +145,11 @@ export function CloudDrivePage() {
             >
               Files
             </Typography>
+            <Input
+              placeholder="Search by name"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
             <div>
               <button
                 className={`cdf-view-option ${
@@ -107,15 +179,26 @@ export function CloudDrivePage() {
           </div>
           <article className="cd-content">
             {view === "list" ? (
-              <CDListView files={data.files} />
+              <CDListView
+                data={data}
+                search={search}
+                type={type}
+                handleDelete={handleDelete}
+              />
             ) : (
-              <CDGalleryView files={data.files} />
+              <CDGalleryView
+                data={data}
+                search={search}
+                type={type}
+                handleDelete={handleDelete}
+              />
             )}
           </article>
         </div>
       </section>
       <CloudStorage
         className="cloud-drive-storage"
+        type={type}
         sizeOccupied={data.stats.sizeOccupied}
       />
     </Style.Container>
@@ -159,14 +242,20 @@ const Style = {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1.5vh;
+        gap: 1rem;
+
+        h2 {
+          margin: 0;
+        }
 
         div {
           display: flex;
           height: 100%;
-          width: 27.5%;
+          width: auto;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 1rem;
 
           button.cdf-view-option {
             border-radius: 50%;
