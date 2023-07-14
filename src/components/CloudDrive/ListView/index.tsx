@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import styled from "styled-components";
-import { useAPI } from "../../../hooks/useAPI";
 import { formatDate } from "../../../lib/util/formatDate";
 import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
@@ -36,22 +35,45 @@ export const ICONS = {
 
 export function CDListView({
   data,
-  search,
   type,
   handleDelete,
 }: {
   data: any;
-  search: string;
   type: "images" | "video" | "documents" | "audio";
   handleDelete: (path: string) => void;
 }) {
-  const { api } = useAPI();
-  const navigate = useNavigate();
-  const [sortBy, setSortBy] = useState<"name" | "size" | "date">("name");
+  const numberOfItems = 10;
+  const [itemBatch, setItemBatch] = useState(1);
+  const [displayedItems, setDisplayedItems] = useState([]);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortBy, setSortBy] = useState<"name" | "size" | "date">("name");
+  const [initialized, setInitialized] = useState(false);
+
+  const getMoreItems = () => {
+    setDisplayedItems(
+      displayedItems.concat(
+        data.slice(
+          numberOfItems * itemBatch,
+          numberOfItems + numberOfItems * itemBatch,
+        ),
+      ),
+    );
+
+    setItemBatch(itemBatch + 1);
+  };
+
+  useEffect(() => {
+    if (data && !initialized) {
+      setDisplayedItems(data.slice(0, numberOfItems));
+
+      setInitialized(true);
+    } else if (data && initialized) {
+      setDisplayedItems(data.slice(0, numberOfItems * itemBatch));
+    }
+  }, [data]);
 
   return (
-    <Style.Container thumbWidth="thin">
+    <Style.Container thumbWidth="thin" id="scroll-target">
       <figure className="cd-list-header">
         <Typography
           tag="label"
@@ -105,15 +127,15 @@ export function CDListView({
           )}
         </Typography>
       </figure>
-      <div className="cd-list-content">
-        {data.files &&
-          data.files
-            .filter((e: any) => {
-              if (search === "") return e;
-
-              if (e.fileName.toLowerCase().includes(search.toLowerCase()))
-                return e;
-            })
+      <div id="cd-list-content">
+        <InfiniteScroll
+          dataLength={displayedItems.length}
+          next={getMoreItems}
+          hasMore={displayedItems.length < data.length}
+          loader={<h4>Loading...</h4>}
+          scrollableTarget="scroll-target"
+        >
+          {displayedItems
             .sort((a: any, b: any) => {
               if (sortBy === "name") {
                 if (sortOrder === "asc") {
@@ -160,6 +182,7 @@ export function CDListView({
                 </div>
               </Style.Item>
             ))}
+        </InfiniteScroll>
       </div>
     </Style.Container>
   );
