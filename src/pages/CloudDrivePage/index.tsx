@@ -38,7 +38,7 @@ export const cloudDrivePageLoader = async () => {
 
   try {
     const response = await api.appCloudDriveDriveFilesList(
-      {},
+      { folder: state.type },
       {
         headers: {
           Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
