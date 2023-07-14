@@ -29,11 +29,14 @@ export const cloudDrivePageLoader = async () => {
   });
 
   try {
-    const response = await api.appCloudDriveDriveFilesList({
-      headers: {
-        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+    const response = await api.appCloudDriveDriveFilesList(
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+        },
       },
-    });
+    );
 
     if (response.status === 200) {
       return response.data;

@@ -90,7 +90,6 @@ import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
 import { ThemePreviewPage } from "./ThemeBuilderPage/Create/Preview";
 import { ThemePrintPage } from "./ThemeBuilderPage/Print";
 import { ThemePage } from "./ThemeBuilderPage/ThemePage";
-import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
@@ -528,10 +527,6 @@ export const router = createBrowserRouter([
           },
           { path: ":recipe/print", element: <MealPlannerRecipePrintPage /> },
         ],
-      },
-      {
-        path: "dashboard/topics/:id/:slug/print",
-        element: <TopicPrintPage />,
       },
       {
         path: "dashboard/foodways",

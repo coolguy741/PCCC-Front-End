@@ -190,7 +190,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
         currentLang={currentLang}
         deleteSlide={deleteSlide}
       />
-      {currentStep < 4 ? (
+      {currentStep < 3 ? (
         <Style.DragDropContainer>
           <DragDropContext
             onDragUpdate={onDragUpdate}

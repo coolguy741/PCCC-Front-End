@@ -55,6 +55,8 @@ export const EditFoodwaysPage = () => {
     activeSlide,
     addFoodwaySlide,
     init,
+    currentLang,
+    setLang,
     setActiveSlide,
     totalSlides,
     setTotalSlides,
@@ -175,7 +177,7 @@ export const EditFoodwaysPage = () => {
             </Typography>
             <Icon name="trash" />
           </Style.SlideDeleteButton>
-          <LanguageToggle />
+          <LanguageToggle lang={currentLang} setLang={setLang} />
         </div>
         <span>Move the marker on the globe to the desired location</span>
         <div className="flex">

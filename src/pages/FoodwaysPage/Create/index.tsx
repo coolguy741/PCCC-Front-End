@@ -48,6 +48,8 @@ export const CreateFoodwaysPage = () => {
     setStopDescription,
     setStopTime,
     stopTitle,
+    setLang,
+    currentLang,
     stopDescription,
     stopTime,
   } = useFoodwayStore();
@@ -187,7 +189,7 @@ export const CreateFoodwaysPage = () => {
             </Typography>
             <Icon name="trash" />
           </Style.SlideDeleteButton>
-          <LanguageToggle />
+          <LanguageToggle lang={currentLang} setLang={setLang} />
         </div>
         <span>Move the marker on the globe to the desired location</span>
         <div className="flex">

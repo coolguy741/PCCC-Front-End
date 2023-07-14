@@ -12,6 +12,7 @@ import Button from "../../Button";
 import { ContentList } from "../ContentList";
 import { DropdownSelect } from "../DropdownSelect";
 import Scrollbar from "../Scrollable";
+import { Spinner } from "../Spinner";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum" | "Theme";
 interface ContentListAdminPageTemplateProps {
@@ -24,12 +25,20 @@ interface ContentListAdminPageTemplateProps {
     | MockContentsDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
   handleDelete: () => void;
+  isLoading?: boolean;
 }
 
 const OPTIONS = ["name1", "name2", "name3"];
 
 export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplateProps> =
-  ({ title, selectsGroup, listData, onSelectionChange, handleDelete }) => {
+  ({
+    title,
+    selectsGroup,
+    listData,
+    onSelectionChange,
+    handleDelete,
+    isLoading,
+  }) => {
     return (
       <>
         <Style.InputGroup>
@@ -48,7 +57,12 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             ))}
           </Style.SelectGroup>
           <Style.ButtonGroup>
-            <Button variant="yellow" size="large" onClick={handleDelete}>
+            <Button
+              variant="yellow"
+              disabled={isLoading}
+              size="large"
+              onClick={handleDelete}
+            >
               Delete
             </Button>
             <Button
@@ -56,6 +70,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
               size="large"
               icon="add"
               to="create"
+              disabled={isLoading}
               iconPosition="right"
             >
               {title === "Mealtime Moments Editor"
@@ -65,11 +80,15 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
           </Style.ButtonGroup>
         </Style.InputGroup>
         <Scrollbar thumbWidth="thick">
-          <ContentList
-            listData={listData}
-            selectable={true}
-            onSelectionChange={onSelectionChange}
-          />
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <ContentList
+              listData={listData}
+              selectable={true}
+              onSelectionChange={onSelectionChange}
+            />
+          )}
         </Scrollbar>
       </>
     );

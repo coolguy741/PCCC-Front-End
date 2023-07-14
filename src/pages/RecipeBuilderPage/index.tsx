@@ -1,16 +1,25 @@
-import Cookies from "js-cookie";
 import { useCallback, useEffect, useState } from "react";
 
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
-import { useAPI } from "../../hooks/useAPI";
+import { useFetch } from "../../hooks/useFetch";
+import { PccServer23RecipesRecipeDto } from "../../lib/api/api";
 import { useRecipesStore } from "../../stores/recipesStore";
-import { STORAGE_KEY_JWT } from "../consts";
 
 export const RecipesPage = () => {
   const { recipes, setRecipes } = useRecipesStore();
   const [isNeededToReload, setIsNeededToReload] = useState(true);
-  const { api } = useAPI();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const { fetchData: deleteRecipe } = useFetch(
+    "appCurriculumRecipesDelete",
+    {},
+  );
+  const { isLoading, data, fetchData } = useFetch<{
+    total: number;
+    items: PccServer23RecipesRecipeDto[];
+  }>("appCurriculumRecipesList", {}, undefined, true);
+
   const handleSelectionChange = (id: string, isSelected: boolean) => {
     setSelectedIds((prevIds) => {
       return [
@@ -21,36 +30,28 @@ export const RecipesPage = () => {
   };
 
   const handleDelete = useCallback(async () => {
+    setIsDeleting(true);
     for (const id of selectedIds) {
-      await api.appCurriculumRecipesDelete(id, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      });
+      await deleteRecipe?.(id);
     }
     setIsNeededToReload(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIds]);
 
   useEffect(() => {
-    api &&
-      isNeededToReload &&
-      (async () => {
-        const response = await api
-          .appCurriculumRecipesList(
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-              },
-            },
-          )
-          .then((res) => res.data);
-        setRecipes(response.items);
-        setIsNeededToReload(false);
-      })();
+    isNeededToReload && fetchData?.(undefined, undefined, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNeededToReload]);
+
+  useEffect(() => {
+    if (data) {
+      setRecipes(data.items);
+      setIsNeededToReload(false);
+      setIsDeleting(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return (
     <ContentListAdminPageTemplate
       title={"Recipe"}
@@ -58,6 +59,7 @@ export const RecipesPage = () => {
       listData={recipes ?? []}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
+      isLoading={isDeleting || isLoading}
     />
   );
 };

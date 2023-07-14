@@ -25,7 +25,7 @@ export const ThemePrintPage = () => {
                     {component({
                       slideIndex: sIndex,
                       componentIndex: index,
-                      componentState,
+                      state: componentState,
                       updatePageState,
                     })}
                   </Style.Component>
