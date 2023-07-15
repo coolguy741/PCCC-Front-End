@@ -94,7 +94,7 @@ const Style = {
 
     article.um-content {
       ${glassBackground}
-      padding: 15px 10px;
+      padding: 20px 15px;
       min-height: 47.5vh;
     }
   `,

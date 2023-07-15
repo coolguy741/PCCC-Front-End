@@ -3,15 +3,16 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
+import { getMediaCategory } from "../../../lib/util/getMediaCategory";
 import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
-import CDAudio from "../../CloudDrive/Icons/cd-audio";
 import CDDelete from "../../CloudDrive/Icons/cd-delete";
 import CDDownload from "../../CloudDrive/Icons/cd-download";
 import CDShare from "../../CloudDrive/Icons/cd-share";
 import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
+import { MediaImage } from "../MediaImage";
 
 const text_props = {
   size: "1.75vh",
@@ -64,7 +65,7 @@ export function UploadList({ files }: any) {
           <Style.Item>
             <figure>
               <div className="cd-list-image">
-                <CDAudio />
+                <MediaImage mediaType={getMediaCategory(el.fileName)} />
               </div>
               <Typography tag="h4" size="1.75vh" weight={500}>
                 {el.fileName}
@@ -105,12 +106,12 @@ const Style = {
       }
 
       label:first-of-type {
-        width: 30%;
+        width: 40%;
       }
 
       label:nth-of-type(2),
       label:nth-of-type(3) {
-        width: 15%;
+        width: 20%;
       }
 
       label:nth-of-type(4) {
@@ -126,7 +127,7 @@ const Style = {
     border-bottom: 2px solid #eaeaea;
 
     figure {
-      width: 30%;
+      width: 40%;
       display: flex;
       align-items: center;
 
@@ -145,13 +146,14 @@ const Style = {
           )
         );
         margin-right: 10px;
+        box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
       }
     }
 
     p {
       &:first-of-type,
       &:nth-of-type(2) {
-        width: 15%;
+        width: 20%;
       }
       &:nth-of-type(3) {
         width: 20%;
