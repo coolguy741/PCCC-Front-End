@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import Button from "../../Button";
 import CDAdd from "../../CloudDrive/Icons/cd-add";
@@ -12,16 +12,40 @@ export function ModalHeader({
   changeView: React.Dispatch<React.SetStateAction<"list" | "gallery">>;
 }) {
   const [fileList, setFileList] = useState<FileList | null>(null);
-  // // const inputRef = useRef(null);
+  const inputFile = React.useRef<HTMLInputElement | null>(null);
 
   const handleClick = () => {
     // 👇️ open file input box on click of another element
-    // inputRef.current.click();
+    inputFile.current?.click();
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFileList(e.target.files);
   };
+
+  const handleUploadClick = () => {
+    if (!fileList) {
+      return;
+    }
+
+    // 👇 Create new FormData object and append files
+    const data = new FormData();
+    files.forEach((file, i) => {
+      data.append(`file-${i}`, file, file.name);
+    });
+
+    // 👇 Uploading the files using the fetch API to the server
+    fetch("https://httpbin.org/post", {
+      method: "POST",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+  };
+
+  // 👇 files is not an array, but it's iterable, spread to get an array of files
+  const files = fileList ? [...fileList] : [];
 
   return (
     <Style.Container>
@@ -35,7 +59,12 @@ export function ModalHeader({
         <Button variant="yellow" size="small">
           Add
         </Button>
-        <input type="file" id="imgupload" onChange={handleFileChange} />
+        <input
+          type="file"
+          id="file"
+          ref={inputFile}
+          onChange={handleFileChange}
+        />
         <Button size="small" id="OpenImgUpload" onClick={handleClick}>
           <CDAdd />
           Upload
