@@ -1,1 +1,1 @@
-export type MediaType = "document" | "audio" | "video" | "image" | undefined;
+export type MediaType = "documents" | "audio" | "video" | "images" | undefined;
