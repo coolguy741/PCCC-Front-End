@@ -1,10 +1,10 @@
 import _ from "lodash";
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
 import CCListDelete from "../Icons/list-delete";
 import CCListMinus from "../Icons/list-minus";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const initialState = [
   {
@@ -23,14 +23,14 @@ const initialState = [
   },
 ];
 
-export function SingleBullet() {
-  const {
-    state,
-    changeListEditState,
-    changeListText,
-    deleteListItem,
-    addListItem,
-  } = useContentCreation(initialState as any);
+export function SingleBulletComponent({
+  state,
+  changeListEditState,
+  changeListText,
+  addListItem,
+  deleteListItem,
+  viewMode,
+}: ComponentProps) {
   const listLength = Object.keys(state).length;
 
   return (
@@ -63,6 +63,8 @@ export function SingleBullet() {
     </Style.Container>
   );
 }
+
+export const SingleBullet = withThemeStore(SingleBulletComponent, initialState);
 
 const Style = {
   Container: styled.figure`

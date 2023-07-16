@@ -1,10 +1,10 @@
 import _ from "lodash";
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
 import CCListDelete from "../Icons/list-delete";
 import CCListMinus from "../Icons/list-minus";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const initialState = [
   {
@@ -37,14 +37,13 @@ const initialState = [
   },
 ];
 
-export function DoubleBullet() {
-  const {
-    state,
-    changeListEditState,
-    changeListText,
-    deleteListItem,
-    addListItem,
-  } = useContentCreation(initialState as any);
+export function DoubleBulletComponent({
+  state,
+  changeListEditState,
+  changeListText,
+  addListItem,
+  deleteListItem,
+}: ComponentProps) {
   const listLength = Object.keys(state).length;
   return (
     <Style.Container>
@@ -76,6 +75,8 @@ export function DoubleBullet() {
     </Style.Container>
   );
 }
+
+export const DoubleBullet = withThemeStore(DoubleBulletComponent, initialState);
 
 const Style = {
   Container: styled.figure`
