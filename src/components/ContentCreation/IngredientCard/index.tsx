@@ -2,7 +2,6 @@ import _ from "lodash";
 import styled from "styled-components";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
-import CCListDelete from "../Icons/list-delete";
 import CCListMinus from "../Icons/list-minus";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
@@ -56,7 +55,6 @@ export function IngredientCardComponent({
         <div className="cc-sb-actions">
           <CCListAdd onClick={() => addListItem(true)} />
           <CCListMinus onClick={deleteListItem} />
-          <CCListDelete />
         </div>
       </figcaption>
       <ol>
@@ -116,13 +114,18 @@ const Style = {
         font-size: 23px;
         line-height: 28px;
         color: #3d3d3d;
+        position: relative;
       }
 
       div {
-        width: 15%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: absolute;
+        height: 2vh;
+        right: 45px;
+        top: 14px;
+        width: 60px;
       }
     }
 
