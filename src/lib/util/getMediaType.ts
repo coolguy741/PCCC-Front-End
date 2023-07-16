@@ -1,6 +1,6 @@
 import { MediaType } from "../../types/media";
 
-export function getMediaCategory(str: string): MediaType {
+export function getMediaType(str: string): MediaType {
   const mediaExtension = str.split(".")[1];
   switch (mediaExtension.toLowerCase()) {
     case "pdf":
@@ -13,7 +13,7 @@ export function getMediaCategory(str: string): MediaType {
     case "txt":
     case "csv":
     case "rtf":
-      return "document";
+      return "documents";
     case "mp3":
     case "wav":
     case "aac":
@@ -37,7 +37,7 @@ export function getMediaCategory(str: string): MediaType {
     case "bmp":
     case "tiff":
     case "webp":
-      return "image";
+      return "images";
   }
 
   return undefined;
