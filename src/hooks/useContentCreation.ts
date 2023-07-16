@@ -183,7 +183,6 @@ export function useContentCreation(
     // delete leaves an "empty" value in the array
     // removed with filter
     stateCopy = stateCopy.filter(Boolean);
-
     setState(stateCopy as unknown as State);
   }
 
