@@ -1,8 +1,9 @@
 import { MediaType } from "../../types/media";
 
 export function getMediaType(str: string): MediaType {
-  const mediaExtension = str.split(".")[1];
-  switch (mediaExtension.toLowerCase()) {
+  const nameArray = str.split(".");
+  const ext: string = str.split(".")[nameArray.length - 1].toLowerCase();
+  switch (ext) {
     case "pdf":
     case "doc":
     case "docx":
