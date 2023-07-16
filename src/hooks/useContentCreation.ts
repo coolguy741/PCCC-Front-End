@@ -8,8 +8,9 @@ import {
 } from "../components/ContentCreation/types";
 
 function alterArrayContentState(state: any, idx: number, indexValue: number) {
-  const stateCopy = state;
-  stateCopy.map((s: any, index: number) => (index === idx ? indexValue : s));
+  const stateCopy = state.map((s: any, index: number) =>
+    index === idx ? indexValue : s,
+  );
   return stateCopy;
 }
 
@@ -22,7 +23,7 @@ export function useContentCreation(
   const [componentPosition, setComponentPosition] =
     useState<{ slideIndex: number; componentIndex: number }>();
 
-  function changeEditState(tag: TitleType, amtOrIngdt?: "amt" | "ingdt") {
+  function changeEditState(tag: TitleType) {
     if (state[tag].mode === ComponentViewMode.EDIT) {
       const newState = {
         ...state,

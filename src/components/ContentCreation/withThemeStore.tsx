@@ -13,11 +13,15 @@ export type ComponentProps = {
   state: State;
   changeText: (name: TitleType, newText: string) => void;
   changeEditState: (tag: TitleType) => void;
+  changeListEditState?: any;
+  changeListText?: any;
+  deleteListItem?: any;
+  addListItem?: any;
 };
 
 export function withThemeStore<P extends ThemeComponentProps>(
   Component: ComponentType<P & ComponentProps>,
-  initialState: State,
+  initialState: any,
 ) {
   return function (props: P) {
     const {
@@ -27,8 +31,16 @@ export function withThemeStore<P extends ThemeComponentProps>(
       isEditable,
       updatePageState,
     } = props;
-    const { setComponentPosition, state, changeEditState, changeText } =
-      useContentCreation(componentState ?? initialState, updatePageState);
+    const {
+      setComponentPosition,
+      state,
+      changeEditState,
+      changeText,
+      changeListEditState,
+      changeListText,
+      deleteListItem,
+      addListItem,
+    } = useContentCreation(componentState ?? initialState, updatePageState);
 
     useEffect(() => {
       if (slideIndex !== undefined && componentIndex !== undefined) {
@@ -52,6 +64,10 @@ export function withThemeStore<P extends ThemeComponentProps>(
         changeEditState={changeEditState}
         changeText={changeText}
         viewMode={viewMode}
+        changeListEditState={changeListEditState}
+        changeListText={changeListText}
+        deleteListItem={deleteListItem}
+        addListItem={addListItem}
       />
     );
   };

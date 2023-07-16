@@ -64,7 +64,9 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "1X1 Image",
     preview: <SingleImageIcon />,
-    component: (props: ThemeComponentProps) => <SingleImage key="si" />,
+    component: (props: ThemeComponentProps) => (
+      <SingleImage key="si" {...props} />
+    ),
   },
   {
     id: 5,
@@ -72,7 +74,9 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "Double Image",
     preview: <DoubleImageIcon />,
-    component: (props: ThemeComponentProps) => <DoubleImage key="di" />,
+    component: (props: ThemeComponentProps) => (
+      <DoubleImage key="di" {...props} />
+    ),
   },
   {
     id: 6,
@@ -80,7 +84,9 @@ export const components: ThemeComponent[] = [
     height: 2,
     title: "Assessment - Multiple Choice",
     preview: <AMC />,
-    component: (props: ThemeComponentProps) => <LessonAssessment key="amc" />,
+    component: (props: ThemeComponentProps) => (
+      <LessonAssessment key="amc" {...props} />
+    ),
   },
   {
     id: 7,
@@ -88,7 +94,9 @@ export const components: ThemeComponent[] = [
     height: 2,
     title: "Assessment - True & False",
     preview: <ATF />,
-    component: (props: ThemeComponentProps) => <LessonAssessment key="atf" />,
+    component: (props: ThemeComponentProps) => (
+      <LessonAssessment key="atf" {...props} />
+    ),
   },
   {
     id: 8,
@@ -96,7 +104,9 @@ export const components: ThemeComponent[] = [
     height: 2,
     title: "Assessment - Written",
     preview: <AW />,
-    component: (props: ThemeComponentProps) => <LessonAssessment key="aw" />,
+    component: (props: ThemeComponentProps) => (
+      <LessonAssessment key="aw" {...props} />
+    ),
   },
   {
     id: 9,
@@ -104,8 +114,9 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "Image with Caption",
     preview: <IWC />,
-    // @ts-ignore
-    component: (props: ThemeComponentProps) => <ImageWithCaption key="iwc" />,
+    component: (props: ThemeComponentProps) => (
+      <ImageWithCaption key="iwc" {...props} />
+    ),
   },
   {
     id: 10,
@@ -113,7 +124,9 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "Bullet 1",
     preview: <SB />,
-    component: (props: ThemeComponentProps) => <SingleBullet key="sb" />,
+    component: (props: ThemeComponentProps) => (
+      <SingleBullet key="sb" {...props} />
+    ),
   },
   {
     id: 10,
@@ -121,7 +134,9 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "Ingredient Card",
     preview: <IC />,
-    component: (props: ThemeComponentProps) => <IngredientCard key="ic" />,
+    component: (props: ThemeComponentProps) => (
+      <IngredientCard key="ic" {...props} />
+    ),
   },
   {
     id: 11,
@@ -129,7 +144,9 @@ export const components: ThemeComponent[] = [
     height: 1,
     title: "Bullet 2",
     preview: <DB />,
-    component: (props: ThemeComponentProps) => <DoubleBullet key="db" />,
+    component: (props: ThemeComponentProps) => (
+      <DoubleBullet key="db" {...props} />
+    ),
   },
 ];
 
