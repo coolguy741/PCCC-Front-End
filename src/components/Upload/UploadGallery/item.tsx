@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { formatDate } from "../../../lib/util/formatDate";
-import { getMediaCategory } from "../../../lib/util/getMediaCategory";
+import { getMediaType } from "../../../lib/util/getMediaType";
 import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import CDDelete from "../../CloudDrive/Icons/cd-delete";
@@ -34,7 +34,7 @@ export function GalleryItem(props: any) {
         <div>
           <Typography tag="h4" size="1.5vh" weight={500}>
             <div className="cdg-thumbnail">
-              <MediaImage mediaType={getMediaCategory(el.fileName)} />
+              <MediaImage mediaType={getMediaType(el.fileName)} />
             </div>
             <TitleStyle el={el} length={15} />
           </Typography>
@@ -53,7 +53,7 @@ export function GalleryItem(props: any) {
           <img src={el.url} alt={el.fileName} />
         ) : (
           <div className="icon">
-            <MediaImage mediaType={getMediaCategory(el.fileName)} />
+            <MediaImage mediaType={getMediaType(el.fileName)} />
           </div>
         )}
       </div>

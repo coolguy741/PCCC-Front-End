@@ -1,5 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import Cookies from "js-cookie";
+import React, { ChangeEvent } from "react";
 import styled from "styled-components";
+import { Api } from "../../../lib/api/api";
+import { BASE_API_URL } from "../../../lib/api/helpers/consts";
+import { getMediaType } from "../../../lib/util/getMediaType";
+import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import Button from "../../Button";
 import CDAdd from "../../CloudDrive/Icons/cd-add";
 import CDGallery from "../../CloudDrive/Icons/cd-gallery";
@@ -8,44 +13,45 @@ import { Typography } from "../../Typography";
 
 export function ModalHeader({
   changeView,
+  reload,
 }: {
   changeView: React.Dispatch<React.SetStateAction<"list" | "gallery">>;
+  reload: () => Promise<void>;
 }) {
-  const [fileList, setFileList] = useState<FileList | null>(null);
   const inputFile = React.useRef<HTMLInputElement | null>(null);
+  const { api } = new Api({
+    baseURL: BASE_API_URL,
+  });
 
   const handleClick = () => {
-    // 👇️ open file input box on click of another element
     inputFile.current?.click();
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFileList(e.target.files);
-  };
-
-  const handleUploadClick = () => {
-    if (!fileList) {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
       return;
     }
 
-    // 👇 Create new FormData object and append files
-    const data = new FormData();
-    files.forEach((file, i) => {
-      data.append(`file-${i}`, file, file.name);
-    });
+    const file = e.target.files[0];
 
-    // 👇 Uploading the files using the fetch API to the server
-    fetch("https://httpbin.org/post", {
-      method: "POST",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
+    try {
+      const response = await api.appCloudDriveUploadFileCreate(
+        { file: file },
+        { folder: getMediaType(file.name) ?? "documents" },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        reload();
+      }
+    } catch (error: unknown) {
+      return console.warn(error);
+    }
   };
-
-  // 👇 files is not an array, but it's iterable, spread to get an array of files
-  const files = fileList ? [...fileList] : [];
 
   return (
     <Style.Container>
@@ -103,6 +109,3 @@ const Style = {
     }
   `,
 };
-function useRef<T>(arg0: null) {
-  throw new Error("Function not implemented.");
-}

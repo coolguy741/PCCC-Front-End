@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
-import { getMediaCategory } from "../../../lib/util/getMediaCategory";
+import { getMediaType } from "../../../lib/util/getMediaType";
 import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
@@ -13,6 +13,7 @@ import CDShare from "../../CloudDrive/Icons/cd-share";
 import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
 import { MediaImage } from "../MediaImage";
+import { TitleStyle } from "../TitleStyle";
 
 const text_props = {
   size: "1.75vh",
@@ -65,10 +66,10 @@ export function UploadList({ files }: any) {
           <Style.Item>
             <figure>
               <div className="cd-list-image">
-                <MediaImage mediaType={getMediaCategory(el.fileName)} />
+                <MediaImage mediaType={getMediaType(el.fileName)} />
               </div>
               <Typography tag="h4" size="1.75vh" weight={500}>
-                {el.fileName}
+                <TitleStyle el={el} length={25} />
               </Typography>
             </figure>
             <Typography {...table_text_props}>

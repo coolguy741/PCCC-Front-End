@@ -75,7 +75,7 @@ export function UploadModal({
   return (
     <Modal modal={modal} toggle={toggle}>
       <Style.Container>
-        <ModalHeader changeView={setView} />
+        <ModalHeader reload={getCloudDriveFiles} changeView={setView} />
         <ModalMenu />
         <article className="um-content">{showFilesView()}</article>
       </Style.Container>
