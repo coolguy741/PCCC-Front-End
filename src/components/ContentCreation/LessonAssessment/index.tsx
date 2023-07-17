@@ -23,6 +23,13 @@ function switchLAView(variant?: LAVariant) {
   }
 }
 
+const initialState = {
+  img: {
+    src: "",
+    patternChoice: "",
+  },
+};
+
 export const LessonAssessment = ({
   variant,
   media,

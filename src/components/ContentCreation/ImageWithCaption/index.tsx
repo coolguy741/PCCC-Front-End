@@ -17,6 +17,7 @@ const iWithCState: any = {
   },
   img: {
     src: "",
+    patternChoice: "",
   },
 };
 
