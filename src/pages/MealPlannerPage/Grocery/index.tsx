@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { BackButton } from "../../../components/Global/BackButton";
-import Scrollbar from "../../../components/Global/Scrollable";
+import Scrollable from "../../../components/Global/Scrollable";
 import { GroceryItem } from "../../../components/MealPlanner/Grocery";
-import { MealPlanHeader } from "../../../components/MealPlanner/Header";
 import { Grocery } from "../../types";
 
 const groceries: Grocery[] = [
@@ -160,17 +159,13 @@ export const MealPlannerGroceryPage = () => {
 
   return (
     <Style.PageContainer>
-      <MealPlanHeader
-        title="Meal Planner"
-        description="Plan your meal ahead of time for teh entire team."
-      />
       <div className="grocery-container">
         <Style.ButtonContainer>
           <BackButton onClick={handleBack} />
           <Button size="large">Print</Button>
         </Style.ButtonContainer>
-        <h3>Grocery List</h3>
-        <Scrollbar thumbWidth="thick">
+        <h2>Grocery List</h2>
+        <Scrollable thumbWidth="thin" className="scrollable">
           <Style.GroceryList>
             {groceries.map((grocery) => (
               <div className="grocery-item-container">
@@ -178,7 +173,7 @@ export const MealPlannerGroceryPage = () => {
               </div>
             ))}
           </Style.GroceryList>
-        </Scrollbar>
+        </Scrollable>
       </div>
     </Style.PageContainer>
   );
@@ -186,21 +181,23 @@ export const MealPlannerGroceryPage = () => {
 
 const Style = {
   PageContainer: styled.div`
-    width: 100%;
-    height: 100%;
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
 
     .grocery-container {
       position: relative;
       padding-top: 1.5rem;
-      margin: 0px 40px;
 
-      h3 {
-        font-weight: 700;
-        font-size: 2rem;
-        font-family: "Noir Std";
-        line-height: 3.125rem;
+      h2 {
         margin: 1rem 0;
       }
+
+      .scrollable {
+        height: 70vh;
+        padding-bottom: 2rem;
 
       .print-link-container {
         position: absolute;
