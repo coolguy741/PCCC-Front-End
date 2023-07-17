@@ -7,13 +7,13 @@ import CDVideo from "../../CloudDrive/Icons/cd-video";
 export function MediaImage({ mediaType }: { mediaType: MediaType }) {
   function getMediaIcon(mediaType: MediaType) {
     switch (mediaType) {
-      case "document":
+      case "documents":
         return <CDDocument />;
       case "audio":
         return <CDAudio />;
       case "video":
         return <CDVideo />;
-      case "image":
+      case "images":
       default:
         return <CDImage />;
     }

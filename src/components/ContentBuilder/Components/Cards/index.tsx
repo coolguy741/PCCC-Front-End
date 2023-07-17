@@ -85,7 +85,7 @@ export const components: ThemeComponent[] = [
     title: "Assessment - Multiple Choice",
     preview: <AMC />,
     component: (props: ThemeComponentProps) => (
-      <LessonAssessment key="amc" {...props} />
+      <LessonAssessment key="amc" media={{}} {...props} />
     ),
   },
   {
@@ -95,7 +95,7 @@ export const components: ThemeComponent[] = [
     title: "Assessment - True & False",
     preview: <ATF />,
     component: (props: ThemeComponentProps) => (
-      <LessonAssessment key="atf" {...props} />
+      <LessonAssessment media={{}} key="atf" {...props} />
     ),
   },
   {
@@ -105,7 +105,7 @@ export const components: ThemeComponent[] = [
     title: "Assessment - Written",
     preview: <AW />,
     component: (props: ThemeComponentProps) => (
-      <LessonAssessment key="aw" {...props} />
+      <LessonAssessment media={{}} key="aw" {...props} />
     ),
   },
   {
