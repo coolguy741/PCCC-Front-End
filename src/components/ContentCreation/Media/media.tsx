@@ -21,9 +21,9 @@ export function Media({
   return (
     <>
       <Style.Container>
-        <img src={media.src} alt="" />
+        <img src={media?.src} alt="" />
         <figcaption></figcaption>
-        {!media.src && (
+        {!media?.src && (
           <Patterns className="empty-img" pattern={currentPattern}>
             <div className="img-btn-group">
               <button>
