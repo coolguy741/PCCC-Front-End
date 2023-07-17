@@ -1,16 +1,11 @@
 import { ComponentType, useCallback, useEffect } from "react";
 
 import { useContentCreation } from "../../hooks/useContentCreation";
-import {
-  ComponentViewMode,
-  State,
-  ThemeComponentProps,
-  TitleType,
-} from "./types";
+import { ComponentViewMode, ThemeComponentProps, TitleType } from "./types";
 
 export type ComponentProps = {
   viewMode: (mode: ComponentViewMode) => ComponentViewMode;
-  state: State;
+  state: any;
   changeText: (name: TitleType, newText: string) => void;
   changeEditState: (tag: TitleType) => void;
   changeListEditState?: any;
