@@ -3,7 +3,7 @@ import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { Image } from "../Image/image";
+import { Media } from "../Media/media";
 import { withThemeStore } from "../withThemeStore";
 
 const iWithCState: any = {
@@ -20,13 +20,13 @@ const iWithCState: any = {
   },
 };
 
-export function ImageWithCaption() {
+export function ImageWithCaption({ media }: any) {
   const { state, changeText, changeEditState } =
     useContentCreation(iWithCState);
   return (
     <Style.Container>
       <div className="iwc-image">
-        <Image variant="img-only" img="" />
+        <Media variant="img-only" media={media} />
       </div>
       <Typography
         weight={400}
