@@ -52,6 +52,7 @@
     "react-hook-form": "^7.43.9",
     "react-infinite-scroll-component": "^6.1.0",
     "react-merge-refs": "^2.0.2",
+    "react-player": "2.11.0",
     "react-router-dom": "^6.8.1",
     "react-sequence-animator": "^2.3.0",
     "react-textarea-autosize": "^8.4.1",

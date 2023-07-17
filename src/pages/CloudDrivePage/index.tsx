@@ -9,7 +9,9 @@ import CDAdd from "../../components/CloudDrive/Icons/cd-add";
 import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
 import CDList from "../../components/CloudDrive/Icons/cd-list";
 import { CDListView } from "../../components/CloudDrive/ListView";
+import { PreviewModal } from "../../components/CloudDrive/PreviewModal";
 import { Input } from "../../components/Global/Input";
+import { ModalContainer } from "../../components/Global/ModalContainer";
 import { Typography } from "../../components/Typography";
 import { useAPI } from "../../hooks/useAPI";
 import { Api } from "../../lib/api/api";
@@ -60,6 +62,11 @@ export function CloudDrivePage() {
   const loaderData: any = useLoaderData();
   const { type, setType } = useCloudDriveStore();
   const [search, setSearch] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [fileType, setFileType] =
+    useState<"images" | "video" | "audio" | "documents">("images");
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [data, setData] = useState(loaderData as any);
   const [displayedResults, setDisplayedResults] = useState<
     CloudDriveFileType[]
@@ -197,12 +204,20 @@ export function CloudDrivePage() {
                 data={displayedResults}
                 type={type}
                 handleDelete={handleDelete}
+                setPreviewUrl={setPreviewUrl}
+                setShowPreviewModal={setShowPreviewModal}
+                setFileType={setFileType}
+                setFileName={setFileName}
               />
             ) : (
               <CDGalleryView
                 data={displayedResults}
                 type={type}
                 handleDelete={handleDelete}
+                setPreviewUrl={setPreviewUrl}
+                setShowPreviewModal={setShowPreviewModal}
+                setFileType={setFileType}
+                setFileName={setFileName}
               />
             )}
           </article>
@@ -213,6 +228,11 @@ export function CloudDrivePage() {
         type={type}
         sizeOccupied={data.stats.sizeOccupied}
       />
+      {showPreviewModal && previewUrl && (
+        <ModalContainer close={() => setShowPreviewModal(false)}>
+          <PreviewModal url={previewUrl} type={fileType} fileName={fileName} />
+        </ModalContainer>
+      )}
     </Style.Container>
   );
 }

@@ -37,10 +37,18 @@ export function CDListView({
   data,
   type,
   handleDelete,
+  setPreviewUrl,
+  setShowPreviewModal,
+  setFileType,
+  setFileName,
 }: {
   data: any;
   type: "images" | "video" | "documents" | "audio";
   handleDelete: (path: string) => void;
+  setPreviewUrl: (url: string) => void;
+  setShowPreviewModal: (show: boolean) => void;
+  setFileType: (type: "images" | "video" | "audio" | "documents") => void;
+  setFileName: (name: string) => void;
 }) {
   const numberOfItems = 10;
   const [itemBatch, setItemBatch] = useState(1);
@@ -71,6 +79,22 @@ export function CDListView({
       setDisplayedItems(data.slice(0, numberOfItems * itemBatch));
     }
   }, [data]);
+
+  const playHandler = (
+    url: string,
+    type: "audio" | "video" | "documents" | "images",
+    fileName: string,
+  ) => {
+    if (type !== "documents") {
+      if (type && url) {
+        setPreviewUrl(url);
+        setFileType(type);
+        setFileName(fileName);
+      }
+
+      setShowPreviewModal(true);
+    }
+  };
 
   return (
     <Style.Container>
@@ -165,8 +189,16 @@ export function CDListView({
               .map((el: any) => (
                 <Style.Item>
                   <figure>
-                    <div className="cd-list-image">{ICONS[type]}</div>
-                    <Typography tag="h4" size="1.75vh" weight={500}>
+                    <div className="cd-list-image file-name">{ICONS[type]}</div>
+                    <Typography
+                      tag="h4"
+                      size="1.75vh"
+                      weight={500}
+                      onClick={() =>
+                        playHandler(el.url, el.folder, el.fileName)
+                      }
+                      className="file-name"
+                    >
                       {el.fileName}
                     </Typography>
                   </figure>
@@ -271,6 +303,10 @@ const Style = {
       &:nth-of-type(3) {
         width: 20%;
       }
+    }
+
+    .file-name {
+      cursor: pointer;
     }
 
     .cd-list-options {
