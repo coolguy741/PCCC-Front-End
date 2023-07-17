@@ -1,4 +1,4 @@
-import { useThemeStore } from "../../../../stores/themeStore";
+import { useThemeStore } from "../../../../stores/contentBuilderStore";
 import Button from "../../../Button";
 import { Modal, ModalProps } from "../../../Global/Modal";
 import { Typography } from "../../../Global/Typography";

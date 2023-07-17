@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { ContentBuilderOverview } from "../../../components/ContentBuilder/Overview";
 import { useContentActions } from "../../../hooks/useContentActions";
-import { useThemeStore } from "../../../stores/themeStore";
+import { useThemeStore } from "../../../stores/contentBuilderStore";
 import { ContentBuilderType } from "../../types";
 
 export const ThemePage = () => {

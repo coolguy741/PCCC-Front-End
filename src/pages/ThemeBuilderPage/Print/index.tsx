@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useThemeStore } from "../../../stores/themeStore";
+import { useThemeStore } from "../../../stores/contentBuilderStore";
 
 export const ThemePrintPage = () => {
   const { contents, currentStep, updatePageState } = useThemeStore();

@@ -3,10 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useFetch } from "../../hooks/useFetch";
 import { PccServer23ActivitiesActivityDto } from "../../lib/api/api";
-import { useActivitiesStore } from "../../stores/activitiesStore";
+import { useActivitiesStore } from "../../stores/contentBuilderStore";
 
 export const ActivitiesPage = () => {
-  const { activities, setActivities } = useActivitiesStore();
+  const { items, setItems } = useActivitiesStore();
   const [isNeededToReload, setIsNeededToReload] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -42,7 +42,7 @@ export const ActivitiesPage = () => {
 
   useEffect(() => {
     if (data) {
-      setActivities(data.items);
+      setItems(data.items);
       setIsNeededToReload(false);
       setIsDeleting(false);
     }
@@ -53,7 +53,7 @@ export const ActivitiesPage = () => {
     <ContentListAdminPageTemplate
       title={"Activity"}
       selectsGroup={["Curriculum", "Topic", "Sort"]}
-      listData={activities ?? []}
+      listData={items ?? []}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
       isLoading={isLoading || isDeleting}

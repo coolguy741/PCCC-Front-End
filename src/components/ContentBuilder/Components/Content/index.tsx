@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
-import { ContentBuilderType, IContent } from "../../../../pages/types";
+import { ContentBuilderType, ThemeComponent } from "../../../../pages/types";
 import { PreviewAction } from "../Actions/PreviewAction";
 import { ContentNavigator } from "../ContentNavigator";
 import { ContentTemplate } from "../ContentTemplate";
 
 interface ContentProps {
-  contents: IContent[];
-  currentStep: number;
+  slides: ThemeComponent[][];
   setSlideIndex: (index: number) => void;
   isEditable?: boolean;
   type: ContentBuilderType;
@@ -15,8 +14,7 @@ interface ContentProps {
 
 export const Content: React.FC<ContentProps> = ({
   type,
-  contents,
-  currentStep,
+  slides,
   setSlideIndex,
   isEditable = true,
 }) => {
@@ -26,7 +24,7 @@ export const Content: React.FC<ContentProps> = ({
       <ContentTemplate
         isEditable={isEditable}
         setSlideIndex={setSlideIndex}
-        slides={contents[currentStep].slides}
+        slides={slides}
       />
       <PreviewAction />
     </Style.Slide>

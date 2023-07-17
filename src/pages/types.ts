@@ -2,6 +2,11 @@ import {
   State,
   ThemeComponentProps,
 } from "../components/ContentCreation/types";
+import {
+  PccServer23ActivitiesActivityDto,
+  PccServer23CurriculumRecipesCurriculumRecipeDto,
+  PccServer23ThemesThemeDto,
+} from "../lib/api/api";
 
 export type Unit = "each" | "liter" | "grams";
 export type Color = "orange" | "red" | "blue" | "green" | "yellow" | "neutral";
@@ -12,6 +17,12 @@ export enum ContentBuilderType {
   RECIPES = "recipes",
   MEALTIME_MOMENTS = "mealtime-moments",
   FOODWAYS = "foodways",
+}
+
+export enum ThemeProperties {
+  EDUCATOR_NOTES = "educator-notes",
+  ACTIVITIES = "activities",
+  RECIPES = "recipes",
 }
 
 export interface Material {
@@ -79,4 +90,68 @@ export interface FoodwayStop {
   location: string[] | undefined[];
   description: string[] | undefined[];
   timePeriod: string[] | undefined[];
+}
+
+export interface ContentBuilderProps {
+  id?: string;
+  currentLang: Language;
+  slideIndex: number;
+  items?:
+    | PccServer23ActivitiesActivityDto[]
+    | PccServer23CurriculumRecipesCurriculumRecipeDto[]
+    | PccServer23ThemesThemeDto[]
+    | null;
+  concurrencyStamp?: string;
+  slides: ThemeComponent[][];
+  tags?: string[];
+  en: {
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: ThemeComponent[][];
+  };
+  fr: {
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: ThemeComponent[][];
+  };
+}
+
+export interface ContentStoreProps {
+  updateDetail: (detail: {
+    slides: ThemeComponent[][];
+    id: string;
+    concurrencyStamp: string;
+    en?: {
+      title?: string;
+      topic?: string;
+      description?: string;
+      jsonData?: ThemeComponent[][];
+    };
+    fr?: {
+      title?: string;
+      topic?: string;
+      description?: string;
+      jsonData?: ThemeComponent[][];
+    };
+  }) => void;
+  addSlide: () => void;
+  updatePage: (slide: ThemeComponent[]) => void;
+  updatePageState: (slideIndex: number, index: number, state: State) => void;
+  setLang: (lang: Language) => void;
+  setSlideIndex: (slideIndex: number) => void;
+  init: () => void;
+  deleteSlide: () => void;
+  continueWithFrench: () => void;
+  updateId: (id: string | undefined) => void;
+  setItems: (
+    items:
+      | PccServer23ActivitiesActivityDto[]
+      | PccServer23CurriculumRecipesCurriculumRecipeDto[]
+      | PccServer23ThemesThemeDto[]
+      | undefined
+      | null,
+  ) => void;
+  getDetailId: (index: number) => string | undefined;
 }

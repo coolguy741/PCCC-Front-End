@@ -391,9 +391,8 @@ export const router = createBrowserRouter([
           <PageTitleLayout title="Recipes" icon="Recipes-orange-outlined" />
         ),
         loader: async () => {
-          await redirectIfNotLoggedIn();
-
           return null;
+          await redirectIfNotLoggedIn();
         },
         children: [
           { path: "", element: <RecipesPage /> },

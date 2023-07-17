@@ -1,6 +1,5 @@
 import styled from "styled-components";
-
-import { useThemeStore } from "../../../../stores/themeStore";
+import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 
 const tabs = ["Theme", "Educator notes", "Assessment", "Activities", "Recipes"];
 const Tab: React.FC<{ index: number; currentStep: number; tab: string }> = ({
@@ -8,7 +7,7 @@ const Tab: React.FC<{ index: number; currentStep: number; tab: string }> = ({
   currentStep,
   tab,
 }) => {
-  const { changeStep } = useThemeStore();
+  const { changeStep } = useThemeBuilderStore();
 
   return (
     <>
@@ -27,7 +26,7 @@ const Tab: React.FC<{ index: number; currentStep: number; tab: string }> = ({
 };
 
 export const ContentSlider = () => {
-  const { currentStep } = useThemeStore();
+  const { currentStep } = useThemeBuilderStore();
 
   return (
     <Style.SliderContainer>
