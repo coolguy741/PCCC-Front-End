@@ -7,6 +7,7 @@ interface ScrollbarProps {
   className?: string;
   height?: string;
   tag?: "section" | "div" | "article";
+  id?: string;
 }
 
 const Scrollable: React.FC<ScrollbarProps> = ({
@@ -15,6 +16,7 @@ const Scrollable: React.FC<ScrollbarProps> = ({
   children,
   className,
   tag = "section",
+  id,
 }) => {
   return (
     <DynamicStyle
@@ -22,6 +24,7 @@ const Scrollable: React.FC<ScrollbarProps> = ({
       thumbwidth={thumbWidth}
       height={height}
       tag={tag}
+      id={id}
     >
       {children}
     </DynamicStyle>
