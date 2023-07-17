@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { Media } from "../Media/media";
-import { withThemeStore } from "../withThemeStore";
+import { ObjectState } from "../types";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const iWithCState: any = {
   heading: {
@@ -21,13 +21,18 @@ const iWithCState: any = {
   },
 };
 
-export function ImageWithCaption({ media }: any) {
-  const { state, changeText, changeEditState } =
-    useContentCreation(iWithCState);
+export function ImageWithCaptionComponent({
+  state,
+  changeEditState,
+  changeText,
+  viewMode,
+}: ComponentProps) {
+  const componentState = state as ObjectState;
+
   return (
     <Style.Container>
       <div className="iwc-image">
-        <Media variant="img-only" media={media} />
+        <Media variant="img-only" media={{}} />
       </div>
       <Typography
         weight={400}
@@ -39,18 +44,18 @@ export function ImageWithCaption({ media }: any) {
         <b>
           {" "}
           <DoubleClickToEditComponent
-            mode={state.heading.mode}
+            mode={viewMode(componentState.heading.mode)}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.heading.text}
+            text={componentState.heading.text}
             name="heading"
           />
         </b>{" "}
         <DoubleClickToEditComponent
-          mode={state.desc.mode}
+          mode={viewMode(componentState.desc.mode)}
           setText={changeText}
           changeEditState={changeEditState}
-          text={state.desc.text}
+          text={componentState.desc.text}
           name="desc"
         />
       </Typography>
@@ -58,8 +63,8 @@ export function ImageWithCaption({ media }: any) {
   );
 }
 
-export const ParagraphWithHeading = withThemeStore(
-  ImageWithCaption,
+export const ImageWithCaption = withThemeStore(
+  ImageWithCaptionComponent,
   iWithCState,
 );
 

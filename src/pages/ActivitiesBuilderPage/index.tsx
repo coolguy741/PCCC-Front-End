@@ -1,33 +1,53 @@
-import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
-import { useAPI } from "../../hooks/useAPI";
+import { useFetch } from "../../hooks/useFetch";
+import { PccServer23ActivitiesActivityDto } from "../../lib/api/api";
 import { useActivitiesStore } from "../../stores/activitiesStore";
-import { STORAGE_KEY_JWT } from "../consts";
 
 export const ActivitiesPage = () => {
   const { activities, setActivities } = useActivitiesStore();
-  const { api } = useAPI();
+  const [isNeededToReload, setIsNeededToReload] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const { fetchData: deleteActivity } = useFetch("appActivitiesDelete", {});
+  const { isLoading, data, fetchData } = useFetch<{
+    total: number;
+    items: PccServer23ActivitiesActivityDto[];
+  }>("appActivitiesList", {}, undefined, true);
+
   const handleSelectionChange = (id: string, isSelected: boolean) => {
-    return;
+    setSelectedIds((prevIds) => {
+      return [
+        ...prevIds.filter((prevId) => prevId !== id),
+        isSelected ? id : "",
+      ].filter(Boolean);
+    });
   };
+
+  const handleDelete = useCallback(async () => {
+    setIsDeleting(true);
+    for (const id of selectedIds) {
+      await deleteActivity?.(id);
+    }
+    setIsNeededToReload(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIds]);
+
   useEffect(() => {
-    api &&
-      (async () => {
-        const activities = await api
-          .appActivitiesList(
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-              },
-            },
-          )
-          .then((res) => res.data);
-        setActivities(activities.items);
-      })();
-  }, [api]);
+    isNeededToReload && fetchData?.(undefined, undefined, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNeededToReload]);
+
+  useEffect(() => {
+    if (data) {
+      setActivities(data.items);
+      setIsNeededToReload(false);
+      setIsDeleting(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <ContentListAdminPageTemplate
@@ -35,6 +55,8 @@ export const ActivitiesPage = () => {
       selectsGroup={["Curriculum", "Topic", "Sort"]}
       listData={activities ?? []}
       onSelectionChange={handleSelectionChange}
+      handleDelete={handleDelete}
+      isLoading={isLoading || isDeleting}
     />
   );
 };

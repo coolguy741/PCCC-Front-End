@@ -11,9 +11,11 @@ import { Typography } from "../../../components/Global/Typography";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
+import { Language } from "../../types";
 
 export const EditMealtimeMomentPage = () => {
   const navigate = useNavigate();
+  const [lang, setLang] = useState<Language>("en");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState(["foraging", "seeds"]);
@@ -47,7 +49,7 @@ export const EditMealtimeMomentPage = () => {
 
       <Style.Info>
         <div className="flex">
-          <LanguageToggle />
+          <LanguageToggle lang={lang} setLang={setLang} />
         </div>
         <div className="flex">
           <Tags tags={tags} addTag={addTag} deleteTag={deleteTag} />

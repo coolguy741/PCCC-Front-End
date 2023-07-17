@@ -15,7 +15,7 @@ import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
 
 export const CreateMealtimeMomentPage = () => {
   const navigate = useNavigate();
-  const { title, description, setTitle, setDescription } =
+  const { title, description, setTitle, setDescription, currentLang, setLang } =
     useMealtimeMomentsStore();
   const [_title, _setTitle] = useState(title || "");
   const [_description, _setDescription] = useState(description || "");
@@ -55,7 +55,7 @@ export const CreateMealtimeMomentPage = () => {
 
       <Style.Info>
         <div className="flex">
-          <LanguageToggle />
+          <LanguageToggle lang={currentLang} setLang={setLang} />
         </div>
         <div className="flex">
           <Tags tags={tags} addTag={addTag} deleteTag={deleteTag} />

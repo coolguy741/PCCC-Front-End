@@ -1,7 +1,10 @@
 import { create } from "zustand";
 
 import { components } from "../components/ContentBuilder/Components/Cards";
-import { State as ComponentState } from "../components/ContentCreation/types";
+import {
+  CCFormat,
+  State as ComponentState,
+} from "../components/ContentCreation/types";
 import { Language, ThemeComponent } from "../pages/types";
 import { PccServer23ThemesThemeDto } from "./../lib/api/api";
 
@@ -13,23 +16,50 @@ interface IContent {
 
 interface ThemeProp {
   id?: string;
+  concurrencyStamp?: string;
   themes?: PccServer23ThemesThemeDto[] | null;
   currentStep: number;
   currentLang: Language;
   maxPageCount: number;
   slideIndex: number;
   contents: IContent[];
-  currentSlide: ThemeComponent[];
   activityIds: string[];
   recipeIds: string[];
+  tags?: string[];
   en: {
-    contents: IContent[];
+    name?: string;
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
   fr: {
-    contents: IContent[];
+    name?: string;
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
 }
 export interface ThemeStoreState extends ThemeProp {
+  updateDetail: (detail: {
+    contents: IContent[];
+    id: string;
+    concurrencyStamp: string;
+    en?: {
+      title?: string;
+      topic?: string;
+      description?: string;
+      jsonData?: IContent[];
+    };
+    fr?: {
+      title?: string;
+      topic?: string;
+      description?: string;
+      jsonData?: IContent[];
+    };
+  }) => void;
+  setThemes: (themes: PccServer23ThemesThemeDto[] | undefined | null) => void;
   changeStep: (step: number) => void;
   addSlide: () => void;
   updatePage: (slide: ThemeComponent[]) => void;
@@ -53,22 +83,41 @@ const initialState: ThemeProp = {
   currentStep: 0,
   maxPageCount: 6,
   slideIndex: 0,
-  contents: [{ slides: [[components[0]]] }],
+  contents: [{ slides: [[{ ...components[0] }]] }],
   currentLang: "en",
-  currentSlide: [],
   activityIds: [],
   recipeIds: [],
   en: {
-    contents: [],
+    jsonData: [],
   },
   fr: {
-    contents: [],
+    jsonData: [],
   },
 };
 
 export const useThemeStore = create<ThemeStoreState>()((set, get) => ({
   ...initialState,
+  updateDetail: ({ contents, id, concurrencyStamp, en, fr }) =>
+    set(({ en: originEn, fr: originFr }) => ({
+      contents,
+      id,
+      concurrencyStamp,
+      en: { ...originEn, ...en },
+      fr: { ...originFr, ...fr },
+    })),
   updateId: (id) => set(() => ({ id })),
+  setThemes: (themes) =>
+    set(() => ({
+      ...initialState,
+      themes,
+      contents: [{ slides: [[{ ...components[0] }]] }],
+      en: {
+        jsonData: [],
+      },
+      fr: {
+        jsonData: [],
+      },
+    })),
   changeStep: (currentStep) =>
     set(({ contents }) => ({
       currentStep,
@@ -117,10 +166,21 @@ export const useThemeStore = create<ThemeStoreState>()((set, get) => ({
         }) ?? [{ slides: [] }]),
       ],
     })),
-  setLang: (currentLang: Language) =>
-    set(() => ({
-      currentLang,
-    })),
+  setLang: (newLang: Language) =>
+    set(({ contents, currentLang, ...state }) => {
+      return {
+        [currentLang]: {
+          ...state[currentLang],
+          jsonData: [...contents],
+        },
+        currentStep: 0,
+        slideIndex: 0,
+        contents: state[newLang].jsonData.length
+          ? [...state[newLang].jsonData]
+          : [{ slides: [[{ ...components[0] }]] }],
+        currentLang: newLang,
+      };
+    }),
   deleteSlide: () =>
     set(({ contents, slideIndex, currentStep }) => ({
       contents: [
@@ -140,13 +200,24 @@ export const useThemeStore = create<ThemeStoreState>()((set, get) => ({
   continueWithFrench: () =>
     set(({ contents }) => ({
       currentStep: 0,
-      en: { contents },
-      contents: [{ slides: [[components[0]]] }],
+      en: { jsonData: contents },
+      contents: [{ slides: [[{ ...components[0] }]] }],
       currentLang: "fr",
     })),
   updatePageState: (sIndex, componentIndex, componentState) =>
-    set(({ contents, currentStep }) => ({
+    set(({ contents, currentStep, currentLang, ...state }) => ({
       contents: contents.map((page, index) => {
+        if (!sIndex && !index) {
+          state[currentLang].title = state[currentLang].title = (
+            componentState as Record<string, CCFormat>
+          ).heading.text;
+          state[currentLang].description = (
+            componentState as Record<string, CCFormat>
+          ).desc.text;
+          state[currentLang].topic = (
+            componentState as Record<string, CCFormat>
+          ).tag.text;
+        }
         if (index === currentStep) {
           page.slides[sIndex][componentIndex].componentState = componentState;
         }

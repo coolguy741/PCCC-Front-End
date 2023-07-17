@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useContentActions } from "../../../../hooks/useContentActions";
 import { ContentBuilderType } from "../../../../pages/types";
@@ -27,6 +28,7 @@ export const ContentEditorActions: React.FC<Props> = ({
 }) => {
   const [showingConfirmModal, setShowingConfirmModal] = useState(false);
   const { saveContent, updateIdInStore } = useContentActions();
+  const navigate = useNavigate();
 
   const handleSaveAndContinue = () => {
     currentStep < maxPageCount - 1
@@ -43,6 +45,7 @@ export const ContentEditorActions: React.FC<Props> = ({
 
     // @ts-ignore
     updateIdInStore(response?.id, type);
+    navigate(`/dashboard/${type}`);
   };
 
   return (

@@ -23,7 +23,7 @@ import { glassBackground } from "../../styles/helpers/glassBackground";
 import { STORAGE_KEY_JWT } from "../consts";
 
 export interface CloudDriveFileType {
-  filename: string;
+  fileName: string;
   url: string;
   size: number;
   relativePath: string;
@@ -61,6 +61,9 @@ export function CloudDrivePage() {
   const { type, setType } = useCloudDriveStore();
   const [search, setSearch] = useState("");
   const [data, setData] = useState(loaderData as any);
+  const [displayedResults, setDisplayedResults] = useState<
+    CloudDriveFileType[]
+  >([]);
   const [view, setView] = useState<"list" | "gallery">("list");
   const navigate = useNavigate();
   const { api } = useAPI();
@@ -118,6 +121,17 @@ export function CloudDrivePage() {
   useEffect(() => {
     setData(loaderData as any);
   }, [loaderData]);
+
+  useEffect(() => {
+    if (data) {
+      const results = data.files.filter((file: CloudDriveFileType) => {
+        if (search === "") return true;
+        return file.fileName.toLowerCase().includes(search.toLowerCase());
+      });
+
+      setDisplayedResults(results);
+    }
+  }, [data, search]);
 
   return (
     <Style.Container>
@@ -180,15 +194,13 @@ export function CloudDrivePage() {
           <article className="cd-content">
             {view === "list" ? (
               <CDListView
-                data={data}
-                search={search}
+                data={displayedResults}
                 type={type}
                 handleDelete={handleDelete}
               />
             ) : (
               <CDGalleryView
-                data={data}
-                search={search}
+                data={displayedResults}
                 type={type}
                 handleDelete={handleDelete}
               />

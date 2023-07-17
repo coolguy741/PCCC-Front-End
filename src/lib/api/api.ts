@@ -1490,6 +1490,13 @@ export interface PccServer23ThemesCustomAddEducatorNoteInput {
   themeId: string;
 }
 
+export interface PccServer23ThemesCustomUpdateEducatorNoteInput {
+  title?: string | null;
+  englishDesc?: string | null;
+  frenchDesc?: string | null;
+  concurrencyStamp?: string | null;
+}
+
 export interface PccServer23ThemesMultiLingualThemeCreate {
   name?: string | null;
   jsonData?: string | null;
@@ -1531,6 +1538,20 @@ export interface PccServer23ThemesPublicThemeDto {
   status?: PccServer23ThemesThemeStatus;
   language?: string | null;
   concurrencyStamp?: string | null;
+}
+
+export interface PccServer23ThemesThemeAttachActivityDto {
+  /** @format uuid */
+  activityId: string;
+  /** @format uuid */
+  themeId: string;
+}
+
+export interface PccServer23ThemesThemeAttachRecipeDto {
+  /** @format uuid */
+  curriculumRecipeId: string;
+  /** @format uuid */
+  themeId: string;
 }
 
 export interface PccServer23ThemesThemeCreateDto {
@@ -1729,6 +1750,7 @@ export interface PccServer23UsersGetUsersDto {
   id?: string;
   name?: string | null;
   role?: string | null;
+  avatar?: string | null;
 }
 
 export interface PccServer23UsersResetPasswordInput {
@@ -1754,6 +1776,18 @@ export interface PccServer23UsersUserInGroupDto {
 }
 
 export type SystemVoid = object;
+
+export interface VoloAbpApplicationDtosListResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23ActivitiesActivityDto[] | null;
+}
+
+export interface VoloAbpApplicationDtosListResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23CurriculumRecipesCurriculumRecipeDto[] | null;
+}
+
+export interface VoloAbpApplicationDtosListResultDto1PccServer23EducatorNotesEducatorNoteDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23EducatorNotesEducatorNoteDto[] | null;
+}
 
 export interface VoloAbpApplicationDtosPagedResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   items?: PccServer23ActivitiesActivityDto[] | null;
@@ -2275,7 +2309,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags CustomAssessmentQuestions
      * @name AppAssessmentQuestionsCompletedAssessmentsList
-     * @summary Add translation for an existing assessment question record
+     * @summary Get User's completed assessments
      * @request GET:/api/app/assessment-questions/completed-assessments
      */
     appAssessmentQuestionsCompletedAssessmentsList: (
@@ -2751,6 +2785,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "PUT",
         body: data,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomCurriculums
+     * @name AppCurriculumsList
+     * @request GET:/api/app/curriculums
+     */
+    appCurriculumsList: (params: RequestParams = {}) =>
+      this.request<PccServer23CurriculumsCurriculumDto[], VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/curriculums`,
+        method: "GET",
         format: "json",
         ...params,
       }),
@@ -3546,6 +3595,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomThemes
+     * @name AppThemesEducatorNotesDetail
+     * @summary Get Educator Notes for theme
+     * @request GET:/api/app/themes/educator-notes/{themeId}
+     */
+    appThemesEducatorNotesDetail: (themeId: string, params: RequestParams = {}) =>
+      this.request<
+        VoloAbpApplicationDtosListResultDto1PccServer23EducatorNotesEducatorNoteDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/themes/educator-notes/${themeId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
      * @name AppThemesEducatorNoteCreate
      * @summary Add educator note for a theme with a curriculum id
      * @request POST:/api/app/themes/educator-note
@@ -3557,6 +3625,43 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesEducatorNoteUpdate
+     * @summary Update educator note for a theme with a curriculum id
+     * @request PUT:/api/app/themes/{id}/educator-note
+     */
+    appThemesEducatorNoteUpdate: (
+      id: string,
+      data: PccServer23ThemesCustomUpdateEducatorNoteInput,
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23EducatorNotesEducatorNoteDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/${id}/educator-note`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesEducatorNoteDelete
+     * @summary Delete educator note for a theme
+     * @request DELETE:/api/app/themes/{id}/educator-note
+     */
+    appThemesEducatorNoteDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/${id}/educator-note`,
+        method: "DELETE",
         ...params,
       }),
 
@@ -3578,6 +3683,120 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesAttachedActivitiesDetail
+     * @request GET:/api/app/themes/attached-activities/{themeId}
+     */
+    appThemesAttachedActivitiesDetail: (
+      themeId: string,
+      query?: {
+        language?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosListResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/themes/attached-activities/${themeId}`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesAttachedRecipesDetail
+     * @request GET:/api/app/themes/attached-recipes/{themeId}
+     */
+    appThemesAttachedRecipesDetail: (
+      themeId: string,
+      query?: {
+        language?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosListResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/themes/attached-recipes/${themeId}`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesDetachActivityCreate
+     * @request POST:/api/app/themes/detach-activity
+     */
+    appThemesDetachActivityCreate: (data: PccServer23ThemesThemeAttachActivityDto, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/detach-activity`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesAttachActivityCreate
+     * @request POST:/api/app/themes/attach-activity
+     */
+    appThemesAttachActivityCreate: (data: PccServer23ThemesThemeAttachActivityDto, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/attach-activity`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesDetachRecipeCreate
+     * @request POST:/api/app/themes/detach-recipe
+     */
+    appThemesDetachRecipeCreate: (data: PccServer23ThemesThemeAttachRecipeDto, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/detach-recipe`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesAttachRecipeCreate
+     * @request POST:/api/app/themes/attach-recipe
+     */
+    appThemesAttachRecipeCreate: (data: PccServer23ThemesThemeAttachRecipeDto, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/attach-recipe`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
         ...params,
       }),
 
@@ -3798,6 +4017,21 @@ To create new user with standard role use: api/app/user
         path: `/api/app/user/users`,
         method: "GET",
         query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags User
+     * @name AppUserUserByIdDetail
+     * @request GET:/api/app/user/{id}/user-by-id
+     */
+    appUserUserByIdDetail: (id: string, params: RequestParams = {}) =>
+      this.request<PccServer23UsersGetUsersDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/user/${id}/user-by-id`,
+        method: "GET",
         format: "json",
         ...params,
       }),

@@ -1,4 +1,5 @@
-import { ContentBuilderType } from "../../../../pages/types";
+import { useParams } from "react-router-dom";
+import { ContentBuilderType, Language } from "../../../../pages/types";
 import { Typography } from "../../../Global/Typography";
 import { ContentInfo } from "../ContentInfo";
 import { ContentNavigator } from "../ContentNavigator";
@@ -9,6 +10,8 @@ interface Props {
   slideIndex: number;
   currentStep: number;
   deleteSlide: () => void;
+  setLang: (lang: Language) => void;
+  currentLang: Language;
 }
 
 export const ContentBuilderHeader: React.FC<Props> = ({
@@ -16,12 +19,14 @@ export const ContentBuilderHeader: React.FC<Props> = ({
   type,
   ...props
 }) => {
+  const { item } = useParams();
+
   return (
     <>
       <ContentNavigator type={type} />
 
       <Typography variant="h3" as="h3" weight="semi-bold">
-        Create{" "}
+        {item ? "Edit" : "Create"}{" "}
         {type === ContentBuilderType.THEMES
           ? "Theme"
           : type === ContentBuilderType.ACTIVITIES

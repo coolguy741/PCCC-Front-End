@@ -1,7 +1,14 @@
-import { useEffect, useReducer, useRef } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Cookies from "js-cookie";
+import { useCallback, useEffect, useReducer, useRef } from "react";
+
+import { BASE_API_URL } from "../lib/api/helpers/consts";
+import { STORAGE_KEY_JWT } from "../pages/consts";
+import { Api } from "./../lib/api/api";
 
 interface State<T> {
   data?: T;
+  isLoading?: boolean;
   error?: Error;
 }
 
@@ -13,17 +20,27 @@ type Action<T> =
   | { type: "fetched"; payload: T }
   | { type: "error"; payload: Error };
 
-export function useFetch<T = unknown>(
-  url?: string,
-  options?: RequestInit,
-): State<T> {
-  const cache = useRef<Cache<T>>({});
+type ApiName = keyof Api<any>["api"];
 
+export function useFetch<T = unknown>(
+  handler: ApiName,
+  body?: any,
+  params?: URLSearchParams,
+  initialLoad?: boolean,
+): State<T> & {
+  fetchData?: (
+    body?: any,
+    params?: URLSearchParams,
+    manualReload?: boolean,
+  ) => Promise<void>;
+} {
+  const cache = useRef<Cache<T>>({});
   // Used to prevent state update if the component is unmounted
   const cancelRequest = useRef<boolean>(false);
 
   const initialState: State<T> = {
     error: undefined,
+    isLoading: false,
     data: undefined,
   };
 
@@ -31,53 +48,53 @@ export function useFetch<T = unknown>(
   const fetchReducer = (state: State<T>, action: Action<T>): State<T> => {
     switch (action.type) {
       case "loading":
-        return { ...initialState };
+        return { ...initialState, isLoading: true };
       case "fetched":
-        return { ...initialState, data: action.payload };
+        return { ...initialState, isLoading: false, data: action.payload };
       case "error":
-        return { ...initialState, error: action.payload };
+        return { ...initialState, isLoading: false, error: action.payload };
       default:
         return state;
     }
   };
 
   const [state, dispatch] = useReducer(fetchReducer, initialState);
-
-  // const { api } = new Api({
-  //   headers: {
-  //     baseURL: BASE_API_URL,
-  //   },
-  // });
-
-  useEffect(() => {
-    // Do nothing if the url is not given
-    if (!url) return;
-
-    cancelRequest.current = false;
-
-    const fetchData = async () => {
+  const { api } = new Api({
+    baseURL: BASE_API_URL,
+  });
+  const fetchData = useCallback(
+    async (
+      fetchBody?: any,
+      fetchParams?: URLSearchParams,
+      manualReload?: boolean,
+    ) => {
+      cancelRequest.current = false;
       dispatch({ type: "loading" });
 
       // If a cache exists for this url, return it
-      if (cache.current[url]) {
-        dispatch({ type: "fetched", payload: cache.current[url] });
+      if (cache.current[handler] && !manualReload) {
+        dispatch({ type: "fetched", payload: cache.current[handler] });
         return;
       }
 
       try {
-        const response = await fetch(url, options);
-        // const response = await api[url]({
-        //   ...options,
-        //   headers: {
-        //     Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        //   },
-        // });
-        if (!response.ok) {
-          throw new Error(response.statusText);
+        if (!handler) return;
+
+        const apiFunc = api[handler] as any;
+        const response = await apiFunc.call(api, fetchBody ?? body, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+          ...(fetchParams ?? params),
+        });
+
+        if (response.status > 300) {
+          throw new Error(response.status);
         }
 
-        const data = (await response.json()) as T;
-        cache.current[url] = data;
+        const data = (await response.data) as T;
+
+        cache.current[handler] = data;
         if (cancelRequest.current) return;
 
         dispatch({ type: "fetched", payload: data });
@@ -86,9 +103,15 @@ export function useFetch<T = unknown>(
 
         dispatch({ type: "error", payload: error as Error });
       }
-    };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [handler, state],
+  );
 
-    void fetchData();
+  useEffect(() => {
+    // Do nothing if the url is not given
+    if (!handler) return;
+    initialLoad && void fetchData();
 
     // Use the cleanup function for avoiding a possibly...
     // ...state update after the component was unmounted
@@ -96,7 +119,7 @@ export function useFetch<T = unknown>(
       cancelRequest.current = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [handler, initialLoad]);
 
-  return state;
+  return { ...state, fetchData };
 }

@@ -1,11 +1,13 @@
 import { create } from "zustand";
+import { CCFormat } from "./../components/ContentCreation/types";
+import { Language } from "./../pages/types";
 
 import { components } from "../components/ContentBuilder/Components/Cards";
 import { State as ComponentState } from "../components/ContentCreation/types";
 import { PccServer23ActivitiesActivityDto } from "../lib/api/api";
-import { Language, ThemeComponent } from "../pages/types";
+import { ThemeComponent } from "../pages/types";
 
-interface IContent {
+export interface IContent {
   tags?: string;
   curriculum?: string;
   slides: ThemeComponent[][];
@@ -18,18 +20,40 @@ interface ThemeProp {
   currentStep: number;
   currentLang: Language;
   slideIndex: number;
+  concurrencyStamp?: string;
   contents: IContent[];
-  currentSlide: ThemeComponent[];
-  activityIds: string[];
-  recipeIds: string[];
+  tags?: string[];
   en: {
-    contents: IContent[];
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
   fr: {
-    contents: IContent[];
+    title?: string;
+    topic?: string;
+    description?: string;
+    jsonData: IContent[];
   };
 }
 export interface ActivitiesStoreState extends ThemeProp {
+  updateDetail: (detail: {
+    contents: IContent[];
+    id: string;
+    concurrencyStamp: string;
+    en?: {
+      title?: string;
+      topic?: string;
+      description?: string;
+      jsonData?: IContent[];
+    };
+    fr?: {
+      title?: string;
+      topic?: string;
+      description?: string;
+      jsonData?: IContent[];
+    };
+  }) => void;
   changeStep: (step: number) => void;
   addSlide: () => void;
   updatePage: (slide: ThemeComponent[]) => void;
@@ -40,8 +64,6 @@ export interface ActivitiesStoreState extends ThemeProp {
   ) => void;
   setLang: (lang: Language) => void;
   setSlideIndex: (slideIndex: number) => void;
-  setItemIds: (activityId: string) => void;
-  removeItemId: (activityId: string) => void;
   init: () => void;
   deleteSlide: () => void;
   continueWithFrench: () => void;
@@ -53,27 +75,44 @@ export interface ActivitiesStoreState extends ThemeProp {
 }
 
 const initialState: ThemeProp = {
+  id: undefined,
   maxPageCount: 1,
   currentStep: 0,
   slideIndex: 0,
-  contents: [{ slides: [[components[0]]] }],
+  contents: [{ slides: [[{ ...components[0] }]] }],
   currentLang: "en",
-  currentSlide: [],
-  activityIds: [],
-  recipeIds: [],
   en: {
-    contents: [],
+    jsonData: [],
   },
   fr: {
-    contents: [],
+    jsonData: [],
   },
 };
 
 export const useActivitiesStore = create<ActivitiesStoreState>()(
   (set, get) => ({
     ...initialState,
+    updateDetail: ({ contents, id, concurrencyStamp, en, fr }) =>
+      set(({ en: originEn, fr: originFr }) => ({
+        contents,
+        id,
+        concurrencyStamp,
+        en: { ...originEn, ...en },
+        fr: { ...originFr, ...fr },
+      })),
     updateId: (id) => set(() => ({ id })),
-    setActivities: (activities) => set(() => ({ activities })),
+    setActivities: (activities) =>
+      set(() => ({
+        ...initialState,
+        activities,
+        contents: [{ slides: [[{ ...components[0] }]] }],
+        en: {
+          jsonData: [],
+        },
+        fr: {
+          jsonData: [],
+        },
+      })),
     changeStep: (currentStep) =>
       set(({ contents }) => ({
         currentStep,
@@ -81,24 +120,6 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
           contents.length > currentStep
             ? [...contents]
             : [...contents, { slides: [[]] }],
-      })),
-    setItemIds: (itemId) =>
-      set(({ activityIds, recipeIds, currentStep }) => ({
-        activityIds: currentStep === 4 ? [...activityIds, itemId] : activityIds,
-        recipeIds: currentStep === 5 ? [...recipeIds, itemId] : recipeIds,
-      })),
-    removeItemId: (itemId) =>
-      set(({ activityIds, recipeIds, currentStep }) => ({
-        activityIds: [
-          ...(currentStep === 4
-            ? activityIds.filter((id) => id === itemId)
-            : activityIds),
-        ],
-        recipeIds: [
-          ...(currentStep === 5
-            ? recipeIds.filter((id) => id === itemId)
-            : recipeIds),
-        ],
       })),
     setSlideIndex: (slideIndex) => set(() => ({ slideIndex })),
     updatePage: (slide: ThemeComponent[]) =>
@@ -122,10 +143,21 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
           }) ?? [{ slides: [] }]),
         ],
       })),
-    setLang: (currentLang: Language) =>
-      set(() => ({
-        currentLang,
-      })),
+    setLang: (newLang: Language) =>
+      set(({ contents, currentLang, ...state }) => {
+        return {
+          [currentLang]: {
+            ...state[currentLang],
+            jsonData: [...contents],
+          },
+          currentStep: 0,
+          slideIndex: 0,
+          contents: state[newLang].jsonData.length
+            ? [...state[newLang].jsonData]
+            : [{ slides: [[{ ...components[0] }]] }],
+          currentLang: newLang,
+        };
+      }),
     deleteSlide: () =>
       set(({ contents, slideIndex, currentStep }) => ({
         contents: [
@@ -145,13 +177,24 @@ export const useActivitiesStore = create<ActivitiesStoreState>()(
     continueWithFrench: () =>
       set(({ contents }) => ({
         currentStep: 0,
-        en: { contents },
-        contents: [{ slides: [[components[0]]] }],
+        en: { jsonData: contents },
+        contents: [{ slides: [[{ ...components[0] }]] }],
         currentLang: "fr",
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
-      set(({ contents, currentStep }) => ({
+      set(({ contents, currentStep, currentLang, ...state }) => ({
         contents: contents.map((page, index) => {
+          if (!sIndex && !index) {
+            state[currentLang].title = state[currentLang].title = (
+              componentState as Record<string, CCFormat>
+            ).heading.text;
+            state[currentLang].description = (
+              componentState as Record<string, CCFormat>
+            ).desc.text;
+            state[currentLang].topic = (
+              componentState as Record<string, CCFormat>
+            ).tag.text;
+          }
           if (index === currentStep) {
             page.slides[sIndex][componentIndex].componentState = componentState;
           }

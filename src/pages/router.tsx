@@ -27,7 +27,6 @@ import {
 } from "./AccountsPage/Profiles/User";
 import { AchievementsPage } from "./AchievementsPage";
 import { ActivitiesPage } from "./ActivitiesBuilderPage";
-import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
 import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/Create";
@@ -77,7 +76,6 @@ import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
-import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
 import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
 import { ReportsPage } from "./ReportsPage";
 import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
@@ -91,7 +89,7 @@ import { Themes } from "./ThemeBuilderPage";
 import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
 import { ThemePreviewPage } from "./ThemeBuilderPage/Create/Preview";
 import { ThemePrintPage } from "./ThemeBuilderPage/Print";
-import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
+import { ThemePage } from "./ThemeBuilderPage/ThemePage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
@@ -175,7 +173,11 @@ export const router = createBrowserRouter([
           {
             path: "profiles/:user",
             element: <AccountsUserProfilePage />,
-            loader: profilePageLoader,
+            loader: async ({ params }) => {
+              if (params.id) return profilePageLoader(params.id);
+
+              return null;
+            },
           },
           {
             path: "profiles/:user/:lessonAssessment",
@@ -237,9 +239,10 @@ export const router = createBrowserRouter([
       {
         path: "plate-full-planner",
         element: (
-          <>
-            <Outlet />
-          </>
+          <PageTitleLayout
+            title="Plate Full Planner"
+            icon="topic-orange-outlined"
+          />
         ),
         loader: async () => {
           await redirectIfNotLoggedIn();
@@ -254,20 +257,25 @@ export const router = createBrowserRouter([
             element: <MealPlannerRecipePage />,
           },
           { path: "edit", element: <MealPlannerPage /> },
-          { path: "grocery-list", element: <MealPlannerGroceryPage /> },
+          {
+            path: "grocery-list",
+            element: <MealPlannerGroceryPage />,
+          },
         ],
       },
       {
         path: "themes",
         element: <PageTitleLayout title="Theme" icon="topic-orange-outlined" />,
         loader: async () => {
-          await redirectIfNotLoggedIn();
+          // await redirectIfNotLoggedIn();
 
           return null;
         },
         children: [
           { path: "", element: <Themes /> },
           { path: "create", element: <ThemeCreatePage /> },
+          { path: ":item", element: <ThemePage /> },
+          { path: ":item/edit", element: <ThemeCreatePage /> },
           { path: "preview", element: <ThemePreviewPage /> },
         ],
       },
@@ -331,11 +339,8 @@ export const router = createBrowserRouter([
           { path: "", element: <ActivitiesPage /> },
           { path: "create", element: <ActivitiesCreatePage /> },
           { path: "preview", element: <ActivitiesPreviewPage /> },
-          { path: ":activity", element: <ActivityPage /> },
-          {
-            path: ":activity/edit",
-            element: <ActivitiesEditPage />,
-          },
+          { path: ":item", element: <ActivityPage /> },
+          { path: ":item/edit", element: <ActivitiesCreatePage /> },
         ],
       },
       {
@@ -405,8 +410,8 @@ export const router = createBrowserRouter([
             path: "preview",
             element: <RecipePreviewPage />,
           },
-          { path: ":recipe", element: <RecipePage /> },
-          { path: ":recipe/edit", element: <RecipesEditRecipePage /> },
+          { path: ":item", element: <RecipePage /> },
+          { path: ":item/edit", element: <RecipeCreatePage /> },
           {
             path: "lesson-assessment/create",
             element: <RecipesCreateLessonAssessment />,
@@ -530,10 +535,6 @@ export const router = createBrowserRouter([
           },
           { path: ":recipe/print", element: <MealPlannerRecipePrintPage /> },
         ],
-      },
-      {
-        path: "dashboard/topics/:id/:slug/print",
-        element: <TopicPrintPage />,
       },
       {
         path: "dashboard/foodways",

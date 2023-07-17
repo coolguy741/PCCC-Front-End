@@ -3,19 +3,20 @@ import styled from "styled-components";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
 import CCListMinus from "../Icons/list-minus";
+import { CCFormat, ComponentViewMode } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
-const initialState = [
+const initialState: CCFormat[] = [
   {
-    mode: "view",
+    mode: ComponentViewMode.VIEW,
     text: "Combine all the ingredients together in a large bowl, mix until well combined.",
   },
   {
-    mode: "view",
+    mode: ComponentViewMode.VIEW,
     text: "Refrigerate for about 30 minutes",
   },
   {
-    mode: "view",
+    mode: ComponentViewMode.VIEW,
     text: `Scoop out a tablespoon portion of mixture, roll each portion in the
     palm of your hands and place each ball into a resealable container for
     storage.`,
@@ -26,11 +27,12 @@ export function SingleBulletComponent({
   state,
   changeListEditState,
   changeListText,
-  addListItem,
   deleteListItem,
+  addListItem,
   viewMode,
 }: ComponentProps) {
   const listLength = Object.keys(state).length;
+  const componentState = state as CCFormat[];
 
   return (
     <Style.Container>
@@ -48,9 +50,9 @@ export function SingleBulletComponent({
             <p>
               {" "}
               <DoubleClickToEditComponent
-                mode={(state as any)[listNameMinusOne].mode}
+                mode={viewMode(componentState[listNameMinusOne].mode)}
                 name={listNameMinusOne}
-                text={(state as any)[listNameMinusOne].text}
+                text={componentState[listNameMinusOne].text}
                 changeEditState={changeListEditState}
                 setText={changeListText}
               />

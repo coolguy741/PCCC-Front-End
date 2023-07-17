@@ -12,6 +12,9 @@ export const MealtimeMomentsPage = () => {
       selectsGroup={["Sort"]}
       listData={mockData.activities}
       onSelectionChange={handleSelectionChange}
+      handleDelete={() => {
+        return;
+      }}
     />
   );
 };

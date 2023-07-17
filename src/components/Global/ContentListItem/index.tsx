@@ -41,12 +41,9 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
         alt="/images/deleteLater/ContentSampleImage.png"
       />
       <Style.Content>
-        <Style.Topic>{"Topic: " + "Garden Guardian"}</Style.Topic>
-        <Style.Title>Lorem Ipsum</Style.Title>
-        <Style.Description>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </Style.Description>
+        <Style.Topic>{data?.topic}</Style.Topic>
+        <Style.Title>{data?.title}</Style.Title>
+        <Style.Description>{data.description}</Style.Description>
       </Style.Content>
       {selectable && (
         <Style.InputContainer>
@@ -65,7 +62,6 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
 const Style = {
   Container: styled.div`
     display: flex;
-    flex-direction: row;
     align-items: center;
     padding: ${convertToRelativeUnit(20, "vh")};
     gap: ${convertToRelativeUnit(24, "vh")};
@@ -92,6 +88,8 @@ const Style = {
     justify-content: center;
     align-items: flex-start;
     padding: 0px;
+    overflow: hidden;
+    white-space: nowrap;
     gap: ${convertToRelativeUnit(20, "vh")};
   `,
   Topic: styled.p`
@@ -138,6 +136,9 @@ const Style = {
     font-size: ${convertToRelativeUnit(16, "vh")};
     line-height: ${convertToRelativeUnit(20, "vh")};
     color: var(--neutral-600);
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
   `,
   InputContainer: styled.div`
     z-index: 10;

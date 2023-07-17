@@ -2,21 +2,21 @@ import { useEffect } from "react";
 
 import { ContentBuilderOverview } from "../../../components/ContentBuilder/Overview";
 import { useContentActions } from "../../../hooks/useContentActions";
-import { useRecipesStore } from "../../../stores/recipesStore";
+import { useThemeStore } from "../../../stores/themeStore";
 import { ContentBuilderType } from "../../types";
 
-export const RecipePage = () => {
+export const ThemePage = () => {
   const { getContent } = useContentActions();
 
   useEffect(() => {
-    getContent(ContentBuilderType.RECIPES);
+    getContent(ContentBuilderType.THEMES);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <ContentBuilderOverview
-      type={ContentBuilderType.RECIPES}
-      store={useRecipesStore()}
+      type={ContentBuilderType.THEMES}
+      store={useThemeStore()}
     />
   );
 };

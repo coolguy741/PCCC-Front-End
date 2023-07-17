@@ -2,14 +2,7 @@ import styled from "styled-components";
 
 import { useThemeStore } from "../../../../stores/themeStore";
 
-const tabs = [
-  "Theme",
-  "Overview",
-  "Educator notes",
-  "Assessment",
-  "Activities",
-  "Recipes",
-];
+const tabs = ["Theme", "Educator notes", "Assessment", "Activities", "Recipes"];
 const Tab: React.FC<{ index: number; currentStep: number; tab: string }> = ({
   index,
   currentStep,

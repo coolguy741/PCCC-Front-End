@@ -8,10 +8,14 @@ export type ComponentProps = {
   state: any;
   changeText: (name: TitleType, newText: string) => void;
   changeEditState: (tag: TitleType) => void;
-  changeListEditState?: any;
-  changeListText?: any;
-  deleteListItem?: any;
-  addListItem?: any;
+  changeListEditState: (index: number, amtOrIngdt?: "amt" | "ingdt") => void;
+  changeListText: (
+    index: number,
+    newText: string,
+    amtOrIngdt?: "amt" | "ingdt",
+  ) => void;
+  deleteListItem: () => void;
+  addListItem: (amtOrIngdt?: boolean) => void;
 };
 
 export function withThemeStore<P extends ThemeComponentProps>(
@@ -21,7 +25,7 @@ export function withThemeStore<P extends ThemeComponentProps>(
   return function (props: P) {
     const {
       componentIndex,
-      componentState,
+      state: componentState,
       slideIndex,
       isEditable,
       updatePageState,

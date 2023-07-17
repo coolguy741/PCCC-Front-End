@@ -16,6 +16,8 @@ import { RecipeModal } from "../RecipeModal";
 import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
 import { PlateFullPlanSearch } from "../Search";
 
+import { useNavigate } from "react-router-dom";
+import { CalendarModal } from "../../../Global/CalendarModal";
 import { Tag } from "../Tag";
 import { mockMealPlanMenu, mockMealPlans } from "./mocks";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
@@ -43,6 +45,8 @@ export const MealPlans = () => {
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
   const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
   const [destinationMeal, setDestinationMeal] = useState<MealPlan>();
+  const [showCalendarModal, setShowCalendarModal] = useState(false);
+  const navigate = useNavigate();
 
   const openRecipeModal = (recipeId: number) => {
     setSelectedRecipeId(recipeId);
@@ -134,19 +138,21 @@ export const MealPlans = () => {
       </Style.Background>
       <Tag title="Print" top="0" left="0" translateX="600%" translateY="-37%" />
       <Tag
-        title="create category list"
+        title="create grocery list"
         top="0"
         right="0"
         translateX="-165%"
         translateY="-37%"
+        onClick={() => navigate("grocery-list")}
       />
       <Tag
-        title="assign meal plan"
+        title="Add to calendar"
         variant="red"
         top="0"
         right="0"
         translateX="-50%"
         translateY="-37%"
+        onClick={() => setShowCalendarModal(true)}
       />
       <Style.Pages>
         <div>
@@ -207,13 +213,18 @@ export const MealPlans = () => {
                 src="/images/plate-full-planner/coffee-stain.svg"
                 alt="coffee stainer on paper"
               />
-              <Style.Fruit
-                src="/images/plate-full-planner/fruits.svg"
-                alt="fruit on paper"
-              />
+              <Style.Instructions>
+                <img src="/images/ornate.svg" />
+                <ul>
+                  <li>Double click on recipe cards to view them</li>
+                  <li>
+                    Click and drag a recipe card to move it around your planner
+                  </li>
+                </ul>
+              </Style.Instructions>
               <Style.BrownPaper>
                 <div className="brown-paper-content">
-                  <Icon name="food" />
+                  <Icon name="dish" />
                   <Typography
                     variant="h6"
                     as="h6"
@@ -224,7 +235,7 @@ export const MealPlans = () => {
                   </Typography>
                 </div>
                 <img
-                  src="/images/plate-full-planner/brown-paper.png"
+                  src="/images/plate-full-planner/recipe-paper.png"
                   alt="brown-paper"
                 />
               </Style.BrownPaper>
@@ -236,6 +247,10 @@ export const MealPlans = () => {
         isOpen={isRecipeModalOpen}
         selectedRecipeId={selectedRecipeId}
         close={() => setIsRecipeModalOpen(false)}
+      />
+      <CalendarModal
+        isOpen={showCalendarModal}
+        close={() => setShowCalendarModal(false)}
       />
     </Style.Container>
   );
@@ -320,16 +335,28 @@ const Style = {
     bottom: 0;
     mix-blend-mode: color-burn;
   `,
-  Fruit: styled.img`
+  Instructions: styled.div`
     position: absolute;
     width: 30%;
     left: 0;
     bottom: 0;
-    transform: translate(10%, -15%);
+    display: flex;
+    width: 50%;
+    padding: 1rem 2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    border-radius: 0.5rem;
+    background: rgba(234, 218, 182, 0.4);
+    background-blend-mode: multiply;
+    color: var(--book-400);
+    font-weight: 500;
+    font-size: 1rem;
   `,
   BrownPaper: styled.div`
     position: absolute;
-    width: 60%;
+    width: 45%;
     left: 0;
     z-index: 5;
     bottom: 35%;
@@ -342,7 +369,12 @@ const Style = {
       text-align: center;
       top: 50%;
       margin: 0 20%;
-      transform: translateY(-80%);
+      transform: translateY(-70%);
+      rotate: -2deg;
+
+      img {
+        margin-bottom: 0.5rem;
+      }
     }
 
     & > img {

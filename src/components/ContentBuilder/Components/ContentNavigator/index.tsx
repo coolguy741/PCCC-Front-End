@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { ContentBuilderType } from "../../../../pages/types";
@@ -11,6 +11,7 @@ interface Props {
 
 export const ContentNavigator: React.FC<Props> = ({ type }) => {
   const { pathname } = useLocation();
+  const { item } = useParams();
 
   return (
     <Style.Container>
@@ -24,17 +25,22 @@ export const ContentNavigator: React.FC<Props> = ({ type }) => {
       </Button>
       {type === ContentBuilderType.THEMES && <ContentSlider />}
       {pathname.endsWith("preview") ? (
+        <Button
+          variant="yellow"
+          to={`/dashboard/${type}/create`}
+          className="mr-4"
+        >
+          Edit
+        </Button>
+      ) : item && !pathname.endsWith("edit") ? (
         <div className="flex">
           <Button
             variant="yellow"
-            to={`/dashboard/${type}/create`}
+            to={`/dashboard/${type}/${item}/edit`}
             className="mr-4"
           >
             Edit
           </Button>
-          {/* <a href={`/dashboard/${type}/print`} target="_blank" rel="noreferrer">
-            <Button variant="yellow">Print</Button>
-          </a> */}
           <Button variant="yellow" to={`/dashboard/${type}/slug/print`}>
             Print
           </Button>

@@ -45,7 +45,7 @@ export function DoubleClickToEditComponent({
         <Style.Container
           onChange={(e) => setText(name, e.target.value, amtOrIngdt)}
           ref={ref}
-          defaultValue={text}
+          value={text}
           onClick={clickHandler}
           onKeyDown={handleKeyDown}
           autoFocus

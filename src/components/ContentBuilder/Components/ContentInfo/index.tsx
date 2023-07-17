@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { Language } from "../../../../pages/types";
 
 import { Icon } from "../../../Global/Icon";
 import { Typography } from "../../../Global/Typography";
@@ -21,12 +22,16 @@ interface Props {
   slideIndex: number;
   currentStep: number;
   deleteSlide: () => void;
+  setLang: (lang: Language) => void;
+  currentLang: Language;
 }
 
 export const ContentInfo: React.FC<Props> = ({
   slideIndex,
   currentStep,
   deleteSlide,
+  setLang,
+  currentLang,
 }) => {
   const [tags, setTags] = useState(["foraging", "seeds"]);
 
@@ -62,7 +67,7 @@ export const ContentInfo: React.FC<Props> = ({
           ) : (
             <Search />
           )}
-          <LanguageToggle />
+          <LanguageToggle setLang={setLang} lang={currentLang} />
         </div>
 
         <div className="flex">
