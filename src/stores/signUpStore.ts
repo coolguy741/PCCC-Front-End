@@ -17,6 +17,7 @@ interface SignupProp {
   isCoordinator: boolean | null;
   schoolId: string;
   schoolName: string;
+  avatar: string;
 }
 interface State extends SignupProp {
   changeStep: (step: number) => void;
@@ -35,6 +36,7 @@ interface State extends SignupProp {
   setIsCoordinator: (isCoordinator: boolean | null) => void;
   setSchoolId: (schoolId: string) => void;
   setSchoolName: (schoolName: string) => void;
+  setAvatar: (avatar: string) => void;
   init: () => void;
 }
 
@@ -55,6 +57,7 @@ const initialState: SignupProp = {
   isCoordinator: null,
   schoolId: "",
   schoolName: "",
+  avatar: "",
 };
 
 export const useSignUpStore = create<State>()((set) => ({
@@ -80,5 +83,6 @@ export const useSignUpStore = create<State>()((set) => ({
     set(() => ({ isCoordinator: isCoordinator })),
   setSchoolId: (schoolId) => set(() => ({ schoolId: schoolId })),
   setSchoolName: (schoolName) => set(() => ({ schoolName: schoolName })),
+  setAvatar: (avatar) => set(() => ({ avatar: avatar })),
   init: () => set(() => ({ ...initialState })),
 }));
