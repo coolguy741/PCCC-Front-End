@@ -1,10 +1,9 @@
 import _ from "lodash";
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
-import CCListDelete from "../Icons/list-delete";
 import CCListMinus from "../Icons/list-minus";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const initialState = [
   {
@@ -37,14 +36,13 @@ const initialState = [
   },
 ];
 
-export function DoubleBullet() {
-  const {
-    state,
-    changeListEditState,
-    changeListText,
-    deleteListItem,
-    addListItem,
-  } = useContentCreation(initialState as any);
+export function DoubleBulletComponent({
+  state,
+  changeListEditState,
+  changeListText,
+  addListItem,
+  deleteListItem,
+}: ComponentProps) {
   const listLength = Object.keys(state).length;
   return (
     <Style.Container>
@@ -53,7 +51,6 @@ export function DoubleBullet() {
         <div className="cc-sb-actions">
           <CCListAdd onClick={() => addListItem()} />
           <CCListMinus onClick={deleteListItem} />
-          <CCListDelete />
         </div>
       </figcaption>
       <ol>
@@ -77,6 +74,8 @@ export function DoubleBullet() {
   );
 }
 
+export const DoubleBullet = withThemeStore(DoubleBulletComponent, initialState);
+
 const Style = {
   Container: styled.figure`
     background: rgba(255, 255, 255, 0.5);
@@ -99,13 +98,18 @@ const Style = {
         font-size: 23px;
         line-height: 28px;
         color: #3d3d3d;
+        position: relative;
       }
 
       div {
-        width: 15%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: absolute;
+        height: 2vh;
+        right: 45px;
+        top: 14px;
+        width: 60px;
       }
     }
 

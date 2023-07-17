@@ -8,11 +8,11 @@ import { UploadModal } from "../../Upload/UploadModal";
 import Add from "../Icons/add";
 import Shuffle from "../Icons/shuffle";
 
-export function Image({
-  img,
+export function Media({
+  media,
   variant,
 }: {
-  img: string;
+  media: any;
   variant?: "img-only" | "all";
 }) {
   const { toggle, modal } = useModal();
@@ -21,9 +21,9 @@ export function Image({
   return (
     <>
       <Style.Container>
-        <img src={img} alt="" />
+        <img src={media?.src} alt="" />
         <figcaption></figcaption>
-        {!img && (
+        {!media?.src && (
           <Patterns className="empty-img" pattern={currentPattern}>
             <div className="img-btn-group">
               <button>

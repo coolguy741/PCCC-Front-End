@@ -1,11 +1,10 @@
 import styled from "styled-components";
+import { Media } from "../Media/media";
 
-import { Image } from "../Image/image";
-
-export function SingleImage() {
+export function SingleImage({ media }: any) {
   return (
     <Style.Container>
-      <Image img="" />
+      <Media media={media} />
     </Style.Container>
   );
 }

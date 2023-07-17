@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { Image } from "../Image/image";
+import { Media } from "../Media/media";
 import { ObjectState } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
@@ -31,7 +31,7 @@ export function ImageWithCaptionComponent({
   return (
     <Style.Container>
       <div className="iwc-image">
-        <Image variant="img-only" img="" />
+        <Media variant="img-only" media={{}} />
       </div>
       <Typography
         weight={400}

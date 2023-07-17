@@ -75,7 +75,7 @@ export function UploadModal({
   return (
     <Modal modal={modal} toggle={toggle}>
       <Style.Container>
-        <ModalHeader changeView={setView} />
+        <ModalHeader reload={getCloudDriveFiles} changeView={setView} />
         <ModalMenu />
         <article className="um-content">{showFilesView()}</article>
       </Style.Container>
@@ -94,7 +94,7 @@ const Style = {
 
     article.um-content {
       ${glassBackground}
-      padding: 15px 10px;
+      padding: 20px 15px;
       min-height: 47.5vh;
     }
   `,

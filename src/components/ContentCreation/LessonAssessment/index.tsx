@@ -4,7 +4,7 @@ import {
   convertToRelativeUnit,
 } from "../../../styles/helpers/convertToRelativeUnits";
 import { Typography } from "../../Typography";
-import { Image } from "../Image/image";
+import { Media } from "../Media/media";
 import { MultipleSelection } from "./MultipleSelection";
 import { LATextArea } from "./TextArea";
 import { TrueOrFalse } from "./TrueFalse";
@@ -23,11 +23,17 @@ function switchLAView(variant?: LAVariant) {
   }
 }
 
-export const LessonAssessment = ({ variant }: { variant?: LAVariant }) => {
+export const LessonAssessment = ({
+  variant,
+  media,
+}: {
+  variant?: LAVariant;
+  media: any;
+}) => {
   return (
     <Style.Container>
       <article className="la-image">
-        <Image img="" />
+        <Media media={media} />
       </article>
       <article className="la-content">
         <hgroup>

@@ -1,16 +1,11 @@
 import { ComponentType, useCallback, useEffect } from "react";
 
 import { useContentCreation } from "../../hooks/useContentCreation";
-import {
-  ComponentViewMode,
-  State,
-  ThemeComponentProps,
-  TitleType,
-} from "./types";
+import { ComponentViewMode, ThemeComponentProps, TitleType } from "./types";
 
 export type ComponentProps = {
   viewMode: (mode: ComponentViewMode) => ComponentViewMode;
-  state: State;
+  state: any;
   changeText: (name: TitleType, newText: string) => void;
   changeEditState: (tag: TitleType) => void;
   changeListEditState: (index: number, amtOrIngdt?: "amt" | "ingdt") => void;
@@ -25,7 +20,7 @@ export type ComponentProps = {
 
 export function withThemeStore<P extends ThemeComponentProps>(
   Component: ComponentType<P & ComponentProps>,
-  initialState: State,
+  initialState: any,
 ) {
   return function (props: P) {
     const {
@@ -35,7 +30,6 @@ export function withThemeStore<P extends ThemeComponentProps>(
       isEditable,
       updatePageState,
     } = props;
-
     const {
       setComponentPosition,
       state,

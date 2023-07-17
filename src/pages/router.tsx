@@ -173,7 +173,11 @@ export const router = createBrowserRouter([
           {
             path: "profiles/:user",
             element: <AccountsUserProfilePage />,
-            loader: profilePageLoader,
+            loader: async ({ params }) => {
+              if (params.id) return profilePageLoader(params.id);
+
+              return null;
+            },
           },
           {
             path: "profiles/:user/:lessonAssessment",
@@ -235,9 +239,10 @@ export const router = createBrowserRouter([
       {
         path: "plate-full-planner",
         element: (
-          <>
-            <Outlet />
-          </>
+          <PageTitleLayout
+            title="Plate Full Planner"
+            icon="topic-orange-outlined"
+          />
         ),
         loader: async () => {
           await redirectIfNotLoggedIn();
@@ -252,7 +257,10 @@ export const router = createBrowserRouter([
             element: <MealPlannerRecipePage />,
           },
           { path: "edit", element: <MealPlannerPage /> },
-          { path: "grocery-list", element: <MealPlannerGroceryPage /> },
+          {
+            path: "grocery-list",
+            element: <MealPlannerGroceryPage />,
+          },
         ],
       },
       {
