@@ -62,25 +62,24 @@ const components = [
     id: 6,
     title: "Assessment - Multiple Choice",
     preview: <AMC />,
-    component: <LessonAssessment variant="multiple" />,
+    component: <LessonAssessment media={{}} variant="multiple" />,
   },
   {
     id: 7,
     title: "Assessment - True & False",
     preview: <ATF />,
-    component: <LessonAssessment variant="true-or-false" />,
+    component: <LessonAssessment media={{}} variant="true-or-false" />,
   },
   {
     id: 8,
     title: "Assessment - Written",
     preview: <AW />,
-    component: <LessonAssessment variant="text-area" />,
+    component: <LessonAssessment media={{}} variant="text-area" />,
   },
   {
     id: 9,
     title: "Image with Caption",
     preview: <IWC />,
-    // @ts-ignore
     component: <ImageWithCaption key="iwc" />,
   },
   {

@@ -1,10 +1,9 @@
 import _ from "lodash";
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
-import CCListDelete from "../Icons/list-delete";
 import CCListMinus from "../Icons/list-minus";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const initialState = [
   {
@@ -39,14 +38,14 @@ const initialState = [
   },
 ];
 
-export function IngredientCard() {
-  const {
-    state,
-    changeListEditState,
-    changeListText,
-    addListItem,
-    deleteListItem,
-  } = useContentCreation(initialState as any);
+export function IngredientCardComponent({
+  state,
+  changeListEditState,
+  changeListText,
+  addListItem,
+  deleteListItem,
+  viewMode,
+}: ComponentProps) {
   const listLength = Object.keys(state).length;
 
   return (
@@ -56,7 +55,6 @@ export function IngredientCard() {
         <div className="cc-sb-actions">
           <CCListAdd onClick={() => addListItem(true)} />
           <CCListMinus onClick={deleteListItem} />
-          <CCListDelete />
         </div>
       </figcaption>
       <ol>
@@ -64,7 +62,7 @@ export function IngredientCard() {
           <li key={listNameMinusOne}>
             <span className="ic-span">
               <DoubleClickToEditComponent
-                mode={(state as any)[listNameMinusOne].aMode}
+                mode={viewMode((state as any)[listNameMinusOne].aMode)}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].amt}
                 changeEditState={changeListEditState}
@@ -74,7 +72,7 @@ export function IngredientCard() {
             </span>
             <p>
               <DoubleClickToEditComponent
-                mode={(state as any)[listNameMinusOne].iMode}
+                mode={viewMode((state as any)[listNameMinusOne].iMode)}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].ingdt}
                 changeEditState={changeListEditState}
@@ -88,6 +86,11 @@ export function IngredientCard() {
     </Style.Container>
   );
 }
+
+export const IngredientCard = withThemeStore(
+  IngredientCardComponent,
+  initialState,
+);
 
 const Style = {
   Container: styled.figure`
@@ -111,13 +114,18 @@ const Style = {
         font-size: 23px;
         line-height: 28px;
         color: #3d3d3d;
+        position: relative;
       }
 
       div {
-        width: 15%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: absolute;
+        height: 2vh;
+        right: 45px;
+        top: 14px;
+        width: 60px;
       }
     }
 

@@ -8,10 +8,10 @@ import {
 } from "../components/ContentCreation/types";
 
 function alterArrayContentState(state: any, idx: number, indexValue: number) {
-  const stateCopy = state;
-  return stateCopy.map((s: any, index: number) =>
+  const stateCopy = state.map((s: any, index: number) =>
     index === idx ? indexValue : s,
   );
+  return stateCopy;
 }
 
 export function useContentCreation(
@@ -187,7 +187,6 @@ export function useContentCreation(
     // delete leaves an "empty" value in the array
     // removed with filter
     stateCopy = stateCopy.filter(Boolean);
-
     setState(stateCopy as unknown as State);
   }
 

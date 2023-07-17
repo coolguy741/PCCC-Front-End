@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { Image } from "../Image/image";
+
+import { Media } from "../Media/media";
 import { ObjectState } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
@@ -28,6 +29,10 @@ many things to know, and many ways to know them.`,
   //   Full Kids lessons. Watch for the Garden Guardian section and stay safe
   //   when you grow.`,
   // },
+  media: {
+    src: "",
+    patternChoice: "",
+  },
 };
 
 function TitleComponent({
@@ -80,7 +85,7 @@ function TitleComponent({
           />
         </p> */}
       </div>
-      <Image img="" />
+      <Media media={state.media} />
     </Style.Container>
   );
 }
