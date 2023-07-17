@@ -2382,7 +2382,7 @@
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.25.24.tgz#8c7688559979f7079aacaf31aa881c3aa410b718"
   integrity sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==
 
-"@splinetool/react-spline@^2.2.1":
+"@splinetool/react-spline@^2.2.6":
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/@splinetool/react-spline/-/react-spline-2.2.6.tgz#c48f634f352311b9da210978f88bd195d605ee8a"
   integrity sha512-y9L2VEbnC6FNZZu8XMmWM9YTTTWal6kJVfP05Amf0QqDNzCSumKsJxZyGUODvuCmiAvy0PfIfEsiVKnSxvhsDw==
@@ -2390,10 +2390,10 @@
     lodash.debounce "^4.0.8"
     react-merge-refs "^2.0.1"
 
-"@splinetool/runtime@^0.9.264":
-  version "0.9.264"
-  resolved "https://registry.yarnpkg.com/@splinetool/runtime/-/runtime-0.9.264.tgz#a8e6068b90f074bac196b5239c3290d5b3dc8bd7"
-  integrity sha512-K1oPn1yBTtwkfZExytMIyxOBm1KtIGD63pyo02eoH+0ZjvtUFzWeLRCUxN+VyWH4a65R8NdvKidHsqwCIhl9xQ==
+"@splinetool/runtime@^0.9.384":
+  version "0.9.384"
+  resolved "https://registry.yarnpkg.com/@splinetool/runtime/-/runtime-0.9.384.tgz#662632ce54fd7089882620a78612f3d3c13dd7d3"
+  integrity sha512-dQAkPG+irvMWrkto34nOkPpLW2JM4W93nZkQ96/ew/uDQGs7arqlsoOfOxrtcn83jg9RBQyX05jLrLKgT3Czxg==
   dependencies:
     on-change "^4.0.0"
     semver-compare "^1.0.0"
