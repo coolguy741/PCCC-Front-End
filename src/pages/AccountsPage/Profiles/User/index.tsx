@@ -1,23 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import Cookies from "js-cookie";
 import { AchievementsModal } from "../../../../components/Accounts/AchievementsModal";
 import { GroupsModal } from "../../../../components/Accounts/GroupsModal";
-import { AltGrapeBG } from "../../../../components/Icons";
-import { useAPI } from "../../../../hooks/useAPI";
-import { useUserStore } from "../../../../stores/userStore";
-//should be deleted after api implementation
-import Cookies from "js-cookie";
 import { BackButton } from "../../../../components/Global/BackButton";
+import { AltGrapeBG } from "../../../../components/Icons";
 import { UserAchievements } from "../../../../components/Profile/Achievements";
 import { UserActivity } from "../../../../components/Profile/Activity";
 import { UserGroups } from "../../../../components/Profile/Groups";
 import { UserLessonAssesment } from "../../../../components/Profile/LessonAssesment";
 import { UserProfileInfo } from "../../../../components/Profile/ProfileInfo";
-import { Api } from "../../../../lib/api/api";
+import { useAPI } from "../../../../hooks/useAPI";
+import { Api, PccServer23UsersGetUsersDto } from "../../../../lib/api/api";
 import { BASE_API_URL } from "../../../../lib/api/helpers/consts";
 import MockData from "../../../../lib/mockData/accounts/userProfile.json";
+import { useUserStore } from "../../../../stores/userStore";
 import { MockUserType } from "../../../../types/user";
 import { STORAGE_KEY_JWT } from "../../../consts";
 import { achievements, groups } from "./dummy_data";
@@ -27,23 +26,20 @@ export type Achievement = {
   description: string;
 };
 
-export const profilePageLoader = async () => {
+export const profilePageLoader = async (id: string) => {
   const { api } = new Api({
     baseURL: BASE_API_URL,
   });
 
   try {
-    const response = await api.appUserUsersList(
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
+    const response = await api.appUserUserByIdDetail(id, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
       },
-    );
+    });
 
     if (response.status === 200) {
-      return response.data.items;
+      return response.data;
     }
   } catch (error: unknown) {
     console.warn(error);
@@ -53,19 +49,19 @@ export const profilePageLoader = async () => {
 };
 
 export const AccountsUserProfilePage = () => {
-  //should be deleted after api implementation
+  const { api } = useAPI();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+  const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
+  const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
+  const data = useLoaderData() as PccServer23UsersGetUsersDto;
   const userData: MockUserType = pathname.includes("Standard")
     ? MockData[0]
     : pathname.includes("Professional")
     ? MockData[1]
     : MockData[2];
-  const { api } = useAPI();
-  const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
-  const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
-  const user = useUserStore((state) => state.user);
-  const setUser = useUserStore((state) => state.setUser);
 
   const getProfile = useCallback(async () => {
     const response = await api.appUserUserProfileList({

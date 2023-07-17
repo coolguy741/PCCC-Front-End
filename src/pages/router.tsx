@@ -173,7 +173,11 @@ export const router = createBrowserRouter([
           {
             path: "profiles/:user",
             element: <AccountsUserProfilePage />,
-            loader: profilePageLoader,
+            loader: async ({ params }) => {
+              if (params.id) return profilePageLoader(params.id);
+
+              return null;
+            },
           },
           {
             path: "profiles/:user/:lessonAssessment",
