@@ -19,7 +19,9 @@ import {
 } from "../../components/ContentCreation/Icons";
 import { ImageWithCaption } from "../../components/ContentCreation/ImageWithCaption";
 import { IngredientCard } from "../../components/ContentCreation/IngredientCard";
-import { LessonAssessment } from "../../components/ContentCreation/LessonAssessment";
+import { LessonAssessmentMultiple } from "../../components/ContentCreation/LessonAssessment/MultipleSelection";
+import { LessonAssessmentTextArea } from "../../components/ContentCreation/LessonAssessment/TextArea";
+import { LessonAssessmentTrueOrFalse } from "../../components/ContentCreation/LessonAssessment/TrueFalse";
 import { NumberedParagraph } from "../../components/ContentCreation/NumberedParagraph";
 import { ParagraphWithHeading } from "../../components/ContentCreation/ParagraphWithHeading";
 import { SingleBullet } from "../../components/ContentCreation/SingleBullet";
@@ -62,19 +64,19 @@ const components = [
     id: 6,
     title: "Assessment - Multiple Choice",
     preview: <AMC />,
-    component: <LessonAssessment media={{}} variant="multiple" />,
+    component: <LessonAssessmentMultiple key="amc" />,
   },
   {
     id: 7,
     title: "Assessment - True & False",
     preview: <ATF />,
-    component: <LessonAssessment media={{}} variant="true-or-false" />,
+    component: <LessonAssessmentTrueOrFalse key="tf" />,
   },
   {
     id: 8,
     title: "Assessment - Written",
     preview: <AW />,
-    component: <LessonAssessment media={{}} variant="text-area" />,
+    component: <LessonAssessmentTextArea key="aw" />,
   },
   {
     id: 9,
