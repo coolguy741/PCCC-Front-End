@@ -89,7 +89,7 @@ export const LessonAssessmentMultipleComponent = ({
             <div>
               <Checkbox />
               <Typography
-                tag="label"
+                tag="p"
                 weight={600}
                 size={convertToRelativeUnit(16, "vh")}
                 color="neutral-600"
@@ -107,7 +107,7 @@ export const LessonAssessmentMultipleComponent = ({
             <div>
               <Checkbox />
               <Typography
-                tag="label"
+                tag="p"
                 weight={600}
                 size={convertToRelativeUnit(16, "vh")}
                 color="neutral-600"
