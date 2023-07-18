@@ -81,7 +81,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
         </hgroup>
         <div className="latf-content-input">
           <form className="latf-form">
-            <div>
+            <div className="latf-field">
               <Checkbox onClick={changeOption} checked={tfState} />
               <Typography
                 tag="p"
@@ -90,16 +90,10 @@ export const LessonAssessmentTrueOrFalseComponent = ({
                 color="neutral-600"
                 ml="2.5vw"
               >
-                <DoubleClickToEditComponent
-                  mode={state.redPill.mode}
-                  setText={changeText}
-                  changeEditState={changeEditState}
-                  text={state.redPill.text}
-                  name="redPill"
-                />
+                True
               </Typography>
             </div>
-            <div>
+            <div className="latf-field">
               <Checkbox onClick={changeOption} checked={!tfState} />
               <Typography
                 tag="p"
@@ -109,13 +103,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
                 ml="2.5vw"
                 onClick={() => console.log("clicked")}
               >
-                <DoubleClickToEditComponent
-                  mode={state.bluePill.mode}
-                  setText={changeText}
-                  changeEditState={changeEditState}
-                  text={state.bluePill.text}
-                  name="bluePill"
-                />
+                False
               </Typography>
             </div>
           </form>
@@ -170,7 +158,7 @@ const Style = {
       display: flex;
       flex-direction: column;
 
-      div {
+      div.latf-field {
         display: flex;
         align-items: center;
         margin-bottom: 2.5vh;

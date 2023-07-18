@@ -65,7 +65,7 @@ export const LessonAssessmentTextAreaComponent = ({
           </Typography>
         </hgroup>
         <div className="lata-content-input">
-          <textarea className="lata-textarea"></textarea>
+          <textarea className="lata-textarea" />
         </div>
       </article>
     </Style.Container>
@@ -88,12 +88,12 @@ const Style = {
     background: rgba(255, 255, 255, 0.5);
     overflow: hidden;
 
-    article.la-image {
+    article.lata-image {
       height: 100%;
       width: 40%;
     }
 
-    article.la-content {
+    article.lata-content {
       width: 60%;
       height: 100%;
       padding: 35px 60px;
