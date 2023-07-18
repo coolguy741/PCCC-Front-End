@@ -21,13 +21,13 @@ const tfInitialState = {
     mode: "view",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
   },
-  redPill: {
-    mode: "view",
-    text: "True",
-  },
   bluePill: {
     mode: "view",
     text: "False",
+  },
+  redPill: {
+    mode: "view",
+    text: "True",
   },
 };
 
@@ -107,6 +107,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
                 size={conv(16, "vh")}
                 color="neutral-600"
                 ml="2.5vw"
+                onClick={() => console.log("clicked")}
               >
                 <DoubleClickToEditComponent
                   mode={state.bluePill.mode}
@@ -165,6 +166,12 @@ const Style = {
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      hgroup {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   `,
 };
