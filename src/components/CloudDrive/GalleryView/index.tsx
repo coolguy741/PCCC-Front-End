@@ -9,10 +9,18 @@ export function CDGalleryView({
   data,
   type,
   handleDelete,
+  setPreviewUrl,
+  setShowPreviewModal,
+  setFileType,
+  setFileName,
 }: {
   data: any;
   type: "images" | "video" | "documents" | "audio";
   handleDelete: (path: string) => void;
+  setPreviewUrl: (url: string) => void;
+  setShowPreviewModal: (show: boolean) => void;
+  setFileType: (type: "images" | "video" | "audio" | "documents") => void;
+  setFileName: (name: string) => void;
 }) {
   const numberOfItems = 15;
   const [itemBatch, setItemBatch] = useState(1);
@@ -41,8 +49,6 @@ export function CDGalleryView({
       setDisplayedItems(data.slice(0, numberOfItems * itemBatch));
     }
   }, [data]);
-
-  console.log(displayedItems.length, data.length);
 
   return (
     <Style.Container thumbWidth="thin" id="scroll-target">

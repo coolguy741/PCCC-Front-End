@@ -20,7 +20,9 @@ import {
 } from "../../../ContentCreation/Icons";
 import { ImageWithCaption } from "../../../ContentCreation/ImageWithCaption";
 import { IngredientCard } from "../../../ContentCreation/IngredientCard";
-import { LessonAssessment } from "../../../ContentCreation/LessonAssessment";
+import { LessonAssessmentMultiple } from "../../../ContentCreation/LessonAssessment/MultipleSelection";
+import { LessonAssessmentTextArea } from "../../../ContentCreation/LessonAssessment/TextArea";
+import { LessonAssessmentTrueOrFalse } from "../../../ContentCreation/LessonAssessment/TrueFalse";
 import { NumberedParagraph } from "../../../ContentCreation/NumberedParagraph";
 import { ParagraphWithHeading } from "../../../ContentCreation/ParagraphWithHeading";
 import { SingleBullet } from "../../../ContentCreation/SingleBullet";
@@ -85,7 +87,7 @@ export const components: ThemeComponent[] = [
     title: "Assessment - Multiple Choice",
     preview: <AMC />,
     component: (props: ThemeComponentProps) => (
-      <LessonAssessment key="amc" media={{}} {...props} />
+      <LessonAssessmentMultiple key="amc" {...props} />
     ),
   },
   {
@@ -95,7 +97,7 @@ export const components: ThemeComponent[] = [
     title: "Assessment - True & False",
     preview: <ATF />,
     component: (props: ThemeComponentProps) => (
-      <LessonAssessment media={{}} key="atf" {...props} />
+      <LessonAssessmentTrueOrFalse key="atf" {...props} />
     ),
   },
   {
@@ -105,7 +107,7 @@ export const components: ThemeComponent[] = [
     title: "Assessment - Written",
     preview: <AW />,
     component: (props: ThemeComponentProps) => (
-      <LessonAssessment media={{}} key="aw" {...props} />
+      <LessonAssessmentTextArea key="aw" {...props} />
     ),
   },
   {

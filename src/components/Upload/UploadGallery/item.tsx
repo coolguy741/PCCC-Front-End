@@ -67,7 +67,12 @@ export function GalleryItem(props: any) {
             <CDDownload />
             Download
           </button>
-          <button onClick={() => props.handleDelete(el.relativePath)}>
+          <button
+            onClick={() => {
+              setShowOptions(false);
+              props.handleDelete(el.relativePath);
+            }}
+          >
             <CDDelete />
             Delete
           </button>
