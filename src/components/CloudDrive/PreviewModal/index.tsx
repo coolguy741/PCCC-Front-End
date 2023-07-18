@@ -24,7 +24,8 @@ export const PreviewModal = ({
     <Style.Container>
       {type === "images" ? (
         <div className="img-mask">
-          <img src={url} width="70%" height="80%" />
+          <div className="title">{fileName}</div>
+          <img src={url} width="100%" height="100%" />
         </div>
       ) : (
         <div className="player-mask">
@@ -44,8 +45,8 @@ export const PreviewModal = ({
                 : {}
             }
             controls
-            width="70%"
-            height="80%"
+            width="100%"
+            height="100%"
           />
         </div>
       )}
@@ -66,13 +67,14 @@ const Style = {
     align-items: center;
 
     .img-mask {
-      width: 100%;
-      height: 100%;
       border-radius: 20px;
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+      width: 70%;
+      height: 80%;
 
       img {
         object-fit: contain;
@@ -90,6 +92,8 @@ const Style = {
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+      width: 70%;
 
       video {
         border-radius: 20px;
@@ -103,8 +107,12 @@ const Style = {
     .title {
       position: absolute;
       top: 0;
-      left: 0;
+      text-align: center;
       color: white;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin: 2rem;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
   `,
 };
