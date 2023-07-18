@@ -43,10 +43,10 @@ export const LessonAssessmentTrueOrFalseComponent = ({
   }
   return (
     <Style.Container>
-      <article className="la-image">
+      <article className="latf-image">
         <Media media={{}} />
       </article>
-      <article className="la-content">
+      <article className="latf-content">
         <hgroup>
           <Typography
             tag="h2"
@@ -79,9 +79,9 @@ export const LessonAssessmentTrueOrFalseComponent = ({
             />
           </Typography>
         </hgroup>
-        <div className="la-content-input">
-          <TFStyle.Container>
-            <fieldset>
+        <div className="latf-content-input">
+          <form className="latf-form">
+            <div>
               <Checkbox onClick={changeOption} checked={tfState} />
               <Typography
                 tag="p"
@@ -98,8 +98,8 @@ export const LessonAssessmentTrueOrFalseComponent = ({
                   name="redPill"
                 />
               </Typography>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div>
               <Checkbox onClick={changeOption} checked={!tfState} />
               <Typography
                 tag="p"
@@ -117,8 +117,8 @@ export const LessonAssessmentTrueOrFalseComponent = ({
                   name="bluePill"
                 />
               </Typography>
-            </fieldset>
-          </TFStyle.Container>
+            </div>
+          </form>
         </div>
       </article>
     </Style.Container>
@@ -129,19 +129,6 @@ export const LessonAssessmentTrueOrFalse = withThemeStore(
   LessonAssessmentTrueOrFalseComponent,
   tfInitialState,
 );
-
-const TFStyle = {
-  Container: styled.form`
-    display: flex;
-    flex-direction: column;
-
-    fieldset {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2.5vh;
-    }
-  `,
-};
 
 const Style = {
   Container: styled.section`
@@ -154,12 +141,12 @@ const Style = {
     background: rgba(255, 255, 255, 0.5);
     overflow: hidden;
 
-    article.la-image {
+    article.latf-image {
       height: 100%;
       width: 40%;
     }
 
-    article.la-content {
+    article.latf-content {
       width: 60%;
       height: 100%;
       padding: 35px 60px;
@@ -176,6 +163,17 @@ const Style = {
         h3 {
           width: 100%;
         }
+      }
+    }
+
+    form.latf-form {
+      display: flex;
+      flex-direction: column;
+
+      div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.5vh;
       }
     }
   `,

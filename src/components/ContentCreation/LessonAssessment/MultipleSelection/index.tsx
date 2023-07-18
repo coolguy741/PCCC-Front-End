@@ -9,21 +9,6 @@ import { DoubleClickToEditComponent } from "../../DoubleClickToEdit";
 import { Media } from "../../Media/media";
 import { ComponentProps, withThemeStore } from "../../withThemeStore";
 
-type LAVariant = "multiple" | "true-or-false" | "text-area";
-
-const MStyle = {
-  Container: styled.form`
-    display: flex;
-    flex-direction: column;
-
-    fieldset {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2.5vh;
-    }
-  `,
-};
-
 const mInitialState = {
   variant: "multiple",
   img: {
@@ -63,10 +48,10 @@ export const LessonAssessmentMultipleComponent = ({
 }: ComponentProps) => {
   return (
     <Style.Container>
-      <article className="la-image">
+      <article className="lam-image">
         <Media media={{}} />
       </article>
-      <article className="la-content">
+      <article className="lam-content">
         <hgroup>
           <Typography
             tag="h2"
@@ -99,9 +84,9 @@ export const LessonAssessmentMultipleComponent = ({
             />
           </Typography>
         </hgroup>
-        <div className="la-content-input">
-          <MStyle.Container>
-            <fieldset>
+        <div className="lam-content-input">
+          <form className="lam-form">
+            <div>
               <Checkbox />
               <Typography
                 tag="label"
@@ -118,8 +103,8 @@ export const LessonAssessmentMultipleComponent = ({
                   name="option1"
                 />
               </Typography>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div>
               <Checkbox />
               <Typography
                 tag="label"
@@ -136,8 +121,8 @@ export const LessonAssessmentMultipleComponent = ({
                   name="option2"
                 />
               </Typography>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div>
               <Checkbox />
               <Typography
                 tag="p"
@@ -154,8 +139,8 @@ export const LessonAssessmentMultipleComponent = ({
                   name="option3"
                 />
               </Typography>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div>
               <Checkbox />
               <Typography
                 tag="p"
@@ -172,8 +157,8 @@ export const LessonAssessmentMultipleComponent = ({
                   name="option4"
                 />
               </Typography>
-            </fieldset>
-          </MStyle.Container>
+            </div>
+          </form>
         </div>
       </article>
     </Style.Container>
@@ -196,12 +181,12 @@ const Style = {
     background: rgba(255, 255, 255, 0.5);
     overflow: hidden;
 
-    article.la-image {
+    article.lam-image {
       height: 100%;
       width: 40%;
     }
 
-    article.la-content {
+    article.lam-content {
       width: 60%;
       height: 100%;
       padding: 35px 60px;
@@ -218,6 +203,17 @@ const Style = {
         h3 {
           width: 100%;
         }
+      }
+    }
+
+    form.lam-form {
+      display: flex;
+      flex-direction: column;
+
+      div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.5vh;
       }
     }
   `,

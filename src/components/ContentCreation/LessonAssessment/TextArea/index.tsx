@@ -28,10 +28,10 @@ export const LessonAssessmentTextAreaComponent = ({
 }: ComponentProps) => {
   return (
     <Style.Container>
-      <article className="la-image">
+      <article className="lata-image">
         <Media media={{}} />
       </article>
-      <article className="la-content">
+      <article className="lata-content">
         <hgroup>
           <Typography
             tag="h2"
@@ -64,8 +64,8 @@ export const LessonAssessmentTextAreaComponent = ({
             />
           </Typography>
         </hgroup>
-        <div className="la-content-input">
-          <TAStyle.Container />
+        <div className="lata-content-input">
+          <textarea className="lata-textarea"></textarea>
         </div>
       </article>
     </Style.Container>
@@ -76,21 +76,6 @@ export const LessonAssessmentTextArea = withThemeStore(
   LessonAssessmentTextAreaComponent,
   taInitialState,
 );
-
-const TAStyle = {
-  Container: styled.textarea`
-    width: 100%;
-    height: ${conv(150, "vh")};
-    resize: none;
-    padding: ${conv(13, "vh")} ${conv(15, "vh")};
-    font-size: ${conv(16, "vh")};
-    line-height: ${conv(20, "vh")};
-    color: var(--neutral-600);
-    border-radius: 12px;
-    background: #ffffff;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-  `,
-};
 
 const Style = {
   Container: styled.section`
@@ -126,6 +111,19 @@ const Style = {
           width: 100%;
         }
       }
+    }
+
+    textarea.lata-textarea {
+      width: 100%;
+      height: ${conv(150, "vh")};
+      resize: none;
+      padding: ${conv(13, "vh")} ${conv(15, "vh")};
+      font-size: ${conv(16, "vh")};
+      line-height: ${conv(20, "vh")};
+      color: var(--neutral-600);
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     }
   `,
 };
