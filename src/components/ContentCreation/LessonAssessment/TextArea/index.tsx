@@ -1,11 +1,83 @@
 import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../../styles/helpers/convertToRelativeUnits";
+import { Typography } from "../../../Typography";
+import { DoubleClickToEditComponent } from "../../DoubleClickToEdit";
+import { Media } from "../../Media/media";
+import { ComponentProps, withThemeStore } from "../../withThemeStore";
 
-export function LATextArea() {
-  return <Style.Container />;
-}
+const taInitialState = {
+  variant: "text-area",
+  img: {
+    src: "",
+    patternChoice: "",
+  },
+  number: {
+    mode: "view",
+    text: "Question 1 of 1",
+  },
+  question: {
+    mode: "view",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
+  },
+};
 
-const Style = {
+export const LessonAssessmentTextAreaComponent = ({
+  state,
+  changeEditState,
+  changeText,
+}: ComponentProps) => {
+  return (
+    <Style.Container>
+      <article className="la-image">
+        <Media media={{}} />
+      </article>
+      <article className="la-content">
+        <hgroup>
+          <Typography
+            tag="h2"
+            color="blue-500"
+            size={conv(18, "vh")}
+            weight={500}
+            mb="1.5vh"
+          >
+            <DoubleClickToEditComponent
+              mode={state.number.mode}
+              setText={changeText}
+              changeEditState={changeEditState}
+              text={state.number.text}
+              name="number"
+            />
+          </Typography>
+          <Typography
+            tag="h3"
+            color="neutral-600"
+            size={conv(19, "vh")}
+            weight={600}
+            mb="5vh"
+          >
+            <DoubleClickToEditComponent
+              mode={state.question.mode}
+              setText={changeText}
+              changeEditState={changeEditState}
+              text={state.question.text}
+              name="question"
+            />
+          </Typography>
+        </hgroup>
+        <div className="la-content-input">
+          <TAStyle.Container />
+        </div>
+      </article>
+    </Style.Container>
+  );
+};
+
+export const LessonAssessmentTextArea = withThemeStore(
+  LessonAssessmentTextAreaComponent,
+  taInitialState,
+);
+
+const TAStyle = {
   Container: styled.textarea`
     width: 100%;
     height: ${conv(150, "vh")};
@@ -17,5 +89,32 @@ const Style = {
     border-radius: 12px;
     background: #ffffff;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  `,
+};
+
+const Style = {
+  Container: styled.section`
+    width: 100%;
+    height: 100%;
+    border-radius: ${conv(32, "vh")};
+    filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
+    backdrop-filter: blur(59.2764px);
+    display: flex;
+    background: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+
+    article.la-image {
+      height: 100%;
+      width: 40%;
+    }
+
+    article.la-content {
+      width: 60%;
+      height: 100%;
+      padding: 35px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   `,
 };
