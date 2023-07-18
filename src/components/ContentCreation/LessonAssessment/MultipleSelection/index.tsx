@@ -140,7 +140,7 @@ export const LessonAssessmentMultipleComponent = ({
             <fieldset>
               <Checkbox />
               <Typography
-                tag="label"
+                tag="p"
                 weight={600}
                 size={convertToRelativeUnit(16, "vh")}
                 color="neutral-600"
@@ -158,7 +158,7 @@ export const LessonAssessmentMultipleComponent = ({
             <fieldset>
               <Checkbox />
               <Typography
-                tag="label"
+                tag="p"
                 weight={600}
                 size={convertToRelativeUnit(16, "vh")}
                 color="neutral-600"
@@ -213,6 +213,11 @@ const Style = {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+
+        h2,
+        h3 {
+          width: 100%;
+        }
       }
     }
   `,
