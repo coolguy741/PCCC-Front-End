@@ -18,8 +18,6 @@ export const PreviewModal = ({
   type: string;
   fileName: string;
 }) => {
-  console.log(fileName);
-
   return (
     <Style.Container>
       {type === "images" ? (
