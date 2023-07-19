@@ -7,8 +7,11 @@ export const patternArray = [
   "yellows",
 ];
 
-export function usePatterns(chanFunc?: (pattern: number) => void) {
-  const [currentPattern, setCurrentPattern] = useState(0);
+export function usePatterns(
+  patternChoice?: number,
+  chanFunc?: (pattern: number) => void,
+) {
+  const [currentPattern, setCurrentPattern] = useState(patternChoice ?? 0);
   const patternLength = patternArray.length;
 
   function shufflePattern() {

@@ -20,7 +20,10 @@ export function Media({
   changePattern: (pattern: number) => void;
 }) {
   const { toggle, modal } = useModal();
-  const { currentPattern, shufflePattern } = usePatterns(changePattern);
+  const { shufflePattern, currentPattern } = usePatterns(
+    media.patternChoice,
+    changePattern,
+  );
 
   return (
     <>
