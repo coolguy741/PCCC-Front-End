@@ -89,7 +89,7 @@ export function useContentCreation(
   }
 
   function changeMediaPattern(pattern: number) {
-    const media = { ...state.media, patterChoice: pattern };
+    const media = { ...state.media, patternChoice: pattern };
     const newState = {
       ...state,
       media: media,
