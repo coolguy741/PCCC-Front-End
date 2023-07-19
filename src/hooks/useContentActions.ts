@@ -33,11 +33,11 @@ const makeResponse = (
 ) => {
   return {
     slides: JSON.parse(
-      response[currentLang === "en" ? "english" : "french"]?.jsonData ?? "",
+      response[currentLang === "en" ? "english" : "french"]?.jsonData || "{}",
     ),
     id,
     concurrencyStamp:
-      response[currentLang === "en" ? "english" : "french"]?.concurrencyStamp ??
+      response[currentLang === "en" ? "english" : "french"]?.concurrencyStamp ||
       "",
     en: {
       title: response.english?.title ?? "",

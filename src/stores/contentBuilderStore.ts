@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 import { components } from "../components/ContentBuilder/Components/Cards";
+import { CCFormat } from "../components/ContentCreation/types";
 import { ThemeComponent } from "../pages/types";
-import { CCFormat } from "./../components/ContentCreation/types";
 import {
   ContentBuilderProps,
   ContentStoreProps,
@@ -97,8 +97,8 @@ const createStore = () =>
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
       set(({ slides, currentLang, ...state }) => ({
-        slides: slides.map((slide) => {
-          if (!sIndex) {
+        slides: slides.map((slide, slideIndex) => {
+          if (!sIndex && sIndex === componentIndex) {
             state[currentLang].title = (
               componentState as Record<string, CCFormat>
             ).heading.text;
@@ -109,8 +109,13 @@ const createStore = () =>
               componentState as Record<string, CCFormat>
             ).tag.text;
           }
-          slide[componentIndex].componentState = componentState;
-          return slide;
+
+          return slide.map((component, index) => ({
+            ...component,
+            ...(index === componentIndex && sIndex === slideIndex
+              ? { componentState }
+              : {}),
+          }));
         }),
       })),
     getDetailId: (index: number) => get().items?.[index - 1].id,

@@ -17,7 +17,6 @@ function alterArrayContentState(state: any, idx: number, indexValue: number) {
 export function useContentCreation(
   initialState: any,
   updatePageState?: (slideIndex: number, index: number, state: State) => void,
-  isTimeLine?: boolean,
 ) {
   const [state, setState] = useState<any>(initialState);
   const [timelineState, setTimelineState] = useState<any>(initialState);
@@ -27,7 +26,13 @@ export function useContentCreation(
   useEffect(() => {
     initialState && setState(initialState);
   }, [initialState]);
-  function changeEditState(tag: TitleType, amtOrIngdt?: "amt" | "ingdt") {
+
+  function changeEditState(
+    tag: TitleType,
+    amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
+  ) {
     const newState = {
       ...state,
       [tag]: {
@@ -38,12 +43,11 @@ export function useContentCreation(
             : ComponentViewMode.EDIT,
       },
     };
-
     componentPosition &&
       updatePageState &&
       updatePageState(
-        componentPosition.slideIndex,
-        componentPosition.componentIndex,
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
         newState,
       );
     return setState(newState);
@@ -129,6 +133,8 @@ export function useContentCreation(
     name: TitleType,
     newText: string,
     amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
   ) {
     let newState;
     if (amtOrIngdt) {
@@ -151,8 +157,8 @@ export function useContentCreation(
     componentPosition &&
       updatePageState &&
       updatePageState(
-        componentPosition.slideIndex,
-        componentPosition.componentIndex,
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
         newState,
       );
     setState(newState);

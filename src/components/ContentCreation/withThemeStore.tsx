@@ -56,12 +56,27 @@ export function withThemeStore<P extends ThemeComponentProps>(
       [isEditable],
     );
 
+    const handleChangeEditState = useCallback(
+      (tag: any) => {
+        changeEditState(tag, undefined, slideIndex, componentIndex);
+      },
+      [slideIndex, componentIndex, changeEditState],
+    );
+
+    const handleChangeText = useCallback(
+      (name: TitleType, newText: string) => {
+        changeText(name, newText, undefined, slideIndex, componentIndex);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [handleChangeEditState],
+    );
+
     return (
       <Component
         {...props}
         state={state}
-        changeEditState={changeEditState}
-        changeText={changeText}
+        changeEditState={handleChangeEditState}
+        changeText={handleChangeText}
         viewMode={viewMode}
         changeListEditState={changeListEditState}
         changeListText={changeListText}
