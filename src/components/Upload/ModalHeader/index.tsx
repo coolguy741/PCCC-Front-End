@@ -15,10 +15,12 @@ export function ModalHeader({
   changeView,
   reload,
   addImage,
+  view,
 }: {
   changeView: React.Dispatch<React.SetStateAction<"list" | "gallery">>;
   reload: () => Promise<void>;
   addImage: () => void;
+  view: "list" | "gallery";
 }) {
   const inputFile = React.useRef<HTMLInputElement | null>(null);
   const { api } = new Api({
@@ -61,10 +63,25 @@ export function ModalHeader({
         Choose an Image
       </Typography>
       <div className="header-options">
-        <CDGallery onClick={() => changeView("gallery")} />
-        <CDList onClick={() => changeView("list")} />
+        <button
+          className={`umh-view-option ${view === "gallery" ? "active" : ""}`}
+          onClick={() => changeView("gallery")}
+        >
+          <CDGallery />
+        </button>
+        <button
+          className={`umh-view-option ${view === "list" ? "active" : ""}`}
+          onClick={() => changeView("list")}
+        >
+          <CDList />
+        </button>
 
-        <Button variant="yellow" size="small" onClick={addImage}>
+        <Button
+          className="umh-add"
+          variant="yellow"
+          size="small"
+          onClick={addImage}
+        >
           Add
         </Button>
         <input
@@ -73,7 +90,12 @@ export function ModalHeader({
           ref={inputFile}
           onChange={handleFileChange}
         />
-        <Button size="small" id="OpenImgUpload" onClick={handleClick}>
+        <Button
+          className="umh-upload"
+          size="small"
+          id="OpenImgUpload"
+          onClick={handleClick}
+        >
           <CDAdd />
           Upload
         </Button>
@@ -91,6 +113,24 @@ const Style = {
     justify-content: space-between;
     z-index: 45;
 
+    button.umh-view-option {
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      height: 3.5vh;
+      display: grid;
+      place-items: center;
+      transition: background 0.3s linear;
+
+      svg {
+        height: 75%;
+      }
+    }
+
+    button.active {
+      background: #fff;
+      box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    }
+
     div.header-options {
       display: flex;
       width: 35%;
@@ -101,7 +141,8 @@ const Style = {
         display: none;
       }
 
-      button {
+      button.umh-add,
+      button.umh-upload {
         font-size: 1.5vh;
 
         svg {

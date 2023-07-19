@@ -1,4 +1,5 @@
 import { formatDate } from "@fullcalendar/core";
+import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -80,7 +81,11 @@ export function UploadList({ files, setImage, selectedImage }: any) {
   }, [files]);
 
   return (
-    <Style.Container>
+    <Style.Container
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <figure className="cd-list-header">
         <Typography
           tag="label"
@@ -215,7 +220,7 @@ export function UploadList({ files, setImage, selectedImage }: any) {
 }
 
 const Style = {
-  Container: styled.div`
+  Container: styled(motion.div)`
     figure.cd-list-header {
       height: 4vh;
       border-bottom: 2px solid #eaeaea;

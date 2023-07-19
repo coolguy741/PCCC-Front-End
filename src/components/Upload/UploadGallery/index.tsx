@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import styled from "styled-components";
@@ -47,32 +48,42 @@ export function UploadGallery({
   }, [files]);
 
   return (
-    <Style.Container thumbWidth="thin" id="scroll-target">
-      <InfiniteScroll
-        dataLength={displayedItems.length}
-        next={getMoreItems}
-        hasMore={displayedItems.length < files.length}
-        loader={<h4>Loading...</h4>}
-        scrollableTarget="scroll-target"
-      >
-        {displayedItems.map((el: any, idx: number) => {
-          return (
-            <GalleryItem
-              el={el}
-              idx={idx}
-              type={type || "images"}
-              handleDelete={handleDelete}
-              setImage={setImage}
-              selectedImage={selectedImage}
-            />
-          );
-        })}
-      </InfiniteScroll>
-    </Style.Container>
+    <Style.Div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Style.Container thumbWidth="thin" id="scroll-target">
+        <InfiniteScroll
+          dataLength={displayedItems.length}
+          next={getMoreItems}
+          hasMore={displayedItems.length < files.length}
+          loader={<h4>Loading...</h4>}
+          scrollableTarget="scroll-target"
+        >
+          {displayedItems.map((el: any, idx: number) => {
+            return (
+              <GalleryItem
+                el={el}
+                idx={idx}
+                type={type || "images"}
+                handleDelete={handleDelete}
+                setImage={setImage}
+                selectedImage={selectedImage}
+              />
+            );
+          })}
+        </InfiniteScroll>
+      </Style.Container>
+    </Style.Div>
   );
 }
 
 const Style = {
+  Div: styled(motion.div)`
+    height: calc(50vh - ${convertToRelativeUnit(48, "vh")}) !important;
+    width: 100%;
+  `,
   Container: styled(Scrollable)`
     height: calc(50vh - ${convertToRelativeUnit(48, "vh")}) !important;
     .infinite-scroll-component__outerdiv {

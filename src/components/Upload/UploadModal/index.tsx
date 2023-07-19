@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -10,6 +11,7 @@ import { useCloudDriveStore } from "../../../stores/cloudDriveStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import { Input } from "../../Global/Input";
+import { Spinner } from "../../Global/Spinner";
 import Modal from "../../Modal";
 import { ModalHeader } from "../ModalHeader";
 import { ModalMenu } from "../ModalMenu";
@@ -98,13 +100,16 @@ export function UploadModal({
   }, [data.type, getCloudDriveFiles]);
 
   function showFilesView() {
-    if (data.type === "fetched") {
+    if (data.type === "loading") {
+      return <Spinner key="spinner" className="upload-spinner" />;
+    } else if (data.type === "fetched") {
       if (view === "list")
         return (
           <UploadList
             selectedImage={selectedImage}
             setImage={setSelectedImage}
             files={displayedResults}
+            key="list"
           />
         );
       else
@@ -115,6 +120,7 @@ export function UploadModal({
             handleDelete={handleDelete}
             setImage={setSelectedImage}
             selectedImage={selectedImage}
+            key="gallery"
           />
         );
     }
@@ -138,6 +144,7 @@ export function UploadModal({
           addImage={addImage}
           reload={getCloudDriveFiles}
           changeView={setView}
+          view={view}
         />
         <ModalMenu />
         <Input
@@ -145,7 +152,9 @@ export function UploadModal({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <article className="um-content">{showFilesView()}</article>
+        <article className="um-content">
+          <AnimatePresence mode="wait">{showFilesView()}</AnimatePresence>
+        </article>
       </Style.Container>
     </Modal>
   );
@@ -159,6 +168,10 @@ const Style = {
     z-index: 45;
     border-radius: 16px;
     padding: 24px;
+
+    .upload-spinner {
+      margin-top: 15.5vh;
+    }
 
     article.um-content {
       ${glassBackground}
