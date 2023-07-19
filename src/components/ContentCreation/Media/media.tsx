@@ -12,13 +12,15 @@ export function Media({
   media,
   variant,
   changeMediaState,
+  changePattern,
 }: {
   media: any;
   variant?: "img-only" | "all";
   changeMediaState: (name: string) => void;
+  changePattern: (pattern: number) => void;
 }) {
   const { toggle, modal } = useModal();
-  const { currentPattern, shufflePattern } = usePatterns();
+  const { currentPattern, shufflePattern } = usePatterns(changePattern);
 
   return (
     <>
