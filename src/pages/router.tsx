@@ -468,7 +468,9 @@ export const router = createBrowserRouter([
       { path: "games", element: <GamesPage /> },
       {
         path: "cloud-drive",
-        element: <PageTitleLayout title="Cloud Drive" />,
+        element: (
+          <PageTitleLayout title="Cloud Drive" icon="cloud-orange-outlined" />
+        ),
         children: [
           {
             path: "",

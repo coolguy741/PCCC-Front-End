@@ -9,14 +9,23 @@ import Button from "../../Button";
 import CDAdd from "../../CloudDrive/Icons/cd-add";
 import CDGallery from "../../CloudDrive/Icons/cd-gallery";
 import CDList from "../../CloudDrive/Icons/cd-list";
+import { Input } from "../../Global/Input";
 import { Typography } from "../../Typography";
 
 export function ModalHeader({
   changeView,
   reload,
+  addImage,
+  view,
+  search,
+  setSearch,
 }: {
   changeView: React.Dispatch<React.SetStateAction<"list" | "gallery">>;
   reload: () => Promise<void>;
+  addImage: () => void;
+  view: "list" | "gallery";
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const inputFile = React.useRef<HTMLInputElement | null>(null);
   const { api } = new Api({
@@ -55,14 +64,41 @@ export function ModalHeader({
 
   return (
     <Style.Container>
-      <Typography tag="h1" size="2vh" weight={600} color="neutral-800">
-        Choose an Image
+      <Typography
+        tag="h2"
+        size="2.5vh"
+        color="neutral-800"
+        weight={600}
+        mb="1vh"
+        style={{ margin: 0 }}
+      >
+        Files
       </Typography>
+      <Input
+        placeholder="Search by name"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <div className="header-options">
-        <CDGallery onClick={() => changeView("gallery")} />
-        <CDList onClick={() => changeView("list")} />
-
-        <Button variant="yellow" size="small">
+        <button
+          className={`umh-view-option ${view === "gallery" ? "active" : ""}`}
+          onClick={() => changeView("gallery")}
+        >
+          <CDGallery />
+        </button>
+        <button
+          className={`umh-view-option ${view === "list" ? "active" : ""}`}
+          onClick={() => changeView("list")}
+        >
+          <CDList />
+        </button>
+        <Button
+          className="umh-upload"
+          size="small"
+          id="OpenImgUpload"
+          onClick={addImage}
+        >
+          <CDAdd />
           Add
         </Button>
         <input
@@ -71,10 +107,15 @@ export function ModalHeader({
           ref={inputFile}
           onChange={handleFileChange}
         />
-        <Button size="small" id="OpenImgUpload" onClick={handleClick}>
+        {/* <Button
+          className="umh-upload"
+          size="small"
+          id="OpenImgUpload"
+          onClick={handleClick}
+        >
           <CDAdd />
           Upload
-        </Button>
+        </Button> */}
       </div>
     </Style.Container>
   );
@@ -88,6 +129,25 @@ const Style = {
     align-items: center;
     justify-content: space-between;
     z-index: 45;
+    gap: 1rem;
+
+    button.umh-view-option {
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      height: 3.5vh;
+      display: grid;
+      place-items: center;
+      transition: background 0.3s linear;
+
+      svg {
+        height: 75%;
+      }
+    }
+
+    button.active {
+      background: #fff;
+      box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    }
 
     div.header-options {
       display: flex;
@@ -99,7 +159,8 @@ const Style = {
         display: none;
       }
 
-      button {
+      button.umh-add,
+      button.umh-upload {
         font-size: 1.5vh;
 
         svg {

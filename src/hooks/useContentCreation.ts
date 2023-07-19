@@ -83,6 +83,24 @@ export function useContentCreation(
     }
   }
 
+  function changeMediaState(mediaName: string) {
+    const media = { ...state.media, src: mediaName };
+    const newState = {
+      ...state,
+      media: media,
+    };
+    return setState(newState);
+  }
+
+  function changeMediaPattern(pattern: number) {
+    const media = { ...state.media, patternChoice: pattern };
+    const newState = {
+      ...state,
+      media: media,
+    };
+    return setState(newState);
+  }
+
   function changeTimelineEditState(tag: TitleType) {
     const newState = {
       ...timelineState,
@@ -259,5 +277,7 @@ export function useContentCreation(
     timelineChangeText,
     changeListEditState,
     changeListText,
+    changeMediaState,
+    changeMediaPattern,
   };
 }

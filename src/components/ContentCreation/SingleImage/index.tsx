@@ -1,13 +1,33 @@
 import styled from "styled-components";
 import { Media } from "../Media/media";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
-export function SingleImage({ media }: any) {
+const initialState: any = {
+  media: {
+    src: "",
+    patternChoice: 0,
+  },
+};
+
+export function SingleImageComponent({
+  state,
+  changeMediaState,
+  changeMediaPattern,
+}: ComponentProps) {
+  const componentState = state as any;
+
   return (
     <Style.Container>
-      <Media media={media} />
+      <Media
+        changePattern={changeMediaPattern}
+        changeMediaState={changeMediaState}
+        media={componentState.media}
+      />
     </Style.Container>
   );
 }
+
+export const SingleImage = withThemeStore(SingleImageComponent, initialState);
 
 const Style = {
   Container: styled.article`

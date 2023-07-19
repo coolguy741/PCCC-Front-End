@@ -29,12 +29,18 @@ const tfInitialState = {
     mode: "view",
     text: "True",
   },
+  media: {
+    src: "",
+    patternChoice: 0,
+  },
 };
 
 export const LessonAssessmentTrueOrFalseComponent = ({
   state,
   changeEditState,
   changeText,
+  changeMediaState,
+  changeMediaPattern,
 }: ComponentProps) => {
   const [tfState, setState] = useState<boolean>(true);
 
@@ -44,7 +50,11 @@ export const LessonAssessmentTrueOrFalseComponent = ({
   return (
     <Style.Container>
       <article className="latf-image">
-        <Media media={{}} />
+        <Media
+          changePattern={changeMediaPattern}
+          changeMediaState={changeMediaState}
+          media={state.media}
+        />
       </article>
       <article className="latf-content">
         <hgroup>

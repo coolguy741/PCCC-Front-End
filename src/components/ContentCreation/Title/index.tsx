@@ -31,7 +31,7 @@ many things to know, and many ways to know them.`,
   // },
   media: {
     src: "",
-    patternChoice: "",
+    patternChoice: 0,
   },
 };
 
@@ -40,6 +40,8 @@ function TitleComponent({
   changeEditState,
   changeText,
   viewMode,
+  changeMediaState,
+  changeMediaPattern,
 }: ComponentProps) {
   const componentState = state as ObjectState;
 
@@ -85,7 +87,11 @@ function TitleComponent({
           />
         </p> */}
       </div>
-      <Media media={state.media} />
+      <Media
+        changePattern={changeMediaPattern}
+        changeMediaState={changeMediaState}
+        media={state.media}
+      />
     </Style.Container>
   );
 }
