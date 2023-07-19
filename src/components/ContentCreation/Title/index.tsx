@@ -31,7 +31,7 @@ many things to know, and many ways to know them.`,
   // },
   media: {
     src: "",
-    patternChoice: "",
+    patternChoice: 0,
   },
 };
 
