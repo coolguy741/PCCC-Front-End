@@ -30,6 +30,7 @@ export function ImageWithCaptionComponent({
   changeText,
   viewMode,
   changeMediaState,
+  changeMediaPattern,
 }: ComponentProps) {
   const componentState = state as any;
 
@@ -37,6 +38,7 @@ export function ImageWithCaptionComponent({
     <Style.Container>
       <div className="iwc-image">
         <Media
+          changePattern={changeMediaPattern}
           changeMediaState={changeMediaState}
           media={componentState.media}
           variant="img-only"

@@ -12,12 +12,17 @@ const initialState: any = {
 export function DoubleImageComponent({
   state,
   changeMediaState,
+  changeMediaPattern,
 }: ComponentProps) {
   const componentState = state as any;
 
   return (
     <Style.Container>
-      <Media changeMediaState={changeMediaState} media={componentState.media} />
+      <Media
+        changePattern={changeMediaPattern}
+        changeMediaState={changeMediaState}
+        media={componentState.media}
+      />
     </Style.Container>
   );
 }
