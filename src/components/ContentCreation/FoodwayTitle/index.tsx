@@ -1,40 +1,35 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
+import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 interface FoodwayTitleProps {
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
-  title?: string | null;
-  description?: string | null;
+  state: any;
 }
 
-export function FoodwayTitle({
-  setTitle,
-  setDescription,
-  title,
-  description,
-}: FoodwayTitleProps) {
-  const titleState: any = {
-    tag: { mode: "view", text: "Overview" },
-    heading: {
-      mode: "view",
-      text: title || "Click to edit",
-    },
-    desc: {
-      mode: "view",
-      text: description || "Click to edit.",
-    },
-  };
+const titleState: any = {
+  tag: { mode: "view", text: "Overview" },
+  heading: {
+    mode: "view",
+    text: "Click to edit",
+  },
+  desc: {
+    mode: "view",
+    text: "Click to edit.",
+  },
+};
 
-  const { state, changeEditState, changeText } = useContentCreation(titleState);
+export function FoodwayTitle({ state: componentState }: FoodwayTitleProps) {
+  const { updatePageState } = useFoodwayStore();
+  const { state, changeEditState, changeText, setComponentPosition } =
+    useContentCreation(componentState ?? titleState, updatePageState);
 
   useEffect(() => {
-    setTitle(state.heading.text);
-    setDescription(state.desc.text);
-  }, [state]);
+    setComponentPosition({ slideIndex: 0, componentIndex: 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Style.Container>

@@ -32,6 +32,7 @@ export function useFetch<T = unknown>(
     body?: any,
     params?: URLSearchParams,
     manualReload?: boolean,
+    id?: string,
   ) => Promise<void>;
 } {
   const cache = useRef<Cache<T>>({});
@@ -67,6 +68,7 @@ export function useFetch<T = unknown>(
       fetchBody?: any,
       fetchParams?: URLSearchParams,
       manualReload?: boolean,
+      id?: string,
     ) => {
       cancelRequest.current = false;
       dispatch({ type: "loading" });
@@ -81,12 +83,19 @@ export function useFetch<T = unknown>(
         if (!handler) return;
 
         const apiFunc = api[handler] as any;
-        const response = await apiFunc.call(api, fetchBody ?? body, {
-          headers: {
-            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-          },
-          ...(fetchParams ?? params),
-        });
+        const response = id
+          ? await apiFunc.call(api, id, fetchBody ?? body, {
+              headers: {
+                Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+              },
+              ...(fetchParams ?? params),
+            })
+          : await apiFunc.call(api, fetchBody ?? body, {
+              headers: {
+                Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+              },
+              ...(fetchParams ?? params),
+            });
 
         if (response.status > 300) {
           throw new Error(response.status);

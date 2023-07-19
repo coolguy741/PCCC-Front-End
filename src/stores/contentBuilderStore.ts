@@ -1,13 +1,13 @@
 import { create } from "zustand";
+
+import { components } from "../components/ContentBuilder/Components/Cards";
+import { ThemeComponent } from "../pages/types";
 import { CCFormat } from "./../components/ContentCreation/types";
 import {
   ContentBuilderProps,
   ContentStoreProps,
   Language,
 } from "./../pages/types";
-
-import { components } from "../components/ContentBuilder/Components/Cards";
-import { ThemeComponent } from "../pages/types";
 
 export interface IContent {
   tags?: string;
@@ -99,7 +99,7 @@ const createStore = () =>
       set(({ slides, currentLang, ...state }) => ({
         slides: slides.map((slide) => {
           if (!sIndex) {
-            state[currentLang].title = state[currentLang].title = (
+            state[currentLang].title = (
               componentState as Record<string, CCFormat>
             ).heading.text;
             state[currentLang].description = (

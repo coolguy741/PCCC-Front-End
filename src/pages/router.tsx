@@ -43,7 +43,6 @@ import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
-import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
@@ -382,7 +381,7 @@ export const router = createBrowserRouter([
               },
               {
                 path: "edit",
-                element: <EditFoodwaysPage />,
+                element: <CreateFoodwaysPage />,
                 loader: async ({ params }) => {
                   const foodway = await getFoodway(params.id);
 
@@ -399,8 +398,9 @@ export const router = createBrowserRouter([
           <PageTitleLayout title="Recipes" icon="Recipes-orange-outlined" />
         ),
         loader: async () => {
-          return null;
           await redirectIfNotLoggedIn();
+
+          return null;
         },
         children: [
           { path: "", element: <RecipesPage /> },

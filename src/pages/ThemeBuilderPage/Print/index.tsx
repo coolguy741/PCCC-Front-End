@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useThemeStore } from "../../../stores/contentBuilderStore";
 
 export const ThemePrintPage = () => {
-  const { contents, currentStep, updatePageState } = useThemeStore();
+  const { slides, updatePageState } = useThemeStore();
 
   return (
     <>
-      {contents[currentStep].slides.map((slide, sIndex) => (
+      {slides.map((slide, sIndex) => (
         <Style.Page>
           <Style.ContentWrapper>
             <Style.Content>

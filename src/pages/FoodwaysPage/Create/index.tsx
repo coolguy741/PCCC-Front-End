@@ -1,13 +1,16 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import styled from "styled-components";
 import SwiperType, { Mousewheel, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+
 import Button from "../../../components/Button";
 import { LanguageToggle } from "../../../components/ContentBuilder/Components/ContentInfo/LangToggle";
 import { Tags } from "../../../components/ContentBuilder/Components/ContentInfo/Tag";
 import { FoodwayStop } from "../../../components/ContentCreation/FoodwayStop";
+import { FoodwayTimeline } from "../../../components/ContentCreation/FoodwayTimeline";
 import { FoodwayTitle } from "../../../components/ContentCreation/FoodwayTitle";
 import { BackButton } from "../../../components/Global/BackButton";
 import { Icon } from "../../../components/Global/Icon";
@@ -15,20 +18,33 @@ import { Typography } from "../../../components/Global/Typography";
 import { useAPI } from "../../../hooks/useAPI";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { STORAGE_KEY_JWT } from "../../consts";
+import { Language } from "../../types";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-import { FoodwayTimeline } from "../../../components/ContentCreation/FoodwayTimeline";
+import { useFetch } from "../../../hooks/useFetch";
+import {
+  PccServer23FoodwaysFoodwayDto,
+  PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+} from "../../../lib/api/api";
 
-const SlideOnUpdate = ({ totalSlides }: { totalSlides: number }) => {
+const SlideOnUpdate = ({
+  totalSlides,
+  currentLang,
+  setActiveSlide,
+}: {
+  totalSlides: number;
+  currentLang: Language;
+  setActiveSlide: (slide: number) => void;
+}) => {
   const swiper = useSwiper();
 
   useEffect(() => {
     if (swiper) {
-      swiper.slideTo(totalSlides);
+      swiper.slideTo(totalSlides - 1);
     }
-  }, [totalSlides, swiper]);
+  }, [totalSlides, swiper, currentLang]);
 
   return null;
 };
@@ -38,96 +54,112 @@ export const CreateFoodwaysPage = () => {
     activeSlide,
     addFoodwaySlide,
     setActiveSlide,
-    totalSlides,
-    setTitle,
-    setDescription,
-    title,
-    description,
-    setContents,
-    setStopTitle,
-    setStopDescription,
-    setStopTime,
-    stopTitle,
     setLang,
+    setFoodway,
+    deleteSlide,
     currentLang,
-    stopDescription,
-    stopTime,
+    en,
+    fr,
+    id,
+    concurrencyStamp,
   } = useFoodwayStore();
   const { api } = useAPI();
   const navigate = useNavigate();
-  const [_title, _setTitle] = useState(title || "");
-  const [_description, _setDescription] = useState(description || "");
-  const [_stopTitle, _setStopTitle] = useState<undefined[] | string[]>(
-    stopTitle || [],
-  );
-  const [_stopTime, _setStopTime] = useState<undefined[] | string[]>(
-    stopTime || [],
-  );
-  const [_stopDescription, _setStopDescription] = useState<
-    undefined[] | string[]
-  >(stopDescription || []);
+  const { state } = useNavigation();
+  const foodway = useLoaderData() as PccServer23FoodwaysFoodwayDto;
   const [tags, setTags] = useState(["foraging", "seeds"]);
-
-  const handleCreate = async () => {
-    const response = await api.appFoodwaysCreate(
-      {
-        image: "/images/chocolate.jpg",
-        english: {
-          title: title,
-          info: description,
-          featureDate: "2023-05-26T19:41:06.252Z",
-          description: "Test description.",
-        },
-        french: {
-          title: title,
-          info: description,
-          featureDate: "2023-05-26T19:41:06.252Z",
-          description: "Test description.",
-        },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      },
+  const { data: newFoodway, fetchData: createFoodway } =
+    useFetch<PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appFoodwaysCreate",
+      {},
+    );
+  const { data: updatedFoodway, fetchData: updateFoodway } =
+    useFetch<PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appFoodwaysUpdate",
+      {},
     );
 
-    _stopTitle.shift();
-    _stopDescription.shift();
-    _stopTime.shift();
+  useEffect(() => {
+    foodway && setFoodway(foodway);
+  }, [foodway]);
 
-    if (response.status === 200) {
+  const totalSlidesCount = useMemo(
+    () => ((currentLang === "en" ? en : fr).stops?.length ?? 0) + 1,
+    [currentLang, en, fr],
+  );
+
+  const handleCreate = async () => {
+    const data = {
+      image: "/images/chocolate.jpg",
+      english: {
+        title: en.title ?? "",
+        info: en.info ?? "",
+        featureDate: new Date().toISOString(),
+        description: en.description,
+      },
+      french: {
+        title: fr.title ?? "",
+        info: fr.info ?? "",
+        featureDate: new Date().toISOString(),
+        description: fr.description,
+      },
+    };
+
+    id
+      ? updateFoodway?.(
+          {
+            ...data,
+            concurrencyStamp: concurrencyStamp || "",
+          },
+          undefined,
+          undefined,
+          id,
+        )
+      : createFoodway?.(data);
+  };
+
+  useEffect(() => {
+    if (newFoodway || updatedFoodway) {
       let _response;
-      _stopTitle.forEach(async (_, index) => {
-        _response = await api.appFoodwayStopsCreate(
-          {
-            foodwayId: response.data.english?.id,
-            image: "/images/moment.jpg",
-            order: index,
-            english: {
-              location: _stopTitle[index],
-              description: _stopDescription[index],
-              timePeriod: _stopTime[index] || "",
-            },
-            french: {
-              location: _stopTitle[index],
-              description: _stopDescription[index],
-              timePeriod: _stopTime[index] || "",
-            },
+      en.stops?.forEach(async (stop, index) => {
+        const data = {
+          foodwayId: (newFoodway || updatedFoodway)?.english?.id,
+          image: "/images/moment.jpg",
+          order: index + 1,
+          english: {
+            location: en.stops?.[index].title,
+            description: en.stops?.[index].description,
+            timePeriod: en.stops?.[index].time ?? "",
           },
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-            },
+          french: {
+            location: fr.stops?.[index].title,
+            description: fr.stops?.[index].description,
+            timePeriod: fr.stops?.[index].time ?? "",
           },
-        );
+        };
+
+        _response = stop.id
+          ? await api.appFoodwayStopsUpdate(
+              stop.id,
+              { ...data, concurrencyStamp: concurrencyStamp || "" },
+              {
+                headers: {
+                  Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+                },
+              },
+            )
+          : await api.appFoodwayStopsCreate(data, {
+              headers: {
+                Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+              },
+            });
 
         if (_response.status === 200) {
           navigate("/dashboard/foodways");
         }
       });
     }
-  };
+  }, [newFoodway, updatedFoodway]);
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -145,30 +177,17 @@ export const CreateFoodwaysPage = () => {
     console.log("Save and exit");
   };
 
-  const handleAddSlide = () => {
+  const handleAddSlide = useCallback(() => {
     addFoodwaySlide();
-  };
+  }, []);
+
+  const handleDeleteSlide = useCallback(() => {
+    deleteSlide();
+  }, []);
 
   const onSlideChange = (swiper: SwiperType) => {
     setActiveSlide(swiper.activeIndex);
   };
-
-  useEffect(() => {
-    setTitle(_title);
-    setDescription(_description);
-    setStopTitle(_stopTitle);
-    setStopDescription(_stopDescription);
-    setStopTime(_stopTime);
-
-    setContents(_stopTitle, _stopDescription, _stopTime);
-  }, [
-    _title,
-    _description,
-    _stopTitle,
-    _stopDescription,
-    _stopTime,
-    totalSlides,
-  ]);
 
   return (
     <Style.Container>
@@ -178,12 +197,12 @@ export const CreateFoodwaysPage = () => {
       </div>
 
       <Typography variant="h4" as="h4" weight="semi-bold">
-        Create foodways
+        {foodway ? "Edit" : "Create"} foodways
       </Typography>
 
       <Style.Info>
         <div className="flex">
-          <Style.SlideDeleteButton>
+          <Style.SlideDeleteButton onClick={handleDeleteSlide}>
             <Typography variant="h6" as="h6" weight="semi-bold">
               Slide - {activeSlide + 1}
             </Typography>
@@ -211,53 +230,64 @@ export const CreateFoodwaysPage = () => {
               modules={[Mousewheel, Scrollbar]}
               className="theme-swiper-slide"
             >
-              {new Array(totalSlides).fill(null).map((_, index) => (
+              {new Array(totalSlidesCount).fill(null).map((_, index) => (
                 <SwiperSlide key={`slide-${index}`}>
                   <Style.Content>
                     {index === 0 ? (
                       <FoodwayTitle
-                        setTitle={_setTitle}
-                        setDescription={_setDescription}
-                        title={_title}
-                        description={_description}
+                        state={
+                          currentLang === "en"
+                            ? en.componentState
+                            : fr.componentState
+                        }
                       />
                     ) : (
                       <FoodwayStop
                         index={index}
-                        stopTitle={_stopTitle}
-                        stopDescription={_stopDescription}
-                        setStopDescription={_setStopDescription}
-                        setStopTitle={_setStopTitle}
-                        initialStopDescription={stopDescription[index]}
-                        initialStopTitle={stopTitle[index]}
-                        initialTimePeriod={stopTime[index]}
+                        state={
+                          currentLang === "en"
+                            ? en.stops?.[index - 1].componentState
+                            : fr.stops?.[index - 1].componentState
+                        }
                       />
                     )}
                   </Style.Content>
                 </SwiperSlide>
               ))}
-              <SlideOnUpdate totalSlides={totalSlides} />
+              <SlideOnUpdate
+                totalSlides={totalSlidesCount}
+                currentLang={currentLang}
+                setActiveSlide={setActiveSlide}
+              />
             </Swiper>
           </Style.Slide>
         </div>
         <div className="timeline">
-          <FoodwayTimeline
-            totalSlides={totalSlides}
-            activeSlide={activeSlide}
-            stopTime={_stopTime}
-            setStopTime={_setStopTime}
-          />
+          <FoodwayTimeline totalSlides={totalSlidesCount} />
         </div>
       </Style.ContentBuilder>
       <Style.ActionContainer>
-        <Button variant="yellow" onClick={handleAddSlide}>
+        <Button
+          variant="yellow"
+          onClick={handleAddSlide}
+          disabled={state === "loading"}
+        >
           Add Slide
         </Button>
         <div className="flex">
-          <Button variant="yellow" className="mr-4" onClick={handleCreate}>
+          <Button
+            variant="yellow"
+            className="mr-4"
+            onClick={handleCreate}
+            disabled={state === "loading"}
+          >
             Save changes and exit
           </Button>
-          <Button variant="orange" onClick={handleSaveAndContinue}>
+          <Button
+            variant="orange"
+            onClick={handleSaveAndContinue}
+            disabled={state === "loading"}
+          >
             Save changes and continue
           </Button>
         </div>
