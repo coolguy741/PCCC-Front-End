@@ -4,7 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import { useAPI } from "../../../hooks/useAPI";
-import { avatars_data } from "../../../lib/avatars/data";
+import { useFetch } from "../../../hooks/useFetch";
+import { PccServer23AvatarsAvatarDto } from "../../../lib/api/api";
 import { PROVINCES } from "../../../pages/consts";
 import { useSignUpStore } from "../../../stores/signUpStore";
 import {
@@ -15,6 +16,7 @@ import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { DropdownSelect } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
+import Scrollable from "../../Global/Scrollable";
 import { ArrowRight } from "../../Icons";
 
 type TSignUpForm = {
@@ -56,6 +58,8 @@ export const SignUpForm = () => {
     setSchoolIdCode,
     setSchoolName,
     setEmail,
+    avatar,
+    setAvatar,
   } = useSignUpStore();
 
   const {
@@ -79,6 +83,15 @@ export const SignUpForm = () => {
   });
 
   const { api } = useAPI();
+
+  const {
+    isLoading: avatarsIsLoading,
+    data: avatarsData,
+    fetchData: avatarsFetchData,
+  } = useFetch<{
+    total: number;
+    items: PccServer23AvatarsAvatarDto[];
+  }>("appAvatarsList", {});
 
   const getUsernames = useCallback(async () => {
     const { data } = await api.appUsernameChoicesUsernameChoicesList();
@@ -107,6 +120,7 @@ export const SignUpForm = () => {
 
   useEffect(() => {
     getUsernames();
+    avatarsFetchData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -366,14 +380,27 @@ export const SignUpForm = () => {
         </article>
         <article className="choose-avatar">
           <label>Choose Profile Picture</label>
-          <div className="avatars">
+          <Scrollable className="avatars">
             {/* TODO: Improve avatar animations */}
-            {avatars_data.map((avatar, index) => (
-              <Style.Button className="avatar" key={`avatar-${index}`}>
-                {avatar.icon({})}
-              </Style.Button>
-            ))}
-          </div>
+            {avatarsData &&
+              avatarsData.items.map((_avatar, index) => (
+                <>
+                  <Style.Button
+                    className={avatar === _avatar.id ? "selected" : ""}
+                    key={`avatar-${index}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      if (_avatar.id) setAvatar(_avatar.id);
+                    }}
+                  >
+                    <img
+                      src={_avatar.imageUrl !== null ? _avatar.imageUrl : ""}
+                    />
+                  </Style.Button>
+                </>
+              ))}
+          </Scrollable>
         </article>
         <Button
           className="next"
@@ -416,6 +443,25 @@ const Style = {
       display: flex;
       flex-direction: column;
       padding-top: ${conv(100, "vh")};
+
+      .avatars {
+        margin-top: ${conv(20, "vh")};
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 1rem;
+        row-gap: 0.1rem;
+        overflow-y: scroll;
+        height: ${conv(300, "vh")};
+        padding-right: 2rem;
+
+        button {
+          width: 100%;
+        }
+
+        img {
+          width: 100%;
+        }
+      }
 
       h2 {
         font-weight: 600;
@@ -466,13 +512,6 @@ const Style = {
           font-size: ${conv(16, "vh")};
         }
       }
-    }
-
-    .avatars {
-      margin-top: ${conv(20, "vh")};
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
     }
 
     .username-selection {
@@ -529,7 +568,8 @@ const Style = {
         transform 0.3s ease-out;
     }
 
-    &:hover {
+    &:hover,
+    &.selected {
       border: ${conv(4, "vh")} solid rgba(0, 0, 0, 0.75);
 
       svg {

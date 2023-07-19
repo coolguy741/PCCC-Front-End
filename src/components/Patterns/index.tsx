@@ -18,5 +18,6 @@ const Style = {
     background: ${({ pattern }) =>
       `url(/patterns/${patternArray[pattern]}.png)`};
     background-position: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
   `,
 };

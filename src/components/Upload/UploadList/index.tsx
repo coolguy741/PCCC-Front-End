@@ -1,5 +1,7 @@
 import { formatDate } from "@fullcalendar/core";
 import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
@@ -30,6 +32,12 @@ const table_text_props = {
 export function UploadList({ files }: any) {
   const { api } = useAPI();
   const navigate = useNavigate();
+  const numberOfItems = 10;
+  const [itemBatch, setItemBatch] = useState(1);
+  const [displayedItems, setDisplayedItems] = useState([]);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortBy, setSortBy] = useState<"name" | "size" | "date">("name");
+  const [initialized, setInitialized] = useState(false);
 
   const handleDelete = async (path: string) => {
     const response = await api.appCloudDriveDriveFileDelete(
@@ -48,54 +56,151 @@ export function UploadList({ files }: any) {
     }
   };
 
+  const getMoreItems = () => {
+    setDisplayedItems(
+      displayedItems.concat(
+        files.slice(
+          numberOfItems * itemBatch,
+          numberOfItems + numberOfItems * itemBatch,
+        ),
+      ),
+    );
+
+    setItemBatch(itemBatch + 1);
+  };
+
+  useEffect(() => {
+    if (files && !initialized) {
+      setDisplayedItems(files.slice(0, numberOfItems));
+
+      setInitialized(true);
+    } else if (files && initialized) {
+      setDisplayedItems(files.slice(0, numberOfItems * itemBatch));
+    }
+  }, [files]);
+
   return (
-    <Style.Container thumbWidth="thin">
+    <Style.Container>
       <figure className="cd-list-header">
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("name");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Name
+          {sortBy === "name" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("size");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Size
+          {sortBy === "size" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
-        <Typography tag="label" {...text_props}>
+        <Typography
+          tag="label"
+          {...text_props}
+          onClick={() => {
+            setSortBy("date");
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+          }}
+        >
           Date
+          {sortBy === "date" && (
+            <img
+              src="/images/dropdown-arrow.svg"
+              className={sortOrder}
+              width="25"
+            />
+          )}
         </Typography>
       </figure>
-      <div className="cd-list-content">
-        {files.map((el: any) => (
-          <Style.Item>
-            <figure>
-              <div className="cd-list-image">
-                <MediaImage mediaType={getMediaType(el.fileName)} />
-              </div>
-              <Typography tag="h4" size="1.75vh" weight={500}>
-                <TitleStyle el={el} length={25} />
-              </Typography>
-            </figure>
-            <Typography {...table_text_props}>
-              {roundToOneDecimal(el.size)} MB
-            </Typography>
-            <Typography {...table_text_props}>
-              {formatDate(el.uploadedAt)}
-            </Typography>
-            <div className="cd-list-options">
-              <CDShare />
-              <CDDownload />
-              <CDDelete onClick={() => handleDelete(el.relativePath)} />
-            </div>
-          </Style.Item>
-        ))}
-      </div>
+      <Style.Scroll thumbWidth="thin" id="scroll-target">
+        <div className="cd-list-content">
+          <InfiniteScroll
+            dataLength={displayedItems.length}
+            next={getMoreItems}
+            hasMore={displayedItems.length < files.length}
+            loader={<h4>Loading...</h4>}
+            scrollableTarget="scroll-target"
+          >
+            {displayedItems
+              .sort((a: any, b: any) => {
+                if (sortBy === "name") {
+                  if (sortOrder === "asc") {
+                    return a.fileName.localeCompare(b.fileName);
+                  } else {
+                    return b.fileName.localeCompare(a.fileName);
+                  }
+                } else if (sortBy === "size") {
+                  if (sortOrder === "asc") {
+                    return a.size - b.size;
+                  } else {
+                    return b.size - a.size;
+                  }
+                } else if (sortBy === "date") {
+                  if (sortOrder === "asc") {
+                    return new Date(a.uploadedAt) > new Date(b.uploadedAt)
+                      ? 1
+                      : -1;
+                  } else {
+                    return new Date(a.uploadedAt) < new Date(b.uploadedAt)
+                      ? 1
+                      : -1;
+                  }
+                }
+              })
+              .map((el: any) => (
+                <Style.Item>
+                  <figure>
+                    <div className="cd-list-image">
+                      <MediaImage mediaType={getMediaType(el.fileName)} />
+                    </div>
+                    <Typography tag="h4" size="1.75vh" weight={500}>
+                      <TitleStyle el={el} length={25} />
+                    </Typography>
+                  </figure>
+                  <Typography {...table_text_props}>
+                    {roundToOneDecimal(el.size)} MB
+                  </Typography>
+                  <Typography {...table_text_props}>
+                    {formatDate(el.uploadedAt)}
+                  </Typography>
+                  <div className="cd-list-options">
+                    <CDShare />
+                    <CDDownload />
+                    <CDDelete onClick={() => handleDelete(el.relativePath)} />
+                  </div>
+                </Style.Item>
+              ))}
+          </InfiniteScroll>
+        </div>
+      </Style.Scroll>
     </Style.Container>
   );
 }
 
 const Style = {
-  Container: styled(Scrollable)`
-    // height of container minus padding
-    height: calc(50vh - ${convertToRelativeUnit(48, "vh")});
-    position: relative;
-
+  Container: styled.div`
     figure.cd-list-header {
       height: 4vh;
       border-bottom: 2px solid #eaeaea;
@@ -104,6 +209,16 @@ const Style = {
 
       label {
         display: block;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        user-select: none;
+
+        .desc {
+          transform: rotate(180deg);
+        }
       }
 
       label:first-of-type {
@@ -119,6 +234,11 @@ const Style = {
         width: 20%;
       }
     }
+  `,
+  Scroll: styled(Scrollable)`
+    // height of container minus padding
+    height: calc(46vh - ${convertToRelativeUnit(48, "vh")});
+    position: relative;
   `,
   Item: styled.article`
     width: 100%;
