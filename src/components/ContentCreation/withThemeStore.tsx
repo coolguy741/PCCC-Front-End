@@ -17,6 +17,7 @@ export type ComponentProps = {
   deleteListItem: () => void;
   addListItem: (amtOrIngdt?: boolean) => void;
   changeMediaState: (name: string) => void;
+  changeMediaPattern: (pattern: number) => void;
 };
 
 export function withThemeStore<P extends ThemeComponentProps>(
@@ -41,6 +42,7 @@ export function withThemeStore<P extends ThemeComponentProps>(
       deleteListItem,
       addListItem,
       changeMediaState,
+      changeMediaPattern,
     } = useContentCreation(componentState ?? initialState, updatePageState);
 
     useEffect(() => {
@@ -70,6 +72,7 @@ export function withThemeStore<P extends ThemeComponentProps>(
         deleteListItem={deleteListItem}
         addListItem={addListItem}
         changeMediaState={changeMediaState}
+        changeMediaPattern={changeMediaPattern}
       />
     );
   };

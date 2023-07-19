@@ -88,6 +88,15 @@ export function useContentCreation(
     return setState(newState);
   }
 
+  function changeMediaPattern(pattern: number) {
+    const media = { ...state.media, patterChoice: pattern };
+    const newState = {
+      ...state,
+      media: media,
+    };
+    return setState(newState);
+  }
+
   function changeTimelineEditState(tag: TitleType) {
     if (timelineState[tag].mode === ComponentViewMode.EDIT) {
       console.log("VIEW FIRE");
@@ -268,5 +277,6 @@ export function useContentCreation(
     changeListEditState,
     changeListText,
     changeMediaState,
+    changeMediaPattern,
   };
 }
