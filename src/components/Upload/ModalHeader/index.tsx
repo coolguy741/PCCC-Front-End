@@ -14,9 +14,11 @@ import { Typography } from "../../Typography";
 export function ModalHeader({
   changeView,
   reload,
+  addImage,
 }: {
   changeView: React.Dispatch<React.SetStateAction<"list" | "gallery">>;
   reload: () => Promise<void>;
+  addImage: () => void;
 }) {
   const inputFile = React.useRef<HTMLInputElement | null>(null);
   const { api } = new Api({
@@ -62,7 +64,7 @@ export function ModalHeader({
         <CDGallery onClick={() => changeView("gallery")} />
         <CDList onClick={() => changeView("list")} />
 
-        <Button variant="yellow" size="small">
+        <Button variant="yellow" size="small" onClick={addImage}>
           Add
         </Button>
         <input

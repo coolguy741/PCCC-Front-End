@@ -9,10 +9,14 @@ export function UploadGallery({
   files,
   type,
   handleDelete,
+  setImage,
+  selectedImage,
 }: {
   files: any;
   type: string;
   handleDelete: (path: string) => void;
+  setImage: (imageUrl: string) => void;
+  selectedImage: string;
 }) {
   const numberOfItems = 8;
   const [itemBatch, setItemBatch] = useState(1);
@@ -58,6 +62,8 @@ export function UploadGallery({
               idx={idx}
               type={type || "images"}
               handleDelete={handleDelete}
+              setImage={setImage}
+              selectedImage={selectedImage}
             />
           );
         })}

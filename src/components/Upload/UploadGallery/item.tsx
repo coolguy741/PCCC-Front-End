@@ -13,7 +13,7 @@ import { MediaImage } from "../../Upload/MediaImage";
 import { TitleStyle } from "../TitleStyle";
 
 export function GalleryItem(props: any) {
-  const { idx, el } = props;
+  const { idx, el, setImage, selectedImage } = props;
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
@@ -32,11 +32,22 @@ export function GalleryItem(props: any) {
         onMouseOut={() => setShowTooltip(false)}
       >
         <div>
-          <Typography tag="h4" size="1.5vh" weight={500}>
+          <Typography
+            tag="h4"
+            size="1.5vh"
+            weight={500}
+            color={selectedImage === el.url ? "orange-500" : "neutral-800"}
+            className="cdg-select"
+            onClick={() => setImage(el.url)}
+          >
             <div className="cdg-thumbnail">
               <MediaImage mediaType={getMediaType(el.fileName)} />
             </div>
-            <TitleStyle el={el} length={15} />
+            <TitleStyle
+              selected={selectedImage === el.url}
+              el={el}
+              length={15}
+            />
           </Typography>
           <button onClick={() => setShowOptions((prevState) => !prevState)}>
             <CDOptions />
@@ -95,6 +106,20 @@ const Style = {
     position: relative;
     z-index: 0;
     flex-direction: column;
+
+    h4 {
+      cursor: pointer;
+      transition: color 0.2s ease-out;
+
+      span {
+        cursor: pointer;
+        transition: color 0.2s ease-out;
+      }
+    }
+
+    .cdg-select {
+      cursor: pointer;
+    }
 
     .cdg-tooltip {
       position: fixed;

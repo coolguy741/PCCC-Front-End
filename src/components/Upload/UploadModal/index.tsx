@@ -24,22 +24,26 @@ interface ApiState {
 export function UploadModal({
   toggle,
   modal,
+  setMedia,
 }: {
   toggle: () => void;
   modal: boolean;
+  setMedia: (imageName: string) => void;
 }) {
   const [view, setView] = useState<"list" | "gallery">("list");
   const [search, setSearch] = useState("");
-  const { type, setType } = useCloudDriveStore();
+  const { type } = useCloudDriveStore();
   const [displayedResults, setDisplayedResults] = useState<
     CloudDriveFileType[]
   >([]);
-  const { api } = new Api({
-    baseURL: BASE_API_URL,
-  });
   const [data, setData] = useState<ApiState>({
     type: "loading",
     payload: undefined,
+  });
+  const [selectedImage, setSelectedImage] = useState<string>("");
+
+  const { api } = new Api({
+    baseURL: BASE_API_URL,
   });
 
   const getCloudDriveFiles = useCallback(async () => {
@@ -82,6 +86,12 @@ export function UploadModal({
     }
   };
 
+  function addImage() {
+    if (!selectedImage) return;
+    setMedia(selectedImage);
+    toggle();
+  }
+
   useEffect(() => {
     if (data.type === ("fetched" || "errored")) return;
     getCloudDriveFiles();
@@ -89,13 +99,22 @@ export function UploadModal({
 
   function showFilesView() {
     if (data.type === "fetched") {
-      if (view === "list") return <UploadList files={displayedResults} />;
+      if (view === "list")
+        return (
+          <UploadList
+            selectedImage={selectedImage}
+            setImage={setSelectedImage}
+            files={displayedResults}
+          />
+        );
       else
         return (
           <UploadGallery
             files={displayedResults}
             type={type}
             handleDelete={handleDelete}
+            setImage={setSelectedImage}
+            selectedImage={selectedImage}
           />
         );
     }
@@ -115,7 +134,11 @@ export function UploadModal({
   return (
     <Modal modal={modal} toggle={toggle}>
       <Style.Container>
-        <ModalHeader reload={getCloudDriveFiles} changeView={setView} />
+        <ModalHeader
+          addImage={addImage}
+          reload={getCloudDriveFiles}
+          changeView={setView}
+        />
         <ModalMenu />
         <Input
           placeholder="Search by name"
