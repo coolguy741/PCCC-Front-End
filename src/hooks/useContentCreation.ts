@@ -79,6 +79,15 @@ export function useContentCreation(
     }
   }
 
+  function changeMediaState(mediaName: string) {
+    const media = { ...state.media, src: mediaName };
+    const newState = {
+      ...state,
+      media: media,
+    };
+    return setState(newState);
+  }
+
   function changeTimelineEditState(tag: TitleType) {
     if (timelineState[tag].mode === ComponentViewMode.EDIT) {
       console.log("VIEW FIRE");
@@ -258,5 +267,6 @@ export function useContentCreation(
     timelineChangeText,
     changeListEditState,
     changeListText,
+    changeMediaState,
   };
 }
