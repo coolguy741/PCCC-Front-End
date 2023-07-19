@@ -3,7 +3,6 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { Typography } from "../../Typography";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import { Media } from "../Media/media";
-import { ObjectState } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const iWithCState: any = {
@@ -19,6 +18,10 @@ const iWithCState: any = {
     src: "",
     patternChoice: "",
   },
+  media: {
+    src: "",
+    patternChoice: "",
+  },
 };
 
 export function ImageWithCaptionComponent({
@@ -26,13 +29,18 @@ export function ImageWithCaptionComponent({
   changeEditState,
   changeText,
   viewMode,
+  changeMediaState,
 }: ComponentProps) {
-  const componentState = state as ObjectState;
+  const componentState = state as any;
 
   return (
     <Style.Container>
       <div className="iwc-image">
-        <Media variant="img-only" media={{}} />
+        <Media
+          changeMediaState={changeMediaState}
+          media={componentState.media}
+          variant="img-only"
+        />
       </div>
       <Typography
         weight={400}
