@@ -39,17 +39,27 @@ const mInitialState = {
     mode: "view",
     text: "Lorem",
   },
+  media: {
+    src: "",
+    patternChoice: 0,
+  },
 };
 
 export const LessonAssessmentMultipleComponent = ({
   state,
   changeEditState,
   changeText,
+  changeMediaState,
+  changeMediaPattern,
 }: ComponentProps) => {
   return (
     <Style.Container>
       <article className="lam-image">
-        <Media media={{}} />
+        <Media
+          changePattern={changeMediaPattern}
+          changeMediaState={changeMediaState}
+          media={state.media}
+        />
       </article>
       <article className="lam-content">
         <hgroup>

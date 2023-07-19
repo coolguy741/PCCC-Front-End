@@ -19,17 +19,27 @@ const taInitialState = {
     mode: "view",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
   },
+  media: {
+    src: "",
+    patternChoice: 0,
+  },
 };
 
 export const LessonAssessmentTextAreaComponent = ({
   state,
   changeEditState,
   changeText,
+  changeMediaState,
+  changeMediaPattern,
 }: ComponentProps) => {
   return (
     <Style.Container>
       <article className="lata-image">
-        <Media media={{}} />
+        <Media
+          changePattern={changeMediaPattern}
+          changeMediaState={changeMediaState}
+          media={state.media}
+        />
       </article>
       <article className="lata-content">
         <hgroup>

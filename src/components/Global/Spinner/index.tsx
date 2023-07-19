@@ -3,7 +3,7 @@ import Lottie from "react-lottie";
 import styled from "styled-components";
 import animationData from "../../../assets/animations/loading.json";
 
-export const Spinner = ({ className }: { className: string }) => {
+export const Spinner = ({ className }: { className?: string }) => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
