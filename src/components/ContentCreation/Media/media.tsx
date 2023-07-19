@@ -71,6 +71,8 @@ const Style = {
     img {
       object-fit: cover;
       width: 100%;
+      height: auto;
+      object-position: center;
     }
 
     .empty-img {
