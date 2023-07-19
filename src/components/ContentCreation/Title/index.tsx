@@ -40,6 +40,7 @@ function TitleComponent({
   changeEditState,
   changeText,
   viewMode,
+  changeMediaState,
 }: ComponentProps) {
   const componentState = state as ObjectState;
 
@@ -85,7 +86,7 @@ function TitleComponent({
           />
         </p> */}
       </div>
-      <Media media={state.media} />
+      <Media changeMediaState={changeMediaState} media={state.media} />
     </Style.Container>
   );
 }
