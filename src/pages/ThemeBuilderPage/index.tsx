@@ -3,10 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useFetch } from "../../hooks/useFetch";
 import { PccServer23ThemesThemeDto } from "../../lib/api/api";
-import { useThemeStore } from "../../stores/themeStore";
+import { useThemeStore } from "../../stores/contentBuilderStore";
 
 export const Themes = () => {
-  const { themes, setThemes } = useThemeStore();
+  const { items, setItems } = useThemeStore();
   const [isNeededToReload, setIsNeededToReload] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -42,7 +42,7 @@ export const Themes = () => {
 
   useEffect(() => {
     if (data) {
-      setThemes(data.items);
+      setItems(data.items);
       setIsNeededToReload(false);
       setIsDeleting(false);
     }
@@ -52,7 +52,7 @@ export const Themes = () => {
     <ContentListAdminPageTemplate
       title={"Themes"}
       selectsGroup={["Theme", "Sort"]}
-      listData={themes ?? []}
+      listData={items ?? []}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
       isLoading={isDeleting || isLoading}

@@ -14,7 +14,7 @@ export const SignInPage = () => {
       </span>
       <SignInForm key="login" />
 
-      <OrangeBG key="login" layout {...rightSideAnimationProps} />
+      <OrangeBG key="login-bg" layout {...rightSideAnimationProps} />
     </>
   );
 };

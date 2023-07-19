@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { ContentBuilderOverview } from "../../../components/ContentBuilder/Overview";
 import { useContentActions } from "../../../hooks/useContentActions";
-import { useActivitiesStore } from "../../../stores/activitiesStore";
+import { useActivitiesStore } from "../../../stores/contentBuilderStore";
 import { ContentBuilderType } from "../../types";
 
 export const ActivityPage = () => {

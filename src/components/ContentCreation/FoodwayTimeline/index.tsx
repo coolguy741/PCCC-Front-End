@@ -1,51 +1,46 @@
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
+
+import { ObjectState } from "../../../components/ContentCreation/types";
 import { useContentCreation } from "../../../hooks/useContentCreation";
+import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 interface FoodwayTimelineProps {
   totalSlides: number;
-  activeSlide: number;
-  stopTime: string[] | undefined[];
-  setStopTime: (stopTime: string[] | undefined[]) => void;
 }
 
-export const FoodwayTimeline = ({
-  totalSlides,
-  activeSlide,
-  stopTime,
-  setStopTime,
-}: FoodwayTimelineProps) => {
+export const FoodwayTimeline = ({ totalSlides }: FoodwayTimelineProps) => {
+  const { updatePageState, activeSlide, currentLang, en, fr } =
+    useFoodwayStore();
   const titleState = useMemo(
-    () =>
-      stopTime.length
-        ? stopTime.map((stop) => ({ mode: "view", text: stop }))
-        : {},
-    [totalSlides],
+    () => [
+      { mode: "view", text: "Intro" },
+      ...((currentLang === "en" ? en.stops : fr.stops)?.map((stop) => ({
+        mode: (stop.componentState as ObjectState)?.timePeriod?.mode || "view",
+        text: stop.time || "Edit",
+      })) ?? []),
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [totalSlides, en, fr, currentLang],
   );
 
   const {
-    state,
     changeTimelineEditState,
     timelineChangeText,
     addTimelineStop,
     timelineState,
-  } = useContentCreation(titleState as any);
+    setComponentPosition,
+  } = useContentCreation(titleState as any, updatePageState);
+
+  useEffect(() => {
+    setComponentPosition({ slideIndex: 1, componentIndex: 1 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     addTimelineStop(`stop${totalSlides - 1}`);
   }, [totalSlides]);
-
-  useEffect(() => {
-    const newStopTimeArr = stopTime;
-
-    if (state[`stop${activeSlide}` as keyof typeof state]) {
-      newStopTimeArr[activeSlide] =
-        state[`stop${activeSlide}` as keyof typeof state].text;
-    }
-
-    setStopTime(newStopTimeArr);
-  }, [state, totalSlides, activeSlide]);
 
   return (
     <Style.Container activeSlide={activeSlide} totalSlides={totalSlides}>

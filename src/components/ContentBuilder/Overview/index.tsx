@@ -5,12 +5,11 @@ export const ContentBuilderOverview: React.FC<ContentBuilderProps> = ({
   type,
   store,
 }) => {
-  const { contents, currentStep, setSlideIndex } = store;
+  const { slides, setSlideIndex } = store;
 
   return (
     <Content
-      contents={contents}
-      currentStep={currentStep}
+      slides={slides}
       setSlideIndex={setSlideIndex}
       isEditable={false}
       type={type}

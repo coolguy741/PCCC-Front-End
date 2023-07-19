@@ -3,10 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useFetch } from "../../hooks/useFetch";
 import { PccServer23RecipesRecipeDto } from "../../lib/api/api";
-import { useRecipesStore } from "../../stores/recipesStore";
+import { useRecipesStore } from "../../stores/contentBuilderStore";
 
 export const RecipesPage = () => {
-  const { recipes, setRecipes } = useRecipesStore();
+  const { items, setItems } = useRecipesStore();
   const [isNeededToReload, setIsNeededToReload] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -45,7 +45,7 @@ export const RecipesPage = () => {
 
   useEffect(() => {
     if (data) {
-      setRecipes(data.items);
+      setItems(data.items);
       setIsNeededToReload(false);
       setIsDeleting(false);
     }
@@ -56,7 +56,7 @@ export const RecipesPage = () => {
     <ContentListAdminPageTemplate
       title={"Recipe"}
       selectsGroup={["Curriculum", "Topic", "Sort"]}
-      listData={recipes ?? []}
+      listData={items ?? []}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
       isLoading={isDeleting || isLoading}

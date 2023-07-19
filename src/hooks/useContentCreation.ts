@@ -17,6 +17,7 @@ function alterArrayContentState(state: any, idx: number, indexValue: number) {
 export function useContentCreation(
   initialState: any,
   updatePageState?: (slideIndex: number, index: number, state: State) => void,
+  isTimeLine?: boolean,
 ) {
   const [state, setState] = useState<any>(initialState);
   const [timelineState, setTimelineState] = useState<any>(initialState);
@@ -26,27 +27,26 @@ export function useContentCreation(
   useEffect(() => {
     initialState && setState(initialState);
   }, [initialState]);
-
   function changeEditState(tag: TitleType, amtOrIngdt?: "amt" | "ingdt") {
-    if (state[tag].mode === ComponentViewMode.EDIT) {
-      const newState = {
-        ...state,
-        [tag]: {
-          ...state[tag],
-          mode: ComponentViewMode.VIEW,
-        },
-      };
-      return setState(newState);
-    } else {
-      const newState = {
-        ...state,
-        [tag]: {
-          ...state[tag],
-          mode: ComponentViewMode.EDIT,
-        },
-      };
-      return setState(newState);
-    }
+    const newState = {
+      ...state,
+      [tag]: {
+        ...state[tag],
+        mode:
+          state[tag].mode === ComponentViewMode.EDIT
+            ? ComponentViewMode.VIEW
+            : ComponentViewMode.EDIT,
+      },
+    };
+
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        componentPosition.slideIndex,
+        componentPosition.componentIndex,
+        newState,
+      );
+    return setState(newState);
   }
 
   function changeListEditState(index: number, amtOrIngdt?: "amt" | "ingdt") {
@@ -98,29 +98,25 @@ export function useContentCreation(
   }
 
   function changeTimelineEditState(tag: TitleType) {
-    if (timelineState[tag].mode === ComponentViewMode.EDIT) {
-      console.log("VIEW FIRE");
+    const newState = {
+      ...timelineState,
+      [tag]: {
+        ...timelineState[tag],
+        mode:
+          timelineState[tag].mode === ComponentViewMode.EDIT
+            ? ComponentViewMode.VIEW
+            : ComponentViewMode.EDIT,
+      },
+    };
 
-      const newState = {
-        ...timelineState,
-        [tag]: {
-          ...timelineState[tag],
-          mode: ComponentViewMode.VIEW,
-        },
-      };
-      setTimelineState(newState);
-    } else {
-      console.log("EDIT FIRE");
-
-      const newState = {
-        ...timelineState,
-        [tag]: {
-          ...timelineState[tag],
-          mode: ComponentViewMode.EDIT,
-        },
-      };
-      setTimelineState(newState);
-    }
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        componentPosition.slideIndex,
+        componentPosition.componentIndex,
+        newState,
+      );
+    setTimelineState(newState);
   }
 
   function changeListText(
@@ -195,7 +191,7 @@ export function useContentCreation(
         componentPosition.componentIndex,
         newState,
       );
-    setState(newState);
+    setTimelineState(newState);
   }
 
   function deleteListItem() {
@@ -245,7 +241,7 @@ export function useContentCreation(
   }
 
   useEffect(() => {
-    const timeline = Object.values(state)
+    const timeline = Object.values(initialState)
       .map((value) => {
         return {
           mode: (value as any).mode,
@@ -259,9 +255,8 @@ export function useContentCreation(
         }),
         [],
       );
-
     setTimelineState(timeline as unknown as State);
-  }, [state]);
+  }, [initialState]);
 
   return {
     state,

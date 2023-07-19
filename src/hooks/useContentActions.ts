@@ -1,7 +1,9 @@
 import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { ThemeStoreState } from "./../stores/themeStore";
+import { ThemeProperties } from "./../pages/types";
+import { useEducatorNotesStore } from "./../stores/contentBuilderStore";
+import { useThemeBuilderStore } from "./../stores/themeBuilderStore";
 
 import {
   PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
@@ -11,18 +13,18 @@ import {
 import { STORAGE_KEY_JWT } from "../pages/consts";
 import { ContentBuilderType } from "../pages/types";
 import {
-  ActivitiesStoreState,
+  contentBuilderStoreState,
   useActivitiesStore,
-} from "../stores/activitiesStore";
-import { RecipesStoreState, useRecipesStore } from "../stores/recipesStore";
-import { useThemeStore } from "../stores/themeStore";
+  useRecipesStore,
+  useThemeStore,
+} from "../stores/contentBuilderStore";
 import { useAPI } from "./useAPI";
 
 type DetailResponse =
   | PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
   | PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
   | PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
-type StoreState = ThemeStoreState | RecipesStoreState | ActivitiesStoreState;
+type StoreState = contentBuilderStoreState;
 
 const makeResponse = (
   response: DetailResponse,
@@ -30,7 +32,7 @@ const makeResponse = (
   currentLang: string,
 ) => {
   return {
-    contents: JSON.parse(
+    slides: JSON.parse(
       response[currentLang === "en" ? "english" : "french"]?.jsonData ?? "",
     ),
     id,
@@ -57,13 +59,13 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
     english: {
       ...store.en,
       jsonData: JSON.stringify(
-        store.currentLang === "en" ? store.contents : store.en.jsonData,
+        store.currentLang === "en" ? store.slides : store.en.jsonData,
       ),
     },
     french: {
       ...store.fr,
       jsonData: JSON.stringify(
-        store.currentLang === "fr" ? store.contents : store.fr.jsonData,
+        store.currentLang === "fr" ? store.slides : store.fr.jsonData,
       ),
     },
     tags: store.tags?.join(","),
@@ -75,9 +77,12 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
 export const useContentActions = () => {
   const { api } = useAPI();
   const { item } = useParams();
+  const educatorNotesStore = useEducatorNotesStore();
   const themeStore = useThemeStore();
   const activityStore = useActivitiesStore();
   const recipeStore = useRecipesStore();
+  const themeBuilderStore = useThemeBuilderStore();
+
   const header = {
     headers: {
       Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
@@ -109,7 +114,6 @@ export const useContentActions = () => {
             .then(
               (res) => res.data,
             )) as PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
-
           activityStore.updateDetail(makeResponse(response, item, currentLang));
           break;
         case ContentBuilderType.RECIPES:
@@ -139,24 +143,38 @@ export const useContentActions = () => {
   };
 
   const saveContent = useCallback(
-    async (type: ContentBuilderType) => {
+    async (type: ContentBuilderType, prop?: ThemeProperties) => {
       let data;
       switch (type) {
         case ContentBuilderType.THEMES:
-          data = makeRequestData(themeStore);
+          if (!prop) {
+            data = makeRequestData(themeStore);
 
-          return themeStore.id
-            ? await api
-                .appThemesUpdate(
-                  themeStore.id,
-                  { ...data, concurrencyStamp: themeStore.concurrencyStamp },
+            return themeStore.id
+              ? await api
+                  .appThemesUpdate(
+                    themeStore.id,
+                    { ...data, concurrencyStamp: themeStore.concurrencyStamp },
 
-                  header,
-                )
-                .then((res) => res.data)
-            : await api
-                .appThemesNewThemeCreate(data, header)
-                .then((res) => res.data);
+                    header,
+                  )
+                  .then((res) => res.data)
+              : await api
+                  .appThemesNewThemeCreate(data, header)
+                  .then((res) => res.data);
+          }
+
+          if (prop === ThemeProperties.EDUCATOR_NOTES) {
+            const data = {
+              themeId: themeStore.id ?? "",
+              title: JSON.stringify(educatorNotesStore.slides),
+              englishDesc: educatorNotesStore.en.title,
+              frenchDesc: educatorNotesStore.en.title,
+              curriculumId: themeBuilderStore.selectedCurriculum ?? "",
+            };
+            await api.appThemesEducatorNoteCreate(data, header);
+          }
+          break;
         case ContentBuilderType.ACTIVITIES:
           data = makeRequestData(activityStore, true);
 
