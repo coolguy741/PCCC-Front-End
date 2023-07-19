@@ -34,7 +34,7 @@ export function UploadModal({
 }) {
   const [view, setView] = useState<"list" | "gallery">("list");
   const [search, setSearch] = useState("");
-  const { type } = useCloudDriveStore();
+  const { type, setType } = useCloudDriveStore();
   const [displayedResults, setDisplayedResults] = useState<
     CloudDriveFileType[]
   >([]);
@@ -136,6 +136,10 @@ export function UploadModal({
       setDisplayedResults(results);
     }
   }, [data.payload, search]);
+
+  useEffect(() => {
+    setType("images");
+  }, []);
 
   return (
     <Modal modal={modal} toggle={toggle}>
