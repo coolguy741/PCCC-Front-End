@@ -1,9 +1,6 @@
 import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { ThemeProperties } from "./../pages/types";
-import { useEducatorNotesStore } from "./../stores/contentBuilderStore";
-import { useThemeBuilderStore } from "./../stores/themeBuilderStore";
 
 import {
   PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
@@ -13,18 +10,21 @@ import {
 import { STORAGE_KEY_JWT } from "../pages/consts";
 import { ContentBuilderType } from "../pages/types";
 import {
-  contentBuilderStoreState,
+  ContentBuilderStoreState,
   useActivitiesStore,
+  useEducatorNotesStore,
   useRecipesStore,
   useThemeStore,
 } from "../stores/contentBuilderStore";
+import { useThemeBuilderStore } from "../stores/themeBuilderStore";
+import { ThemeProperties } from "./../pages/types";
 import { useAPI } from "./useAPI";
 
 type DetailResponse =
   | PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
   | PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
   | PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
-type StoreState = contentBuilderStoreState;
+type StoreState = ContentBuilderStoreState;
 
 const makeResponse = (
   response: DetailResponse,

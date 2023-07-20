@@ -9,7 +9,8 @@ import styled from "styled-components";
 
 import { getPositions } from "../../lib/util/getPositions";
 import { ContentBuilderType, ThemeComponent } from "../../pages/types";
-import { contentBuilderStoreState } from "../../stores/contentBuilderStore";
+import { ContentBuilderStoreState } from "../../stores/contentBuilderStore";
+import { useThemeBuilderStore } from "../../stores/themeBuilderStore";
 import { ContentEditorActions } from "./Components/Actions";
 import { ActivitiesAndRecipes } from "./Components/ActivitiesAndRecipes";
 import { components, ContentBuilderCards } from "./Components/Cards";
@@ -19,11 +20,10 @@ import { ContentTemplate } from "./Components/ContentTemplate";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-import { useThemeBuilderStore } from "../../stores/themeBuilderStore";
 
 export interface ContentBuilderProps {
   type: ContentBuilderType;
-  store: contentBuilderStoreState;
+  store: ContentBuilderStoreState;
 }
 
 export const ContentBuilder: React.FC<ContentBuilderProps> = ({

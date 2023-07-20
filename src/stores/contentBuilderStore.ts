@@ -14,7 +14,7 @@ export interface IContent {
   curriculum?: string;
 }
 
-export interface contentBuilderStoreState
+export interface ContentBuilderStoreState
   extends ContentStoreProps,
     ContentBuilderProps {}
 
@@ -32,7 +32,7 @@ const initialState: ContentBuilderProps = {
 };
 
 const createStore = () =>
-  create<contentBuilderStoreState>((set, get) => ({
+  create<ContentBuilderStoreState>((set, get) => ({
     ...JSON.parse(JSON.stringify(initialState)),
     updateDetail: ({ slides, id, concurrencyStamp, en, fr }) =>
       set(({ en: originEn, fr: originFr }) => ({

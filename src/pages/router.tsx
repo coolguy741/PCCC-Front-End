@@ -28,7 +28,7 @@ import {
 import { AchievementsPage } from "./AchievementsPage";
 import { ActivitiesPage } from "./ActivitiesBuilderPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
-import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPage/Print";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/Create";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/Create/Preview";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
@@ -71,7 +71,7 @@ import { RecipesPage } from "./RecipeBuilderPage";
 import { RecipeCreatePage } from "./RecipeBuilderPage/Create";
 import { RecipePreviewPage } from "./RecipeBuilderPage/Create/Preview";
 import { RecipePage } from "./RecipeBuilderPage/RecipePage";
-import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
+import { RecipePrintPage } from "./RecipeBuilderPage/RecipePage/Print";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
@@ -541,7 +541,7 @@ export const router = createBrowserRouter([
         path: "dashboard/foodways",
         children: [
           {
-            path: ":foodway/print",
+            path: ":foodway/:slide/print",
             element: <FoodwaysPrintPage />,
           },
         ],
@@ -555,11 +555,11 @@ export const router = createBrowserRouter([
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
       {
-        path: "dashboard/recipes/:recipe/print",
+        path: "dashboard/recipes/:item/:slide/print",
         element: <RecipePrintPage />,
       },
       {
-        path: "dashboard/activities/:activity/print",
+        path: "dashboard/activities/:item/:slide/print",
         element: <ActivityPrintPage />,
       },
       {
