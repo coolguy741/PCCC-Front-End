@@ -23,7 +23,7 @@ export function Media({
 }) {
   const { toggle, modal } = useModal();
   const { shufflePattern, currentPattern } = usePatterns(
-    media.patternChoice,
+    media?.patternChoice,
     changePattern,
   );
 
