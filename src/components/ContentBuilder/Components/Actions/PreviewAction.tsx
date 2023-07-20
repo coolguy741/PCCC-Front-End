@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-import { useThemeStore } from "../../../../stores/themeStore";
+import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import Button from "../../../Button";
 import { Typography } from "../../../Global/Typography";
 
 export const PreviewAction = () => {
-  const { currentStep, changeStep } = useThemeStore();
+  const { currentStep, changeStep } = useThemeBuilderStore();
 
   const handleNext = () => {
     changeStep(currentStep + 1);

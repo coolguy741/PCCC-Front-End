@@ -1,10 +1,4 @@
-import {
-  BaseSyntheticEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { BaseSyntheticEvent, useCallback, useEffect, useState } from "react";
 import {
   DragDropContext,
   OnDragEndResponder,
@@ -15,9 +9,7 @@ import styled from "styled-components";
 
 import { getPositions } from "../../lib/util/getPositions";
 import { ContentBuilderType, ThemeComponent } from "../../pages/types";
-import { ActivitiesStoreState } from "../../stores/activitiesStore";
-import { RecipesStoreState } from "../../stores/recipesStore";
-import { ThemeStoreState } from "../../stores/themeStore";
+import { contentBuilderStoreState } from "../../stores/contentBuilderStore";
 import { ContentEditorActions } from "./Components/Actions";
 import { ActivitiesAndRecipes } from "./Components/ActivitiesAndRecipes";
 import { components, ContentBuilderCards } from "./Components/Cards";
@@ -27,10 +19,11 @@ import { ContentTemplate } from "./Components/ContentTemplate";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
+import { useThemeBuilderStore } from "../../stores/themeBuilderStore";
 
 export interface ContentBuilderProps {
   type: ContentBuilderType;
-  store: ThemeStoreState | ActivitiesStoreState | RecipesStoreState;
+  store: contentBuilderStoreState;
 }
 
 export const ContentBuilder: React.FC<ContentBuilderProps> = ({
@@ -41,17 +34,15 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
   const [showingMessage, setShowingMessage] = useState(false);
   const [prevContentComponents, setPrevContentComponents] =
     useState<ThemeComponent[]>();
+  const { currentStep } = useThemeBuilderStore();
 
   const {
     slideIndex,
-    contents,
-    maxPageCount,
-    currentStep,
+    slides,
     currentLang,
     updatePage,
     updatePageState,
     setSlideIndex,
-    changeStep,
     addSlide,
     setLang,
     deleteSlide,
@@ -59,12 +50,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
 
   useEffect(() => {
     setShowingMessage(false);
-  }, [slideIndex, currentStep]);
-
-  const slides = useMemo(
-    () => contents[currentStep].slides,
-    [contents, currentStep],
-  );
+  }, [slideIndex]);
 
   const checkDroppable = useCallback(
     (droppableId: number, source: number) => {
@@ -183,14 +169,12 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
     <Style.Container>
       <ContentBuilderHeader
         type={type}
-        step={currentStep}
         slideIndex={slideIndex}
-        currentStep={currentStep}
         setLang={setLang}
         currentLang={currentLang}
         deleteSlide={deleteSlide}
       />
-      {currentStep < 3 ? (
+      {currentStep < 3 || type !== ContentBuilderType.THEMES ? (
         <Style.DragDropContainer>
           <DragDropContext
             onDragUpdate={onDragUpdate}
@@ -206,11 +190,8 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
                 slides={slides}
               />
               <ContentEditorActions
-                currentStep={currentStep}
-                changeStep={changeStep}
                 addSlide={addSlide}
                 type={type}
-                maxPageCount={maxPageCount}
                 showingMessage={showingMessage}
               />
             </Style.Slide>
@@ -219,12 +200,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
       ) : (
         <>
           <ActivitiesAndRecipes />
-          <ContentEditorActions
-            currentStep={currentStep}
-            maxPageCount={maxPageCount}
-            changeStep={changeStep}
-            addSlide={addSlide}
-          />
+          <ContentEditorActions addSlide={addSlide} />
         </>
       )}
     </Style.Container>

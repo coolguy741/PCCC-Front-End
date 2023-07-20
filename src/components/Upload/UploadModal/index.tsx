@@ -10,9 +10,10 @@ import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import { useCloudDriveStore } from "../../../stores/cloudDriveStore";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
-import { Input } from "../../Global/Input";
+import { Icon } from "../../Global/Icon";
 import { Spinner } from "../../Global/Spinner";
 import Modal from "../../Modal";
+import { Typography } from "../../Typography";
 import { ModalHeader } from "../ModalHeader";
 import { ModalMenu } from "../ModalMenu";
 import { UploadGallery } from "../UploadGallery";
@@ -34,7 +35,7 @@ export function UploadModal({
 }) {
   const [view, setView] = useState<"list" | "gallery">("list");
   const [search, setSearch] = useState("");
-  const { type } = useCloudDriveStore();
+  const { type, setType } = useCloudDriveStore();
   const [displayedResults, setDisplayedResults] = useState<
     CloudDriveFileType[]
   >([]);
@@ -51,13 +52,17 @@ export function UploadModal({
   const getCloudDriveFiles = useCallback(async () => {
     try {
       const response = await api.appCloudDriveDriveFilesList(
-        {},
+        {
+          folder: type,
+        },
         {
           headers: {
             Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
           },
         },
       );
+
+      console.log(response);
 
       if (response.status === (200 || 204)) {
         setData({
@@ -69,7 +74,7 @@ export function UploadModal({
       console.warn(error);
       setData({ type: "errored", payload: "An error has occured" });
     }
-  }, [api, setData]);
+  }, [api, setData, type]);
 
   const handleDelete = async (path: string) => {
     const response = await api.appCloudDriveDriveFileDelete(
@@ -137,20 +142,38 @@ export function UploadModal({
     }
   }, [data.payload, search]);
 
+  useEffect(() => {
+    setType("images");
+  }, []);
+
+  useEffect(() => {
+    getCloudDriveFiles();
+  }, [type]);
+
   return (
     <Modal modal={modal} toggle={toggle}>
       <Style.Container>
+        <Typography tag="h1" weight={600} color="orange-500" className="h1">
+          <Icon name="cloud-orange-outlined" />
+          Cloud Drive
+        </Typography>
+        <Typography
+          tag="h2"
+          size="2.5vh"
+          color="neutral-800"
+          weight={600}
+          mb="1vh"
+        >
+          Folders
+        </Typography>
+        <ModalMenu setType={setType} type={type} />
         <ModalHeader
           addImage={addImage}
           reload={getCloudDriveFiles}
           changeView={setView}
           view={view}
-        />
-        <ModalMenu />
-        <Input
-          placeholder="Search by name"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          search={search}
+          setSearch={setSearch}
         />
         <article className="um-content">
           <AnimatePresence mode="wait">{showFilesView()}</AnimatePresence>
@@ -163,11 +186,18 @@ export function UploadModal({
 const Style = {
   Container: styled.section`
     width: 60vw;
-    height: 77vh;
+    height: 83vh;
     ${() => animatedbackgroundGradient("#C4E8FF", "#D2F7E5")}
     z-index: 45;
     border-radius: 16px;
     padding: 24px;
+
+    .h1 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0 0 0.5rem;
+    }
 
     .upload-spinner {
       margin-top: 15.5vh;

@@ -1,26 +1,52 @@
 import styled from "styled-components";
+import CDAudio from "../../CloudDrive/Icons/cd-audio";
 import CDImage from "../../CloudDrive/Icons/cd-image";
 import CDVideo from "../../CloudDrive/Icons/cd-video";
 import { Typography } from "../../Typography";
 
-const folder_options = [
+interface FolderOptionsType {
+  id: "images" | "video" | "audio" | "documents";
+  title: string;
+  description: string;
+  icon: JSX.Element;
+}
+
+const FOLDER_OPTIONS: FolderOptionsType[] = [
   {
+    id: "images",
+    title: "Images",
+    description: "1012 Files / 3.2 GB",
+    icon: <CDImage />,
+  },
+  {
+    id: "video",
     title: "Videos",
     description: "0 Files / 0 MB",
     icon: <CDVideo />,
   },
   {
-    title: "Images",
-    description: "1012 Files / 3.2 GB",
-    icon: <CDImage />,
+    id: "audio",
+    title: "Audio",
+    description: "0 Files / 0 MB",
+    icon: <CDAudio />,
   },
 ];
 
-export function ModalMenu() {
+export function ModalMenu({
+  type,
+  setType,
+}: {
+  type: "images" | "video" | "audio" | "documents";
+  setType: (type: "documents" | "video" | "images" | "audio") => void;
+}) {
   return (
     <Style.Container>
-      {folder_options.map(({ title, description, icon }) => (
-        <button key={title}>
+      {FOLDER_OPTIONS.map(({ title, description, icon, id }) => (
+        <button
+          key={title}
+          onClick={() => setType(id)}
+          className={id === type ? "active" : ""}
+        >
           <div>{icon}</div>
           <figure>
             <Typography
@@ -91,7 +117,8 @@ const Style = {
         height: 100%;
       }
 
-      &:hover {
+      &:hover,
+      &.active {
         /* background: #fff; */
         background: linear-gradient(
           180deg,

@@ -21,7 +21,6 @@ export const CurriculumSelect: React.FC<Props> = ({
   selectedValue = "",
   onChange,
 }) => {
-  const [value, setValue] = useState(selectedValue);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -29,7 +28,6 @@ export const CurriculumSelect: React.FC<Props> = ({
   };
 
   const handleOptionClick = (option: SelectOption) => {
-    option.label && setValue(option.label);
     onChange(option.value);
     setIsOpen(false);
   };
@@ -48,10 +46,17 @@ export const CurriculumSelect: React.FC<Props> = ({
         <div className="selected-value" onClick={handleToggle}>
           {/* <input type="hidden" {...register()} /> */}
           <div className="text">
-            {!value && placeholder && (
+            {!selectedValue && placeholder && (
               <span className="placeholder">{placeholder}</span>
             )}
-            {value && <span>{value}</span>}
+            {selectedValue && (
+              <span>
+                {
+                  options.filter((option) => option.value === selectedValue)[0]
+                    ?.label
+                }
+              </span>
+            )}
           </div>
           <Icon name="downSelect" height={"34%"} />
         </div>
@@ -60,11 +65,13 @@ export const CurriculumSelect: React.FC<Props> = ({
             {options.map((option, index) => (
               <div
                 key={index}
-                className={`option ${value === option.label ? "active" : ""}`}
+                className={`option ${
+                  selectedValue === option.value ? "active" : ""
+                }`}
                 onClick={() => handleOptionClick(option)}
               >
                 <div className="icon">
-                  {value === option.label && <Icon name="check" />}
+                  {selectedValue === option.value && <Icon name="check" />}
                 </div>
                 {option.label ? option.label : ""}
               </div>

@@ -3,13 +3,11 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { PreviewAction } from "../../../components/ContentBuilder/Components/Actions/PreviewAction";
 import { ContentNavigator } from "../../../components/ContentBuilder/Components/ContentNavigator";
-import { FoodwaysContentTemplate } from "../../../components/ContentBuilder/Components/FoodwaysContentTemplate";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { ContentBuilderType } from "../../types";
 
 export const FoodwaysPreviewPage = () => {
-  const { contents, setActiveSlide, title, description, activeSlide } =
-    useFoodwayStore();
+  const { setActiveSlide, title, description, activeSlide } = useFoodwayStore();
 
   useEffect(() => {
     setActiveSlide(0);
@@ -18,16 +16,7 @@ export const FoodwaysPreviewPage = () => {
   return (
     <Style.Slide>
       <ContentNavigator type={ContentBuilderType.FOODWAYS} />
-      <div className="content">
-        <FoodwaysContentTemplate
-          isEditable={false}
-          setSlideIndex={setActiveSlide}
-          title={title}
-          description={description}
-          slides={contents.slides}
-          nav={activeSlide}
-        />
-      </div>
+      <div className="content"></div>
       <PreviewAction />
     </Style.Slide>
   );

@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import Button from "../../components/Button";
-import Scrollbar from "../../components/Global/Scrollable";
+import Scrollable from "../../components/Global/Scrollable";
+import { Typography } from "../../components/Typography";
 import { avatars_data } from "../../lib/avatars/data";
 import mockData from "../../lib/mockData/notifications.json";
+import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 
 export const NotificationsPage = () => {
   const handleReview = () => {
@@ -10,127 +12,86 @@ export const NotificationsPage = () => {
   };
 
   return (
-    <Scrollbar thumbWidth="thick">
-      <Style.PageContainer>
-        <h2>Activity</h2>
+    <Style.PageContainer>
+      <Typography tag="h2" color="netural-800" className="h2">
+        Activity
+      </Typography>
+      <Scrollable thumbWidth="thin">
         <Style.ListContainer>
-          <Style.SubTitle>Activity</Style.SubTitle>
-          <Style.NotificationsContainer>
-            {mockData.listData.map((notification, index) => (
-              <Style.Row key={index}>
-                <div className="icon">{avatars_data[0].icon({})}</div>
-                <div className="text">
-                  <div className="role">{notification.role}</div>
-                  <p className="activity">{notification.content}</p>
-                </div>
-                <div className="date">{notification.date}</div>
-                <Button className="review" onClick={handleReview} size="small">
-                  <span style={{ padding: "0px 15px" }}>Review</span>
-                </Button>
-              </Style.Row>
-            ))}
-          </Style.NotificationsContainer>
+          {mockData.listData.map((notification, index) => (
+            <Style.Row key={index}>
+              <div className="icon">{avatars_data[0].icon({})}</div>
+              <div className="text">
+                <div className="role">{notification.role}</div>
+                <p className="activity">{notification.content}</p>
+              </div>
+              <div className="date">{notification.date}</div>
+              <Button className="review" onClick={handleReview} size="small">
+                <span style={{ padding: "0px 15px" }}>View</span>
+              </Button>
+            </Style.Row>
+          ))}
         </Style.ListContainer>
-      </Style.PageContainer>
-    </Scrollbar>
+      </Scrollable>
+    </Style.PageContainer>
   );
 };
 
 const Style = {
   PageContainer: styled.div`
-    padding: 118px 70px 0 70px;
     display: flex;
     height: 100vh;
     flex-direction: column;
     position: relative;
-    overflow: overlay;
+    overflow: hidden;
     max-height: 100vh;
-    font-family: "Noir Std";
-    font-style: normal;
-  `,
-  Background: styled.div`
-    position: absolute;
-    top: 0;
-    left: -32px;
-    width: calc(100% + 32px);
-    height: 100vh;
-    background: linear-gradient(252.45deg, #c4e8ff 2.54%, #fff9e0 87.48%);
-    z-index: -1;
-  `,
-  TitleLine: styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 12px;
-    color: var(--orange-500);
-    padding-bottom: 38.53px;
+    padding: 0 1rem 0 0;
 
-    img: {
-      color: var(--orange-500);
+    .h2 {
+      margin-bottom: 1rem;
     }
-  `,
-  Title: styled.p`
-    font-weight: 600;
-    font-size: 48px;
-    line-height: 56px;
   `,
   ListContainer: styled.div`
     padding: 24px 32px 24px 32px;
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(59.2764px);
-    border-radius: 16px;
+    backdrop-filter: blur(60px);
+    border-radius: 1.5rem;
     display: flex;
-    gap: 20px;
+    gap: 1rem;
     flex-direction: column;
-  `,
-  SubTitle: styled.p`
-    font-family: "Noir Std";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 28px;
-    line-height: 32px;
-    color: var(--neutral-600);
-  `,
-  NotificationsContainer: styled.ul`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-collapse: collapse;
-    font-family: "Noir Std";
-    font-style: normal;
-    list-style-type: none;
+    margin-bottom: 1rem;
   `,
   Row: styled.li`
     width: 100%;
     border-bottom: 1px solid black;
     border-bottom: 1px solid var(--neutral-600);
-    padding: 24px 0px;
+    padding-top: ${convertToRelativeUnit(20, "vh")};
+    padding-bottom: ${convertToRelativeUnit(20, "vh")};
     display: flex;
     align-items: center;
 
     .icon {
-      padding-right: 32px;
+      padding-right: 2rem;
       font-weight: 600;
-      font-size: 23px;
-      line-height: 28px;
+      font-size: 2rem;
+      line-height: 2rem;
       color: var(--neutral-700);
     }
     .text {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 0.7rem;
       .role {
         font-weight: 600;
-        font-size: 23px;
-        line-height: 28px;
+        font-size: ${convertToRelativeUnit(22, "vw")};
+        line-height: ${convertToRelativeUnit(24, "vh")};
         color: var(--neutral-600);
       }
       .activity {
         font-weight: 400;
-        font-size: 18px;
+        font-size: ${convertToRelativeUnit(18, "vw")};
         line-height: 24px;
         color: var(--neutral-600);
       }
@@ -138,7 +99,7 @@ const Style = {
     .date {
       width: 226px;
       font-weight: 400;
-      font-size: 18px;
+      font-size: ${convertToRelativeUnit(18, "vw")};
       line-height: 24px;
       color: var(--neutral-700);
     }
