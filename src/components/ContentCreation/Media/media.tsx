@@ -1,6 +1,8 @@
+import ReactPlayer from "react-player";
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import { usePatterns } from "../../../hooks/usePatterns";
+import { getMediaType } from "../../../lib/util/getMediaType";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Patterns } from "../../Patterns";
 import { Typography } from "../../Typography";
@@ -25,11 +27,29 @@ export function Media({
     changePattern,
   );
 
+  function showMedia() {
+    let type;
+    if (media?.src) {
+      type = getMediaType(media.src);
+    }
+
+    if (type === "images") return <img src={media?.src} alt="" />;
+    else if (type === ("video" || "audio"))
+      return (
+        <ReactPlayer
+          classname="react-player"
+          url={media?.src}
+          controls
+          width="100%"
+          height="100%"
+        />
+      );
+  }
+
   return (
     <>
       <Style.Container>
-        <img src={media?.src} alt="" />
-        <figcaption></figcaption>
+        <div className="media-container">{showMedia()}</div>
         {!media?.src && (
           <Patterns className="empty-img" pattern={currentPattern}>
             <div className="img-btn-group">
@@ -67,6 +87,20 @@ const Style = {
     position: relative;
     width: 100%;
     height: 100%;
+
+    .media-container {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      position: relative;
+
+      .react-player {
+        position: absolute;
+        width: 100%;
+        border: 1px solid red;
+      }
+    }
 
     img {
       object-fit: cover;
