@@ -30,6 +30,7 @@ export function FoodwayTitle({ state: componentState }: FoodwayTitleProps) {
     setComponentPosition({ slideIndex: 0, componentIndex: 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <Style.Container>
       <div className="tc-content">

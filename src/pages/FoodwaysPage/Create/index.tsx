@@ -55,14 +55,13 @@ export const CreateFoodwaysPage = () => {
     setFoodway,
     deleteSlide,
     currentLang,
-    en,
-    fr,
     id,
     concurrencyStamp,
+    ...state
   } = useFoodwayStore();
   const { api } = useAPI();
   const navigate = useNavigate();
-  const { state } = useNavigation();
+  const { state: navigateState } = useNavigation();
   const foodway =
     useLoaderData() as PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
   const [tags, setTags] = useState(["foraging", "seeds"]);
@@ -82,11 +81,13 @@ export const CreateFoodwaysPage = () => {
   }, [foodway]);
 
   const totalSlidesCount = useMemo(
-    () => ((currentLang === Language.EN ? en : fr).stops?.length ?? 0) + 1,
-    [currentLang, en, fr],
+    () => (state[currentLang].stops?.length ?? 0) + 1,
+    [currentLang],
   );
 
   const handleCreate = async () => {
+    const { en, fr } = state;
+
     const data = {
       image: "/images/chocolate.jpg",
       english: {
@@ -118,6 +119,7 @@ export const CreateFoodwaysPage = () => {
 
   useEffect(() => {
     if (newFoodway || updatedFoodway) {
+      const { en, fr } = state;
       let _response;
       if (!en.stops?.length && !fr.stops?.length) {
         navigate("/dashboard/foodways");
@@ -234,20 +236,12 @@ export const CreateFoodwaysPage = () => {
                 <SwiperSlide key={`slide-${index}`}>
                   <Style.Content>
                     {index === 0 ? (
-                      <FoodwayTitle
-                        state={
-                          currentLang === Language.EN
-                            ? en.componentState
-                            : fr.componentState
-                        }
-                      />
+                      <FoodwayTitle state={state[currentLang]} />
                     ) : (
                       <FoodwayStop
                         index={index}
                         state={
-                          currentLang === Language.EN
-                            ? en.stops?.[index - 1].componentState
-                            : fr.stops?.[index - 1].componentState
+                          state[currentLang].stops?.[index - 1].componentState
                         }
                       />
                     )}
@@ -270,7 +264,7 @@ export const CreateFoodwaysPage = () => {
         <Button
           variant="yellow"
           onClick={handleAddSlide}
-          disabled={state === "loading"}
+          disabled={navigateState === "loading"}
         >
           Add Slide
         </Button>
@@ -279,14 +273,14 @@ export const CreateFoodwaysPage = () => {
             variant="yellow"
             className="mr-4"
             onClick={handleCreate}
-            disabled={state === "loading"}
+            disabled={navigateState === "loading"}
           >
             Save changes and exit
           </Button>
           <Button
             variant="orange"
             onClick={handleSaveAndContinue}
-            disabled={state === "loading"}
+            disabled={navigateState === "loading"}
           >
             Save changes and continue
           </Button>

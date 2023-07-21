@@ -1,40 +1,38 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+
 import { useContentCreation } from "../../../hooks/useContentCreation";
+import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 interface MedaltimeMomentTitleProps {
-  title?: string;
-  description?: string;
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
+  state: any;
 }
 
-export function MedaltimeMomentTitle({
-  title,
-  description,
-  setTitle,
-  setDescription,
-}: MedaltimeMomentTitleProps) {
-  const titleState: any = {
-    tag: { mode: "view", text: "Overview" },
-    heading: {
-      mode: "view",
-      text: title || "Click to edit",
-    },
-    desc: {
-      mode: "view",
-      text: description || "Click to edit.",
-    },
-  };
+const titleState: any = {
+  tag: { mode: "view", text: "Overview" },
+  heading: {
+    mode: "view",
+    text: "Click to edit",
+  },
+  desc: {
+    mode: "view",
+    text: "Click to edit.",
+  },
+};
 
-  const { state, changeEditState, changeText } = useContentCreation(titleState);
+export function MedaltimeMomentTitle({
+  state: componentState,
+}: MedaltimeMomentTitleProps) {
+  const { updatePageState } = useMealtimeMomentsStore();
+  const { state, changeEditState, changeText, setComponentPosition } =
+    useContentCreation(componentState ?? titleState, updatePageState);
 
   useEffect(() => {
-    setTitle(state.heading.text);
-    setDescription(state.desc.text);
-  }, [state]);
+    setComponentPosition({ slideIndex: 0, componentIndex: 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Style.Container>

@@ -1,43 +1,42 @@
 import { create } from "zustand";
 
+import { CCFormat, State } from "../components/ContentCreation/types";
 import { Language } from "../pages/types";
 
-interface IContent {
-  tags?: string;
-  curriculum?: string;
-}
-
 interface ThemeProp {
-  maxPageCount: number;
+  id?: string;
   currentLang: Language;
-  contents: IContent;
+  image?: string;
+  tags?: string;
+  concurrencyStamp?: string;
   en: {
-    contents: IContent | null;
+    title?: string;
+    topic?: string;
+    description?: string;
+    componentState?: State;
   };
   fr: {
-    contents: IContent | null;
+    title?: string;
+    topic?: string;
+    description?: string;
+    componentState?: State;
   };
 }
 
 export interface MealtimeMomentsStore extends ThemeProp {
   init: () => void;
   setLang: (lang: Language) => void;
-  title: string;
-  description: string;
   setTitle: (title: string) => void;
+  setTopic: (topic: string) => void;
   setDescription: (description: string) => void;
+  updatePageState: (slideIndex: number, index: number, state: State) => void;
 }
 
 const initialState: ThemeProp = {
-  maxPageCount: 1,
-  contents: {},
+  id: undefined,
   currentLang: Language.EN,
-  en: {
-    contents: null,
-  },
-  fr: {
-    contents: null,
-  },
+  en: {},
+  fr: {},
 };
 
 export const useMealtimeMomentsStore = create<MealtimeMomentsStore>()(
@@ -48,9 +47,30 @@ export const useMealtimeMomentsStore = create<MealtimeMomentsStore>()(
         currentLang,
       })),
     init: () => set(() => ({ ...initialState })),
-    title: "",
-    description: "",
-    setTitle: (title: string) => set(() => ({ title })),
-    setDescription: (description: string) => set(() => ({ description })),
+    setTitle: (title: string) =>
+      set(({ currentLang, ...state }) => ({
+        [currentLang]: { ...state[currentLang], title },
+      })),
+    setTopic: (topic: string) =>
+      set(({ currentLang, ...state }) => ({
+        [currentLang]: { ...state[currentLang], topic },
+      })),
+    setDescription: (description: string) =>
+      set(({ currentLang, ...state }) => ({
+        [currentLang]: { ...state[currentLang], description },
+      })),
+    updatePageState: (sIndex, componentIndex, componentState) =>
+      set(({ currentLang, ...state }) => {
+        if (!sIndex) {
+          state[currentLang].title = (
+            componentState as Record<string, CCFormat>
+          ).heading.text;
+          state[currentLang].description = (
+            componentState as Record<string, CCFormat>
+          ).desc.text;
+          state[currentLang].componentState = componentState;
+        }
+        return { ...state };
+      }),
   }),
 );

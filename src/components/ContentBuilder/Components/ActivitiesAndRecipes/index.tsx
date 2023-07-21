@@ -72,27 +72,27 @@ export const ActivitiesAndRecipes = () => {
         }
       } catch (error) {
         setItems([
-          { id: "1", name: "Chocolate granola bites" },
-          { id: "2", name: "Roasted red pepper hummus with raw vegetable" },
-          { id: "3", name: "Corn & black bean salsa" },
-          { id: "4", name: "Vegetable spring rolls" },
-          { id: "5", name: "Lorem ipsum" },
-          { id: "6", name: "Chocolate granola bites" },
-          { id: "7", name: "Roasted red pepper hummus with raw vegetable" },
-          { id: "8", name: "Corn & black bean salsa" },
-          { id: "9", name: "Lorem ipsum" },
-          { id: "10", name: "Chocolate granola bites" },
-          { id: "11", name: "Roasted red pepper hummus with raw vegetable" },
-          { id: "12", name: "Corn & black bean salsa" },
-          { id: "13", name: "Lorem ipsum" },
-          { id: "14", name: "Vegetable spring rolls" },
-          { id: "15", name: "Chocolate granola bites" },
-          { id: "16", name: "Roasted red pepper hummus with raw vegetable" },
-          { id: "17", name: "Corn & black bean salsa" },
-          { id: "18", name: "Lorem ipsum" },
-          { id: "19", name: "Chocolate granola bites" },
-          { id: "20", name: "Roasted red pepper hummus with raw vegetable" },
-          { id: "21", name: "hello20" },
+          { id: "1", title: "Chocolate granola bites" },
+          { id: "2", title: "Roasted red pepper hummus with raw vegetable" },
+          { id: "3", title: "Corn & black bean salsa" },
+          { id: "4", title: "Vegetable spring rolls" },
+          { id: "5", title: "Lorem ipsum" },
+          { id: "6", title: "Chocolate granola bites" },
+          { id: "7", title: "Roasted red pepper hummus with raw vegetable" },
+          { id: "8", title: "Corn & black bean salsa" },
+          { id: "9", title: "Lorem ipsum" },
+          { id: "10", title: "Chocolate granola bites" },
+          { id: "11", title: "Roasted red pepper hummus with raw vegetable" },
+          { id: "12", title: "Corn & black bean salsa" },
+          { id: "13", title: "Lorem ipsum" },
+          { id: "14", title: "Vegetable spring rolls" },
+          { id: "15", title: "Chocolate granola bites" },
+          { id: "16", title: "Roasted red pepper hummus with raw vegetable" },
+          { id: "17", title: "Corn & black bean salsa" },
+          { id: "18", title: "Lorem ipsum" },
+          { id: "19", title: "Chocolate granola bites" },
+          { id: "20", title: "Roasted red pepper hummus with raw vegetable" },
+          { id: "21", title: "hello20" },
         ]);
       }
       setIsLoading(false);
@@ -115,7 +115,9 @@ export const ActivitiesAndRecipes = () => {
           <Style.ItemsContainer>
             {items.map((item) => (
               <Style.Item key={`item-${item.id}`}>
-                {item.name}
+                {currentStep === 4
+                  ? (item as PccServer23ActivitiesActivityDto).title
+                  : (item as PccServer23RecipesPublicRecipeDto).name}
                 {(currentStep === 3 ? activityIds : recipeIds).includes(
                   item.id as string,
                 ) ? (

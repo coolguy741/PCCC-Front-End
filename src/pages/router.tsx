@@ -59,7 +59,6 @@ import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { MealtimeMomentsPage } from "./MealtimeMomentsPage";
 import { CreateMealtimeMomentPage } from "./MealtimeMomentsPage/Create";
-import { EditMealtimeMomentPage } from "./MealtimeMomentsPage/Edit";
 import { MealtimeMomentOverviewPage } from "./MealtimeMomentsPage/Overview";
 import { MealtimeMomentsPreviewPage } from "./MealtimeMomentsPage/Preview";
 import { MealtimeMomentPrintPage } from "./MealtimeMomentsPage/Print";
@@ -310,7 +309,7 @@ export const router = createBrowserRouter([
               },
               {
                 path: "edit",
-                element: <EditMealtimeMomentPage />,
+                element: <CreateMealtimeMomentPage />,
                 // loader: async ({ params }) => {
                 //   const mealtimeMoment = await getMealtimeMoment(params.id);
 
