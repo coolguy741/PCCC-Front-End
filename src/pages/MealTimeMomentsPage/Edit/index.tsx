@@ -15,7 +15,7 @@ import { Language } from "../../types";
 
 export const EditMealtimeMomentPage = () => {
   const navigate = useNavigate();
-  const [lang, setLang] = useState<Language>("en");
+  const [lang, setLang] = useState<Language>(Language.EN);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState(["foraging", "seeds"]);

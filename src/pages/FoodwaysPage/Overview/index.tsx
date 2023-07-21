@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import SwiperType, { Mousewheel, Scrollbar } from "swiper";
@@ -9,13 +9,16 @@ import { FoodwayStop } from "../../../components/Foodways/FoodwayStop";
 import { FoodwayTimeline } from "../../../components/Foodways/FoodwayTimeline";
 import { FoodwayTitle } from "../../../components/Foodways/FoodwayTitle";
 import { BackButton } from "../../../components/Global/BackButton";
-import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
+import { Spinner } from "../../../components/Global/Spinner";
+import { PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
+import { Language } from "../../types";
 
 export const FoodwaysOverviewPage = () => {
-  const foodway = useRouteLoaderData(
+  const response = useRouteLoaderData(
     "foodway",
-  ) as PccServer23FoodwaysFoodwayDto;
+  ) as PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
+  const currentLang = localStorage.getItem("lang");
   const [nav, setNav] = useState(0);
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   const { setActiveSlide, activeSlide } = useFoodwayStore();
@@ -26,6 +29,14 @@ export const FoodwaysOverviewPage = () => {
 
     setNav(swiper.activeIndex);
   };
+
+  const foodway = useMemo(() => {
+    return response[
+      (currentLang === Language.EN
+        ? "english"
+        : "french") as keyof PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
+    ];
+  }, [response, currentLang]);
 
   return (
     <Style.Container>
@@ -39,7 +50,7 @@ export const FoodwaysOverviewPage = () => {
             Publish
           </Button>
           <Link
-            to={`/dashboard/foodways/${foodway.id}/${activeSlide}/print`}
+            to={`/dashboard/foodways/${foodway?.id}/${activeSlide}/print`}
             target="_blank"
           >
             <Button variant="yellow">Print</Button>
@@ -47,49 +58,53 @@ export const FoodwaysOverviewPage = () => {
         </div>
       </div>
 
-      <Style.ContentBuilder>
-        <div className="content">
-          <Style.Slide>
-            <Swiper
-              slidesPerView={1}
-              mousewheel={true}
-              pagination={false}
-              effect="fade"
-              onSlideChange={onSlideChange}
-              direction={"vertical"}
-              speed={500}
-              modules={[Mousewheel, Scrollbar]}
-              allowTouchMove={false}
-              className="theme-swiper-slide"
-            >
-              <SwiperSlide key={`slide-${0}`}>
-                <Style.Content>
-                  <FoodwayTitle foodway={foodway} />
-                </Style.Content>
-              </SwiperSlide>
-              {foodway.foodwayStops &&
-                foodway.foodwayStops.map((stop, index) => {
-                  return (
-                    <SwiperSlide key={`slide-${index + 1}`}>
-                      <Style.Content>
-                        <FoodwayStop stop={stop} />
-                      </Style.Content>
-                    </SwiperSlide>
-                  );
-                })}
-            </Swiper>
-          </Style.Slide>
-        </div>
-        <div className="timeline">
-          {foodway.foodwayStops && (
-            <FoodwayTimeline
-              totalSlides={foodway.foodwayStops?.length + 1}
-              activeSlide={nav}
-              foodway={foodway}
-            />
-          )}
-        </div>
-      </Style.ContentBuilder>
+      {foodway ? (
+        <Style.ContentBuilder>
+          <div className="content">
+            <Style.Slide>
+              <Swiper
+                slidesPerView={1}
+                mousewheel={true}
+                pagination={false}
+                effect="fade"
+                onSlideChange={onSlideChange}
+                direction={"vertical"}
+                speed={500}
+                modules={[Mousewheel, Scrollbar]}
+                allowTouchMove={false}
+                className="theme-swiper-slide"
+              >
+                <SwiperSlide key={`slide-${0}`}>
+                  <Style.Content>
+                    <FoodwayTitle foodway={foodway} />
+                  </Style.Content>
+                </SwiperSlide>
+                {foodway.foodwayStops &&
+                  foodway.foodwayStops.map((stop, index) => {
+                    return (
+                      <SwiperSlide key={`slide-${index + 1}`}>
+                        <Style.Content>
+                          <FoodwayStop stop={stop} />
+                        </Style.Content>
+                      </SwiperSlide>
+                    );
+                  })}
+              </Swiper>
+            </Style.Slide>
+          </div>
+          <div className="timeline">
+            {foodway.foodwayStops && (
+              <FoodwayTimeline
+                totalSlides={foodway.foodwayStops?.length + 1}
+                activeSlide={nav}
+                foodway={foodway}
+              />
+            )}
+          </div>
+        </Style.ContentBuilder>
+      ) : (
+        <Spinner />
+      )}
       <Style.ActionContainer>
         <PreviewAction />
         <div className="scroll-icon">

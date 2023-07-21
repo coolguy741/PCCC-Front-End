@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+import { Language } from "../pages/types";
+
 /**
  * Store for global UI element states.
  */
@@ -7,11 +9,11 @@ import { create } from "zustand";
 export const useUIStore = create<{
   showElement: boolean;
   setshowElement: (boolean: boolean) => void;
-  language: string;
-  setLanguage: (language: string) => void;
+  lang: Language;
+  setLanguage: (language: Language) => void;
 }>()((set) => ({
   showElement: true,
   setshowElement: (boolean) => set({ showElement: boolean }),
-  language: "english",
-  setLanguage: (language: string) => set({ language }),
+  lang: Language.EN,
+  setLanguage: (lang: Language) => set({ lang }),
 }));

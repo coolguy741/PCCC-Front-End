@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Language } from "../../../../../pages/types";
 
 const languages: { value: Language; label: string }[] = [
-  { value: "en", label: "Eng" },
-  { value: "fr", label: "Fr" },
+  { value: Language.EN, label: "Eng" },
+  { value: Language.FR, label: "Fr" },
 ];
 
 interface Props {

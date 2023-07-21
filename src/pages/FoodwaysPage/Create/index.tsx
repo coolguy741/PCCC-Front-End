@@ -24,10 +24,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
 import { useFetch } from "../../../hooks/useFetch";
-import {
-  PccServer23FoodwaysFoodwayDto,
-  PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
-} from "../../../lib/api/api";
+import { PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
 
 const SlideOnUpdate = ({
   totalSlides,
@@ -66,7 +63,8 @@ export const CreateFoodwaysPage = () => {
   const { api } = useAPI();
   const navigate = useNavigate();
   const { state } = useNavigation();
-  const foodway = useLoaderData() as PccServer23FoodwaysFoodwayDto;
+  const foodway =
+    useLoaderData() as PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
   const [tags, setTags] = useState(["foraging", "seeds"]);
   const { data: newFoodway, fetchData: createFoodway } =
     useFetch<PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
@@ -84,7 +82,7 @@ export const CreateFoodwaysPage = () => {
   }, [foodway]);
 
   const totalSlidesCount = useMemo(
-    () => ((currentLang === "en" ? en : fr).stops?.length ?? 0) + 1,
+    () => ((currentLang === Language.EN ? en : fr).stops?.length ?? 0) + 1,
     [currentLang, en, fr],
   );
 
@@ -121,6 +119,9 @@ export const CreateFoodwaysPage = () => {
   useEffect(() => {
     if (newFoodway || updatedFoodway) {
       let _response;
+      if (!en.stops?.length && !fr.stops?.length) {
+        navigate("/dashboard/foodways");
+      }
       en.stops?.forEach(async (stop, index) => {
         const data = {
           foodwayId: (newFoodway || updatedFoodway)?.english?.id,
@@ -188,7 +189,6 @@ export const CreateFoodwaysPage = () => {
   const onSlideChange = (swiper: SwiperType) => {
     setActiveSlide(swiper.activeIndex);
   };
-
   return (
     <Style.Container>
       <div className="buttons-container">
@@ -236,7 +236,7 @@ export const CreateFoodwaysPage = () => {
                     {index === 0 ? (
                       <FoodwayTitle
                         state={
-                          currentLang === "en"
+                          currentLang === Language.EN
                             ? en.componentState
                             : fr.componentState
                         }
@@ -245,7 +245,7 @@ export const CreateFoodwaysPage = () => {
                       <FoodwayStop
                         index={index}
                         state={
-                          currentLang === "en"
+                          currentLang === Language.EN
                             ? en.stops?.[index - 1].componentState
                             : fr.stops?.[index - 1].componentState
                         }

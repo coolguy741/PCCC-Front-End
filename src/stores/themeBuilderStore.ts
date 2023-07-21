@@ -34,7 +34,7 @@ export interface ThemeStoreState extends ThemeProp {
 const initialState: ThemeProp = {
   currentStep: 0,
   maxPageCount: 5,
-  currentLang: "en",
+  currentLang: Language.EN,
   activityIds: [],
   recipeIds: [],
 };
@@ -47,7 +47,7 @@ export const useThemeBuilderStore = create<ThemeStoreState>()((set, get) => ({
     set(() => ({ curriculums, selectedCurriculum: curriculums?.[0].id })),
   setCurriculum: (selectedCurriculum) => set(() => ({ selectedCurriculum })),
   setLang: (currentLang: Language) => set(() => ({ currentLang })),
-  continueWithFrench: () => set(() => ({ currentLang: "fr" })),
+  continueWithFrench: () => set(() => ({ currentLang: Language.FR })),
   init: () => set(() => ({ ...initialState })),
   setItemIds: (itemId) =>
     set(({ activityIds, recipeIds, currentStep }) => ({

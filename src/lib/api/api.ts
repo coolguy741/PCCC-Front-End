@@ -9,8 +9,105 @@
  * ---------------------------------------------------------------
  */
 
-export interface PccServer23ActivitiesActivityCreateDto {
+export interface PccServer23AchievementGroupsAchievementGroupCreateDto {
   name?: string | null;
+  description?: string | null;
+  icon?: string | null;
+  color?: string | null;
+}
+
+export interface PccServer23AchievementGroupsAchievementGroupDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  name?: string | null;
+  description?: string | null;
+  icon?: string | null;
+  color?: string | null;
+  concurrencyStamp?: string | null;
+  language?: string | null;
+}
+
+export interface PccServer23AchievementGroupsAchievementGroupUpdateDto {
+  name?: string | null;
+  description?: string | null;
+  icon?: string | null;
+  color?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AchievementsAchievementCreateDto {
+  title?: string | null;
+  description?: string | null;
+  message?: string | null;
+  /** @format int32 */
+  viewCount?: number | null;
+  icon?: string | null;
+  color?: string | null;
+  /** @format uuid */
+  achievementGroupId?: string | null;
+}
+
+export interface PccServer23AchievementsAchievementDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  title?: string | null;
+  description?: string | null;
+  message?: string | null;
+  /** @format int32 */
+  viewCount?: number | null;
+  icon?: string | null;
+  color?: string | null;
+  /** @format uuid */
+  achievementGroupId?: string | null;
+  concurrencyStamp?: string | null;
+  language?: string | null;
+}
+
+export interface PccServer23AchievementsAchievementUpdateDto {
+  title?: string | null;
+  description?: string | null;
+  message?: string | null;
+  /** @format int32 */
+  viewCount?: number | null;
+  icon?: string | null;
+  color?: string | null;
+  /** @format uuid */
+  achievementGroupId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23AchievementsAchievementWithNavigationPropertiesDto {
+  achievement?: PccServer23AchievementsAchievementDto;
+  achievementGroup?: PccServer23AchievementGroupsAchievementGroupDto;
+}
+
+export interface PccServer23ActivitiesActivityCreateDto {
   jsonData?: string | null;
   title?: string | null;
   image?: string | null;
@@ -35,7 +132,6 @@ export interface PccServer23ActivitiesActivityDto {
   deleterId?: string | null;
   /** @format date-time */
   deletionTime?: string | null;
-  name?: string | null;
   jsonData?: string | null;
   title?: string | null;
   image?: string | null;
@@ -47,7 +143,6 @@ export interface PccServer23ActivitiesActivityDto {
 }
 
 export interface PccServer23ActivitiesActivityUpdateDto {
-  name?: string | null;
   jsonData?: string | null;
   title?: string | null;
   image?: string | null;
@@ -58,7 +153,6 @@ export interface PccServer23ActivitiesActivityUpdateDto {
 }
 
 export interface PccServer23ActivitiesCustomMultiLingualActivityCreate {
-  name?: string | null;
   jsonData?: string | null;
   title?: string | null;
   topic?: string | null;
@@ -73,7 +167,6 @@ export interface PccServer23ActivitiesCustomMultiLingualActivityCreateDto {
 }
 
 export interface PccServer23ActivitiesCustomMultiLingualActivityUpdate {
-  name?: string | null;
   jsonData?: string | null;
   title?: string | null;
   topic?: string | null;
@@ -280,6 +373,12 @@ export interface PccServer23AvatarsAvatarUpdateDto {
   name?: string | null;
   imageUrl: string;
   concurrencyStamp?: string | null;
+}
+
+/** @format string */
+export enum PccServer23BasePublishStatusEnum {
+  Preview = "Preview",
+  Published = "Published",
 }
 
 export interface PccServer23BooksAddBookTranslationDto {
@@ -798,6 +897,7 @@ export interface PccServer23FoodwaysFoodwayCreateDto {
   /** @format date-time */
   featureDate?: string;
   description?: string | null;
+  status?: PccServer23BasePublishStatusEnum;
 }
 
 export interface PccServer23FoodwaysFoodwayDto {
@@ -822,6 +922,7 @@ export interface PccServer23FoodwaysFoodwayDto {
   /** @format date-time */
   featureDate?: string;
   description?: string | null;
+  status?: PccServer23BasePublishStatusEnum;
   concurrencyStamp?: string | null;
   language?: string | null;
   foodwayStops?: PccServer23FoodwayStopsFoodwayStopDto[] | null;
@@ -834,12 +935,13 @@ export interface PccServer23FoodwaysFoodwayUpdateDto {
   /** @format date-time */
   featureDate?: string;
   description?: string | null;
+  status?: PccServer23BasePublishStatusEnum;
   concurrencyStamp?: string | null;
 }
 
 export interface PccServer23FoodwaysMultiLingualFoodwayCreateDto {
-  english: PccServer23FoodwaysTranslationFoodwayCreateDto;
-  french: PccServer23FoodwaysTranslationFoodwayCreateDto;
+  english?: PccServer23FoodwaysTranslationFoodwayCreateDto;
+  french?: PccServer23FoodwaysTranslationFoodwayCreateDto;
   image?: string | null;
 }
 
@@ -858,6 +960,7 @@ export interface PccServer23FoodwaysPublicFoodwayDto {
   /** @format date-time */
   featureDate?: string;
   description?: string | null;
+  status?: PccServer23BasePublishStatusEnum;
   language?: string | null;
   concurrencyStamp?: string | null;
   foodwayStops?: PccServer23FoodwayStopsPublicFoodwayStopDto[] | null;
@@ -918,6 +1021,49 @@ export interface PccServer23GameSavesGameSaveUpdateDto {
   /** @format uuid */
   userId?: string;
   concurrencyStamp?: string | null;
+}
+
+export interface PccServer23GroupNotificationsGroupNotificationCreateDto {
+  description: string;
+  /** @format uuid */
+  groupId?: string;
+  /** @format uuid */
+  eventId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+  /** @format uuid */
+  userId?: string | null;
+}
+
+export interface PccServer23GroupNotificationsGroupNotificationDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  groupId?: string;
+  /** @format uuid */
+  eventId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+  /** @format uuid */
+  userId?: string | null;
+}
+
+export interface PccServer23GroupNotificationsGroupNotificationUpdateDto {
+  description: string;
+  /** @format uuid */
+  groupId?: string;
+  /** @format uuid */
+  eventId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+  /** @format uuid */
+  userId?: string | null;
 }
 
 export interface PccServer23GroupUsersGroupUserCreateDto {
@@ -1057,6 +1203,32 @@ export interface PccServer23IdentityPublicIdentityUserDto {
   role?: string | null;
 }
 
+export interface PccServer23IngredientsIngredient {
+  /** @format uuid */
+  id?: string;
+  extraProperties?: Record<string, any>;
+  concurrencyStamp?: string | null;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  quantity?: string | null;
+  measurement?: string | null;
+  name?: string | null;
+  /** @format uuid */
+  recipeId?: string;
+  translations?: PccServer23IngredientsIngredientTranslation[] | null;
+}
+
 export interface PccServer23IngredientsIngredientCreateDto {
   quantity?: string | null;
   measurement?: string | null;
@@ -1090,6 +1262,15 @@ export interface PccServer23IngredientsIngredientDto {
   language?: string | null;
 }
 
+export interface PccServer23IngredientsIngredientTranslation {
+  /** @format uuid */
+  ingredientId?: string;
+  quantity?: string | null;
+  measurement?: string | null;
+  name?: string | null;
+  language?: string | null;
+}
+
 export interface PccServer23IngredientsIngredientUpdateDto {
   /** @format uuid */
   id?: string;
@@ -1113,18 +1294,11 @@ export interface PccServer23IngredientsPublicIngredientDto {
   language?: string | null;
 }
 
-export interface PccServer23MealPlannerSaveMealPlanRequest {
-  meals?: PccServer23MealPlannerSaveMealPlanRequestOrganizedMealPlan[] | null;
+export interface PccServer23MealPlannerImportAppServiceGroceryListIngredient {
+  name?: string | null;
+  measurement?: string | null;
   /** @format int32 */
-  mealsPerDay?: number;
-  /** @format int32 */
-  servingSize?: number;
-}
-
-export interface PccServer23MealPlannerSaveMealPlanRequestOrganizedMealPlan {
-  /** @format date-time */
-  day?: string;
-  recipeIds?: string[] | null;
+  value?: number;
 }
 
 export interface PccServer23MealPlansMealPlanCreateDto {
@@ -1147,6 +1321,135 @@ export interface PccServer23MealPlansMealPlanDto {
 
 export interface PccServer23MealPlansMealPlanUpdateDto {
   data?: string | null;
+}
+
+export interface PccServer23MealPlansOrganizedMealPlan {
+  /** @format date-time */
+  day?: string;
+  recipeIds?: string[] | null;
+}
+
+export interface PccServer23MealPlansPublicMealPlanDto {
+  /** @format uuid */
+  id?: string;
+  data?: PccServer23MealPlansSaveMealPlanRequest;
+}
+
+export interface PccServer23MealPlansSaveMealPlanRequest {
+  meals?: PccServer23MealPlansOrganizedMealPlan[] | null;
+  /** @format int32 */
+  mealsPerDay?: number;
+  /** @format int32 */
+  servingSize?: number;
+}
+
+export interface PccServer23MealtimeMomentsMealtimeMomentCreateDto {
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  tags?: string | null;
+}
+
+export interface PccServer23MealtimeMomentsMealtimeMomentDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  tags?: string | null;
+  concurrencyStamp?: string | null;
+  language?: string | null;
+}
+
+export interface PccServer23MealtimeMomentsMealtimeMomentUpdateDto {
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  tags?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23MealtimeMomentsMultiLingualMealtimeMomentCreate {
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
+}
+
+export interface PccServer23MealtimeMomentsMultiLingualMealtimeMomentCreateDto {
+  english: PccServer23MealtimeMomentsMultiLingualMealtimeMomentCreate;
+  french: PccServer23MealtimeMomentsMultiLingualMealtimeMomentCreate;
+  image?: string | null;
+  tags?: string | null;
+}
+
+export interface PccServer23MealtimeMomentsMultiLingualMealtimeMomentUpdate {
+  jsonData?: string | null;
+  title?: string | null;
+  topic?: string | null;
+  description?: string | null;
+}
+
+export interface PccServer23MealtimeMomentsMultiLingualMealtimeMomentUpdateDto {
+  english: PccServer23MealtimeMomentsMultiLingualMealtimeMomentUpdate;
+  french: PccServer23MealtimeMomentsMultiLingualMealtimeMomentUpdate;
+  image?: string | null;
+  tags?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23MealtimeMomentsPublicMealtimeMomentDto {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  jsonData?: string | null;
+  title?: string | null;
+  image?: string | null;
+  topic?: string | null;
+  description?: string | null;
+  tags?: string | null;
+  language?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23RecipeMediasRecipeMedia {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  mediaType?: PccServer23RecipeMediasRecipeMediaType;
+  fileType?: string | null;
+  fileName?: string | null;
+  filePath?: string | null;
+  /** @format uuid */
+  recipeId?: string;
+  recipe?: PccServer23RecipesRecipe;
+  concurrencyStamp?: string | null;
 }
 
 export interface PccServer23RecipeMediasRecipeMediaCreateDto {
@@ -1236,6 +1539,34 @@ export interface PccServer23RecipesPublicRecipeDto {
   ingredients?: PccServer23IngredientsPublicIngredientDto[] | null;
 }
 
+export interface PccServer23RecipesRecipe {
+  /** @format uuid */
+  id?: string;
+  extraProperties?: Record<string, any>;
+  concurrencyStamp?: string | null;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  isDeleted?: boolean;
+  /** @format uuid */
+  deleterId?: string | null;
+  /** @format date-time */
+  deletionTime?: string | null;
+  name?: string | null;
+  goodFor?: string | null;
+  servingSize?: string | null;
+  tags?: string | null;
+  directions?: string | null;
+  translations?: PccServer23RecipesRecipeTranslation[] | null;
+  medias?: PccServer23RecipeMediasRecipeMedia[] | null;
+  ingredients?: PccServer23IngredientsIngredient[] | null;
+}
+
 export interface PccServer23RecipesRecipeCreate {
   name: string;
   goodFor?: string | null;
@@ -1293,6 +1624,17 @@ export interface PccServer23RecipesRecipeIngredientUpdateDto {
   name?: string | null;
 }
 
+export interface PccServer23RecipesRecipeTranslation {
+  /** @format uuid */
+  recipeId?: string;
+  name?: string | null;
+  goodFor?: string | null;
+  servingSize?: string | null;
+  tags?: string | null;
+  directions?: string | null;
+  language?: string | null;
+}
+
 export interface PccServer23RecipesRecipeUpdateDto {
   name: string;
   goodFor?: string | null;
@@ -1300,6 +1642,19 @@ export interface PccServer23RecipesRecipeUpdateDto {
   tags?: string | null;
   directions?: string | null;
   concurrencyStamp?: string | null;
+}
+
+export interface PccServer23SearchesGetListDto {
+  contentType?: string | null;
+  contentTitle?: string | null;
+  contentDescription?: string | null;
+  contentThemeName?: string | null;
+}
+
+export interface PccServer23SearchesGetListOutput {
+  items?: PccServer23SearchesGetListDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
 }
 
 export interface PccServer23SecurityQuestionChoicesGetSecurityQuestionsOutput {
@@ -1362,6 +1717,11 @@ export interface PccServer23SharedIMultiLingualDto1PccServer23FoodwayStopsPublic
 export interface PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   english?: PccServer23FoodwaysPublicFoodwayDto;
   french?: PccServer23FoodwaysPublicFoodwayDto;
+}
+
+export interface PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  english?: PccServer23MealtimeMomentsPublicMealtimeMomentDto;
+  french?: PccServer23MealtimeMomentsPublicMealtimeMomentDto;
 }
 
 export interface PccServer23SharedIMultiLingualDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
@@ -1488,6 +1848,19 @@ export interface PccServer23ThemesCustomAddEducatorNoteInput {
   curriculumId: string;
   /** @format uuid */
   themeId: string;
+}
+
+export interface PccServer23ThemesCustomPublicUserCompletedThemesDto {
+  description?: string | null;
+  /** @format uuid */
+  themeId?: string;
+  /** @format uuid */
+  userId?: string;
+}
+
+export interface PccServer23ThemesCustomSaveUserLessonCompletionStatusInput {
+  /** @format uuid */
+  themeId?: string;
 }
 
 export interface PccServer23ThemesCustomUpdateEducatorNoteInput {
@@ -1637,6 +2010,88 @@ export interface PccServer23TopicsTopicUpdateDto {
   concurrencyStamp?: string | null;
 }
 
+export interface PccServer23UserCompletedThemessUserCompletedThemesCreateDto {
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  /** @format uuid */
+  identityUserId?: string | null;
+}
+
+export interface PccServer23UserCompletedThemessUserCompletedThemesDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  /** @format uuid */
+  identityUserId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23UserCompletedThemessUserCompletedThemesUpdateDto {
+  name?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  themeId?: string | null;
+  /** @format uuid */
+  identityUserId?: string | null;
+  concurrencyStamp?: string | null;
+}
+
+export interface PccServer23UserCompletedThemessUserCompletedThemesWithNavigationPropertiesDto {
+  userCompletedThemes?: PccServer23UserCompletedThemessUserCompletedThemesDto;
+  theme?: PccServer23ThemesThemeDto;
+  identityUser?: any;
+}
+
+export interface PccServer23UserNotificationsUserNotificationCreateDto {
+  description: string;
+  /** @format uuid */
+  userId?: string;
+  /** @format uuid */
+  eventId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+}
+
+export interface PccServer23UserNotificationsUserNotificationDto {
+  /** @format uuid */
+  id?: string;
+  /** @format date-time */
+  creationTime?: string;
+  /** @format uuid */
+  creatorId?: string | null;
+  /** @format date-time */
+  lastModificationTime?: string | null;
+  /** @format uuid */
+  lastModifierId?: string | null;
+  description?: string | null;
+  /** @format uuid */
+  userId?: string;
+  /** @format uuid */
+  eventId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+}
+
+export interface PccServer23UserNotificationsUserNotificationUpdateDto {
+  description: string;
+  /** @format uuid */
+  userId?: string;
+  /** @format uuid */
+  eventId?: string | null;
+  eventType?: PccServer23CalendarEventsCalendarEventType;
+}
+
 export interface PccServer23UsernameChoicesCheckUsernameAvailabilityInput {
   username?: string | null;
 }
@@ -1696,7 +2151,7 @@ export interface PccServer23UsersCreateProfessionalUserInput {
   thirdSecurityQuestionId?: string;
   thirdSecurityQuestionAnswer?: string | null;
   /** @format uuid */
-  avatarId?: string;
+  avatarId?: string | null;
 }
 
 export interface PccServer23UsersCreateUserInput {
@@ -1845,6 +2300,12 @@ export interface VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsCustomGro
 
 export interface VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
   items?: PccServer23GroupsGroupWithNavigationPropertiesDto[] | null;
+  /** @format int64 */
+  totalCount?: number;
+}
+
+export interface VoloAbpApplicationDtosPagedResultDto1PccServer23MealtimeMomentsMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull {
+  items?: PccServer23MealtimeMomentsMealtimeMomentDto[] | null;
   /** @format int64 */
   totalCount?: number;
 }
@@ -2031,7 +2492,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     appActivitiesList: (
       query?: {
         FilterText?: string;
-        Name?: string;
         JsonData?: string;
         Title?: string;
         Image?: string;
@@ -2877,7 +3337,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/foodways/{id}
      */
     appFoodwaysDetail: (id: string, params: RequestParams = {}) =>
-      this.request<PccServer23FoodwaysPublicFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
         path: `/api/app/foodways/${id}`,
         method: "GET",
         format: "json",
@@ -2924,6 +3387,66 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodways
+     * @name AppFoodwaysChangeStatusCreate
+     * @request POST:/api/app/foodways/{id}/change-status
+     * @secure
+     */
+    appFoodwaysChangeStatusCreate: (
+      id: string,
+      query?: {
+        status?: PccServer23BasePublishStatusEnum;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodways/${id}/change-status`,
+        method: "POST",
+        query: query,
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodways
+     * @name AppFoodwaysWithAchievementTrackingDetail
+     * @summary [FOR TESTING PURPOSE] Get a foodway record with Achievement tracking (RUN TWICE TO UNLOCK ACHIEVEMENT)
+     * @request GET:/api/app/foodways/{id}/with-achievement-tracking
+     */
+    appFoodwaysWithAchievementTrackingDetail: (id: string, params: RequestParams = {}) =>
+      this.request<PccServer23FoodwaysPublicFoodwayDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/foodways/${id}/with-achievement-tracking`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomFoodways
+     * @name AppFoodwaysWithAchievementUnlockingCreate
+     * @summary [FOR TESTING PURPOSE] Create a new foodway record with Achievement unlocking
+     * @request POST:/api/app/foodways/with-achievement-unlocking
+     * @secure
+     */
+    appFoodwaysWithAchievementUnlockingCreate: (params: RequestParams = {}) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/foodways/with-achievement-unlocking`,
+        method: "POST",
+        secure: true,
         format: "json",
         ...params,
       }),
@@ -3305,6 +3828,224 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags CustomMealPlanner
+     * @name AppMealPlannerMealPlanList
+     * @request GET:/api/app/meal-planner/meal-plan
+     */
+    appMealPlannerMealPlanList: (
+      query?: {
+        /** @format date-time */
+        StartDate?: string;
+        /** @format date-time */
+        EndDate?: string;
+        DaysOfWeek?: any[];
+        /** @format int32 */
+        MealsPerDay?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23RecipesPublicRecipeDto[], VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/meal-planner/meal-plan`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealPlanner
+     * @name AppMealPlannerSaveMealPlanCreate
+     * @request POST:/api/app/meal-planner/save-meal-plan
+     */
+    appMealPlannerSaveMealPlanCreate: (data: PccServer23MealPlansSaveMealPlanRequest, params: RequestParams = {}) =>
+      this.request<PccServer23MealPlansPublicMealPlanDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/meal-planner/save-meal-plan`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealPlanner
+     * @name AppMealPlannerGroceryListDetail
+     * @request GET:/api/app/meal-planner/grocery-list/{mealPlanId}
+     */
+    appMealPlannerGroceryListDetail: (mealPlanId: string, params: RequestParams = {}) =>
+      this.request<
+        PccServer23MealPlannerImportAppServiceGroceryListIngredient[],
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/meal-planner/grocery-list/${mealPlanId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealPlanner
+     * @name AppMealPlannerImportSpreadsheetCreate
+     * @request POST:/api/app/meal-planner/import-spreadsheet
+     */
+    appMealPlannerImportSpreadsheetCreate: (
+      data: {
+        /** @format binary */
+        file?: File;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/meal-planner/import-spreadsheet`,
+        method: "POST",
+        body: data,
+        type: ContentType.FormData,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealtimeMoments
+     * @name AppMealtimeMomentsList
+     * @summary Get list of mealtime moments
+     * @request GET:/api/app/mealtime-moments
+     */
+    appMealtimeMomentsList: (
+      query?: {
+        FilterText?: string;
+        JsonData?: string;
+        Title?: string;
+        Image?: string;
+        Topic?: string;
+        Description?: string;
+        Tags?: string;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+        language?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        VoloAbpApplicationDtosPagedResultDto1PccServer23MealtimeMomentsMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/mealtime-moments`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealtimeMoments
+     * @name AppMealtimeMomentsCreate
+     * @summary Create a new mealtime moments record
+     * @request POST:/api/app/mealtime-moments
+     * @secure
+     */
+    appMealtimeMomentsCreate: (
+      data: PccServer23MealtimeMomentsMultiLingualMealtimeMomentCreateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/mealtime-moments`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealtimeMoments
+     * @name AppMealtimeMomentsDetail
+     * @summary Get mealtime moments record
+     * @request GET:/api/app/mealtime-moments/{id}
+     */
+    appMealtimeMomentsDetail: (id: string, params: RequestParams = {}) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/mealtime-moments/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealtimeMoments
+     * @name AppMealtimeMomentsDelete
+     * @summary Delete mealtime moments record with id
+     * @request DELETE:/api/app/mealtime-moments/{id}
+     * @secure
+     */
+    appMealtimeMomentsDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/mealtime-moments/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealtimeMoments
+     * @name AppMealtimeMomentsUpdate
+     * @summary Update an existing mealtime moments record's details
+     * @request PUT:/api/app/mealtime-moments/{id}
+     * @secure
+     */
+    appMealtimeMomentsUpdate: (
+      id: string,
+      data: PccServer23MealtimeMomentsMultiLingualMealtimeMomentUpdateDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/mealtime-moments/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags CustomRecipeMedias
      * @name AppRecipeMediasDelete
      * @summary Delete a recipe media with Id
@@ -3469,6 +4210,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomSearch
+     * @name AppSearchList
+     * @request GET:/api/app/search
+     */
+    appSearchList: (
+      query: {
+        FilterText: string;
+        IncludeFoodway?: boolean;
+        IncludeFoodwayStop?: boolean;
+        IncludeRecipe?: boolean;
+        IncludeActivity?: boolean;
+        IncludeTheme?: boolean;
+        IncludeThemeRecipe?: boolean;
+        IncludeThemeActivity?: boolean;
+        Sorting?: string;
+        /**
+         * @format int32
+         * @min 0
+         * @max 2147483647
+         */
+        SkipCount?: number;
+        /**
+         * @format int32
+         * @min 1
+         * @max 2147483647
+         */
+        MaxResultCount?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23SearchesGetListOutput, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/search`,
+        method: "GET",
+        query: query,
         format: "json",
         ...params,
       }),
@@ -3803,6 +4585,49 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags CustomThemes
+     * @name AppThemesSaveUserLessonCompletionStatusCreate
+     * @summary Save user lesson completion status of current user
+     * @request POST:/api/app/themes/save-user-lesson-completion-status
+     */
+    appThemesSaveUserLessonCompletionStatusCreate: (
+      data: PccServer23ThemesCustomSaveUserLessonCompletionStatusInput,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/save-user-lesson-completion-status`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomThemes
+     * @name AppThemesUserLessonCompletionStatusList
+     * @summary Get current user lesson completion status
+     * @request GET:/api/app/themes/user-lesson-completion-status
+     */
+    appThemesUserLessonCompletionStatusList: (
+      query?: {
+        /** @format uuid */
+        ThemeId?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PccServer23ThemesCustomPublicUserCompletedThemesDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/themes/user-lesson-completion-status`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags CustomUsernameChoices
      * @name AppUsernameChoicesCheckUsernameAvailabilityCreate
      * @summary Check a username is taken up by existing users
@@ -3840,26 +4665,31 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags MealPlanner
-     * @name AppTestMealPlannerMealPlanList
-     * @request GET:/api/app/test-meal-planner/meal-plan
+     * @tags Import
+     * @name AppTestImportDoWorkCreate
+     * @request POST:/api/app/test-import/do-work
      */
-    appTestMealPlannerMealPlanList: (
-      query?: {
-        /** @format date-time */
-        StartDate?: string;
-        /** @format date-time */
-        EndDate?: string;
-        DaysOfWeek?: any[];
-        /** @format int32 */
-        MealsPerDay?: number;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<PccServer23RecipesPublicRecipeDto[], VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/test-meal-planner/meal-plan`,
-        method: "GET",
-        query: query,
+    appTestImportDoWorkCreate: (params: RequestParams = {}) =>
+      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/test-import/do-work`,
+        method: "POST",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Import
+     * @name AppTestImportDoTestCreate
+     * @request POST:/api/app/test-import/do-test
+     */
+    appTestImportDoTestCreate: (params: RequestParams = {}) =>
+      this.request<
+        PccServer23MealPlannerImportAppServiceGroceryListIngredient[],
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/test-import/do-test`,
+        method: "POST",
         format: "json",
         ...params,
       }),
@@ -3867,41 +4697,28 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags MealPlanner
-     * @name AppTestMealPlannerSaveMealPlanCreate
-     * @request POST:/api/app/test-meal-planner/save-meal-plan
+     * @tags Import
+     * @name AppTestImportTryParseQuantityCreate
+     * @request POST:/api/app/test-import/try-parse-quantity
      */
-    appTestMealPlannerSaveMealPlanCreate: (
-      data: PccServer23MealPlannerSaveMealPlanRequest,
-      params: RequestParams = {},
-    ) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/test-meal-planner/save-meal-plan`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags MealPlanner
-     * @name AppTestMealPlannerImportSpreadsheetCreate
-     * @request POST:/api/app/test-meal-planner/import-spreadsheet
-     */
-    appTestMealPlannerImportSpreadsheetCreate: (
-      data: {
-        /** @format binary */
-        file?: File;
+    appTestImportTryParseQuantityCreate: (
+      data: PccServer23RecipesRecipe[],
+      query?: {
+        /** @format int32 */
+        servingSize?: number;
       },
       params: RequestParams = {},
     ) =>
-      this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
-        path: `/api/app/test-meal-planner/import-spreadsheet`,
+      this.request<
+        PccServer23MealPlannerImportAppServiceGroceryListIngredient[],
+        VoloAbpHttpRemoteServiceErrorResponse
+      >({
+        path: `/api/app/test-import/try-parse-quantity`,
         method: "POST",
+        query: query,
         body: data,
-        type: ContentType.FormData,
+        type: ContentType.Json,
+        format: "json",
         ...params,
       }),
 

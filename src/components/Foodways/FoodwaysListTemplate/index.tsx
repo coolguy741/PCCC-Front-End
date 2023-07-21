@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAPI } from "../../../hooks/useAPI";
@@ -8,6 +8,7 @@ import { STORAGE_KEY_JWT } from "../../../pages/consts";
 import Button from "../../Button";
 import Scrollbar from "../../Global/Scrollable";
 import { Select } from "../../Global/Select";
+import { Spinner } from "../../Global/Spinner";
 import { FoodwaysList } from "../FoodwaysList";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";
@@ -22,9 +23,11 @@ interface ContentListAdminPageTemplateProps {
 export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
   ({ title, selectsGroup, listData, onSelectionChange, selectedIds }) => {
     const { api } = useAPI();
+    const [isDeleting, setIsDeleting] = useState(false);
     const navigate = useNavigate();
 
     const handleDelete = async () => {
+      setIsDeleting(true);
       for (const id of selectedIds) {
         await api.appFoodwaysDelete(id, {
           headers: {
@@ -32,7 +35,7 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
           },
         });
       }
-
+      setIsDeleting(false);
       navigate("/dashboard/foodways");
     };
 
@@ -46,10 +49,11 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
                 <Select
                   width="180px"
                   height="52px"
+                  defaultValue=""
                   className="username-select"
                   required
                 >
-                  <option className="place-holder" selected disabled hidden>
+                  <option className="place-holder" value="" disabled hidden>
                     {select + " name"}
                   </option>
                   <option value="Curriculum name1">{select + " name1"}</option>
@@ -77,13 +81,17 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             </Link>
           </Style.ButtonGroup>
         </Style.InputGroup>
-        <Scrollbar>
-          <FoodwaysList
-            listData={listData}
-            selectable={true}
-            onSelectionChange={onSelectionChange}
-          />
-        </Scrollbar>
+        {isDeleting ? (
+          <Spinner />
+        ) : (
+          <Scrollbar>
+            <FoodwaysList
+              listData={listData}
+              selectable={true}
+              onSelectionChange={onSelectionChange}
+            />
+          </Scrollbar>
+        )}
       </>
     );
   };

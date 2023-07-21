@@ -31,7 +31,7 @@ export interface MealtimeMomentsStore extends ThemeProp {
 const initialState: ThemeProp = {
   maxPageCount: 1,
   contents: {},
-  currentLang: "en",
+  currentLang: Language.EN,
   en: {
     contents: null,
   },

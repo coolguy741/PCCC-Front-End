@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { SmallButton } from "../../../components/Global/SmallButton";
+import { Language } from "../../types";
 
 export const RecipesCreatePreviewLessonAssessment = () => {
-  const [currentLanguage, setCurrentLanguage] = useState("en");
+  const [currentLanguage, setCurrentLanguage] = useState(Language.EN);
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -21,21 +23,25 @@ export const RecipesCreatePreviewLessonAssessment = () => {
       <div className="title-buttons-container">
         <h2>Create recipe</h2>
         <div className="language-toggle">
-          {currentLanguage === "en" ? (
+          {currentLanguage === Language.EN ? (
             <>
-              <Style.ClickedButton onClick={() => setCurrentLanguage("en")}>
+              <Style.ClickedButton
+                onClick={() => setCurrentLanguage(Language.EN)}
+              >
                 English
               </Style.ClickedButton>
-              <SmallButton onClick={() => setCurrentLanguage("fr")}>
+              <SmallButton onClick={() => setCurrentLanguage(Language.FR)}>
                 French
               </SmallButton>
             </>
           ) : (
             <>
-              <SmallButton onClick={() => setCurrentLanguage("en")}>
+              <SmallButton onClick={() => setCurrentLanguage(Language.EN)}>
                 English
               </SmallButton>
-              <Style.ClickedButton onClick={() => setCurrentLanguage("fr")}>
+              <Style.ClickedButton
+                onClick={() => setCurrentLanguage(Language.FR)}
+              >
                 French
               </Style.ClickedButton>
             </>

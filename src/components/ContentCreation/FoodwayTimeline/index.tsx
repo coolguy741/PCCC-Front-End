@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { ObjectState } from "../../../components/ContentCreation/types";
 import { useContentCreation } from "../../../hooks/useContentCreation";
+import { Language } from "../../../pages/types";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
@@ -16,7 +17,7 @@ export const FoodwayTimeline = ({ totalSlides }: FoodwayTimelineProps) => {
   const titleState = useMemo(
     () => [
       { mode: "view", text: "Intro" },
-      ...((currentLang === "en" ? en.stops : fr.stops)?.map((stop) => ({
+      ...((currentLang === Language.EN ? en.stops : fr.stops)?.map((stop) => ({
         mode: (stop.componentState as ObjectState)?.timePeriod?.mode || "view",
         text: stop.time || "Edit",
       })) ?? []),

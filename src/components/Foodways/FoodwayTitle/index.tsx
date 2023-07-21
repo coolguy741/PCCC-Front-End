@@ -17,7 +17,7 @@ export function FoodwayTitle({ foodway }: FoodwayTitleProps) {
               <br />
               {foodway.title}
             </h1>
-            <p>{foodway.info}</p>
+            <p>{foodway.description}</p>
           </div>
           <figure className="fw-image">
             <img src="/content-creation/theme-cc.png" alt="" />

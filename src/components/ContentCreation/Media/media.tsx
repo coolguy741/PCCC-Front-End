@@ -23,7 +23,7 @@ export function Media({
 }) {
   const { toggle, modal } = useModal();
   const { shufflePattern, currentPattern } = usePatterns(
-    media.patternChoice,
+    media?.patternChoice ?? 0,
     changePattern,
   );
 
@@ -37,7 +37,7 @@ export function Media({
     else if (type === ("video" || "audio"))
       return (
         <ReactPlayer
-          classname="react-player"
+          className="react-player"
           url={media?.src}
           controls
           width="100%"
@@ -93,7 +93,7 @@ const Style = {
       height: 100%;
       display: grid;
       place-items: center;
-      position: relative;
+      position: rela/tive;
 
       .react-player {
         position: absolute;
@@ -106,7 +106,7 @@ const Style = {
       object-fit: cover;
       width: 100%;
       height: auto;
-      object-position: center;
+      object-positi/on: center;
     }
 
     .empty-img {
