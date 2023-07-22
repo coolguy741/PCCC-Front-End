@@ -139,7 +139,7 @@ const AchievementStatus: FC = () => {
   return (
     <AchivementStatusStyleContainer>
       <AnimatePresence mode={"wait"}>
-        {activeAchievementsModalTab === "garden" && (
+        {activeAchievementsModalTab === "garden" ? (
           <motion.div
             key={"garden"}
             className="status"
@@ -202,9 +202,7 @@ const AchievementStatus: FC = () => {
               </div>
             </div>
           </motion.div>
-        )}
-
-        {activeAchievementsModalTab === "kitchen" && (
+        ) : (
           <motion.div
             key={"kitchen"}
             className="status"
