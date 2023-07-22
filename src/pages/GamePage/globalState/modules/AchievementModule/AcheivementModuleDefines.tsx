@@ -11,7 +11,7 @@ import {
 } from "./AchievementModuleTypes";
 
 const GardenCleanAchievementObject: GardenCleanAchievementObjectType = {
-  clean_slate: true,
+  clean_slate: false,
   tidy_tools: true,
   green_thumb_forever: true,
 };
@@ -19,10 +19,10 @@ const GardenCleanAchievementObject: GardenCleanAchievementObjectType = {
 const GardenCarefulAchievementObject: GardenCarefulAchievementObjectType = {
   garden_zen: true,
   green_thumb_protector: true,
-  sunshine_safety: true,
+  sunshine_safety: false,
   wild_harvest: true,
   work_smarter_not_harder: true,
-  nature_protector: true,
+  nature_protector: false,
   dirt_ditcher: true,
 };
 
@@ -31,7 +31,7 @@ const GardenConfidentAchievementObject: GardenConfidentAchievementObjectType = {
   garden_genius: true,
   garden_explorer: true,
   itchy_encounter: true,
-  big_brain: true,
+  big_brain: false,
   creative_grower: true,
   tomato_harvest: true,
   carrot_harvest: true,
@@ -46,19 +46,19 @@ const GardenAllAchievementObject: GardenAllAchievementObjectType = {
 
 const KitchenCleanAchievementObject: KitchenCleanAchievementObjectType = {
   tidy_zone: true,
-  functional_fashion: true,
+  functional_fashion: false,
   under_control: true,
   food_safety_savant: true,
   clean_sweep: true,
-  hygiene_hero: true,
+  hygiene_hero: false,
 };
 
 const KitchenConfidentAchievementObject: KitchenConfidentAchievementObjectType =
   {
-    knowledge_finder: true,
-    knife_wielder: true,
+    knowledge_finder: false,
+    knife_wielder: false,
     kitchen_knower: true,
-    kitchen_explorer: true,
+    kitchen_explorer: false,
     creative_cook: true,
     experimentation_nation: true,
     mise_en_place: true,
@@ -67,7 +67,7 @@ const KitchenConfidentAchievementObject: KitchenConfidentAchievementObjectType =
 
 const KitchenCarefulAchievementObject: KitchenCarefulAchievementObjectType = {
   kitchen_zen: true,
-  functional_fit: true,
+  functional_fit: false,
   solid_ground: true,
   team_titan: true,
 };

@@ -2,7 +2,8 @@ import { FC, memo } from "react";
 import AchievementTabButton from "../1-AchievementPanelTabButton/AchievementTabButton";
 import AchievementsPanelTab from "../2-AchievementsPanelTab/AchievementsPanelTab";
 import CCCButtons from "../3-CCCButton/CCCButtons";
-import AchievementItems from "../4-AchievementItems/AchievementItems";
+import AchievementStatus from "../4-AchievementStatus/AchievementStatus";
+import AchievementItems from "../5-AchievementItems/AchievementItems";
 import AchievementsPanelStyleContainer from "./AchievementsPanelStyleContainer";
 
 const AchievementsPanel: FC = () => {
@@ -22,6 +23,7 @@ const AchievementsPanel: FC = () => {
           <AchievementTabButton type={"garden"} />
           <CCCButtons />
           <AchievementItems />
+          <AchievementStatus />
           <div className="top-fade" />
         </div>
 

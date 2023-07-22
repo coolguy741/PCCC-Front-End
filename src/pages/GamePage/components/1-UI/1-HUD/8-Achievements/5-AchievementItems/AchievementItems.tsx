@@ -136,40 +136,52 @@ const AchievementItems: FC = () => {
         <AnimatePresence mode={"wait"}>
           {activeCCC === "all" && (
             <Fragment>
-              {items.map(({ item, id, value }) =>
-                value ? (
-                  <AchievementItem key={id} item={item} badgeColor={"red"} />
-                ) : null,
+              {items.map(
+                ({ item, id, value }) =>
+                  value && (
+                    <AchievementItem key={id} item={item} badgeColor={"red"} />
+                  ),
               )}
             </Fragment>
           )}
 
           {activeCCC === "confident" && (
             <Fragment>
-              {items.map(({ item, id, value }) =>
-                value ? (
-                  <AchievementItem key={id} item={item} badgeColor={"blue"} />
-                ) : null,
+              {items.map(
+                ({ item, id, value }) =>
+                  value && (
+                    <AchievementItem key={id} item={item} badgeColor={"blue"} />
+                  ),
               )}
             </Fragment>
           )}
 
           {activeCCC === "clean" && (
             <Fragment>
-              {items.map(({ item, id, value }) =>
-                value ? (
-                  <AchievementItem key={id} item={item} badgeColor={"green"} />
-                ) : null,
+              {items.map(
+                ({ item, id, value }) =>
+                  value && (
+                    <AchievementItem
+                      key={id}
+                      item={item}
+                      badgeColor={"green"}
+                    />
+                  ),
               )}
             </Fragment>
           )}
 
           {activeCCC === "careful" && (
             <Fragment>
-              {items.map(({ item, id, value }) =>
-                value ? (
-                  <AchievementItem key={id} item={item} badgeColor={"peach"} />
-                ) : null,
+              {items.map(
+                ({ item, id, value }) =>
+                  value && (
+                    <AchievementItem
+                      key={id}
+                      item={item}
+                      badgeColor={"peach"}
+                    />
+                  ),
               )}
             </Fragment>
           )}
