@@ -1,19 +1,21 @@
 import styled from "styled-components";
+import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
+import { trimStringByLength } from "../../../lib/util/trimStringByLength";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Progress } from "../../Global/Progress";
 import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
 import CDCancel from "../Icons/cd-cancel";
 import CDRefresh from "../Icons/cd-refresh";
+import CDSuccess from "../Icons/cd-success";
 
 interface Props {
-  status: "uploading" | "finished" | "errored";
+  status?: "uploading" | "finished" | "errored";
   upload?: any;
+  progress?: number;
 }
 
-export function UploadOption(props: Props) {
-  const { status, upload } = props;
-
+export function UploadOption({ status, upload, progress }: Props) {
   function colorOnError(normalColor: string) {
     if (status === "errored") return "red-500";
     else return normalColor;
@@ -32,10 +34,10 @@ export function UploadOption(props: Props) {
               color={colorOnError("neutral-800")}
               size="1.6vh"
             >
-              {upload.name}
+              {trimStringByLength(upload.name, 22)}
               <br />
               <Typography color={colorOnError("neutral-400")} size="1.3vh">
-                {upload.size}
+                {roundToOneDecimal(upload.size)} MB
               </Typography>
             </Typography>
           </div>
@@ -46,18 +48,26 @@ export function UploadOption(props: Props) {
               size="1.3vh"
               mt="2vh"
             >
-              {status === "errored" ? "failed" : `${upload.percentage}%`}
+              {status === "errored"
+                ? "failed"
+                : `${(upload.progress * 100 || 0).toFixed(0)}%`}
             </Typography>
           </div>
         </div>
         <Progress
           hasError={status === "errored"}
-          value={upload.percentage}
+          value={upload.progress && upload.progress * 100}
           variant="thin"
         />
       </div>
       <div className="upload-status">
-        {status === "errored" ? <CDRefresh /> : <CDCancel />}
+        {status === "errored" ? (
+          <CDRefresh />
+        ) : upload.progress === 1 ? (
+          <CDSuccess />
+        ) : (
+          <CDCancel />
+        )}
       </div>
     </Style.Container>
   );
@@ -86,6 +96,10 @@ export const Style = {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1vh;
+      }
+
+      progress {
+        background-color: "red";
       }
 
       .uo-img {

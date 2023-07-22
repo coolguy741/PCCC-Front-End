@@ -30,7 +30,7 @@ export const AccountsGroupPage = () => {
   };
 
   const handleViewGroupCalender = () => {
-    navigate("/dashboard/accounts/groups/group/calendar");
+    navigate("calendar");
   };
 
   const getGroup = useCallback(async () => {

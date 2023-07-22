@@ -15,15 +15,20 @@ import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
 import { AccountsGroupPage } from "./AccountsPage/Groups/Group";
 import { AccountsGroupCalendarPage } from "./AccountsPage/Groups/GroupCalendar";
 import { AccountsGroupCalendarPrintPage } from "./AccountsPage/Groups/GroupCalendarPrint";
-import { AccountsProfilesPage } from "./AccountsPage/Profiles";
+import {
+  AccountsProfilesPage,
+  profilesPageLoader,
+} from "./AccountsPage/Profiles";
 import { AccountsUserLessonAssessmentPage } from "./AccountsPage/Profiles/LessonAssessment";
 import { AccountsUserLessonAssessmentPrintPage } from "./AccountsPage/Profiles/LessonAssessmentPrint";
-import { AccountsUserProfilePage } from "./AccountsPage/Profiles/User";
+import {
+  AccountsUserProfilePage,
+  profilePageLoader,
+} from "./AccountsPage/Profiles/User";
 import { AchievementsPage } from "./AchievementsPage";
 import { ActivitiesPage } from "./ActivitiesBuilderPage";
-import { ActivitiesEditPage } from "./ActivitiesBuilderPage/ActivitiesEditPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
-import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPage/Print";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/Create";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/Create/Preview";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
@@ -33,12 +38,11 @@ import { SignInPage } from "./AuthPage/SignInPage";
 import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
-import { CloudDrivePage } from "./CloudDrivePage";
+import { CloudDrivePage, cloudDrivePageLoader } from "./CloudDrivePage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
 import { CreateFoodwaysPage } from "./FoodwaysPage/Create";
-import { EditFoodwaysPage } from "./FoodwaysPage/Edit";
 import { FoodwaysOverviewPage } from "./FoodwaysPage/Overview";
 import { FoodwaysPreviewPage } from "./FoodwaysPage/Preview";
 import { FoodwaysPrintPage } from "./FoodwaysPage/Print";
@@ -67,11 +71,10 @@ import { RecipesPage } from "./RecipeBuilderPage";
 import { RecipeCreatePage } from "./RecipeBuilderPage/Create";
 import { RecipePreviewPage } from "./RecipeBuilderPage/Create/Preview";
 import { RecipePage } from "./RecipeBuilderPage/RecipePage";
-import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
+import { RecipePrintPage } from "./RecipeBuilderPage/RecipePage/Print";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
-import { RecipesEditRecipePage } from "./RecipeBuilderPage/RecipesEditRecipePage";
 import { RecipesLessonAssessment } from "./RecipeBuilderPage/RecipesLessonAssessment";
 import { ReportsPage } from "./ReportsPage";
 import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
@@ -84,7 +87,8 @@ import { TestLandingPage } from "./TestLandingPage";
 import { Themes } from "./ThemeBuilderPage";
 import { ThemeCreatePage } from "./ThemeBuilderPage/Create";
 import { ThemePreviewPage } from "./ThemeBuilderPage/Create/Preview";
-import { TopicPrintPage } from "./TopicBuilderPage/Overview/Print";
+import { ThemePrintPage } from "./ThemeBuilderPage/Print";
+import { ThemePage } from "./ThemeBuilderPage/ThemePage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
@@ -160,8 +164,20 @@ export const router = createBrowserRouter([
         },
         children: [
           { path: "", element: <Navigate to="./profiles" /> },
-          { path: "profiles", element: <AccountsProfilesPage /> },
-          { path: "profiles/:user", element: <AccountsUserProfilePage /> },
+          {
+            path: "profiles",
+            element: <AccountsProfilesPage />,
+            loader: profilesPageLoader,
+          },
+          {
+            path: "profiles/:user",
+            element: <AccountsUserProfilePage />,
+            loader: async ({ params }) => {
+              if (params.id) return profilePageLoader(params.id);
+
+              return null;
+            },
+          },
           {
             path: "profiles/:user/:lessonAssessment",
             element: <AccountsUserLessonAssessmentPage />,
@@ -177,7 +193,11 @@ export const router = createBrowserRouter([
             },
           },
           { path: "groups/create", element: <AccountsCreateGroupPage /> },
-          { path: "groups/:group", element: <AccountsGroupPage /> },
+          {
+            path: "groups/:group",
+            element: <AccountsGroupPage />,
+            children: [],
+          },
           {
             path: "groups/:group/edit",
             element: <AccountsEditGroupPage />,
@@ -218,9 +238,10 @@ export const router = createBrowserRouter([
       {
         path: "plate-full-planner",
         element: (
-          <>
-            <Outlet />
-          </>
+          <PageTitleLayout
+            title="Plate Full Planner"
+            icon="topic-orange-outlined"
+          />
         ),
         loader: async () => {
           await redirectIfNotLoggedIn();
@@ -235,20 +256,25 @@ export const router = createBrowserRouter([
             element: <MealPlannerRecipePage />,
           },
           { path: "edit", element: <MealPlannerPage /> },
-          { path: "grocery-list", element: <MealPlannerGroceryPage /> },
+          {
+            path: "grocery-list",
+            element: <MealPlannerGroceryPage />,
+          },
         ],
       },
       {
         path: "themes",
         element: <PageTitleLayout title="Theme" icon="topic-orange-outlined" />,
         loader: async () => {
-          await redirectIfNotLoggedIn();
+          // await redirectIfNotLoggedIn();
 
           return null;
         },
         children: [
           { path: "", element: <Themes /> },
           { path: "create", element: <ThemeCreatePage /> },
+          { path: ":item", element: <ThemePage /> },
+          { path: ":item/edit", element: <ThemeCreatePage /> },
           { path: "preview", element: <ThemePreviewPage /> },
         ],
       },
@@ -312,11 +338,8 @@ export const router = createBrowserRouter([
           { path: "", element: <ActivitiesPage /> },
           { path: "create", element: <ActivitiesCreatePage /> },
           { path: "preview", element: <ActivitiesPreviewPage /> },
-          { path: ":activiy", element: <ActivityPage /> },
-          {
-            path: ":activity/edit",
-            element: <ActivitiesEditPage />,
-          },
+          { path: ":item", element: <ActivityPage /> },
+          { path: ":item/edit", element: <ActivitiesCreatePage /> },
         ],
       },
       {
@@ -358,7 +381,7 @@ export const router = createBrowserRouter([
               },
               {
                 path: "edit",
-                element: <EditFoodwaysPage />,
+                element: <CreateFoodwaysPage />,
                 loader: async ({ params }) => {
                   const foodway = await getFoodway(params.id);
 
@@ -386,8 +409,8 @@ export const router = createBrowserRouter([
             path: "preview",
             element: <RecipePreviewPage />,
           },
-          { path: ":recipe", element: <RecipePage /> },
-          { path: ":recipe/edit", element: <RecipesEditRecipePage /> },
+          { path: ":item", element: <RecipePage /> },
+          { path: ":item/edit", element: <RecipeCreatePage /> },
           {
             path: "lesson-assessment/create",
             element: <RecipesCreateLessonAssessment />,
@@ -445,8 +468,16 @@ export const router = createBrowserRouter([
       { path: "games", element: <GamesPage /> },
       {
         path: "cloud-drive",
-        element: <PageTitleLayout title="Cloud Drive" />,
-        children: [{ path: "", element: <CloudDrivePage /> }],
+        element: (
+          <PageTitleLayout title="Cloud Drive" icon="cloud-orange-outlined" />
+        ),
+        children: [
+          {
+            path: "",
+            element: <CloudDrivePage />,
+            loader: cloudDrivePageLoader,
+          },
+        ],
         loader: async () => {
           await redirectIfNotLoggedIn();
 
@@ -507,14 +538,10 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "dashboard/topics/:id/:slug/print",
-        element: <TopicPrintPage />,
-      },
-      {
         path: "dashboard/foodways",
         children: [
           {
-            path: ":foodway/print",
+            path: ":foodway/:slide/print",
             element: <FoodwaysPrintPage />,
           },
         ],
@@ -528,12 +555,16 @@ export const router = createBrowserRouter([
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
       {
-        path: "dashboard/recipes/:recipe/print",
+        path: "dashboard/recipes/:item/:slide/print",
         element: <RecipePrintPage />,
       },
       {
-        path: "dashboard/activities/:activity/print",
+        path: "dashboard/activities/:item/:slide/print",
         element: <ActivityPrintPage />,
+      },
+      {
+        path: "dashboard/themes/:slug/print",
+        element: <ThemePrintPage />,
       },
       {
         path: "dashboard/mealtime-moments/:mealtime-moment/print",

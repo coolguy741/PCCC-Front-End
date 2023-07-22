@@ -1,10 +1,9 @@
 import _ from "lodash";
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
-import CCListDelete from "../Icons/list-delete";
 import CCListMinus from "../Icons/list-minus";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const initialState = [
   {
@@ -37,18 +36,21 @@ const initialState = [
   },
 ];
 
-export function DoubleBullet() {
-  const { state, changeEditState, changeText, deleteListItem, addListItem } =
-    useContentCreation(initialState as any);
+export function DoubleBulletComponent({
+  state,
+  changeListEditState,
+  changeListText,
+  addListItem,
+  deleteListItem,
+}: ComponentProps) {
   const listLength = Object.keys(state).length;
   return (
     <Style.Container>
       <figcaption>
         <h2>Directions</h2>
         <div className="cc-sb-actions">
-          <CCListAdd onClick={addListItem} />
+          <CCListAdd onClick={() => addListItem()} />
           <CCListMinus onClick={deleteListItem} />
-          <CCListDelete />
         </div>
       </figcaption>
       <ol>
@@ -61,8 +63,8 @@ export function DoubleBullet() {
                 mode={(state as any)[listNameMinusOne].mode}
                 name={listNameMinusOne}
                 text={(state as any)[listNameMinusOne].text}
-                changeEditState={changeEditState}
-                setText={changeText}
+                changeEditState={changeListEditState}
+                setText={changeListText}
               />
             </p>
           </li>
@@ -71,6 +73,8 @@ export function DoubleBullet() {
     </Style.Container>
   );
 }
+
+export const DoubleBullet = withThemeStore(DoubleBulletComponent, initialState);
 
 const Style = {
   Container: styled.figure`
@@ -83,21 +87,29 @@ const Style = {
     padding: 2.5vh 2vw;
 
     figcaption {
-      font-weight: 600;
-      font-size: 23px;
-      line-height: 28px;
-      color: #3d3d3d;
       margin-bottom: 1.5vh;
       display: flex;
       width: 100%;
       align-items: center;
       justify-content: space-between;
 
+      h2 {
+        font-weight: 600;
+        font-size: 23px;
+        line-height: 28px;
+        color: #3d3d3d;
+        position: relative;
+      }
+
       div {
-        width: 15%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: absolute;
+        height: 2vh;
+        right: 45px;
+        top: 14px;
+        width: 60px;
       }
     }
 

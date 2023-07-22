@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import { ContentBuilderType, Language } from "../../../../pages/types";
+import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import { Icon } from "../../../Global/Icon";
 import { Typography } from "../../../Global/Typography";
 import { CurriculumSelect } from "./CurriculumSelect";
@@ -8,27 +10,25 @@ import { LanguageToggle } from "./LangToggle";
 import { Search } from "./Search";
 import { Tags } from "./Tag";
 
-const options = [
-  { value: "key-1", label: "Key 1" },
-  { value: "key-2", label: "Key 2" },
-  { value: "key-3", label: "Key 3" },
-  { value: "key-4", label: "Key 4" },
-  { value: "key-5", label: "Key 5" },
-  { value: "key-6", label: "Key 6" },
-];
-
 interface Props {
   slideIndex: number;
-  currentStep: number;
   deleteSlide: () => void;
+  setLang: (lang: Language) => void;
+  currentLang: Language;
+  type: ContentBuilderType;
 }
 
 export const ContentInfo: React.FC<Props> = ({
   slideIndex,
-  currentStep,
   deleteSlide,
+  setLang,
+
+  type,
+  currentLang,
 }) => {
   const [tags, setTags] = useState(["foraging", "seeds"]);
+  const { currentStep, curriculums, setCurriculum, selectedCurriculum } =
+    useThemeBuilderStore();
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -40,7 +40,7 @@ export const ContentInfo: React.FC<Props> = ({
 
   return (
     <Style.Container>
-      {currentStep < 4 && (
+      {(currentStep < 3 || type !== ContentBuilderType.THEMES) && (
         <div style={{ width: "20%", alignItems: "end", display: "flex" }}>
           <Typography variant="h5" as="h5" weight="semi-bold">
             Components
@@ -49,7 +49,7 @@ export const ContentInfo: React.FC<Props> = ({
       )}
       <Style.Info>
         <div className="flex">
-          {currentStep < 4 ? (
+          {currentStep < 3 || type !== ContentBuilderType.THEMES ? (
             <Style.SlideDeleteButton
               onClick={deleteSlide}
               disabled={slideIndex === 0}
@@ -62,19 +62,23 @@ export const ContentInfo: React.FC<Props> = ({
           ) : (
             <Search />
           )}
-          <LanguageToggle />
+          <LanguageToggle setLang={setLang} lang={currentLang} />
         </div>
 
         <div className="flex">
-          {(currentStep === 2 || currentStep === 3) && (
+          {(currentStep === 1 || currentStep === 2) && (
             <CurriculumSelect
-              options={options}
-              onChange={(e) => {
-                return;
-              }}
+              options={
+                curriculums?.map((item) => ({
+                  label: item.name,
+                  value: item.id,
+                })) ?? []
+              }
+              selectedValue={selectedCurriculum}
+              onChange={setCurriculum}
             />
           )}
-          {(currentStep === 0 || currentStep === 2) && (
+          {(currentStep === 0 || currentStep === 1) && (
             <Tags tags={tags} addTag={addTag} deleteTag={deleteTag} />
           )}
         </div>

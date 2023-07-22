@@ -8,6 +8,7 @@ export function DoubleClickToEditComponent({
   setText,
   text,
   changeEditState,
+  amtOrIngdt,
 }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
 
@@ -22,13 +23,13 @@ export function DoubleClickToEditComponent({
 
   // change edit / view state
   function clickHandler() {
-    changeEditState(name);
+    changeEditState(name, amtOrIngdt);
   }
 
   // change edit / view on enter press
   function handleKeyDown(e: { key: string }) {
     if (e.key === "Enter") {
-      changeEditState(name);
+      changeEditState(name, amtOrIngdt);
     }
   }
 
@@ -42,9 +43,9 @@ export function DoubleClickToEditComponent({
     } else {
       return (
         <Style.Container
-          onChange={(e) => setText(name, e.target.value)}
+          onChange={(e) => setText(name, e.target.value, amtOrIngdt)}
           ref={ref}
-          defaultValue={text}
+          value={text}
           onClick={clickHandler}
           onKeyDown={handleKeyDown}
           autoFocus

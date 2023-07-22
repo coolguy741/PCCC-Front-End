@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Icon } from "../../../components/Global/Icon";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
@@ -15,22 +14,12 @@ export const FooterTile = () => {
       </h2>
       <nav>
         <div>
-          <Link to="about-us">About Us</Link>
           <Link to="t&&c">Terms & Conditions</Link>
           <Link to="accessibility">Accessibility</Link>
         </div>
         <div>
           <Link to="about-us">Privacy Policy</Link>
           <Link to="t&&c">Contact Us</Link>
-        </div>
-        <div>
-          <p>Follow Us</p>
-          <article>
-            <Icon name="facebook" />
-            <Icon name="instagram" />
-            <Icon name="twitter" />
-            <Icon name="youtube" />
-          </article>
         </div>
       </nav>
       <p className="footer-copyright">
@@ -55,7 +44,7 @@ const Style = {
     ${() => animatedbackgroundGradient("#D2F7E5", "#FFF5CC")};
 
     h2 {
-      color: var(--neutral-900);
+      color: var(--green-900);
       line-height: 110%;
       font-weight: 700;
       font-size: 10vh;
@@ -86,7 +75,7 @@ const Style = {
       z-index: 10;
 
       & > div {
-        width: 30%;
+        width: 50%;
 
         article {
           width: 100%;
@@ -101,7 +90,7 @@ const Style = {
 
       a,
       p {
-        color: var(--neutral-800);
+        color: var(--neutral-600);
         font-size: 2.5vh;
         font-weight: 500;
         display: block;

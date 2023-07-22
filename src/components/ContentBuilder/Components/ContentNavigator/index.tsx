@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { ContentBuilderType } from "../../../../pages/types";
@@ -7,10 +7,12 @@ import { ContentSlider } from "../Slider";
 
 interface Props {
   type: ContentBuilderType;
+  slideIndex?: number;
 }
 
-export const ContentNavigator: React.FC<Props> = ({ type }) => {
+export const ContentNavigator: React.FC<Props> = ({ type, slideIndex }) => {
   const { pathname } = useLocation();
+  const { item } = useParams();
 
   return (
     <Style.Container>
@@ -24,17 +26,28 @@ export const ContentNavigator: React.FC<Props> = ({ type }) => {
       </Button>
       {type === ContentBuilderType.THEMES && <ContentSlider />}
       {pathname.endsWith("preview") ? (
+        <Button
+          variant="yellow"
+          to={`/dashboard/${type}/create`}
+          className="mr-4"
+        >
+          Edit
+        </Button>
+      ) : item && !pathname.endsWith("edit") ? (
         <div className="flex">
           <Button
             variant="yellow"
-            to={`/dashboard/${type}/create`}
+            to={`/dashboard/${type}/${item}/edit`}
             className="mr-4"
           >
             Edit
           </Button>
-          <Button variant="yellow" to={`/dashboard/${type}/print`}>
-            Print
-          </Button>
+          <Link
+            target="_blank"
+            to={`/dashboard/${type}/${item}/${slideIndex}/print`}
+          >
+            <Button variant="yellow">Print</Button>
+          </Link>
         </div>
       ) : (
         <Button to={`/dashboard/${type}/preview`}>Preview</Button>

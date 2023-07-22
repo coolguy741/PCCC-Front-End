@@ -5,19 +5,24 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 
 interface AccountCardProps {
   img: Avatar;
-  name: string;
-  role: string;
+  name?: string | null;
+  role?: string | null;
   onClick: () => void;
 }
 
 export const AccountCard = ({ img, name, role, onClick }: AccountCardProps) => {
+  const capitalize = (str: string | null | undefined) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
     <Style.Container>
       <figure className="avatar">{img.icon({})}</figure>
       <div className="account-info">
         <div>
-          <h3>{trimStringByLength(name, 15)}</h3>
-          <p>{role} User</p>
+          <h3>{trimStringByLength(name || "User", 15)}</h3>
+          <p>{capitalize(role)} User</p>
         </div>
         <button onClick={onClick} className="avatar-delete">
           <img src="/images/icons/trash.svg" alt={`delete user ${name}`} />

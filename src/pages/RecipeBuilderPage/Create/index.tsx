@@ -1,5 +1,5 @@
 import { ContentBuilder } from "../../../components/ContentBuilder";
-import { useRecipesStore } from "../../../stores/recipesStore";
+import { useRecipesStore } from "../../../stores/contentBuilderStore";
 import { ContentBuilderType } from "../../types";
 
 export const RecipeCreatePage = () => {

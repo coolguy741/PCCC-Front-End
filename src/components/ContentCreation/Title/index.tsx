@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
-import { Image } from "../Image/image";
+
+import { Media } from "../Media/media";
+import { ObjectState } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const initialState: any = {
@@ -27,6 +29,10 @@ many things to know, and many ways to know them.`,
   //   Full Kids lessons. Watch for the Garden Guardian section and stay safe
   //   when you grow.`,
   // },
+  media: {
+    src: "",
+    patternChoice: 0,
+  },
 };
 
 function TitleComponent({
@@ -34,7 +40,11 @@ function TitleComponent({
   changeEditState,
   changeText,
   viewMode,
+  changeMediaState,
+  changeMediaPattern,
 }: ComponentProps) {
+  const componentState = state as ObjectState;
+
   return (
     <Style.Container>
       <div className="tc-content">
@@ -42,19 +52,19 @@ function TitleComponent({
           <span className="tc-overview">Overview</span>
           <br />
           <DoubleClickToEditComponent
-            mode={viewMode(state.heading.mode)}
+            mode={viewMode(componentState.heading.mode)}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.heading.text}
+            text={componentState.heading.text}
             name="heading"
           />
         </h1>
         <p>
           <DoubleClickToEditComponent
-            mode={viewMode(state.desc.mode)}
+            mode={viewMode(componentState.desc.mode)}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.desc.text}
+            text={componentState.desc.text}
             name="desc"
           />
         </p>
@@ -77,7 +87,11 @@ function TitleComponent({
           />
         </p> */}
       </div>
-      <Image img="" />
+      <Media
+        changePattern={changeMediaPattern}
+        changeMediaState={changeMediaState}
+        media={state.media}
+      />
     </Style.Container>
   );
 }

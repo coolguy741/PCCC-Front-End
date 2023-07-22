@@ -3,12 +3,13 @@ import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useAPI } from "../../../../hooks/useAPI";
+import { useFetch } from "../../../../hooks/useFetch";
 import {
   PccServer23ActivitiesActivityDto,
   PccServer23RecipesPublicRecipeDto,
 } from "../../../../lib/api/api";
 import { STORAGE_KEY_JWT } from "../../../../pages/consts";
-import { useThemeStore } from "../../../../stores/themeStore";
+import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import Button from "../../../Button";
 import Scrollable from "../../../Global/Scrollable";
 import { Spinner } from "../../../Global/Spinner";
@@ -16,11 +17,40 @@ import { Spinner } from "../../../Global/Spinner";
 export const ActivitiesAndRecipes = () => {
   const { api } = useAPI();
   const { activityIds, recipeIds, setItemIds, removeItemId, currentStep } =
-    useThemeStore();
+    useThemeBuilderStore();
   const [items, setItems] = useState<
     PccServer23ActivitiesActivityDto[] | PccServer23RecipesPublicRecipeDto[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchData: attachActivity } = useFetch(
+    "appThemesAttachActivityCreate",
+    {},
+  );
+  const { fetchData: detachActivity } = useFetch(
+    "appThemesDetachActivityCreate",
+    {},
+  );
+  const { fetchData: attachRecipe } = useFetch(
+    "appThemesAttachRecipeCreate",
+    {},
+  );
+  const { fetchData: detachRecipe } = useFetch(
+    "appThemesDetachRecipeCreate",
+    {},
+  );
+
+  const { data: activities, fetchData: getActivitesList } = useFetch(
+    "appActivitiesList",
+    {},
+    undefined,
+    true,
+  );
+  const { data: recipes, fetchData: getRecipesList } = useFetch(
+    "appRecipesList",
+    {},
+    undefined,
+    true,
+  );
 
   const getItems = useCallback(() => {
     (async () => {
@@ -86,7 +116,7 @@ export const ActivitiesAndRecipes = () => {
             {items.map((item) => (
               <Style.Item key={`item-${item.id}`}>
                 {item.name}
-                {(currentStep === 4 ? activityIds : recipeIds).includes(
+                {(currentStep === 3 ? activityIds : recipeIds).includes(
                   item.id as string,
                 ) ? (
                   <Button

@@ -1,13 +1,33 @@
 import styled from "styled-components";
-import { Image } from "../Image/image";
+import { Media } from "../Media/media";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
-export function DoubleImage() {
+const initialState: any = {
+  media: {
+    src: "",
+    patternChoice: 0,
+  },
+};
+
+export function DoubleImageComponent({
+  state,
+  changeMediaState,
+  changeMediaPattern,
+}: ComponentProps) {
+  const componentState = state as any;
+
   return (
     <Style.Container>
-      <Image img="" />
+      <Media
+        changePattern={changeMediaPattern}
+        changeMediaState={changeMediaState}
+        media={componentState.media}
+      />
     </Style.Container>
   );
 }
+
+export const DoubleImage = withThemeStore(DoubleImageComponent, initialState);
 
 const Style = {
   Container: styled.article`

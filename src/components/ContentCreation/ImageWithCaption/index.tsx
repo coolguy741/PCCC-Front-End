@@ -1,19 +1,82 @@
 import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
-import { Image } from "../Image/image";
+import { Typography } from "../../Typography";
+import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
+import { Media } from "../Media/media";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
-export function ImageWithCaption() {
+const iWithCState: any = {
+  heading: {
+    mode: "view",
+    text: "Forging:",
+  },
+  desc: {
+    mode: "view",
+    text: "to find food in nature.",
+  },
+  img: {
+    src: "",
+    patternChoice: "",
+  },
+  media: {
+    src: "",
+    patternChoice: 0,
+  },
+};
+
+export function ImageWithCaptionComponent({
+  state,
+  changeEditState,
+  changeText,
+  viewMode,
+  changeMediaState,
+  changeMediaPattern,
+}: ComponentProps) {
+  const componentState = state as any;
+
   return (
     <Style.Container>
       <div className="iwc-image">
-        <Image variant="img-only" img="" />
+        <Media
+          changePattern={changeMediaPattern}
+          changeMediaState={changeMediaState}
+          media={componentState.media}
+          variant="img-only"
+        />
       </div>
-      <p>
-        <b>Forging:</b> to find food in nature.
-      </p>
+      <Typography
+        weight={400}
+        size="1vh"
+        lineHeight="105%"
+        mt="8vh"
+        color="neutral-600"
+      >
+        <b>
+          {" "}
+          <DoubleClickToEditComponent
+            mode={viewMode(componentState.heading.mode)}
+            setText={changeText}
+            changeEditState={changeEditState}
+            text={componentState.heading.text}
+            name="heading"
+          />
+        </b>{" "}
+        <DoubleClickToEditComponent
+          mode={viewMode(componentState.desc.mode)}
+          setText={changeText}
+          changeEditState={changeEditState}
+          text={componentState.desc.text}
+          name="desc"
+        />
+      </Typography>
     </Style.Container>
   );
 }
+
+export const ImageWithCaption = withThemeStore(
+  ImageWithCaptionComponent,
+  iWithCState,
+);
 
 const Style = {
   Container: styled.figure`

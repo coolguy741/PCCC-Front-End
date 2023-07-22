@@ -1,25 +1,44 @@
 import styled from "styled-components";
 
 import React from "react";
+import {
+  PccServer23ActivitiesActivityDto,
+  PccServer23CurriculumRecipesCurriculumRecipeDto,
+  PccServer23ThemesThemeDto,
+} from "../../../lib/api/api";
+import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
 import { ContentList } from "../ContentList";
-import { ContentListItemData } from "../ContentListItem";
 import { DropdownSelect } from "../DropdownSelect";
 import Scrollbar from "../Scrollable";
+import { Spinner } from "../Spinner";
 
 type SelectOption = "Topic" | "Sort" | "Curriculum" | "Theme";
 interface ContentListAdminPageTemplateProps {
   title: string;
   selectsGroup: SelectOption[];
-  listData: ContentListItemData[];
-  onSelectionChange: (id: number, isSelected: boolean) => void;
+  listData:
+    | PccServer23ActivitiesActivityDto[]
+    | PccServer23ThemesThemeDto[]
+    | PccServer23CurriculumRecipesCurriculumRecipeDto[]
+    | MockContentsDto[];
+  onSelectionChange: (id: string, isSelected: boolean) => void;
+  handleDelete: () => void;
+  isLoading?: boolean;
 }
 
 const OPTIONS = ["name1", "name2", "name3"];
 
 export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplateProps> =
-  ({ title, selectsGroup, listData, onSelectionChange }) => {
+  ({
+    title,
+    selectsGroup,
+    listData,
+    onSelectionChange,
+    handleDelete,
+    isLoading,
+  }) => {
     return (
       <>
         <Style.InputGroup>
@@ -38,7 +57,12 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             ))}
           </Style.SelectGroup>
           <Style.ButtonGroup>
-            <Button variant="yellow" size="large">
+            <Button
+              variant="yellow"
+              disabled={isLoading}
+              size="large"
+              onClick={handleDelete}
+            >
               Delete
             </Button>
             <Button
@@ -46,6 +70,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
               size="large"
               icon="add"
               to="create"
+              disabled={isLoading}
               iconPosition="right"
             >
               {title === "Mealtime Moments Editor"
@@ -55,11 +80,15 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
           </Style.ButtonGroup>
         </Style.InputGroup>
         <Scrollbar thumbWidth="thick">
-          <ContentList
-            listData={listData}
-            selectable={true}
-            onSelectionChange={onSelectionChange}
-          />
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <ContentList
+              listData={listData}
+              selectable={true}
+              onSelectionChange={onSelectionChange}
+            />
+          )}
         </Scrollbar>
       </>
     );

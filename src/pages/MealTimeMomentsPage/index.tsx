@@ -2,7 +2,7 @@ import { ContentListAdminPageTemplate } from "../../components/Global/ContentLis
 import mockData from "../../lib/mockData/activities/activities.json";
 
 export const MealtimeMomentsPage = () => {
-  const handleSelectionChange = (id: number, isSelected: boolean) => {
+  const handleSelectionChange = (id: string, isSelected: boolean) => {
     return;
   };
 
@@ -12,6 +12,9 @@ export const MealtimeMomentsPage = () => {
       selectsGroup={["Sort"]}
       listData={mockData.activities}
       onSelectionChange={handleSelectionChange}
+      handleDelete={() => {
+        return;
+      }}
     />
   );
 };

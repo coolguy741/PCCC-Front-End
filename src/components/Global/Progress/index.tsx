@@ -9,7 +9,7 @@ interface Props {
 export function Progress({ variant, hasError, value }: Props) {
   return (
     <Style.Container
-      value={value ?? 80}
+      value={value || 0}
       max={100}
       variant={variant}
       hasError={hasError}
@@ -22,7 +22,7 @@ const Style = {
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(59.27639389038086px);
+    backdrop-filter: blur(60px);
     width: 100%;
     height: ${({ variant }) => (variant === "thick" ? "2.5vh" : "0.25vh")};
     overflow: hidden;

@@ -1,55 +1,24 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
+import Button from "../../Button";
 import { Progress } from "../../Global/Progress";
+import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
 import FileDropzone from "../FileDropzone";
 import { UploadOption } from "../UploadOption";
 
-const dummy_uploads = [
-  {
-    status: "finished",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 100,
-  },
-  {
-    status: "finished",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 100,
-  },
-  {
-    status: "uploading",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 40,
-  },
-  {
-    status: "errored",
-    tag: "mp3",
-    size: "53mb",
-    name: "Audio.mp3",
-    percentage: 100,
-  },
-  {
-    status: "uploading",
-    tag: "mp3",
-    size: "23mb",
-    name: "Audio.mp3",
-    percentage: 40,
-  },
-];
-
 type Props = {
   className?: string;
+  sizeOccupied: number;
+  type: "images" | "documents" | "video" | "audio";
 };
 
-export function CloudStorage(props: Props) {
+export function CloudStorage({ className, sizeOccupied, type }: Props) {
+  const [uploads, setUploads] = useState([]);
+
   return (
-    <Style.Container {...props}>
+    <Style.Container className={className}>
       <Typography color="neutral-900" weight={600} size="2.35vh">
         Cloud Storage
       </Typography>
@@ -59,21 +28,22 @@ export function CloudStorage(props: Props) {
             Documents
           </Typography>
           <Typography color="neutral-600" weight={500} size="1.75vh">
-            20/200 GB left
+            {Math.round(200 - sizeOccupied / 1000000000)}/200 GB left
           </Typography>
         </div>
-        <Progress variant="thick" />
+        <Progress variant="thick" value={sizeOccupied / 20000000000} />
       </article>
-      <FileDropzone />
-      <div className="cloud-storage-uploads">
-        {dummy_uploads.map((upload, idx) => (
-          <UploadOption
-            key={idx}
-            status={upload.status as any}
-            upload={upload}
-          />
+      <FileDropzone setUploads={setUploads} uploads={uploads} type={type} />
+      <Style.Uploads>
+        {uploads.map((upload, idx) => (
+          <UploadOption key={idx} upload={upload} />
         ))}
-      </div>
+      </Style.Uploads>
+      <Style.ClearButton>
+        <Button variant="yellow" fullWidth onClick={() => setUploads([])}>
+          Clear All
+        </Button>
+      </Style.ClearButton>
     </Style.Container>
   );
 }
@@ -89,5 +59,13 @@ const Style = {
         margin-bottom: ${convertToRelativeUnit(8, "vh")};
       }
     }
+  `,
+
+  Uploads: styled(Scrollable)`
+    height: calc(43vh - ${convertToRelativeUnit(48, "vh")});
+    position: relative;
+  `,
+  ClearButton: styled.div`
+    margin-top: 1rem;
   `,
 };

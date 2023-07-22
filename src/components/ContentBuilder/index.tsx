@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useEffect, useMemo, useState } from "react";
+import { BaseSyntheticEvent, useCallback, useEffect, useState } from "react";
 import {
   DragDropContext,
   OnDragEndResponder,
@@ -9,9 +9,8 @@ import styled from "styled-components";
 
 import { getPositions } from "../../lib/util/getPositions";
 import { ContentBuilderType, ThemeComponent } from "../../pages/types";
-import { ActivitiesStoreState } from "../../stores/activitiesStore";
-import { RecipesStoreState } from "../../stores/recipesStore";
-import { ThemeStoreState } from "../../stores/themeStore";
+import { ContentBuilderStoreState } from "../../stores/contentBuilderStore";
+import { useThemeBuilderStore } from "../../stores/themeBuilderStore";
 import { ContentEditorActions } from "./Components/Actions";
 import { ActivitiesAndRecipes } from "./Components/ActivitiesAndRecipes";
 import { components, ContentBuilderCards } from "./Components/Cards";
@@ -24,7 +23,7 @@ import "swiper/css/scrollbar";
 
 export interface ContentBuilderProps {
   type: ContentBuilderType;
-  store: ThemeStoreState | ActivitiesStoreState | RecipesStoreState;
+  store: ContentBuilderStoreState;
 }
 
 export const ContentBuilder: React.FC<ContentBuilderProps> = ({
@@ -35,130 +34,147 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
   const [showingMessage, setShowingMessage] = useState(false);
   const [prevContentComponents, setPrevContentComponents] =
     useState<ThemeComponent[]>();
+  const { currentStep } = useThemeBuilderStore();
 
   const {
     slideIndex,
-    contents,
-    maxPageCount,
-    currentStep,
+    slides,
+    currentLang,
     updatePage,
     updatePageState,
     setSlideIndex,
-    changeStep,
     addSlide,
+    setLang,
     deleteSlide,
   } = store;
 
   useEffect(() => {
     setShowingMessage(false);
-  }, [slideIndex, currentStep]);
+  }, [slideIndex]);
 
-  const slides = useMemo(
-    () => contents[currentStep].slides,
-    [contents, currentStep],
+  const checkDroppable = useCallback(
+    (droppableId: number, source: number) => {
+      const { width, height } = components[source];
+      const currentX = droppableId % 3;
+      const currentY = Math.floor(droppableId / 3);
+      const positions: number[] = getPositions(
+        width,
+        height,
+        currentX,
+        currentY,
+      );
+      const lastPosition = positions.sort()[positions.length - 1];
+
+      if (lastPosition !== undefined && lastPosition > 5) {
+        return false;
+      }
+
+      const themeComponents = slides[slideIndex];
+
+      return themeComponents
+        ? themeComponents.reduce((value, current) => {
+            if (!value) {
+              return value;
+            }
+            const { x, y, width, height } = current;
+            const componentPositions: number[] = getPositions(
+              width,
+              height,
+              x ?? 0,
+              y ?? 0,
+            );
+
+            return componentPositions.reduce(
+              (including, position) =>
+                including ? !positions.includes(position) : including,
+              true,
+            );
+          }, true)
+        : true;
+    },
+    [slideIndex, slides],
   );
 
-  const checkDroppable = (droppableId: number, source: number) => {
-    const { width, height } = components[source];
-    const currentX = droppableId % 3;
-    const currentY = Math.floor(droppableId / 3);
-    const positions: number[] = getPositions(width, height, currentX, currentY);
-    const lastPosition = positions.sort()[positions.length - 1];
+  const onDragUpdate: OnDragUpdateResponder = useCallback(
+    (result) => {
+      if (result.destination) {
+        updatePage([...(prevContentComponents ?? [])]);
 
-    if (lastPosition !== undefined && lastPosition > 5) {
-      return false;
-    }
+        const droppableId = parseInt(
+          result.destination.droppableId.split("-").pop() ?? "0",
+        );
+        const source = result.source.index;
 
-    const themeComponents = slides[slideIndex];
-
-    return themeComponents
-      ? themeComponents.reduce((value, current) => {
-          if (!value) {
-            return value;
-          }
-          const { x, y, width, height } = current;
-          const componentPositions: number[] = getPositions(
-            width,
-            height,
-            x ?? 0,
-            y ?? 0,
-          );
-
-          return componentPositions.reduce(
-            (including, position) =>
-              including ? !positions.includes(position) : including,
-            true,
-          );
-        }, true)
-      : true;
-  };
-
-  const onDragUpdate: OnDragUpdateResponder = (result) => {
-    if (result.destination) {
-      updatePage([...(prevContentComponents ?? [])]);
-
-      const droppableId = parseInt(
-        result.destination.droppableId.split("-").pop() ?? "0",
-      );
-      const source = result.source.index;
-
-      if (checkDroppable(droppableId, source)) {
-        updatePage([
-          ...slides[slideIndex],
-          {
-            ...components[source],
-            x: droppableId % 3,
-            y: Math.floor(droppableId / 3),
-          },
-        ]);
-        setShowingMessage(false);
-      } else {
-        setShowingMessage(true);
+        if (checkDroppable(droppableId, source)) {
+          updatePage([
+            ...slides[slideIndex],
+            {
+              ...components[source],
+              x: droppableId % 3,
+              y: Math.floor(droppableId / 3),
+            },
+          ]);
+          setShowingMessage(false);
+        } else {
+          setShowingMessage(true);
+        }
       }
-    }
-  };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [prevContentComponents, setShowingMessage],
+  );
 
-  const handleDelete = (event: BaseSyntheticEvent) => {
-    const {
-      target: { id },
-    } = event;
-    const [x, y] = id.split(",");
-    const prev = slides[slideIndex];
+  const handleDelete = useCallback(
+    (event: BaseSyntheticEvent) => {
+      const {
+        target: { id },
+      } = event;
+      const [x, y] = id.split(",");
+      const prev = slides[slideIndex];
+      setShowingMessage(false);
+      updatePage([
+        ...(prev
+          ? prev.filter(
+              (component) =>
+                !(component.x === parseInt(x) && component.y === parseInt(y)),
+            )
+          : []),
+      ]);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [slideIndex, slides],
+  );
 
-    setShowingMessage(false);
-    updatePage([
-      ...(prev
-        ? prev.filter(
-            (component) =>
-              !(component.x === parseInt(x) && component.y === parseInt(y)),
-          )
-        : []),
-    ]);
-  };
+  const onDragStart: OnDragStartResponder = useCallback(
+    (result) => {
+      setPrevContentComponents(() => [...(slides[slideIndex] ?? [])]);
+      setDraggingComponent(result.source.index);
+    },
+    [slideIndex, slides],
+  );
 
-  const onDragStart: OnDragStartResponder = (result) => {
-    setPrevContentComponents(() => [...(slides[slideIndex] ?? [])]);
-    setDraggingComponent(result.source.index);
-  };
-
-  const onDragEnd: OnDragEndResponder = (result) => {
-    updatePage(
-      !result.destination
-        ? [...(prevContentComponents ?? [])]
-        : slides[slideIndex],
-    );
-  };
+  const onDragEnd: OnDragEndResponder = useCallback(
+    (result) => {
+      updatePage(
+        !result.destination
+          ? [...(prevContentComponents ?? [])]
+          : slides[slideIndex],
+      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [slideIndex, slides, prevContentComponents],
+  );
 
   return (
     <Style.Container>
       <ContentBuilderHeader
         type={type}
-        step={currentStep}
         slideIndex={slideIndex}
-        currentStep={currentStep}
+        setLang={setLang}
+        currentLang={currentLang}
         deleteSlide={deleteSlide}
       />
-      {currentStep < 4 ? (
+      {currentStep < 3 || type !== ContentBuilderType.THEMES ? (
         <Style.DragDropContainer>
           <DragDropContext
             onDragUpdate={onDragUpdate}
@@ -174,10 +190,8 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
                 slides={slides}
               />
               <ContentEditorActions
-                currentStep={currentStep}
-                changeStep={changeStep}
                 addSlide={addSlide}
-                maxPageCount={maxPageCount}
+                type={type}
                 showingMessage={showingMessage}
               />
             </Style.Slide>
@@ -186,12 +200,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
       ) : (
         <>
           <ActivitiesAndRecipes />
-          <ContentEditorActions
-            currentStep={currentStep}
-            maxPageCount={maxPageCount}
-            changeStep={changeStep}
-            addSlide={addSlide}
-          />
+          <ContentEditorActions addSlide={addSlide} />
         </>
       )}
     </Style.Container>

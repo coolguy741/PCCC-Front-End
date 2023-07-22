@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
-import { ContentListItem, ContentListItemData } from "../ContentListItem";
+import { ContentListItem } from "../ContentListItem";
 
 interface ContentListProps {
-  listData: ContentListItemData[];
+  listData: PccServer23ActivitiesActivityDto[] | MockContentsDto[];
   selectable?: boolean;
-  onSelectionChange?: (id: number, isSelected: boolean) => void;
+  onSelectionChange?: (id: string, isSelected: boolean) => void;
 }
 
 export const ContentList: React.FC<ContentListProps> = ({
@@ -16,8 +19,8 @@ export const ContentList: React.FC<ContentListProps> = ({
 }) => {
   return (
     <Style.Container>
-      {listData.map((list) => (
-        <StyledLink to="./asd">
+      {listData.map((list, index) => (
+        <StyledLink to={`./${list.id}`} key={list.id}>
           <ContentListItem
             key={list.id}
             data={list}
@@ -39,11 +42,9 @@ const Style = {
     padding: 0px;
     gap: ${convertToRelativeUnit(40, "vw")};
   `,
-  ItemContainer: styled.div`
-    flex-basis: calc(50% - ${convertToRelativeUnit(20, "vw")});
-  `,
 };
 
 const StyledLink = styled(Link)`
+  overflow: hidden;
   flex-basis: calc(50% - ${convertToRelativeUnit(20, "vw")});
 `;

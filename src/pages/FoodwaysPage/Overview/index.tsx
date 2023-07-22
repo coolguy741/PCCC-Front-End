@@ -18,7 +18,7 @@ export const FoodwaysOverviewPage = () => {
   ) as PccServer23FoodwaysFoodwayDto;
   const [nav, setNav] = useState(0);
   const [showCalendarModal, setShowCalendarModal] = useState(false);
-  const { setActiveSlide } = useFoodwayStore();
+  const { setActiveSlide, activeSlide } = useFoodwayStore();
   const navigate = useNavigate();
 
   const onSlideChange = (swiper: SwiperType) => {
@@ -38,7 +38,10 @@ export const FoodwaysOverviewPage = () => {
           <Button variant="yellow" onClick={() => setShowCalendarModal(true)}>
             Publish
           </Button>
-          <Link to="print">
+          <Link
+            to={`/dashboard/foodways/${foodway.id}/${activeSlide}/print`}
+            target="_blank"
+          >
             <Button variant="yellow">Print</Button>
           </Link>
         </div>
@@ -56,6 +59,7 @@ export const FoodwaysOverviewPage = () => {
               direction={"vertical"}
               speed={500}
               modules={[Mousewheel, Scrollbar]}
+              allowTouchMove={false}
               className="theme-swiper-slide"
             >
               <SwiperSlide key={`slide-${0}`}>

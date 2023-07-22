@@ -1,58 +1,43 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useContentCreation } from "../../../hooks/useContentCreation";
+import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertToRelativeUnits";
 import { Globe } from "../../Foodways/Globe";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 interface FoodwayStopProps {
   index: number;
-  stopTitle: string[] | undefined[];
-  stopDescription: string[] | undefined[];
-  setStopTitle: (stopTitle: string[] | undefined[]) => void;
-  setStopDescription: (stopDescription: string[] | undefined[]) => void;
-  initialTimePeriod?: string | null;
-  initialStopTitle?: string | null;
-  initialStopDescription?: string | null;
+  state: any;
 }
+
+const titleState: any = {
+  title: {
+    mode: "view",
+    text: "Click to edit",
+  },
+  desc: {
+    mode: "view",
+    text: "Click to edit.",
+  },
+  timePeriod: {
+    mode: "view",
+    text: "Click to edit.",
+  },
+};
 
 export function FoodwayStop({
   index,
-  stopTitle,
-  stopDescription,
-  setStopTitle,
-  setStopDescription,
-  initialStopTitle,
-  initialStopDescription,
-  initialTimePeriod,
+  state: componentState,
 }: FoodwayStopProps) {
-  const titleState: any = {
-    title: {
-      mode: "view",
-      text: initialStopTitle || "Click to edit",
-    },
-    desc: {
-      mode: "view",
-      text: initialStopDescription || "Click to edit.",
-    },
-    timePeriod: {
-      mode: "view",
-      text: initialTimePeriod || "Click to edit.",
-    },
-  };
-
-  const { state, changeEditState, changeText } = useContentCreation(titleState);
+  const { updatePageState } = useFoodwayStore();
+  const { state, changeEditState, changeText, setComponentPosition } =
+    useContentCreation(componentState ?? titleState, updatePageState);
 
   useEffect(() => {
-    const newStopTitleArr = stopTitle;
-    const newStopDescriptionArr = stopDescription;
-
-    newStopTitleArr[index] = state.title.text;
-    newStopDescriptionArr[index] = state.desc.text;
-
-    setStopTitle(newStopTitleArr);
-    setStopDescription(newStopDescriptionArr);
-  }, [state]);
+    setComponentPosition({ slideIndex: index, componentIndex: 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Style.Container>
@@ -83,7 +68,7 @@ export function FoodwayStop({
         </p>
       </div>
       <div className="fw-globe">
-        <Globe />
+        <Globe disableSoftOrbit />
       </div>
     </Style.Container>
   );

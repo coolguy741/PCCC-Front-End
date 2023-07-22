@@ -1,41 +1,46 @@
 import _ from "lodash";
 import styled from "styled-components";
-import { useContentCreation } from "../../../hooks/useContentCreation";
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 import CCListAdd from "../Icons/list-add";
-import CCListDelete from "../Icons/list-delete";
 import CCListMinus from "../Icons/list-minus";
+import { CCFormat, ComponentViewMode } from "../types";
+import { ComponentProps, withThemeStore } from "../withThemeStore";
 
-const initialState = [
+const initialState: CCFormat[] = [
   {
-    mode: "view",
+    mode: ComponentViewMode.VIEW,
     text: "Combine all the ingredients together in a large bowl, mix until well combined.",
   },
   {
-    mode: "view",
+    mode: ComponentViewMode.VIEW,
     text: "Refrigerate for about 30 minutes",
   },
   {
-    mode: "view",
+    mode: ComponentViewMode.VIEW,
     text: `Scoop out a tablespoon portion of mixture, roll each portion in the
     palm of your hands and place each ball into a resealable container for
     storage.`,
   },
 ];
 
-export function SingleBullet() {
-  const { state, changeEditState, changeText, deleteListItem, addListItem } =
-    useContentCreation(initialState as any);
+export function SingleBulletComponent({
+  state,
+  changeListEditState,
+  changeListText,
+  deleteListItem,
+  addListItem,
+  viewMode,
+}: ComponentProps) {
   const listLength = Object.keys(state).length;
+  const componentState = state as CCFormat[];
 
   return (
     <Style.Container>
       <figcaption>
         <h2>Directions</h2>
         <div className="cc-sb-actions">
-          <CCListAdd onClick={addListItem} />
+          <CCListAdd onClick={() => addListItem()} />
           <CCListMinus onClick={deleteListItem} />
-          <CCListDelete />
         </div>
       </figcaption>
       <ol>
@@ -45,11 +50,11 @@ export function SingleBullet() {
             <p>
               {" "}
               <DoubleClickToEditComponent
-                mode={(state as any)[listNameMinusOne].mode}
+                mode={viewMode(componentState[listNameMinusOne].mode)}
                 name={listNameMinusOne}
-                text={(state as any)[listNameMinusOne].text}
-                changeEditState={changeEditState}
-                setText={changeText}
+                text={componentState[listNameMinusOne].text}
+                changeEditState={changeListEditState}
+                setText={changeListText}
               />
             </p>
           </li>
@@ -58,6 +63,8 @@ export function SingleBullet() {
     </Style.Container>
   );
 }
+
+export const SingleBullet = withThemeStore(SingleBulletComponent, initialState);
 
 const Style = {
   Container: styled.figure`
@@ -70,21 +77,29 @@ const Style = {
     padding: 2.5vh 2vw;
 
     figcaption {
-      font-weight: 600;
-      font-size: 23px;
-      line-height: 28px;
-      color: #3d3d3d;
       margin-bottom: 1.5vh;
       display: flex;
       width: 100%;
       align-items: center;
       justify-content: space-between;
 
+      h2 {
+        font-weight: 600;
+        font-size: 23px;
+        line-height: 28px;
+        color: #3d3d3d;
+        position: relative;
+      }
+
       div {
-        width: 15%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: absolute;
+        height: 2vh;
+        right: 45px;
+        top: 14px;
+        width: 60px;
       }
     }
 

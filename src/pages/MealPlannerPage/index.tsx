@@ -1,16 +1,13 @@
 import { useMatch } from "react-router-dom";
 import styled from "styled-components";
 
-import { MealPlanHeader } from "../../components/MealPlanner/Header";
 import { MealPlan } from "../../components/MealPlanner/Plan";
-import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
 export const MealPlannerPage = () => {
   const match = useMatch("/dashboard/meal-planner/edit");
 
   return (
     <Style.PageContainer>
-      <MealPlanHeader title="Plate Full Planner" />
       <MealPlan match={match?.pathname} />
     </Style.PageContainer>
   );
@@ -25,9 +22,8 @@ const Style = {
     height: 100vh;
     flex-direction: column;
     position: relative;
-    overflow: overlay;
+    overflow: hidden;
     max-height: 100vh;
-    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")}
 
     & .link-to-calendar {
       position: absolute;

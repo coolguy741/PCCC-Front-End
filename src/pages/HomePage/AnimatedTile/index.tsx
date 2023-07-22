@@ -22,18 +22,38 @@ const h3Props = {
   weight: "700",
 } as BaseTypographyProps;
 
-function showSubtitleWithException(subtitle: string) {
+function showSubtitleWithException(subtitle: string, color: string) {
   if (subtitle) {
     if (subtitle === "Sunny's Place: A Bee-utifull Food Adventure") {
       return (
-        <Typography {...h3Props}>
+        <Typography {...h3Props} color={color}>
           Sunny's Place:
           <br />A Bee-utifull Food Adventure
         </Typography>
       );
-    } else return <Typography {...h3Props}>{subtitle}</Typography>;
+    } else
+      return (
+        <Typography {...h3Props} color={color}>
+          {subtitle}
+        </Typography>
+      );
   }
 }
+
+interface iSpline {
+  [key: string]: string;
+}
+
+const SPLINE_ARR: iSpline = {
+  cook: "https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode",
+  mealtime: "https://prod.spline.design/E-xcIdDrzq-0WTxA/scene.splinecode",
+  discover: "https://prod.spline.design/e-Ytpv047VfjsTtx/scene.splinecode",
+  foodways: "https://prod.spline.design/cSsgh0BV9i3GO7hH/scene.splinecode",
+  games: "https://prod.spline.design/3frOmFqEaKmLo27V/scene.splinecode",
+  grow: "https://prod.spline.design/irggER2hPUI63Ktf/scene.splinecode",
+  "meal-planner":
+    "https://prod.spline.design/mxVllMtfWXBcJ1ey/scene.splinecode",
+};
 
 export const AnimatedTile = ({ tile }: { tile: Tile }) => {
   const spline = useRef();
@@ -72,15 +92,17 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
             {tile.titleFirstLine}
           </Typography>
           <br />
-          {tile.titleSecondLine}
+          <Typography tag="span" color={tile.titleSecondColor}>
+            {tile.titleSecondLine}
+          </Typography>
         </Typography>
-        {showSubtitleWithException(tile.subtitle)}
+        {showSubtitleWithException(tile.subtitle, tile.titleSecondColor)}
         <Typography
           weight={500}
           size="2.25vh"
           lineHeight="115%"
           mb={convertToRelativeUnit(48, "vh")}
-          color="neutral-700"
+          color={tile.titleSecondColor}
         >
           {tile.description}
         </Typography>
@@ -98,35 +120,9 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
             </SpeechBubble>
           </div>
         )}
-
-        {tile.id === "cook" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline
-              scene="https://prod.spline.design/3MYR0IfAhLxqyH-Z/scene.splinecode"
-              onLoad={onLoad}
-              // onMouseHover={onHover}
-            />
-          </Suspense>
-        ) : tile.id === "mealtime" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline scene="https://prod.spline.design/E-xcIdDrzq-0WTxA/scene.splinecode" />
-          </Suspense>
-        ) : tile.id === "discover" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline scene="https://prod.spline.design/e-Ytpv047VfjsTtx/scene.splinecode" />
-          </Suspense>
-        ) : tile.id === "foodways" ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline scene="https://prod.spline.design/cSsgh0BV9i3GO7hH/scene.splinecode" />
-          </Suspense>
-        ) : (
-          <div className="img-container">
-            <img
-              src={tile.image}
-              alt={`${tile.titleFirstLine} ${tile.titleSecondLine}`}
-            />
-          </div>
-        )}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Spline scene={SPLINE_ARR[tile.id]} onLoad={onLoad} />
+        </Suspense>
       </article>
     </Style.PageContainer>
   );

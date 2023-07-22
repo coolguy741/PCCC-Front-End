@@ -1,29 +1,45 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { useContentActions } from "../../../../hooks/useContentActions";
+import { ContentBuilderType, ThemeProperties } from "../../../../pages/types";
+import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import Button from "../../../Button";
 import { Typography } from "../../../Global/Typography";
 import { ConfirmModal } from "../ConfirmModal";
 
 interface Props {
   showingMessage?: boolean;
-  currentStep: number;
-  maxPageCount: number;
   addSlide: () => void;
-  changeStep: (step: number) => void;
+  type?: ContentBuilderType;
 }
 
 export const ContentEditorActions: React.FC<Props> = ({
-  currentStep,
-  changeStep,
   addSlide,
-  maxPageCount,
+  type = ContentBuilderType.THEMES,
   showingMessage = false,
 }) => {
   const [showingConfirmModal, setShowingConfirmModal] = useState(false);
+  const { saveContent, updateIdInStore } = useContentActions();
+  const { currentStep, maxPageCount, changeStep } = useThemeBuilderStore();
+  const navigate = useNavigate();
+  const currentLang = localStorage.getItem("lang") ?? "en";
 
-  const handleSaveAndContinue = () => {
+  const handleSaveAndContinue = async () => {
+    if (type !== ContentBuilderType.THEMES || currentStep === 0) {
+      const response = await saveContent(type);
+
+      response &&
+        updateIdInStore(
+          response?.[currentLang === "en" ? "english" : "french"]?.id,
+          type,
+        );
+    } else if (currentStep === 1 && type === ContentBuilderType.THEMES) {
+      await saveContent(type, ThemeProperties.EDUCATOR_NOTES);
+    }
+
     currentStep < maxPageCount - 1
       ? changeStep(currentStep + 1)
       : setShowingConfirmModal(true);
@@ -31,6 +47,12 @@ export const ContentEditorActions: React.FC<Props> = ({
 
   const handleAddSlide = () => {
     addSlide();
+  };
+
+  const handleSaveAndExit = async () => {
+    await saveContent(type);
+
+    navigate(`/dashboard/${type}`);
   };
 
   return (
@@ -68,7 +90,7 @@ export const ContentEditorActions: React.FC<Props> = ({
         )}
       </AnimatePresence>
       <div className="flex ml-auto">
-        <Button variant="yellow" className="mr-4">
+        <Button variant="yellow" className="mr-4" onClick={handleSaveAndExit}>
           Save changes and exit
         </Button>
         <Button variant="orange" onClick={handleSaveAndContinue}>

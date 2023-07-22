@@ -18,6 +18,8 @@ export enum ComponentViewMode {
 export interface CCFormat {
   mode: ComponentViewMode;
   text: string;
+  aMode?: string;
+  iMode?: string;
 }
 
 export type TitleType =
@@ -34,10 +36,12 @@ export type TagTypes = TitleType | PWithPType;
 
 export type TitleState = Record<TitleType, CCFormat>;
 
-export type State = Record<TagTypes, CCFormat>;
+export type ObjectState = Record<TagTypes, CCFormat>;
+
+export type State = ObjectState | CCFormat[];
 
 export type ThemeComponentProps = {
-  componentState?: State;
+  state?: State;
   slideIndex?: number;
   isEditable?: boolean;
   componentIndex?: number;

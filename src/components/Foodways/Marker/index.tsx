@@ -9,10 +9,10 @@ interface Props {
 
 type GLTFResult = GLTF & {
   nodes: {
-    Cone: THREE.Mesh;
+    marker: THREE.Mesh;
   };
   materials: {
-    ["Material.001"]: THREE.MeshStandardMaterial;
+    foodways_mat: THREE.MeshStandardMaterial;
   };
 };
 
@@ -20,15 +20,17 @@ export const Marker = forwardRef<Group, Props>((props, ref) => {
   const { nodes, materials } = useGLTF("/models/marker.glb") as GLTFResult;
 
   return (
-    <group dispose={null} scale={[0.15, 0.15, 0.15]} ref={ref}>
+    <group {...props} dispose={null} ref={ref}>
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cone.geometry}
-        material={nodes.Cone.material}
+        geometry={nodes.marker.geometry}
+        material={materials.foodways_mat}
+        scale={100}
+        rotation-x={-Math.PI / 2}
       />
     </group>
   );
 });
 
-useGLTF.preload("/models/marker2.glb");
+useGLTF.preload("/models/marker.glb");
