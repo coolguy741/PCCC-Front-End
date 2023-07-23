@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
@@ -16,6 +16,7 @@ import { Typography } from "../../components/Typography";
 import { useAPI } from "../../hooks/useAPI";
 import { Api } from "../../lib/api/api";
 import { BASE_API_URL } from "../../lib/api/helpers/consts";
+import { getMediaType } from "../../lib/util/getMediaType";
 import {
   getCloudDriveStore,
   useCloudDriveStore,
@@ -74,6 +75,38 @@ export function CloudDrivePage() {
   const [view, setView] = useState<"list" | "gallery">("list");
   const navigate = useNavigate();
   const { api } = useAPI();
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    inputFile.current?.click();
+  };
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    const file = e.target.files[0];
+    const type = getMediaType(file.name);
+
+    try {
+      const response = await api.appCloudDriveUploadFileCreate(
+        { file: file },
+        { folder: type ?? "documents" },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        fetchFiles(type ?? "documents");
+      }
+    } catch (error: unknown) {
+      return console.warn(error);
+    }
+  };
 
   const fetchFiles = async (
     type: "images" | "video" | "documents" | "audio",
@@ -186,7 +219,14 @@ export function CloudDrivePage() {
               >
                 <CDList />
               </button>
-              <button className="cdf-upload">
+              <input
+                type="file"
+                id="file"
+                ref={inputFile}
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+              />
+              <button className="cdf-upload" onClick={handleClick}>
                 <CDAdd />
                 <Typography
                   color="white"
@@ -283,7 +323,7 @@ const Style = {
         div {
           display: flex;
           height: 100%;
-          width: auto;
+          width: 40%;
           display: flex;
           align-items: center;
           justify-content: space-between;
