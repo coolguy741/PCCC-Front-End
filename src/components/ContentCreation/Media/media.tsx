@@ -34,7 +34,7 @@ export function Media({
     }
 
     if (type === "images") return <img src={media?.src} alt="" />;
-    else if (type === ("video" || "audio"))
+    else if (type === "video" || type === "audio")
       return <MediaPreview src={media?.src} type={type} />;
   }
 
