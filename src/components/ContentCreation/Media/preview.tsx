@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Patterns } from "../../Patterns";
 
 export function MediaPreview({ src, type }: any) {
-  console.log(src, type);
   return (
     <Style.Container>
       {type === "audio" && (
