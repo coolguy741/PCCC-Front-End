@@ -1,19 +1,18 @@
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
+import { usePatterns } from "../../../hooks/usePatterns";
 import Modal from "../../Modal";
 import { Patterns } from "../../Patterns";
 import { PreviewModal } from "../../PreviewModal";
 
 export function MediaPreview({ src, type }: any) {
   const { modal, toggle } = useModal();
+  const { currentPattern } = usePatterns();
   return (
     <>
       {" "}
       <Style.Container>
-        <Patterns
-          className="mp-audio-container"
-          pattern={Math.floor(Math.random() * 5)}
-        >
+        <Patterns className="mp-audio-container" pattern={currentPattern}>
           <p onClick={toggle}>Play</p>
         </Patterns>
       </Style.Container>
