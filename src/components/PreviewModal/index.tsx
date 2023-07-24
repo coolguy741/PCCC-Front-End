@@ -54,15 +54,12 @@ export const PreviewModal = ({
 
 const Style = {
   Container: styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 70%;
+    height: 80%;
 
     .img-mask {
       border-radius: 20px;
@@ -71,16 +68,14 @@ const Style = {
       justify-content: center;
       align-items: center;
       position: relative;
-      width: 70%;
-      height: 80%;
+      width: 100%;
+      height: 100%;
 
       img {
         object-fit: contain;
         border-radius: 20px;
         width: auto;
         height: auto;
-        max-width: 70%;
-        max-height: 80%;
       }
     }
 
@@ -91,7 +86,7 @@ const Style = {
       justify-content: center;
       align-items: center;
       position: relative;
-      width: 70%;
+      width: 100%;
 
       video {
         border-radius: 20px;

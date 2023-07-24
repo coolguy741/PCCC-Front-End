@@ -1,18 +1,28 @@
 import styled from "styled-components";
+import useModal from "../../../hooks/useModal";
+import Modal from "../../Modal";
 import { Patterns } from "../../Patterns";
+import { PreviewModal } from "../../PreviewModal";
 
 export function MediaPreview({ src, type }: any) {
+  const { modal, toggle } = useModal();
   return (
-    <Style.Container>
-      {type === "audio" && (
+    <>
+      {" "}
+      <Style.Container>
         <Patterns
           className="mp-audio-container"
           pattern={Math.floor(Math.random() * 5)}
         >
-          <p>Play</p>
+          <p onClick={toggle}>Play</p>
         </Patterns>
+      </Style.Container>
+      {modal && (
+        <Modal modal={modal} toggle={toggle}>
+          <PreviewModal url={src} type={type} fileName={"fileName"} />
+        </Modal>
       )}
-    </Style.Container>
+    </>
   );
 }
 
