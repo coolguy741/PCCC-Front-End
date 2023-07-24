@@ -23,7 +23,7 @@ export const PreviewModal = ({
       {type === "images" ? (
         <div className="img-mask">
           <div className="title">{fileName}</div>
-          <img src={url} width="100%" height="100%" />
+          <img src={url} alt="" width="100%" height="100%" />
         </div>
       ) : (
         <div className="player-mask">
