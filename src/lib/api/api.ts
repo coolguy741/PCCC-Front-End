@@ -3961,7 +3961,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppMealtimeMomentsCreate
      * @summary Create a new mealtime moments record
      * @request POST:/api/app/mealtime-moments
-     * @secure
      */
     appMealtimeMomentsCreate: (
       data: PccServer23MealtimeMomentsMultiLingualMealtimeMomentCreateDto,
@@ -3974,7 +3973,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/mealtime-moments`,
         method: "POST",
         body: data,
-        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -4006,13 +4004,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppMealtimeMomentsDelete
      * @summary Delete mealtime moments record with id
      * @request DELETE:/api/app/mealtime-moments/{id}
-     * @secure
      */
     appMealtimeMomentsDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/mealtime-moments/${id}`,
         method: "DELETE",
-        secure: true,
         ...params,
       }),
 
@@ -4023,7 +4019,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppMealtimeMomentsUpdate
      * @summary Update an existing mealtime moments record's details
      * @request PUT:/api/app/mealtime-moments/{id}
-     * @secure
      */
     appMealtimeMomentsUpdate: (
       id: string,
@@ -4037,7 +4032,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/mealtime-moments/${id}`,
         method: "PUT",
         body: data,
-        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,

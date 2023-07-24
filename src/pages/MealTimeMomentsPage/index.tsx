@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useFetch } from "../../hooks/useFetch";
-import { PccServer23MealtimeMomentsMealtimeMomentDto } from "../../lib/api/api";
+import {
+  PccServer23MealtimeMomentsMealtimeMomentDto,
+  QueryParamsType,
+} from "../../lib/api/api";
+import { useMealtimeMomentsStore } from "../../stores/mealtimeMomentsStore";
 
 export const MealtimeMomentsPage = () => {
-  const [items, setItems] = useState<
-    PccServer23MealtimeMomentsMealtimeMomentDto[]
-  >([]);
+  const { items, setItems } = useMealtimeMomentsStore();
   const [isNeededToReload, setIsNeededToReload] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [query, setQuery] = useState<QueryParamsType>();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const { fetchData: deleteActivity } = useFetch(
@@ -18,7 +21,7 @@ export const MealtimeMomentsPage = () => {
   const { isLoading, data, fetchData } = useFetch<{
     total: number;
     items: PccServer23MealtimeMomentsMealtimeMomentDto[];
-  }>("appMealtimeMomentsList", {}, undefined, true);
+  }>("appMealtimeMomentsList", {}, { query: { ...(query ?? {}) } }, true);
 
   const handleSelectionChange = (id: string, isSelected: boolean) => {
     setSelectedIds((prevIds) => {
@@ -39,7 +42,8 @@ export const MealtimeMomentsPage = () => {
   }, [selectedIds]);
 
   useEffect(() => {
-    isNeededToReload && fetchData?.(undefined, undefined, true);
+    isNeededToReload &&
+      fetchData?.(undefined, { query: { ...(query ?? {}) } }, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNeededToReload]);
 
@@ -52,6 +56,18 @@ export const MealtimeMomentsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  useEffect(() => {
+    query && setIsNeededToReload(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
+  const handleSortChange = (value: string) => {
+    setQuery({
+      ...query,
+      Sorting: value,
+    });
+  };
+
   return (
     <ContentListAdminPageTemplate
       title={"Mealtime Moments"}
@@ -59,6 +75,7 @@ export const MealtimeMomentsPage = () => {
       listData={items}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
+      handleSortChange={handleSortChange}
       isLoading={isLoading || isDeleting}
     />
   );

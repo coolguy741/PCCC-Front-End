@@ -2,14 +2,21 @@ import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { useAPI } from "../../../hooks/useAPI";
 import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 import { STORAGE_KEY_JWT } from "../../../pages/consts";
+import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Button from "../../Button";
+import { DropdownSelect } from "../../Global/DropdownSelect";
 import Scrollbar from "../../Global/Scrollable";
-import { Select } from "../../Global/Select";
 import { Spinner } from "../../Global/Spinner";
 import { FoodwaysList } from "../FoodwaysList";
+
+const OPTIONS = [
+  { label: "Title", value: "title" },
+  { label: "Date", value: "creationTime" },
+];
 
 type SelectOption = "Topic" | "Sort" | "Curriculum";
 interface ContentListAdminPageTemplateProps {
@@ -17,11 +24,19 @@ interface ContentListAdminPageTemplateProps {
   selectsGroup: SelectOption[];
   listData: PccServer23FoodwaysFoodwayDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
+  handleSortChange: (value: string) => void;
   selectedIds: string[];
 }
 
 export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
-  ({ title, selectsGroup, listData, onSelectionChange, selectedIds }) => {
+  ({
+    title,
+    selectsGroup,
+    listData,
+    onSelectionChange,
+    selectedIds,
+    handleSortChange,
+  }) => {
     const { api } = useAPI();
     const [isDeleting, setIsDeleting] = useState(false);
     const navigate = useNavigate();
@@ -46,20 +61,13 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
             {selectsGroup.map((select, index) => (
               <Style.SelectContainer key={index}>
                 <p className="text">{select}</p>
-                <Select
-                  width="180px"
-                  height="52px"
-                  defaultValue=""
-                  className="username-select"
-                  required
-                >
-                  <option className="place-holder" value="" disabled hidden>
-                    {select + " name"}
-                  </option>
-                  <option value="Curriculum name1">{select + " name1"}</option>
-                  <option value="Curriculum name2">{select + " name2"}</option>
-                  <option value="Curriculum name3">{select + " name3"}</option>
-                </Select>
+                <DropdownSelect
+                  placeholder={select}
+                  width={convertToRelativeUnit(180, "vw")}
+                  height={convertToRelativeUnit(52, "vh")}
+                  options={OPTIONS}
+                  onChange={handleSortChange}
+                />
               </Style.SelectContainer>
             ))}
           </Style.SelectGroup>

@@ -301,11 +301,6 @@ export const router = createBrowserRouter([
                 path: "",
                 element: <MealtimeMomentOverviewPage />,
                 id: "mealtime-moment",
-                // loader: async ({ params }) => {
-                //   const mealtimeMoment = await getMealtimeMoment(params.id);
-
-                //   return mealtimeMoment;
-                // },
               },
               {
                 path: "edit",
@@ -316,6 +311,7 @@ export const router = createBrowserRouter([
                 //   return mealtimeMoment;
                 // },
               },
+              { path: "preview", element: <MealtimeMomentsPreviewPage /> },
             ],
           },
         ],
@@ -566,7 +562,7 @@ export const router = createBrowserRouter([
         element: <ThemePrintPage />,
       },
       {
-        path: "dashboard/mealtime-moments/:mealtime-moment/print",
+        path: "dashboard/mealtime-moments/:id/print",
         element: <MealtimeMomentPrintPage />,
       },
       { path: "dashboard/calendar/print", element: <CalendarPrintPage /> },

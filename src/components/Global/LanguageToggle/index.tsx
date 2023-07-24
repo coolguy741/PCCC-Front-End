@@ -17,6 +17,7 @@ export const LanguageToggle = () => {
       setLanguage(Language.EN);
     }
     window.dispatchEvent(new Event("storage"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleLanguage = () => {

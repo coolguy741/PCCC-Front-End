@@ -8,6 +8,7 @@ import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 interface MedaltimeMomentTitleProps {
   state: any;
+  isEditable?: boolean;
 }
 
 const titleState: any = {
@@ -22,8 +23,9 @@ const titleState: any = {
   },
 };
 
-export function MedaltimeMomentTitle({
+export function MealtimeMomentTitle({
   state: componentState,
+  isEditable = true,
 }: MedaltimeMomentTitleProps) {
   const { updatePageState } = useMealtimeMomentsStore();
   const { state, changeEditState, changeText, setComponentPosition } =
@@ -41,7 +43,7 @@ export function MedaltimeMomentTitle({
           <span className="tc-overview">Medaltime Moments</span>
           <br />
           <DoubleClickToEditComponent
-            mode={state.heading.mode}
+            mode={isEditable ? state.heading.mode : "view"}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.heading.text}
@@ -50,7 +52,7 @@ export function MedaltimeMomentTitle({
         </h1>
         <p>
           <DoubleClickToEditComponent
-            mode={state.desc.mode}
+            mode={isEditable ? state.desc.mode : "view"}
             setText={changeText}
             changeEditState={changeEditState}
             text={state.desc.text}

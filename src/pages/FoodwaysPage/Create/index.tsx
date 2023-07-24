@@ -16,6 +16,8 @@ import { BackButton } from "../../../components/Global/BackButton";
 import { Icon } from "../../../components/Global/Icon";
 import { Typography } from "../../../components/Global/Typography";
 import { useAPI } from "../../../hooks/useAPI";
+import { useFetch } from "../../../hooks/useFetch";
+import { PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { STORAGE_KEY_JWT } from "../../consts";
 import { Language } from "../../types";
@@ -23,13 +25,10 @@ import { Language } from "../../types";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-import { useFetch } from "../../../hooks/useFetch";
-import { PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
 
 const SlideOnUpdate = ({
   totalSlides,
   currentLang,
-  setActiveSlide,
 }: {
   totalSlides: number;
   currentLang: Language;
@@ -78,10 +77,12 @@ export const CreateFoodwaysPage = () => {
 
   useEffect(() => {
     foodway && setFoodway(foodway);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foodway]);
 
   const totalSlidesCount = useMemo(
     () => (state[currentLang].stops?.length ?? 0) + 1,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentLang],
   );
 
@@ -162,6 +163,7 @@ export const CreateFoodwaysPage = () => {
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newFoodway, updatedFoodway]);
 
   const addTag = (tag: string) => {
@@ -182,10 +184,12 @@ export const CreateFoodwaysPage = () => {
 
   const handleAddSlide = useCallback(() => {
     addFoodwaySlide();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeleteSlide = useCallback(() => {
     deleteSlide();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSlideChange = (swiper: SwiperType) => {

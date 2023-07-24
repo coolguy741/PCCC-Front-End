@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { useUIStore } from "./../stores/uiStore";
 
 import {
   PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
@@ -83,13 +84,13 @@ export const useContentActions = () => {
   const activityStore = useActivitiesStore();
   const recipeStore = useRecipesStore();
   const themeBuilderStore = useThemeBuilderStore();
+  const { lang: currentLang } = useUIStore();
 
   const header = {
     headers: {
       Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
     },
   };
-  const currentLang = localStorage.getItem("lang") ?? Language.EN;
 
   const getContent = useCallback(
     async (type: ContentBuilderType) => {

@@ -12,13 +12,14 @@ import { BackButton } from "../../../components/Global/BackButton";
 import { Spinner } from "../../../components/Global/Spinner";
 import { PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
+import { useUIStore } from "../../../stores/uiStore";
 import { Language } from "../../types";
 
 export const FoodwaysOverviewPage = () => {
   const response = useRouteLoaderData(
     "foodway",
   ) as PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
-  const currentLang = localStorage.getItem("lang");
+  const { lang } = useUIStore();
   const [nav, setNav] = useState(0);
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   const { setActiveSlide, activeSlide } = useFoodwayStore();
@@ -32,11 +33,11 @@ export const FoodwaysOverviewPage = () => {
 
   const foodway = useMemo(() => {
     return response[
-      (currentLang === Language.EN
+      (lang === Language.EN
         ? "english"
         : "french") as keyof PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
     ];
-  }, [response, currentLang]);
+  }, [response, lang]);
 
   return (
     <Style.Container>

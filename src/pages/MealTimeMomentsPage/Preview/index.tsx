@@ -2,20 +2,21 @@ import styled from "styled-components";
 
 import { PreviewAction } from "../../../components/ContentBuilder/Components/Actions/PreviewAction";
 import { ContentNavigator } from "../../../components/ContentBuilder/Components/ContentNavigator";
-import { MealtimeMomentsContentTemplate } from "../../../components/ContentBuilder/Components/MealtimeMomentsContentTemplate";
+import { MealtimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
 import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
+import { useUIStore } from "../../../stores/uiStore";
 import { ContentBuilderType } from "../../types";
 
 export const MealtimeMomentsPreviewPage = () => {
-  const { title, description } = useMealtimeMomentsStore();
+  const { setDetail, ...state } = useMealtimeMomentsStore();
+  const { lang } = useUIStore();
 
   return (
     <Style.Slide>
       <ContentNavigator type={ContentBuilderType.MEALTIME_MOMENTS} />
-      <MealtimeMomentsContentTemplate
+      <MealtimeMomentTitle
+        state={state[lang].componentState}
         isEditable={false}
-        title={title}
-        description={description}
       />
       <PreviewAction />
     </Style.Slide>
