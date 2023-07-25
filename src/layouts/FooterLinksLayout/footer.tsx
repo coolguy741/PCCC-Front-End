@@ -14,21 +14,21 @@ export function FLFooter() {
   return (
     <Style.Container>
       <nav>
-        <Link onClick={scrollToTop} to="/terms&conditions">
+        <Link onClick={scrollToTop} to="/terms">
           Terms & Conditions
         </Link>
         <Link onClick={scrollToTop} to="/accessibility">
           Accessibility
         </Link>
-        <Link onClick={scrollToTop} to="/privacy-policy">
+        <Link onClick={scrollToTop} to="/privacy">
           Privacy Policy
         </Link>
-        <Link onClick={scrollToTop} to="/contact-us">
+        <Link onClick={scrollToTop} to="/contact">
           Contact Us
         </Link>
       </nav>
       <Typography size="1.5vh" color="neutral-900">
-        © 2022 President’s Choice Children's Charity. All Rights Reserved.
+        © 2022 President's Choice Children's Charity. All Rights Reserved.
       </Typography>
     </Style.Container>
   );

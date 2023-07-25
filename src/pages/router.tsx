@@ -102,11 +102,11 @@ export const router = createBrowserRouter([
   },
   { path: "/landing", element: <TestLandingPage /> },
   {
-    path: "/terms&conditions",
+    path: "/terms",
     element: <TCPage />,
   },
   {
-    path: "/privacy-policy",
+    path: "/privacy",
     element: <PrivacyPolicyPage />,
   },
   {
@@ -114,7 +114,7 @@ export const router = createBrowserRouter([
     element: <AccessibilityPage />,
   },
   {
-    path: "/contact-us",
+    path: "/contact",
     element: <ContactUsPage />,
   },
   {
