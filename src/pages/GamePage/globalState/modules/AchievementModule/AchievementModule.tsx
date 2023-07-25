@@ -35,12 +35,12 @@ const AchievementModule = ({ set, get }: globalStateApiType) => {
       set({ isAchievementsPanelOpen });
     },
 
-    activeAchievementsModalTab: "garden",
+    activeAchievementsModalTab: "garden" as AchievmentsModalTypes,
     setActiveAchievementsModalTab: (tab: AchievmentsModalTypes) => {
       set({ activeAchievementsModalTab: tab });
     },
 
-    activeCCC: "all",
+    activeCCC: "all" as AchievmentsCCCTypes,
     setActiveCCC: (activeCCC: AchievmentsCCCTypes) => {
       set({ activeCCC: activeCCC });
     },
