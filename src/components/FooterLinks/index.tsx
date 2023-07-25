@@ -2,57 +2,70 @@ import styled from "styled-components";
 import { FooterLinksLayout } from "../../layouts/FooterLinksLayout";
 import { ArrowUp } from "../Icons";
 import { Typography } from "../Typography";
+import { ContactUs } from "./contact-us";
 import { footer_data } from "./content-data";
 
 export function FooterLinks({
   page,
 }: {
-  page: "terms_and_conditions" | "privacy_policy" | "accessibility";
+  page:
+    | "terms_and_conditions"
+    | "privacy_policy"
+    | "accessibility"
+    | "contact_us";
 }) {
   const page_content = footer_data[page];
   return (
     <FooterLinksLayout page={page}>
-      <Style.Container>
-        <nav>
-          <Typography
-            tag="h3"
-            size="2.5vh"
-            color="neutral-800"
-            mb="1vh"
-            weight={600}
-          >
-            {page_content.menuTitle}
-          </Typography>
-          <div>
+      {page !== "contact_us" && (
+        <Style.Container>
+          <nav>
+            <Typography
+              tag="h3"
+              size="2.5vh"
+              color="neutral-800"
+              mb="1vh"
+              weight={600}
+            >
+              {page_content.menuTitle}
+            </Typography>
+            <div>
+              {page_content.content.map((link, idx) => (
+                <a href={`#${idx}`}>{link.title}</a>
+              ))}
+            </div>
+            <button>
+              <Typography weight={500} size="1.5vh" color="neutral-700">
+                Back to top
+              </Typography>{" "}
+              <ArrowUp />
+            </button>
+          </nav>
+          <section>
             {page_content.content.map((link, idx) => (
-              <a href={`#${idx}`}>{link.title}</a>
+              <article id={`${idx}`}>
+                <Typography
+                  tag="h4"
+                  mb="1.5vh"
+                  color="neutral-800"
+                  size="2.5vh"
+                >
+                  {link.title}
+                </Typography>
+                <Typography
+                  tag="p"
+                  color="neutral-400"
+                  weight={400}
+                  size="1.75vh"
+                >
+                  {link.content}
+                </Typography>
+              </article>
             ))}
-          </div>
-          <button>
-            <Typography weight={500} size="1.5vh" color="neutral-700">
-              Back to top
-            </Typography>{" "}
-            <ArrowUp />
-          </button>
-        </nav>
-        <section>
-          {page_content.content.map((link, idx) => (
-            <article id={`${idx}`}>
-              <Typography tag="h4" mb="1.5vh" color="neutral-800" size="2.5vh">
-                {link.title}
-              </Typography>
-              <Typography
-                tag="p"
-                color="neutral-400"
-                weight={400}
-                size="1.75vh"
-              >
-                {link.content}
-              </Typography>
-            </article>
-          ))}
-        </section>
-      </Style.Container>
+          </section>
+        </Style.Container>
+      )}
+      {page === "contact_us" && <ContactUs />}
     </FooterLinksLayout>
   );
 }

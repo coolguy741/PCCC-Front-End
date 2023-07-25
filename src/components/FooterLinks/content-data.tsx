@@ -1,4 +1,4 @@
-import { AltAppleBG, AltLemonBG, AltOrangeBG } from "../Icons";
+import { AltAppleBG, AltGrape, AltLemonBG, AltOrangeBG } from "../Icons";
 
 export const footer_data = {
   terms_and_conditions: {
@@ -146,7 +146,8 @@ export const footer_data = {
     ],
   },
   contact_us: {
-    icon: <AltLemonBG />,
+    // eslint-disable-next-line react/jsx-pascal-case
+    icon: <AltGrape.default />,
     title: "Contact Us",
     subtitle: "",
     menuTitle: "Contact Information",

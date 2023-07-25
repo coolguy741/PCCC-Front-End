@@ -7,6 +7,7 @@ import ArrowRight from "./ArrowRight/arrowRight";
 import ArrowUp from "./ArrowUp";
 import DirectionLeft from "./DirectionLeft/directionLeft";
 import DirectionRight from "./DirectionRight/directionRight";
+import * as AltGrape from "./GrapeBG/altGrapeBG";
 import GrapeBG from "./GrapeBG/grapeBG";
 import Group from "./Group/group";
 import Info from "./Info/info";
@@ -40,4 +41,5 @@ export {
   AltOrangeBG,
   AltLemonBG,
   ArrowUp,
+  AltGrape,
 };

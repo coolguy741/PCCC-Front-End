@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
@@ -8,10 +9,17 @@ import { FLHeader } from "./header";
 
 interface Props {
   children: React.ReactNode;
-  page: "terms_and_conditions" | "privacy_policy" | "accessibility";
+  page:
+    | "terms_and_conditions"
+    | "privacy_policy"
+    | "accessibility"
+    | "contact_us";
 }
 
 export function FooterLinksLayout({ children, page }: Props) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Style.Container className="footer-links-layout">
       <SideMenu />

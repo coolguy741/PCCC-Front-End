@@ -4,7 +4,6 @@ import { PageTitleLayout } from "../components/Global/PageTitleLayout";
 import { AuthLayout } from "../layouts/AuthLayout/authLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { ManageUsersLayout } from "../layouts/DashboardLayout/ManageUsersLayout";
-import { FooterLinksLayout } from "../layouts/FooterLinksLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
@@ -41,6 +40,7 @@ import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { CloudDrivePage, cloudDrivePageLoader } from "./CloudDrivePage";
+import { ContactUsPage } from "./ContactUsPage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
@@ -116,11 +116,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/contact-us",
-    element: (
-      <FooterLinksLayout page="accessibility">
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <ContactUsPage />,
   },
   {
     path: "/signin",

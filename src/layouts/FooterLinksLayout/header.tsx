@@ -6,7 +6,11 @@ import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgro
 export function FLHeader({
   page,
 }: {
-  page: "terms_and_conditions" | "privacy_policy" | "accessibility";
+  page:
+    | "terms_and_conditions"
+    | "privacy_policy"
+    | "accessibility"
+    | "contact_us";
 }) {
   const page_content = footer_data[page];
   return (
