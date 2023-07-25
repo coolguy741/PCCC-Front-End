@@ -14,12 +14,12 @@ export const FooterTile = () => {
       </h2>
       <nav>
         <div>
-          <Link to="terms&conditions">Terms & Conditions</Link>
-          <Link to="accessibility">Accessibility</Link>
+          <Link to="/terms&conditions">Terms & Conditions</Link>
+          <Link to="/accessibility">Accessibility</Link>
         </div>
         <div>
-          <Link to="privacy-policy">Privacy Policy</Link>
-          <Link to="contact-us">Contact Us</Link>
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/contact-us">Contact Us</Link>
         </div>
       </nav>
       <p className="footer-copyright">

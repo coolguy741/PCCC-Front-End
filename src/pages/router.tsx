@@ -10,6 +10,7 @@ import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
 import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
+import { AccessibilityPage } from "./AccessibilityPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
 import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
@@ -66,6 +67,7 @@ import { MealtimeMomentsPreviewPage } from "./MealtimeMomentsPage/Preview";
 import { MealtimeMomentPrintPage } from "./MealtimeMomentsPage/Print";
 import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
+import { PrivacyPolicyPage } from "./PrivacyPolicyPage";
 import { ProfilePage } from "./Profile";
 import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 import { RecipesPage } from "./RecipeBuilderPage";
@@ -82,6 +84,7 @@ import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
 import { LessonAssessmentPage } from "./ReportsPage/LessonAssessment";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
+import { TCPage } from "./T&CPage";
 import { TempHomePage } from "./TempHomePage";
 import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
@@ -101,32 +104,20 @@ export const router = createBrowserRouter([
   { path: "/landing", element: <TestLandingPage /> },
   {
     path: "/terms&conditions",
-    element: (
-      <FooterLinksLayout>
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <TCPage />,
   },
   {
     path: "/privacy-policy",
-    element: (
-      <FooterLinksLayout>
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <PrivacyPolicyPage />,
   },
   {
     path: "/accessibility",
-    element: (
-      <FooterLinksLayout>
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <AccessibilityPage />,
   },
   {
     path: "/contact-us",
     element: (
-      <FooterLinksLayout>
+      <FooterLinksLayout page="accessibility">
         <p></p>
       </FooterLinksLayout>
     ),
