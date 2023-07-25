@@ -53,51 +53,70 @@ export function useContentCreation(
     return setState(newState);
   }
 
-  function changeListEditState(index: number, amtOrIngdt?: "amt" | "ingdt") {
-    if (amtOrIngdt) {
-      if (amtOrIngdt === "amt") {
-        if (state[index].aMode === ComponentViewMode.VIEW) {
-          const indexValue = { ...state[index], aMode: ComponentViewMode.EDIT };
-          return setState(alterArrayContentState(state, index, indexValue));
-        } else {
-          const indexValue = { ...state[index], aMode: ComponentViewMode.VIEW };
-          return setState(alterArrayContentState(state, index, indexValue));
-        }
-      } else {
-        if (state[index].iMode === ComponentViewMode.VIEW) {
-          const indexValue = { ...state[index], iMode: ComponentViewMode.EDIT };
-          return setState(alterArrayContentState(state, index, indexValue));
-        } else {
-          const indexValue = { ...state[index], iMode: ComponentViewMode.VIEW };
-          return setState(alterArrayContentState(state, index, indexValue));
-        }
-      }
-    }
+  function changeListEditState(
+    index: number,
+    amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
+  ) {
+    const newState = alterArrayContentState(state, index, {
+      ...state[index],
+      [!amtOrIngdt ? "mode" : amtOrIngdt === "amt" ? "aMode" : "iMode"]:
+        state[index].mode === ComponentViewMode.EDIT
+          ? ComponentViewMode.VIEW
+          : ComponentViewMode.EDIT,
+    });
 
-    if (state[index].mode === ComponentViewMode.EDIT) {
-      const indexValue = { ...state[index], mode: ComponentViewMode.VIEW };
-      return setState(alterArrayContentState(state, index, indexValue));
-    } else {
-      const indexValue = { ...state[index], mode: ComponentViewMode.EDIT };
-      return setState(alterArrayContentState(state, index, indexValue));
-    }
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
+        newState,
+      );
+    return setState(newState);
   }
 
-  function changeMediaState(mediaName: string) {
+  function changeMediaState(
+    mediaName: string,
+    sIndex?: number,
+    cIndex?: number,
+  ) {
+    console.log(mediaName, sIndex, cIndex);
     const media = { ...state.media, src: mediaName };
     const newState = {
       ...state,
       media: media,
     };
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
+        newState,
+      );
     return setState(newState);
   }
 
-  function changeMediaPattern(pattern: number) {
+  function changeMediaPattern(
+    pattern: number,
+    sIndex?: number,
+    cIndex?: number,
+  ) {
+    console.log(pattern, sIndex, cIndex);
+
     const media = { ...state.media, patternChoice: pattern };
     const newState = {
       ...state,
       media: media,
     };
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
+        newState,
+      );
     return setState(newState);
   }
 
@@ -127,21 +146,19 @@ export function useContentCreation(
     index: number,
     newText: string,
     amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
   ) {
-    let newState;
-    if (amtOrIngdt) {
-      const indexValue = { ...state[index], [amtOrIngdt]: newText };
-      newState = alterArrayContentState(state, index, indexValue);
-    } else {
-      const indexValue = { ...state[index], text: newText };
-      newState = alterArrayContentState(state, index, indexValue);
-    }
+    const newState = alterArrayContentState(state, index, {
+      ...state[index],
+      [amtOrIngdt ?? "text"]: newText,
+    });
 
     componentPosition &&
       updatePageState &&
       updatePageState(
-        componentPosition.slideIndex,
-        componentPosition.componentIndex,
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
         newState,
       );
     setState(newState);

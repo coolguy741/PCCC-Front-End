@@ -108,6 +108,15 @@ const createStore = () =>
             state[currentLang].topic = (
               componentState as Record<string, CCFormat>
             ).tag.text;
+            state.image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
+            state[Language.EN].image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
+            state[Language.FR].image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
           }
 
           return slide.map((component, index) => ({

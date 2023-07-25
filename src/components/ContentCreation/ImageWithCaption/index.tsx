@@ -47,12 +47,11 @@ export function ImageWithCaptionComponent({
       <Typography
         weight={400}
         size="1vh"
-        lineHeight="105%"
+        line-height="105%"
         mt="8vh"
         color="neutral-600"
       >
         <b>
-          {" "}
           <DoubleClickToEditComponent
             mode={viewMode(componentState.heading.mode)}
             setText={changeText}
@@ -60,7 +59,7 @@ export function ImageWithCaptionComponent({
             text={componentState.heading.text}
             name="heading"
           />
-        </b>{" "}
+        </b>
         <DoubleClickToEditComponent
           mode={viewMode(componentState.desc.mode)}
           setText={changeText}

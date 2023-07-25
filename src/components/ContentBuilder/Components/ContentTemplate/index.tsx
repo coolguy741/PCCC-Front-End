@@ -125,13 +125,15 @@ export const ContentTemplate: React.FC<{
                           isEditable,
                           updatePageState,
                         })
-                      : components[id - 1].component({
-                          slideIndex: sIndex,
-                          componentIndex: index,
-                          state: componentState,
-                          isEditable,
-                          updatePageState,
-                        })}
+                      : components
+                          ?.find((component) => component.id === id)
+                          ?.component({
+                            slideIndex: sIndex,
+                            componentIndex: index,
+                            state: componentState,
+                            isEditable,
+                            updatePageState,
+                          })}
                   </Style.Component>
                 ),
               )}

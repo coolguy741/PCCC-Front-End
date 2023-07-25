@@ -99,6 +99,7 @@ export interface ContentBuilderProps {
   id?: string;
   currentLang: Language;
   slideIndex: number;
+  image?: string;
   items?:
     | PccServer23ActivitiesActivityDto[]
     | PccServer23CurriculumRecipesCurriculumRecipeDto[]
@@ -110,12 +111,14 @@ export interface ContentBuilderProps {
   en: {
     title?: string;
     topic?: string;
+    image?: string;
     description?: string;
     jsonData: ThemeComponent[][];
   };
   fr: {
     title?: string;
     topic?: string;
+    image?: string;
     description?: string;
     jsonData: ThemeComponent[][];
   };

@@ -178,7 +178,7 @@ export function UploadList({ files, setImage, selectedImage }: any) {
                 }
               })
               .map((el: any) => (
-                <Style.Item>
+                <Style.Item key={`item-${el.url}`}>
                   <figure>
                     <div className="cd-list-image">
                       <MediaImage mediaType={getMediaType(el.fileName)} />

@@ -67,12 +67,43 @@ export function withThemeStore<P extends ThemeComponentProps>(
       [slideIndex, componentIndex, changeEditState],
     );
 
+    const handleChangeListEditState = useCallback(
+      (index: number, amtOrIngdt?: "amt" | "ingdt") => {
+        changeListEditState(index, amtOrIngdt, slideIndex, componentIndex);
+      },
+      [slideIndex, componentIndex, changeListEditState],
+    );
+
     const handleChangeText = useCallback(
       (name: TitleType, newText: string) => {
         changeText(name, newText, undefined, slideIndex, componentIndex);
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [handleChangeEditState],
+    );
+
+    const handleChangeListText = useCallback(
+      (index: number, newText: string, amtOrIngdt?: "amt" | "ingdt") => {
+        changeListText(index, newText, amtOrIngdt, slideIndex, componentIndex);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [handleChangeListEditState],
+    );
+
+    const handleChangeMediaState = useCallback(
+      (name: string) => {
+        changeMediaState(name, slideIndex, componentIndex);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [slideIndex, componentIndex, changeMediaState],
+    );
+
+    const handleChangeMediaPattern = useCallback(
+      (pattern: number) => {
+        changeMediaPattern(pattern, slideIndex, componentIndex);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [slideIndex, componentIndex, changeMediaPattern],
     );
 
     return (
@@ -82,12 +113,12 @@ export function withThemeStore<P extends ThemeComponentProps>(
         changeEditState={handleChangeEditState}
         changeText={handleChangeText}
         viewMode={viewMode}
-        changeListEditState={changeListEditState}
-        changeListText={changeListText}
+        changeListEditState={handleChangeListEditState}
+        changeListText={handleChangeListText}
         deleteListItem={deleteListItem}
         addListItem={addListItem}
-        changeMediaState={changeMediaState}
-        changeMediaPattern={changeMediaPattern}
+        changeMediaState={handleChangeMediaState}
+        changeMediaPattern={handleChangeMediaPattern}
       />
     );
   };

@@ -70,6 +70,7 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
         store.currentLang === Language.FR ? store.slides : store.fr.jsonData,
       ),
     },
+    image: store.image,
     tags: store.tags?.join(","),
   };
 
