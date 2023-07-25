@@ -13,6 +13,9 @@ interface State {
   changeDates: (dates: DayRange) => void;
   filters: Filter[];
   selectedFilters: Filter[] | null;
+  daysOfWeek: string[];
+  addDayOfWeek: (dayOfWeek: string) => void;
+  removeDayOfWeek: (dayOfWeek: string) => void;
   changeSelectedFilters: (selectedFilters: Filter[]) => void;
 }
 
@@ -23,6 +26,15 @@ export const useMealPlannerStore = create<State>()((set) => ({
   changeMealsPerDay: (mealsPerDay) => set(() => ({ mealsPerDay })),
   childrenCount: undefined,
   changeChildrenCount: (childrenCount) => set(() => ({ childrenCount })),
+  daysOfWeek: ["monday", "tuesday", "wednesday", "thursday", "friday"],
+  addDayOfWeek: (dayOfWeek) =>
+    set((state) => ({
+      daysOfWeek: [...state.daysOfWeek, dayOfWeek],
+    })),
+  removeDayOfWeek: (dayOfWeek) =>
+    set((state) => ({
+      daysOfWeek: state.daysOfWeek.filter((day) => day !== dayOfWeek),
+    })),
   dates: null,
   changeDates: (dates) => set(() => ({ dates })),
   filters: [

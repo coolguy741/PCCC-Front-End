@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useFetch } from "../../../../hooks/useFetch";
 import FileDropzone from "../../../FileDropzone";
 import { Icon } from "../../../Global/Icon";
 import { Modal, ModalProps } from "../../../Global/Modal";
@@ -10,20 +11,27 @@ export const RecipesUploadModal: React.FC<Omit<ModalProps, "children">> = ({
   const [file, setFile] = useState<File | undefined>(undefined);
   const [isUploading] = useState<boolean>(false);
   const [isUploaded] = useState<boolean>(false);
+  const { isLoading, data, fetchData } = useFetch<void>(
+    "appMealPlannerImportSpreadsheetCreate",
+  );
 
   const handleClose = () => {
     setFile(undefined);
     props.close();
   };
 
+  const handleUpload = (files: File[]) => {
+    if (files.length) {
+      fetchData?.({ file: files[0] });
+
+      props.close();
+    }
+  };
+
   return (
     <Modal {...props} close={handleClose} size="lg" width="680px">
       <FileDropzone
-        onFilesDropped={(files: File[]) => {
-          if (files.length) {
-            setFile(files[0]);
-          }
-        }}
+        onFilesDropped={handleUpload}
         fileType={{ "application/vnd.ms-excel": [".xls"] }}
         className="mt-8"
         title="or drag and drop"
