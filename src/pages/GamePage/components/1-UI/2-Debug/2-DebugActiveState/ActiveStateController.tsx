@@ -1,5 +1,6 @@
 import { FC, Fragment, memo, useCallback, useState } from "react";
 import { shallow } from "zustand/shallow";
+// @ts-ignore
 import { AchievementKeyType } from "../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
 import DebugButton from "../1-DebugButton/DebugButton";
@@ -20,6 +21,7 @@ const ActiveStateController: FC = () => {
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
+      // @ts-ignore
       activeAchievements: state.activeAchievements,
       activeGardenHotSpot: state.activeGardenHotSpot,
       activeKitchenHotSpot: state.activeKitchenHotSpot,
