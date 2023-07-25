@@ -176,22 +176,10 @@ export function CloudDrivePage() {
   }, [data, search]);
 
   return (
-    <Style.Container>
-      <section className="cloud-drive-folders">
-        <div className="cd-folders-menu">
-          <Typography
-            tag="h2"
-            size="2.5vh"
-            color="neutral-800"
-            weight={600}
-            mb="1vh"
-          >
-            Folders
-          </Typography>
-          <CDHeader type={type} setType={setType} />
-        </div>
-        <div className="cd-files-menu">
-          <div className="cdf-menu-options">
+    <>
+      <Style.Container>
+        <section className="cloud-drive-folders">
+          <div className="cd-folders-menu">
             <Typography
               tag="h2"
               size="2.5vh"
@@ -199,83 +187,99 @@ export function CloudDrivePage() {
               weight={600}
               mb="1vh"
             >
-              Files
+              Folders
             </Typography>
-            <Input
-              placeholder="Search by name"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <div>
-              <button
-                className={`cdf-view-option ${
-                  view === "gallery" ? "active" : ""
-                }`}
-                onClick={() => setView("gallery")}
-              >
-                <CDGallery />
-              </button>
-              <button
-                className={`cdf-view-option ${view === "list" ? "active" : ""}`}
-                onClick={() => setView("list")}
-              >
-                <CDList />
-              </button>
-              <input
-                type="file"
-                id="file"
-                ref={inputFile}
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-              />
-              <button className="cdf-upload" onClick={handleClick}>
-                <CDAdd />
-                <Typography
-                  color="white"
-                  weight={600}
-                  size={convertToRelativeUnit(15, "vh")}
-                >
-                  Upload
-                </Typography>
-              </button>
-            </div>
+            <CDHeader type={type} setType={setType} />
           </div>
-          <article className="cd-content">
-            {view === "list" ? (
-              <CDListView
-                data={displayedResults}
-                type={type}
-                handleDelete={handleDelete}
-                setPreviewUrl={setPreviewUrl}
-                setShowPreviewModal={toggle}
-                setFileType={setFileType}
-                setFileName={setFileName}
+          <div className="cd-files-menu">
+            <div className="cdf-menu-options">
+              <Typography
+                tag="h2"
+                size="2.5vh"
+                color="neutral-800"
+                weight={600}
+                mb="1vh"
+              >
+                Files
+              </Typography>
+              <Input
+                placeholder="Search by name"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
-            ) : (
-              <CDGalleryView
-                data={displayedResults}
-                type={type}
-                handleDelete={handleDelete}
-                setPreviewUrl={setPreviewUrl}
-                setShowPreviewModal={toggle}
-                setFileType={setFileType}
-                setFileName={setFileName}
-              />
-            )}
-          </article>
-        </div>
-      </section>
-      <CloudStorage
-        className="cloud-drive-storage"
-        type={type}
-        sizeOccupied={data.stats.sizeOccupied}
-      />
+              <div>
+                <button
+                  className={`cdf-view-option ${
+                    view === "gallery" ? "active" : ""
+                  }`}
+                  onClick={() => setView("gallery")}
+                >
+                  <CDGallery />
+                </button>
+                <button
+                  className={`cdf-view-option ${
+                    view === "list" ? "active" : ""
+                  }`}
+                  onClick={() => setView("list")}
+                >
+                  <CDList />
+                </button>
+                <input
+                  type="file"
+                  id="file"
+                  ref={inputFile}
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                <button className="cdf-upload" onClick={handleClick}>
+                  <CDAdd />
+                  <Typography
+                    color="white"
+                    weight={600}
+                    size={convertToRelativeUnit(15, "vh")}
+                  >
+                    Upload
+                  </Typography>
+                </button>
+              </div>
+            </div>
+            <article className="cd-content">
+              {view === "list" ? (
+                <CDListView
+                  data={displayedResults}
+                  type={type}
+                  handleDelete={handleDelete}
+                  setPreviewUrl={setPreviewUrl}
+                  setShowPreviewModal={toggle}
+                  setFileType={setFileType}
+                  setFileName={setFileName}
+                />
+              ) : (
+                <CDGalleryView
+                  data={displayedResults}
+                  type={type}
+                  handleDelete={handleDelete}
+                  setPreviewUrl={setPreviewUrl}
+                  setShowPreviewModal={toggle}
+                  setFileType={setFileType}
+                  setFileName={setFileName}
+                />
+              )}
+            </article>
+          </div>
+        </section>
+        <CloudStorage
+          className="cloud-drive-storage"
+          type={type}
+          sizeOccupied={data.stats.sizeOccupied}
+        />
+      </Style.Container>
       {modal && previewUrl && (
         <Modal modal={modal} toggle={toggle}>
           <PreviewModal url={previewUrl} type={fileType} fileName={fileName} />
         </Modal>
       )}
-    </Style.Container>
+    </>
   );
 }
 

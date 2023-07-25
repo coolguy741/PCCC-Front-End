@@ -58,8 +58,8 @@ const Style = {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
-    height: 80%;
+    width: 80vw;
+    height: 80vh;
 
     .img-mask {
       border-radius: 20px;
@@ -68,14 +68,12 @@ const Style = {
       justify-content: center;
       align-items: center;
       position: relative;
-      width: 100%;
       height: 100%;
 
       img {
-        object-fit: contain;
         border-radius: 20px;
         width: auto;
-        height: auto;
+        height: 100%;
       }
     }
 
