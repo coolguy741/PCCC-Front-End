@@ -7,7 +7,12 @@ import {
 } from "../../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 
-export type AchievementColorTypes = "blue" | "green" | "red" | "peach" | "grey";
+export type AchievementColorTypes =
+  | "blue"
+  | "green"
+  | "red"
+  | "orange"
+  | "grey";
 
 interface AchievementItemProps {
   status: boolean;
@@ -43,7 +48,7 @@ const AchievementItem: FC<AchievementItemProps> = ({
           alt={item}
           draggable={false}
           className="badge-bg"
-          src={`/game_assets/ui_images/achievements/achievement_badge_bgs/${type}/${badgeColor}_${type}_badge.webp`}
+          src={`/game_assets/ui_images/achievements/achievement_badge_bgs/${type}/badge_${type}_${badgeColor}.webp`}
         />
         {status && (
           <img

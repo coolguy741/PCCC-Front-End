@@ -110,7 +110,7 @@ const AchievementItems: FC = () => {
         item in activeGardenConfidentAchievements ||
         item in activeKitchenConfidentAchievements
       ) {
-        return "peach";
+        return "orange";
       } else {
         return "red";
       }

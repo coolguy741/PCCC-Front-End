@@ -56,7 +56,7 @@ const AchievementItemsStyleContainer = styled.div`
         align-items: center;
         justify-content: center;
         .badge-bg {
-          width: 100%;
+          width: 105%;
           height: 100%;
           border-radius: 1vw;
           position: relative;
@@ -69,9 +69,9 @@ const AchievementItemsStyleContainer = styled.div`
           position: absolute;
         }
         .badge-title {
-          width: 70%;
+          width: 65%;
           /* height: 29%; */
-          bottom: 1.75vw;
+          bottom: 2.2vw;
           position: absolute;
         }
       }
