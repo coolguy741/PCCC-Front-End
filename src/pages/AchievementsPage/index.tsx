@@ -1,54 +1,35 @@
 import styled from "styled-components";
-import { Achievement } from "../../components/Achievement";
-import mockData from "../../lib/mockData/achievements.json";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
 export const AchievementsPage = () => {
-  return (
-    <Style.PageContainer>
-      <h1>Achievement</h1>
-      <Style.SubContainer>
-        <h3>Bagdes</h3>
-        <Style.AchievementsContainer>
-          {mockData.badges.map((achievement, index) => (
-            <Achievement
-              key={index}
-              title={achievement.title}
-              content={achievement.content}
-            />
-          ))}
-        </Style.AchievementsContainer>
-      </Style.SubContainer>
-      <Style.SubContainer>
-        <h3>In progress</h3>
-        <Style.AchievementsContainer>
-          {mockData.inProgress.map((achievement, index) => (
-            <Achievement
-              key={index}
-              title={achievement.title}
-              content={achievement.content}
-              progressValue={achievement.progressValue}
-            />
-          ))}
-        </Style.AchievementsContainer>
-      </Style.SubContainer>
-    </Style.PageContainer>
-  );
+  return <Style.PageContainer />;
 };
 
 const Style = {
   PageContainer: styled.div`
+    padding: 7vh 32px 2.5vh 64px;
     display: flex;
+    height: 100vh;
     flex-direction: column;
-    gap: 30px;
-  `,
-  SubContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  `,
-  AchievementsContainer: styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    position: relative;
+    max-height: 100vh;
+    font-family: "Noir Std";
+    font-style: normal;
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")};
+
+    hgroup {
+      display: flex;
+      align-items: center;
+      gap: 0.5vw;
+      margin-bottom: 0.5vh;
+    }
+
+    h1 {
+      color: var(--orange-500);
+
+      img {
+        height: 3.5vh;
+      }
+    }
   `,
 };
