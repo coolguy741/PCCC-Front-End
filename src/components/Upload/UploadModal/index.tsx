@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -152,7 +152,12 @@ export function UploadModal({
 
   return (
     <Modal modal={modal} toggle={toggle}>
-      <Style.Container>
+      <Style.Container
+        initial={{ opacity: 0, y: "-25px", scale: 0.99 }}
+        animate={{ opacity: 1, y: "0", scale: 1 }}
+        exit={{ opacity: 0, y: "-25px", scale: 0.99 }}
+        transition={{ delay: 0.3 }}
+      >
         <Typography tag="h1" weight={600} color="orange-500" className="h1">
           <Icon name="cloud-orange-outlined" />
           Cloud Drive
@@ -184,7 +189,7 @@ export function UploadModal({
 }
 
 const Style = {
-  Container: styled.section`
+  Container: styled(motion.section)`
     width: 60vw;
     height: 83vh;
     ${() => animatedbackgroundGradient("#C4E8FF", "#D2F7E5")}
