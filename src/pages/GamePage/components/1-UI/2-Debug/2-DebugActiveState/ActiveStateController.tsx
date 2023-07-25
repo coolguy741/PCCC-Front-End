@@ -1,7 +1,6 @@
 import { FC, Fragment, memo, useCallback, useState } from "react";
 import { shallow } from "zustand/shallow";
-// @ts-ignore
-import { AchievementKeyType } from "../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
+import { AchievementAllKeyType } from "../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
 import DebugButton from "../1-DebugButton/DebugButton";
 import ActiveStateControllerStyleContainer from "./ActiveStateControllerStyleContainer";
@@ -15,14 +14,13 @@ const ActiveStateController: FC = () => {
     activeCamera,
     setActiveCamera,
     activeLocation,
-    activeAchievements,
+    activeAllAchievements,
     activeGardenHotSpot,
     activeKitchenHotSpot,
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
-      // @ts-ignore
-      activeAchievements: state.activeAchievements,
+      activeAllAchievements: state.activeAllAchievements,
       activeGardenHotSpot: state.activeGardenHotSpot,
       activeKitchenHotSpot: state.activeKitchenHotSpot,
       activeCamera: state.activeCamera,
@@ -66,13 +64,13 @@ const ActiveStateController: FC = () => {
                 <th>Active Achievements</th>
                 <td title="Achievement Status">
                   <ul>
-                    {Object.keys(activeAchievements).map(
+                    {Object.keys(activeAllAchievements).map(
                       (achievement: string) => {
                         return (
                           <li key={achievement}>
                             {achievement}:{" "}
-                            {activeAchievements[
-                              achievement as AchievementKeyType
+                            {activeAllAchievements[
+                              achievement as AchievementAllKeyType
                             ]
                               ? "Yes"
                               : "No"}
