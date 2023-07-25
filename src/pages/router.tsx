@@ -4,6 +4,7 @@ import { PageTitleLayout } from "../components/Global/PageTitleLayout";
 import { AuthLayout } from "../layouts/AuthLayout/authLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { ManageUsersLayout } from "../layouts/DashboardLayout/ManageUsersLayout";
+import { FooterLinksLayout } from "../layouts/FooterLinksLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
@@ -97,6 +98,38 @@ export const router = createBrowserRouter([
     errorElement: <ErrorBoundary />,
   },
   { path: "/landing", element: <TestLandingPage /> },
+  {
+    path: "/terms&conditions",
+    element: (
+      <FooterLinksLayout>
+        <p></p>
+      </FooterLinksLayout>
+    ),
+  },
+  {
+    path: "/privacy-policy",
+    element: (
+      <FooterLinksLayout>
+        <p></p>
+      </FooterLinksLayout>
+    ),
+  },
+  {
+    path: "/accessibility",
+    element: (
+      <FooterLinksLayout>
+        <p></p>
+      </FooterLinksLayout>
+    ),
+  },
+  {
+    path: "/contact-us",
+    element: (
+      <FooterLinksLayout>
+        <p></p>
+      </FooterLinksLayout>
+    ),
+  },
   {
     path: "/signin",
     element: (

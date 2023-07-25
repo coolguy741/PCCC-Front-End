@@ -1,5 +1,6 @@
 import Account from "./Account/account";
 import AltGrapeBG from "./AltGrapeBG/altGrapeBG";
+import AltAppleBG from "./AppleBG/altAppleBG";
 import AppleBG from "./AppleBG/appleBG";
 import ArrowLeft from "./ArrowLeft/arrowLeft";
 import ArrowRight from "./ArrowRight/arrowRight";
@@ -32,4 +33,5 @@ export {
   Search,
   Account,
   YellowFruitBG,
+  AltAppleBG,
 };
