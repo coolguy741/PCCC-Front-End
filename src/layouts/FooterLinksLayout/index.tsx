@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { Header } from "../shared/Header/header";
 import { SideMenu } from "../shared/SideMenu/sideMenu";
@@ -10,7 +11,7 @@ interface Props {
 
 export function FooterLinksLayout({ children }: Props) {
   return (
-    <Style.Container className="dashboard-layout">
+    <Style.Container className="footer-links-layout">
       <SideMenu />
       <Header />
       <main>
@@ -24,6 +25,7 @@ export function FooterLinksLayout({ children }: Props) {
 const Style = {
   Container: styled.div`
     width: 100%;
+    min-height: 100vh;
 
     main {
       padding: 10vh ${convertToRelativeUnit(32, "vw")} 2.5vh
@@ -33,5 +35,7 @@ const Style = {
         var(--dashboard-menu-width-medium) - ${convertToRelativeUnit(32, "vw")}
       );
     }
+
+    ${() => animatedbackgroundGradient("var(--blue-200)", "#fff9e0")};
   `,
 };
