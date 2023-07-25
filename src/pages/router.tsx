@@ -4,12 +4,12 @@ import { PageTitleLayout } from "../components/Global/PageTitleLayout";
 import { AuthLayout } from "../layouts/AuthLayout/authLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/dashboardLayout";
 import { ManageUsersLayout } from "../layouts/DashboardLayout/ManageUsersLayout";
-import { FooterLinksLayout } from "../layouts/FooterLinksLayout";
 import { getAuthenticatedUser } from "../lib/api/helpers/getAuthenticatedUser";
 import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
 import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
+import { AccessibilityPage } from "./AccessibilityPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
 import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
@@ -40,6 +40,7 @@ import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { CloudDrivePage, cloudDrivePageLoader } from "./CloudDrivePage";
+import { ContactUsPage } from "./ContactUsPage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
@@ -65,6 +66,7 @@ import { MealtimeMomentsPreviewPage } from "./MealtimeMomentsPage/Preview";
 import { MealtimeMomentPrintPage } from "./MealtimeMomentsPage/Print";
 import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
+import { PrivacyPolicyPage } from "./PrivacyPolicyPage";
 import { ProfilePage } from "./Profile";
 import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 import { RecipesPage } from "./RecipeBuilderPage";
@@ -81,6 +83,7 @@ import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
 import { LessonAssessmentPage } from "./ReportsPage/LessonAssessment";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
+import { TCPage } from "./T&CPage";
 import { TempHomePage } from "./TempHomePage";
 import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
@@ -100,35 +103,19 @@ export const router = createBrowserRouter([
   { path: "/landing", element: <TestLandingPage /> },
   {
     path: "/terms&conditions",
-    element: (
-      <FooterLinksLayout>
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <TCPage />,
   },
   {
     path: "/privacy-policy",
-    element: (
-      <FooterLinksLayout>
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <PrivacyPolicyPage />,
   },
   {
     path: "/accessibility",
-    element: (
-      <FooterLinksLayout>
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <AccessibilityPage />,
   },
   {
     path: "/contact-us",
-    element: (
-      <FooterLinksLayout>
-        <p></p>
-      </FooterLinksLayout>
-    ),
+    element: <ContactUsPage />,
   },
   {
     path: "/signin",
