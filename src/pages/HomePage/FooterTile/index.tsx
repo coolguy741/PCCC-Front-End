@@ -14,16 +14,16 @@ export const FooterTile = () => {
       </h2>
       <nav>
         <div>
-          <Link to="terms&conditions">Terms & Conditions</Link>
-          <Link to="accessibility">Accessibility</Link>
+          <Link to="/terms">Terms & Conditions</Link>
+          <Link to="/accessibility">Accessibility</Link>
         </div>
         <div>
-          <Link to="privacy-policy">Privacy Policy</Link>
-          <Link to="contact-us">Contact Us</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/contact">Contact Us</Link>
         </div>
       </nav>
       <p className="footer-copyright">
-        ©2022 President’s Choice Children's Charity. All Rights Reserved.
+        ©2022 President's Choice Children's Charity. All Rights Reserved.
       </p>
     </Style.Container>
   );
