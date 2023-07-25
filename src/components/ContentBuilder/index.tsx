@@ -181,7 +181,10 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
             onDragEnd={onDragEnd}
             onDragStart={onDragStart}
           >
-            <ContentBuilderCards draggingComponent={draggingComponent} />
+            <ContentBuilderCards
+              draggingComponent={draggingComponent}
+              isForAssessments={currentStep === 2}
+            />
             <Style.Slide>
               <ContentTemplate
                 handleDelete={handleDelete}

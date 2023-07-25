@@ -1,24 +1,59 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
+
 import Button from "../../../components/Button";
 import { LanguageToggle } from "../../../components/ContentBuilder/Components/ContentInfo/LangToggle";
 import { Tags } from "../../../components/ContentBuilder/Components/ContentInfo/Tag";
-import { MedaltimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
+import { MealtimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
 import { BackButton } from "../../../components/Global/BackButton";
 import { Typography } from "../../../components/Global/Typography";
+import { useFetch } from "../../../hooks/useFetch";
+import { PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
+import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
+import { Spinner } from "../../../components/Global/Spinner";
 
 export const CreateMealtimeMomentPage = () => {
   const navigate = useNavigate();
-  const { title, description, setTitle, setDescription, currentLang, setLang } =
-    useMealtimeMomentsStore();
-  const [_title, _setTitle] = useState(title || "");
-  const [_description, _setDescription] = useState(description || "");
+  const { id: mealtimeId } = useParams();
+  const {
+    id,
+    currentLang,
+    setTitle,
+    setDescription,
+    setLang,
+    setDetail,
+    concurrencyStamp,
+    ...state
+  } = useMealtimeMomentsStore();
+  const { isLoading, data } =
+    useFetch<PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appMealtimeMomentsDetail",
+      {},
+      undefined,
+      mealtimeId ? true : false,
+      mealtimeId as string,
+    );
+  const { data: newMealtimeMoment, fetchData: createMealTimeMoment } =
+    useFetch<PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appMealtimeMomentsCreate",
+      {},
+    );
+  const { data: updatedMealtimeMoment, fetchData: updateMealTimeMoment } =
+    useFetch<PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appMealtimeMomentsUpdate",
+      {},
+    );
+
+  useEffect(() => {
+    data && setDetail(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   const [tags, setTags] = useState(["foraging", "seeds"]);
 
   const addTag = (tag: string) => {
@@ -33,14 +68,41 @@ export const CreateMealtimeMomentPage = () => {
     console.log("Save and continue");
   };
 
-  const handleCreate = () => {
-    console.log("Save and exit");
+  const handleCreate = async () => {
+    const { en, fr } = state;
+    const data = {
+      image: "/images/chocolate.jpg",
+      english: {
+        title: en.title ?? "",
+        featureDate: new Date().toISOString(),
+        description: en.description,
+      },
+      french: {
+        title: fr.title ?? "",
+        featureDate: new Date().toISOString(),
+        description: fr.description,
+      },
+    };
+
+    id
+      ? updateMealTimeMoment?.(
+          {
+            ...data,
+            concurrencyStamp: concurrencyStamp || "",
+          },
+          undefined,
+          undefined,
+          id,
+        )
+      : createMealTimeMoment?.(data);
   };
 
   useEffect(() => {
-    setTitle(_title);
-    setDescription(_description);
-  }, [_title, _description]);
+    if (updatedMealtimeMoment || newMealtimeMoment) {
+      navigate("/dashboard/mealtime-moments");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newMealtimeMoment, updatedMealtimeMoment]);
 
   return (
     <Style.Container>
@@ -50,7 +112,7 @@ export const CreateMealtimeMomentPage = () => {
       </div>
 
       <Typography variant="h4" as="h4" weight="semi-bold">
-        Create mealtime moment
+        {mealtimeId ? "Edit" : "Create"} mealtime moment
       </Typography>
 
       <Style.Info>
@@ -61,14 +123,13 @@ export const CreateMealtimeMomentPage = () => {
           <Tags tags={tags} addTag={addTag} deleteTag={deleteTag} />
         </div>
       </Style.Info>
-      <Style.ContentBuilder>
-        <MedaltimeMomentTitle
-          setTitle={_setTitle}
-          setDescription={_setDescription}
-          title={title}
-          description={description}
-        />
-      </Style.ContentBuilder>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Style.ContentBuilder>
+          <MealtimeMomentTitle state={state[currentLang].componentState} />
+        </Style.ContentBuilder>
+      )}
       <Style.ActionContainer>
         <div className="flex">
           <Button variant="yellow" className="mr-4" onClick={handleCreate}>

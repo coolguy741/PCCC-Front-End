@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { useUIStore } from "./../stores/uiStore";
 
 import {
   PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
@@ -8,7 +9,7 @@ import {
   PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
 } from "../lib/api/api";
 import { STORAGE_KEY_JWT } from "../pages/consts";
-import { ContentBuilderType } from "../pages/types";
+import { ContentBuilderType, Language } from "../pages/types";
 import {
   ContentBuilderStoreState,
   useActivitiesStore,
@@ -33,12 +34,13 @@ const makeResponse = (
 ) => {
   return {
     slides: JSON.parse(
-      response[currentLang === "en" ? "english" : "french"]?.jsonData || "{}",
+      response[currentLang === Language.EN ? "english" : "french"]?.jsonData ||
+        "{}",
     ),
     id,
     concurrencyStamp:
-      response[currentLang === "en" ? "english" : "french"]?.concurrencyStamp ||
-      "",
+      response[currentLang === Language.EN ? "english" : "french"]
+        ?.concurrencyStamp || "{}",
     en: {
       title: response.english?.title ?? "",
       topic: response.english?.topic ?? "",
@@ -59,15 +61,16 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
     english: {
       ...store.en,
       jsonData: JSON.stringify(
-        store.currentLang === "en" ? store.slides : store.en.jsonData,
+        store.currentLang === Language.EN ? store.slides : store.en.jsonData,
       ),
     },
     french: {
       ...store.fr,
       jsonData: JSON.stringify(
-        store.currentLang === "fr" ? store.slides : store.fr.jsonData,
+        store.currentLang === Language.FR ? store.slides : store.fr.jsonData,
       ),
     },
+    image: store.image,
     tags: store.tags?.join(","),
   };
 
@@ -82,13 +85,13 @@ export const useContentActions = () => {
   const activityStore = useActivitiesStore();
   const recipeStore = useRecipesStore();
   const themeBuilderStore = useThemeBuilderStore();
+  const { lang: currentLang } = useUIStore();
 
   const header = {
     headers: {
       Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
     },
   };
-  const currentLang = localStorage.getItem("lang") ?? "en";
 
   const getContent = useCallback(
     async (type: ContentBuilderType) => {

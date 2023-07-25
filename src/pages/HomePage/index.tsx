@@ -33,8 +33,8 @@ export const HomePage = () => {
         <SwiperSlide>
           <PowerFullKidsTile />
         </SwiperSlide>
-        {dashboard_tiles.map((tile) => (
-          <SwiperSlide>
+        {dashboard_tiles.map((tile, index) => (
+          <SwiperSlide key={`tile-${index}`}>
             <AnimatedTile key={tile.titleFirstLine} tile={tile} />
           </SwiperSlide>
         ))}

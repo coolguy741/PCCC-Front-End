@@ -4,7 +4,7 @@ import { useCallback, useEffect, useReducer, useRef } from "react";
 
 import { BASE_API_URL } from "../lib/api/helpers/consts";
 import { STORAGE_KEY_JWT } from "../pages/consts";
-import { Api } from "./../lib/api/api";
+import { Api, QueryParamsType } from "./../lib/api/api";
 
 interface State<T> {
   data?: T;
@@ -25,12 +25,13 @@ type ApiName = keyof Api<any>["api"];
 export function useFetch<T = unknown>(
   handler: ApiName,
   body?: any,
-  params?: URLSearchParams,
+  params?: { query: QueryParamsType },
   initialLoad?: boolean,
+  id?: string,
 ): State<T> & {
   fetchData?: (
     body?: any,
-    params?: URLSearchParams,
+    params?: { query: QueryParamsType },
     manualReload?: boolean,
     id?: string,
   ) => Promise<void>;
@@ -66,7 +67,7 @@ export function useFetch<T = unknown>(
   const fetchData = useCallback(
     async (
       fetchBody?: any,
-      fetchParams?: URLSearchParams,
+      fetchParams?: { query: QueryParamsType },
       manualReload?: boolean,
       id?: string,
     ) => {
@@ -120,7 +121,7 @@ export function useFetch<T = unknown>(
   useEffect(() => {
     // Do nothing if the url is not given
     if (!handler) return;
-    initialLoad && void fetchData();
+    initialLoad && void fetchData(undefined, undefined, undefined, id);
 
     // Use the cleanup function for avoiding a possibly...
     // ...state update after the component was unmounted

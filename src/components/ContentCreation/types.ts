@@ -18,6 +18,8 @@ export enum ComponentViewMode {
 export interface CCFormat {
   mode: ComponentViewMode;
   text: string;
+  src?: string;
+  patternChoice?: number;
   aMode?: string;
   iMode?: string;
 }

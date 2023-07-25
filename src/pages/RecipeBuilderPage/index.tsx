@@ -2,7 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useFetch } from "../../hooks/useFetch";
-import { PccServer23RecipesRecipeDto } from "../../lib/api/api";
+import {
+  PccServer23RecipesRecipeDto,
+  QueryParamsType,
+} from "../../lib/api/api";
 import { useRecipesStore } from "../../stores/contentBuilderStore";
 
 export const RecipesPage = () => {
@@ -10,6 +13,7 @@ export const RecipesPage = () => {
   const [isNeededToReload, setIsNeededToReload] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [query, setQuery] = useState<QueryParamsType>();
 
   const { fetchData: deleteRecipe } = useFetch(
     "appCurriculumRecipesDelete",
@@ -18,7 +22,7 @@ export const RecipesPage = () => {
   const { isLoading, data, fetchData } = useFetch<{
     total: number;
     items: PccServer23RecipesRecipeDto[];
-  }>("appCurriculumRecipesList", {}, undefined, true);
+  }>("appCurriculumRecipesList", {}, { query: { ...(query ?? {}) } }, true);
 
   const handleSelectionChange = (id: string, isSelected: boolean) => {
     setSelectedIds((prevIds) => {
@@ -39,7 +43,8 @@ export const RecipesPage = () => {
   }, [selectedIds]);
 
   useEffect(() => {
-    isNeededToReload && fetchData?.(undefined, undefined, true);
+    isNeededToReload &&
+      fetchData?.(undefined, { query: { ...(query ?? {}) } }, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNeededToReload]);
 
@@ -52,6 +57,18 @@ export const RecipesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  useEffect(() => {
+    query && setIsNeededToReload(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
+  const handleSortChange = (value: string) => {
+    setQuery({
+      ...query,
+      Sorting: value,
+    });
+  };
+
   return (
     <ContentListAdminPageTemplate
       title={"Recipe"}
@@ -59,6 +76,7 @@ export const RecipesPage = () => {
       listData={items ?? []}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
+      handleSortChange={handleSortChange}
       isLoading={isDeleting || isLoading}
     />
   );

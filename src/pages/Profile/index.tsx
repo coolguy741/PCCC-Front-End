@@ -34,8 +34,7 @@ export const ProfilePage = () => {
   const { api } = useAPI();
   const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
   const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
-  const user = useUserStore((state) => state.user);
-  const setUser = useUserStore((state) => state.setUser);
+  const { user, setUser } = useUserStore();
 
   const getProfile = useCallback(async () => {
     const response = await api.appUserUserProfileList({
@@ -47,7 +46,7 @@ export const ProfilePage = () => {
     if (response.data) {
       setUser(response.data);
     }
-  }, [api, setUser]);
+  }, [setUser]);
 
   const openGroupsModal = () => {
     setIsOpenGroupsModal(() => true);

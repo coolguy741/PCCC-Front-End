@@ -1,30 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
+import { Language } from "../../../pages/types";
+import { useUIStore } from "../../../stores/uiStore";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export const LanguageToggle = () => {
-  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
+  const { lang, setLanguage } = useUIStore();
 
   useEffect(() => {
     const currentDomain = window.location.hostname;
     if (currentDomain === "enfantsfortsmidables.ca") {
-      localStorage.setItem("lang", "fr");
-      setLang("fr");
+      localStorage.setItem("lang", Language.FR);
+      setLanguage(Language.FR);
     } else {
-      localStorage.setItem("lang", "en");
-      setLang("en");
+      localStorage.setItem("lang", Language.EN);
+      setLanguage(Language.EN);
     }
     window.dispatchEvent(new Event("storage"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleLanguage = () => {
-    if (lang === "en") {
-      setLang("fr");
-      localStorage.setItem("lang", "fr");
+    if (lang === Language.EN) {
+      setLanguage(Language.FR);
+      localStorage.setItem("lang", Language.FR);
     }
-    if (lang === "fr") {
-      setLang("en");
-      localStorage.setItem("lang", "en");
+    if (lang === Language.FR) {
+      setLanguage(Language.EN);
+      localStorage.setItem("lang", Language.EN);
     }
     window.dispatchEvent(new Event("storage"));
   };
@@ -32,7 +35,7 @@ export const LanguageToggle = () => {
   return (
     <Style.Toggle
       onClick={toggleLanguage}
-      className={lang === "en" ? "inactive" : "active"}
+      className={lang === Language.EN ? "inactive" : "active"}
     >
       <div className="slider" />
       <div>

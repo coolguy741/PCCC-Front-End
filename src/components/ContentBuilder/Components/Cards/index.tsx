@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
@@ -154,7 +155,18 @@ export const components: ThemeComponent[] = [
 
 export const ContentBuilderCards: React.FC<{
   draggingComponent: number | undefined;
-}> = ({ draggingComponent }) => {
+  isForAssessments?: boolean;
+}> = ({ draggingComponent, isForAssessments }) => {
+  const contentComponents = useMemo(
+    () =>
+      components.filter((component) =>
+        isForAssessments
+          ? component.title.includes("Assessment")
+          : !component.title.includes("Assessment"),
+      ),
+    [isForAssessments],
+  );
+
   return (
     <Droppable droppableId="preview-drop" isDropDisabled={true}>
       {(dropProvided) => (
@@ -163,7 +175,7 @@ export const ContentBuilderCards: React.FC<{
           ref={dropProvided.innerRef}
         >
           <Scrollable tag="div">
-            {components.map((component, index) => (
+            {contentComponents.map((component, index) => (
               <Draggable
                 draggableId={`component-${index}`}
                 index={index}
@@ -179,7 +191,7 @@ export const ContentBuilderCards: React.FC<{
                       className="icon-container"
                     >
                       {snapShot.isDragging && draggingComponent === index
-                        ? components[draggingComponent].preview
+                        ? contentComponents[draggingComponent].preview
                         : component.preview}
                     </div>
                   </Style.Card>

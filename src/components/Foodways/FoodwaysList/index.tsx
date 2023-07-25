@@ -16,7 +16,7 @@ export const FoodwaysList: React.FC<FoodwaysListProps> = ({
   return (
     <Style.Container>
       {listData.map((item) => (
-        <div className="list-item">
+        <div className="list-item" key={item.id}>
           <FoodwaysListItem
             key={item.id}
             data={item}

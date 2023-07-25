@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from "js-cookie";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";

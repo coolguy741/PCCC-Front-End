@@ -23,7 +23,7 @@ export function Media({
 }) {
   const { toggle, modal } = useModal();
   const { shufflePattern, currentPattern } = usePatterns(
-    media?.patternChoice,
+    media?.patternChoice ?? 0,
     changePattern,
   );
 
@@ -92,7 +92,7 @@ const Style = {
       object-fit: cover;
       width: 100%;
       height: auto;
-      object-position: center;
+      object-positi/on: center;
     }
 
     .empty-img {

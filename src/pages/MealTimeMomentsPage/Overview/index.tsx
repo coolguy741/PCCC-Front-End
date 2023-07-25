@@ -1,13 +1,34 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+
 import Button from "../../../components/Button";
+import { MealtimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
 import { BackButton } from "../../../components/Global/BackButton";
 import { CalendarModal } from "../../../components/Global/CalendarModal";
-import { MealtimeMomentTitle } from "../../../components/MealtimeMoment/MealtimeMomentTitle";
+import { useFetch } from "../../../hooks/useFetch";
+import { PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
+import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
+import { useUIStore } from "../../../stores/uiStore";
 
 export const MealtimeMomentOverviewPage = () => {
   const [showCalendarModal, setShowCalendarModal] = useState(false);
+  const { id } = useParams();
+  const { isLoading, data } =
+    useFetch<PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appMealtimeMomentsDetail",
+      {},
+      undefined,
+      true,
+      id as string,
+    );
+  const { lang } = useUIStore();
+  const { setDetail, ...state } = useMealtimeMomentsStore();
+
+  useEffect(() => {
+    data && setDetail(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <>
@@ -19,22 +40,33 @@ export const MealtimeMomentOverviewPage = () => {
             </Link>
             <div className="content__header__buttons">
               <Link to="edit">
-                <Button variant="yellow">Edit</Button>
+                <Button variant="yellow" disabled={isLoading || !data}>
+                  Edit
+                </Button>
               </Link>
-              <Button variant="yellow">Publish</Button>
-              <Link to="print">
-                <Button variant="yellow">Print</Button>
+              <Button disabled={isLoading || !data} variant="yellow">
+                Publish
+              </Button>
+              <Link to="print" target="_blank">
+                <Button disabled={isLoading || !data} variant="yellow">
+                  Print
+                </Button>
               </Link>
             </div>
           </div>
           <div className="content__body">
             <MealtimeMomentTitle
-              mealtimeMoment={{ title: "Title", info: "Description." }}
+              state={state[lang].componentState}
+              isEditable={false}
             />
           </div>
           <div className="content__bottom">
             <div className="popup">
-              <img src="/images/icons/info.svg" width="80" />
+              <img
+                src={state[lang]?.image}
+                alt={state[lang]?.title}
+                width="80"
+              />
               <p>
                 Learn more about gardening in{" "}
                 <span>The places you will grow!</span> or check out this fun

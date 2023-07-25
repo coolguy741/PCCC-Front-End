@@ -22,7 +22,7 @@ const initialState: ContentBuilderProps = {
   id: undefined,
   slideIndex: 0,
   slides: [[{ ...components[0] }]],
-  currentLang: "en",
+  currentLang: Language.EN,
   en: {
     jsonData: [],
   },
@@ -93,7 +93,7 @@ const createStore = () =>
         currentStep: 0,
         en: { jsonData: slides },
         slides: [[{ ...components[0] }]],
-        currentLang: "fr",
+        currentLang: Language.FR,
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
       set(({ slides, currentLang, ...state }) => ({
@@ -108,6 +108,15 @@ const createStore = () =>
             state[currentLang].topic = (
               componentState as Record<string, CCFormat>
             ).tag.text;
+            state.image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
+            state[Language.EN].image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
+            state[Language.FR].image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
           }
 
           return slide.map((component, index) => ({

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { ContentListAdminPageTemplate } from "../../components/Global/ContentListAdminPageTemplate";
 import { useFetch } from "../../hooks/useFetch";
-import { PccServer23ThemesThemeDto } from "../../lib/api/api";
+import { PccServer23ThemesThemeDto, QueryParamsType } from "../../lib/api/api";
 import { useThemeStore } from "../../stores/contentBuilderStore";
 
 export const Themes = () => {
@@ -10,12 +10,13 @@ export const Themes = () => {
   const [isNeededToReload, setIsNeededToReload] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [query, setQuery] = useState<QueryParamsType>();
 
   const { fetchData: deleteTheme } = useFetch("appThemesDelete", {});
   const { isLoading, data, fetchData } = useFetch<{
     total: number;
     items: PccServer23ThemesThemeDto[];
-  }>("appThemesList", {}, undefined, true);
+  }>("appThemesList", {}, { query: { ...(query ?? {}) } }, true);
 
   const handleSelectionChange = (id: string, isSelected: boolean) => {
     setSelectedIds((prevIds) => {
@@ -36,7 +37,8 @@ export const Themes = () => {
   }, [selectedIds]);
 
   useEffect(() => {
-    isNeededToReload && fetchData?.(undefined, undefined, true);
+    isNeededToReload &&
+      fetchData?.(undefined, { query: { ...(query ?? {}) } }, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNeededToReload]);
 
@@ -48,12 +50,26 @@ export const Themes = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    query && setIsNeededToReload(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
+  const handleSortChange = (value: string) => {
+    setQuery({
+      ...query,
+      Sorting: value,
+    });
+  };
+
   return (
     <ContentListAdminPageTemplate
       title={"Themes"}
       selectsGroup={["Theme", "Sort"]}
       listData={items ?? []}
       onSelectionChange={handleSelectionChange}
+      handleSortChange={handleSortChange}
       handleDelete={handleDelete}
       isLoading={isDeleting || isLoading}
     />

@@ -4,8 +4,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useContentActions } from "../../../../hooks/useContentActions";
-import { ContentBuilderType, ThemeProperties } from "../../../../pages/types";
+import {
+  ContentBuilderType,
+  Language,
+  ThemeProperties,
+} from "../../../../pages/types";
 import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
+import { useUIStore } from "../../../../stores/uiStore";
 import Button from "../../../Button";
 import { Typography } from "../../../Global/Typography";
 import { ConfirmModal } from "../ConfirmModal";
@@ -25,7 +30,7 @@ export const ContentEditorActions: React.FC<Props> = ({
   const { saveContent, updateIdInStore } = useContentActions();
   const { currentStep, maxPageCount, changeStep } = useThemeBuilderStore();
   const navigate = useNavigate();
-  const currentLang = localStorage.getItem("lang") ?? "en";
+  const { lang } = useUIStore();
 
   const handleSaveAndContinue = async () => {
     if (type !== ContentBuilderType.THEMES || currentStep === 0) {
@@ -33,7 +38,7 @@ export const ContentEditorActions: React.FC<Props> = ({
 
       response &&
         updateIdInStore(
-          response?.[currentLang === "en" ? "english" : "french"]?.id,
+          response?.[lang === Language.EN ? "english" : "french"]?.id,
           type,
         );
     } else if (currentStep === 1 && type === ContentBuilderType.THEMES) {

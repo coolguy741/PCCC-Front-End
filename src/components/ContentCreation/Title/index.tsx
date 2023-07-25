@@ -4,7 +4,7 @@ import { convertToRelativeUnit as conv } from "../../../styles/helpers/convertTo
 import { DoubleClickToEditComponent } from "../DoubleClickToEdit";
 
 import { Media } from "../Media/media";
-import { ObjectState } from "../types";
+import { CCFormat, ObjectState } from "../types";
 import { ComponentProps, withThemeStore } from "../withThemeStore";
 
 const initialState: any = {
@@ -90,7 +90,7 @@ function TitleComponent({
       <Media
         changePattern={changeMediaPattern}
         changeMediaState={changeMediaState}
-        media={state.media}
+        media={(componentState as Record<string, CCFormat>).media}
       />
     </Style.Container>
   );

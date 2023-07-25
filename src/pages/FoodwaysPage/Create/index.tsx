@@ -16,6 +16,8 @@ import { BackButton } from "../../../components/Global/BackButton";
 import { Icon } from "../../../components/Global/Icon";
 import { Typography } from "../../../components/Global/Typography";
 import { useAPI } from "../../../hooks/useAPI";
+import { useFetch } from "../../../hooks/useFetch";
+import { PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
 import { useFoodwayStore } from "../../../stores/foodwaysStore";
 import { STORAGE_KEY_JWT } from "../../consts";
 import { Language } from "../../types";
@@ -23,16 +25,10 @@ import { Language } from "../../types";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-import { useFetch } from "../../../hooks/useFetch";
-import {
-  PccServer23FoodwaysFoodwayDto,
-  PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
-} from "../../../lib/api/api";
 
 const SlideOnUpdate = ({
   totalSlides,
   currentLang,
-  setActiveSlide,
 }: {
   totalSlides: number;
   currentLang: Language;
@@ -58,15 +54,15 @@ export const CreateFoodwaysPage = () => {
     setFoodway,
     deleteSlide,
     currentLang,
-    en,
-    fr,
     id,
     concurrencyStamp,
+    ...state
   } = useFoodwayStore();
   const { api } = useAPI();
   const navigate = useNavigate();
-  const { state } = useNavigation();
-  const foodway = useLoaderData() as PccServer23FoodwaysFoodwayDto;
+  const { state: navigateState } = useNavigation();
+  const foodway =
+    useLoaderData() as PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
   const [tags, setTags] = useState(["foraging", "seeds"]);
   const { data: newFoodway, fetchData: createFoodway } =
     useFetch<PccServer23SharedIMultiLingualDto1PccServer23FoodwaysPublicFoodwayDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
@@ -81,14 +77,18 @@ export const CreateFoodwaysPage = () => {
 
   useEffect(() => {
     foodway && setFoodway(foodway);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foodway]);
 
   const totalSlidesCount = useMemo(
-    () => ((currentLang === "en" ? en : fr).stops?.length ?? 0) + 1,
-    [currentLang, en, fr],
+    () => (state[currentLang].stops?.length ?? 0) + 1,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentLang],
   );
 
   const handleCreate = async () => {
+    const { en, fr } = state;
+
     const data = {
       image: "/images/chocolate.jpg",
       english: {
@@ -120,7 +120,11 @@ export const CreateFoodwaysPage = () => {
 
   useEffect(() => {
     if (newFoodway || updatedFoodway) {
+      const { en, fr } = state;
       let _response;
+      if (!en.stops?.length && !fr.stops?.length) {
+        navigate("/dashboard/foodways");
+      }
       en.stops?.forEach(async (stop, index) => {
         const data = {
           foodwayId: (newFoodway || updatedFoodway)?.english?.id,
@@ -159,6 +163,7 @@ export const CreateFoodwaysPage = () => {
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newFoodway, updatedFoodway]);
 
   const addTag = (tag: string) => {
@@ -179,16 +184,17 @@ export const CreateFoodwaysPage = () => {
 
   const handleAddSlide = useCallback(() => {
     addFoodwaySlide();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeleteSlide = useCallback(() => {
     deleteSlide();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSlideChange = (swiper: SwiperType) => {
     setActiveSlide(swiper.activeIndex);
   };
-
   return (
     <Style.Container>
       <div className="buttons-container">
@@ -234,20 +240,12 @@ export const CreateFoodwaysPage = () => {
                 <SwiperSlide key={`slide-${index}`}>
                   <Style.Content>
                     {index === 0 ? (
-                      <FoodwayTitle
-                        state={
-                          currentLang === "en"
-                            ? en.componentState
-                            : fr.componentState
-                        }
-                      />
+                      <FoodwayTitle state={state[currentLang]} />
                     ) : (
                       <FoodwayStop
                         index={index}
                         state={
-                          currentLang === "en"
-                            ? en.stops?.[index - 1].componentState
-                            : fr.stops?.[index - 1].componentState
+                          state[currentLang].stops?.[index - 1].componentState
                         }
                       />
                     )}
@@ -270,7 +268,7 @@ export const CreateFoodwaysPage = () => {
         <Button
           variant="yellow"
           onClick={handleAddSlide}
-          disabled={state === "loading"}
+          disabled={navigateState === "loading"}
         >
           Add Slide
         </Button>
@@ -279,14 +277,14 @@ export const CreateFoodwaysPage = () => {
             variant="yellow"
             className="mr-4"
             onClick={handleCreate}
-            disabled={state === "loading"}
+            disabled={navigateState === "loading"}
           >
             Save changes and exit
           </Button>
           <Button
             variant="orange"
             onClick={handleSaveAndContinue}
-            disabled={state === "loading"}
+            disabled={navigateState === "loading"}
           >
             Save changes and continue
           </Button>
