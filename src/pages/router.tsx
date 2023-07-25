@@ -218,6 +218,8 @@ export const router = createBrowserRouter([
             path: "groups",
             element: <AccountsGroupsPage />,
             loader: async () => {
+              await redirectIfNotLoggedIn();
+
               const groups = await getGroups();
               const invitations = await getGroupInvitations();
 

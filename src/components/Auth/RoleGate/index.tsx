@@ -154,7 +154,7 @@ export const RoleGate = () => {
               />
             </div>
             <p className="forgot-code" onClick={() => changeStep(4)}>
-              Forgot Educator Code?
+              <span>Forgot Educator Code?</span>
             </p>
           </section>
         )}
@@ -256,6 +256,10 @@ const Style = {
 
     p.forgot-code {
       font-size: ${convertToRelativeUnit(15, "vh")};
+
+      span {
+        cursor: pointer;
+      }
     }
   `,
 };
