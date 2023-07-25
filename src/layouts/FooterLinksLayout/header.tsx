@@ -1,20 +1,23 @@
 import styled from "styled-components";
-import { AltAppleBG } from "../../components/Icons";
+import { footer_data } from "../../components/FooterLinks/content-data";
 import { Typography } from "../../components/Typography";
 import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 
-export function FLHeader() {
+export function FLHeader({
+  page,
+}: {
+  page: "terms_and_conditions" | "privacy_policy" | "accessibility";
+}) {
+  const page_content = footer_data[page];
   return (
     <Style.Container>
       <Typography tag="h1" size="8vh" weight={600} color="neutral-800">
-        Terms and Conditions
+        {page_content.title}
       </Typography>
       <Typography tag="h2" size="2vh" weight={500} color="neutral-600">
-        Last Updated June 30th, 2023
+        {page_content.subtitle}
       </Typography>
-      <div className="fl-header-bg">
-        <AltAppleBG />
-      </div>
+      <div className="fl-header-bg">{page_content.icon}</div>
     </Style.Container>
   );
 }
@@ -40,6 +43,7 @@ const Style = {
       z-index: 0;
       bottom: -10px;
       right: 0;
+      max-height: 75%;
     }
   `,
 };

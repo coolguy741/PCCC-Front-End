@@ -3,20 +3,23 @@ import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgro
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 import { Header } from "../shared/Header/header";
 import { SideMenu } from "../shared/SideMenu/sideMenu";
+import { FLFooter } from "./footer";
 import { FLHeader } from "./header";
 
 interface Props {
   children: React.ReactNode;
+  page: "terms_and_conditions" | "privacy_policy" | "accessibility";
 }
 
-export function FooterLinksLayout({ children }: Props) {
+export function FooterLinksLayout({ children, page }: Props) {
   return (
     <Style.Container className="footer-links-layout">
       <SideMenu />
       <Header />
       <main>
-        <FLHeader />
+        <FLHeader page={page} />
         {children}
+        <FLFooter />
       </main>
     </Style.Container>
   );
