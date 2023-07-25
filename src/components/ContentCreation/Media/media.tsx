@@ -1,4 +1,3 @@
-import ReactPlayer from "react-player";
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import { usePatterns } from "../../../hooks/usePatterns";
@@ -9,6 +8,7 @@ import { Typography } from "../../Typography";
 import { UploadModal } from "../../Upload/UploadModal";
 import Add from "../Icons/add";
 import Shuffle from "../Icons/shuffle";
+import { MediaPreview } from "./preview";
 
 export function Media({
   media,
@@ -34,16 +34,8 @@ export function Media({
     }
 
     if (type === "images") return <img src={media?.src} alt="" />;
-    else if (type === ("video" || "audio"))
-      return (
-        <ReactPlayer
-          className="react-player"
-          url={media?.src}
-          controls
-          width="100%"
-          height="100%"
-        />
-      );
+    else if (type === "video" || type === "audio")
+      return <MediaPreview src={media?.src} type={type} />;
   }
 
   return (
@@ -93,13 +85,7 @@ const Style = {
       height: 100%;
       display: grid;
       place-items: center;
-      position: rela/tive;
-
-      .react-player {
-        position: absolute;
-        width: 100%;
-        border: 1px solid red;
-      }
+      position: relative;
     }
 
     img {

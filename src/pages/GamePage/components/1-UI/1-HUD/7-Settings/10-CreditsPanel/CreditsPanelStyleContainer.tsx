@@ -15,6 +15,7 @@ const CreditsPanelStyleContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   opacity: 0;
+  pointer-events: none;
 
   .credits-panel-bg {
     position: relative;

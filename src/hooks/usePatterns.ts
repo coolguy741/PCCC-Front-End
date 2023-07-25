@@ -11,7 +11,9 @@ export function usePatterns(
   patternChoice?: number,
   chanFunc?: (pattern: number) => void,
 ) {
-  const [currentPattern, setCurrentPattern] = useState(patternChoice ?? 0);
+  const [currentPattern, setCurrentPattern] = useState(
+    patternChoice ?? Math.floor(Math.random() * 5),
+  );
   const patternLength = patternArray.length;
 
   function shufflePattern() {

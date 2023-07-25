@@ -11,6 +11,7 @@ import Settings from "../7-Settings/0-Settings/Settings";
 import CreditsPanel from "../7-Settings/10-CreditsPanel/CreditsPanel";
 import QuitPanel from "../7-Settings/11-QuitPanel/QuitPanel";
 import LoadPanel from "../7-Settings/8-LoadPanel/0-LoadPanel/LoadPanel";
+import AchievementsPanel from "../8-Achievements/0-AchievementsPanel/AchievementsPanel";
 
 const HUD: FC = () => {
   // Global State
@@ -33,6 +34,7 @@ const HUD: FC = () => {
         <LoadPanel />
         <QuitPanel />
         <Settings />
+        <AchievementsPanel />
         <Cursor />
         <ToolTip />
       </Fragment>
@@ -47,6 +49,7 @@ const HUD: FC = () => {
       <LoadPanel />
       <QuitPanel />
       <Settings />
+      <AchievementsPanel />
       <Cursor />
       <ToolTip />
     </Fragment>

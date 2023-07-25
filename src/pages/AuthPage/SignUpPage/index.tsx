@@ -41,6 +41,8 @@ export const SignUpPage = () => {
       navigate("/");
     } else if (currentStep === 2 && !over18) {
       changeStep(0);
+    } else if (currentStep === 4) {
+      changeStep(1);
     } else {
       changeStep(currentStep - 1);
     }

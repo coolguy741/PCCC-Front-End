@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -9,41 +10,25 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-// function enter(node) {
-//   gsap.from(node, {
-//     duration: 0.5,
-//     autoAlpha: 0,
-//   });
-// }
-
-// function exit(node) {
-//   gsap.to(node, {
-//     duration: 0.5,
-//     autoAlpha: 0,
-//   });
-// }
-
 function Modal({ modal, children, toggle }: ModalProps) {
   const nodeRef = React.useRef(null);
 
   return (
     document &&
     ReactDOM.createPortal(
-      // <Transition
-      //   key="modal"
-      //   timeout={500}
-      //   in={modal}
-      //   nodeRef={nodeRef.current}
-      //   onEnter={enter}
-      //   onExit={exit}
-      //   mountOnEnter={true}
-      //   unmountOnExit={true}
-      // >
-      <Style.Container ref={nodeRef.current}>
-        <Style.CloseContainer onClick={toggle} />
-        <Style.ContentContainer>{children}</Style.ContentContainer>
-      </Style.Container>,
-      // </Transition>,
+      <AnimatePresence>
+        <Style.Container
+          ref={nodeRef.current}
+          initial={{ opacity: 0, y: "15px", scale: 0.99 }}
+          animate={{ opacity: 1, y: "0", scale: 1 }}
+          exit={{ opacity: 0, y: "15px", scale: 0.99 }}
+        >
+          <Style.CloseContainer onClick={toggle} />
+          <Style.ContentContainer>
+            <AnimatePresence>{children}</AnimatePresence>
+          </Style.ContentContainer>
+        </Style.Container>
+      </AnimatePresence>,
       document?.body,
     )
   );
@@ -52,7 +37,7 @@ function Modal({ modal, children, toggle }: ModalProps) {
 export default Modal;
 
 export const Style = {
-  Container: styled.div`
+  Container: styled(motion.div)`
     width: 100%;
     height: 100%;
     min-height: 100vh;
@@ -68,6 +53,7 @@ export const Style = {
     width: 100%;
     height: 100%;
     z-index: 5;
+    cursor: pointer;
   `,
   ContentContainer: styled.div`
     display: grid;

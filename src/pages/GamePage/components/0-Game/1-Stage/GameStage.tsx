@@ -7,6 +7,7 @@ import GardenDebug from "../2-Entities/1-Garden/0-Garden/GardenDebug";
 import HotSpotLabels from "../2-Entities/2-HotSpotLabels/HotSpotLabels";
 import DynamicEnitity from "../2-Entities/3-DynamicEntity/DynamicEnitity";
 import KitchenDebug from "../2-Entities/5-Kitchen/KitchenDebug";
+import Sunny from "../2-Entities/6-Sunny/Sunny";
 import Environment from "../3-Environment/Environment";
 import { GATE_POSITION } from "../5-Constants/0-Garden/GARDEN_POSITION";
 import SceneHelpers from "../6-Helpers/SceneHelpers";
@@ -41,6 +42,7 @@ const GameStage: FC = () => {
       <PlayerCamera />
       <Environment />
       <HotSpotLabels />
+      <Sunny />
 
       <SceneHelpers
         axes={axes}
