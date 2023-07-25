@@ -29,6 +29,7 @@ const storeModules = (
 });
 
 const immerWrapper = immer<GlobalStateTypes>(
+  // @ts-ignore
   (set: SetState<GlobalStateTypes>, get: GetState<GlobalStateTypes>) =>
     storeModules(set, get),
 );

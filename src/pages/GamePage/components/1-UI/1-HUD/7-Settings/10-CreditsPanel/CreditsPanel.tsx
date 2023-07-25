@@ -37,6 +37,7 @@ const CreditsPanel: FC = () => {
           if (!creditsPanelRef.current) return;
           setIsCreditsPanelOpen(false);
           creditsPanelRef.current.style.visibility = "hidden";
+          creditsPanelRef.current.style.pointerEvents = "none";
         },
       });
     }, [isCreditsPanelOpen, setIsCreditsPanelOpen]);
@@ -47,6 +48,8 @@ const CreditsPanel: FC = () => {
       if (!creditsPanelRef.current) return;
 
       creditsPanelRef.current.style.visibility = "visible";
+      creditsPanelRef.current.style.pointerEvents = "auto";
+
       gsap.fromTo(
         creditsPanelRef.current,
         {

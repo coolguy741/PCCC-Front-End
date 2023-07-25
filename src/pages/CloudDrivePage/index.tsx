@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CloudStorage } from "../../components/CloudDrive/CloudStorage";
@@ -10,13 +10,15 @@ import CDAdd from "../../components/CloudDrive/Icons/cd-add";
 import CDGallery from "../../components/CloudDrive/Icons/cd-gallery";
 import CDList from "../../components/CloudDrive/Icons/cd-list";
 import { CDListView } from "../../components/CloudDrive/ListView";
-import { PreviewModal } from "../../components/CloudDrive/PreviewModal";
 import { Input } from "../../components/Global/Input";
-import { ModalContainer } from "../../components/Global/ModalContainer";
+import Modal from "../../components/Modal";
+import { PreviewModal } from "../../components/PreviewModal";
 import { Typography } from "../../components/Typography";
 import { useAPI } from "../../hooks/useAPI";
+import useModal from "../../hooks/useModal";
 import { Api } from "../../lib/api/api";
 import { BASE_API_URL } from "../../lib/api/helpers/consts";
+import { getMediaType } from "../../lib/util/getMediaType";
 import {
   getCloudDriveStore,
   useCloudDriveStore,
@@ -67,7 +69,7 @@ export function CloudDrivePage() {
   const [fileType, setFileType] =
     useState<"images" | "video" | "audio" | "documents">("images");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const { modal, toggle } = useModal();
   const [data, setData] = useState(loaderData as any);
   const [displayedResults, setDisplayedResults] = useState<
     CloudDriveFileType[]
@@ -75,6 +77,38 @@ export function CloudDrivePage() {
   const [view, setView] = useState<"list" | "gallery">("list");
   const navigate = useNavigate();
   const { api } = useAPI();
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    inputFile.current?.click();
+  };
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    const file = e.target.files[0];
+    const type = getMediaType(file.name);
+
+    try {
+      const response = await api.appCloudDriveUploadFileCreate(
+        { file: file },
+        { folder: type ?? "documents" },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        fetchFiles(type ?? "documents");
+      }
+    } catch (error: unknown) {
+      return console.warn(error);
+    }
+  };
 
   const fetchFiles = async (
     type: "images" | "video" | "documents" | "audio",
@@ -142,22 +176,10 @@ export function CloudDrivePage() {
   }, [data, search]);
 
   return (
-    <Style.Container>
-      <section className="cloud-drive-folders">
-        <div className="cd-folders-menu">
-          <Typography
-            tag="h2"
-            size="2.5vh"
-            color="neutral-800"
-            weight={600}
-            mb="1vh"
-          >
-            Folders
-          </Typography>
-          <CDHeader type={type} setType={setType} />
-        </div>
-        <div className="cd-files-menu">
-          <div className="cdf-menu-options">
+    <>
+      <Style.Container>
+        <section className="cloud-drive-folders">
+          <div className="cd-folders-menu">
             <Typography
               tag="h2"
               size="2.5vh"
@@ -165,76 +187,99 @@ export function CloudDrivePage() {
               weight={600}
               mb="1vh"
             >
-              Files
+              Folders
             </Typography>
-            <Input
-              placeholder="Search by name"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <div>
-              <button
-                className={`cdf-view-option ${
-                  view === "gallery" ? "active" : ""
-                }`}
-                onClick={() => setView("gallery")}
-              >
-                <CDGallery />
-              </button>
-              <button
-                className={`cdf-view-option ${view === "list" ? "active" : ""}`}
-                onClick={() => setView("list")}
-              >
-                <CDList />
-              </button>
-              <button className="cdf-upload">
-                <CDAdd />
-                <Typography
-                  color="white"
-                  weight={600}
-                  size={convertToRelativeUnit(15, "vh")}
-                >
-                  Upload
-                </Typography>
-              </button>
-            </div>
+            <CDHeader type={type} setType={setType} />
           </div>
-          <article className="cd-content">
-            {view === "list" ? (
-              <CDListView
-                data={displayedResults}
-                type={type}
-                handleDelete={handleDelete}
-                setPreviewUrl={setPreviewUrl}
-                setShowPreviewModal={setShowPreviewModal}
-                setFileType={setFileType}
-                setFileName={setFileName}
+          <div className="cd-files-menu">
+            <div className="cdf-menu-options">
+              <Typography
+                tag="h2"
+                size="2.5vh"
+                color="neutral-800"
+                weight={600}
+                mb="1vh"
+              >
+                Files
+              </Typography>
+              <Input
+                placeholder="Search by name"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
-            ) : (
-              <CDGalleryView
-                data={displayedResults}
-                type={type}
-                handleDelete={handleDelete}
-                setPreviewUrl={setPreviewUrl}
-                setShowPreviewModal={setShowPreviewModal}
-                setFileType={setFileType}
-                setFileName={setFileName}
-              />
-            )}
-          </article>
-        </div>
-      </section>
-      <CloudStorage
-        className="cloud-drive-storage"
-        type={type}
-        sizeOccupied={data.stats.sizeOccupied}
-      />
-      {showPreviewModal && previewUrl && (
-        <ModalContainer close={() => setShowPreviewModal(false)}>
+              <div>
+                <button
+                  className={`cdf-view-option ${
+                    view === "gallery" ? "active" : ""
+                  }`}
+                  onClick={() => setView("gallery")}
+                >
+                  <CDGallery />
+                </button>
+                <button
+                  className={`cdf-view-option ${
+                    view === "list" ? "active" : ""
+                  }`}
+                  onClick={() => setView("list")}
+                >
+                  <CDList />
+                </button>
+                <input
+                  type="file"
+                  id="file"
+                  ref={inputFile}
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                <button className="cdf-upload" onClick={handleClick}>
+                  <CDAdd />
+                  <Typography
+                    color="white"
+                    weight={600}
+                    size={convertToRelativeUnit(15, "vh")}
+                  >
+                    Upload
+                  </Typography>
+                </button>
+              </div>
+            </div>
+            <article className="cd-content">
+              {view === "list" ? (
+                <CDListView
+                  data={displayedResults}
+                  type={type}
+                  handleDelete={handleDelete}
+                  setPreviewUrl={setPreviewUrl}
+                  setShowPreviewModal={toggle}
+                  setFileType={setFileType}
+                  setFileName={setFileName}
+                />
+              ) : (
+                <CDGalleryView
+                  data={displayedResults}
+                  type={type}
+                  handleDelete={handleDelete}
+                  setPreviewUrl={setPreviewUrl}
+                  setShowPreviewModal={toggle}
+                  setFileType={setFileType}
+                  setFileName={setFileName}
+                />
+              )}
+            </article>
+          </div>
+        </section>
+        <CloudStorage
+          className="cloud-drive-storage"
+          type={type}
+          sizeOccupied={data.stats.sizeOccupied}
+        />
+      </Style.Container>
+      {modal && previewUrl && (
+        <Modal modal={modal} toggle={toggle}>
           <PreviewModal url={previewUrl} type={fileType} fileName={fileName} />
-        </ModalContainer>
+        </Modal>
       )}
-    </Style.Container>
+    </>
   );
 }
 
@@ -284,7 +329,7 @@ const Style = {
         div {
           display: flex;
           height: 100%;
-          width: auto;
+          width: 40%;
           display: flex;
           align-items: center;
           justify-content: space-between;
