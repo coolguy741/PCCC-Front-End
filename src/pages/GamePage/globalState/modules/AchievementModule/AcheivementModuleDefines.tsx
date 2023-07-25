@@ -4,10 +4,12 @@ import {
   GardenCarefulAchievementObjectType,
   GardenCleanAchievementObjectType,
   GardenConfidentAchievementObjectType,
+  GardenMasterAchievementObjectType,
   KitchenAllAchievementObjectType,
   KitchenCarefulAchievementObjectType,
   KitchenCleanAchievementObjectType,
   KitchenConfidentAchievementObjectType,
+  KitchenMasterAchievementObjectType,
 } from "./AchievementModuleTypes";
 
 const GardenCleanAchievementObject: GardenCleanAchievementObjectType = {
@@ -38,7 +40,12 @@ const GardenConfidentAchievementObject: GardenConfidentAchievementObjectType = {
   blueberry_harvest: true,
 };
 
+const GardenMasterAchievementObject: GardenMasterAchievementObjectType = {
+  master_grower: true,
+};
+
 const GardenAllAchievementObject: GardenAllAchievementObjectType = {
+  ...GardenMasterAchievementObject,
   ...GardenCleanAchievementObject,
   ...GardenCarefulAchievementObject,
   ...GardenConfidentAchievementObject,
@@ -72,25 +79,15 @@ const KitchenCarefulAchievementObject: KitchenCarefulAchievementObjectType = {
   team_titan: true,
 };
 
+const KitchenMasterAchievementObject: KitchenMasterAchievementObjectType = {
+  master_cook: true,
+};
+
 const KitchenAllAchievementObject: KitchenAllAchievementObjectType = {
-  tidy_zone: true,
-  functional_fashion: true,
-  under_control: true,
-  food_safety_savant: true,
-  clean_sweep: true,
-  hygiene_hero: true,
-  knowledge_finder: true,
-  knife_wielder: true,
-  kitchen_knower: true,
-  kitchen_explorer: true,
-  creative_cook: true,
-  experimentation_nation: true,
-  mise_en_place: true,
-  recipe_reciter: true,
-  kitchen_zen: true,
-  functional_fit: true,
-  solid_ground: true,
-  team_titan: true,
+  ...KitchenMasterAchievementObject,
+  ...KitchenCleanAchievementObject,
+  ...KitchenCarefulAchievementObject,
+  ...KitchenConfidentAchievementObject,
 };
 
 const AllAchievementObject: AchievementAllObjectType = {
@@ -108,4 +105,6 @@ export {
   KitchenCleanAchievementObject,
   KitchenCarefulAchievementObject,
   KitchenConfidentAchievementObject,
+  KitchenMasterAchievementObject,
+  GardenMasterAchievementObject,
 };

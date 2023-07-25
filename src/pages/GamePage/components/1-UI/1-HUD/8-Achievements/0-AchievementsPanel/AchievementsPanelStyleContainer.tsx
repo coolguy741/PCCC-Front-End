@@ -79,13 +79,21 @@ const AchievementsPanelStyleContainer = styled(PageStyleContainer)`
       position: absolute;
       top: 0;
       right: 0;
-      width: 20vw;
-      margin-top: 1.5vw;
-      margin-right: 3vw;
+      width: 21vw;
+      margin-top: 4vw;
+      margin-right: 4vw;
       img {
         width: 100%;
         height: 100%;
       }
+    }
+
+    .exit-button-container {
+      position: absolute;
+      top: -1vw;
+      right: -1vw;
+      z-index: 2;
+      width: 5vw;
     }
   }
 `;

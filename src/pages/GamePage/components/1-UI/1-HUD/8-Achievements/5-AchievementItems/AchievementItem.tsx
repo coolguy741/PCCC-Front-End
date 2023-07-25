@@ -1,17 +1,27 @@
 import { motion } from "framer-motion";
 import { FC, memo } from "react";
 import { shallow } from "zustand/shallow";
-import { AchievementAllKeyType } from "../../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
+import {
+  AchievementAllKeyType,
+  AchievmentsModalTypes,
+} from "../../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 
-type AchievementColorTypes = "blue" | "green" | "red" | "peach";
+export type AchievementColorTypes = "blue" | "green" | "red" | "peach" | "grey";
 
 interface AchievementItemProps {
+  status: boolean;
   item: AchievementAllKeyType;
+  type: AchievmentsModalTypes;
   badgeColor: AchievementColorTypes;
 }
 
-const AchievementItem: FC<AchievementItemProps> = ({ item, badgeColor }) => {
+const AchievementItem: FC<AchievementItemProps> = ({
+  item,
+  type,
+  status,
+  badgeColor,
+}) => {
   // Global State
   const { activeLanguage } = useGlobalState(
     (state) => ({
@@ -33,14 +43,17 @@ const AchievementItem: FC<AchievementItemProps> = ({ item, badgeColor }) => {
           alt={item}
           draggable={false}
           className="badge-bg"
-          src={`/game_assets/ui_images/achievements/achievement_badge_bgs/${badgeColor}_badge.webp`}
+          src={`/game_assets/ui_images/achievements/achievement_badge_bgs/${type}/${badgeColor}_${type}_badge.webp`}
         />
-        <img
-          alt={item}
-          draggable={false}
-          className="badge-icon"
-          src={`/game_assets/ui_images/achievements/achievement_badge_icons/${item}.webp`}
-        />
+        {status && (
+          <img
+            alt={item}
+            draggable={false}
+            className="badge-icon"
+            src={`/game_assets/ui_images/achievements/achievement_badge_icons/${item}.webp`}
+          />
+        )}
+
         {activeLanguage === "eng" ? (
           <img
             alt={item}

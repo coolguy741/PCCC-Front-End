@@ -4,7 +4,7 @@ import { useGlobalState } from "../../../../globalState/useGlobalState";
 
 import HUDMenuOption from "./HUDMenuOption";
 import {
-  GoalListHUDMenuOptionData,
+  AchievementsHUDMenuOptionData,
   InventoryHUDMenuOptionData,
   RecipeBookHUDMenuOptionData,
   SettingsHUDMenuOptionData,
@@ -47,7 +47,7 @@ const HUDMenuOptionStage: FC = () => {
       />
       <HUDMenuOption
         menuActive={menuActive}
-        optionData={GoalListHUDMenuOptionData}
+        optionData={AchievementsHUDMenuOptionData}
         activeHoveredHudMenuOption={activeHoveredHudMenuOption}
         setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
       />

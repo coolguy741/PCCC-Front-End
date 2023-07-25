@@ -35,7 +35,14 @@ export type GardenConfidentAchievementObjectType = {
   [key in GardenConfidentAchievementKeyType]: boolean;
 };
 
+export type GardenMasterAchievementKeyType = "master_grower";
+
+export type GardenMasterAchievementObjectType = {
+  [key in GardenMasterAchievementKeyType]: boolean;
+};
+
 export type GardenAllAchievementKeyType =
+  | GardenMasterAchievementKeyType
   | GardenCleanAchievementKeyType
   | GardenCarefulAchievementKeyType
   | GardenConfidentAchievementKeyType;
@@ -80,7 +87,14 @@ export type KitchenCarefulAchievementObjectType = {
   [key in KitchenCarefulAchievementKeyType]: boolean;
 };
 
+export type KitchenMasterAchievementKeyType = "master_cook";
+
+export type KitchenMasterAchievementObjectType = {
+  [key in KitchenMasterAchievementKeyType]: boolean;
+};
+
 export type KitchenAllAchievementKeyType =
+  | KitchenMasterAchievementKeyType
   | KitchenCleanAchievementKeyType
   | KitchenCarefulAchievementKeyType
   | KitchenConfidentAchievementKeyType;
@@ -101,6 +115,9 @@ export type AchievmentsModalTypes = "garden" | "kitchen";
 
 export type AchievmentsCCCTypes = "all" | "confident" | "clean" | "careful";
 export interface AchievementModuleTypes {
+  isAchievementsPanelOpen: boolean;
+  setIsAchievementsPanelOpen: (isAchievementsPanelOpen: boolean) => void;
+
   activeAchievementsModalTab: AchievmentsModalTypes;
   setActiveAchievementsModalTab: (tab: AchievmentsModalTypes) => void;
 
@@ -125,6 +142,12 @@ export interface AchievementModuleTypes {
     gardenCarefulAchievementKey: GardenCarefulAchievementKeyType,
   ) => void;
 
+  activeGardenMasterAchievements: GardenMasterAchievementObjectType;
+  setUpdateActiveGardenMasterAchievements: (
+    status: boolean,
+    gardenMasterAchievementKey: GardenMasterAchievementKeyType,
+  ) => void;
+
   activeGardenAllAchievements: GardenAllAchievementObjectType;
   setUpdateActiveAllCarefulAchievements: (
     status: boolean,
@@ -147,6 +170,12 @@ export interface AchievementModuleTypes {
   setUpdateActiveKitchenCarefulAchievements: (
     status: boolean,
     kitchenCarefulAchievementKey: KitchenCarefulAchievementKeyType,
+  ) => void;
+
+  activeKitchenMasterAchievements: KitchenMasterAchievementObjectType;
+  setUpdateActiveKitchenMasterAchievements: (
+    status: boolean,
+    kitchenMasterAchievementKey: KitchenMasterAchievementKeyType,
   ) => void;
 
   activeKitchenAllAchievements: KitchenAllAchievementObjectType;

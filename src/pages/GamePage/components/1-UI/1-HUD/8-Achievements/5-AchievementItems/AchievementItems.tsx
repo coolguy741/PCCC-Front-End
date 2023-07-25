@@ -9,7 +9,7 @@ import {
 } from "../../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../../globalState/useGlobalState";
 import { ConstantVoidFunctionType } from "../../../../../shared/Types/DefineTypes";
-import AchievementItem from "./AchievementItem";
+import AchievementItem, { AchievementColorTypes } from "./AchievementItem";
 import { getItemDimensions, NUM_COLS } from "./AchievementItemsConstants";
 import AchievementItemsStyleContainer from "./AchievementItemsStyleContainer";
 
@@ -94,6 +94,37 @@ const AchievementItems: FC = () => {
     activeKitchenConfidentAchievements,
   ]);
 
+  const handleItemAllColor = useCallback(
+    (item: AchievementAllKeyType): AchievementColorTypes => {
+      if (
+        item in activeGardenCleanAchievements ||
+        item in activeKitchenCleanAchievements
+      ) {
+        return "blue";
+      } else if (
+        item in activeGardenCarefulAchievements ||
+        item in activeKitchenCarefulAchievements
+      ) {
+        return "green";
+      } else if (
+        item in activeGardenConfidentAchievements ||
+        item in activeKitchenConfidentAchievements
+      ) {
+        return "peach";
+      } else {
+        return "red";
+      }
+    },
+    [
+      activeGardenCleanAchievements,
+      activeKitchenCleanAchievements,
+      activeGardenCarefulAchievements,
+      activeKitchenCarefulAchievements,
+      activeGardenConfidentAchievements,
+      activeKitchenConfidentAchievements,
+    ],
+  );
+
   // Local State
   const [items, setItems] = useState(
     Object.keys(activeAchievementObject).map((item) => {
@@ -103,11 +134,12 @@ const AchievementItems: FC = () => {
         value: (activeAchievementObject as AchievementAllObjectType)[
           item as AchievementAllKeyType
         ],
+        color: handleItemAllColor(item as AchievementAllKeyType),
+        type: activeAchievementsModalTab,
       };
     }),
   );
 
-  // Handlers
   const handleUpdateItems: ConstantVoidFunctionType = useCallback((): void => {
     setItems(
       Object.keys(activeAchievementObject).map((item) => {
@@ -117,10 +149,17 @@ const AchievementItems: FC = () => {
           value: (activeAchievementObject as AchievementAllObjectType)[
             item as AchievementAllKeyType
           ],
+          color: handleItemAllColor(item as AchievementAllKeyType),
+          type: activeAchievementsModalTab,
         };
       }),
     );
-  }, [setItems, activeAchievementObject]);
+  }, [
+    setItems,
+    handleItemAllColor,
+    activeAchievementObject,
+    activeAchievementsModalTab,
+  ]);
 
   // Listeners
   useEffect(handleUpdateItems, [handleUpdateItems, activeAchievementObject]);
@@ -136,53 +175,57 @@ const AchievementItems: FC = () => {
         <AnimatePresence mode={"wait"}>
           {activeCCC === "all" && (
             <Fragment>
-              {items.map(
-                ({ item, id, value }) =>
-                  value && (
-                    <AchievementItem key={id} item={item} badgeColor={"red"} />
-                  ),
-              )}
+              {items.map(({ item, id, value, color, type }) => (
+                <AchievementItem
+                  key={id}
+                  item={item}
+                  type={type}
+                  status={value}
+                  badgeColor={value ? color : "grey"}
+                />
+              ))}
             </Fragment>
           )}
 
           {activeCCC === "confident" && (
             <Fragment>
-              {items.map(
-                ({ item, id, value }) =>
-                  value && (
-                    <AchievementItem key={id} item={item} badgeColor={"blue"} />
-                  ),
-              )}
+              {items.map(({ item, id, value, color, type }) => (
+                <AchievementItem
+                  key={id}
+                  item={item}
+                  type={type}
+                  status={value}
+                  badgeColor={value ? color : "grey"}
+                />
+              ))}
             </Fragment>
           )}
 
           {activeCCC === "clean" && (
             <Fragment>
-              {items.map(
-                ({ item, id, value }) =>
-                  value && (
-                    <AchievementItem
-                      key={id}
-                      item={item}
-                      badgeColor={"green"}
-                    />
-                  ),
-              )}
+              {items.map(({ item, id, value, color, type }) => (
+                <AchievementItem
+                  key={id}
+                  item={item}
+                  type={type}
+                  status={value}
+                  badgeColor={value ? color : "grey"}
+                />
+              ))}
             </Fragment>
           )}
 
           {activeCCC === "careful" && (
             <Fragment>
-              {items.map(
-                ({ item, id, value }) =>
-                  value && (
-                    <AchievementItem
-                      key={id}
-                      item={item}
-                      badgeColor={"peach"}
-                    />
-                  ),
-              )}
+              {items.map(({ item, id, value, color, type }) => (
+                <AchievementItem
+                  key={id}
+                  item={item}
+                  type={type}
+                  status={value}
+                  badgeColor={value ? color : "grey"}
+                />
+              ))}
             </Fragment>
           )}
         </AnimatePresence>

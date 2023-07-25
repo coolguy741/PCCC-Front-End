@@ -35,7 +35,7 @@ const CCCButtonsStyleContainer = styled.div`
   }
 
   .ccc-button-confident {
-    background-color: ${Theme.PCCCBlue};
+    background-color: ${Theme.PCCCOrange};
     color: white;
     font-weight: bold;
     font-size: 1vw;
@@ -49,7 +49,7 @@ const CCCButtonsStyleContainer = styled.div`
   }
 
   .ccc-button-clean {
-    background-color: ${Theme.PCCCGreen};
+    background-color: ${Theme.PCCCBlue};
     color: white;
     font-weight: bold;
     font-size: 1vw;
@@ -63,7 +63,7 @@ const CCCButtonsStyleContainer = styled.div`
   }
 
   .ccc-button-careful {
-    background-color: ${Theme.PCCCOrange};
+    background-color: ${Theme.PCCCGreen};
     color: white;
     font-weight: bold;
     font-size: 1vw;

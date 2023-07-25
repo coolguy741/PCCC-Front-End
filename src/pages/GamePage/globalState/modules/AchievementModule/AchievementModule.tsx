@@ -5,10 +5,12 @@ import {
   GardenCarefulAchievementObject,
   GardenCleanAchievementObject,
   GardenConfidentAchievementObject,
+  GardenMasterAchievementObject,
   KitchenAllAchievementObject,
   KitchenCarefulAchievementObject,
   KitchenCleanAchievementObject,
   KitchenConfidentAchievementObject,
+  KitchenMasterAchievementObject,
 } from "./AcheivementModuleDefines";
 import {
   AchievementAllKeyType,
@@ -18,14 +20,21 @@ import {
   GardenCarefulAchievementKeyType,
   GardenCleanAchievementKeyType,
   GardenConfidentAchievementKeyType,
+  GardenMasterAchievementKeyType,
   KitchenAllAchievementKeyType,
   KitchenCarefulAchievementKeyType,
   KitchenCleanAchievementKeyType,
   KitchenConfidentAchievementKeyType,
+  KitchenMasterAchievementKeyType,
 } from "./AchievementModuleTypes";
 
 const AchievementModule = ({ set, get }: globalStateApiType) => {
   return {
+    isAchievementsPanelOpen: false,
+    setIsAchievementsPanelOpen: (isAchievementsPanelOpen: boolean) => {
+      set({ isAchievementsPanelOpen });
+    },
+
     activeAchievementsModalTab: "garden",
     setActiveAchievementsModalTab: (tab: AchievmentsModalTypes) => {
       set({ activeAchievementsModalTab: tab });
@@ -64,6 +73,17 @@ const AchievementModule = ({ set, get }: globalStateApiType) => {
     ) => {
       set((state: GlobalStateTypes) => {
         state.activeGardenCarefulAchievements[gardenCarefulAchievementKey] =
+          status;
+      });
+    },
+
+    activeGardenMasterAchievements: GardenMasterAchievementObject,
+    setUpdateActiveGardenMasterAchievements: (
+      status: boolean,
+      gardenMasterAchievementKey: GardenMasterAchievementKeyType,
+    ) => {
+      set((state: GlobalStateTypes) => {
+        state.activeGardenMasterAchievements[gardenMasterAchievementKey] =
           status;
       });
     },
@@ -108,6 +128,17 @@ const AchievementModule = ({ set, get }: globalStateApiType) => {
     ) => {
       set((state: GlobalStateTypes) => {
         state.activeKitchenCarefulAchievements[kitchenCarefulAchievementKey] =
+          status;
+      });
+    },
+
+    activeKitchenMasterAchievements: KitchenMasterAchievementObject,
+    setUpdateActiveKitchenMasterAchievements: (
+      status: boolean,
+      kitchenMasterAchievementKey: KitchenMasterAchievementKeyType,
+    ) => {
+      set((state: GlobalStateTypes) => {
+        state.activeKitchenMasterAchievements[kitchenMasterAchievementKey] =
           status;
       });
     },
