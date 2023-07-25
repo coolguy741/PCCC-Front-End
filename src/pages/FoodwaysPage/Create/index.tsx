@@ -240,7 +240,7 @@ export const CreateFoodwaysPage = () => {
                 <SwiperSlide key={`slide-${index}`}>
                   <Style.Content>
                     {index === 0 ? (
-                      <FoodwayTitle state={state[currentLang]} />
+                      <FoodwayTitle state={state[currentLang].componentState} />
                     ) : (
                       <FoodwayStop
                         index={index}

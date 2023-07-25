@@ -25,6 +25,7 @@ interface ContentListAdminPageTemplateProps {
   listData: PccServer23FoodwaysFoodwayDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
   handleSortChange: (value: string) => void;
+  setSelectedIds: (value: string[]) => void;
   selectedIds: string[];
 }
 
@@ -35,6 +36,7 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
     listData,
     onSelectionChange,
     selectedIds,
+    setSelectedIds,
     handleSortChange,
   }) => {
     const { api } = useAPI();
@@ -51,6 +53,8 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
         });
       }
       setIsDeleting(false);
+      setSelectedIds([]);
+
       navigate("/dashboard/foodways");
     };
 

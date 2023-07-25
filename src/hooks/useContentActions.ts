@@ -73,7 +73,7 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
     image: store.image,
     tags: store.tags?.join(","),
   };
-
+  console.log(data, store);
   return hasTags ? { ...data, tags: store.tags?.join(",") } : data;
 };
 

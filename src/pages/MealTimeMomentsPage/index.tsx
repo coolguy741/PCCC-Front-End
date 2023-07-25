@@ -38,6 +38,7 @@ export const MealtimeMomentsPage = () => {
       await deleteActivity?.(id);
     }
     setIsNeededToReload(true);
+    setSelectedIds([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIds]);
 
