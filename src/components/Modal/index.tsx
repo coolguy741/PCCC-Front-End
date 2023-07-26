@@ -45,7 +45,8 @@ export const Style = {
     position: fixed;
     top: 0;
     left: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
   `,
   CloseContainer: styled.div`
     background-color: rgba(0, 0, 0, 0.75);
