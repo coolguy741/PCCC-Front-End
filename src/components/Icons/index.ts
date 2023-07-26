@@ -13,6 +13,7 @@ import Group from "./Group/group";
 import Info from "./Info/info";
 import AltLemonBG from "./LemonBG/altLemonBG";
 import LemonBG from "./LemonBG/lemonBG";
+import Marker from "./Marker";
 import AltOrangeBG from "./OrangeBG/altOrangeBG";
 import OrangeBG from "./OrangeBG/orangeBG";
 import PCCRed from "./PCCRed/pccRed";
@@ -42,4 +43,5 @@ export {
   AltLemonBG,
   ArrowUp,
   AltGrape,
+  Marker,
 };
