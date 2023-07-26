@@ -30,6 +30,7 @@
     "@types/react-beautiful-dnd": "^13.1.4",
     "@use-gesture/react": "^10.2.27",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.12.2",
     "gsap": "^3.11.5",
     "howler": "^2.2.3",

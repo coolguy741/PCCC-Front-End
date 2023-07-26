@@ -6,11 +6,11 @@ import {
 } from "@amir04lm26/react-modern-calendar-date-picker";
 import { InputHTMLAttributes, useMemo, useState } from "react";
 import styled from "styled-components";
-
 import { Icon } from "../../../Global/Icon";
 import { Typography } from "../../../Global/Typography";
 
 import "@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css";
+import { startOfWeek } from "date-fns";
 
 export interface DatePickerProps extends InputHTMLAttributes<HTMLInputElement> {
   dates: DayRange | null;
@@ -134,6 +134,25 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     return "";
   }, [dates]);
 
+  const selectDateHandler = (date: any) => {
+    const start = startOfWeek(
+      new Date(date.from.year, date.from.month - 1, date.from.day),
+    );
+
+    setDates({
+      from: {
+        year: start.getFullYear(),
+        month: start.getMonth() + 1,
+        day: start.getDate(),
+      },
+      to: {
+        year: start.getFullYear(),
+        month: start.getMonth() + 1,
+        day: start.getDate() + 6,
+      },
+    });
+  };
+
   return (
     <Style.Container>
       {!!label && (
@@ -159,7 +178,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           <Style.DateRangeWrapper>
             <Calendar
               value={dates ?? { from: null, to: null }}
-              onChange={setDates}
+              onChange={selectDateHandler}
               colorPrimary="var(--book-100)"
               colorPrimaryLight="var(--book-100)"
               calendarClassName="custom-calendar"
