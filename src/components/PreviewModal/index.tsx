@@ -23,12 +23,13 @@ export const PreviewModal = ({
       {type === "images" ? (
         <div className="img-mask">
           <div className="title">{fileName}</div>
-          <img src={url} alt="" width="100%" height="100%" />
+          <img src={url} alt="" />
         </div>
       ) : (
         <div className="player-mask">
           <div className="title">{fileName}</div>
           <ReactPlayer
+            className="react-player"
             url={url}
             config={
               type === "audio"
@@ -43,8 +44,8 @@ export const PreviewModal = ({
                 : {}
             }
             controls
-            width="100%"
-            height="100%"
+            width="80vw"
+            height="auto"
           />
         </div>
       )}
@@ -58,36 +59,32 @@ const Style = {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80vw;
-    height: 80vh;
 
     .img-mask {
-      border-radius: 20px;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      height: 100%;
 
       img {
         border-radius: 20px;
-        width: auto;
-        height: 100%;
+        max-width: 80vw;
+        max-height: 80vh;
+        border-radius: 20px;
       }
     }
 
     .player-mask {
-      border-radius: 20px;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      width: 100%;
 
-      video {
+      .react-player {
         border-radius: 20px;
+        width: 80vw;
+        max-height: 80vh;
+        overflow: hidden;
 
         img {
           border-radius: 20px;
