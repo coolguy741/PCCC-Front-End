@@ -4,28 +4,13 @@ import { Typography } from "../../components/Typography";
 import { convertToRelativeUnit } from "../../styles/helpers/convertToRelativeUnits";
 
 export function FLFooter() {
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    console.log("firing");
-  }
   return (
     <Style.Container>
       <nav>
-        <Link onClick={scrollToTop} to="/terms">
-          Terms & Conditions
-        </Link>
-        <Link onClick={scrollToTop} to="/accessibility">
-          Accessibility
-        </Link>
-        <Link onClick={scrollToTop} to="/privacy">
-          Privacy Policy
-        </Link>
-        <Link onClick={scrollToTop} to="/contact">
-          Contact Us
-        </Link>
+        <Link to="/terms">Terms & Conditions</Link>
+        <Link to="/accessibility">Accessibility</Link>
+        <Link to="/privacy">Privacy Policy</Link>
+        <Link to="/contact">Contact Us</Link>
       </nav>
       <Typography size="1.5vh" color="neutral-900">
         © 2022 President's Choice Children's Charity. All Rights Reserved.
