@@ -39,6 +39,7 @@ export const RecipesPage = () => {
       await deleteRecipe?.(id);
     }
     setIsNeededToReload(true);
+    setSelectedIds([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIds]);
 

@@ -38,19 +38,19 @@ export function FoodwayTitle({ state: componentState }: FoodwayTitleProps) {
           <span className="tc-overview">Foodways</span>
           <br />
           <DoubleClickToEditComponent
-            mode={state.heading.mode}
+            mode={state.heading?.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.heading.text}
+            text={state.heading?.text}
             name="heading"
           />
         </h1>
         <p>
           <DoubleClickToEditComponent
-            mode={state.desc.mode}
+            mode={state.desc?.mode}
             setText={changeText}
             changeEditState={changeEditState}
-            text={state.desc.text}
+            text={state.desc?.text}
             name="desc"
           />
         </p>

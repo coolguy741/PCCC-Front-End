@@ -1,4 +1,10 @@
-import { BaseSyntheticEvent, useCallback, useEffect, useState } from "react";
+import {
+  BaseSyntheticEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   DragDropContext,
   OnDragEndResponder,
@@ -52,9 +58,19 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
     setShowingMessage(false);
   }, [slideIndex]);
 
+  const contentComponents = useMemo(
+    () =>
+      components.filter((component) =>
+        currentStep === 2
+          ? component.title.includes("Assessment")
+          : !component.title.includes("Assessment"),
+      ),
+    [currentStep],
+  );
+
   const checkDroppable = useCallback(
     (droppableId: number, source: number) => {
-      const { width, height } = components[source];
+      const { width, height } = contentComponents[source];
       const currentX = droppableId % 3;
       const currentY = Math.floor(droppableId / 3);
       const positions: number[] = getPositions(
@@ -109,7 +125,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
           updatePage([
             ...slides[slideIndex],
             {
-              ...components[source],
+              ...contentComponents[source],
               x: droppableId % 3,
               y: Math.floor(droppableId / 3),
             },
@@ -190,6 +206,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
                 handleDelete={handleDelete}
                 setSlideIndex={setSlideIndex}
                 updatePageState={updatePageState}
+                isForAssessments={currentStep === 2}
                 slides={slides}
               />
               <ContentEditorActions

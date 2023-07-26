@@ -37,8 +37,8 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
   return (
     <Style.Container>
       <img
-        src="/images/deleteLater/ContentSampleImage.png"
-        alt="/images/deleteLater/ContentSampleImage.png"
+        src={data?.image ?? "/images/deleteLater/ContentSampleImage.png"}
+        alt={data?.image ?? "/images/deleteLater/ContentSampleImage.png"}
       />
       <Style.Content>
         <Style.Topic>{data?.topic}</Style.Topic>
