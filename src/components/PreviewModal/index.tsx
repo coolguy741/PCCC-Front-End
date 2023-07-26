@@ -83,7 +83,7 @@ const Style = {
       .react-player {
         border-radius: 20px;
         width: 80vw;
-        max-height: 80vh;
+        /* max-height: 80vh; */
         overflow: hidden;
 
         img {
