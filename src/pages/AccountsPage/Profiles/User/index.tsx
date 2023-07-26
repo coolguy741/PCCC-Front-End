@@ -3,7 +3,6 @@ import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Cookies from "js-cookie";
-import { AchievementsModal } from "../../../../components/Accounts/AchievementsModal";
 import { GroupsModal } from "../../../../components/Accounts/GroupsModal";
 import { BackButton } from "../../../../components/Global/BackButton";
 import { AltGrapeBG } from "../../../../components/Icons";
@@ -19,10 +18,11 @@ import MockData from "../../../../lib/mockData/accounts/userProfile.json";
 import { useUserStore } from "../../../../stores/userStore";
 import { MockUserType } from "../../../../types/user";
 import { STORAGE_KEY_JWT } from "../../../consts";
-import { achievements, groups } from "./dummy_data";
+import { achievements, groups } from "../../../Profile/dummy_data";
 
 export type Achievement = {
   badge: string;
+  name: string;
   description: string;
 };
 
@@ -55,7 +55,6 @@ export const AccountsUserProfilePage = () => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
   const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
-  const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
   const data = useLoaderData() as PccServer23UsersGetUsersDto;
   const userData: MockUserType = pathname.includes("Standard")
     ? MockData[0]
@@ -83,14 +82,6 @@ export const AccountsUserProfilePage = () => {
     setIsOpenGroupsModal(() => false);
   };
 
-  const openAchievementsModal = () => {
-    setIsOpenAchievementsModal(() => true);
-  };
-
-  const closeAchievementsModal = () => {
-    setIsOpenAchievementsModal(() => false);
-  };
-
   useEffect(() => {
     getProfile();
   }, [getProfile]);
@@ -112,10 +103,7 @@ export const AccountsUserProfilePage = () => {
                 openGroupsModal={openGroupsModal}
               />
               <UserActivity userData={userData} />
-              <UserAchievements
-                openAchievementsModal={openAchievementsModal}
-                achievements={achievements}
-              />
+              <UserAchievements achievements={achievements} />
             </>
           )}
         </section>
@@ -133,16 +121,6 @@ export const AccountsUserProfilePage = () => {
           >
             Modal
           </GroupsModal>
-        )}
-        {!!user && (
-          <AchievementsModal
-            isOpen={isOpenAchievementsModal}
-            close={closeAchievementsModal}
-            title="Achievements"
-            achievements={achievements}
-          >
-            Modal
-          </AchievementsModal>
         )}
       </div>
     </Style.Container>
