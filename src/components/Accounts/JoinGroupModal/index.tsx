@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
+import Button from "../../Button";
 import { IconButton } from "../../Global/IconButton";
-import { SmallButton } from "../../Global/SmallButton";
+import { Input } from "../../Global/Input";
+import { Typography } from "../../Typography";
 
 interface JoinGroupModalProps {
   groupName: string;
@@ -21,16 +24,31 @@ export const JoinGroupModal = ({
 }: JoinGroupModalProps) => {
   return (
     <Style.Modal>
-      <h3>Join Group</h3>
-      <p className="bold-text">{groupName}</p>
-      <p className="text">{"Creator: " + creator + " (" + role + " User)"}</p>
-      <br />
-      <br />
-      <p className="small-text">Enter Group ID</p>
-      <div className="input-container">
-        <div className="group-id-container">{groupID}</div>
-        <SmallButton onClick={onJoin}>Join Group</SmallButton>
-      </div>
+      <Typography
+        color="neutral-800"
+        size="3.5vh"
+        tag="h2"
+        weight={600}
+        mb="1vh"
+      >
+        Join Group
+      </Typography>
+      <Typography weight={500} color="neutral-600" size="2.25vh" mb="0.5vh">
+        {groupName}
+      </Typography>
+      <Typography size="1.75vh" color="neutral-600" mb="4vh">
+        {"Creator: " + creator + " (" + role + " User)"}
+      </Typography>
+
+      <fieldset>
+        <Typography tag="label" color="neutral-600" size="1.75vh" mb="0.5vh">
+          Group ID
+        </Typography>
+        <Input placeholder="0000" />
+        <Button fullWidth onClick={onJoin}>
+          Join Group
+        </Button>
+      </fieldset>
       <div className="button-container">
         <IconButton icon="close" onClick={onClose} width={25} height={25} />
       </div>
@@ -43,10 +61,23 @@ const Style = {
     background-color: white;
     padding: 20px;
     position: relative;
+    z-index: 50;
+    width: 27.5%;
+    height: 40%;
+    border-radius: 16px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(59.27639389038086px);
+    ${() => animatedbackgroundGradient("#fee5dd", "#fff5cc")}
 
     .input-container {
       display: flex;
       justify-content: space-between;
+    }
+
+    input {
+      margin-top: 0.5vh;
+      margin-bottom: 4vh;
     }
 
     .button-container {

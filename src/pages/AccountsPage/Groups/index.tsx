@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GroupCard } from "../../../components/Accounts/GroupCard";
@@ -6,9 +5,10 @@ import { GroupInvitationCard } from "../../../components/Accounts/GroupInvitatio
 import { JoinGroupModal } from "../../../components/Accounts/JoinGroupModal";
 import Button from "../../../components/Button";
 import { Input } from "../../../components/Global/Input";
-import { ModalContainer } from "../../../components/Global/ModalContainer";
 import { default as Scrollable } from "../../../components/Global/Scrollable";
+import Modal from "../../../components/Modal";
 import { Typography } from "../../../components/Typography";
+import useModal from "../../../hooks/useModal";
 import {
   PccServer23GroupsCustomGroupUserJoinRequestDto,
   PccServer23GroupsGroupWithNavigationPropertiesDto,
@@ -21,7 +21,7 @@ interface IGroup {
 }
 
 export const AccountsGroupsPage = () => {
-  const [visibleModal, setVisibleModal] = useState(false);
+  const { modal, toggle, setModalFalse } = useModal();
   const navigate = useNavigate();
   const { groups, invitations } = useLoaderData() as IGroup;
 
@@ -30,11 +30,11 @@ export const AccountsGroupsPage = () => {
   };
 
   const handleJoinGroup = () => {
-    setVisibleModal(false);
+    toggle();
   };
 
   const handleClose = () => {
-    setVisibleModal(false);
+    setModalFalse();
   };
 
   return (
@@ -58,7 +58,7 @@ export const AccountsGroupsPage = () => {
           <Button variant="yellow" onClick={handleCreate}>
             Create Group
           </Button>
-          <Button onClick={() => setVisibleModal(true)}>Join Group</Button>
+          <Button onClick={toggle}>Join Group</Button>
         </div>
       </div>
       <Scrollable className="row manage-users-content" height="65vh">
@@ -97,8 +97,8 @@ export const AccountsGroupsPage = () => {
           </Scrollable>
         </div>
       </Scrollable>
-      {visibleModal && (
-        <ModalContainer>
+      {modal && (
+        <Modal modal={modal} toggle={toggle}>
           <JoinGroupModal
             role="Standard"
             groupID={2334}
@@ -107,7 +107,7 @@ export const AccountsGroupsPage = () => {
             onJoin={handleJoinGroup}
             onClose={handleClose}
           />
-        </ModalContainer>
+        </Modal>
       )}
     </Style.PageContainer>
   );
