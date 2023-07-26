@@ -72,7 +72,6 @@ const Style = {
     right: 0;
     bottom: 0;
     left: 0;
-    overflow-y: scroll;
   `,
   CloseContainer: styled.div`
     background-color: rgba(0, 0, 0, 0.75);
