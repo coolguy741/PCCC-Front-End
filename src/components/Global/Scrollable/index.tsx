@@ -31,14 +31,13 @@ const Scrollable: React.FC<ScrollbarProps> = ({
   );
 };
 
-// Define the styled component
 const DynamicStyle = styled(({ tag, children, ...props }) =>
   createElement(tag, props, children),
 )`
-  height: ${(props) => props.height};
-  margin: ${(props) => (props.thumbwidth === "thin" ? "0 -8px" : "0 -12px")};
-  padding: ${(props) => (props.thumbwidth === "thin" ? "0 8px" : "0 12px")};
-  overflow: auto;
+  height: ${(props) => props.height ?? "auto"};
+  margin-right: ${(props) => (props.thumbwidth === "thin" ? "-8px" : "-12px")};
+  padding-right: ${(props) => (props.thumbwidth === "thin" ? "8px" : "12px")};
+  overflow: scroll;
   &::-webkit-scrollbar {
     width: ${(props) => (props.thumbwidth === "thin" ? "4px" : "8px")};
   }
