@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useFetch } from "../../../../hooks/useFetch";
-import { PccServer23RecipesPublicRecipeDto } from "../../../../lib/api/api";
+import { PccServer23MealPlansMealPlanData } from "../../../../lib/api/api";
 import { WEEK_DAYS } from "../../../../pages/consts";
 import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
 import { useUserStore } from "../../../../stores/userStore";
@@ -15,37 +15,62 @@ import { PlateFullPlanFilter } from "../Filter";
 import { BookPicker } from "../Picker";
 import { RecipesUploadModal } from "../RecipesUploadModal";
 import { Tag } from "../Tag";
+import { TimePicker } from "../TimePicker";
 
 export const MealPlanGenerator = () => {
   const [isRecipesModalOpen, setIsRecipesModalOpen] = useState(false);
   const [show, setShow] = useState(true);
+  const [checkboxes, setCheckboxes] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const {
     changeStep,
     dates,
-    mealsPerDay,
     selectedFilters,
     filters,
     childrenCount,
     changeDates,
     changeChildrenCount,
-    changeMealsPerDay,
     changeSelectedFilters,
     daysOfWeek,
     addDayOfWeek,
     removeDayOfWeek,
+    times,
+    changeTimes,
+    setMeals,
   } = useMealPlannerStore();
   const user = useUserStore((state) => state.user);
-  const { isLoading, data, fetchData } = useFetch<
-    PccServer23RecipesPublicRecipeDto[]
-  >("appMealPlannerMealPlanList", {
-    DaysOfWeek: daysOfWeek,
-    MealsPerDay: mealsPerDay,
-  });
+  const { isLoading, data, fetchData } =
+    useFetch<PccServer23MealPlansMealPlanData>(
+      "appMealPlannerGetMealPlanCreate",
+    );
 
   const handleCreate = () => {
-    fetchData?.();
-
-    changeStep(2);
+    if (dates && dates.from && dates.to) {
+      fetchData?.({
+        startDate: `${dates?.from.year}-${
+          dates?.from.month < 10 ? `0${dates?.from.month}` : dates?.from.month
+        }-${
+          dates?.from.day < 10 ? `0${dates?.from.day}` : dates?.from.day
+        }T00:00:00Z`,
+        endDate: `${dates?.to.year}-${
+          dates?.to.month < 10 ? `0${dates?.to.month}` : dates?.to.month
+        }-${
+          dates?.to.day < 10 ? `0${dates?.to.day}` : dates?.to.day
+        }T00:00:00Z`,
+        daysOfWeek: daysOfWeek,
+        servingSize: childrenCount,
+        mealTimings: times
+          .map((e) => {
+            if (e.selected === true) return e.value;
+          })
+          .filter((e) => e !== undefined),
+      });
+    }
   };
 
   const handleClose = () => {
@@ -59,6 +84,14 @@ export const MealPlanGenerator = () => {
       removeDayOfWeek(day);
     }
   };
+
+  useEffect(() => {
+    if (data && data.meals) {
+      setMeals(data.meals);
+
+      changeStep(2);
+    }
+  }, [data]);
 
   return (
     <Style.Container
@@ -150,22 +183,15 @@ export const MealPlanGenerator = () => {
                 placeholder="17.05.2023 - 21.05.2023"
               />
               <BookPicker
-                data-testid="day"
-                label="Meals per day"
-                placeholder="4"
-                number={mealsPerDay}
-                setNumber={changeMealsPerDay}
+                label="For how many"
+                placeholder="5"
+                number={childrenCount}
+                setNumber={changeChildrenCount}
               />
               <PlateFullPlanFilter
                 filters={filters}
                 selectedFilters={selectedFilters}
                 setFilters={changeSelectedFilters}
-              />
-              <BookPicker
-                label="For how many"
-                placeholder="5"
-                number={childrenCount}
-                setNumber={changeChildrenCount}
               />
             </div>
           </Style.Page>
@@ -184,10 +210,6 @@ export const MealPlanGenerator = () => {
             <Style.Arrow
               src="/images/plate-full-planner/arrows.svg"
               alt="arrows on paper"
-            />
-            <Style.Scribble
-              src="/images/plate-full-planner/scribble-large.svg"
-              alt="large scribble on paper"
             />
             <div className="week-container">
               <Typography variant="paragraph3" color="book-300" weight="medium">
@@ -222,6 +244,46 @@ export const MealPlanGenerator = () => {
                   })}
                 </div>
               </Style.Paper>
+            </div>
+            <div className="meals-picker">
+              <Typography variant="paragraph3" color="book-300" weight="medium">
+                Select meals per day
+              </Typography>
+              <div className="inner">
+                {times.map((time, index) => {
+                  return (
+                    <>
+                      {index === 3 && <div className="break" />}
+                      <div className="meal" key={index}>
+                        <div className="checkbox">
+                          <Checkbox
+                            colorOption="book"
+                            sizeOption="small"
+                            checked={time.selected}
+                            onChange={(e) => {
+                              const newTimes = [...times];
+                              newTimes[index].selected = e.target.checked;
+                              changeTimes(newTimes);
+                            }}
+                          />
+                          <Typography
+                            variant="paragraph3"
+                            color="book-300"
+                            weight="medium"
+                          >
+                            Meal {index + 1}
+                          </Typography>
+                        </div>
+                        <TimePicker
+                          times={times}
+                          changeTimes={changeTimes}
+                          index={index}
+                        />
+                      </div>
+                    </>
+                  );
+                })}
+              </div>
             </div>
             <Button
               icon="next"
@@ -281,7 +343,44 @@ const Style = {
 
     .week-container {
       position: relative;
-      margin: 16% 10% 42% 5%;
+      margin: 16% 10% 4% 5%;
+    }
+
+    .meals-picker {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      position: relative;
+      margin-left: 5%;
+
+      .inner {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 1rem;
+
+        .break {
+          flex-basis: 100%;
+          height: 0;
+        }
+
+        .meal {
+          display: flex;
+          flex-direction: column;
+          width: 25%;
+          gap: 1rem;
+
+          .checkbox {
+            display: flex;
+            flex-direction: row;
+            gap: 0.75rem;
+            justify-content: flex-start;
+            align-items: center;
+          }
+        }
+      }
     }
 
     .week-group {

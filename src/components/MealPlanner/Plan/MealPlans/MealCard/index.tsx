@@ -7,6 +7,7 @@ interface MealCardProps {
   meal: {
     description: string | null;
     image?: string;
+    recipeId: number;
   };
   label: string | null;
   fixed?: boolean;

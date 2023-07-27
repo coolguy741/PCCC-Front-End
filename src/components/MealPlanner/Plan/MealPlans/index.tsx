@@ -17,9 +17,10 @@ import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
 import { PlateFullPlanSearch } from "../Search";
 
 import { useNavigate } from "react-router-dom";
+import { PccServer23MealPlansMealPlanData } from "../../../../lib/api/api";
 import { CalendarModal } from "../../../Global/CalendarModal";
 import { Tag } from "../Tag";
-import { mockMealPlanMenu, mockMealPlans } from "./mocks";
+import { mockMealPlanMenu } from "./mocks";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
 
 export interface FullMealPlan {
@@ -30,21 +31,24 @@ export interface FullMealPlan {
 export interface MealPlan {
   description: string | null;
   image?: string;
+  recipeId: string;
 }
 
 export const MealPlans = () => {
-  const { selectedFilters, filters, changeSelectedFilters } =
+  const { selectedFilters, filters, changeSelectedFilters, meals } =
     useMealPlannerStore();
   const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] =
     useState<number | undefined>();
   const mainContentRef = useRef<HTMLDivElement>(null);
-  const [mealPlans, setMealPlans] = useState(mockMealPlans);
+  const [mealPlans, setMealPlans] = useState(meals);
   // TODO: unused variable
   const [mealPlanMenu] = useState(mockMealPlanMenu);
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
-  const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
-  const [destinationMeal, setDestinationMeal] = useState<MealPlan>();
+  const [selectedMeal, setSelectedMeal] =
+    useState<PccServer23MealPlansMealPlanData>();
+  const [destinationMeal, setDestinationMeal] =
+    useState<PccServer23MealPlansMealPlanData>();
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   const navigate = useNavigate();
 
@@ -70,17 +74,22 @@ export const MealPlans = () => {
     const updatedMealPlans = mealPlans;
     if (result.source.droppableId === "droppable-meal-menu") {
       const selectedMealPlan = mealPlanMenu[sourceIndex];
+
       if (!isNaN(destinationDayIndex)) {
-        updatedMealPlans[destinationDayIndex].plans[destinationIndex] =
-          selectedMealPlan;
+        if (updatedMealPlans[destinationDayIndex].plans) {
+          updatedMealPlans[destinationDayIndex].plans![destinationIndex] =
+            selectedMealPlan;
+        }
       }
     } else {
       const sourceDayIndex = Number(result.source?.droppableId.slice(-1));
       if (!isNaN(sourceDayIndex)) {
-        const temp = updatedMealPlans[sourceDayIndex].plans[sourceIndex];
-        updatedMealPlans[sourceDayIndex].plans[sourceIndex] =
-          updatedMealPlans[destinationDayIndex].plans[destinationIndex];
-        updatedMealPlans[destinationDayIndex].plans[destinationIndex] = temp;
+        if (updatedMealPlans[destinationDayIndex].plans) {
+          const temp = updatedMealPlans[sourceDayIndex].plans![sourceIndex];
+          updatedMealPlans[sourceDayIndex].plans![sourceIndex] =
+            updatedMealPlans[destinationDayIndex].plans![destinationIndex];
+          updatedMealPlans[destinationDayIndex].plans![destinationIndex] = temp;
+        }
       }
     }
     setMealPlans([...updatedMealPlans]);
@@ -92,10 +101,13 @@ export const MealPlans = () => {
   const onMealRemove = (dayIndex: number, index: number) => {
     const updatedMealPlans = mealPlans;
 
-    updatedMealPlans[dayIndex].plans[index] = {
-      description: null,
-    };
-
+    if (updatedMealPlans[dayIndex].plans) {
+      updatedMealPlans[dayIndex].plans![index] = {
+        description: "Roasted red pepper hummusRoasted red pepper hummus...",
+        image: "/images/plate-full-planner/scroll-menu/image-1.svg",
+        recipeId: "1",
+      };
+    }
     setMealPlans([...updatedMealPlans]);
   };
 
@@ -108,7 +120,7 @@ export const MealPlans = () => {
     } else {
       const sourceDayIndex = Number(result.source?.droppableId.slice(-1));
       if (!isNaN(sourceDayIndex)) {
-        setSelectedMeal(mealPlans[sourceDayIndex].plans[sourceIndex]);
+        setSelectedMeal(mealPlans[sourceDayIndex].plans![sourceIndex]);
       }
       const destinationIndex = result?.destination?.index;
 
