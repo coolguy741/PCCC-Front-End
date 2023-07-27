@@ -10,36 +10,12 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-// function enter(node) {
-//   gsap.from(node, {
-//     duration: 0.5,
-//     autoAlpha: 0,
-//   });
-// }
-
-// function exit(node) {
-//   gsap.to(node, {
-//     duration: 0.5,
-//     autoAlpha: 0,
-//   });
-// }
-
 function Modal({ modal, children, toggle }: ModalProps) {
   const nodeRef = React.useRef(null);
 
   return (
     document &&
     ReactDOM.createPortal(
-      // <Transition
-      //   key="modal"
-      //   timeout={500}
-      //   in={modal}
-      //   nodeRef={nodeRef.current}
-      //   onEnter={enter}
-      //   onExit={exit}
-      //   mountOnEnter={true}
-      //   unmountOnExit={true}
-      // >
       <AnimatePresence>
         <Style.Container
           ref={nodeRef.current}
@@ -53,7 +29,6 @@ function Modal({ modal, children, toggle }: ModalProps) {
           </Style.ContentContainer>
         </Style.Container>
       </AnimatePresence>,
-      // </Transition>,
       document?.body,
     )
   );
