@@ -12,6 +12,7 @@ import CDDocument from "../Icons/cd-document";
 import CDDownload from "../Icons/cd-download";
 import CDImage from "../Icons/cd-image";
 import CDShare from "../Icons/cd-share";
+import CDThumbnail from "../Icons/cd-thumbnail";
 import CDVideo from "../Icons/cd-video";
 
 const text_props = {
@@ -113,6 +114,7 @@ export function CDListView({
               src="/images/dropdown-arrow.svg"
               className={sortOrder}
               width="25"
+              alt="sort by name"
             />
           )}
         </Typography>
@@ -130,6 +132,7 @@ export function CDListView({
               src="/images/dropdown-arrow.svg"
               className={sortOrder}
               width="25"
+              alt="sort by size"
             />
           )}
         </Typography>
@@ -147,6 +150,7 @@ export function CDListView({
               src="/images/dropdown-arrow.svg"
               className={sortOrder}
               width="25"
+              alt="sort by date"
             />
           )}
         </Typography>
@@ -209,6 +213,7 @@ export function CDListView({
                     {formatDate(el.uploadedAt)}
                   </Typography>
                   <div className="cd-list-options">
+                    <CDThumbnail />
                     <CDShare />
                     <CDDownload />
                     <CDDelete onClick={() => handleDelete(el.relativePath)} />
@@ -248,7 +253,7 @@ const Style = {
       }
 
       label:first-of-type {
-        width: 50%;
+        width: 45%;
       }
 
       label:nth-of-type(2),
@@ -257,7 +262,7 @@ const Style = {
       }
 
       label:nth-of-type(4) {
-        width: 20%;
+        width: 25%;
       }
     }
   `,
@@ -269,13 +274,9 @@ const Style = {
     border-bottom: 2px solid #eaeaea;
 
     figure {
-      width: 30%;
       display: flex;
       align-items: center;
-
-      &:first-of-type {
-        width: 50%;
-      }
+      width: 45%;
 
       div {
         height: ${convertToRelativeUnit(40, "vh")};
@@ -300,9 +301,6 @@ const Style = {
       &:nth-of-type(2) {
         width: 15%;
       }
-      &:nth-of-type(3) {
-        width: 20%;
-      }
     }
 
     .file-name {
@@ -312,12 +310,12 @@ const Style = {
     .cd-list-options {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      width: 15%;
-      gap: 2rem;
+      justify-content: space-evenly;
+      width: 20%;
 
       svg {
         cursor: pointer;
+        height: 2.25vh;
       }
     }
   `,

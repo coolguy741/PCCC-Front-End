@@ -9,6 +9,7 @@ import CDDelete from "../Icons/cd-delete";
 import CDDownload from "../Icons/cd-download";
 import CDOptions from "../Icons/cd-options";
 import CDShare from "../Icons/cd-share";
+import CDThumbnail from "../Icons/cd-thumbnail";
 import { ICONS } from "../ListView";
 
 export function GalleryItem(props: any) {
@@ -35,7 +36,7 @@ export function GalleryItem(props: any) {
             <div className="cdg-thumbnail">
               {ICONS[props.type as keyof typeof ICONS]}
             </div>
-            {trimStringByLength(el.fileName, 10)}
+            {trimStringByLength(el.fileName, 20)}
           </Typography>
           <button onClick={() => setShowOptions((prevState) => !prevState)}>
             <CDOptions />
@@ -56,6 +57,10 @@ export function GalleryItem(props: any) {
       </div>
       {showOptions && (
         <div className="cdg-options">
+          <button>
+            <CDThumbnail />
+            Add Thumbnail
+          </button>
           <button>
             <CDShare />
             Share
@@ -91,6 +96,7 @@ const Style = {
       position: fixed;
       top: -2rem;
       left: 50%;
+      width: max-content;
       background-color: rgba(255, 255, 255, 0.7);
       filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
       backdrop-filter: blur(60px);
@@ -151,8 +157,6 @@ const Style = {
         &:hover {
           border-radius: 100px;
           background: #fff;
-
-          /* UI Card Shadow */
           box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
         }
       }
@@ -226,9 +230,9 @@ const Style = {
       flex-direction: column;
       width: ${convertToRelativeUnit(150, "vw")};
       padding: 8px;
-      right: 0;
-      z-index: 100;
-      top: 5vh;
+      z-index: 10000;
+      top: 5.5vh;
+      right: -5px;
 
       button {
         width: 100%;
@@ -240,6 +244,7 @@ const Style = {
         color: var(--neutral-600);
         padding: ${convertToRelativeUnit(2, "vh")} 0;
         position: relative;
+        z-index: 10000;
 
         svg {
           margin: 0 ${convertToRelativeUnit(8, "vw")};
