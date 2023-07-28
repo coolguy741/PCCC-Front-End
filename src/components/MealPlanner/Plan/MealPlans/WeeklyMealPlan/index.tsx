@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import {
   Draggable,
   DraggingStyle,
@@ -20,7 +20,7 @@ import { MealCard } from "../MealCard";
 interface WeeklyMealPlanProps {
   mealPlans: PccServer23MealPlansOrganizedMealPlan[];
   onMealRemove: (dayIndex: number, index: number) => void;
-  openRecipeModal?: (recipeId: number) => void;
+  openRecipeModal?: (recipeId: string) => void;
   selectedMeal?: PccServer23MealPlansMealPlanRecipe;
   destinationMeal?: PccServer23MealPlansMealPlanRecipe;
   dragUpdateStatus?: DragUpdate;
@@ -35,7 +35,6 @@ export const WeeklyMealPlan = ({
   destinationMeal,
 }: WeeklyMealPlanProps) => {
   const { changeStep } = useMealPlannerStore();
-  const [showModal, setShowModal] = useState(false);
   const handlePrev = () => {
     changeStep(1);
   };

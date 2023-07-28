@@ -7,7 +7,7 @@ import { MealCard } from "../MealPlans/MealCard";
 interface PlateFullPlannerScrollMenuProps {
   mealPlanMenu: PccServer23RecipesPublicRecipeDto[];
   rootRef: React.RefObject<HTMLDivElement>;
-  openRecipeModal?: (recipeId: number) => void;
+  openRecipeModal?: (recipeId: string) => void;
 }
 
 export const PlateFullPlannerScrollMenu = ({
@@ -68,7 +68,7 @@ export const PlateFullPlannerScrollMenu = ({
       {(provided, snapshot) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <Style.Container ref={containerRef}>
-            {mealPlanMenu.map(({ name, image }, index) => {
+            {mealPlanMenu.map(({ name, image, id }, index) => {
               return (
                 <Draggable
                   key={`draggable-meal-menu-${index}`}
@@ -97,7 +97,7 @@ export const PlateFullPlannerScrollMenu = ({
                           key={`image-${index}`}
                           index={index}
                           onDoubleClick={() => {
-                            openRecipeModal?.(3);
+                            openRecipeModal?.(id!);
                           }}
                           active={imageIndex}
                         >

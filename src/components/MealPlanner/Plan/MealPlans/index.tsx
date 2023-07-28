@@ -50,8 +50,7 @@ export const MealPlans = () => {
   } = useMealPlannerStore();
   const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectedRecipeId, setSelectedRecipeId] =
-    useState<number | undefined>();
+  const [selectedRecipeId, setSelectedRecipeId] = useState<string>("");
   const mainContentRef = useRef<HTMLDivElement>(null);
   const [mealPlans, setMealPlans] = useState(meals);
   // TODO: unused variable
@@ -78,7 +77,7 @@ export const MealPlans = () => {
     "appGroupsMyCreatedGroupsList",
   );
 
-  const openRecipeModal = (recipeId: number) => {
+  const openRecipeModal = (recipeId: string) => {
     setSelectedRecipeId(recipeId);
     setIsRecipeModalOpen(true);
   };
@@ -131,9 +130,9 @@ export const MealPlans = () => {
 
     if (updatedMealPlans[dayIndex].plans) {
       updatedMealPlans[dayIndex].plans![index] = {
-        description: "Roasted red pepper hummusRoasted red pepper hummus...",
-        image: "/images/plate-full-planner/scroll-menu/image-1.svg",
-        recipeId: "1",
+        recipeId: null,
+        description: null,
+        image: null,
       };
     }
     setMealPlans([...updatedMealPlans]);
@@ -302,11 +301,13 @@ export const MealPlans = () => {
           </DragDropContext>
         </div>
       </Style.Pages>
-      <RecipeModal
-        isOpen={isRecipeModalOpen}
-        selectedRecipeId={selectedRecipeId}
-        close={() => setIsRecipeModalOpen(false)}
-      />
+      {selectedRecipeId && (
+        <RecipeModal
+          isOpen={isRecipeModalOpen}
+          selectedRecipeId={selectedRecipeId}
+          close={() => setIsRecipeModalOpen(false)}
+        />
+      )}
       <CalendarModal
         isOpen={showCalendarModal}
         close={() => setShowCalendarModal(false)}

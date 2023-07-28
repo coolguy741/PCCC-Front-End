@@ -13,7 +13,7 @@ interface MealCardProps {
   label: string | null;
   fixed?: boolean;
   onMealRemove?: () => void;
-  openRecipeModal?: (recipeId: number) => void;
+  openRecipeModal?: (recipeId: id) => void;
 }
 
 export const MealCard: React.FC<MealCardProps> = ({
@@ -28,7 +28,7 @@ export const MealCard: React.FC<MealCardProps> = ({
       <Style.Card
         hasPlan={!!meal.name || !!meal.description}
         onDoubleClick={() => {
-          openRecipeModal?.(3);
+          openRecipeModal(meal.recipeId || meal.id);
         }}
       >
         <Style.ActionButtons className="button-actions">
