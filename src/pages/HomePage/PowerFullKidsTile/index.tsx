@@ -15,7 +15,7 @@ export const PowerFullKidsTile = () => {
 
   return (
     <Style.Container>
-      <Lottie options={defaultOptions} />
+      <Lottie options={defaultOptions} isClickToPauseDisabled />
     </Style.Container>
   );
 };
