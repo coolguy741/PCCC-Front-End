@@ -54,18 +54,18 @@ export const MENUS: Menu[] = [
   { label: "Games", to: "/dashboard/games", icon: "game" },
   {
     label: "Planning Tools",
-    to: "/dashboard/user-tools",
+    to: "/dashboard",
     icon: "tool",
     auth: true,
     subMenus: [
       {
         label: "Calendar",
-        to: "/dashboard/user-tools/calendar",
+        to: "/dashboard/calendar",
         icon: "calendar",
       },
       {
         label: "Plate Full Planner",
-        to: "/dashboard/user-tools/plate-full-planner",
+        to: "/dashboard/plate-full-planner",
         icon: "meal-planner",
       },
     ],
