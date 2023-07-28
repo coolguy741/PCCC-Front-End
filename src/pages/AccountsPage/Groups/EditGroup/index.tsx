@@ -28,7 +28,7 @@ export const AccountsEditGroupPage = () => {
 
   const getMembers = useCallback(async () => {
     if (params.group) {
-      const response = await api.appGroupsJoinedGroupUsersList(
+      const response = await api.appGroupsUserListForGroupList(
         { GroupId: params.group },
         {
           headers: {

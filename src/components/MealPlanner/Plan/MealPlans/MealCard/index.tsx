@@ -1,14 +1,15 @@
+// @ts-nocheck
 import styled from "styled-components";
 
+import {
+  PccServer23MealPlansMealPlanRecipe,
+  PccServer23RecipesPublicRecipeDto,
+} from "../../../../../lib/api/api";
 import { Icon } from "../../../../Global/Icon";
 import { Typography } from "../../../../Global/Typography";
 
 interface MealCardProps {
-  meal: {
-    description: string | null;
-    image?: string;
-    recipeId: number;
-  };
+  meal: PccServer23RecipesPublicRecipeDto | PccServer23MealPlansMealPlanRecipe;
   label: string | null;
   fixed?: boolean;
   onMealRemove?: () => void;
@@ -25,7 +26,7 @@ export const MealCard: React.FC<MealCardProps> = ({
   return (
     <Style.Container fixed={fixed}>
       <Style.Card
-        hasPlan={!!meal.description}
+        hasPlan={!!meal.name || !!meal.description}
         onDoubleClick={() => {
           openRecipeModal?.(3);
         }}
@@ -38,15 +39,15 @@ export const MealCard: React.FC<MealCardProps> = ({
             <Icon name="red-heart" />
           </Style.ActionbuttonWrapper>
         </Style.ActionButtons>
-        {meal.description ? (
+        {meal.name || meal.description ? (
           <Style.Meal>
             <Style.MealPicture
               className="meal-picture"
-              src={meal.image}
-              alt={meal.description}
+              src={meal.image ?? "/patterns/grapes.png"}
+              alt={meal.name || meal.description}
             />
             <Style.Description>
-              <Typography as="p">{meal.description}</Typography>
+              <Typography as="p">{meal.name || meal.description}</Typography>
             </Style.Description>
           </Style.Meal>
         ) : (

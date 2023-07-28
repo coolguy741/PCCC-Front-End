@@ -1720,9 +1720,9 @@ export interface PccServer23RecipesPublicRecipeDto {
   servingSize?: string | null;
   tags?: string | null;
   directions?: string | null;
+  image?: string | null;
   language?: string | null;
   concurrencyStamp?: string | null;
-  medias?: PccServer23RecipeMediasRecipeMediaDto[] | null;
   ingredients?: PccServer23IngredientsPublicIngredientDto[] | null;
 }
 
@@ -4195,6 +4195,38 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<PccServer23MealPlansMealPlanData, VoloAbpHttpRemoteServiceErrorResponse>({
         path: `/api/app/meal-planner/get-meal-plan`,
         method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealPlanner
+     * @name AppMealPlannerMealPlanByIdDetail
+     * @request GET:/api/app/meal-planner/{id}/meal-plan-by-id
+     */
+    appMealPlannerMealPlanByIdDetail: (id: string, params: RequestParams = {}) =>
+      this.request<PccServer23MealPlansPublicMealPlanDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/meal-planner/${id}/meal-plan-by-id`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealPlanner
+     * @name AppMealPlannerMealPlanUpdate
+     * @request PUT:/api/app/meal-planner/{id}/meal-plan
+     */
+    appMealPlannerMealPlanUpdate: (id: string, data: PccServer23MealPlansMealPlanData, params: RequestParams = {}) =>
+      this.request<PccServer23MealPlansPublicMealPlanDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/meal-planner/${id}/meal-plan`,
+        method: "PUT",
         body: data,
         type: ContentType.Json,
         format: "json",

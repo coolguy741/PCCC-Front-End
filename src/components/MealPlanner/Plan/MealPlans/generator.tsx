@@ -20,13 +20,6 @@ import { TimePicker } from "../TimePicker";
 export const MealPlanGenerator = () => {
   const [isRecipesModalOpen, setIsRecipesModalOpen] = useState(false);
   const [show, setShow] = useState(true);
-  const [checkboxes, setCheckboxes] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
   const {
     changeStep,
     dates,
