@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
-import { usePatterns } from "../../../hooks/usePatterns";
 import CDThumbnail from "../../CloudDrive/Icons/cd-thumbnail";
 import Modal from "../../Modal";
 import { Patterns } from "../../Patterns";
@@ -9,10 +8,17 @@ import { UploadModal } from "../../Upload/UploadModal";
 import { Add, Shuffle } from "../Icons";
 import PlayIcon from "../Icons/play";
 
-export function MediaPreview({ src, type, changeMediaState }: any) {
+export function MediaPreview({
+  src,
+  type,
+  changeMediaState,
+  name,
+  shufflePattern,
+  currentPattern,
+}: any) {
   const { modal: previewModal, toggle: togglePreview } = useModal();
   const { modal: uploadModal, toggle: toggleUpload } = useModal();
-  const { currentPattern, shufflePattern } = usePatterns();
+
   return (
     <>
       {" "}
@@ -40,7 +46,7 @@ export function MediaPreview({ src, type, changeMediaState }: any) {
       </Style.Container>
       {previewModal && (
         <Modal modal={previewModal} toggle={togglePreview}>
-          <PreviewModal url={src} type={type} fileName={"fileName"} />
+          <PreviewModal url={src} type={type} fileName={name} />
         </Modal>
       )}
       {uploadModal && (

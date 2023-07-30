@@ -78,12 +78,13 @@ export function useContentCreation(
   }
 
   function changeMediaState(
+    mediaSrc: string,
     mediaName: string,
     sIndex?: number,
     cIndex?: number,
   ) {
-    console.log(mediaName, sIndex, cIndex);
-    const media = { ...state.media, src: mediaName };
+    console.log(mediaSrc, sIndex, cIndex);
+    const media = { ...state.media, src: mediaSrc, name: mediaName };
     const newState = {
       ...state,
       media: media,
@@ -105,11 +106,12 @@ export function useContentCreation(
   ) {
     console.log(pattern, sIndex, cIndex);
 
-    const media = { ...state.media, patternChoice: pattern };
+    const media = { src: "", name: "", thumbnail: "", patternChoice: pattern };
     const newState = {
       ...state,
       media: media,
     };
+    console.log("NEW STATE", newState);
     componentPosition &&
       updatePageState &&
       updatePageState(

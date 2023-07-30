@@ -31,6 +31,8 @@ const tfInitialState = {
   },
   media: {
     src: "",
+    name: "",
+    thumbnail: "",
     patternChoice: 0,
   },
 };

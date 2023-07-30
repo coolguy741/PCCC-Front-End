@@ -21,6 +21,8 @@ const taInitialState = {
   },
   media: {
     src: "",
+    name: "",
+    thumbnail: "",
     patternChoice: 0,
   },
 };

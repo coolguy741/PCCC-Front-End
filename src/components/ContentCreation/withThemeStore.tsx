@@ -16,7 +16,7 @@ export type ComponentProps = {
   ) => void;
   deleteListItem: () => void;
   addListItem: (amtOrIngdt?: boolean) => void;
-  changeMediaState: (name: string) => void;
+  changeMediaState: (mediaSrc: string, mediaName: string) => void;
   changeMediaPattern: (pattern: number) => void;
 };
 
@@ -91,8 +91,8 @@ export function withThemeStore<P extends ThemeComponentProps>(
     );
 
     const handleChangeMediaState = useCallback(
-      (name: string) => {
-        changeMediaState(name, slideIndex, componentIndex);
+      (mediaSrc: string, mediaName: string) => {
+        changeMediaState(mediaSrc, mediaName, slideIndex, componentIndex);
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [slideIndex, componentIndex, changeMediaState],

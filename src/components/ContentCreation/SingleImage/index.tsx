@@ -5,6 +5,8 @@ import { ComponentProps, withThemeStore } from "../withThemeStore";
 const initialState: any = {
   media: {
     src: "",
+    name: "",
+    thumbnail: "",
     patternChoice: 0,
   },
 };

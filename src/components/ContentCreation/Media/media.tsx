@@ -11,13 +11,12 @@ import { MediaPreview } from "./preview";
 
 export function Media({
   media,
-  variant,
   changeMediaState,
   changePattern,
 }: {
   media: any;
   variant?: "img-only" | "all";
-  changeMediaState: (name: string) => void;
+  changeMediaState: (mediaName: string, mediaSrc: string) => void;
   changePattern: (pattern: number) => void;
 }) {
   const { toggle, modal } = useModal();
@@ -32,12 +31,34 @@ export function Media({
       type = getMediaType(media.src);
     }
 
-    if (type === "images") return <img src={media?.src} alt="" />;
+    if (type === "images")
+      return (
+        <>
+          <img src={media?.src} alt="" />
+          <div className="empty-img">
+            <div className="img-btn-group">
+              <button
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Add video, audio or image"
+                data-tooltip-place="top"
+              >
+                <Add onClick={toggle} />
+              </button>
+              <button>
+                <Shuffle onClick={shufflePattern} />
+              </button>
+            </div>
+          </div>
+        </>
+      );
     else if (type === "video" || type === "audio")
       return (
         <MediaPreview
           changeMediaState={changeMediaState}
+          shufflePattern={shufflePattern}
+          currentPattern={currentPattern}
           src={media?.src}
+          name={media?.name}
           type={type}
         />
       );
@@ -105,6 +126,8 @@ const Style = {
       align-items: center;
       justify-content: flex-end;
       padding-bottom: 25px;
+      width: 100%;
+      height: 100%;
 
       .img-btn-group {
         display: flex;

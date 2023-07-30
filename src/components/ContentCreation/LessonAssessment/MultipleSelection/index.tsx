@@ -41,6 +41,8 @@ const mInitialState = {
   },
   media: {
     src: "",
+    name: "",
+    thumbnail: "",
     patternChoice: 0,
   },
 };
