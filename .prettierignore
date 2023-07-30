@@ -4,3 +4,4 @@ node_modules
 .AWS
 .storybook
 dist
+src/assets
