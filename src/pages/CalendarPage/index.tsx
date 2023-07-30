@@ -92,7 +92,7 @@ export const CalendarPage = () => {
             </div>
           </Style.CalendarSideMenu>
         </Style.CalendarContainer>
-        {user?.role === "professional" && (
+        {user?.role === "admin" && (
           <AddEventModal
             position={position}
             isOpen={isOpen}
@@ -100,7 +100,7 @@ export const CalendarPage = () => {
             close={handleClosePopup}
           />
         )}
-        {user?.role === "standard" && (
+        {(user?.role === "standard" || user?.role === "professional") && (
           <StandardAddEventModal
             position={position}
             isOpen={isOpen}

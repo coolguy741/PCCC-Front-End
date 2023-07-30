@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
@@ -36,7 +37,7 @@ export const components: ThemeComponent[] = [
     width: 3,
     id: 1,
     height: 2,
-    title: "Tile Card",
+    title: "Title Card 3x2",
     preview: <TitleIcon />,
     component: (props: ThemeComponentProps) => <Title key="title" {...props} />,
   },
@@ -44,7 +45,7 @@ export const components: ThemeComponent[] = [
     width: 1,
     id: 2,
     height: 1,
-    title: "Paragraph",
+    title: "Paragraph 1x1",
     preview: <PWH />,
     component: (props: ThemeComponentProps) => (
       <ParagraphWithHeading key="pwh" {...props} />
@@ -54,7 +55,7 @@ export const components: ThemeComponent[] = [
     id: 3,
     width: 1,
     height: 1,
-    title: "Paragraph with Number",
+    title: "Paragraph with Number 1x1",
     preview: <PWN />,
     component: (props: ThemeComponentProps) => (
       <NumberedParagraph key="np" {...props} />
@@ -64,7 +65,7 @@ export const components: ThemeComponent[] = [
     id: 4,
     width: 1,
     height: 1,
-    title: "1X1 Image",
+    title: "Image 1x1",
     preview: <SingleImageIcon />,
     component: (props: ThemeComponentProps) => (
       <SingleImage key="si" {...props} />
@@ -74,7 +75,7 @@ export const components: ThemeComponent[] = [
     id: 5,
     width: 2,
     height: 1,
-    title: "Double Image",
+    title: "Double Image 2x1",
     preview: <DoubleImageIcon />,
     component: (props: ThemeComponentProps) => (
       <DoubleImage key="di" {...props} />
@@ -84,7 +85,7 @@ export const components: ThemeComponent[] = [
     id: 6,
     width: 3,
     height: 2,
-    title: "Assessment - Multiple Choice",
+    title: "Assessment - Multiple Choice 3x2",
     preview: <AMC />,
     component: (props: ThemeComponentProps) => (
       <LessonAssessmentMultiple key="amc" {...props} />
@@ -94,7 +95,7 @@ export const components: ThemeComponent[] = [
     id: 7,
     width: 3,
     height: 2,
-    title: "Assessment - True & False",
+    title: "Assessment - True & False 3x2",
     preview: <ATF />,
     component: (props: ThemeComponentProps) => (
       <LessonAssessmentTrueOrFalse key="atf" {...props} />
@@ -114,7 +115,7 @@ export const components: ThemeComponent[] = [
     id: 9,
     width: 1,
     height: 1,
-    title: "Image with Caption",
+    title: "Image with Caption 1x1",
     preview: <IWC />,
     component: (props: ThemeComponentProps) => (
       <ImageWithCaption key="iwc" {...props} />
@@ -124,7 +125,7 @@ export const components: ThemeComponent[] = [
     id: 10,
     width: 1,
     height: 1,
-    title: "Bullet 1",
+    title: "Bullet 1x1",
     preview: <SB />,
     component: (props: ThemeComponentProps) => (
       <SingleBullet key="sb" {...props} />
@@ -134,7 +135,7 @@ export const components: ThemeComponent[] = [
     id: 10,
     width: 1,
     height: 1,
-    title: "Ingredient Card",
+    title: "Ingredient Card 1x1",
     preview: <IC />,
     component: (props: ThemeComponentProps) => (
       <IngredientCard key="ic" {...props} />
@@ -144,7 +145,7 @@ export const components: ThemeComponent[] = [
     id: 11,
     width: 2,
     height: 1,
-    title: "Bullet 2",
+    title: "Bullet 2x1",
     preview: <DB />,
     component: (props: ThemeComponentProps) => (
       <DoubleBullet key="db" {...props} />
@@ -154,7 +155,18 @@ export const components: ThemeComponent[] = [
 
 export const ContentBuilderCards: React.FC<{
   draggingComponent: number | undefined;
-}> = ({ draggingComponent }) => {
+  isForAssessments?: boolean;
+}> = ({ draggingComponent, isForAssessments }) => {
+  const contentComponents = useMemo(
+    () =>
+      components.filter((component) =>
+        isForAssessments
+          ? component.title.includes("Assessment")
+          : !component.title.includes("Assessment"),
+      ),
+    [isForAssessments],
+  );
+
   return (
     <Droppable droppableId="preview-drop" isDropDisabled={true}>
       {(dropProvided) => (
@@ -163,7 +175,7 @@ export const ContentBuilderCards: React.FC<{
           ref={dropProvided.innerRef}
         >
           <Scrollable tag="div">
-            {components.map((component, index) => (
+            {contentComponents.map((component, index) => (
               <Draggable
                 draggableId={`component-${index}`}
                 index={index}
@@ -179,7 +191,7 @@ export const ContentBuilderCards: React.FC<{
                       className="icon-container"
                     >
                       {snapShot.isDragging && draggingComponent === index
-                        ? components[draggingComponent].preview
+                        ? contentComponents[draggingComponent].preview
                         : component.preview}
                     </div>
                   </Style.Card>

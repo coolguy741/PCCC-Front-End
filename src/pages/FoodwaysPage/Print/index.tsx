@@ -1,102 +1,70 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Globe } from "../../../components/Foodways/Globe";
+
+import { FoodwayStop } from "../../../components/Foodways/FoodwayStop";
+import { FoodwayTimeline } from "../../../components/Foodways/FoodwayTimeline";
+import { FoodwayTitle } from "../../../components/Foodways/FoodwayTitle";
+import { Spinner } from "../../../components/Global/Spinner";
+import { useFetch } from "../../../hooks/useFetch";
+import { PccServer23FoodwaysFoodwayDto } from "../../../lib/api/api";
 
 export const FoodwaysPrintPage = () => {
+  const { foodway, slide } = useParams();
+  const { isLoading, data } = useFetch<PccServer23FoodwaysFoodwayDto>(
+    "appFoodwaysDetail",
+    foodway,
+    undefined,
+    true,
+  );
+
+  if (!data) {
+    return null;
+  }
+
   return (
     <Style.Container>
-      <h1>Foodways</h1>
-      <h2>Chocolate</h2>
-      <div className="content">
-        <div className="content__body">
-          <div className="content__body__timeline">
-            <div className="content__body__timeline__container">
-              <div className="content__body__timeline__container--vertical"></div>
-              <div className="content__body__timeline__container--vertical"></div>
-              <div className="content__body__timeline__container--vertical"></div>
-              <div className="content__body__timeline__container--vertical"></div>
-              <div className="content__body__timeline__container--vertical"></div>
-              <div className="content__body__timeline__container--vertical"></div>
-            </div>
-            <div className="content__body__timeline--horizontal"></div>
+      {isLoading ? (
+        <Spinner />
+      ) : parseInt(slide ?? "0") === 0 ? (
+        <FoodwayTitle foodway={data ?? {}} />
+      ) : (
+        <>
+          <div className="content">
+            <FoodwayStop
+              stop={data?.foodwayStops?.[parseInt(slide ?? "1") - 1]}
+            />
           </div>
-          <div className="content__body__main">
-            <div className="content__body__main__globe">
-              <Globe disableDrag disableMarker disableSoftOrbit />
-            </div>
-            <div className="content__body__main__text">
-              <h3>Mesoamerica</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
+          <div className="timeline">
+            <FoodwayTimeline
+              totalSlides={(data?.foodwayStops?.length ?? 0) + 1}
+              activeSlide={parseInt(slide ?? "1")}
+              foodway={data}
+            />
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </Style.Container>
   );
 };
 
 const Style = {
-  Container: styled.div`
+  Container: styled.section`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    h2 {
-      margin-bottom: 5rem;
-    }
+    overflow: hidden;
+    height: calc(100vh - 300px);
+    padding: 10px 86px 30px 86px;
+    margin-top: 3%;
 
     .content {
       display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      max-width: 90%;
+      height: 100%;
+      width: 90%;
+      width: 90%;
+    }
 
-      &__body {
-        display: flex;
-        flex-direction: column;
-
-        &__timeline {
-          &--horizontal {
-            width: 100%;
-            min-height: 5px;
-            background-color: var(--black);
-          }
-
-          &__container {
-            display: flex;
-            justify-content: space-around;
-
-            &--vertical {
-              height: 50px;
-              width: 5px;
-              background-color: var(--black);
-            }
-          }
-        }
-
-        &__main {
-          display: flex;
-
-          &__globe {
-            width: 100%;
-
-            div {
-              height: 50vh;
-            }
-          }
-
-          &__text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          }
-        }
-      }
+    .timeline {
+      width: 10%;
+      height: 100%;
     }
   `,
 };

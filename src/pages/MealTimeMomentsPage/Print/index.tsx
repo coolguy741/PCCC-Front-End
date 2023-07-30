@@ -1,47 +1,51 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { AlignmentStyle } from "../../../components/Global/Container";
-import { Text } from "../../../components/Global/Text";
-import mockData from "../../../lib/mockData/mealtime-moments/mealtime-moment-print.json";
+
+import { MealtimeMomentTitle } from "../../../components/ContentCreation/MealtimeMomentTitle";
+import { Spinner } from "../../../components/Global/Spinner";
+import { useFetch } from "../../../hooks/useFetch";
+import { PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull } from "../../../lib/api/api";
+import { useMealtimeMomentsStore } from "../../../stores/mealtimeMomentsStore";
+import { useUIStore } from "../../../stores/uiStore";
 
 export const MealtimeMomentPrintPage = () => {
+  const { id } = useParams();
+  const { isLoading, data } =
+    useFetch<PccServer23SharedIMultiLingualDto1PccServer23MealtimeMomentsPublicMealtimeMomentDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appMealtimeMomentsDetail",
+      {},
+      undefined,
+      true,
+      id as string,
+    );
+  const { lang } = useUIStore();
+  const { setDetail, ...state } = useMealtimeMomentsStore();
+
+  useEffect(() => {
+    data && setDetail(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
   return (
     <Style.PageContainer>
-      <AlignmentStyle.CenterAlignedContainer>
-        <h1>Mealtime moments</h1>
-      </AlignmentStyle.CenterAlignedContainer>
-      <AlignmentStyle.CenterAlignedContainer>
-        <h2>{mockData.title}</h2>
-      </AlignmentStyle.CenterAlignedContainer>
-      <AlignmentStyle.CenterAlignedContainer>
-        <Text>{mockData.brief}</Text>
-      </AlignmentStyle.CenterAlignedContainer>
-      <Style.Content>
-        <Text>{mockData.overview}</Text>
-        <Style.StyledImage src={mockData.image} alt={mockData.alt} />
-      </Style.Content>
+      {isLoading || !data ? (
+        <Spinner />
+      ) : (
+        <MealtimeMomentTitle
+          state={state[lang].componentState}
+          isEditable={false}
+        />
+      )}
     </Style.PageContainer>
   );
 };
 
 const Style = {
   PageContainer: styled.div`
-    padding: 0px 200px;
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    overflow: hidden;
+    height: calc(100vh - 300px);
+    padding: 10px 86px 30px 86px;
+    margin-top: 3%;
   `,
-  Content: styled.div`
-    display: flex;
-    gap: 50px;
-  `,
-  ButtonGroup: styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  `,
-  RightButtonGroup: styled.div`
-    display: flex;
-    gap: 20px;
-  `,
-  StyledImage: styled.img``,
 };

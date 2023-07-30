@@ -20,6 +20,8 @@ export type RefDivType = MutableRefObject<HTMLDivElement | null>;
 export type RefImageType = MutableRefObject<HTMLImageElement | null>;
 export type RefCanvasType = MutableRefObject<HTMLCanvasElement | null>;
 export type RefDirectionalLightType = MutableRefObject<DirectionalLight | null>;
+export type RefHeadingType = MutableRefObject<HTMLHeadingElement | null>;
+export type RefButtonType = MutableRefObject<HTMLButtonElement | null>;
 export type RefOrthographicCameraType =
   MutableRefObject<OrthographicCamera | null>;
 export type RefTimeoutType = MutableRefObject<ReturnType<

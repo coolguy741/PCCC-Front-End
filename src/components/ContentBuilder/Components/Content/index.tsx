@@ -10,6 +10,7 @@ interface ContentProps {
   setSlideIndex: (index: number) => void;
   isEditable?: boolean;
   type: ContentBuilderType;
+  slideIndex?: number;
 }
 
 export const Content: React.FC<ContentProps> = ({
@@ -17,10 +18,11 @@ export const Content: React.FC<ContentProps> = ({
   slides,
   setSlideIndex,
   isEditable = true,
+  slideIndex = 0,
 }) => {
   return (
     <Style.Slide>
-      <ContentNavigator type={type} />
+      <ContentNavigator type={type} slideIndex={slideIndex} />
       <ContentTemplate
         isEditable={isEditable}
         setSlideIndex={setSlideIndex}

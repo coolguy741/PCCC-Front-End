@@ -10,7 +10,10 @@ import {
 
 export type Unit = "each" | "liter" | "grams";
 export type Color = "orange" | "red" | "blue" | "green" | "yellow" | "neutral";
-export type Language = "en" | "fr";
+export enum Language {
+  EN = "en",
+  FR = "fr",
+}
 export enum ContentBuilderType {
   THEMES = "themes",
   ACTIVITIES = "activities",
@@ -96,6 +99,7 @@ export interface ContentBuilderProps {
   id?: string;
   currentLang: Language;
   slideIndex: number;
+  image?: string;
   items?:
     | PccServer23ActivitiesActivityDto[]
     | PccServer23CurriculumRecipesCurriculumRecipeDto[]
@@ -107,12 +111,14 @@ export interface ContentBuilderProps {
   en: {
     title?: string;
     topic?: string;
+    image?: string;
     description?: string;
     jsonData: ThemeComponent[][];
   };
   fr: {
     title?: string;
     topic?: string;
+    image?: string;
     description?: string;
     jsonData: ThemeComponent[][];
   };

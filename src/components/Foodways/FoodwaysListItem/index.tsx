@@ -30,7 +30,7 @@ export const FoodwaysListItem: React.FC<FoodwaysListItemProps> = ({
   return (
     <Style.Container onClick={() => navigate(`${data.id}`)}>
       <div className="img-container">
-        <img src={data.image!} alt={data.title!} />
+        <img src={data.image as string} alt={data.title as string} />
       </div>
       <Style.Content>
         {data.featureDate && (
@@ -39,7 +39,7 @@ export const FoodwaysListItem: React.FC<FoodwaysListItemProps> = ({
           </Style.Date>
         )}
         <Style.Title>{data.title}</Style.Title>
-        <Style.Description>{data.info}</Style.Description>
+        <Style.Description>{data.description}</Style.Description>
       </Style.Content>
       {selectable && (
         <Style.InputContainer>

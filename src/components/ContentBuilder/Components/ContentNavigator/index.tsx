@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { ContentBuilderType } from "../../../../pages/types";
@@ -7,9 +7,10 @@ import { ContentSlider } from "../Slider";
 
 interface Props {
   type: ContentBuilderType;
+  slideIndex?: number;
 }
 
-export const ContentNavigator: React.FC<Props> = ({ type }) => {
+export const ContentNavigator: React.FC<Props> = ({ type, slideIndex }) => {
   const { pathname } = useLocation();
   const { item } = useParams();
 
@@ -41,9 +42,12 @@ export const ContentNavigator: React.FC<Props> = ({ type }) => {
           >
             Edit
           </Button>
-          <Button variant="yellow" to={`/dashboard/${type}/slug/print`}>
-            Print
-          </Button>
+          <Link
+            target="_blank"
+            to={`/dashboard/${type}/${item}/${slideIndex}/print`}
+          >
+            <Button variant="yellow">Print</Button>
+          </Link>
         </div>
       ) : (
         <Button to={`/dashboard/${type}/preview`}>Preview</Button>

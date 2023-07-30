@@ -9,6 +9,7 @@ import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
 import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
+import { AccessibilityPage } from "./AccessibilityPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
 import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
@@ -28,7 +29,7 @@ import {
 import { AchievementsPage } from "./AchievementsPage";
 import { ActivitiesPage } from "./ActivitiesBuilderPage";
 import { ActivityPage } from "./ActivitiesBuilderPage/ActivityPage";
-import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPrintPage";
+import { ActivityPrintPage } from "./ActivitiesBuilderPage/ActivityPage/Print";
 import { ActivitiesCreatePage } from "./ActivitiesBuilderPage/Create";
 import { ActivitiesPreviewPage } from "./ActivitiesBuilderPage/Create/Preview";
 import { ForgotPasswordPage } from "./AuthPage/ForgotPage";
@@ -39,6 +40,7 @@ import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { CloudDrivePage, cloudDrivePageLoader } from "./CloudDrivePage";
+import { ContactUsPage } from "./ContactUsPage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
@@ -59,19 +61,21 @@ import { MealPlannerRecipePage } from "./MealPlannerPage/Recipe";
 import { MealPlannerRecipePrintPage } from "./MealPlannerPage/Recipe/Print";
 import { MealtimeMomentsPage } from "./MealtimeMomentsPage";
 import { CreateMealtimeMomentPage } from "./MealtimeMomentsPage/Create";
-import { EditMealtimeMomentPage } from "./MealtimeMomentsPage/Edit";
 import { MealtimeMomentOverviewPage } from "./MealtimeMomentsPage/Overview";
 import { MealtimeMomentsPreviewPage } from "./MealtimeMomentsPage/Preview";
 import { MealtimeMomentPrintPage } from "./MealtimeMomentsPage/Print";
+
 import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
+import { PrivacyPolicyPage } from "./PrivacyPolicyPage";
 import { ProfilePage } from "./Profile";
+import { ProfileAchievementsPage } from "./Profile/Achievements";
 import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 import { RecipesPage } from "./RecipeBuilderPage";
 import { RecipeCreatePage } from "./RecipeBuilderPage/Create";
 import { RecipePreviewPage } from "./RecipeBuilderPage/Create/Preview";
 import { RecipePage } from "./RecipeBuilderPage/RecipePage";
-import { RecipePrintPage } from "./RecipeBuilderPage/RecipePrintPage";
+import { RecipePrintPage } from "./RecipeBuilderPage/RecipePage/Print";
 import { RecipesCreateLessonAssessment } from "./RecipeBuilderPage/RecipesCreateLessonAssessment";
 import { RecipesCreatePreviewLessonAssessment } from "./RecipeBuilderPage/RecipesCreatePreviewLessonAssessment";
 import { RecipesEditLessonAssessment } from "./RecipeBuilderPage/RecipesEditLessonAssessment";
@@ -81,6 +85,7 @@ import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
 import { LessonAssessmentPage } from "./ReportsPage/LessonAssessment";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
+import { TCPage } from "./T&CPage";
 import { TempHomePage } from "./TempHomePage";
 import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
@@ -98,6 +103,22 @@ export const router = createBrowserRouter([
     errorElement: <ErrorBoundary />,
   },
   { path: "/landing", element: <TestLandingPage /> },
+  {
+    path: "/terms",
+    element: <TCPage />,
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicyPage />,
+  },
+  {
+    path: "/accessibility",
+    element: <AccessibilityPage />,
+  },
+  {
+    path: "/contact",
+    element: <ContactUsPage />,
+  },
   {
     path: "/signin",
     element: (
@@ -183,9 +204,15 @@ export const router = createBrowserRouter([
             element: <AccountsUserLessonAssessmentPage />,
           },
           {
+            path: "profiles/:user/achievements",
+            element: <ProfileAchievementsPage />,
+          },
+          {
             path: "groups",
             element: <AccountsGroupsPage />,
             loader: async () => {
+              await redirectIfNotLoggedIn();
+
               const groups = await getGroups();
               const invitations = await getGroupInvitations();
 
@@ -302,21 +329,17 @@ export const router = createBrowserRouter([
                 path: "",
                 element: <MealtimeMomentOverviewPage />,
                 id: "mealtime-moment",
-                // loader: async ({ params }) => {
-                //   const mealtimeMoment = await getMealtimeMoment(params.id);
-
-                //   return mealtimeMoment;
-                // },
               },
               {
                 path: "edit",
-                element: <EditMealtimeMomentPage />,
+                element: <CreateMealtimeMomentPage />,
                 // loader: async ({ params }) => {
                 //   const mealtimeMoment = await getMealtimeMoment(params.id);
 
                 //   return mealtimeMoment;
                 // },
               },
+              { path: "preview", element: <MealtimeMomentsPreviewPage /> },
             ],
           },
         ],
@@ -445,6 +468,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <ProfilePage /> },
           { path: "settings", element: <ProfileSettingsPage /> },
+          { path: "achievements", element: <ProfileAchievementsPage /> },
         ],
       },
       {
@@ -541,7 +565,7 @@ export const router = createBrowserRouter([
         path: "dashboard/foodways",
         children: [
           {
-            path: ":foodway/print",
+            path: ":foodway/:slide/print",
             element: <FoodwaysPrintPage />,
           },
         ],
@@ -555,11 +579,11 @@ export const router = createBrowserRouter([
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
       {
-        path: "dashboard/recipes/:recipe/print",
+        path: "dashboard/recipes/:item/:slide/print",
         element: <RecipePrintPage />,
       },
       {
-        path: "dashboard/activities/:activity/print",
+        path: "dashboard/activities/:item/:slide/print",
         element: <ActivityPrintPage />,
       },
       {
@@ -567,7 +591,7 @@ export const router = createBrowserRouter([
         element: <ThemePrintPage />,
       },
       {
-        path: "dashboard/mealtime-moments/:mealtime-moment/print",
+        path: "dashboard/mealtime-moments/:id/print",
         element: <MealtimeMomentPrintPage />,
       },
       { path: "dashboard/calendar/print", element: <CalendarPrintPage /> },

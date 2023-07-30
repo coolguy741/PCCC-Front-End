@@ -28,12 +28,14 @@ export const ContentTemplate: React.FC<{
   setSlideIndex: (slideIndex: number) => void;
   handleDelete?: (event: BaseSyntheticEvent) => void;
   updatePageState?: (slideIndex: number, index: number, state: State) => void;
+  isForAssessments?: boolean;
 }> = ({
   isEditable = true,
   handleDelete,
   slides,
   setSlideIndex,
   updatePageState,
+  isForAssessments = false,
 }) => {
   const { item } = useParams();
   const { pathname } = useLocation();
@@ -125,13 +127,15 @@ export const ContentTemplate: React.FC<{
                           isEditable,
                           updatePageState,
                         })
-                      : components[id - 1].component({
-                          slideIndex: sIndex,
-                          componentIndex: index,
-                          state: componentState,
-                          isEditable,
-                          updatePageState,
-                        })}
+                      : components
+                          ?.find((component) => component.id === id)
+                          ?.component({
+                            slideIndex: sIndex,
+                            componentIndex: index,
+                            state: componentState,
+                            isEditable,
+                            updatePageState,
+                          })}
                   </Style.Component>
                 ),
               )}

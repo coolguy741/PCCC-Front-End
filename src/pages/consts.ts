@@ -28,17 +28,22 @@ export const PROVINCES = [
 ];
 export const MENUS: Menu[] = [
   { label: "Home", to: "/dashboard", icon: "home" },
-  { label: "Manage Users", to: "accounts", icon: "user", auth: true },
+  {
+    label: "Manage Users",
+    to: "/dashboard/accounts",
+    icon: "user",
+    auth: true,
+  },
   {
     label: "Build Content",
     icon: "content-builder",
     to: "content-builder",
 
     subMenus: [
-      { label: "Themes", to: "themes", icon: "topic", auth: true },
-      { label: "Activities", to: "activities", icon: "activities" },
-      { label: "Recipes", to: "recipes", icon: "recipe" },
-      { label: "Foodways", to: "foodways", icon: "foodways" },
+      { label: "Themes", to: "/dashboard/themes", icon: "topic", auth: true },
+      { label: "Activities", to: "/dashboard/activities", icon: "activities" },
+      { label: "Recipes", to: "/dashboard/recipes", icon: "recipe" },
+      { label: "Foodways", to: "/dashboard/foodways", icon: "foodways" },
       {
         label: "Mealtime Moments",
         to: "mealtime-moments",
@@ -46,21 +51,30 @@ export const MENUS: Menu[] = [
       },
     ],
   },
-  { label: "Games", to: "games", icon: "game" },
+  { label: "Games", to: "/dashboard/games", icon: "game" },
   {
     label: "Planning Tools",
-    to: "user-tools",
+    to: "/dashboard",
     icon: "tool",
     auth: true,
     subMenus: [
-      { label: "Calendar", to: "calendar", icon: "calendar" },
+      {
+        label: "Calendar",
+        to: "/dashboard/calendar",
+        icon: "calendar",
+      },
       {
         label: "Plate Full Planner",
-        to: "plate-full-planner",
+        to: "/dashboard/plate-full-planner",
         icon: "meal-planner",
       },
     ],
   },
-  { label: "Reports", to: "reports", icon: "reports" },
-  { label: "Cloud drive", to: "cloud-drive", icon: "cloud", auth: true },
+  { label: "Reports", to: "/dashboard/reports", icon: "reports" },
+  {
+    label: "Cloud drive",
+    to: "/dashboard/cloud-drive",
+    icon: "cloud",
+    auth: true,
+  },
 ];

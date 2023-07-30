@@ -4,7 +4,7 @@ export type activeHoveredHudMenuOptionType =
   | "inventory"
   | "recipe_book"
   | "settings"
-  | "goal_list";
+  | "achievements";
 
 export interface UIModuleTypes {
   windowSize: Vector2;

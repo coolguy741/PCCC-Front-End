@@ -83,9 +83,9 @@ const SettingsHUDMenuOptionData: HUDMenuOptionDataType = {
   },
 };
 
-const GoalListHUDMenuOptionData: HUDMenuOptionDataType = {
-  name: "goal_list",
-  label: "Goal List",
+const AchievementsHUDMenuOptionData: HUDMenuOptionDataType = {
+  name: "achievements",
+  label: "Achievements",
   animIconLanding: new Vector2(15, 15),
   iconURL: "/game_assets/ui_images/goal_list/goal_list.webp",
   styleObject: {
@@ -111,8 +111,8 @@ const GoalListHUDMenuOptionData: HUDMenuOptionDataType = {
 };
 
 export {
-  GoalListHUDMenuOptionData,
   SettingsHUDMenuOptionData,
   InventoryHUDMenuOptionData,
   RecipeBookHUDMenuOptionData,
+  AchievementsHUDMenuOptionData,
 };

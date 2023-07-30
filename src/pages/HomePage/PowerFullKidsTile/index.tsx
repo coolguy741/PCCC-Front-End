@@ -1,18 +1,21 @@
-import { motion } from "framer-motion";
+import Lottie from "react-lottie";
 import styled from "styled-components";
+import animationData from "../../../assets/animations/landing.json";
 import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBackgroundGradient";
 
 export const PowerFullKidsTile = () => {
+  const defaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
     <Style.Container>
-      <motion.img
-        key="modal"
-        initial={{ opacity: 0, scale: 0.7 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ ease: "easeOut", duration: 0.8 }}
-        src="/images/powerfullkids.svg"
-        alt="powerfull kids"
-      />
+      <Lottie options={defaultOptions} isClickToPauseDisabled />
     </Style.Container>
   );
 };

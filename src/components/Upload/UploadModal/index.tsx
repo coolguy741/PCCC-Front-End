@@ -205,7 +205,7 @@ const Style = {
     }
 
     .upload-spinner {
-      margin-top: 15.5vh;
+      border-radius: 1rem;
     }
 
     article.um-content {

@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 
+import { useFetch } from "../../../../hooks/useFetch";
+import { PccServer23RecipesPublicRecipeDto } from "../../../../lib/api/api";
 import { WEEK_DAYS } from "../../../../pages/consts";
 import { useMealPlannerStore } from "../../../../stores/mealPlannerStore";
 import { useUserStore } from "../../../../stores/userStore";
@@ -28,14 +30,34 @@ export const MealPlanGenerator = () => {
     changeChildrenCount,
     changeMealsPerDay,
     changeSelectedFilters,
+    daysOfWeek,
+    addDayOfWeek,
+    removeDayOfWeek,
   } = useMealPlannerStore();
   const user = useUserStore((state) => state.user);
+  const { isLoading, data, fetchData } = useFetch<
+    PccServer23RecipesPublicRecipeDto[]
+  >("appMealPlannerMealPlanList", {
+    DaysOfWeek: daysOfWeek,
+    MealsPerDay: mealsPerDay,
+  });
 
   const handleCreate = () => {
+    fetchData?.();
+
     changeStep(2);
   };
+
   const handleClose = () => {
     setIsRecipesModalOpen(false);
+  };
+
+  const onChangeHandler = (e: any, day: string) => {
+    if (e.target.checked) {
+      addDayOfWeek(day);
+    } else {
+      removeDayOfWeek(day);
+    }
   };
 
   return (
@@ -188,7 +210,12 @@ export const MealPlanGenerator = () => {
                   {WEEK_DAYS.map((day) => {
                     return (
                       <Style.Checkbox key={day}>
-                        <Checkbox colorOption="book" sizeOption="small" />
+                        <Checkbox
+                          colorOption="book"
+                          sizeOption="small"
+                          onChange={(e) => onChangeHandler(e, day)}
+                          checked={daysOfWeek.includes(day)}
+                        />
                         <label>{day}</label>
                       </Style.Checkbox>
                     );

@@ -1,16 +1,18 @@
 import { Leva } from "leva";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Header } from "../../components/Global/Header";
 import Scene from "../../components/Global/Scene";
+import { useUIStore } from "../../stores/uiStore";
+import { Language } from "../types";
 
 export const TempHomePage = () => {
-  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en");
+  const { lang, setLanguage } = useUIStore();
 
   useEffect(() => {
-    setLang(localStorage.getItem("lang") ?? "en");
+    setLanguage((localStorage.getItem("lang") ?? Language.EN) as Language);
     const handleStorageChange = (event: StorageEvent) => {
-      setLang(localStorage.getItem("lang") ?? "en");
+      setLanguage((localStorage.getItem("lang") ?? Language.EN) as Language);
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -18,7 +20,7 @@ export const TempHomePage = () => {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, []);
+  }, [setLanguage]);
 
   const MainEng = () => (
     <div className="title">
@@ -49,12 +51,12 @@ export const TempHomePage = () => {
       <Header />
 
       <main>
-        {lang === "en" ? <MainEng /> : <MainFr />}
+        {lang === Language.EN ? <MainEng /> : <MainFr />}
         <Scene />
       </main>
 
       <footer>
-        {lang === "en" ? (
+        {lang === Language.EN ? (
           <p>
             For Power Full Kids program information visit{" "}
             <a href="https://www.pcchildrenscharity.ca">

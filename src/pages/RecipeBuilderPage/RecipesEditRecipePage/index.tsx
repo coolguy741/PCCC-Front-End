@@ -14,9 +14,10 @@ import {
 } from "../../../components/Recipes/SelectIngredients";
 import { SelectTags, Tag } from "../../../components/Recipes/SelectTags";
 import mockData from "../../../lib/mockData/recipes/recipeEdit.json";
+import { Language } from "../../types";
 
 export const RecipesEditRecipePage = () => {
-  const [currentLanguage, setCurrentLanguage] = useState("en");
+  const [currentLanguage, setCurrentLanguage] = useState(Language.EN);
   const [ingredients, setIngredients] = useState<Ingredient[]>(
     mockData.initialIngredients,
   );
@@ -42,8 +43,8 @@ export const RecipesEditRecipePage = () => {
 
   const handleToggleLanguage = () => {
     setVisibleModal(false);
-    if (currentLanguage === "en") setCurrentLanguage("fr");
-    if (currentLanguage === "fr") setCurrentLanguage("en");
+    if (currentLanguage === Language.EN) setCurrentLanguage(Language.FR);
+    if (currentLanguage === Language.FR) setCurrentLanguage(Language.EN);
   };
 
   return (
@@ -52,25 +53,25 @@ export const RecipesEditRecipePage = () => {
       <div className="title-buttons-container">
         <h2>Edit recipe</h2>
         <div className="language-toggle">
-          {currentLanguage === "en" ? (
+          {currentLanguage === Language.EN ? (
             <>
               <SmallButton
-                onClick={() => setCurrentLanguage("en")}
+                onClick={() => setCurrentLanguage(Language.EN)}
                 bgColor="green"
               >
                 English
               </SmallButton>
-              <SmallButton onClick={() => setCurrentLanguage("fr")}>
+              <SmallButton onClick={() => setCurrentLanguage(Language.FR)}>
                 French
               </SmallButton>
             </>
           ) : (
             <>
-              <SmallButton onClick={() => setCurrentLanguage("en")}>
+              <SmallButton onClick={() => setCurrentLanguage(Language.EN)}>
                 English
               </SmallButton>
               <SmallButton
-                onClick={() => setCurrentLanguage("fr")}
+                onClick={() => setCurrentLanguage(Language.FR)}
                 bgColor="green"
               >
                 French

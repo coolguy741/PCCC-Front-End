@@ -86,10 +86,13 @@ export const Header: React.FC = () => {
                     <Style.DropdownItem
                       key={`field-${index}`}
                       id={currentField}
-                      onClick={() => handleSetField(currentField)}
                     >
                       <div>
-                        <Input type="radio" checked={field === currentField} />
+                        <Input
+                          type="radio"
+                          checked={field === currentField}
+                          onChange={() => handleSetField(currentField)}
+                        />
                       </div>
                       <div>{currentField.replaceAll("-", " ")}</div>
                     </Style.DropdownItem>

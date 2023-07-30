@@ -1,9 +1,7 @@
 import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { ThemeProperties } from "./../pages/types";
-import { useEducatorNotesStore } from "./../stores/contentBuilderStore";
-import { useThemeBuilderStore } from "./../stores/themeBuilderStore";
+import { useUIStore } from "./../stores/uiStore";
 
 import {
   PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
@@ -11,20 +9,23 @@ import {
   PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
 } from "../lib/api/api";
 import { STORAGE_KEY_JWT } from "../pages/consts";
-import { ContentBuilderType } from "../pages/types";
+import { ContentBuilderType, Language } from "../pages/types";
 import {
-  contentBuilderStoreState,
+  ContentBuilderStoreState,
   useActivitiesStore,
+  useEducatorNotesStore,
   useRecipesStore,
   useThemeStore,
 } from "../stores/contentBuilderStore";
+import { useThemeBuilderStore } from "../stores/themeBuilderStore";
+import { ThemeProperties } from "./../pages/types";
 import { useAPI } from "./useAPI";
 
 type DetailResponse =
   | PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
   | PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull
   | PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
-type StoreState = contentBuilderStoreState;
+type StoreState = ContentBuilderStoreState;
 
 const makeResponse = (
   response: DetailResponse,
@@ -33,12 +34,13 @@ const makeResponse = (
 ) => {
   return {
     slides: JSON.parse(
-      response[currentLang === "en" ? "english" : "french"]?.jsonData ?? "",
+      response[currentLang === Language.EN ? "english" : "french"]?.jsonData ||
+        "{}",
     ),
     id,
     concurrencyStamp:
-      response[currentLang === "en" ? "english" : "french"]?.concurrencyStamp ??
-      "",
+      response[currentLang === Language.EN ? "english" : "french"]
+        ?.concurrencyStamp || "{}",
     en: {
       title: response.english?.title ?? "",
       topic: response.english?.topic ?? "",
@@ -59,18 +61,19 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
     english: {
       ...store.en,
       jsonData: JSON.stringify(
-        store.currentLang === "en" ? store.slides : store.en.jsonData,
+        store.currentLang === Language.EN ? store.slides : store.en.jsonData,
       ),
     },
     french: {
       ...store.fr,
       jsonData: JSON.stringify(
-        store.currentLang === "fr" ? store.slides : store.fr.jsonData,
+        store.currentLang === Language.FR ? store.slides : store.fr.jsonData,
       ),
     },
+    image: store.image,
     tags: store.tags?.join(","),
   };
-
+  console.log(data, store);
   return hasTags ? { ...data, tags: store.tags?.join(",") } : data;
 };
 
@@ -82,13 +85,13 @@ export const useContentActions = () => {
   const activityStore = useActivitiesStore();
   const recipeStore = useRecipesStore();
   const themeBuilderStore = useThemeBuilderStore();
+  const { lang: currentLang } = useUIStore();
 
   const header = {
     headers: {
       Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
     },
   };
-  const currentLang = localStorage.getItem("lang") ?? "en";
 
   const getContent = useCallback(
     async (type: ContentBuilderType) => {
@@ -101,7 +104,7 @@ export const useContentActions = () => {
       switch (type) {
         case ContentBuilderType.THEMES:
           response = (await api
-            .appThemesDetail(item)
+            .appThemesDetail(item, header)
             .then(
               (res) => res.data,
             )) as PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
@@ -110,7 +113,7 @@ export const useContentActions = () => {
           break;
         case ContentBuilderType.ACTIVITIES:
           response = (await api
-            .appActivitiesDetail(item)
+            .appActivitiesDetail(item, header)
             .then(
               (res) => res.data,
             )) as PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
@@ -118,7 +121,7 @@ export const useContentActions = () => {
           break;
         case ContentBuilderType.RECIPES:
           response = (await api
-            .appCurriculumRecipesDetail(item)
+            .appCurriculumRecipesDetail(item, header)
             .then(
               (res) => res.data,
             )) as PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;

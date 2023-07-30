@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 import { components } from "../components/ContentBuilder/Components/Cards";
+import { CCFormat } from "../components/ContentCreation/types";
 import { ThemeComponent } from "../pages/types";
-import { CCFormat } from "./../components/ContentCreation/types";
 import {
   ContentBuilderProps,
   ContentStoreProps,
@@ -14,7 +14,7 @@ export interface IContent {
   curriculum?: string;
 }
 
-export interface contentBuilderStoreState
+export interface ContentBuilderStoreState
   extends ContentStoreProps,
     ContentBuilderProps {}
 
@@ -22,7 +22,7 @@ const initialState: ContentBuilderProps = {
   id: undefined,
   slideIndex: 0,
   slides: [[{ ...components[0] }]],
-  currentLang: "en",
+  currentLang: Language.EN,
   en: {
     jsonData: [],
   },
@@ -32,7 +32,7 @@ const initialState: ContentBuilderProps = {
 };
 
 const createStore = () =>
-  create<contentBuilderStoreState>((set, get) => ({
+  create<ContentBuilderStoreState>((set, get) => ({
     ...JSON.parse(JSON.stringify(initialState)),
     updateDetail: ({ slides, id, concurrencyStamp, en, fr }) =>
       set(({ en: originEn, fr: originFr }) => ({
@@ -93,12 +93,13 @@ const createStore = () =>
         currentStep: 0,
         en: { jsonData: slides },
         slides: [[{ ...components[0] }]],
-        currentLang: "fr",
+        currentLang: Language.FR,
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
       set(({ slides, currentLang, ...state }) => ({
-        slides: slides.map((slide) => {
-          if (!sIndex) {
+        image: (componentState as Record<string, CCFormat>).media.src,
+        slides: slides.map((slide, slideIndex) => {
+          if (!sIndex && sIndex === componentIndex) {
             state[currentLang].title = (
               componentState as Record<string, CCFormat>
             ).heading.text;
@@ -108,9 +109,20 @@ const createStore = () =>
             state[currentLang].topic = (
               componentState as Record<string, CCFormat>
             ).tag.text;
+            state[Language.EN].image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
+            state[Language.FR].image = (
+              componentState as Record<string, CCFormat>
+            ).media.src;
           }
-          slide[componentIndex].componentState = componentState;
-          return slide;
+
+          return slide.map((component, index) => ({
+            ...component,
+            ...(index === componentIndex && sIndex === slideIndex
+              ? { componentState }
+              : {}),
+          }));
         }),
       })),
     getDetailId: (index: number) => get().items?.[index - 1].id,

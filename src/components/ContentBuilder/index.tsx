@@ -1,4 +1,10 @@
-import { BaseSyntheticEvent, useCallback, useEffect, useState } from "react";
+import {
+  BaseSyntheticEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   DragDropContext,
   OnDragEndResponder,
@@ -9,7 +15,8 @@ import styled from "styled-components";
 
 import { getPositions } from "../../lib/util/getPositions";
 import { ContentBuilderType, ThemeComponent } from "../../pages/types";
-import { contentBuilderStoreState } from "../../stores/contentBuilderStore";
+import { ContentBuilderStoreState } from "../../stores/contentBuilderStore";
+import { useThemeBuilderStore } from "../../stores/themeBuilderStore";
 import { ContentEditorActions } from "./Components/Actions";
 import { ActivitiesAndRecipes } from "./Components/ActivitiesAndRecipes";
 import { components, ContentBuilderCards } from "./Components/Cards";
@@ -19,11 +26,10 @@ import { ContentTemplate } from "./Components/ContentTemplate";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
-import { useThemeBuilderStore } from "../../stores/themeBuilderStore";
 
 export interface ContentBuilderProps {
   type: ContentBuilderType;
-  store: contentBuilderStoreState;
+  store: ContentBuilderStoreState;
 }
 
 export const ContentBuilder: React.FC<ContentBuilderProps> = ({
@@ -52,9 +58,19 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
     setShowingMessage(false);
   }, [slideIndex]);
 
+  const contentComponents = useMemo(
+    () =>
+      components.filter((component) =>
+        currentStep === 2
+          ? component.title.includes("Assessment")
+          : !component.title.includes("Assessment"),
+      ),
+    [currentStep],
+  );
+
   const checkDroppable = useCallback(
     (droppableId: number, source: number) => {
-      const { width, height } = components[source];
+      const { width, height } = contentComponents[source];
       const currentX = droppableId % 3;
       const currentY = Math.floor(droppableId / 3);
       const positions: number[] = getPositions(
@@ -109,7 +125,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
           updatePage([
             ...slides[slideIndex],
             {
-              ...components[source],
+              ...contentComponents[source],
               x: droppableId % 3,
               y: Math.floor(droppableId / 3),
             },
@@ -181,12 +197,16 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
             onDragEnd={onDragEnd}
             onDragStart={onDragStart}
           >
-            <ContentBuilderCards draggingComponent={draggingComponent} />
+            <ContentBuilderCards
+              draggingComponent={draggingComponent}
+              isForAssessments={currentStep === 2}
+            />
             <Style.Slide>
               <ContentTemplate
                 handleDelete={handleDelete}
                 setSlideIndex={setSlideIndex}
                 updatePageState={updatePageState}
+                isForAssessments={currentStep === 2}
                 slides={slides}
               />
               <ContentEditorActions

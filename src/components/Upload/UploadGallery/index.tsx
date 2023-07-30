@@ -66,6 +66,7 @@ export function UploadGallery({
               <GalleryItem
                 el={el}
                 idx={idx}
+                key={el.url}
                 type={type || "images"}
                 handleDelete={handleDelete}
                 setImage={setImage}

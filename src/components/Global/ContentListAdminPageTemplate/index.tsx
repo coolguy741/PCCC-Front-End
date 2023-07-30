@@ -4,6 +4,7 @@ import React from "react";
 import {
   PccServer23ActivitiesActivityDto,
   PccServer23CurriculumRecipesCurriculumRecipeDto,
+  PccServer23MealtimeMomentsMealtimeMomentDto,
   PccServer23ThemesThemeDto,
 } from "../../../lib/api/api";
 import { MockContentsDto } from "../../../pages/types";
@@ -22,13 +23,18 @@ interface ContentListAdminPageTemplateProps {
     | PccServer23ActivitiesActivityDto[]
     | PccServer23ThemesThemeDto[]
     | PccServer23CurriculumRecipesCurriculumRecipeDto[]
+    | PccServer23MealtimeMomentsMealtimeMomentDto[]
     | MockContentsDto[];
   onSelectionChange: (id: string, isSelected: boolean) => void;
+  handleSortChange: (value: string) => void;
   handleDelete: () => void;
   isLoading?: boolean;
 }
 
-const OPTIONS = ["name1", "name2", "name3"];
+const OPTIONS = [
+  { label: "Title", value: "title" },
+  { label: "Date", value: "creationTime" },
+];
 
 export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplateProps> =
   ({
@@ -36,6 +42,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
     selectsGroup,
     listData,
     onSelectionChange,
+    handleSortChange,
     handleDelete,
     isLoading,
   }) => {
@@ -51,7 +58,7 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
                   width={convertToRelativeUnit(180, "vw")}
                   height={convertToRelativeUnit(52, "vh")}
                   options={OPTIONS}
-                  onChange={() => alert("option changed")}
+                  onChange={handleSortChange}
                 />
               </Style.SelectContainer>
             ))}

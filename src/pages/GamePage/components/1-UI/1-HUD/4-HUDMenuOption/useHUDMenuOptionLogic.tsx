@@ -24,10 +24,17 @@ const useHUDMenuOptionLogic: UseHUDMenuOptionLogicType = ({
   const hudMenuOptionBGRef: RefDivType = useRef(null);
   const hudMenuOptionIconRef: RefImageType = useRef(null);
 
-  const { isSettingsPanelOpen, setIsSettingsPanelOpen } = useGlobalState(
+  const {
+    isSettingsPanelOpen,
+    setIsSettingsPanelOpen,
+    isAchievementsPanelOpen,
+    setIsAchievementsPanelOpen,
+  } = useGlobalState(
     (state) => ({
       isSettingsPanelOpen: state.isSettingsPanelOpen,
       setIsSettingsPanelOpen: state.setIsSettingsPanelOpen,
+      isAchievementsPanelOpen: state.isAchievementsPanelOpen,
+      setIsAchievementsPanelOpen: state.setIsAchievementsPanelOpen,
     }),
     shallow,
   );
@@ -49,11 +56,16 @@ const useHUDMenuOptionLogic: UseHUDMenuOptionLogicType = ({
     if (optionData.name === "settings") {
       setIsSettingsPanelOpen(true);
     }
+
+    if (optionData.name === "achievements") {
+      setIsAchievementsPanelOpen(true);
+    }
   }, [
     menuActive,
     optionData,
     isSettingsPanelOpen,
     setIsSettingsPanelOpen,
+    setIsAchievementsPanelOpen,
     setActiveHoveredHudMenuOption,
   ]);
 
@@ -61,21 +73,19 @@ const useHUDMenuOptionLogic: UseHUDMenuOptionLogicType = ({
     if (menuActive) return;
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
+    if (optionData.name === "inventory") return;
+    if (optionData.name === "settings") return;
+    if (optionData.name === "achievements") return;
 
-    if (
-      activeHoveredHudMenuOption !== "inventory" &&
-      activeHoveredHudMenuOption !== "settings"
-    ) {
-      setActiveHoveredHudMenuOption(null);
-      animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
-      animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
-    }
-  }, [menuActive, setActiveHoveredHudMenuOption, activeHoveredHudMenuOption]);
+    setActiveHoveredHudMenuOption(null);
+    animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
+    animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
+  }, [menuActive, setActiveHoveredHudMenuOption, optionData]);
 
   useEffect(() => {
+    if (isSettingsPanelOpen) return;
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
-    if (isSettingsPanelOpen) return;
     if (optionData.name !== "settings") return;
     setActiveHoveredHudMenuOption(null);
     animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
@@ -87,13 +97,28 @@ const useHUDMenuOptionLogic: UseHUDMenuOptionLogicType = ({
     setActiveHoveredHudMenuOption,
   ]);
 
+  useEffect(() => {
+    if (isAchievementsPanelOpen) return;
+    if (!hudMenuOptionBGRef.current) return;
+    if (!hudMenuOptionIconRef.current) return;
+    if (optionData.name !== "achievements") return;
+    setActiveHoveredHudMenuOption(null);
+    animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
+    animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
+  }, [
+    optionData,
+    onPointerLeave,
+    isAchievementsPanelOpen,
+    setActiveHoveredHudMenuOption,
+  ]);
+
   // TODO: Kanui - This only covers the inventory condition
   useEffect(() => {
-    if (optionData.name !== "inventory") return;
-    if (activeHoveredHudMenuOption !== null) return;
     if (menuActive) return;
     if (!hudMenuOptionBGRef.current) return;
     if (!hudMenuOptionIconRef.current) return;
+    if (optionData.name !== "inventory") return;
+    if (activeHoveredHudMenuOption !== null) return;
 
     animateHUDMenuOptionBGOut(hudMenuOptionBGRef.current);
     animateHUDMenuOptionIconOut(hudMenuOptionIconRef.current);
