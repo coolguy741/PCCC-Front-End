@@ -1,3 +1,4 @@
+import { Tooltip } from "react-tooltip";
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import { usePatterns } from "../../../hooks/usePatterns";
@@ -33,17 +34,28 @@ export function Media({
 
     if (type === "images") return <img src={media?.src} alt="" />;
     else if (type === "video" || type === "audio")
-      return <MediaPreview src={media?.src} type={type} />;
+      return (
+        <MediaPreview
+          changeMediaState={changeMediaState}
+          src={media?.src}
+          type={type}
+        />
+      );
   }
 
   return (
     <>
+      <Tooltip id="my-tooltip" />
       <Style.Container>
         <div className="media-container">{showMedia()}</div>
         {!media?.src && (
           <Patterns className="empty-img" pattern={currentPattern}>
             <div className="img-btn-group">
-              <button>
+              <button
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Add video, audio or image"
+                data-tooltip-place="top"
+              >
                 <Add onClick={toggle} />
               </button>
               <button>
