@@ -92,7 +92,7 @@ const Style = {
       object-fit: cover;
       width: 100%;
       height: auto;
-      object-positi/on: center;
+      object-position: center;
     }
 
     .empty-img {
