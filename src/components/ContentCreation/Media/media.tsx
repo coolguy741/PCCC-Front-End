@@ -2,9 +2,7 @@ import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import { usePatterns } from "../../../hooks/usePatterns";
 import { getMediaType } from "../../../lib/util/getMediaType";
-import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Patterns } from "../../Patterns";
-import { Typography } from "../../Typography";
 import { UploadModal } from "../../Upload/UploadModal";
 import Add from "../Icons/add";
 import Shuffle from "../Icons/shuffle";
@@ -52,14 +50,6 @@ export function Media({
                 <Shuffle onClick={shufflePattern} />
               </button>
             </div>
-            <Typography
-              color="white"
-              tag="h3"
-              weight={600}
-              size={convertToRelativeUnit(16, "vh")}
-            >
-              {variant === "img-only" ? "Add Image" : "Add Image or Video"}
-            </Typography>
           </Patterns>
         )}
       </Style.Container>
@@ -101,7 +91,40 @@ const Style = {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
+      padding-bottom: 25px;
+
+      .img-btn-group {
+        display: flex;
+        width: 100px;
+        justify-content: space-between;
+      }
+
+      button {
+        height: 42.5px;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background-color: rgba(255, 255, 255, 0);
+        transition: background 0.25s linear;
+
+        svg {
+          path {
+            transition: fill 0.25s ease-out;
+          }
+        }
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 1);
+
+          svg {
+            path {
+              fill: #646464;
+            }
+          }
+        }
+      }
     }
   `,
 };
