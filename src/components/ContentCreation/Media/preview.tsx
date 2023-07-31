@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import CDThumbnail from "../../CloudDrive/Icons/cd-thumbnail";
@@ -22,7 +23,11 @@ export function MediaPreview({
   return (
     <>
       {" "}
-      <Style.Container>
+      <Style.Container
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
         <Patterns className="mp-media-container" pattern={currentPattern}>
           <button className="mp-play">
             <PlayIcon onClick={togglePreview} />
@@ -61,7 +66,7 @@ export function MediaPreview({
 }
 
 const Style = {
-  Container: styled.button`
+  Container: styled(motion.article)`
     height: 100%;
     width: 100%;
 
