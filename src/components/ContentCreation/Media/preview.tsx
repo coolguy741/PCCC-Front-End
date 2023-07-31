@@ -29,8 +29,14 @@ export function MediaPreview({
         exit={{ opacity: 0 }}
       >
         <Patterns className="mp-media-container" pattern={currentPattern}>
-          <button className="mp-play">
-            <PlayIcon onClick={togglePreview} />
+          <button
+            className="mp-play"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Play"
+            data-tooltip-place="top"
+            onClick={togglePreview}
+          >
+            <PlayIcon />
           </button>
           <div className="img-btn-group">
             <button
@@ -40,10 +46,18 @@ export function MediaPreview({
             >
               <Add onClick={toggleUpload} />
             </button>
-            <button>
+            <button
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Shuffle image"
+              data-tooltip-place="top"
+            >
               <Shuffle onClick={shufflePattern} />
             </button>
-            <button>
+            <button
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Add thumbnail"
+              data-tooltip-place="top"
+            >
               <CDThumbnail />
             </button>
           </div>

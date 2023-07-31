@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Tooltip } from "react-tooltip";
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import { usePatterns } from "../../../hooks/usePatterns";
@@ -59,7 +58,11 @@ export function Media({
               >
                 <Add onClick={toggle} />
               </button>
-              <button>
+              <button
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Shuffle image"
+                data-tooltip-place="top"
+              >
                 <Shuffle onClick={shufflePattern} />
               </button>
             </div>
@@ -81,7 +84,6 @@ export function Media({
 
   return (
     <>
-      <Tooltip id="my-tooltip" />
       <Style.Container>
         <div className="media-container">
           <AnimatePresence mode="wait">{showMedia()}</AnimatePresence>
@@ -97,7 +99,11 @@ export function Media({
                 >
                   <Add onClick={toggle} />
                 </button>
-                <button>
+                <button
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Shuffle image"
+                  data-tooltip-place="top"
+                >
                   <Shuffle onClick={shufflePattern} />
                 </button>
               </div>
