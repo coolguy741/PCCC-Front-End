@@ -13,10 +13,10 @@ import { ContentBuilderType, Language } from "../pages/types";
 import {
   ContentBuilderStoreState,
   useActivitiesStore,
-  useEducatorNotesStore,
   useRecipesStore,
   useThemeStore,
 } from "../stores/contentBuilderStore";
+import { useEducatorNotesStore } from "../stores/educatorNotesStore";
 import { useThemeBuilderStore } from "../stores/themeBuilderStore";
 import { ThemeProperties } from "./../pages/types";
 import { useAPI } from "./useAPI";
@@ -73,7 +73,6 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
     image: store.image,
     tags: store.tags?.join(","),
   };
-  console.log(data, store);
   return hasTags ? { ...data, tags: store.tags?.join(",") } : data;
 };
 
@@ -168,14 +167,41 @@ export const useContentActions = () => {
           }
 
           if (prop === ThemeProperties.EDUCATOR_NOTES) {
-            const data = {
-              themeId: themeStore.id ?? "",
-              title: JSON.stringify(educatorNotesStore.slides),
-              englishDesc: educatorNotesStore.en.title,
-              frenchDesc: educatorNotesStore.en.title,
-              curriculumId: themeBuilderStore.selectedCurriculum ?? "",
-            };
-            await api.appThemesEducatorNoteCreate(data, header);
+            const {
+              educatorNotes: prevEducatorNotes,
+              slides,
+              en,
+              fr,
+            } = educatorNotesStore;
+            const curriculumId = themeBuilderStore.selectedCurriculum;
+            const educatorNotes = [
+              ...prevEducatorNotes.map((item) =>
+                item.curriculumId === curriculumId
+                  ? {
+                      ...item,
+                      slides: [...slides],
+                      en: { ...en },
+                      fr: { ...fr },
+                    }
+                  : item,
+              ),
+            ];
+            console.log(educatorNotes);
+            for (const element of educatorNotes) {
+              await api.appThemesEducatorNoteCreate(
+                {
+                  themeId: themeStore.id ?? "",
+                  curriculumId: element.curriculumId,
+                  englishTitle: element?.en?.title ?? "",
+                  frenchTitle: element?.fr?.title ?? "",
+                  englishDesc: element?.en?.description ?? "",
+                  frenchDesc: element?.fr?.description ?? "",
+                  englishJson: JSON.stringify(element?.en?.jsonData) ?? "",
+                  frenchJson: JSON.stringify(element?.fr?.jsonData) ?? "",
+                },
+                header,
+              );
+            }
           }
           break;
         case ContentBuilderType.ACTIVITIES:

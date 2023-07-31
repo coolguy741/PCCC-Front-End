@@ -26,6 +26,7 @@ import { ContentTemplate } from "./Components/ContentTemplate";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/scrollbar";
+import { useEducatorNotesStore } from "../../stores/educatorNotesStore";
 
 export interface ContentBuilderProps {
   type: ContentBuilderType;
@@ -41,6 +42,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
   const [prevContentComponents, setPrevContentComponents] =
     useState<ThemeComponent[]>();
   const { currentStep } = useThemeBuilderStore();
+  const educatorNotesStore = useEducatorNotesStore();
 
   const {
     slideIndex,
@@ -52,7 +54,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
     addSlide,
     setLang,
     deleteSlide,
-  } = store;
+  } = currentStep === 1 ? educatorNotesStore : store;
 
   useEffect(() => {
     setShowingMessage(false);
@@ -206,7 +208,6 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
                 handleDelete={handleDelete}
                 setSlideIndex={setSlideIndex}
                 updatePageState={updatePageState}
-                isForAssessments={currentStep === 2}
                 slides={slides}
               />
               <ContentEditorActions

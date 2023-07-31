@@ -132,4 +132,3 @@ const createStore = () =>
 export const useActivitiesStore = createStore();
 export const useRecipesStore = createStore();
 export const useThemeStore = createStore();
-export const useEducatorNotesStore = createStore();
