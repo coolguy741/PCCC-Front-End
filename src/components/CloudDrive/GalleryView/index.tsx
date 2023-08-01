@@ -65,6 +65,10 @@ export function CDGalleryView({
             idx={idx}
             type={type}
             handleDelete={handleDelete}
+            setPreviewUrl={setPreviewUrl}
+            setShowPreviewModal={setShowPreviewModal}
+            setFileType={setFileType}
+            setFileName={setFileName}
           />
         ))}
       </InfiniteScroll>

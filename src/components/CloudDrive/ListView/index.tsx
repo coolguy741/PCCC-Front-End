@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import styled from "styled-components";
 import { formatDate } from "../../../lib/util/formatDate";
 import { roundToOneDecimal } from "../../../lib/util/roundToOneDecimal";
+import { trimStringByLength } from "../../../lib/util/trimStringByLength";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import Scrollable from "../../Global/Scrollable";
 import { Typography } from "../../Typography";
@@ -201,9 +202,14 @@ export function CDListView({
                       onClick={() =>
                         playHandler(el.url, el.folder, el.fileName)
                       }
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content={
+                        el.fileName.length >= 30 ? el.fileName : ""
+                      }
+                      data-tooltip-place="top"
                       className="file-name"
                     >
-                      {el.fileName}
+                      {trimStringByLength(el.fileName, 30)}
                     </Typography>
                   </figure>
                   <Typography {...table_text_props}>
