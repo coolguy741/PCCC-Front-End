@@ -1,10 +1,7 @@
 import { create } from "zustand";
 
-import { components } from "../components/ContentBuilder/Components/Cards";
 import { CCFormat } from "../components/ContentCreation/types";
-import { PccServer23EducatorNotesEducatorNoteDto } from "../lib/api/api";
-import { ThemeComponent } from "../pages/types";
-import { ContentBuilderProps, Language } from "./../pages/types";
+import { ContentBuilderProps, Language, ThemeComponent } from "../pages/types";
 import { ContentBuilderStoreState } from "./contentBuilderStore";
 
 export interface IContent {
@@ -12,7 +9,7 @@ export interface IContent {
   curriculum?: string;
 }
 
-export type EducatorNote = {
+export type Assessment = {
   slides: ThemeComponent[][];
   id?: string;
   concurrencyStamp?: string;
@@ -31,28 +28,25 @@ export type EducatorNote = {
   };
 };
 
-export interface EducatorNotesForStore extends ContentBuilderProps {
-  educatorNotes: EducatorNote[];
+export interface AssessmentsForStore extends ContentBuilderProps {
+  assessments: Assessment[];
 }
 
-export interface EducatorNotesStoreProps {
-  setEducatorNotes: (
-    educatorNotes: PccServer23EducatorNotesEducatorNoteDto[],
-    lang: Language,
-  ) => void;
+export interface AssessmentsStoreProps {
+  setAssessments: (assessments: Assessment[]) => void;
   changeCurriculum: (curriculumId: string, prev?: string) => void;
 }
 
-export interface EducatorNotesStoreState
+export interface AssessmentsStoreState
   extends ContentBuilderStoreState,
-    EducatorNotesStoreProps,
-    EducatorNotesForStore {}
+    AssessmentsStoreProps,
+    AssessmentsForStore {}
 
-const initialState: EducatorNotesForStore = {
+const initialState: AssessmentsForStore = {
   id: undefined,
   slideIndex: 0,
-  slides: [[{ ...components[0] }]],
-  educatorNotes: [],
+  slides: [[]],
+  assessments: [],
   currentLang: Language.EN,
   en: {
     jsonData: [],
@@ -63,41 +57,19 @@ const initialState: EducatorNotesForStore = {
 };
 
 const createStore = () =>
-  create<EducatorNotesStoreState>((set, get) => ({
+  create<AssessmentsStoreState>((set, get) => ({
     ...JSON.parse(JSON.stringify(initialState)),
-    setEducatorNotes: (
-      educatorNotes: PccServer23EducatorNotesEducatorNoteDto[],
-      lang: Language,
-    ) =>
+    updateAssessments: (assessments: Assessment[]) =>
       set(() => ({
-        educatorNotes: educatorNotes?.map((educatorNote) => ({
-          id: educatorNote.id,
-          concurrencyStamp: educatorNote.concurrencyStamp || "",
-          curriculumId: educatorNote.curriculumId || "",
-          slides: JSON.parse(
-            (lang === Language.EN
-              ? educatorNote.englishJson
-              : educatorNote.frenchJson) ?? "{}",
-          ),
-          en: {
-            jsonData: JSON.parse(educatorNote.englishJson || "[]"),
-            title: educatorNote.englishTitle || "",
-            description: educatorNote.englishDesc || "",
-          },
-          fr: {
-            jsonData: JSON.parse(educatorNote.frenchJson || "[]"),
-            title: educatorNote.frenchTitle || "",
-            description: educatorNote.frenchDesc || "",
-          },
-        })),
+        assessments,
       })),
     changeCurriculum: async (curriculumId: string, prev?: string) =>
-      set(({ educatorNotes, slides, en, fr }) => {
-        const educatorNote = educatorNotes?.find(
+      set(({ assessments, slides, en, fr }) => {
+        const assessment = assessments?.find(
           (item) => item.curriculumId === curriculumId,
         );
-        const prevEducatorNotes = [
-          ...educatorNotes.map((item) =>
+        const prevAssessments = [
+          ...assessments.map((item) =>
             item.curriculumId === prev
               ? {
                   ...item,
@@ -109,12 +81,12 @@ const createStore = () =>
           ),
         ];
         return {
-          educatorNotes: educatorNote
-            ? [...prevEducatorNotes]
+          assessments: assessment
+            ? [...prevAssessments]
             : [
-                ...prevEducatorNotes,
+                ...prevAssessments,
                 {
-                  slides: [[{ ...components[0] }]],
+                  slides: [[]],
                   curriculumId,
                   en: {
                     jsonData: [],
@@ -124,17 +96,17 @@ const createStore = () =>
                   },
                 },
               ],
-          slides: educatorNote
-            ? JSON.parse(JSON.stringify(educatorNote.slides))
-            : [[{ ...components[0] }]],
+          slides: assessment
+            ? JSON.parse(JSON.stringify(assessment.slides))
+            : [[]],
           slideIndex: 0,
-          en: educatorNote
-            ? JSON.parse(JSON.stringify(educatorNote.en))
+          en: assessment
+            ? JSON.parse(JSON.stringify(assessment.en))
             : {
                 jsonData: [],
               },
-          fr: educatorNote
-            ? JSON.parse(JSON.stringify(educatorNote.fr))
+          fr: assessment
+            ? JSON.parse(JSON.stringify(assessment.fr))
             : {
                 jsonData: [],
               },
@@ -153,7 +125,7 @@ const createStore = () =>
       set(() => ({
         ...initialState,
         items,
-        slides: [[{ ...components[0] }]],
+        slides: [[]],
         en: {
           jsonData: [],
         },
@@ -182,7 +154,7 @@ const createStore = () =>
         slideIndex: 0,
         slides: state[newLang].jsonData.length
           ? [...state[newLang].jsonData]
-          : [[{ ...components[0] }]],
+          : [[]],
         currentLang: newLang,
       })),
     deleteSlide: () =>
@@ -198,7 +170,7 @@ const createStore = () =>
       set(({ slides }) => ({
         currentStep: 0,
         en: { jsonData: slides },
-        slides: [[{ ...components[0] }]],
+        slides: [[]],
         currentLang: Language.FR,
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
@@ -208,13 +180,14 @@ const createStore = () =>
             ? (componentState as Record<string, CCFormat>).media?.src
             : state.image,
         slides: slides.map((slide, slideIndex) => {
+          console.log(componentState);
           if (!sIndex && sIndex === componentIndex) {
-            state[currentLang].title = (
-              componentState as Record<string, CCFormat>
-            ).heading.text;
             state[currentLang].description = (
               componentState as Record<string, CCFormat>
-            ).desc.text;
+            )?.question.text;
+            state[currentLang].description = (
+              componentState as Record<string, CCFormat>
+            ).number.text;
             state[currentLang].topic = (
               componentState as Record<string, CCFormat>
             ).tag.text;
@@ -240,13 +213,13 @@ const createStore = () =>
               if (!sIndex && sIndex === componentIndex) {
                 state[currentLang].title = (
                   componentState as Record<string, CCFormat>
-                ).heading.text;
+                ).heading?.text;
                 state[currentLang].description = (
                   componentState as Record<string, CCFormat>
                 ).desc.text;
                 state[currentLang].topic = (
                   componentState as Record<string, CCFormat>
-                ).tag.text;
+                ).tag?.text;
                 state[Language.EN].image = (
                   componentState as Record<string, CCFormat>
                 ).media?.src;
@@ -269,4 +242,4 @@ const createStore = () =>
     init: () => set(() => ({ ...initialState })),
   }));
 
-export const useEducatorNotesStore = createStore();
+export const useAssessmentsStore = createStore();

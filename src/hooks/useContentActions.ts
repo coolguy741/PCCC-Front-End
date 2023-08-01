@@ -186,21 +186,22 @@ export const useContentActions = () => {
                   : item,
               ),
             ];
-            console.log(educatorNotes);
             for (const element of educatorNotes) {
-              await api.appThemesEducatorNoteCreate(
-                {
-                  themeId: themeStore.id ?? "",
-                  curriculumId: element.curriculumId,
-                  englishTitle: element?.en?.title ?? "",
-                  frenchTitle: element?.fr?.title ?? "",
-                  englishDesc: element?.en?.description ?? "",
-                  frenchDesc: element?.fr?.description ?? "",
-                  englishJson: JSON.stringify(element?.en?.jsonData) ?? "",
-                  frenchJson: JSON.stringify(element?.fr?.jsonData) ?? "",
-                },
-                header,
-              );
+              const data = {
+                themeId: themeStore.id ?? "",
+                curriculumId: element.curriculumId,
+                englishTitle: element?.en?.title ?? "",
+                frenchTitle: element?.fr?.title ?? "",
+                englishDesc: element?.en?.description ?? "",
+                frenchDesc: element?.fr?.description ?? "",
+                englishJson: JSON.stringify(element?.en?.jsonData) ?? "",
+                frenchJson: JSON.stringify(element?.fr?.jsonData) ?? "",
+              };
+              if (element.id) {
+                await api.appThemesEducatorNoteUpdate(element.id, data, header);
+              } else {
+                await api.appThemesEducatorNoteCreate(data, header);
+              }
             }
           }
           break;

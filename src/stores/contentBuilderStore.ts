@@ -97,7 +97,10 @@ const createStore = () =>
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
       set(({ slides, currentLang, ...state }) => ({
-        image: (componentState as Record<string, CCFormat>).media.src,
+        image:
+          !sIndex && sIndex === componentIndex
+            ? (componentState as Record<string, CCFormat>).media.src
+            : state.image,
         slides: slides.map((slide, slideIndex) => {
           if (!sIndex && sIndex === componentIndex) {
             state[currentLang].title = (
