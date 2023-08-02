@@ -1,5 +1,7 @@
-import { FC, memo, useCallback } from "react";
+import { motion } from "framer-motion";
+import { FC, memo, PointerEvent, useCallback } from "react";
 import { shallow } from "zustand/shallow";
+import { SkintToneType } from "../../../globalState/modules/UIModule/UIModuleTypes";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import SkinToneOne from "./assets/skin-tone-1.webp";
 import SkinToneTwo from "./assets/skin-tone-2.webp";
@@ -9,17 +11,30 @@ import SkinTonePickerStyleContainer from "./SkinTonePickerStyleContainer";
 
 const SkinTonePicker: FC = () => {
   // Global State
-  const { setUIPhase, UIPhase } = useGlobalState(
-    (state) => ({
-      UIPhase: state.UIPhase,
-      setUIPhase: state.setUIPhase,
-    }),
-    shallow,
-  );
+  const { setUIPhase, UIPhase, setActiveSkinTone, activeSkinTone } =
+    useGlobalState(
+      (state) => ({
+        UIPhase: state.UIPhase,
+        setUIPhase: state.setUIPhase,
+        activeSkinTone: state.activeSkinTone,
+        setActiveSkinTone: state.setActiveSkinTone,
+      }),
+      shallow,
+    );
 
   const handleSkinToneTemp = useCallback(() => {
-    setUIPhase("Game");
-  }, [setUIPhase]);
+    // setUIPhase("Game");
+    console.log("hey");
+  }, []);
+
+  const handleSetSkinTone = useCallback(
+    (e: PointerEvent<HTMLButtonElement>) => {
+      if (e.currentTarget.name === activeSkinTone) return;
+      setActiveSkinTone(e.currentTarget.name as SkintToneType);
+      console.log(e.currentTarget.name);
+    },
+    [activeSkinTone, setActiveSkinTone],
+  );
 
   return (
     <SkinTonePickerStyleContainer>
@@ -33,9 +48,13 @@ const SkinTonePicker: FC = () => {
         <h1 className="skin-tone-copy">Pick your cursor skin color</h1>
       </div>
       <div className="skin-tone-choices">
-        <button
-          className="skin-tone-one-btn"
+        <motion.button
+          name={"skin-tone-one"}
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
           onClick={handleSkinToneTemp}
+          className="skin-tone-one-btn"
+          onPointerEnter={handleSetSkinTone}
           disabled={UIPhase !== "SkinTonePicker"}
         >
           <img
@@ -44,10 +63,14 @@ const SkinTonePicker: FC = () => {
             draggable={false}
             src={SkinToneOne}
           />
-        </button>
-        <button
-          className="skin-tone-two-btn"
+        </motion.button>
+        <motion.button
+          name={"skin-tone-two"}
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
           onClick={handleSkinToneTemp}
+          className="skin-tone-two-btn"
+          onPointerEnter={handleSetSkinTone}
           disabled={UIPhase !== "SkinTonePicker"}
         >
           <img
@@ -56,10 +79,14 @@ const SkinTonePicker: FC = () => {
             draggable={false}
             src={SkinToneTwo}
           />
-        </button>
-        <button
-          className="skin-tone-three-btn"
+        </motion.button>
+        <motion.button
+          name={"skin-tone-three"}
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
           onClick={handleSkinToneTemp}
+          className="skin-tone-three-btn"
+          onPointerEnter={handleSetSkinTone}
           disabled={UIPhase !== "SkinTonePicker"}
         >
           <img
@@ -68,7 +95,7 @@ const SkinTonePicker: FC = () => {
             draggable={false}
             src={SkinToneThree}
           />
-        </button>
+        </motion.button>
       </div>
     </SkinTonePickerStyleContainer>
   );

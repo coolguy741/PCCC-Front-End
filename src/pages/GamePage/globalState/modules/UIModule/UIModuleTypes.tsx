@@ -8,6 +8,11 @@ export type activeHoveredHudMenuOptionType =
 
 export type UIPhaseType = "Loader" | "Landing" | "SkinTonePicker" | "Game";
 
+export type SkintToneType =
+  | "skin-tone-one"
+  | "skin-tone-two"
+  | "skin-tone-three";
+
 export interface UIModuleTypes {
   UIPhase: UIPhaseType;
   setUIPhase: (newUIPhase: UIPhaseType) => void;
@@ -22,4 +27,6 @@ export interface UIModuleTypes {
   setActiveHoveredHudMenuOption: (
     newHoveredHudMenuOption: activeHoveredHudMenuOptionType | null,
   ) => void;
+  activeSkinTone: SkintToneType;
+  setActiveSkinTone: (newActiveSkinTone: SkintToneType) => void;
 }

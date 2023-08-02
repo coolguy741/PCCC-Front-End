@@ -1,7 +1,11 @@
 import { Vector2 } from "three";
 import { globalStateApiType } from "../../GlobalStateTypes";
 import { UIPhase } from "./UiModuleConstants";
-import { activeHoveredHudMenuOptionType, UIPhaseType } from "./UIModuleTypes";
+import {
+  activeHoveredHudMenuOptionType,
+  SkintToneType,
+  UIPhaseType,
+} from "./UIModuleTypes";
 
 const UIModule = ({ set, get }: globalStateApiType) => {
   return {
@@ -31,6 +35,11 @@ const UIModule = ({ set, get }: globalStateApiType) => {
       newHoveredHudMenuOption: activeHoveredHudMenuOptionType | null,
     ) => {
       set({ activeHoveredHudMenuOption: newHoveredHudMenuOption });
+    },
+
+    activeSkinTone: "skin-tone-one" as SkintToneType,
+    setActiveSkinTone: (newActiveSkinTone: SkintToneType) => {
+      set({ activeSkinTone: newActiveSkinTone });
     },
   };
 };
