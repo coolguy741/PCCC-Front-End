@@ -1,9 +1,15 @@
 import { Vector2 } from "three";
 import { globalStateApiType } from "../../GlobalStateTypes";
-import { activeHoveredHudMenuOptionType } from "./UIModuleTypes";
+import { UIPhase } from "./UiModuleConstants";
+import { activeHoveredHudMenuOptionType, UIPhaseType } from "./UIModuleTypes";
 
 const UIModule = ({ set, get }: globalStateApiType) => {
   return {
+    UIPhase: UIPhase,
+    setUIPhase: (newUIPhase: UIPhaseType) => {
+      set({ UIPhase: newUIPhase });
+    },
+
     cursorSize: new Vector2(),
 
     cursorLocation: new Vector2(),

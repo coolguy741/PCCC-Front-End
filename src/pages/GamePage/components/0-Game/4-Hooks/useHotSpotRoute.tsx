@@ -50,12 +50,14 @@ const useHotSpotRoute = ({
   const {
     activeLocation,
     setActiveLocation,
+    setIsActivelyTraveling,
     setActiveGardenHotSpot,
     setActiveKitchenHotSpot,
   } = useGlobalState(
     (state) => ({
       activeLocation: state.activeLocation,
       setActiveLocation: state.setActiveLocation,
+      setIsActivelyTraveling: state.setIsActivelyTraveling,
       setActiveGardenHotSpot: state.setActiveGardenHotSpot,
       setActiveKitchenHotSpot: state.setActiveKitchenHotSpot,
     }),
@@ -70,6 +72,7 @@ const useHotSpotRoute = ({
         playerCameraInitMouseRotationMultiplier,
         0.5,
       );
+      setIsActivelyTraveling(true);
       animateRouteProgress(
         routeProgressRef,
         direction ? 0 : 1,
@@ -81,6 +84,7 @@ const useHotSpotRoute = ({
           );
         },
         () => {
+          setIsActivelyTraveling(false);
           animateMouseMultiplierFactor(
             playerCameraMouseRotationMultiplierFactor,
             playerCameraFullMouseRotationMultiplier,
@@ -88,7 +92,7 @@ const useHotSpotRoute = ({
           );
         },
       );
-    }, [route, duration, direction]);
+    }, [route, duration, direction, setIsActivelyTraveling]);
 
   const handleRouteFov: ConstantVoidFunctionType = useCallback((): void => {
     animateRouteFov(playerCameraActiveFov, fov, duration);
@@ -101,18 +105,25 @@ const useHotSpotRoute = ({
   const handleCursorMovementLimits: ConstantVoidFunctionType =
     useCallback((): void => {
       if (newLocation === "Garden") {
-        if (hotspot === "ToolRack") {
-          leftRightLimit.set(1.0, 6.0);
-        } else if (hotspot === "PlantBox") {
-          leftRightLimit.set(1.0, 2.0);
-        } else if (hotspot === "SoilCorner") {
-          leftRightLimit.set(6.0, 1.0);
-        } else if (hotspot === "GardenHose") {
-          leftRightLimit.set(3.0, 3.0);
-        } else if (hotspot === "BigTree") {
-          leftRightLimit.set(3.0, 5.0);
-        } else if (hotspot === "Overview") {
-          leftRightLimit.set(0.5, 0.5);
+        switch (hotspot) {
+          case "ToolRack":
+            leftRightLimit.set(1.0, 6.0);
+            break;
+          case "PlantBox":
+            leftRightLimit.set(1.0, 2.0);
+            break;
+          case "SoilCorner":
+            leftRightLimit.set(6.0, 1.0);
+            break;
+          case "GardenHose":
+            leftRightLimit.set(3.0, 3.0);
+            break;
+          case "BigTree":
+            leftRightLimit.set(3.0, 5.0);
+            break;
+          case "Overview":
+            leftRightLimit.set(0.5, 0.5);
+            break;
         }
       } else if (newLocation === "Kitchen") {
         if (hotspot === "Overview") {

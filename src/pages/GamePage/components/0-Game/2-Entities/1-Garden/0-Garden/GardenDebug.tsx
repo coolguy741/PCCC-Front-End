@@ -40,7 +40,7 @@ const GardenDebug = (props: JSX.IntrinsicElements["group"]) => {
     useControls({
       garden: folder(
         {
-          gardenVisible: true,
+          gardenVisible: false,
           colorMultiplier: { r: 223, b: 238, g: 255 },
           aoIntensity: {
             value: 1,

@@ -4,6 +4,7 @@ import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import PlayerCamera from "../2-Entities/0-Cameras/0-PlayerCamera/PlayerCamera";
 import GardenDebug from "../2-Entities/1-Garden/0-Garden/GardenDebug";
+import GardenTemp from "../2-Entities/1-Garden/0-Garden/GardenTemp";
 import HotSpotLabels from "../2-Entities/2-HotSpotLabels/HotSpotLabels";
 import DynamicEnitity from "../2-Entities/3-DynamicEntity/DynamicEnitity";
 import KitchenDebug from "../2-Entities/5-Kitchen/KitchenDebug";
@@ -43,6 +44,8 @@ const GameStage: FC = () => {
       <Environment />
       <HotSpotLabels />
       <Sunny />
+
+      <GardenTemp />
 
       <SceneHelpers
         axes={axes}

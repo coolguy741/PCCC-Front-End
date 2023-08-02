@@ -6,7 +6,11 @@ export type activeHoveredHudMenuOptionType =
   | "settings"
   | "achievements";
 
+export type UIPhaseType = "Loader" | "Landing" | "SkinTonePicker" | "Game";
+
 export interface UIModuleTypes {
+  UIPhase: UIPhaseType;
+  setUIPhase: (newUIPhase: UIPhaseType) => void;
   windowSize: Vector2;
   cursorSize: Vector2;
   isCursorDown: boolean;

@@ -13,19 +13,21 @@ import {
 } from "./AchievementModuleTypes";
 
 const GardenCleanAchievementObject: GardenCleanAchievementObjectType = {
-  clean_slate: false,
+  clean_slate: true,
   tidy_tools: true,
+  clean_grower: true,
   green_thumb_forever: true,
 };
 
 const GardenCarefulAchievementObject: GardenCarefulAchievementObjectType = {
   garden_zen: true,
   green_thumb_protector: true,
-  sunshine_safety: false,
+  sunshine_safety: true,
   wild_harvest: true,
   work_smarter_not_harder: true,
-  nature_protector: false,
+  nature_protector: true,
   dirt_ditcher: true,
+  careful_grower: true,
 };
 
 const GardenConfidentAchievementObject: GardenConfidentAchievementObjectType = {
@@ -33,11 +35,12 @@ const GardenConfidentAchievementObject: GardenConfidentAchievementObjectType = {
   garden_genius: true,
   garden_explorer: true,
   itchy_encounter: true,
-  big_brain: false,
+  big_brain: true,
   creative_grower: true,
   tomato_harvest: true,
   carrot_harvest: true,
   blueberry_harvest: true,
+  confident_grower: true,
 };
 
 const GardenMasterAchievementObject: GardenMasterAchievementObjectType = {
@@ -53,30 +56,33 @@ const GardenAllAchievementObject: GardenAllAchievementObjectType = {
 
 const KitchenCleanAchievementObject: KitchenCleanAchievementObjectType = {
   tidy_zone: true,
-  functional_fashion: false,
+  functional_fashion: true,
   under_control: true,
   food_safety_savant: true,
   clean_sweep: true,
-  hygiene_hero: false,
+  hygiene_hero: true,
+  clean_cook: true,
 };
 
 const KitchenConfidentAchievementObject: KitchenConfidentAchievementObjectType =
   {
-    knowledge_finder: false,
-    knife_wielder: false,
+    knowledge_finder: true,
+    knife_wielder: true,
     kitchen_knower: true,
-    kitchen_explorer: false,
+    kitchen_explorer: true,
     creative_cook: true,
     experimentation_nation: true,
     mise_en_place: true,
     recipe_reciter: true,
+    confident_cook: true,
   };
 
 const KitchenCarefulAchievementObject: KitchenCarefulAchievementObjectType = {
   kitchen_zen: true,
-  functional_fit: false,
+  functional_fit: true,
   solid_ground: true,
   team_titan: true,
+  careful_cook: true,
 };
 
 const KitchenMasterAchievementObject: KitchenMasterAchievementObjectType = {

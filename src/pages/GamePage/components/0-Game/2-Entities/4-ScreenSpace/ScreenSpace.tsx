@@ -1,152 +1,248 @@
 import { useTexture } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { RootState, useFrame } from "@react-three/fiber";
 import { gsap } from "gsap";
-import { FC, memo, useCallback, useMemo, useRef } from "react";
-import {
-  PlaneGeometry,
-  RawShaderMaterial,
-  RGBAFormat,
-  Vector3,
-  VideoTexture,
-} from "three";
+import { FC, memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { RawShaderMaterial, RGBAFormat, Vector3, VideoTexture } from "three";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
+import { BACK_1_OUT } from "../../../../shared/Eases/Eases";
+import { ConstantVoidFunctionType } from "../../../../shared/Types/DefineTypes";
 import { RefBooleanType, RefMeshType } from "../../../../shared/Types/RefTypes";
-
-const pGeo = new PlaneGeometry(1, 1, 1, 1);
-
-const vertexShader = /* glsl */ `
-  precision highp float;
-  uniform mat4 projectionMatrix;
-  uniform mat4 modelViewMatrix;
-
-  attribute vec2 uv;
-  attribute vec3 position;
-
-  varying vec2 vUv;
-
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-const fragmentShader = /* glsl */ `
-  precision highp float;
-    
-  uniform float uTime;
-  uniform sampler2D uTexture;
-  uniform sampler2D uTextureIcon;
-
-  uniform float uAlpha;
-
-  varying vec2 vUv;
-
-  float map(float value, float min1, float max1, float min2, float max2) {
-      return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
-  }
-
-  void main() {
-    vec3 pgTexture = texture2D(uTexture, vec2(vUv.x / 2.0, vUv.y)).rgb;
-    vec3 pgIconTexture = texture2D(uTextureIcon, vec2(vUv.x / 2.0, vUv.y)).rgb;
-
-    float pgMask = texture2D(uTexture, vec2(vUv.x / 2.0 + 0.5, vUv.y)).r;
-    float pgIconMask = texture2D(uTextureIcon, vec2(vUv.x / 2.0 + 0.5, vUv.y)).r;
-
-
-    float sides = 1.0 - pow(abs(vUv.x * 2.0625 - 1.03125), 20.0);
-    float bottom = 1.0 - pow(abs(vUv.y - 1.005), 30.0);
-
-    float finalAlpha = sides * bottom * pgMask;
-
-    float radius = 0.3 * sin(uTime);
-
-    float dist = length(vUv - 0.5);
-    float gradient = 1.0 - smoothstep(radius, radius + 0.05, dist);
-
-    vec3 finalColor = mix(pgTexture, pgIconTexture, pgIconMask * gradient * map(uTime, -1.0, 1.0, 0.0, 1.0));
-
-    gl_FragColor = vec4(finalColor, pgMask * sides);
-  //   gl_FragColor = vec4(pgIconTexture, gradient * map(uTime, -1.0, 1.0, 0.0, 1.0));
-}
-`;
+import {
+  achievementAtlasDataMap,
+  achievementBadgeGeometry,
+  fragmentShader,
+  vertexShader,
+} from "./ScreenSpaceConstants";
 
 const ScreenSpace: FC = () => {
-  const r: RefBooleanType = useRef(false);
-  const texture = useTexture("/game_assets/textures/icon_layer.jpg");
+  // Refs
+  const videoMeshRef: RefMeshType = useRef(null);
+  const isPlayingRef: RefBooleanType = useRef(false);
+  const radialSwitchRef: RefBooleanType = useRef(false);
 
   // Global State
-  const { pgVideo } = useGlobalState(
+  const {
+    activeLanguage,
+    activeAchievementBadge,
+    setActiveAchievementBadge,
+    achievementVideoTexture,
+  } = useGlobalState(
     (state) => ({
-      pgVideo: state.pgVideo,
+      activeLanguage: state.activeLanguage,
+      activeAchievementBadge: state.activeAchievementBadge,
+      achievementVideoTexture: state.achievementVideoTexture,
+      setActiveAchievementBadge: state.setActiveAchievementBadge,
     }),
     shallow,
   );
 
-  const pRef: RefMeshType = useRef(null);
-  const { paparazziMaterial } = useMemo(() => {
-    const pGTexture = new VideoTexture(pgVideo as HTMLVideoElement);
-    pGTexture.format = RGBAFormat;
+  // Textures
+  const engTitlesTexture = useTexture(
+    "/game_assets/textures/badge_title_eng.webp",
+  );
+  const badgeIconsTexture = useTexture(
+    "/game_assets/textures/badge_icons.webp",
+  );
 
-    const uniforms = {
-      uTexture: { value: pGTexture },
-      uTextureIcon: { value: texture },
+  // Dynamic Defines
+  const badgeVideo = useMemo(() => {
+    const badgeVideo = new VideoTexture(
+      achievementVideoTexture as HTMLVideoElement,
+    );
+
+    badgeVideo.format = RGBAFormat;
+
+    return badgeVideo;
+  }, [achievementVideoTexture]);
+
+  const badgeShaderUniforms = useMemo(() => {
+    return {
+      uAlpha: { value: 0 },
       uTime: { value: -1 },
+      uIconScale: { value: achievementAtlasDataMap.big_brain.iconScale },
+      uTextScale: { value: achievementAtlasDataMap.big_brain.textScale },
+      uIconCell: { value: achievementAtlasDataMap.big_brain.iconCell.clone() },
+      uTextCell: { value: achievementAtlasDataMap.big_brain.textCell.clone() },
+      uVideoTexture: { value: badgeVideo },
+      uIcons: { value: badgeIconsTexture },
+      uEngText: { value: engTitlesTexture },
+      uBadgeParams: {
+        value: achievementAtlasDataMap.big_brain.badgeParams.clone(),
+      },
+      uIconCellOffset: {
+        value: achievementAtlasDataMap.big_brain.iconCellOffset.clone(),
+      },
+      uTextCellOffset: {
+        value: achievementAtlasDataMap.big_brain.textCellOffset.clone(),
+      },
+      uLanguageIndex: { value: activeLanguage === "eng" ? 0 : 1 },
     };
+  }, [activeLanguage, engTitlesTexture, badgeIconsTexture, badgeVideo]);
 
-    const paparazziMaterial = new RawShaderMaterial({
+  const achievementBadgeMaterial = useMemo(() => {
+    return new RawShaderMaterial({
       transparent: true,
-      uniforms: uniforms,
+      uniforms: badgeShaderUniforms,
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
     });
+  }, [badgeShaderUniforms]);
 
-    // @ts-ignore
-    // pgVideo.addEventListener("loop", () => {
-
-    // });
-
-    return { paparazziMaterial };
-  }, [pgVideo, texture]);
-
-  const handleRadialMask = useCallback(() => {
+  const handleRadialMask: ConstantVoidFunctionType = useCallback((): void => {
     gsap.fromTo(
-      paparazziMaterial.uniforms.uTime,
+      achievementBadgeMaterial.uniforms.uTime,
       { value: -1 },
       {
         value: 1,
         duration: 0.5,
-        onComplete: () => {
-          //   r.current = false;
-        },
+        overwrite: true,
       },
     );
-  }, [paparazziMaterial]);
+  }, [achievementBadgeMaterial]);
 
-  useFrame(({ camera, clock }) => {
-    if (!pRef.current) return;
-    pRef.current.position.copy(camera.position);
-    pRef.current.position.addScaledVector(
-      camera.getWorldDirection(new Vector3()),
-      0.2,
-    );
-    pRef.current.lookAt(camera.position);
-    pRef.current.quaternion.copy(camera.quaternion);
+  const handleUpdateBadgeAtlas: ConstantVoidFunctionType =
+    useCallback((): void => {
+      if (isPlayingRef.current) return;
+      if (!videoMeshRef.current) return;
+      if (!activeAchievementBadge) return;
+      if (!achievementVideoTexture) return;
+      if (!achievementBadgeMaterial) return;
 
-    // @ts-ignore
-    if (pgVideo.currentTime > 2.1 && !r.current) {
-      r.current = true;
-      handleRadialMask();
-    }
-    // @ts-ignore
-    if (pgVideo.currentTime <= 0.125) {
-      r.current = false;
-      paparazziMaterial.uniforms.uTime.value = -1;
-    }
-  });
+      achievementBadgeMaterial.uniforms.uIconCell.value.copy(
+        achievementAtlasDataMap[activeAchievementBadge].iconCell,
+      );
+
+      achievementBadgeMaterial.uniforms.uTextCell.value.copy(
+        achievementAtlasDataMap[activeAchievementBadge].textCell,
+      );
+
+      achievementBadgeMaterial.uniforms.uIconScale.value =
+        achievementAtlasDataMap[activeAchievementBadge].iconScale;
+
+      achievementBadgeMaterial.uniforms.uTextScale.value =
+        achievementAtlasDataMap[activeAchievementBadge].textScale;
+
+      achievementBadgeMaterial.uniforms.uBadgeParams.value.copy(
+        achievementAtlasDataMap[activeAchievementBadge].badgeParams,
+      );
+
+      achievementBadgeMaterial.uniforms.uIconCellOffset.value.copy(
+        achievementAtlasDataMap[activeAchievementBadge].iconCellOffset,
+      );
+
+      achievementBadgeMaterial.uniforms.uTextCellOffset.value.copy(
+        achievementAtlasDataMap[activeAchievementBadge].textCellOffset,
+      );
+
+      isPlayingRef.current = true;
+
+      gsap.fromTo(
+        videoMeshRef.current.scale,
+        { x: 0, y: 0, z: 0 },
+        {
+          x: 0.35,
+          y: 0.35,
+          z: 0.35,
+          delay: 0.1,
+          duration: 0.5,
+          overwrite: true,
+          ease: BACK_1_OUT,
+          onStart: () => {
+            gsap.fromTo(
+              achievementBadgeMaterial.uniforms.uAlpha,
+              { value: 0 },
+              { value: 1, duration: 0.25, overwrite: true, ease: BACK_1_OUT },
+            );
+            achievementVideoTexture.currentTime = 0;
+            achievementVideoTexture.play();
+          },
+          onComplete: () => {
+            if (!videoMeshRef.current) return;
+            gsap.fromTo(
+              achievementBadgeMaterial.uniforms.uAlpha,
+              { value: 1 },
+              {
+                value: 0,
+                delay: 4.1,
+                duration: 0.25,
+                overwrite: true,
+                ease: BACK_1_OUT,
+              },
+            );
+            gsap.to(videoMeshRef.current.scale, {
+              x: 0,
+              y: 0,
+              z: 0,
+              delay: 4,
+              overwrite: true,
+              ease: BACK_1_OUT,
+              onComplete: () => {
+                setActiveAchievementBadge(null);
+                isPlayingRef.current = false;
+              },
+            });
+          },
+        },
+      );
+    }, [
+      activeAchievementBadge,
+      achievementVideoTexture,
+      achievementBadgeMaterial,
+      setActiveAchievementBadge,
+    ]);
+
+  const handleUpBadgeAtlasOnFrame = useCallback(
+    (state: RootState, delta: number) => {
+      if (!videoMeshRef.current) return;
+      if (!achievementVideoTexture) return;
+
+      videoMeshRef.current.position.copy(state.camera.position);
+      videoMeshRef.current.position.addScaledVector(
+        state.camera.getWorldDirection(new Vector3()),
+        0.3,
+      );
+
+      videoMeshRef.current.lookAt(state.camera.position);
+      videoMeshRef.current.quaternion.copy(state.camera.quaternion);
+
+      if (
+        !radialSwitchRef.current &&
+        achievementVideoTexture.currentTime > 2.1
+      ) {
+        radialSwitchRef.current = true;
+        handleRadialMask();
+      }
+
+      // @ts-ignore
+      if (achievementVideoTexture.currentTime <= 0.125) {
+        radialSwitchRef.current = false;
+        achievementBadgeMaterial.uniforms.uTime.value = -1;
+      }
+    },
+    [handleRadialMask, achievementVideoTexture, achievementBadgeMaterial],
+  );
+
+  // Update
+  useFrame(handleUpBadgeAtlasOnFrame);
+
+  // Listeners
+  useEffect(handleUpdateBadgeAtlas, [
+    activeAchievementBadge,
+    handleUpdateBadgeAtlas,
+  ]);
+
+  useEffect(() => {
+    achievementVideoTexture?.play();
+  }, [achievementVideoTexture]);
 
   return (
-    <mesh ref={pRef} scale={0.1} material={paparazziMaterial} geometry={pGeo} />
+    <mesh
+      scale={0}
+      ref={videoMeshRef}
+      geometry={achievementBadgeGeometry}
+      material={achievementBadgeMaterial}
+    />
   );
 };
 

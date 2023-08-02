@@ -18,6 +18,8 @@ export type kitchenHotspotKeyType =
   | "Workspace"
   | "HydroponicsLib";
 
+export type AllHotspotKeysType = gardenHotspotKeyType | kitchenHotspotKeyType;
+
 export interface LocationModuleTypes {
   locationKeys: locationKeyType[];
 

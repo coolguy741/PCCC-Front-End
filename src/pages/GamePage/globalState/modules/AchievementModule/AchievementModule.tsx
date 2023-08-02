@@ -30,6 +30,27 @@ import {
 
 const AchievementModule = ({ set, get }: globalStateApiType) => {
   return {
+    achievementVideoTexture: null,
+    setAchievementVideoTexture: (
+      newAchievementVideoTexture: HTMLVideoElement,
+    ) => {
+      set({ achievementVideoTexture: newAchievementVideoTexture });
+    },
+
+    achievementVideoTextureLoaded: false,
+    setAchievementVideoTextureLoaded: (
+      achievementVideoTextureLoaded: boolean,
+    ) => {
+      set({ achievementVideoTextureLoaded });
+    },
+
+    activeAchievementBadge: null,
+    setActiveAchievementBadge: (
+      activeAchievementBadge: AchievementAllKeyType | null,
+    ) => {
+      set({ activeAchievementBadge });
+    },
+
     isAchievementsPanelOpen: false,
     setIsAchievementsPanelOpen: (isAchievementsPanelOpen: boolean) => {
       set({ isAchievementsPanelOpen });

@@ -1,7 +1,8 @@
 export type GardenCleanAchievementKeyType =
   | "clean_slate"
   | "tidy_tools"
-  | "green_thumb_forever";
+  | "green_thumb_forever"
+  | "clean_grower";
 
 export type GardenCleanAchievementObjectType = {
   [key in GardenCleanAchievementKeyType]: boolean;
@@ -14,7 +15,8 @@ export type GardenCarefulAchievementKeyType =
   | "wild_harvest"
   | "work_smarter_not_harder"
   | "nature_protector"
-  | "dirt_ditcher";
+  | "dirt_ditcher"
+  | "careful_grower";
 
 export type GardenCarefulAchievementObjectType = {
   [key in GardenCarefulAchievementKeyType]: boolean;
@@ -29,7 +31,8 @@ export type GardenConfidentAchievementKeyType =
   | "creative_grower"
   | "tomato_harvest"
   | "carrot_harvest"
-  | "blueberry_harvest";
+  | "blueberry_harvest"
+  | "confident_grower";
 
 export type GardenConfidentAchievementObjectType = {
   [key in GardenConfidentAchievementKeyType]: boolean;
@@ -57,7 +60,8 @@ export type KitchenCleanAchievementKeyType =
   | "under_control"
   | "food_safety_savant"
   | "clean_sweep"
-  | "hygiene_hero";
+  | "hygiene_hero"
+  | "clean_cook";
 
 export type KitchenCleanAchievementObjectType = {
   [key in KitchenCleanAchievementKeyType]: boolean;
@@ -71,7 +75,8 @@ export type KitchenConfidentAchievementKeyType =
   | "creative_cook"
   | "experimentation_nation"
   | "mise_en_place"
-  | "recipe_reciter";
+  | "recipe_reciter"
+  | "confident_cook";
 
 export type KitchenConfidentAchievementObjectType = {
   [key in KitchenConfidentAchievementKeyType]: boolean;
@@ -81,7 +86,8 @@ export type KitchenCarefulAchievementKeyType =
   | "kitchen_zen"
   | "functional_fit"
   | "solid_ground"
-  | "team_titan";
+  | "team_titan"
+  | "careful_cook";
 
 export type KitchenCarefulAchievementObjectType = {
   [key in KitchenCarefulAchievementKeyType]: boolean;
@@ -114,7 +120,23 @@ export type AchievementAllObjectType = {
 export type AchievmentsModalTypes = "garden" | "kitchen";
 
 export type AchievmentsCCCTypes = "all" | "confident" | "clean" | "careful";
+
 export interface AchievementModuleTypes {
+  achievementVideoTexture: HTMLVideoElement | null;
+  setAchievementVideoTexture: (
+    newAchievementVideoTexture: HTMLVideoElement,
+  ) => void;
+
+  achievementVideoTextureLoaded: boolean;
+  setAchievementVideoTextureLoaded: (
+    achievementVideoTextureLoaded: boolean,
+  ) => void;
+
+  activeAchievementBadge: AchievementAllKeyType | null;
+  setActiveAchievementBadge: (
+    activeAchievementBadge: AchievementAllKeyType | null,
+  ) => void;
+
   isAchievementsPanelOpen: boolean;
   setIsAchievementsPanelOpen: (isAchievementsPanelOpen: boolean) => void;
 

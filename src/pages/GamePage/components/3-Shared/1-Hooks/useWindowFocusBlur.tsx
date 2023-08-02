@@ -4,16 +4,19 @@ import { ConstantVoidFunctionType } from "../../../shared/Types/DefineTypes";
 const useWindowFocusBlur = (
   onFocus: ConstantVoidFunctionType,
   onBlur: ConstantVoidFunctionType,
+  stateDep = true,
 ): void => {
   const handleWindowFocus = useCallback((): void => {
     if (!document.hasFocus()) return;
+    if (!stateDep) return;
     onFocus();
-  }, [onFocus]);
+  }, [onFocus, stateDep]);
 
   const handleWindowBlur = useCallback((): void => {
     if (document.hasFocus()) return;
+    if (!stateDep) return;
     onBlur();
-  }, [onBlur]);
+  }, [onBlur, stateDep]);
 
   useEffect((): (() => void) => {
     handleWindowFocus();
