@@ -9,6 +9,7 @@ import {
   Language,
   ThemeProperties,
 } from "../../../../pages/types";
+import { useEducatorNotesStore } from "../../../../stores/educatorNotesStore";
 import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import { useUIStore } from "../../../../stores/uiStore";
 import Button from "../../../Button";
@@ -28,7 +29,10 @@ export const ContentEditorActions: React.FC<Props> = ({
 }) => {
   const [showingConfirmModal, setShowingConfirmModal] = useState(false);
   const { saveContent, updateIdInStore } = useContentActions();
-  const { currentStep, maxPageCount, changeStep } = useThemeBuilderStore();
+  const { currentStep, maxPageCount, changeStep, selectedCurriculum } =
+    useThemeBuilderStore();
+  const { changeCurriculum } = useEducatorNotesStore();
+
   const navigate = useNavigate();
   const { lang } = useUIStore();
 

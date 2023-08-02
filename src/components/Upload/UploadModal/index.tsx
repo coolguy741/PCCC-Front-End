@@ -116,7 +116,7 @@ export function UploadModal({
 
   function showFilesView() {
     if (data.type === "loading") {
-      return <Spinner key="spinner" className="upload-spinner" />;
+      return <Spinner key="spinner" />;
     } else if (data.type === "fetched") {
       if (view === "list")
         return (
@@ -212,10 +212,6 @@ const Style = {
       align-items: center;
       gap: 0.5rem;
       margin: 0 0 0.5rem;
-    }
-
-    .upload-spinner {
-      border-radius: 1rem;
     }
 
     article.um-content {

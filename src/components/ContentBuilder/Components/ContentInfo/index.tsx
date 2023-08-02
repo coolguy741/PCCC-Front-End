@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { ContentBuilderType, Language } from "../../../../pages/types";
+import { useEducatorNotesStore } from "../../../../stores/educatorNotesStore";
 import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import { Icon } from "../../../Global/Icon";
 import { Typography } from "../../../Global/Typography";
@@ -22,13 +23,22 @@ export const ContentInfo: React.FC<Props> = ({
   slideIndex,
   deleteSlide,
   setLang,
-
   type,
   currentLang,
 }) => {
   const [tags, setTags] = useState(["foraging", "seeds"]);
   const { currentStep, curriculums, setCurriculum, selectedCurriculum } =
     useThemeBuilderStore();
+  const { changeCurriculum } = useEducatorNotesStore();
+
+  useEffect(() => {
+    curriculums?.length && changeCurriculum(curriculums[0].id);
+  }, [curriculums]);
+
+  const handleChange = (value: string) => {
+    changeCurriculum(value, selectedCurriculum);
+    setCurriculum(value);
+  };
 
   const addTag = (tag: string) => {
     setTags((prev) => [...prev, tag]);
@@ -75,7 +85,7 @@ export const ContentInfo: React.FC<Props> = ({
                 })) ?? []
               }
               selectedValue={selectedCurriculum}
-              onChange={setCurriculum}
+              onChange={handleChange}
             />
           )}
           {(currentStep === 0 || currentStep === 1) && (
