@@ -8,7 +8,7 @@ export const getJoinedUsers = async (groupId: string) => {
     baseURL: BASE_API_URL,
   });
 
-  const response = await api.appGroupsJoinedGroupUsersList(
+  const response = await api.appGroupsUserListForGroupList(
     { GroupId: groupId },
     {
       headers: {

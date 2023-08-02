@@ -19,9 +19,9 @@ function Modal({ children, toggle }: ModalProps) {
       <AnimatePresence>
         <Style.Container
           ref={modalRef.current}
-          initial={{ opacity: 0, y: "15px", scale: 0.99 }}
-          animate={{ opacity: 1, y: "0", scale: 1 }}
-          exit={{ opacity: 0, y: "15px", scale: 0.99 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
           <Style.CloseContainer onClick={toggle} />
           <Style.ContentContainer>

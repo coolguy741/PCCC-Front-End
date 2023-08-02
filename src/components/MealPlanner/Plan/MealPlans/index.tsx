@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   DragDropContext,
   DragUpdate,
@@ -17,9 +17,16 @@ import { PlateFullPlannerScrollMenu } from "../ScrollMenu";
 import { PlateFullPlanSearch } from "../Search";
 
 import { useNavigate } from "react-router-dom";
+import { useFetch } from "../../../../hooks/useFetch";
+import {
+  PccServer23MealPlansMealPlanRecipe,
+  PccServer23RecipesPublicRecipeDto,
+  VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+  VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+} from "../../../../lib/api/api";
 import { CalendarModal } from "../../../Global/CalendarModal";
+import { GroupModal } from "../GroupModal";
 import { Tag } from "../Tag";
-import { mockMealPlanMenu, mockMealPlans } from "./mocks";
 import { WeeklyMealPlan } from "./WeeklyMealPlan";
 
 export interface FullMealPlan {
@@ -30,25 +37,47 @@ export interface FullMealPlan {
 export interface MealPlan {
   description: string | null;
   image?: string;
+  recipeId: string;
 }
 
 export const MealPlans = () => {
-  const { selectedFilters, filters, changeSelectedFilters } =
-    useMealPlannerStore();
+  const {
+    selectedFilters,
+    filters,
+    changeSelectedFilters,
+    meals,
+    childrenCount,
+  } = useMealPlannerStore();
   const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
-  const [selectedRecipeId, setSelectedRecipeId] =
-    useState<number | undefined>();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] = useState<string>("");
   const mainContentRef = useRef<HTMLDivElement>(null);
-  const [mealPlans, setMealPlans] = useState(mockMealPlans);
+  const [mealPlans, setMealPlans] = useState(meals);
   // TODO: unused variable
-  const [mealPlanMenu] = useState(mockMealPlanMenu);
+  const [mealPlanMenu, setMealPlanMenu] =
+    useState<PccServer23RecipesPublicRecipeDto[] | undefined>();
   const [dragUpdateStatus, setDragUpdateStatus] = useState<DragUpdate>();
-  const [selectedMeal, setSelectedMeal] = useState<MealPlan>();
-  const [destinationMeal, setDestinationMeal] = useState<MealPlan>();
+  const [selectedMeal, setSelectedMeal] =
+    useState<PccServer23MealPlansMealPlanRecipe>();
+  const [destinationMeal, setDestinationMeal] =
+    useState<PccServer23MealPlansMealPlanRecipe>();
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   const navigate = useNavigate();
 
-  const openRecipeModal = (recipeId: number) => {
+  const { isLoading, data, fetchData } =
+    useFetch<VoloAbpApplicationDtosPagedResultDto1PccServer23RecipesPublicRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appRecipesList",
+    );
+
+  const {
+    isLoading: isLoadingGroups,
+    data: groupsData,
+    fetchData: fetchGroups,
+  } = useFetch<VoloAbpApplicationDtosPagedResultDto1PccServer23GroupsGroupWithNavigationPropertiesDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+    "appGroupsMyCreatedGroupsList",
+  );
+
+  const openRecipeModal = (recipeId: string) => {
     setSelectedRecipeId(recipeId);
     setIsRecipeModalOpen(true);
   };
@@ -69,18 +98,25 @@ export const MealPlans = () => {
     }
     const updatedMealPlans = mealPlans;
     if (result.source.droppableId === "droppable-meal-menu") {
-      const selectedMealPlan = mealPlanMenu[sourceIndex];
-      if (!isNaN(destinationDayIndex)) {
-        updatedMealPlans[destinationDayIndex].plans[destinationIndex] =
-          selectedMealPlan;
+      if (mealPlanMenu) {
+        const selectedMealPlan = mealPlanMenu[sourceIndex];
+
+        if (!isNaN(destinationDayIndex)) {
+          if (updatedMealPlans[destinationDayIndex].plans) {
+            updatedMealPlans[destinationDayIndex].plans![destinationIndex] =
+              selectedMealPlan;
+          }
+        }
       }
     } else {
       const sourceDayIndex = Number(result.source?.droppableId.slice(-1));
       if (!isNaN(sourceDayIndex)) {
-        const temp = updatedMealPlans[sourceDayIndex].plans[sourceIndex];
-        updatedMealPlans[sourceDayIndex].plans[sourceIndex] =
-          updatedMealPlans[destinationDayIndex].plans[destinationIndex];
-        updatedMealPlans[destinationDayIndex].plans[destinationIndex] = temp;
+        if (updatedMealPlans[destinationDayIndex].plans) {
+          const temp = updatedMealPlans[sourceDayIndex].plans![sourceIndex];
+          updatedMealPlans[sourceDayIndex].plans![sourceIndex] =
+            updatedMealPlans[destinationDayIndex].plans![destinationIndex];
+          updatedMealPlans[destinationDayIndex].plans![destinationIndex] = temp;
+        }
       }
     }
     setMealPlans([...updatedMealPlans]);
@@ -92,10 +128,13 @@ export const MealPlans = () => {
   const onMealRemove = (dayIndex: number, index: number) => {
     const updatedMealPlans = mealPlans;
 
-    updatedMealPlans[dayIndex].plans[index] = {
-      description: null,
-    };
-
+    if (updatedMealPlans[dayIndex].plans) {
+      updatedMealPlans[dayIndex].plans![index] = {
+        recipeId: null,
+        description: null,
+        image: null,
+      };
+    }
     setMealPlans([...updatedMealPlans]);
   };
 
@@ -104,11 +143,13 @@ export const MealPlans = () => {
 
     const sourceIndex = result.source.index;
     if (result.source.droppableId === "droppable-meal-menu") {
-      setSelectedMeal(mealPlanMenu[sourceIndex]);
+      if (mealPlanMenu) {
+        setSelectedMeal(mealPlanMenu[sourceIndex]);
+      }
     } else {
       const sourceDayIndex = Number(result.source?.droppableId.slice(-1));
       if (!isNaN(sourceDayIndex)) {
-        setSelectedMeal(mealPlans[sourceDayIndex].plans[sourceIndex]);
+        setSelectedMeal(mealPlans[sourceDayIndex].plans![sourceIndex]);
       }
       const destinationIndex = result?.destination?.index;
 
@@ -116,12 +157,27 @@ export const MealPlans = () => {
         result.destination?.droppableId.slice(-1),
       );
       if (!isNaN(destinationDayIndex) && destinationIndex !== undefined) {
-        setDestinationMeal(
-          mealPlans[destinationDayIndex].plans[destinationIndex],
-        );
+        if (mealPlans[destinationDayIndex].plans) {
+          setDestinationMeal(
+            mealPlans[destinationDayIndex].plans![destinationIndex],
+          );
+        }
       }
     }
   };
+
+  useEffect(() => {
+    fetchData?.();
+    fetchGroups?.();
+  }, []);
+
+  useEffect(() => {
+    if (data && data.items) {
+      setMealPlanMenu(data.items);
+    }
+  }, [data]);
+
+  console.log(mealPlans);
 
   return (
     <Style.Container
@@ -152,7 +208,7 @@ export const MealPlans = () => {
         right="0"
         translateX="-50%"
         translateY="-37%"
-        onClick={() => setShowCalendarModal(true)}
+        onClick={() => setShowModal(true)}
       />
       <Style.Pages>
         <div>
@@ -203,11 +259,13 @@ export const MealPlans = () => {
                     setFilters={changeSelectedFilters}
                   />
                 </div>
-                <PlateFullPlannerScrollMenu
-                  mealPlanMenu={mealPlanMenu}
-                  rootRef={mainContentRef}
-                  openRecipeModal={openRecipeModal}
-                />
+                {mealPlanMenu && (
+                  <PlateFullPlannerScrollMenu
+                    mealPlanMenu={mealPlanMenu}
+                    rootRef={mainContentRef}
+                    openRecipeModal={openRecipeModal}
+                  />
+                )}
               </div>
               <Style.CoffeeStain
                 src="/images/plate-full-planner/coffee-stain.svg"
@@ -243,15 +301,26 @@ export const MealPlans = () => {
           </DragDropContext>
         </div>
       </Style.Pages>
-      <RecipeModal
-        isOpen={isRecipeModalOpen}
-        selectedRecipeId={selectedRecipeId}
-        close={() => setIsRecipeModalOpen(false)}
-      />
+      {selectedRecipeId && (
+        <RecipeModal
+          isOpen={isRecipeModalOpen}
+          selectedRecipeId={selectedRecipeId}
+          close={() => setIsRecipeModalOpen(false)}
+        />
+      )}
       <CalendarModal
         isOpen={showCalendarModal}
         close={() => setShowCalendarModal(false)}
       />
+      {showModal && (
+        <GroupModal
+          setShowModal={setShowModal}
+          showModal={showModal}
+          groupsData={groupsData}
+          meals={meals}
+          servingSize={childrenCount}
+        />
+      )}
     </Style.Container>
   );
 };
