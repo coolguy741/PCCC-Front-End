@@ -18,19 +18,10 @@ const initialState: any = {
     text: `Providing food for your loved ones is powerful. Throughout nature and history, providers have helped their family groups and communities thrive and survive. But when you’re planting your own crops, or forging for food in nature, the real power is knowledge. There are
 many things to know, and many ways to know them.`,
   },
-  // nm: commented out post Kareem review.
-  // subHeading: {
-  //   mode: "view",
-  //   text: "Knowing how to stay safe",
-  // },
-  // subDesc: {
-  //   mode: "view",
-  //   text: `Garden Guardian safety tips and guidance can be found in all Power
-  //   Full Kids lessons. Watch for the Garden Guardian section and stay safe
-  //   when you grow.`,
-  // },
   media: {
     src: "",
+    name: "",
+    thumbnail: "",
     patternChoice: 0,
   },
 };

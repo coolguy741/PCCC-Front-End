@@ -10,15 +10,15 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-function Modal({ modal, children, toggle }: ModalProps) {
-  const nodeRef = React.useRef(null);
+function Modal({ children, toggle }: ModalProps) {
+  const modalRef = React.useRef(null);
 
   return (
     document &&
     ReactDOM.createPortal(
       <AnimatePresence>
         <Style.Container
-          ref={nodeRef.current}
+          ref={modalRef.current}
           initial={{ opacity: 0, y: "15px", scale: 0.99 }}
           animate={{ opacity: 1, y: "0", scale: 1 }}
           exit={{ opacity: 0, y: "15px", scale: 0.99 }}

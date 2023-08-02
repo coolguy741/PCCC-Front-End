@@ -58,6 +58,7 @@
     "react-router-dom": "^6.8.1",
     "react-sequence-animator": "^2.3.0",
     "react-textarea-autosize": "^8.4.1",
+    "react-tooltip": "^5.19.0",
     "react-use-measure": "^2.1.1",
     "sass": "^1.62.1",
     "styled-components": "^5.3.10",

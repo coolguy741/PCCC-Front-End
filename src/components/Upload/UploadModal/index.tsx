@@ -31,7 +31,7 @@ export function UploadModal({
 }: {
   toggle: () => void;
   modal: boolean;
-  setMedia: (imageName: string) => void;
+  setMedia: (mediaSrc: string, mediaName: string) => void;
 }) {
   const [view, setView] = useState<"list" | "gallery">("list");
   const [search, setSearch] = useState("");
@@ -43,7 +43,10 @@ export function UploadModal({
     type: "loading",
     payload: undefined,
   });
-  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [selectedMedia, setSelectedMedia] = useState({
+    src: "",
+    name: "",
+  });
 
   const { api } = new Api({
     baseURL: BASE_API_URL,
@@ -93,10 +96,17 @@ export function UploadModal({
     }
   };
 
-  function addImage() {
-    if (!selectedImage) return;
-    setMedia(selectedImage);
+  function addMedia() {
+    if (!selectedMedia) return;
+    setMedia(selectedMedia.src, selectedMedia.name);
     toggle();
+  }
+
+  function changeMedia(src: string, name: string) {
+    setSelectedMedia({
+      src,
+      name,
+    });
   }
 
   useEffect(() => {
@@ -111,8 +121,8 @@ export function UploadModal({
       if (view === "list")
         return (
           <UploadList
-            selectedImage={selectedImage}
-            setImage={setSelectedImage}
+            selectedMedia={selectedMedia}
+            setMedia={changeMedia}
             files={displayedResults}
             key="list"
           />
@@ -123,8 +133,8 @@ export function UploadModal({
             files={displayedResults}
             type={type}
             handleDelete={handleDelete}
-            setImage={setSelectedImage}
-            selectedImage={selectedImage}
+            setMedia={changeMedia}
+            selectedMedia={selectedMedia}
             key="gallery"
           />
         );
@@ -173,7 +183,7 @@ export function UploadModal({
         </Typography>
         <ModalMenu setType={setType} type={type} />
         <ModalHeader
-          addImage={addImage}
+          addMedia={addMedia}
           reload={getCloudDriveFiles}
           changeView={setView}
           view={view}

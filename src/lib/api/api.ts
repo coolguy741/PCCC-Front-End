@@ -289,14 +289,18 @@ export interface PccServer23AssessmentQuestionChoiceUserAnswersAssessmentQuestio
 }
 
 export interface PccServer23AssessmentQuestionsAssessmentQuestionCreateDto {
+  englishTitle?: string | null;
+  frenchTitle?: string | null;
   englishDescription?: string | null;
   frenchDescription?: string | null;
+  englishImage?: string | null;
+  frenchImage?: string | null;
   /** @format int32 */
   order?: number;
   /** @format uuid */
-  themeId?: string | null;
+  themeId?: string;
   /** @format uuid */
-  curriculumId?: string | null;
+  curriculumId?: string;
   answer?: PccServer23AssessmentQuestionsMCQModelDto;
 }
 
@@ -316,26 +320,34 @@ export interface PccServer23AssessmentQuestionsAssessmentQuestionDto {
   deleterId?: string | null;
   /** @format date-time */
   deletionTime?: string | null;
+  englishTitle?: string | null;
+  frenchTitle?: string | null;
   englishDescription?: string | null;
   frenchDescription?: string | null;
+  englishImage?: string | null;
+  frenchImage?: string | null;
   /** @format int32 */
   order?: number;
   /** @format uuid */
-  themeId?: string | null;
+  themeId?: string;
   /** @format uuid */
-  curriculumId?: string | null;
+  curriculumId?: string;
   concurrencyStamp?: string | null;
 }
 
 export interface PccServer23AssessmentQuestionsAssessmentQuestionUpdateDto {
+  englishTitle?: string | null;
+  frenchTitle?: string | null;
   englishDescription?: string | null;
   frenchDescription?: string | null;
+  englishImage?: string | null;
+  frenchImage?: string | null;
   /** @format int32 */
   order?: number;
   /** @format uuid */
-  themeId?: string | null;
+  themeId?: string;
   /** @format uuid */
-  curriculumId?: string | null;
+  curriculumId?: string;
   concurrencyStamp?: string | null;
 }
 
@@ -366,8 +378,12 @@ export interface PccServer23AssessmentQuestionsMCQModelDto {
 }
 
 export interface PccServer23AssessmentQuestionsMultiLingualAssessmentQuestionCreateDto {
+  englishTitle: string;
+  frenchTitle: string;
   englishDescription: string;
   frenchDescription: string;
+  englishImage?: string | null;
+  frenchImage?: string | null;
   answer?: PccServer23AssessmentQuestionsMCQChoiceModelDto[] | null;
   /** @format int32 */
   order?: number;
@@ -378,8 +394,12 @@ export interface PccServer23AssessmentQuestionsMultiLingualAssessmentQuestionCre
 }
 
 export interface PccServer23AssessmentQuestionsMultiLingualAssessmentQuestionUpdateDto {
+  englishTitle: string;
+  frenchTitle: string;
   englishDescription: string;
   frenchDescription: string;
+  englishImage?: string | null;
+  frenchImage?: string | null;
   answer?: PccServer23AssessmentQuestionsMCQChoiceModelDto[] | null;
   /** @format int32 */
   order?: number;
@@ -803,6 +823,7 @@ export interface PccServer23EducatorNotesEducatorNoteCreateDto {
   frenchDesc?: string | null;
   englishJson?: string | null;
   frenchJson?: string | null;
+  tags?: string | null;
   /** @format uuid */
   curriculumId?: string | null;
   /** @format uuid */
@@ -826,6 +847,7 @@ export interface PccServer23EducatorNotesEducatorNoteDto {
   frenchDesc?: string | null;
   englishJson?: string | null;
   frenchJson?: string | null;
+  tags?: string | null;
   /** @format uuid */
   curriculumId?: string | null;
   /** @format uuid */
@@ -840,6 +862,7 @@ export interface PccServer23EducatorNotesEducatorNoteUpdateDto {
   frenchDesc?: string | null;
   englishJson?: string | null;
   frenchJson?: string | null;
+  tags?: string | null;
   /** @format uuid */
   curriculumId?: string | null;
   /** @format uuid */
@@ -1720,9 +1743,9 @@ export interface PccServer23RecipesPublicRecipeDto {
   servingSize?: string | null;
   tags?: string | null;
   directions?: string | null;
+  image?: string | null;
   language?: string | null;
   concurrencyStamp?: string | null;
-  medias?: PccServer23RecipeMediasRecipeMediaDto[] | null;
   ingredients?: PccServer23IngredientsPublicIngredientDto[] | null;
 }
 
@@ -2038,6 +2061,7 @@ export interface PccServer23ThemesCustomAddEducatorNoteInput {
   frenchDesc?: string | null;
   englishJson?: string | null;
   frenchJson?: string | null;
+  tags?: string | null;
   /** @format uuid */
   curriculumId: string;
   /** @format uuid */
@@ -2064,6 +2088,7 @@ export interface PccServer23ThemesCustomUpdateEducatorNoteInput {
   frenchDesc?: string | null;
   englishJson?: string | null;
   frenchJson?: string | null;
+  tags?: string | null;
 }
 
 export interface PccServer23ThemesMultiLingualThemeCreate {
@@ -2081,7 +2106,6 @@ export interface PccServer23ThemesMultiLingualThemeCreateDto {
 }
 
 export interface PccServer23ThemesMultiLingualThemeUpdate {
-  name?: string | null;
   jsonData?: string | null;
   title?: string | null;
   topic?: string | null;
@@ -2874,18 +2898,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/app/assessment-questions
      */
     appAssessmentQuestionsList: (
-      query: {
+      query?: {
         FilterText?: string;
+        EnglishTitle?: string;
+        FrenchTitle?: string;
         EnglishDescription?: string;
         FrenchDescription?: string;
+        EnglishImage?: string;
+        FrenchImage?: string;
         /** @format int32 */
         OrderMin?: number;
         /** @format int32 */
         OrderMax?: number;
         /** @format uuid */
-        ThemeId: string;
+        ThemeId?: string;
         /** @format uuid */
-        CurriculumId: string;
+        CurriculumId?: string;
         Sorting?: string;
         /**
          * @format int32
@@ -4205,6 +4233,38 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags CustomMealPlanner
+     * @name AppMealPlannerMealPlanByIdDetail
+     * @request GET:/api/app/meal-planner/{id}/meal-plan-by-id
+     */
+    appMealPlannerMealPlanByIdDetail: (id: string, params: RequestParams = {}) =>
+      this.request<PccServer23MealPlansPublicMealPlanDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/meal-planner/${id}/meal-plan-by-id`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealPlanner
+     * @name AppMealPlannerMealPlanUpdate
+     * @request PUT:/api/app/meal-planner/{id}/meal-plan
+     */
+    appMealPlannerMealPlanUpdate: (id: string, data: PccServer23MealPlansMealPlanData, params: RequestParams = {}) =>
+      this.request<PccServer23MealPlansPublicMealPlanDto, VoloAbpHttpRemoteServiceErrorResponse>({
+        path: `/api/app/meal-planner/${id}/meal-plan`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CustomMealPlanner
      * @name AppMealPlannerSaveMealPlanCreate
      * @request POST:/api/app/meal-planner/save-meal-plan/{groupId}
      */
@@ -4736,6 +4796,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppThemesUpdate
      * @summary Update theme details
      * @request PUT:/api/app/themes/{id}
+     * @secure
      */
     appThemesUpdate: (id: string, data: PccServer23ThemesMultilingualThemeUpdateDto, params: RequestParams = {}) =>
       this.request<
@@ -4745,6 +4806,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/themes/${id}`,
         method: "PUT",
         body: data,
+        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -4831,6 +4893,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name AppThemesNewThemeCreate
      * @summary Creates a new theme in preview mode and returns Id
      * @request POST:/api/app/themes/new-theme
+     * @secure
      */
     appThemesNewThemeCreate: (data: PccServer23ThemesMultiLingualThemeCreateDto, params: RequestParams = {}) =>
       this.request<
@@ -4840,6 +4903,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/app/themes/new-theme`,
         method: "POST",
         body: data,
+        secure: true,
         type: ContentType.Json,
         format: "json",
         ...params,
