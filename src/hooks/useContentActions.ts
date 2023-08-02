@@ -73,7 +73,7 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
     image: store.image,
     tags: store.tags?.join(","),
   };
-
+  console.log(data, store);
   return hasTags ? { ...data, tags: store.tags?.join(",") } : data;
 };
 
@@ -104,7 +104,7 @@ export const useContentActions = () => {
       switch (type) {
         case ContentBuilderType.THEMES:
           response = (await api
-            .appThemesDetail(item)
+            .appThemesDetail(item, header)
             .then(
               (res) => res.data,
             )) as PccServer23SharedIMultiLingualDto1PccServer23ThemesPublicThemeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
@@ -113,7 +113,7 @@ export const useContentActions = () => {
           break;
         case ContentBuilderType.ACTIVITIES:
           response = (await api
-            .appActivitiesDetail(item)
+            .appActivitiesDetail(item, header)
             .then(
               (res) => res.data,
             )) as PccServer23SharedIMultiLingualDto1PccServer23ActivitiesPublicActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;
@@ -121,7 +121,7 @@ export const useContentActions = () => {
           break;
         case ContentBuilderType.RECIPES:
           response = (await api
-            .appCurriculumRecipesDetail(item)
+            .appCurriculumRecipesDetail(item, header)
             .then(
               (res) => res.data,
             )) as PccServer23SharedIMultiLingualDto1PccServer23CurriculumRecipesPublicCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull;

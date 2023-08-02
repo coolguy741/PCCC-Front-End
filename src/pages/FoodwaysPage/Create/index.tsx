@@ -83,7 +83,7 @@ export const CreateFoodwaysPage = () => {
   const totalSlidesCount = useMemo(
     () => (state[currentLang].stops?.length ?? 0) + 1,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentLang],
+    [currentLang, state],
   );
 
   const handleCreate = async () => {
@@ -184,13 +184,11 @@ export const CreateFoodwaysPage = () => {
 
   const handleAddSlide = useCallback(() => {
     addFoodwaySlide();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addFoodwaySlide]);
 
   const handleDeleteSlide = useCallback(() => {
     deleteSlide();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [deleteSlide]);
 
   const onSlideChange = (swiper: SwiperType) => {
     setActiveSlide(swiper.activeIndex);
@@ -240,7 +238,7 @@ export const CreateFoodwaysPage = () => {
                 <SwiperSlide key={`slide-${index}`}>
                   <Style.Content>
                     {index === 0 ? (
-                      <FoodwayTitle state={state[currentLang]} />
+                      <FoodwayTitle state={state[currentLang].componentState} />
                     ) : (
                       <FoodwayStop
                         index={index}

@@ -80,6 +80,7 @@ export const FoodwaysPage = () => {
       onSelectionChange={handleSelectionChange}
       handleSortChange={handleSortChange}
       selectedIds={selectedIds}
+      setSelectedIds={setSelectedIds}
     />
   );
 };

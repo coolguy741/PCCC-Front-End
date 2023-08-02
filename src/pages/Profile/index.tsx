@@ -1,10 +1,9 @@
+import Cookies from "js-cookie";
 import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 //should be deleted after api implementation
-import Cookies from "js-cookie";
-import { AchievementsModal } from "../../components/Accounts/AchievementsModal";
 import { GroupsModal } from "../../components/Accounts/GroupsModal";
 import { OrangeBG } from "../../components/Icons";
 import { UserAchievements } from "../../components/Profile/Achievements";
@@ -33,7 +32,6 @@ export const ProfilePage = () => {
     : MockData[2];
   const { api } = useAPI();
   const [isOpenGroupsModal, setIsOpenGroupsModal] = useState(false);
-  const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
   const { user, setUser } = useUserStore();
 
   const getProfile = useCallback(async () => {
@@ -56,14 +54,6 @@ export const ProfilePage = () => {
     setIsOpenGroupsModal(() => false);
   };
 
-  const openAchievementsModal = () => {
-    setIsOpenAchievementsModal(() => true);
-  };
-
-  const closeAchievementsModal = () => {
-    setIsOpenAchievementsModal(() => false);
-  };
-
   useEffect(() => {
     getProfile();
   }, [getProfile]);
@@ -77,10 +67,7 @@ export const ProfilePage = () => {
             <UserLessonAssesment userData={userData} />
             <UserGroups userData={userData} openGroupsModal={openGroupsModal} />
             <UserActivity userData={userData} />
-            <UserAchievements
-              openAchievementsModal={openAchievementsModal}
-              achievements={achievements}
-            />
+            <UserAchievements achievements={achievements} />
           </>
         )}
       </section>
@@ -96,16 +83,6 @@ export const ProfilePage = () => {
         >
           Modal
         </GroupsModal>
-      )}
-      {!!user && (
-        <AchievementsModal
-          isOpen={isOpenAchievementsModal}
-          close={closeAchievementsModal}
-          title="Achievements"
-          achievements={achievements}
-        >
-          Modal
-        </AchievementsModal>
       )}
     </Style.Container>
   );

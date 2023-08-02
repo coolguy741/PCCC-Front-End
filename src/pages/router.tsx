@@ -9,6 +9,7 @@ import { getFoodway } from "../lib/api/helpers/getFoodway";
 import { getGroupInvitations } from "../lib/api/helpers/getGroupInvitations";
 import { getGroups } from "../lib/api/helpers/getGroups";
 import { redirectIfNotLoggedIn } from "../lib/api/helpers/redirectIfNotLoggedIn";
+import { AccessibilityPage } from "./AccessibilityPage";
 import { AccountsGroupsPage } from "./AccountsPage/Groups";
 import { AccountsCreateGroupPage } from "./AccountsPage/Groups/CreateGroup";
 import { AccountsEditGroupPage } from "./AccountsPage/Groups/EditGroup";
@@ -39,6 +40,7 @@ import { SignUpPage } from "./AuthPage/SignUpPage";
 import { CalendarPage } from "./CalendarPage";
 import { CalendarPrintPage } from "./CalendarPage/Print";
 import { CloudDrivePage, cloudDrivePageLoader } from "./CloudDrivePage";
+import { ContactUsPage } from "./ContactUsPage";
 import { CookTogetherPage } from "./CookTogetherPage";
 import { DiscoverTogetherPage } from "./DiscoverTogetherPage";
 import { FoodwaysPage, foodwaysPageLoader } from "./FoodwaysPage";
@@ -62,9 +64,12 @@ import { CreateMealtimeMomentPage } from "./MealtimeMomentsPage/Create";
 import { MealtimeMomentOverviewPage } from "./MealtimeMomentsPage/Overview";
 import { MealtimeMomentsPreviewPage } from "./MealtimeMomentsPage/Preview";
 import { MealtimeMomentPrintPage } from "./MealtimeMomentsPage/Print";
+
 import { NotificationsPage } from "./NotificationsPage";
 import { PrintPage } from "./PrintPage";
+import { PrivacyPolicyPage } from "./PrivacyPolicyPage";
 import { ProfilePage } from "./Profile";
+import { ProfileAchievementsPage } from "./Profile/Achievements";
 import { ProfileSettingsPage } from "./Profile/ProfileSettings";
 import { RecipesPage } from "./RecipeBuilderPage";
 import { RecipeCreatePage } from "./RecipeBuilderPage/Create";
@@ -80,6 +85,7 @@ import { ImpactReportingPage } from "./ReportsPage/ImpactReporting";
 import { LessonAssessmentPage } from "./ReportsPage/LessonAssessment";
 import { ReportsPrintPage } from "./ReportsPage/Print";
 import { SearchPage } from "./SearchPage";
+import { TCPage } from "./T&CPage";
 import { TempHomePage } from "./TempHomePage";
 import { TestContentPage } from "./TestContent";
 import { TestLandingPage } from "./TestLandingPage";
@@ -97,6 +103,22 @@ export const router = createBrowserRouter([
     errorElement: <ErrorBoundary />,
   },
   { path: "/landing", element: <TestLandingPage /> },
+  {
+    path: "/terms",
+    element: <TCPage />,
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicyPage />,
+  },
+  {
+    path: "/accessibility",
+    element: <AccessibilityPage />,
+  },
+  {
+    path: "/contact",
+    element: <ContactUsPage />,
+  },
   {
     path: "/signin",
     element: (
@@ -182,9 +204,15 @@ export const router = createBrowserRouter([
             element: <AccountsUserLessonAssessmentPage />,
           },
           {
+            path: "profiles/:user/achievements",
+            element: <ProfileAchievementsPage />,
+          },
+          {
             path: "groups",
             element: <AccountsGroupsPage />,
             loader: async () => {
+              await redirectIfNotLoggedIn();
+
               const groups = await getGroups();
               const invitations = await getGroupInvitations();
 
@@ -440,6 +468,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <ProfilePage /> },
           { path: "settings", element: <ProfileSettingsPage /> },
+          { path: "achievements", element: <ProfileAchievementsPage /> },
         ],
       },
       {

@@ -1,5 +1,5 @@
 // import Spline from "@splinetool/react-spline";
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { SpeechBubble } from "../../../components/Global/SpeechBubble";
@@ -55,9 +55,18 @@ const SPLINE_ARR: iSpline = {
     "https://prod.spline.design/mxVllMtfWXBcJ1ey/scene.splinecode",
 };
 
-export const AnimatedTile = ({ tile }: { tile: Tile }) => {
+const AnimatedTile = ({
+  tile,
+  activeSlide,
+  index,
+}: {
+  tile: Tile;
+  activeSlide: number | undefined;
+  index: number;
+}) => {
   const spline = useRef();
   const [isShowingBubble, setIsShowingBubble] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const handleClick = () => {
     setIsShowingBubble(true);
@@ -70,6 +79,12 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
   function onHover() {
     console.log("Hover");
   }
+
+  useEffect(() => {
+    if (activeSlide === index + 1) {
+      if (!loaded) setLoaded(true);
+    }
+  }, [activeSlide, index]);
 
   return (
     <Style.PageContainer
@@ -120,8 +135,8 @@ export const AnimatedTile = ({ tile }: { tile: Tile }) => {
             </SpeechBubble>
           </div>
         )}
-        <Suspense fallback={<div>Loading...</div>}>
-          <Spline scene={SPLINE_ARR[tile.id]} onLoad={onLoad} />
+        <Suspense fallback={null}>
+          {loaded && <Spline scene={SPLINE_ARR[tile.id]} onLoad={onLoad} />}
         </Suspense>
       </article>
     </Style.PageContainer>
@@ -171,3 +186,5 @@ const Style = {
     }
   `,
 };
+
+export default AnimatedTile;

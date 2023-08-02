@@ -26,7 +26,7 @@ export const AccountsGroupPage = () => {
   const params = useParams();
 
   const handleBack = () => {
-    navigate(-1);
+    navigate("/dashboard/accounts/groups");
   };
 
   const handleViewGroupCalender = () => {
@@ -53,7 +53,7 @@ export const AccountsGroupPage = () => {
         },
       );
     }
-  }, [api, params.group]);
+  }, []);
 
   const getMembers = useCallback(async () => {
     if (params.group) {
@@ -70,7 +70,7 @@ export const AccountsGroupPage = () => {
         setMembers(response.data.items);
       }
     }
-  }, [api, params.group]);
+  }, []);
 
   useEffect(() => {
     getMembers();

@@ -1,19 +1,19 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import { Achievement } from "../../../pages/Profile";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 
 export function UserAchievements({
-  openAchievementsModal,
   achievements,
 }: {
-  openAchievementsModal: () => void;
   achievements: Achievement[];
 }) {
   return (
     <Style.Container className="achievements">
       <hgroup className="header-view">
         <h3>Achievements</h3>
-        <button onClick={openAchievementsModal}>View all</button>
+        <Link to="achievements">View all</Link>
       </hgroup>
       <div className="achievements-icons">
         {!!achievements && achievements.length > 0 ? (

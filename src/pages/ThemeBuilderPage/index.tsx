@@ -33,6 +33,7 @@ export const Themes = () => {
       await deleteTheme?.(id);
     }
     setIsNeededToReload(true);
+    setSelectedIds([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIds]);
 
