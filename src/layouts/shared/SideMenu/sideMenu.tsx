@@ -46,8 +46,8 @@ export function SideMenu() {
         </Link>
       </div>
       <div className="item-container">
-        {MENUS.map((menu) => (
-          <Style.MenuItem key={`menu-${menu.to}`}>
+        {MENUS.map((menu, index) => (
+          <Style.MenuItem key={`menu-${menu.to}-${index}`}>
             {menu.subMenus ? (
               <>
                 <Style.SubMenuItem

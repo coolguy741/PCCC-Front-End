@@ -28,17 +28,18 @@ export const ThemeCreatePage = () => {
     undefined,
     true,
   );
-  const { data: educatorNotes } =
+  const { data: educatorNotes, fetchData } =
     useFetch<VoloAbpApplicationDtosListResultDto1PccServer23EducatorNotesEducatorNoteDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
       "appThemesEducatorNotesDetail",
       undefined,
       undefined,
-      true,
+      false,
       item,
     );
 
   useEffect(() => {
     item && getContent(ContentBuilderType.THEMES);
+    item && fetchData?.(undefined, undefined, true, item);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
 

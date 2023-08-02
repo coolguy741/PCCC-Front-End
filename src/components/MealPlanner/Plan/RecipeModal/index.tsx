@@ -1,242 +1,112 @@
 import styled from "styled-components";
 import Button from "../../../Button";
 
+import { useEffect, useState } from "react";
+import { useAPI } from "../../../../hooks/useAPI";
+import { Language } from "../../../../pages/types";
+import { LanguageToggle } from "../../../ContentBuilder/Components/ContentInfo/LangToggle";
 import { Icon } from "../../../Global/Icon";
 import { Modal, ModalProps } from "../../../Global/Modal";
 import Scrollable from "../../../Global/Scrollable";
 import { Typography } from "../../../Global/Typography";
 
 export const RecipeModal: React.FC<
-  Omit<ModalProps, "children"> & { selectedRecipeId?: number }
-> = ({ ...props }) => {
+  Omit<ModalProps, "children"> & { selectedRecipeId: string }
+> = ({ selectedRecipeId, ...props }) => {
+  const { api } = useAPI();
+  const [lang, setLang] = useState<Language>(Language.EN);
+  const [recipe, setRecipe] = useState<any>(null);
+
+  const getRecipes = async () => {
+    const response = await api.appRecipesDetail(selectedRecipeId);
+
+    if (response.status === 200 && response.data) {
+      setRecipe(response.data);
+    }
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, [selectedRecipeId]);
+
   return (
     <Modal {...props} size="xl" withoutScroll>
       <Style.Header>
-        <Icon name="edit" />
-        <Icon name="close" onClick={props.close} />
+        <LanguageToggle lang={lang} setLang={setLang} />
+        <div>
+          <Icon name="edit" />
+          <Icon name="close" onClick={props.close} />
+        </div>
       </Style.Header>
-      <Style.Container>
-        <Style.Recipe>
-          <Style.RecipeDetail>
-            <div>
-              <label>Recipe name</label>
-              <Typography
-                className="detail-content"
-                variant="h3"
-                as="h3"
-                weight="semi-bold"
-              >
-                Chocolate granola bites
-              </Typography>
-            </div>
-            <div>
-              <label>Serving</label>
-              <Typography
-                variant="paragraph4"
-                as="label"
-                className="detail-content"
-              >
-                4
-              </Typography>
-            </div>
-          </Style.RecipeDetail>
-          <img
-            src="/images/plate-full-planner/recipes/chocolate.png"
-            alt="chocolate"
-          />
-        </Style.Recipe>
-        <Style.RecipeInfo>
-          <Style.IngredientsContainer>
-            <label>Ingredients</label>
-            <Scrollable>
-              <Style.Ingredients>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    2 cups
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Quick oats
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1/3 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Coconut flakes
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Creamy not butter of your choice
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    2 cups
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Ground flaxseed
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Chocolate chips
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Chocolate chips
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Chocolate chips
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Chocolate chips
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Chocolate chips
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Chocolate chips
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="h6" as="h6" weight="medium">
-                    1 cup
-                  </Typography>
-                  <Typography variant="paragraph3" as="span">
-                    Chocolate chips
-                  </Typography>
-                </div>
-              </Style.Ingredients>
-            </Scrollable>
-          </Style.IngredientsContainer>
-          <Style.DirectionsContainer>
-            <label>Directions</label>
-            <Scrollable>
-              <Style.Directions>
-                <ol>
-                  <li>
-                    Combine all the ingredients together in a large bowl mix
-                    until well combined.
-                  </li>
-                  <li>Refrigerate for about 30 minutes</li>
-                  <li>
-                    Scoop out a tablespoon portion of mixture, roll each portion
-                    in the palm of your hands and place each ball into a
-                    resealable container for storage.Bites should be
-                    refrigerated to maintain shape or frozen for long term
-                    storage.Bites should be refrigerated to maintain shape or
-                    frozen for long term storage.
-                  </li>
-                  <li>
-                    Bites should be refrigerated to maintain shape or frozen for
-                    long term storage.
-                  </li>
-                  <li>
-                    Combine all the ingredients together in a large bowl mix
-                    until well combined.
-                  </li>
-                  <li>Refrigerate for about 30 minutes</li>
-                  <li>
-                    Scoop out a tablespoon portion of mixture, roll each portion
-                    in the palm of your hands and place each ball into a
-                    resealable container for storage.Bites should be
-                    refrigerated to maintain shape or frozen for long term
-                    storage.Bites should be refrigerated to maintain shape or
-                    frozen for long term storage.
-                  </li>
-                  <li>
-                    Bites should be refrigerated to maintain shape or frozen for
-                    long term storage.
-                  </li>
-                  <li>
-                    Combine all the ingredients together in a large bowl mix
-                    until well combined.
-                  </li>
-                  <li>Refrigerate for about 30 minutes</li>
-                  <li>
-                    Scoop out a tablespoon portion of mixture, roll each portion
-                    in the palm of your hands and place each ball into a
-                    resealable container for storage.Bites should be
-                    refrigerated to maintain shape or frozen for long term
-                    storage.Bites should be refrigerated to maintain shape or
-                    frozen for long term storage.
-                  </li>
-                  <li>
-                    Bites should be refrigerated to maintain shape or frozen for
-                    long term storage.
-                  </li>
-                  <li>
-                    Combine all the ingredients together in a large bowl mix
-                    until well combined.
-                  </li>
-                  <li>Refrigerate for about 30 minutes</li>
-                  <li>
-                    Scoop out a tablespoon portion of mixture, roll each portion
-                    in the palm of your hands and place each ball into a
-                    resealable container for storage.Bites should be
-                    refrigerated to maintain shape or frozen for long term
-                    storage.Bites should be refrigerated to maintain shape or
-                    frozen for long term storage.
-                  </li>
-                  <li>
-                    Bites should be refrigerated to maintain shape or frozen for
-                    long term storage.
-                  </li>
-                  <li>
-                    Combine all the ingredients together in a large bowl mix
-                    until well combined.
-                  </li>
-                  <li>Refrigerate for about 30 minutes</li>
-                  <li>
-                    Scoop out a tablespoon portion of mixture, roll each portion
-                    in the palm of your hands and place each ball into a
-                    resealable container for storage.Bites should be
-                    refrigerated to maintain shape or frozen for long term
-                    storage.Bites should be refrigerated to maintain shape or
-                    frozen for long term storage.
-                  </li>
-                  <li>
-                    Bites should be refrigerated to maintain shape or frozen for
-                    long term storage.
-                  </li>
-                </ol>
-              </Style.Directions>
-            </Scrollable>
-          </Style.DirectionsContainer>
-        </Style.RecipeInfo>
-      </Style.Container>
+      {recipe ? (
+        <Style.Container>
+          <Style.Recipe>
+            <Style.RecipeDetail>
+              <div>
+                <label>Recipe name</label>
+                <Typography
+                  className="detail-content"
+                  variant="h3"
+                  as="h3"
+                  weight="semi-bold"
+                >
+                  {recipe.name}
+                </Typography>
+              </div>
+              <div>
+                <label>Serving</label>
+                <Typography
+                  variant="paragraph4"
+                  as="label"
+                  className="detail-content"
+                >
+                  {recipe.servingSize}
+                </Typography>
+              </div>
+            </Style.RecipeDetail>
+            <img src={recipe.image || "/patterns/grapes.png"} alt="chocolate" />
+          </Style.Recipe>
+          <Style.RecipeInfo>
+            <Style.IngredientsContainer>
+              <label>Ingredients</label>
+              <Scrollable>
+                <Style.Ingredients>
+                  {recipe.ingredients &&
+                    recipe.ingredients.map(
+                      (ingredient: {
+                        quantity: number;
+                        measurement: string;
+                        name: string;
+                      }) => (
+                        <div>
+                          <Typography variant="h6" as="h6" weight="medium">
+                            {ingredient.quantity} {ingredient.measurement}
+                          </Typography>
+                          <Typography variant="paragraph3" as="span">
+                            {ingredient.name}
+                          </Typography>
+                        </div>
+                      ),
+                    )}
+                </Style.Ingredients>
+              </Scrollable>
+            </Style.IngredientsContainer>
+            <Style.DirectionsContainer>
+              <label>Directions</label>
+              <Scrollable>
+                <Style.Directions>
+                  <ol>
+                    {recipe.directions &&
+                      recipe.directions.map((direction: string) => (
+                        <li>{direction}</li>
+                      ))}
+                  </ol>
+                </Style.Directions>
+              </Scrollable>
+            </Style.DirectionsContainer>
+          </Style.RecipeInfo>
+        </Style.Container>
+      ) : null}
       <div className="flex justify-end">
         <Button variant="orange">Print</Button>
       </div>
@@ -249,17 +119,20 @@ const Style = {
     display: flex;
     height: 50%;
     overflow: hidden;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
     & > section {
       width: 50%;
-      padding: 16px;
     }
   `,
   Recipe: styled.section`
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+
     img {
-      width: 104%;
-      margin: 0 -2%;
+      border-radius: 0.5rem;
     }
   `,
   RecipeDetail: styled.div`
@@ -269,10 +142,13 @@ const Style = {
     .detail-content {
       display: flex;
       align-items: center;
-      background: #ffffff50;
       border-radius: 0.5rem;
       height: 6vh;
       padding: 0 2vh;
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(59.27639389038086px);
     }
 
     & > div {
@@ -306,10 +182,17 @@ const Style = {
   `,
   Header: styled.header`
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     margin-bottom: 10px;
+    margin-bottom: 2rem;
+
+    div {
+      display: flex;
+      gap: 1.5rem;
+    }
+
     img {
-      margin-left: 20px;
+      cursor: pointer;
     }
   `,
   IngredientsContainer: styled.div`
@@ -317,6 +200,7 @@ const Style = {
     height: 35%;
     display: flex;
     flex-direction: column;
+
     label {
       color: var(--neutral-500);
       font-size: 1.5vh;
@@ -324,9 +208,11 @@ const Style = {
     }
 
     & > section {
-      background: #ffffff50;
       border-radius: 0.5rem;
-      padding: 5%;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(59.27639389038086px);
+      padding: 1rem 2rem;
     }
   `,
   DirectionsContainer: styled.div`
@@ -341,9 +227,11 @@ const Style = {
     }
 
     & > section {
-      background: #ffffff50;
       border-radius: 0.5rem;
-      padding: 5%;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(59.27639389038086px);
+      padding: 1rem 2rem;
     }
   `,
   Directions: styled.div`
@@ -351,6 +239,7 @@ const Style = {
     row-gap: 15%;
     column-gap: 5%;
     padding: 0 5%;
+
     ol {
       list-style: decimals;
       li {

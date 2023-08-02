@@ -77,7 +77,8 @@ export function UploadModal({
       console.warn(error);
       setData({ type: "errored", payload: "An error has occured" });
     }
-  }, [api, setData, type]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
 
   const handleDelete = async (path: string) => {
     const response = await api.appCloudDriveDriveFileDelete(
@@ -108,11 +109,6 @@ export function UploadModal({
       name,
     });
   }
-
-  useEffect(() => {
-    if (data.type === ("fetched" || "errored")) return;
-    getCloudDriveFiles();
-  }, [data.type, getCloudDriveFiles]);
 
   function showFilesView() {
     if (data.type === "loading") {
@@ -157,7 +153,7 @@ export function UploadModal({
   }, []);
 
   useEffect(() => {
-    getCloudDriveFiles();
+    type && getCloudDriveFiles();
   }, [type]);
 
   return (
