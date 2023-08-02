@@ -23,6 +23,7 @@ export interface CCFormat {
   aMode?: string;
   iMode?: string;
   name?: string;
+  question?: string;
   thumbnail?: string;
 }
 

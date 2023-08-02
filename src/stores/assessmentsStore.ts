@@ -1,6 +1,5 @@
 import { create } from "zustand";
 
-import { CCFormat } from "../components/ContentCreation/types";
 import { ContentBuilderProps, Language, ThemeComponent } from "../pages/types";
 import { ContentBuilderStoreState } from "./contentBuilderStore";
 
@@ -9,27 +8,45 @@ export interface IContent {
   curriculum?: string;
 }
 
+export type Answer = {
+  en?: {
+    description?: string;
+    valid?: boolean;
+  };
+  fr?: {
+    title?: string;
+    valid?: boolean;
+  };
+};
+
+export type Question = {
+  en?: {
+    description?: string;
+  };
+  fr?: {
+    description?: string;
+  };
+  answers: Answer[];
+};
+
 export type Assessment = {
   slides: ThemeComponent[][];
   id?: string;
   concurrencyStamp?: string;
   themeId?: string;
   curriculumId: string;
+  questions?: Question[];
   en?: {
-    title?: string;
-    description?: string;
     jsonData?: ThemeComponent[][];
   };
   fr?: {
-    title?: string;
-    topic?: string;
-    description?: string;
     jsonData?: ThemeComponent[][];
   };
 };
 
 export interface AssessmentsForStore extends ContentBuilderProps {
   assessments: Assessment[];
+  questions: Question[];
 }
 
 export interface AssessmentsStoreProps {
@@ -47,6 +64,7 @@ const initialState: AssessmentsForStore = {
   slideIndex: 0,
   slides: [[]],
   assessments: [],
+  questions: [],
   currentLang: Language.EN,
   en: {
     jsonData: [],
@@ -174,70 +192,36 @@ const createStore = () =>
         currentLang: Language.FR,
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
-      set(({ slides, currentLang, ...state }) => ({
-        image:
-          !sIndex && sIndex === componentIndex
-            ? (componentState as Record<string, CCFormat>).media?.src
-            : state.image,
-        slides: slides.map((slide, slideIndex) => {
-          console.log(componentState);
-          if (!sIndex && sIndex === componentIndex) {
-            state[currentLang].description = (
-              componentState as Record<string, CCFormat>
-            )?.question.text;
-            state[currentLang].description = (
-              componentState as Record<string, CCFormat>
-            ).number.text;
-            state[currentLang].topic = (
-              componentState as Record<string, CCFormat>
-            ).tag.text;
-            state[Language.EN].image = (
-              componentState as Record<string, CCFormat>
-            ).media?.src;
-            state[Language.FR].image = (
-              componentState as Record<string, CCFormat>
-            ).media?.src;
-          }
-
-          return slide.map((component, index) => ({
-            ...component,
-            ...(index === componentIndex && sIndex === slideIndex
-              ? { componentState }
-              : {}),
-          }));
-        }),
-        [currentLang]: {
-          ...state[currentLang],
-          jsonData: [
-            ...slides.map((slide, slideIndex) => {
-              if (!sIndex && sIndex === componentIndex) {
-                state[currentLang].title = (
-                  componentState as Record<string, CCFormat>
-                ).heading?.text;
-                state[currentLang].description = (
-                  componentState as Record<string, CCFormat>
-                ).desc.text;
-                state[currentLang].topic = (
-                  componentState as Record<string, CCFormat>
-                ).tag?.text;
-                state[Language.EN].image = (
-                  componentState as Record<string, CCFormat>
-                ).media?.src;
-                state[Language.FR].image = (
-                  componentState as Record<string, CCFormat>
-                ).media?.src;
-              }
-
-              return slide.map((component, index) => ({
+      set(({ slides, currentLang, questions, ...state }) => {
+        return {
+          ...state,
+          questions:
+            sIndex < questions.length
+              ? questions.map((question, index) => {
+                  console.log(componentState);
+                  return index === sIndex ? { ...question } : question;
+                })
+              : [...questions],
+          slides: slides.map((slide, slideIndex) =>
+            slide.map((component, index) => ({
+              ...component,
+              ...(index === componentIndex && sIndex === slideIndex
+                ? { componentState }
+                : {}),
+            })),
+          ),
+          [currentLang]: {
+            jsonData: slides.map((slide, slideIndex) =>
+              slide.map((component, index) => ({
                 ...component,
                 ...(index === componentIndex && sIndex === slideIndex
                   ? { componentState }
                   : {}),
-              }));
-            }),
-          ],
-        },
-      })),
+              })),
+            ),
+          },
+        };
+      }),
     getDetailId: (index: number) => get().items?.[index - 1].id,
     init: () => set(() => ({ ...initialState })),
   }));
