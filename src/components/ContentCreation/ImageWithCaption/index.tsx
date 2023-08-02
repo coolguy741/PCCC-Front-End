@@ -20,6 +20,8 @@ const iWithCState: any = {
   },
   media: {
     src: "",
+    name: "",
+    thumbnail: "",
     patternChoice: 0,
   },
 };

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { PccServer23ActivitiesActivityDto } from "../../../lib/api/api";
+import {
+  PccServer23ActivitiesActivityDto,
+  PccServer23CurriculumRecipesCurriculumRecipeDto,
+  PccServer23MealtimeMomentsMealtimeMomentDto,
+  PccServer23ThemesThemeDto,
+} from "../../../lib/api/api";
 import { MockContentsDto } from "../../../pages/types";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Checkbox } from "../Checkbox";
@@ -16,7 +21,12 @@ export interface ContentListItemData {
 }
 
 interface ContentListItemProps {
-  data: PccServer23ActivitiesActivityDto | MockContentsDto;
+  data:
+    | PccServer23ActivitiesActivityDto
+    | PccServer23ThemesThemeDto
+    | PccServer23CurriculumRecipesCurriculumRecipeDto
+    | PccServer23MealtimeMomentsMealtimeMomentDto
+    | MockContentsDto;
   selectable?: boolean;
   onSelectedChange?: (id: string, isSelected: boolean) => void;
 }

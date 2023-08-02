@@ -15,14 +15,14 @@ import { Typography } from "../../Typography";
 export function ModalHeader({
   changeView,
   reload,
-  addImage,
+  addMedia,
   view,
   search,
   setSearch,
 }: {
   changeView: React.Dispatch<React.SetStateAction<"list" | "gallery">>;
   reload: () => Promise<void>;
-  addImage: () => void;
+  addMedia: () => void;
   view: "list" | "gallery";
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
@@ -31,10 +31,6 @@ export function ModalHeader({
   const { api } = new Api({
     baseURL: BASE_API_URL,
   });
-
-  const handleClick = () => {
-    inputFile.current?.click();
-  };
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -96,7 +92,7 @@ export function ModalHeader({
           className="umh-upload"
           size="small"
           id="OpenImgUpload"
-          onClick={addImage}
+          onClick={addMedia}
         >
           <CDAdd />
           Add
@@ -107,15 +103,6 @@ export function ModalHeader({
           ref={inputFile}
           onChange={handleFileChange}
         />
-        {/* <Button
-          className="umh-upload"
-          size="small"
-          id="OpenImgUpload"
-          onClick={handleClick}
-        >
-          <CDAdd />
-          Upload
-        </Button> */}
       </div>
     </Style.Container>
   );

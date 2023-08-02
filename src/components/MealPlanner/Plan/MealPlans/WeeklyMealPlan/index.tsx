@@ -8,18 +8,21 @@ import {
   Droppable,
   NotDraggingStyle,
 } from "react-beautiful-dnd";
-import { FullMealPlan, MealPlan } from "..";
+import {
+  PccServer23MealPlansMealPlanRecipe,
+  PccServer23MealPlansOrganizedMealPlan,
+} from "../../../../../lib/api/api";
 import { useMealPlannerStore } from "../../../../../stores/mealPlannerStore";
 import { Icon } from "../../../../Global/Icon";
 import { Typography } from "../../../../Global/Typography";
 import { MealCard } from "../MealCard";
 
 interface WeeklyMealPlanProps {
-  mealPlans: FullMealPlan[];
+  mealPlans: PccServer23MealPlansOrganizedMealPlan[];
   onMealRemove: (dayIndex: number, index: number) => void;
-  openRecipeModal?: (recipeId: number) => void;
-  selectedMeal?: MealPlan;
-  destinationMeal?: MealPlan;
+  openRecipeModal?: (recipeId: string) => void;
+  selectedMeal?: PccServer23MealPlansMealPlanRecipe;
+  destinationMeal?: PccServer23MealPlansMealPlanRecipe;
   dragUpdateStatus?: DragUpdate;
 }
 
@@ -140,52 +143,53 @@ export const WeeklyMealPlan = ({
                     {...dropProvided.droppableProps}
                     ref={dropProvided.innerRef}
                   >
-                    {dailyPlan.plans.map((meal, index) => (
-                      <div style={{ height: "20%" }}>
-                        <Draggable
-                          key={`draggable-weekly-meal-plan-${dayIndex}-${index}`}
-                          draggableId={`draggable-weekly-meal-plan-${dayIndex}-${index}`}
-                          index={index}
-                        >
-                          {(provided, snapshot) => (
-                            <>
-                              <div
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                ref={provided.innerRef}
-                                style={getStyle(
-                                  provided.draggableProps.style,
-                                  snapshot.isDragging,
-                                  dayIndex,
-                                  index,
-                                )}
-                              >
-                                <MealCard
-                                  meal={
-                                    isDraggedOver(dayIndex, index)
-                                      ? selectedMeal || meal
-                                      : meal
-                                  }
-                                  onMealRemove={() =>
-                                    onMealRemove(dayIndex, index)
-                                  }
-                                  openRecipeModal={openRecipeModal}
-                                  label={null}
-                                />
-                              </div>
-                              {isDragged(dayIndex, index) && (
-                                <div className="placeholder">
+                    {dailyPlan.plans &&
+                      dailyPlan.plans.map((meal, index) => (
+                        <div style={{ height: "20%" }}>
+                          <Draggable
+                            key={`draggable-weekly-meal-plan-${dayIndex}-${index}`}
+                            draggableId={`draggable-weekly-meal-plan-${dayIndex}-${index}`}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <>
+                                <div
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  ref={provided.innerRef}
+                                  style={getStyle(
+                                    provided.draggableProps.style,
+                                    snapshot.isDragging,
+                                    dayIndex,
+                                    index,
+                                  )}
+                                >
                                   <MealCard
-                                    meal={destinationMeal || meal}
+                                    meal={
+                                      isDraggedOver(dayIndex, index)
+                                        ? selectedMeal || meal
+                                        : meal
+                                    }
+                                    onMealRemove={() =>
+                                      onMealRemove(dayIndex, index)
+                                    }
+                                    openRecipeModal={openRecipeModal}
                                     label={null}
                                   />
                                 </div>
-                              )}
-                            </>
-                          )}
-                        </Draggable>
-                      </div>
-                    ))}
+                                {isDragged(dayIndex, index) && (
+                                  <div className="placeholder">
+                                    <MealCard
+                                      meal={destinationMeal || meal}
+                                      label={null}
+                                    />
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </Draggable>
+                        </div>
+                      ))}
                   </Style.DailyMealPlans>
                 )}
               </Droppable>
@@ -194,7 +198,6 @@ export const WeeklyMealPlan = ({
           <div className="cleaner" />
         </Style.MealPlans>
       </div>
-
       <Style.Labels>
         <img src="/images/plate-full-planner/labels/meal-1.svg" alt="meal-1" />
         <img src="/images/plate-full-planner/labels/meal-2.svg" alt="meal-2" />

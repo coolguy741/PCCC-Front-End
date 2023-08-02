@@ -1,10 +1,9 @@
+import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import { usePatterns } from "../../../hooks/usePatterns";
 import { getMediaType } from "../../../lib/util/getMediaType";
-import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { Patterns } from "../../Patterns";
-import { Typography } from "../../Typography";
 import { UploadModal } from "../../Upload/UploadModal";
 import Add from "../Icons/add";
 import Shuffle from "../Icons/shuffle";
@@ -12,13 +11,12 @@ import { MediaPreview } from "./preview";
 
 export function Media({
   media,
-  variant,
   changeMediaState,
   changePattern,
 }: {
   media: any;
   variant?: "img-only" | "all";
-  changeMediaState: (name: string) => void;
+  changeMediaState: (mediaName: string, mediaSrc: string) => void;
   changePattern: (pattern: number) => void;
 }) {
   const { toggle, modal } = useModal();
@@ -33,35 +31,85 @@ export function Media({
       type = getMediaType(media.src);
     }
 
-    if (type === "images") return <img src={media?.src} alt="" />;
+    if (type === "images")
+      return (
+        <motion.div
+          className="media-image"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.img
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              src={media?.src}
+              alt={media?.name ?? ""}
+            />
+          </AnimatePresence>
+
+          <div className="empty-img">
+            <div className="img-btn-group">
+              <button
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Add video, audio or image"
+                data-tooltip-place="top"
+              >
+                <Add onClick={toggle} />
+              </button>
+              <button
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Shuffle image"
+                data-tooltip-place="top"
+              >
+                <Shuffle onClick={shufflePattern} />
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      );
     else if (type === "video" || type === "audio")
-      return <MediaPreview src={media?.src} type={type} />;
+      return (
+        <MediaPreview
+          changeMediaState={changeMediaState}
+          shufflePattern={shufflePattern}
+          currentPattern={currentPattern}
+          src={media?.src}
+          name={media?.name}
+          type={type}
+        />
+      );
   }
 
   return (
     <>
       <Style.Container>
-        <div className="media-container">{showMedia()}</div>
-        {!media?.src && (
-          <Patterns className="empty-img" pattern={currentPattern}>
-            <div className="img-btn-group">
-              <button>
-                <Add onClick={toggle} />
-              </button>
-              <button>
-                <Shuffle onClick={shufflePattern} />
-              </button>
-            </div>
-            <Typography
-              color="white"
-              tag="h3"
-              weight={600}
-              size={convertToRelativeUnit(16, "vh")}
-            >
-              {variant === "img-only" ? "Add Image" : "Add Image or Video"}
-            </Typography>
-          </Patterns>
-        )}
+        <div className="media-container">
+          <AnimatePresence mode="wait">{showMedia()}</AnimatePresence>
+        </div>
+        <AnimatePresence mode="wait">
+          {!media?.src && (
+            <Patterns className="empty-img" pattern={currentPattern}>
+              <div className="img-btn-group">
+                <button
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Add video, audio or image"
+                  data-tooltip-place="top"
+                >
+                  <Add onClick={toggle} />
+                </button>
+                <button
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Shuffle image"
+                  data-tooltip-place="top"
+                >
+                  <Shuffle onClick={shufflePattern} />
+                </button>
+              </div>
+            </Patterns>
+          )}
+        </AnimatePresence>
       </Style.Container>
       {modal && (
         <UploadModal
@@ -80,7 +128,8 @@ const Style = {
     width: 100%;
     height: 100%;
 
-    .media-container {
+    .media-container,
+    .media-image {
       width: 100%;
       height: 100%;
       display: grid;
@@ -92,7 +141,7 @@ const Style = {
       object-fit: cover;
       width: 100%;
       height: auto;
-      object-positi/on: center;
+      object-position: center;
     }
 
     .empty-img {
@@ -101,7 +150,42 @@ const Style = {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
+      padding-bottom: 25px;
+      width: 100%;
+      height: 100%;
+
+      .img-btn-group {
+        display: flex;
+        width: 100px;
+        justify-content: space-between;
+      }
+
+      button {
+        height: 42.5px;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background-color: rgba(255, 255, 255, 0);
+        transition: background 0.25s linear;
+
+        svg {
+          path {
+            transition: fill 0.25s ease-out;
+          }
+        }
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 1);
+
+          svg {
+            path {
+              fill: #646464;
+            }
+          }
+        }
+      }
     }
   `,
 };

@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { MealPlan } from "../MealPlans";
+import { PccServer23RecipesPublicRecipeDto } from "../../../../lib/api/api";
 import { MealCard } from "../MealPlans/MealCard";
 
 interface PlateFullPlannerScrollMenuProps {
-  mealPlanMenu: MealPlan[];
+  mealPlanMenu: PccServer23RecipesPublicRecipeDto[];
   rootRef: React.RefObject<HTMLDivElement>;
-  openRecipeModal?: (recipeId: number) => void;
+  openRecipeModal?: (recipeId: string) => void;
 }
 
 export const PlateFullPlannerScrollMenu = ({
@@ -68,7 +68,7 @@ export const PlateFullPlannerScrollMenu = ({
       {(provided, snapshot) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <Style.Container ref={containerRef}>
-            {mealPlanMenu.map(({ image, description }, index) => {
+            {mealPlanMenu.map(({ name, image, id }, index) => {
               return (
                 <Draggable
                   key={`draggable-meal-menu-${index}`}
@@ -85,7 +85,7 @@ export const PlateFullPlannerScrollMenu = ({
                         <MealCard
                           key={`image-mealcard-${index}`}
                           meal={{
-                            description,
+                            name,
                             image,
                           }}
                           fixed
@@ -97,11 +97,14 @@ export const PlateFullPlannerScrollMenu = ({
                           key={`image-${index}`}
                           index={index}
                           onDoubleClick={() => {
-                            openRecipeModal?.(3);
+                            openRecipeModal?.(id!);
                           }}
                           active={imageIndex}
                         >
-                          <img src={image} alt="fruits" />
+                          <img
+                            src={image ?? "/patterns/grapes.png"}
+                            alt={name!}
+                          />
                         </Style.Item>
                       )}
                     </div>

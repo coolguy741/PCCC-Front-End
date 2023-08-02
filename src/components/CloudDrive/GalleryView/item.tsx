@@ -9,33 +9,61 @@ import CDDelete from "../Icons/cd-delete";
 import CDDownload from "../Icons/cd-download";
 import CDOptions from "../Icons/cd-options";
 import CDShare from "../Icons/cd-share";
+import CDThumbnail from "../Icons/cd-thumbnail";
 import { ICONS } from "../ListView";
 
-export function GalleryItem(props: any) {
-  const { idx, el } = props;
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+export function GalleryItem({
+  idx,
+  el,
+  type,
+  handleDelete,
+  setPreviewUrl,
+  setShowPreviewModal,
+  setFileType,
+  setFileName,
+}: {
+  idx: any;
+  el: any;
+  type: "images" | "video" | "documents" | "audio";
+  handleDelete: (path: string) => void;
+  setPreviewUrl: (url: string) => void;
+  setShowPreviewModal: (show: boolean) => void;
+  setFileType: (type: "images" | "video" | "audio" | "documents") => void;
+  setFileName: (name: string) => void;
+}) {
   const [showOptions, setShowOptions] = useState<boolean>(false);
+
+  const playHandler = (
+    url: string,
+    type: "audio" | "video" | "documents" | "images",
+    fileName: string,
+  ) => {
+    if (type !== "documents") {
+      if (type && url) {
+        setPreviewUrl(url);
+        setFileType(type);
+        setFileName(fileName);
+      }
+
+      setShowPreviewModal(true);
+    }
+  };
 
   return (
     <Style.Item key={idx}>
-      {showTooltip && (
-        <div className="cdg-tooltip">
-          <Typography tag="span" size="1.5vh" weight={400}>
-            {el.fileName}
-          </Typography>
-        </div>
-      )}
-      <div
-        className="cdg-details"
-        onMouseOver={() => setShowTooltip(true)}
-        onMouseOut={() => setShowTooltip(false)}
-      >
+      <div className="cdg-details">
         <div>
-          <Typography tag="h4" size="1.75vh" weight={500}>
-            <div className="cdg-thumbnail">
-              {ICONS[props.type as keyof typeof ICONS]}
-            </div>
-            {trimStringByLength(el.fileName, 10)}
+          <Typography
+            tag="h4"
+            size="1.75vh"
+            weight={500}
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={el.fileName.length >= 20 ? el.fileName : ""}
+            data-tooltip-place="top"
+            onClick={() => playHandler(el.url, el.folder, el.fileName)}
+          >
+            <div className="cdg-thumbnail">{ICONS[type]}</div>
+            {trimStringByLength(el.fileName, 20)}
           </Typography>
           <button onClick={() => setShowOptions((prevState) => !prevState)}>
             <CDOptions />
@@ -48,14 +76,18 @@ export function GalleryItem(props: any) {
         </div>
       </div>
       <div className="cdg-img">
-        {props.type === "images" ? (
+        {type === "images" ? (
           <img src={el.url} alt={el.fileName} />
         ) : (
-          <div className="icon">{ICONS[props.type as keyof typeof ICONS]}</div>
+          <div className="icon">{ICONS[type]}</div>
         )}
       </div>
       {showOptions && (
         <div className="cdg-options">
+          <button>
+            <CDThumbnail />
+            Add Thumbnail
+          </button>
           <button>
             <CDShare />
             Share
@@ -64,7 +96,7 @@ export function GalleryItem(props: any) {
             <CDDownload />
             Download
           </button>
-          <button onClick={() => props.handleDelete(el.relativePath)}>
+          <button onClick={() => handleDelete(el.relativePath)}>
             <CDDelete />
             Delete
           </button>
@@ -91,6 +123,7 @@ const Style = {
       position: fixed;
       top: -2rem;
       left: 50%;
+      width: max-content;
       background-color: rgba(255, 255, 255, 0.7);
       filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
       backdrop-filter: blur(60px);
@@ -151,8 +184,6 @@ const Style = {
         &:hover {
           border-radius: 100px;
           background: #fff;
-
-          /* UI Card Shadow */
           box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
         }
       }
@@ -226,9 +257,9 @@ const Style = {
       flex-direction: column;
       width: ${convertToRelativeUnit(150, "vw")};
       padding: 8px;
-      right: 0;
-      z-index: 100;
-      top: 5vh;
+      z-index: 10000;
+      top: 5.5vh;
+      right: -5px;
 
       button {
         width: 100%;
@@ -240,6 +271,7 @@ const Style = {
         color: var(--neutral-600);
         padding: ${convertToRelativeUnit(2, "vh")} 0;
         position: relative;
+        z-index: 10000;
 
         svg {
           margin: 0 ${convertToRelativeUnit(8, "vw")};

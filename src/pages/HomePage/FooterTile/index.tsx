@@ -4,6 +4,8 @@ import { animatedbackgroundGradient } from "../../../styles/helpers/animatedBack
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 
 export const FooterTile = () => {
+  const date = new Date();
+  const year = date.getFullYear();
   return (
     <Style.Container>
       <img src="/images/icons/lemon.svg" alt="lemon" className="footer-image" />
@@ -23,7 +25,7 @@ export const FooterTile = () => {
         </div>
       </nav>
       <p className="footer-copyright">
-        ©2022 President's Choice Children's Charity. All Rights Reserved.
+        © {year} President's Choice Children's Charity. All Rights Reserved.
       </p>
     </Style.Container>
   );

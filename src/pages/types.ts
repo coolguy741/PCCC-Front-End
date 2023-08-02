@@ -24,6 +24,7 @@ export enum ContentBuilderType {
 
 export enum ThemeProperties {
   EDUCATOR_NOTES = "educator-notes",
+  ASSESSMENT = "assessment",
   ACTIVITIES = "activities",
   RECIPES = "recipes",
 }

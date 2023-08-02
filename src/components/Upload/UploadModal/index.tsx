@@ -31,7 +31,7 @@ export function UploadModal({
 }: {
   toggle: () => void;
   modal: boolean;
-  setMedia: (imageName: string) => void;
+  setMedia: (mediaSrc: string, mediaName: string) => void;
 }) {
   const [view, setView] = useState<"list" | "gallery">("list");
   const [search, setSearch] = useState("");
@@ -43,7 +43,10 @@ export function UploadModal({
     type: "loading",
     payload: undefined,
   });
-  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [selectedMedia, setSelectedMedia] = useState({
+    src: "",
+    name: "",
+  });
 
   const { api } = new Api({
     baseURL: BASE_API_URL,
@@ -74,7 +77,8 @@ export function UploadModal({
       console.warn(error);
       setData({ type: "errored", payload: "An error has occured" });
     }
-  }, [api, setData, type]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
 
   const handleDelete = async (path: string) => {
     const response = await api.appCloudDriveDriveFileDelete(
@@ -93,26 +97,28 @@ export function UploadModal({
     }
   };
 
-  function addImage() {
-    if (!selectedImage) return;
-    setMedia(selectedImage);
+  function addMedia() {
+    if (!selectedMedia) return;
+    setMedia(selectedMedia.src, selectedMedia.name);
     toggle();
   }
 
-  useEffect(() => {
-    if (data.type === ("fetched" || "errored")) return;
-    getCloudDriveFiles();
-  }, [data.type, getCloudDriveFiles]);
+  function changeMedia(src: string, name: string) {
+    setSelectedMedia({
+      src,
+      name,
+    });
+  }
 
   function showFilesView() {
     if (data.type === "loading") {
-      return <Spinner key="spinner" className="upload-spinner" />;
+      return <Spinner key="spinner" />;
     } else if (data.type === "fetched") {
       if (view === "list")
         return (
           <UploadList
-            selectedImage={selectedImage}
-            setImage={setSelectedImage}
+            selectedMedia={selectedMedia}
+            setMedia={changeMedia}
             files={displayedResults}
             key="list"
           />
@@ -123,8 +129,8 @@ export function UploadModal({
             files={displayedResults}
             type={type}
             handleDelete={handleDelete}
-            setImage={setSelectedImage}
-            selectedImage={selectedImage}
+            setMedia={changeMedia}
+            selectedMedia={selectedMedia}
             key="gallery"
           />
         );
@@ -147,7 +153,7 @@ export function UploadModal({
   }, []);
 
   useEffect(() => {
-    getCloudDriveFiles();
+    type && getCloudDriveFiles();
   }, [type]);
 
   return (
@@ -173,7 +179,7 @@ export function UploadModal({
         </Typography>
         <ModalMenu setType={setType} type={type} />
         <ModalHeader
-          addImage={addImage}
+          addMedia={addMedia}
           reload={getCloudDriveFiles}
           changeView={setView}
           view={view}
@@ -202,10 +208,6 @@ const Style = {
       align-items: center;
       gap: 0.5rem;
       margin: 0 0 0.5rem;
-    }
-
-    .upload-spinner {
-      border-radius: 1rem;
     }
 
     article.um-content {
