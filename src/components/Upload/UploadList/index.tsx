@@ -30,7 +30,7 @@ const table_text_props = {
   color: "neutral-400",
 };
 
-export function UploadList({ files, setImage, selectedImage }: any) {
+export function UploadList({ files, setMedia, selectedMedia }: any) {
   const { api } = useAPI();
   const navigate = useNavigate();
   const numberOfItems = 10;
@@ -185,15 +185,17 @@ export function UploadList({ files, setImage, selectedImage }: any) {
                     </div>
                     <Typography
                       tag="h4"
-                      onClick={() => setImage(el.url)}
+                      onClick={() => setMedia(el.url, el.fileName)}
                       size="1.75vh"
                       weight={500}
                       color={
-                        selectedImage === el.url ? "orange-500" : "neutral-800"
+                        selectedMedia.src === el.url
+                          ? "orange-500"
+                          : "neutral-800"
                       }
                     >
                       <TitleStyle
-                        selected={selectedImage === el.url}
+                        selected={selectedMedia.src === el.url}
                         el={el}
                         length={25}
                       />

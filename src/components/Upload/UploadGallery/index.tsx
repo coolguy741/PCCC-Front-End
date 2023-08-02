@@ -10,14 +10,14 @@ export function UploadGallery({
   files,
   type,
   handleDelete,
-  setImage,
-  selectedImage,
+  setMedia,
+  selectedMedia,
 }: {
   files: any;
   type: string;
   handleDelete: (path: string) => void;
-  setImage: (imageUrl: string) => void;
-  selectedImage: string;
+  setMedia: (mediaUrl: string, mediaName: string) => void;
+  selectedMedia: any;
 }) {
   const numberOfItems = 8;
   const [itemBatch, setItemBatch] = useState(1);
@@ -69,8 +69,8 @@ export function UploadGallery({
                 key={el.url}
                 type={type || "images"}
                 handleDelete={handleDelete}
-                setImage={setImage}
-                selectedImage={selectedImage}
+                setMedia={setMedia}
+                selectedMedia={selectedMedia}
               />
             );
           })}

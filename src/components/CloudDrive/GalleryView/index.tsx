@@ -65,6 +65,10 @@ export function CDGalleryView({
             idx={idx}
             type={type}
             handleDelete={handleDelete}
+            setPreviewUrl={setPreviewUrl}
+            setShowPreviewModal={setShowPreviewModal}
+            setFileType={setFileType}
+            setFileName={setFileName}
           />
         ))}
       </InfiniteScroll>
@@ -79,9 +83,9 @@ const Style = {
         height: calc(63vh - ${convertToRelativeUnit(48, "vh")});
         position: relative;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-auto-rows: 17.9vh;
-        gap: 1.5vh;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-auto-rows: 25vh;
+        gap: 1vh;
         padding-bottom: 25px;
       }
     }

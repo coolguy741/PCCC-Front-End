@@ -22,6 +22,8 @@ export interface CCFormat {
   patternChoice?: number;
   aMode?: string;
   iMode?: string;
+  name?: string;
+  thumbnail?: string;
 }
 
 export type TitleType =

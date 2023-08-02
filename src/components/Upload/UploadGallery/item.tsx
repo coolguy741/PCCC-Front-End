@@ -13,7 +13,7 @@ import { MediaImage } from "../../Upload/MediaImage";
 import { TitleStyle } from "../TitleStyle";
 
 export function GalleryItem(props: any) {
-  const { idx, el, setImage, selectedImage } = props;
+  const { idx, el, setMedia, selectedMedia } = props;
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
@@ -36,15 +36,15 @@ export function GalleryItem(props: any) {
             tag="h4"
             size="1.5vh"
             weight={500}
-            color={selectedImage === el.url ? "orange-500" : "neutral-800"}
+            color={selectedMedia.src === el.url ? "orange-500" : "neutral-800"}
             className="cdg-select"
-            onClick={() => setImage(el.url)}
+            onClick={() => setMedia(el.url, el.fileName)}
           >
             <div className="cdg-thumbnail">
               <MediaImage mediaType={getMediaType(el.fileName)} />
             </div>
             <TitleStyle
-              selected={selectedImage === el.url}
+              selected={selectedMedia === el.url}
               el={el}
               length={15}
             />

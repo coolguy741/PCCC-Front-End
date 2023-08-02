@@ -6,7 +6,7 @@ import { BackButton } from "../../../components/Global/BackButton";
 import Scrollable from "../../../components/Global/Scrollable";
 import { Typography } from "../../../components/Global/Typography";
 import { OrangeBG } from "../../../components/Icons";
-import { AchievementModal } from "../../../components/Profile/AchievementModal/intex";
+import { AchievementModal } from "../../../components/Profile/AchievementModal";
 import { Achievement } from "../../AccountsPage/Profiles/User";
 import { achievements } from "../dummy_data";
 
