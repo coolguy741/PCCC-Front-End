@@ -2,11 +2,6 @@ import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { capitalize } from "../../lib/util/capitalize";
 import { Typography } from "../Typography";
-import CloseIcon from "./Icons/close";
-import FullscreenIcon from "./Icons/fullscreen";
-import PauseIcon from "./Icons/pause";
-import SoundIcon from "./Icons/sound";
-import SubtitleIcon from "./Icons/subtitle";
 
 const BG_ARR = [
   "/patterns/apples.png",
@@ -39,39 +34,6 @@ export const PreviewModal = ({
               <Typography color="white" tag="h1" weight={600} size="2.5vh">
                 {capitalize(fileName)}
               </Typography>
-              <button>
-                <CloseIcon />
-              </button>
-            </div>
-            <div className="controls-container">
-              <input
-                type="range"
-                min="0"
-                max="100"
-                className="timeline"
-                value="0"
-              />
-              <div className="controls-options">
-                <div>
-                  <button>
-                    <PauseIcon />
-                  </button>
-                  <button>
-                    <SoundIcon />
-                  </button>
-
-                  <input type="range" min="0" max="100" value="0" />
-                  <p>1:36 / 2:45</p>
-                </div>
-                <div>
-                  <button>
-                    <SubtitleIcon />
-                  </button>
-                  <button>
-                    <FullscreenIcon />
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -90,7 +52,7 @@ export const PreviewModal = ({
                   }
                 : {}
             }
-            // controls
+            controls
             width="80vw"
             height="auto"
           />
