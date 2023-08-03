@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import styled from "styled-components";
 import useModal from "../../../hooks/useModal";
 import CDThumbnail from "../../CloudDrive/Icons/cd-thumbnail";
@@ -16,9 +17,17 @@ export function MediaPreview({
   name,
   shufflePattern,
   currentPattern,
+  addThumbnail,
+  thumbnail,
 }: any) {
   const { modal: previewModal, toggle: togglePreview } = useModal();
   const { modal: uploadModal, toggle: toggleUpload } = useModal();
+  const [mode, setMode] = useState<"thumbnail" | "">("");
+
+  function handleThumbnailAdd() {
+    setMode("thumbnail");
+    toggleUpload();
+  }
 
   return (
     <>
@@ -27,8 +36,12 @@ export function MediaPreview({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        thumbnail={thumbnail}
       >
-        <Patterns className="mp-media-container" pattern={currentPattern}>
+        <Patterns
+          className={`mp-media-container ${thumbnail ? "mp-thumbnail" : ""}`}
+          pattern={currentPattern}
+        >
           <button
             className="mp-play"
             data-tooltip-id="my-tooltip"
@@ -43,20 +56,23 @@ export function MediaPreview({
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Add video, audio or image"
               data-tooltip-place="top"
+              onClick={toggleUpload}
             >
-              <Add onClick={toggleUpload} />
+              <Add />
             </button>
             <button
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Shuffle image"
               data-tooltip-place="top"
+              onClick={shufflePattern}
             >
-              <Shuffle onClick={shufflePattern} />
+              <Shuffle />
             </button>
             <button
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Add thumbnail"
               data-tooltip-place="top"
+              onClick={handleThumbnailAdd}
             >
               <CDThumbnail />
             </button>
@@ -73,6 +89,8 @@ export function MediaPreview({
           setMedia={changeMediaState}
           modal={uploadModal}
           toggle={toggleUpload}
+          mode={mode}
+          addThumbnail={addThumbnail}
         />
       )}
     </>
@@ -80,7 +98,7 @@ export function MediaPreview({
 }
 
 const Style = {
-  Container: styled(motion.article)`
+  Container: styled(motion.article)<{ thumbnail: string }>`
     height: 100%;
     width: 100%;
 
@@ -156,6 +174,13 @@ const Style = {
           }
         }
       }
+    }
+
+    .mp-thumbnail {
+      background-image: ${({ thumbnail }) =>
+        thumbnail ? `url(${thumbnail})` : ""};
+      background-position: center;
+      background-size: cover;
     }
   `,
 };

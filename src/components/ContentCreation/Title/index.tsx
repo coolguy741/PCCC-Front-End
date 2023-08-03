@@ -33,6 +33,7 @@ function TitleComponent({
   viewMode,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) {
   const componentState = state as ObjectState;
 
@@ -82,6 +83,7 @@ function TitleComponent({
         changePattern={changeMediaPattern}
         changeMediaState={changeMediaState}
         media={(componentState as Record<string, CCFormat>).media}
+        addThumbnail={addThumbnail}
       />
     </Style.Container>
   );

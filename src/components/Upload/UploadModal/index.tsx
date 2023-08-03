@@ -28,10 +28,14 @@ export function UploadModal({
   toggle,
   modal,
   setMedia,
+  mode,
+  addThumbnail,
 }: {
   toggle: () => void;
   modal: boolean;
   setMedia: (mediaSrc: string, mediaName: string) => void;
+  mode?: "thumbnail" | "";
+  addThumbnail?: (mediaSrc: string) => void;
 }) {
   const [view, setView] = useState<"list" | "gallery">("list");
   const [search, setSearch] = useState("");
@@ -99,8 +103,13 @@ export function UploadModal({
 
   function addMedia() {
     if (!selectedMedia) return;
-    setMedia(selectedMedia.src, selectedMedia.name);
-    toggle();
+    if (mode && addThumbnail) {
+      addThumbnail(selectedMedia.src);
+      toggle();
+    } else {
+      setMedia(selectedMedia.src, selectedMedia.name);
+      toggle();
+    }
   }
 
   function changeMedia(src: string, name: string) {
