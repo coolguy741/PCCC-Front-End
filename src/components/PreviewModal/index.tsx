@@ -1,5 +1,8 @@
 import ReactPlayer from "react-player";
 import styled from "styled-components";
+import { capitalize } from "../../lib/util/capitalize";
+import { Typography } from "../Typography";
+import CloseIcon from "./Icons/close";
 
 const BG_ARR = [
   "/patterns/apples.png",
@@ -27,7 +30,14 @@ export const PreviewModal = ({
         </div>
       ) : (
         <div className="player-mask">
-          <div className="title">{fileName}</div>
+          <div className="heading-container">
+            <Typography color="white" tag="h1" weight={600} size="3vh">
+              {capitalize(fileName)}
+            </Typography>
+            <button>
+              <CloseIcon />
+            </button>
+          </div>
           <ReactPlayer
             className="react-player"
             url={url}
@@ -83,7 +93,6 @@ const Style = {
       .react-player {
         border-radius: 20px;
         width: 80vw;
-        /* max-height: 80vh; */
         overflow: hidden;
 
         img {
@@ -92,15 +101,25 @@ const Style = {
       }
     }
 
-    .title {
+    .heading-container {
       position: absolute;
-      top: 0;
-      text-align: center;
-      color: white;
-      font-weight: 600;
-      font-size: 1.5rem;
-      margin: 2rem;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      top: 5%;
+      width: 92.5%;
+      height: 5vh;
+      margin: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+        aspect-ratio: 1 /1;
+        height: 35px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+      }
     }
   `,
 };
