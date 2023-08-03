@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import styled from "styled-components";
 import {
   convertToRelativeUnit as conv,
@@ -34,18 +35,22 @@ const mInitialState = {
   option1: {
     mode: "view",
     text: "Lorem",
+    valid: false,
   },
   option2: {
     mode: "view",
     text: "Lorem",
+    valid: false,
   },
   option3: {
     mode: "view",
     text: "Lorem",
+    valid: false,
   },
   option4: {
     mode: "view",
     text: "Lorem",
+    valid: false,
   },
   media: {
     src: "",
@@ -59,6 +64,7 @@ export const LessonAssessmentMultipleComponent = ({
   state,
   changeEditState,
   changeText,
+  changeValid,
   changeMediaState,
   changeMediaPattern,
 }: ComponentProps) => {
@@ -128,7 +134,12 @@ export const LessonAssessmentMultipleComponent = ({
           <div className="lam-content-input">
             <form className="lam-form">
               <div>
-                <Checkbox />
+                <Checkbox
+                  value={state.option1.valid}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    changeValid("option1", event.target.checked);
+                  }}
+                />
                 <Typography
                   tag="p"
                   weight={600}
@@ -146,7 +157,12 @@ export const LessonAssessmentMultipleComponent = ({
                 </Typography>
               </div>
               <div>
-                <Checkbox />
+                <Checkbox
+                  value={state.option2.valid}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    changeValid("option2", event.target.checked);
+                  }}
+                />
                 <Typography
                   tag="p"
                   weight={600}
@@ -164,7 +180,12 @@ export const LessonAssessmentMultipleComponent = ({
                 </Typography>
               </div>
               <div>
-                <Checkbox />
+                <Checkbox
+                  value={state.option3.valid}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    changeValid("option3", event.target.checked);
+                  }}
+                />
                 <Typography
                   tag="p"
                   weight={600}
@@ -182,7 +203,12 @@ export const LessonAssessmentMultipleComponent = ({
                 </Typography>
               </div>
               <div>
-                <Checkbox />
+                <Checkbox
+                  value={state.option4.valid ?? false}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    changeValid("option4", event.target.checked);
+                  }}
+                />
                 <Typography
                   tag="p"
                   weight={600}

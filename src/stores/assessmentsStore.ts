@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { CCFormat } from "../components/ContentCreation/types";
 
 import { ContentBuilderProps, Language, ThemeComponent } from "../pages/types";
 import { ContentBuilderStoreState } from "./contentBuilderStore";
@@ -9,22 +10,24 @@ export interface IContent {
 }
 
 export type Answer = {
+  valid?: boolean;
   en?: {
     description?: string;
-    valid?: boolean;
   };
   fr?: {
-    title?: string;
-    valid?: boolean;
+    description?: string;
   };
 };
 
 export type Question = {
+  id?: string;
   en?: {
     description?: string;
+    jsonData?: ThemeComponent[];
   };
   fr?: {
     description?: string;
+    jsonData?: ThemeComponent[];
   };
   answers: Answer[];
 };
@@ -82,7 +85,7 @@ const createStore = () =>
         assessments,
       })),
     changeCurriculum: async (curriculumId: string, prev?: string) =>
-      set(({ assessments, slides, en, fr }) => {
+      set(({ assessments, slides, en, fr, questions }) => {
         const assessment = assessments?.find(
           (item) => item.curriculumId === curriculumId,
         );
@@ -92,6 +95,7 @@ const createStore = () =>
               ? {
                   ...item,
                   slides: [...slides],
+                  questions: [...questions],
                   en: { ...en },
                   fr: { ...fr },
                 }
@@ -105,6 +109,7 @@ const createStore = () =>
                 ...prevAssessments,
                 {
                   slides: [[]],
+                  questions: [],
                   curriculumId,
                   en: {
                     jsonData: [],
@@ -128,6 +133,7 @@ const createStore = () =>
             : {
                 jsonData: [],
               },
+          questions: [],
         };
       }),
     updateDetail: ({ slides, id, concurrencyStamp, en, fr }) =>
@@ -193,15 +199,68 @@ const createStore = () =>
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
       set(({ slides, currentLang, questions, ...state }) => {
+        let question: any = {};
+        if ((componentState as any).variant === "multiple") {
+          if (sIndex < questions.length) {
+            question = questions[sIndex];
+          }
+          const answers =
+            question.answers ??
+            Array.from({ length: 4 }).map((item) => ({
+              en: { description: "" },
+              fr: { description: "" },
+              valid: false,
+            }));
+          question.answers = answers.map(
+            (answer: Partial<Answer>, item: number) =>
+              (componentState as Record<string, CCFormat>)[`option${item + 1}`]
+                ? {
+                    ...answer,
+                    [currentLang]: {
+                      description: (componentState as Record<string, CCFormat>)[
+                        `option${item + 1}`
+                      ].text,
+                    },
+                    valid:
+                      (componentState as Record<string, CCFormat>)[
+                        `option${item + 1}`
+                      ].valid ?? false,
+                  }
+                : answer,
+          );
+        } else if ((componentState as any).variant === "optional") {
+          if (sIndex < questions.length) {
+            question = questions[sIndex];
+          }
+          question.answers = question.answers ?? [
+            {
+              [currentLang]: {
+                description:
+                  (componentState as Record<string, CCFormat>).question.text ??
+                  "True",
+                valid:
+                  (componentState as Record<string, CCFormat>).option.value ??
+                  true,
+              },
+            },
+          ];
+        }
+        const newQuestion = {
+          ...question,
+          [currentLang]: {
+            description: (componentState as Record<string, CCFormat>).question
+              .text,
+          },
+        };
+        console.log(newQuestion);
         return {
           ...state,
           questions:
             sIndex < questions.length
               ? questions.map((question, index) => {
-                  console.log(componentState);
-                  return index === sIndex ? { ...question } : question;
+                  return index === sIndex ? { ...newQuestion } : question;
                 })
-              : [...questions],
+              : [...questions, newQuestion],
           slides: slides.map((slide, slideIndex) =>
             slide.map((component, index) => ({
               ...component,

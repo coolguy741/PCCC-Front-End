@@ -47,6 +47,8 @@ export const ContentEditorActions: React.FC<Props> = ({
         );
     } else if (currentStep === 1 && type === ContentBuilderType.THEMES) {
       await saveContent(type, ThemeProperties.EDUCATOR_NOTES);
+    } else if (currentStep === 2 && type === ContentBuilderType.THEMES) {
+      await saveContent(type, ThemeProperties.ASSESSMENT);
     }
 
     currentStep < maxPageCount - 1

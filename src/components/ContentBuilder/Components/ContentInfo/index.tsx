@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { ContentBuilderType, Language } from "../../../../pages/types";
+import { useAssessmentsStore } from "../../../../stores/assessmentsStore";
 import { useEducatorNotesStore } from "../../../../stores/educatorNotesStore";
 import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import { Icon } from "../../../Global/Icon";
@@ -30,13 +31,22 @@ export const ContentInfo: React.FC<Props> = ({
   const { currentStep, curriculums, setCurriculum, selectedCurriculum } =
     useThemeBuilderStore();
   const { changeCurriculum } = useEducatorNotesStore();
+  const { changeCurriculum: changeAssessmentCurriculum } =
+    useAssessmentsStore();
 
   useEffect(() => {
-    curriculums?.length && changeCurriculum(curriculums[0].id);
+    curriculums?.length &&
+      currentStep === 1 &&
+      changeCurriculum(curriculums[0].id);
+
+    curriculums?.length &&
+      currentStep === 2 &&
+      changeAssessmentCurriculum(curriculums[0].id);
   }, [curriculums]);
 
   const handleChange = (value: string) => {
-    changeCurriculum(value, selectedCurriculum);
+    currentStep === 1 && changeCurriculum(value, selectedCurriculum);
+    currentStep === 2 && changeAssessmentCurriculum(value, selectedCurriculum);
     setCurriculum(value);
   };
 

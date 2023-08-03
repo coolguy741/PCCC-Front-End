@@ -201,6 +201,53 @@ export function useContentCreation(
     setState(newState);
   }
 
+  function changeValid(
+    name: TitleType,
+    value: boolean,
+    amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
+  ) {
+    const newState = {
+      ...state,
+      [name]: {
+        ...state[name],
+        valid: value,
+      },
+    };
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
+        newState,
+      );
+    setState(newState);
+  }
+
+  function changeOption(
+    value: boolean,
+    amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
+  ) {
+    const newState = {
+      ...state,
+      option: {
+        ...state.option,
+        value,
+      },
+    };
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
+        newState,
+      );
+    setState(newState);
+  }
+
   function timelineChangeText(name: TitleType, newText: string) {
     const newState = {
       ...timelineState,
@@ -287,6 +334,8 @@ export function useContentCreation(
     state,
     changeEditState,
     changeText,
+    changeValid,
+    changeOption,
     deleteListItem,
     addListItem,
     setComponentPosition,
