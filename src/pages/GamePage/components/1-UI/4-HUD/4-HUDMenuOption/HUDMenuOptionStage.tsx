@@ -1,8 +1,6 @@
 import { FC, Fragment, memo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
-
-import { AnimatePresence } from "framer-motion";
 import HUDMenuOption from "./HUDMenuOption";
 import {
   AchievementsHUDMenuOptionData,
@@ -14,13 +12,11 @@ import {
 const HUDMenuOptionStage: FC = () => {
   // Global State
   const {
-    UIPhase,
     menuActive,
     activeHoveredHudMenuOption,
     setActiveHoveredHudMenuOption,
   } = useGlobalState(
     (state) => ({
-      UIPhase: state.UIPhase,
       menuActive: state.menuActive,
       activeHoveredHudMenuOption: state.activeHoveredHudMenuOption,
       setActiveHoveredHudMenuOption: state.setActiveHoveredHudMenuOption,
@@ -29,36 +25,32 @@ const HUDMenuOptionStage: FC = () => {
   );
 
   return (
-    <AnimatePresence>
-      {UIPhase === "Game" && (
-        <Fragment>
-          <HUDMenuOption
-            menuActive={menuActive}
-            optionData={InventoryHUDMenuOptionData}
-            activeHoveredHudMenuOption={activeHoveredHudMenuOption}
-            setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
-          />
-          <HUDMenuOption
-            menuActive={menuActive}
-            optionData={RecipeBookHUDMenuOptionData}
-            activeHoveredHudMenuOption={activeHoveredHudMenuOption}
-            setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
-          />
-          <HUDMenuOption
-            menuActive={menuActive}
-            optionData={SettingsHUDMenuOptionData}
-            activeHoveredHudMenuOption={activeHoveredHudMenuOption}
-            setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
-          />
-          <HUDMenuOption
-            menuActive={menuActive}
-            optionData={AchievementsHUDMenuOptionData}
-            activeHoveredHudMenuOption={activeHoveredHudMenuOption}
-            setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
-          />
-        </Fragment>
-      )}
-    </AnimatePresence>
+    <Fragment>
+      <HUDMenuOption
+        menuActive={menuActive}
+        optionData={InventoryHUDMenuOptionData}
+        activeHoveredHudMenuOption={activeHoveredHudMenuOption}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
+      />
+      <HUDMenuOption
+        menuActive={menuActive}
+        optionData={RecipeBookHUDMenuOptionData}
+        activeHoveredHudMenuOption={activeHoveredHudMenuOption}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
+      />
+      <HUDMenuOption
+        menuActive={menuActive}
+        optionData={SettingsHUDMenuOptionData}
+        activeHoveredHudMenuOption={activeHoveredHudMenuOption}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
+      />
+      <HUDMenuOption
+        menuActive={menuActive}
+        optionData={AchievementsHUDMenuOptionData}
+        activeHoveredHudMenuOption={activeHoveredHudMenuOption}
+        setActiveHoveredHudMenuOption={setActiveHoveredHudMenuOption}
+      />
+    </Fragment>
   );
 };
 

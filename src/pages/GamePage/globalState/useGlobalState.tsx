@@ -10,6 +10,7 @@ import { DevelopmentModule } from "./modules/DevelopmentModule/DevelopmentModule
 import { InteractiveGameEntityModule } from "./modules/InteractiveGameEntityModule/InteractiveGameEntityModule";
 import { InventoryModule } from "./modules/InventoryModule/InventoryModule";
 import { LocationModule } from "./modules/LocationModule/LocationModule";
+import { RecipeModule } from "./modules/RecipeModule/RecipeModule";
 import { SettingsModule } from "./modules/SettingsModule/SettingsModule";
 import { UIModule } from "./modules/UIModule/UIModule";
 
@@ -20,6 +21,7 @@ const storeModules = (
   ...UIModule({ set, get }),
   ...AudioModule({ set, get }),
   ...CameraModule({ set, get }),
+  ...RecipeModule({ set, get }),
   ...LocationModule({ set, get }),
   ...SettingsModule({ set, get }),
   ...InventoryModule({ set, get }),

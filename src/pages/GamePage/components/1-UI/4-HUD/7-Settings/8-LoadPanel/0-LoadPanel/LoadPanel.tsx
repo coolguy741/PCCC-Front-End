@@ -5,8 +5,9 @@ import { useGlobalState } from "../../../../../../globalState/useGlobalState";
 import { BACK_1_OUT } from "../../../../../../shared/Eases/Eases";
 import { ConstantVoidFunctionType } from "../../../../../../shared/Types/DefineTypes";
 import { RefDivType } from "../../../../../../shared/Types/RefTypes";
-import LoadPanelPagesSVG from "../../13-SettingsSVGAssets/LoadPanelPagesSVG";
 import ExitButton from "../../9-ExitButton/ExitButton";
+import LoadSlotOption from "../1-LoadSlotOption/LoadSlotOption";
+import LoadPanelBG from "./assets/load_panel_bg.webp";
 import LoadPanelStyleContainer from "./LoadPanelStyleContainer";
 
 const LoadPanel: FC = () => {
@@ -36,6 +37,7 @@ const LoadPanel: FC = () => {
 
       gsap.to([loadPanelTitleRef.current, loadPanelSlotOptionsRef.current], {
         opacity: 0,
+        scale: 0,
         stagger: 0.05,
         duration: 0.25,
         overwrite: true,
@@ -58,8 +60,10 @@ const LoadPanel: FC = () => {
         [loadPanelTitleRef.current, loadPanelSlotOptionsRef.current],
         {
           opacity: 0,
+          scale: 0,
         },
         {
+          scale: 1,
           opacity: 1,
           stagger: 0.05,
           duration: 0.25,
@@ -76,15 +80,7 @@ const LoadPanel: FC = () => {
     <LoadPanelStyleContainer ref={loadPanelRef}>
       <div className="load-panel-title" ref={loadPanelTitleRef}>
         <div className="load-panel-bg">
-          <img
-            alt={"load"}
-            draggable={"false"}
-            src={"/game_assets/ui_images/settings/load_panel_bg.webp"}
-          />
-        </div>
-
-        <div className="load-panel-pages">
-          <LoadPanelPagesSVG />
+          <img alt={"load"} draggable={"false"} src={LoadPanelBG} />
         </div>
 
         <div className="load-panel-text-container">
@@ -108,9 +104,21 @@ const LoadPanel: FC = () => {
         </div>
       </div>
       <div className="slot-options" ref={loadPanelSlotOptionsRef}>
-        <div className="slot-option" />
-        <div className="slot-option" />
-        <div className="slot-option" />
+        <LoadSlotOption
+          slotPosition={1}
+          recipeTitle={"Vegetable Spring Rolls"}
+          locationImgSrc={"Vegetable Spring Rolls"}
+        />
+        <LoadSlotOption
+          slotPosition={2}
+          recipeTitle={"Roasted Tomato Soup"}
+          locationImgSrc={"Vegetable Spring Rolls"}
+        />
+        <LoadSlotOption
+          slotPosition={3}
+          recipeTitle={"Yogurt Berry Parfait"}
+          locationImgSrc={"Vegetable Spring Rolls"}
+        />
       </div>
     </LoadPanelStyleContainer>
   );

@@ -6,7 +6,13 @@ export type activeHoveredHudMenuOptionType =
   | "settings"
   | "achievements";
 
-export type UIPhaseType = "Loader" | "Landing" | "SkinTonePicker" | "Game";
+export type UIPhaseType =
+  | "Loader"
+  | "Landing"
+  | "SkinTonePicker"
+  | "Tutorial"
+  | "GardenKitchenSelection"
+  | "Game";
 
 export type SkintToneType =
   | "skin-tone-one"

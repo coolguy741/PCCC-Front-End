@@ -1,9 +1,10 @@
 import { AnimatePresence } from "framer-motion";
 import { Leva } from "leva";
-import { FC, Fragment, memo } from "react";
+import { FC, Fragment, memo, useMemo } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../globalState/useGlobalState";
 import Loader from "../1-Loader/Loader";
+import GardenKitchenPicker from "../10-GardenKitchenPicker/GardenKitchenPicker";
 import Landing from "../2-Landing/Landing";
 import SkinTonePicker from "../3-SkinTonePicker/SkinTonePicker";
 import HUD from "../4-HUD/0-HUD/HUD";
@@ -22,6 +23,31 @@ const UIContainer: FC = () => {
     shallow,
   );
 
+  const {
+    LoaderRenderCondition,
+    LandingRenderCondition,
+    SkinToneRenderCondition,
+    // TutorialRenderCondition,
+    GardenKitchenPickerRenderCondition,
+  } = useMemo(() => {
+    const LoaderRenderCondition = UIPhase === "Loader";
+    const LandingRenderCondition =
+      UIPhase === "Landing" || LoaderRenderCondition;
+    const SkinToneRenderCondition =
+      UIPhase === "Landing" || UIPhase === "SkinTonePicker";
+    const GardenKitchenPickerRenderCondition =
+      UIPhase === "GardenKitchenSelection";
+    const TutorialRenderCondition = UIPhase === "Tutorial";
+
+    return {
+      LoaderRenderCondition,
+      LandingRenderCondition,
+      SkinToneRenderCondition,
+      TutorialRenderCondition,
+      GardenKitchenPickerRenderCondition,
+    };
+  }, [UIPhase]);
+
   return (
     <Fragment>
       {isDebugMode ? (
@@ -37,18 +63,24 @@ const UIContainer: FC = () => {
         </Fragment>
       )}
 
+      {/* <AnimatePresence>
+        {TutorialRenderCondition && <Tutorial />}
+      </AnimatePresence> */}
+
       <AnimatePresence>
-        {(UIPhase === "Landing" || UIPhase === "SkinTonePicker") && (
-          <SkinTonePicker />
-        )}
+        {GardenKitchenPickerRenderCondition && <GardenKitchenPicker />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {SkinToneRenderCondition && <SkinTonePicker />}
       </AnimatePresence>
 
       <Cursor />
-
-      <AnimatePresence>
-        {(UIPhase === "Landing" || UIPhase === "Loader") && <Landing />}
-      </AnimatePresence>
-      <AnimatePresence>{UIPhase === "Loader" && <Loader />}</AnimatePresence>
+      <AnimatePresence>{LandingRenderCondition && <Landing />}</AnimatePresence>
+      <AnimatePresence>{LoaderRenderCondition && <Loader />}</AnimatePresence>
+      {/* 
+      <RecipePanel />
+      <Cursor /> */}
     </Fragment>
   );
 };

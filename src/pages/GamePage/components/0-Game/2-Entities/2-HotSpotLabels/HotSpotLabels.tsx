@@ -40,6 +40,7 @@ import {
   GARDENVIEW_SOILCORNER_ROUTE,
   GARDENVIEW_TOOLRACK_ROUTE,
 } from "../../5-Constants/0-Garden/GARDEN_ROUTES";
+import { playerCameraActivePosition } from "../0-Cameras/0-PlayerCamera/PlayerCameraDefines";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -463,12 +464,12 @@ const HotSpotLabels = (props: JSX.IntrinsicElements["group"]) => {
       plantBoxRef.current &&
       kitchenViewRef.current
     ) {
-      toolRackRef.current.lookAt(camera.position);
-      soilCornerRef.current.lookAt(camera.position);
-      gardenHoseRef.current.lookAt(camera.position);
-      bigTreeRef.current.lookAt(camera.position);
-      plantBoxRef.current.lookAt(camera.position);
-      kitchenViewRef.current.lookAt(camera.position);
+      toolRackRef.current.lookAt(playerCameraActivePosition);
+      soilCornerRef.current.lookAt(playerCameraActivePosition);
+      gardenHoseRef.current.lookAt(playerCameraActivePosition);
+      bigTreeRef.current.lookAt(playerCameraActivePosition);
+      plantBoxRef.current.lookAt(playerCameraActivePosition);
+      kitchenViewRef.current.lookAt(playerCameraActivePosition);
     }
   });
 

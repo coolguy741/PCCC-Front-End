@@ -12,10 +12,11 @@ const LoadPanelStyleContainer = styled.div`
   position: fixed;
   align-items: center;
   flex-direction: column;
+  /* background-color: black; */
   visibility: hidden;
 
   .load-panel-title {
-    margin-top: 8vw;
+    margin-top: 5vw;
     width: 45%;
     display: flex;
     align-items: center;
@@ -31,11 +32,7 @@ const LoadPanelStyleContainer = styled.div`
         height: 100%;
       }
     }
-    .load-panel-pages {
-      width: 40%;
-      height: 40%;
-      position: absolute;
-    }
+
     .load-panel-text-container {
       width: 100%;
       display: flex;
@@ -58,16 +55,10 @@ const LoadPanelStyleContainer = styled.div`
     }
   }
   .slot-options {
-    width: 60%;
+    width: 75%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
-    .slot-option {
-      width: 13vw;
-      height: 13vw;
-      background-color: white;
-    }
   }
 `;
 
