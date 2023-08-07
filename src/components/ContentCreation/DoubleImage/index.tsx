@@ -8,11 +8,13 @@ const initialState: any = {
     name: "",
     thumbnail: "",
     patternChoice: 0,
+    type: "pattern",
   },
 };
 
 export function DoubleImageComponent({
   state,
+  isEditable,
   changeMediaState,
   changeMediaPattern,
 }: ComponentProps) {
@@ -23,6 +25,7 @@ export function DoubleImageComponent({
       <Media
         changePattern={changeMediaPattern}
         changeMediaState={changeMediaState}
+        isEditable={isEditable}
         media={componentState.media}
       />
     </Style.Container>

@@ -20,7 +20,7 @@ interface SignupProp {
   avatar: string;
 }
 interface State extends SignupProp {
-  changeStep: (step: number) => void;
+  setCurrentStep: (step: number) => void;
   setOver18: (over18: boolean) => void;
   setProvince: (province: string) => void;
   setBirthYear: (birthYear: number) => void;
@@ -62,7 +62,7 @@ const initialState: SignupProp = {
 
 export const useSignUpStore = create<State>()((set) => ({
   ...initialState,
-  changeStep: (step) => set(() => ({ currentStep: step })),
+  setCurrentStep: (step) => set(() => ({ currentStep: step })),
   setOver18: (over18) => set(() => ({ over18: over18 })),
   setProvince: (province) => set(() => ({ province: province })),
   setBirthYear: (birthYear) => set(() => ({ birthYear: birthYear })),

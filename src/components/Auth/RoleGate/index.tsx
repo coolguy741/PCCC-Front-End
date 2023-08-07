@@ -13,7 +13,7 @@ import { ArrowRight } from "../../Icons";
 export const RoleGate = () => {
   const {
     setIsCoordinator,
-    changeStep,
+    setCurrentStep,
     setSchoolIdCode,
     isCoordinator,
     schoolIdCode,
@@ -44,7 +44,7 @@ export const RoleGate = () => {
   }) => {
     schoolIdCode && setSchoolIdCode(schoolIdCode);
     schoolName && setSchoolName(schoolName);
-    changeStep(2);
+    setCurrentStep(2);
   };
 
   function changeCoordinator(coor: boolean) {
@@ -153,7 +153,7 @@ export const RoleGate = () => {
                 )}
               />
             </div>
-            <p className="forgot-code" onClick={() => changeStep(4)}>
+            <p className="forgot-code" onClick={() => setCurrentStep(4)}>
               <span>Forgot Educator Code?</span>
             </p>
           </section>

@@ -35,6 +35,7 @@ const tfInitialState = {
   media: {
     src: "",
     name: "",
+    type: "pattern",
     thumbnail: "",
     patternChoice: 0,
   },
@@ -42,6 +43,7 @@ const tfInitialState = {
 
 export const LessonAssessmentTrueOrFalseComponent = ({
   state,
+  isEditable,
   changeEditState,
   changeText,
   changeOption,
@@ -75,6 +77,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
           <Media
             changePattern={changeMediaPattern}
             changeMediaState={changeMediaState}
+            isEditable={isEditable}
             media={state.media}
           />
         </article>

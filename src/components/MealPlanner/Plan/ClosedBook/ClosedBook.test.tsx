@@ -9,7 +9,7 @@ describe("Full Planner Closed Book", async () => {
   const initialState = useMealPlannerStore.getState();
 
   beforeEach(() => {
-    initialState.changeStep = vi.fn();
+    initialState.setCurrentStep = vi.fn();
     useMealPlannerStore.setState(initialState, true);
     render(
       <MemoryRouter>

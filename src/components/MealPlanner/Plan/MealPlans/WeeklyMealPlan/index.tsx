@@ -34,9 +34,9 @@ export const WeeklyMealPlan = ({
   openRecipeModal,
   destinationMeal,
 }: WeeklyMealPlanProps) => {
-  const { changeStep } = useMealPlannerStore();
+  const { setCurrentStep } = useMealPlannerStore();
   const handlePrev = () => {
-    changeStep(1);
+    setCurrentStep(1);
   };
 
   const isDraggedOver = useCallback(

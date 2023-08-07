@@ -31,7 +31,7 @@ export const SignInSecurity = () => {
     setSecondQuestionAnswer,
     setThirdQuestionAnswer,
   } = useUserStore();
-  const { changeStep } = useSignInStore();
+  const { setCurrentStep } = useSignInStore();
 
   const submitHandler = ({
     firstQuestionAnswer,
@@ -46,7 +46,7 @@ export const SignInSecurity = () => {
     setSecondQuestionAnswer(secondQuestionAnswer);
     setThirdQuestionAnswer(thirdQuestionAnswer);
 
-    changeStep(2);
+    setCurrentStep(2);
   };
 
   return (

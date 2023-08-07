@@ -56,12 +56,14 @@ const mInitialState = {
     src: "",
     name: "",
     thumbnail: "",
+    type: "pattern",
     patternChoice: 0,
   },
 };
 
 export const LessonAssessmentMultipleComponent = ({
   state,
+  isEditable,
   changeEditState,
   changeText,
   changeValid,
@@ -95,6 +97,7 @@ export const LessonAssessmentMultipleComponent = ({
           <Media
             changePattern={changeMediaPattern}
             changeMediaState={changeMediaState}
+            isEditable={isEditable}
             media={state.media}
           />
         </article>

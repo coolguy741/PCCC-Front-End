@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useAPI } from "../../../../hooks/useAPI";
 import { Language } from "../../../../pages/types";
 import { LanguageToggle } from "../../../ContentBuilder/Components/ContentInfo/LangToggle";
+import { DoubleClickToEditComponent } from "../../../ContentCreation/DoubleClickToEdit";
+import { Media } from "../../../ContentCreation/Media/media";
 import { Icon } from "../../../Global/Icon";
 import { Modal, ModalProps } from "../../../Global/Modal";
 import Scrollable from "../../../Global/Scrollable";
@@ -16,6 +18,7 @@ export const RecipeModal: React.FC<
   const { api } = useAPI();
   const [lang, setLang] = useState<Language>(Language.EN);
   const [recipe, setRecipe] = useState<any>(null);
+  const [isEditable, setIsEditable] = useState(false);
 
   const getRecipes = async () => {
     const response = await api.appRecipesDetail(selectedRecipeId);
@@ -23,6 +26,18 @@ export const RecipeModal: React.FC<
     if (response.status === 200 && response.data) {
       setRecipe(response.data);
     }
+  };
+
+  const toggleEditable = () => {
+    setIsEditable((prev) => !prev);
+  };
+
+  const changeMediaPattern = () => {
+    console.log("pattern");
+  };
+
+  const changeMediaState = () => {
+    console.log("pattern");
   };
 
   useEffect(() => {
@@ -34,7 +49,7 @@ export const RecipeModal: React.FC<
       <Style.Header>
         <LanguageToggle lang={lang} setLang={setLang} />
         <div>
-          <Icon name="edit" />
+          <Icon name="edit" onClick={toggleEditable} />
           <Icon name="close" onClick={props.close} />
         </div>
       </Style.Header>
@@ -44,27 +59,40 @@ export const RecipeModal: React.FC<
             <Style.RecipeDetail>
               <div>
                 <label>Recipe name</label>
-                <Typography
-                  className="detail-content"
-                  variant="h3"
-                  as="h3"
-                  weight="semi-bold"
-                >
-                  {recipe.name}
-                </Typography>
+                {isEditable}
+                <div className="detail-content">
+                  <DoubleClickToEditComponent
+                    mode={isEditable ? "edit" : "view"}
+                    // setText={changeText}
+                    // changeEditState={changeEditState}
+                    text={recipe.name}
+                    name="question"
+                    weight="semi-bold"
+                  />
+                </div>
               </div>
               <div>
                 <label>Serving</label>
-                <Typography
-                  variant="paragraph4"
-                  as="label"
-                  className="detail-content"
-                >
-                  {recipe.servingSize}
-                </Typography>
+                <div className="detail-content">
+                  <DoubleClickToEditComponent
+                    mode={isEditable ? "edit" : "view"}
+                    // setText={changeText}
+                    // changeEditState={changeEditState}
+                    text={recipe.servingSize || ""}
+                    name="question"
+                    weight="semi-bold"
+                  />
+                </div>
               </div>
             </Style.RecipeDetail>
-            <img src={recipe.image || "/patterns/grapes.png"} alt="chocolate" />
+            <article className="image">
+              <Media
+                changePattern={changeMediaPattern}
+                isEditable={isEditable}
+                changeMediaState={changeMediaState}
+                media={{ src: recipe.image || "/patterns/grapes.png" }}
+              />
+            </article>
           </Style.Recipe>
           <Style.RecipeInfo>
             <Style.IngredientsContainer>
@@ -130,6 +158,11 @@ const Style = {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    .image {
+      height: 50vh;
+      border-radius: 1rem;
+    }
 
     img {
       border-radius: 0.5rem;

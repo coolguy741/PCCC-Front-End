@@ -83,7 +83,6 @@ export function useContentCreation(
     sIndex?: number,
     cIndex?: number,
   ) {
-    console.log(mediaSrc, sIndex, cIndex);
     const media = { ...state.media, src: mediaSrc, name: mediaName };
     const newState = {
       ...state,
@@ -111,7 +110,7 @@ export function useContentCreation(
       ...state,
       media: media,
     };
-    console.log("NEW STATE", newState);
+
     componentPosition &&
       updatePageState &&
       updatePageState(

@@ -7,13 +7,13 @@ const Tab: React.FC<{ index: number; currentStep: number; tab: string }> = ({
   currentStep,
   tab,
 }) => {
-  const { changeStep } = useThemeBuilderStore();
+  const { setCurrentStep } = useThemeBuilderStore();
 
   return (
     <>
       <span
         className={`slider-mark ${index < currentStep ? "pass" : ""}`}
-        onClick={() => index < currentStep && changeStep(index)}
+        onClick={() => index < currentStep && setCurrentStep(index)}
       >
         {index + 1}
         <span className="slider-label" key={`label-${tab}`}>

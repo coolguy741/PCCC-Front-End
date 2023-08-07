@@ -30,6 +30,7 @@ const taInitialState = {
   media: {
     src: "",
     name: "",
+    type: "pattern",
     thumbnail: "",
     patternChoice: 0,
   },
@@ -37,6 +38,7 @@ const taInitialState = {
 
 export const LessonAssessmentTextAreaComponent = ({
   state,
+  isEditable,
   changeEditState,
   changeText,
   changeMediaState,
@@ -69,6 +71,7 @@ export const LessonAssessmentTextAreaComponent = ({
           <Media
             changePattern={changeMediaPattern}
             changeMediaState={changeMediaState}
+            isEditable={isEditable}
             media={state.media}
           />
         </article>

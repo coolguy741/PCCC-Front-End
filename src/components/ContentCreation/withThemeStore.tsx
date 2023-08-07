@@ -6,6 +6,7 @@ import { ComponentViewMode, ThemeComponentProps, TitleType } from "./types";
 export type ComponentProps = {
   viewMode: (mode: ComponentViewMode) => ComponentViewMode;
   state: any;
+  isEditable?: boolean;
   changeText: (name: TitleType, newText: string) => void;
   changeValid: (name: TitleType, value: boolean) => void;
   changeOption: (value: boolean) => void;

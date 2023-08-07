@@ -16,8 +16,8 @@ export type TagVariants =
 export interface BaseTypographyProps extends React.HTMLAttributes<"div"> {
   align?: React.CSSProperties["textAlign"];
   letterSpacing?: React.CSSProperties["letterSpacing"];
-  lineHeight?: React.CSSProperties["lineHeight"];
-  textTransform?: React.CSSProperties["textTransform"];
+  lineheight?: React.CSSProperties["lineHeight"];
+  texttransform?: React.CSSProperties["textTransform"];
   margin?: string;
   mb?: string;
   mt?: string;
@@ -51,8 +51,8 @@ export const DynamicTypography = styled(({ tag, children, ...props }) =>
   margin: ${({ margin, mt, mr, mb, ml }) => getMargin(margin, mt, mr, mb, ml)};
   letter-spacing: ${({ letterSpacing }) => `${letterSpacing}`};
   font-weight: ${({ weight }) => weight};
-  text-transform: ${({ textTransform }) => textTransform};
+  text-transform: ${({ texttransform }) => texttransform};
   text-align: ${({ align }) => align};
-  line-height: ${({ lineHeight }) => lineHeight};
+  line-height: ${({ lineheight }) => lineheight};
   font-size: ${({ size }) => size};
 `;

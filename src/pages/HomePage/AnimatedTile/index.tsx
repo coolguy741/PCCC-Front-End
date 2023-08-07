@@ -17,7 +17,7 @@ const h3Props = {
   tag: "h3",
   size: "4vh",
   color: "neutral-800",
-  lineHeight: "110%",
+  lineheight: "110%",
   mb: "1vh",
   weight: "700",
 } as BaseTypographyProps;
@@ -98,9 +98,9 @@ const AnimatedTile = ({
           size="8vh"
           color="neutral-800"
           weight="900"
-          textTransform="uppercase"
+          texttransform="uppercase"
           letterSpacing="110%"
-          lineHeight="90%"
+          lineheight="90%"
           mb="1.5vh"
         >
           <Typography tag="span" color={tile.titleColor}>
@@ -115,7 +115,7 @@ const AnimatedTile = ({
         <Typography
           weight={500}
           size="2.25vh"
-          lineHeight="115%"
+          lineheight="115%"
           mb={convertToRelativeUnit(48, "vh")}
           color={tile.titleSecondColor}
         >

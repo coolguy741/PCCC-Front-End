@@ -64,14 +64,15 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
       jsonData: JSON.stringify(
         store.currentLang === Language.EN ? store.slides : store.en.jsonData,
       ),
+      image: store.image,
     },
     french: {
       ...store.fr,
       jsonData: JSON.stringify(
         store.currentLang === Language.FR ? store.slides : store.fr.jsonData,
       ),
+      image: store.image,
     },
-    image: store.image,
     tags: store.tags?.join(","),
   };
   return hasTags ? { ...data, tags: store.tags?.join(",") } : data;
@@ -229,7 +230,6 @@ export const useContentActions = () => {
                   : item,
               ),
             ];
-            console.log(assessmentsStore, assessments);
             for (const assessment of assessments) {
               if (assessment) {
                 assessment.questions = assessment.questions?.map(
@@ -251,9 +251,9 @@ export const useContentActions = () => {
                     curriculumId: assessment.curriculumId,
                     englishDescription: question?.en?.description ?? "",
                     frenchDescription: question?.fr?.description ?? "",
-                    englishTitle: JSON.stringify(question?.en?.jsonData) ?? "",
-                    frenchTitle: JSON.stringify(question?.fr?.jsonData) ?? "",
-                    answers: question.answers.map((answer) => ({
+                    englishJson: JSON.stringify(question?.en?.jsonData) ?? "",
+                    frenchJson: JSON.stringify(question?.fr?.jsonData) ?? "",
+                    answer: question.answers.map((answer) => ({
                       englishDescription: answer.en?.description,
                       frenchDescription: answer.fr?.description,
                       valid: answer.valid,

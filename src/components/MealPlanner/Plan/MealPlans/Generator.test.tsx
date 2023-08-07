@@ -10,7 +10,7 @@ describe("Meal Plan Generator", async () => {
   const initialState = useMealPlannerStore.getState();
 
   beforeEach(() => {
-    initialState.changeStep = vi.fn();
+    initialState.setCurrentStep = vi.fn();
     useMealPlannerStore.setState(initialState, true);
     render(
       <MemoryRouter>
@@ -34,8 +34,8 @@ describe("Meal Plan Generator", async () => {
     await act(() => {
       userEvent.click(createPlan);
     });
-    expect(useMealPlannerStore.getState().changeStep).toHaveBeenLastCalledWith(
-      2,
-    );
+    expect(
+      useMealPlannerStore.getState().setCurrentStep,
+    ).toHaveBeenLastCalledWith(2);
   });
 });

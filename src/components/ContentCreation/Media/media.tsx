@@ -11,6 +11,7 @@ import { MediaPreview } from "./preview";
 
 export function Media({
   media,
+  isEditable = true,
   changeMediaState,
   changePattern,
 }: {
@@ -18,6 +19,7 @@ export function Media({
   variant?: "img-only" | "all";
   changeMediaState: (mediaName: string, mediaSrc: string) => void;
   changePattern: (pattern: number) => void;
+  isEditable?: boolean;
 }) {
   const { toggle, modal } = useModal();
   const { shufflePattern, currentPattern } = usePatterns(
@@ -49,24 +51,26 @@ export function Media({
             />
           </AnimatePresence>
 
-          <div className="empty-img">
-            <div className="img-btn-group">
-              <button
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content="Add video, audio or image"
-                data-tooltip-place="top"
-              >
-                <Add onClick={toggle} />
-              </button>
-              <button
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content="Shuffle image"
-                data-tooltip-place="top"
-              >
-                <Shuffle onClick={shufflePattern} />
-              </button>
+          {isEditable && (
+            <div className="empty-img">
+              <div className="img-btn-group">
+                <button
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Add video, audio or image"
+                  data-tooltip-place="top"
+                >
+                  <Add onClick={toggle} />
+                </button>
+                <button
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Shuffle image"
+                  data-tooltip-place="top"
+                >
+                  <Shuffle onClick={shufflePattern} />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </motion.div>
       );
     else if (type === "video" || type === "audio")
@@ -91,22 +95,24 @@ export function Media({
         <AnimatePresence mode="wait">
           {!media?.src && (
             <Patterns className="empty-img" pattern={currentPattern}>
-              <div className="img-btn-group">
-                <button
-                  data-tooltip-id="my-tooltip"
-                  data-tooltip-content="Add video, audio or image"
-                  data-tooltip-place="top"
-                >
-                  <Add onClick={toggle} />
-                </button>
-                <button
-                  data-tooltip-id="my-tooltip"
-                  data-tooltip-content="Shuffle image"
-                  data-tooltip-place="top"
-                >
-                  <Shuffle onClick={shufflePattern} />
-                </button>
-              </div>
+              {isEditable && (
+                <div className="img-btn-group">
+                  <button
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content="Add video, audio or image"
+                    data-tooltip-place="top"
+                  >
+                    <Add onClick={toggle} />
+                  </button>
+                  <button
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content="Shuffle image"
+                    data-tooltip-place="top"
+                  >
+                    <Shuffle onClick={shufflePattern} />
+                  </button>
+                </div>
+              )}
             </Patterns>
           )}
         </AnimatePresence>
@@ -127,6 +133,7 @@ const Style = {
     position: relative;
     width: 100%;
     height: 100%;
+    border-radius: 1rem;
 
     .media-container,
     .media-image {

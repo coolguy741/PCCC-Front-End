@@ -22,12 +22,14 @@ const iWithCState: any = {
     src: "",
     name: "",
     thumbnail: "",
+    type: "pattern",
     patternChoice: 0,
   },
 };
 
 export function ImageWithCaptionComponent({
   state,
+  isEditable,
   changeEditState,
   changeText,
   viewMode,
@@ -42,6 +44,7 @@ export function ImageWithCaptionComponent({
         <Media
           changePattern={changeMediaPattern}
           changeMediaState={changeMediaState}
+          isEditable={isEditable}
           media={componentState.media}
           variant="img-only"
         />

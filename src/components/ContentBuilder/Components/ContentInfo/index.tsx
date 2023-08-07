@@ -38,11 +38,11 @@ export const ContentInfo: React.FC<Props> = ({
     curriculums?.length &&
       currentStep === 1 &&
       changeCurriculum(curriculums[0].id);
-
     curriculums?.length &&
       currentStep === 2 &&
       changeAssessmentCurriculum(curriculums[0].id);
-  }, [curriculums]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curriculums, currentStep]);
 
   const handleChange = (value: string) => {
     currentStep === 1 && changeCurriculum(value, selectedCurriculum);

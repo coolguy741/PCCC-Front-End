@@ -21,6 +21,7 @@ many things to know, and many ways to know them.`,
   media: {
     src: "",
     name: "",
+    type: "pattern",
     thumbnail: "",
     patternChoice: 0,
   },
@@ -28,6 +29,7 @@ many things to know, and many ways to know them.`,
 
 function TitleComponent({
   state,
+  isEditable,
   changeEditState,
   changeText,
   viewMode,
@@ -81,6 +83,7 @@ function TitleComponent({
       <Media
         changePattern={changeMediaPattern}
         changeMediaState={changeMediaState}
+        isEditable={isEditable}
         media={(componentState as Record<string, CCFormat>).media}
       />
     </Style.Container>

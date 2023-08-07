@@ -14,6 +14,10 @@ export enum Language {
   EN = "en",
   FR = "fr",
 }
+export enum DropdownPosition {
+  TOP = "bottom",
+  BOTTOM = "top",
+}
 export enum ContentBuilderType {
   THEMES = "themes",
   ACTIVITIES = "activities",

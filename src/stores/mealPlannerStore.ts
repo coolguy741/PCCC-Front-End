@@ -11,7 +11,7 @@ export interface Time {
 
 interface State {
   currentStep: number;
-  changeStep: (step: number) => void;
+  setCurrentStep: (step: number) => void;
   mealsPerDay: number | undefined;
   changeMealsPerDay: (mealsPerDay: number) => void;
   childrenCount: number | undefined;
@@ -32,7 +32,7 @@ interface State {
 
 export const useMealPlannerStore = create<State>()((set) => ({
   currentStep: 0,
-  changeStep: (step) => set(() => ({ currentStep: step })),
+  setCurrentStep: (step) => set(() => ({ currentStep: step })),
   mealsPerDay: undefined,
   changeMealsPerDay: (mealsPerDay) => set(() => ({ mealsPerDay })),
   childrenCount: undefined,

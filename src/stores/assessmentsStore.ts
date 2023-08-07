@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { CCFormat } from "../components/ContentCreation/types";
 
 import { ContentBuilderProps, Language, ThemeComponent } from "../pages/types";
+import { PccServer23AssessmentQuestionsPublicAssessmentQuestionDto } from "./../lib/api/api";
 import { ContentBuilderStoreState } from "./contentBuilderStore";
 
 export interface IContent {
@@ -53,7 +54,10 @@ export interface AssessmentsForStore extends ContentBuilderProps {
 }
 
 export interface AssessmentsStoreProps {
-  setAssessments: (assessments: Assessment[]) => void;
+  setAssessmentQuestions: (
+    assessments: PccServer23AssessmentQuestionsPublicAssessmentQuestionDto[],
+    lang: Language,
+  ) => void;
   changeCurriculum: (curriculumId: string, prev?: string) => void;
 }
 
@@ -80,6 +84,68 @@ const initialState: AssessmentsForStore = {
 const createStore = () =>
   create<AssessmentsStoreState>((set, get) => ({
     ...JSON.parse(JSON.stringify(initialState)),
+    setAssessmentQuestions: (assessmentQuestions, lang) =>
+      set((state) => {
+        const temp = assessmentQuestions?.reduce((group: any, question) => {
+          const { curriculumId } = question;
+          group[curriculumId as string] = group[curriculumId as string] ?? [];
+          group[curriculumId as string].push(question);
+          return group;
+        }, {});
+        const assessments: PccServer23AssessmentQuestionsPublicAssessmentQuestionDto[][] =
+          Object.values(temp);
+
+        console.log(assessments);
+        return {
+          ...state,
+          assessments: assessments.map((questions) => {
+            return {
+              curriculumId: questions?.[0].curriculumId ?? "",
+              en: {
+                jsonData: questions.map<ThemeComponent[]>((question) =>
+                  JSON.parse(question.englishJson || "[]"),
+                ),
+              },
+              fr: {
+                jsonData: questions.map<ThemeComponent[]>((question) =>
+                  JSON.parse(question.frenchJson || "[]"),
+                ),
+              },
+              slides:
+                lang === Language.EN
+                  ? questions.map<ThemeComponent[]>((question) =>
+                      JSON.parse(question.englishJson || "[]"),
+                    )
+                  : questions.map<ThemeComponent[]>((question) =>
+                      JSON.parse(question.frenchJson || "[]"),
+                    ),
+              questions: questions.map((question) => {
+                return {
+                  id: question.id,
+                  en: {
+                    description: question.englishDescription || "",
+                    jsonData: JSON.parse(question.englishJson || "[]"),
+                  },
+                  fr: {
+                    description: question.frenchDescription || "",
+                    jsonData: JSON.parse(question.frenchJson || "[]"),
+                  },
+                  answers:
+                    question.answer?.map((answer) => ({
+                      valid: answer.valid,
+                      en: {
+                        description: answer.englishDescription || "",
+                      },
+                      fr: {
+                        description: answer.frenchDescription || "",
+                      },
+                    })) ?? [],
+                };
+              }),
+            };
+          }),
+        };
+      }),
     updateAssessments: (assessments: Assessment[]) =>
       set(() => ({
         assessments,
@@ -102,6 +168,7 @@ const createStore = () =>
               : item,
           ),
         ];
+
         return {
           assessments: assessment
             ? [...prevAssessments]
@@ -252,7 +319,6 @@ const createStore = () =>
               .text,
           },
         };
-        console.log(newQuestion);
         return {
           ...state,
           questions:

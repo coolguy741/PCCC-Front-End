@@ -1,15 +1,45 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import styled from "styled-components";
+import { DropdownPosition } from "../../../../pages/types";
 
+import { useAssessmentsStore } from "../../../../stores/assessmentsStore";
+import { useEducatorNotesStore } from "../../../../stores/educatorNotesStore";
 import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import Button from "../../../Button";
 import { Typography } from "../../../Global/Typography";
+import { CurriculumSelect } from "../ContentInfo/CurriculumSelect";
 
 export const PreviewAction = () => {
-  const { currentStep, changeStep } = useThemeBuilderStore();
+  const {
+    currentStep,
+    curriculums,
+    setCurrentStep,
+    setCurriculum,
+    selectedCurriculum,
+  } = useThemeBuilderStore();
+  const { changeCurriculum } = useEducatorNotesStore();
+  const { changeCurriculum: changeAssessmentCurriculum } =
+    useAssessmentsStore();
+
+  useEffect(() => {
+    curriculums?.length &&
+      currentStep === 1 &&
+      changeCurriculum(curriculums[0].id);
+    curriculums?.length &&
+      currentStep === 2 &&
+      changeAssessmentCurriculum(curriculums[0].id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curriculums, currentStep]);
 
   const handleNext = () => {
-    changeStep(currentStep + 1);
+    setCurrentStep(currentStep + 1);
+  };
+
+  const handleChange = (value: string) => {
+    currentStep === 1 && changeCurriculum(value, selectedCurriculum);
+    currentStep === 2 && changeAssessmentCurriculum(value, selectedCurriculum);
+    setCurriculum(value);
   };
 
   return (
@@ -19,7 +49,7 @@ export const PreviewAction = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ ease: "easeOut" }}
-        className="relative"
+        className="relative w-1/2"
       >
         <Style.MessageWithSunny>
           <div className="message">
@@ -44,9 +74,22 @@ export const PreviewAction = () => {
           </div>
         </Style.MessageWithSunny>
       </motion.div>
-      <div className="flex ml-auto">
-        <Button onClick={handleNext}>Next</Button>
-      </div>
+      {(currentStep === 1 || currentStep === 2) && (
+        <div>
+          <CurriculumSelect
+            options={
+              curriculums?.map((item) => ({
+                label: item.name,
+                value: item.id,
+              })) ?? []
+            }
+            position={DropdownPosition.TOP}
+            selectedValue={selectedCurriculum}
+            onChange={handleChange}
+          />
+        </div>
+      )}
+      <Button onClick={handleNext}>Next</Button>
     </Style.ActionContainer>
   );
 };
@@ -60,6 +103,9 @@ const Style = {
 
     .relative {
       position: relative;
+    }
+    .w-1/2 {
+      width: 50%;
     }
   `,
   MessageWithSunny: styled.div`
