@@ -14,23 +14,11 @@ import { TitleStyle } from "../TitleStyle";
 
 export function GalleryItem(props: any) {
   const { idx, el, setMedia, selectedMedia } = props;
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
   return (
     <Style.Item key={idx}>
-      {showTooltip && (
-        <div className="cdg-tooltip">
-          <Typography tag="span" size="1.5vh" weight={400}>
-            {el.fileName}
-          </Typography>
-        </div>
-      )}
-      <div
-        className="cdg-details"
-        onMouseOver={() => setShowTooltip(true)}
-        onMouseOut={() => setShowTooltip(false)}
-      >
+      <div className="cdg-details">
         <div>
           <Typography
             tag="h4"
@@ -39,6 +27,9 @@ export function GalleryItem(props: any) {
             color={selectedMedia.src === el.url ? "orange-500" : "neutral-800"}
             className="cdg-select"
             onClick={() => setMedia(el.url, el.fileName)}
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={el.fileName.length >= 15 ? el.fileName : ""}
+            data-tooltip-place="top"
           >
             <div className="cdg-thumbnail">
               <MediaImage mediaType={getMediaType(el.fileName)} />
