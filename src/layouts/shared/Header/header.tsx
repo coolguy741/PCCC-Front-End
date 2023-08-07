@@ -128,9 +128,11 @@ export const Header: React.FC = () => {
         </div>
         {!user && (
           <>
-            <Button variant="ghost" to="/signin" size="small">
-              Log in
-            </Button>
+            <div className="lr-margin">
+              <Button variant="ghost" to="/signin" size="small">
+                Log in
+              </Button>
+            </div>
             <Button variant="orange" to="/signup" size="small">
               Sign up
             </Button>
@@ -230,6 +232,10 @@ const Style = {
         width: max-content;
         margin-left: 2.5%;
         max-width: 18vw;
+      }
+
+      .lr-margin {
+        margin: 0 1rem;
       }
 
       .header-toggle {

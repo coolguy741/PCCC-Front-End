@@ -144,6 +144,12 @@ const ghostVStyles = css`
     }
   }
 
+  &:hover {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    transition: 0.2s all ease-in-out;
+  }
+
   &:disabled {
     color: var(--neutral-400);
   }
