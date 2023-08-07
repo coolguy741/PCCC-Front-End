@@ -15,6 +15,12 @@ const AchievementItemsStyleContainer = styled.div`
   position: absolute;
   align-items: flex-start;
   justify-content: flex-start;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .achievement-items {
     display: flex;

@@ -54,7 +54,6 @@ const SkinTonePickerStyleContainer = styled(motion.div)`
     .skin-tone-one-btn {
       cursor: none;
       width: 12vw;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
       img {
         width: 100%;
@@ -67,8 +66,6 @@ const SkinTonePickerStyleContainer = styled(motion.div)`
       margin-right: 2vw;
       margin-left: 2vw;
 
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
       img {
         width: 100%;
         height: 100%;
@@ -77,19 +74,11 @@ const SkinTonePickerStyleContainer = styled(motion.div)`
     .skin-tone-three-btn {
       cursor: none;
       width: 12vw;
-      /* margin-top: 10vw; */
 
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       img {
         width: 100%;
         height: 100%;
       }
-    }
-
-    .skin-tone-one-btn:active,
-    .skin-tone-two-btn:active,
-    .skin-tone-three-btn:active {
-      transform: scale(0.85);
     }
   }
 `;

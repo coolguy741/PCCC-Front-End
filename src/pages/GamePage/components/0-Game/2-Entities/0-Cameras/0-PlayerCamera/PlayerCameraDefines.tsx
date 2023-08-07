@@ -1,5 +1,7 @@
 import {
   Euler,
+  Group,
+  Object3D,
   PerspectiveCamera as PerspectiveCameraType,
   Quaternion,
   Vector2,
@@ -29,6 +31,7 @@ type Factors = {
 const playerCameraFOVDampener: Vector2 = new Vector2();
 const playerCameraLookAtDampener: Vector3 = new Vector3();
 const playerCameraLookAtFractionCalc: Vector3 = new Vector3();
+const playerCameraBeeNullPosition: Vector3 = new Vector3();
 
 const playerCameraMouseRotationEuler: Euler = new Euler();
 const playerCameraMouseRotationDampener: Vector2 = new Vector2();
@@ -43,6 +46,7 @@ const GateMouseRange: Vector2 = new Vector2(0.05, 0.05);
 
 const playerCameraActiveFov: Vector2 = new Vector2(GATE_FOV, 0);
 const playerCameraActivePosition: Vector3 = GATE_POSITION.clone();
+const playerCameraActiveLerpPosition: Vector3 = GATE_POSITION.clone();
 const playerCameraActiveLookAt: Vector3 = GATE_LOOKAT_POSITION.clone();
 const playerCameraActiveMouseRange: Vector2 = GateMouseRange.clone();
 const playerCameraActiveQuaternion: Quaternion = GATE_LOOKAT_QUATERNION.clone();
@@ -107,7 +111,7 @@ const getRotationMultiplier = (mousePos: Vector2): Vector2Object => {
 };
 
 const updatePlayerCameraMouseRotationMultiplier = (
-  playerCameraReference: PerspectiveCameraType,
+  playerCameraReference: Group,
   mouse: Vector2,
   delta: number,
 ) => {
@@ -147,10 +151,13 @@ const updatePlayerCameraMouseRotationMultiplier = (
 };
 
 const handlePlayerCameraInit = (
+  playerCameraParentReference: Group,
   playerCameraReference: PerspectiveCameraType,
+  playerCameraBeeNullReference: Object3D,
 ): void => {
-  playerCameraReference.position.copy(playerCameraActivePosition);
-  playerCameraReference.lookAt(playerCameraActiveLookAt);
+  playerCameraBeeNullReference.getWorldPosition(playerCameraBeeNullPosition);
+  playerCameraParentReference.position.copy(playerCameraActivePosition);
+  playerCameraParentReference.lookAt(playerCameraActiveLookAt);
   playerCameraReference.fov = playerCameraFOVDampener.x =
     playerCameraActiveFov.x;
   playerCameraReference.updateProjectionMatrix();
@@ -168,15 +175,16 @@ const updatePlayerCameraFov = (
 };
 
 const updatePlayerCameraPosition = (
-  playerCameraReference: PerspectiveCameraType,
+  playerCameraParentReference: Group,
   delta: number,
 ) => {
   DampVector3(
-    playerCameraReference.position,
+    playerCameraActiveLerpPosition,
     playerCameraActivePosition,
     0.9,
     delta,
   );
+  playerCameraParentReference.position.copy(playerCameraActiveLerpPosition);
 };
 
 const GATE_TO_PLANTBOX_LERP_FRACTION = 0.25;
@@ -185,7 +193,7 @@ const GARDENVIEW_TO_PLANTBOX_LERP_FRACTION = 0.5;
 // const TOOLRACK_TO_GARDENVIEW = 0;
 
 const updatePlayerCameraLookAt = (
-  playerCameraReference: PerspectiveCameraType,
+  playerCameraReference: Group,
   delta: number,
 ) => {
   playerCameraLookAtFractionCalc.lerpVectors(
@@ -197,6 +205,12 @@ const updatePlayerCameraLookAt = (
   playerCameraReference.lookAt(playerCameraLookAtFractionCalc);
 };
 
+const updatePlayerCameraBeeNullPosition = (
+  playerCameraBeeNullReference: Object3D,
+) => {
+  playerCameraBeeNullReference.getWorldPosition(playerCameraBeeNullPosition);
+};
+
 export {
   xyExponent,
   xyFactor,
@@ -204,6 +218,9 @@ export {
   leftRightLimit,
   bottomTopLimit,
   GateMouseRange,
+  playerCameraActiveLerpPosition,
+  playerCameraBeeNullPosition,
+  updatePlayerCameraBeeNullPosition,
   playerCameraFullMouseRotationMultiplier,
   playerCameraInitMouseRotationMultiplier,
   GARDENVIEW_TO_PLANTBOX_LERP_FRACTION,

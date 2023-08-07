@@ -122,11 +122,6 @@ export type AchievmentsModalTypes = "garden" | "kitchen";
 export type AchievmentsCCCTypes = "all" | "confident" | "clean" | "careful";
 
 export interface AchievementModuleTypes {
-  achievementVideoTexture: HTMLVideoElement | null;
-  setAchievementVideoTexture: (
-    newAchievementVideoTexture: HTMLVideoElement,
-  ) => void;
-
   achievementVideoTextureLoaded: boolean;
   setAchievementVideoTextureLoaded: (
     achievementVideoTextureLoaded: boolean,

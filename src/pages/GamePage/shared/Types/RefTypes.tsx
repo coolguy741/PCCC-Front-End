@@ -3,6 +3,7 @@ import {
   DirectionalLight,
   Group,
   Mesh,
+  Object3D,
   OrthographicCamera,
   PerspectiveCamera,
   Vector2,
@@ -10,6 +11,7 @@ import {
 
 export type RefPerspectiveCameraType =
   MutableRefObject<PerspectiveCamera | null>;
+export type RefObject3DType = MutableRefObject<Object3D | null>;
 export type RefNumberType = MutableRefObject<number>;
 export type RefVector2Type = MutableRefObject<Vector2>;
 export type RefBooleanType = MutableRefObject<boolean>;

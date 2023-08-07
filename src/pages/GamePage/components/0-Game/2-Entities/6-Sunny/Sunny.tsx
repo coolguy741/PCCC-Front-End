@@ -3,6 +3,11 @@ import { useFrame } from "@react-three/fiber";
 import { FC, memo, useEffect, useRef } from "react";
 import { Bone, Group, Mesh, MeshStandardMaterial, SkinnedMesh } from "three";
 import { GLTF } from "three-stdlib";
+import { DampVector3 } from "../../../../shared/Utility/UtilityFunctions";
+import {
+  playerCameraActiveLerpPosition,
+  playerCameraBeeNullPosition,
+} from "../0-Cameras/0-PlayerCamera/PlayerCameraDefines";
 import { SunnyMaterial } from "./SunnyDefines";
 
 type GLTFResult = GLTF & {
@@ -179,14 +184,23 @@ const Sunny: FC = () => {
 
   useFrame((state, delta) => {
     if (!group.current) return;
-    // group.current.scale.x =
-    //   group.current.scale.y =
-    //   group.current.scale.z =
-    //     Math.sin(state.clock.elapsedTime) * 0.5 + 0.5;
+    // if (!boxRef.current) return;
+    // const localPoint = group.current.localToWorld(
+    //   state.camera.position.clone(),
+    // );
+    // group.current.position.copy(localPoint);
+    // group.current.position.y = playerCameraBeeNullPosition.y;
+    // group.current.position.x = playerCameraBeeNullPosition.x;
+    // group.current.position.z = playerCameraBeeNullPosition.z;
+
+    DampVector3(group.current.position, playerCameraBeeNullPosition, 4, delta);
+
+    group.current.lookAt(playerCameraActiveLerpPosition);
   });
+
   return (
-    <group ref={group} dispose={null} position={[0, 0.5, 0.5]}>
-      <group name="Scene">
+    <group ref={group} scale={0.4} dispose={null}>
+      <group name="Scene" rotation={[0, 0.25, 0]}>
         <group name="BeeArmature" userData={{ name: "BeeArmature" }}>
           <primitive object={nodes.root} />
           <primitive object={nodes.D_torso} />
@@ -369,8 +383,7 @@ const Sunny: FC = () => {
             skeleton={nodes.shower_brush.skeleton}
             userData={{ name: "shower_brush" }}
           /> */}
-        </group>
-        {/* <mesh
+          {/* <mesh
           name="weird_dish_pizza"
           castShadow
           receiveShadow
@@ -402,6 +415,7 @@ const Sunny: FC = () => {
           skeleton={nodes.snorkel.skeleton}
           userData={{ name: "snorkel" }}
         /> */}
+        </group>
       </group>
     </group>
   );
