@@ -162,8 +162,7 @@ const Style = {
 
         h4 {
           display: flex;
-          align-items: center;
-          display: flex;
+          width: 100%;
         }
       }
 
