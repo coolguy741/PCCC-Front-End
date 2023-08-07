@@ -17,6 +17,7 @@ import Button from "../../Button";
 import { DropdownSelect } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
 import Scrollable from "../../Global/Scrollable";
+import { Typography } from "../../Global/Typography";
 import { ArrowRight } from "../../Icons";
 
 type TSignUpForm = {
@@ -161,7 +162,9 @@ export const SignUpForm = () => {
       data-testid="signup-form"
     >
       <section className="sign-up">
-        <h1>Sign Up</h1>
+        <Typography as="h1" variant="h1">
+          Sign Up
+        </Typography>
         <section className="form">
           <legend>Account Info</legend>
           {isCoordinator && (
@@ -325,7 +328,9 @@ export const SignUpForm = () => {
         </section>
       </section>
       <section className="avatar-selection">
-        <h2>Avatar Selection</h2>
+        <Typography as="h2" variant="h2">
+          Avatar Selection
+        </Typography>
         <article className="username-selection">
           <label>Username</label>
           <Controller
@@ -465,13 +470,13 @@ const Style = {
 
       h2 {
         font-weight: 600;
-        font-size: ${conv(20, "vh")};
+        font-size: ${conv(26, "vh")};
         color: var(--neutral-900);
       }
 
       label {
         font-weight: 400;
-        font-size: ${conv(16, "vh")};
+        font-size: ${conv(18, "vh")};
         color: var(--neutral-700);
       }
     }
@@ -486,8 +491,9 @@ const Style = {
 
       legend {
         font-weight: 600;
-        font-size: ${conv(20, "vh")};
+        font-size: ${conv(26, "vh")};
         margin-bottom: ${conv(25, "vh")};
+        color: var(--neutral-800);
       }
 
       fieldset {
@@ -508,8 +514,8 @@ const Style = {
         label {
           width: 35%;
           color: var(--neutral-700);
-          font-weight: 400;
-          font-size: ${conv(16, "vh")};
+          font-weight: 500;
+          font-size: ${conv(17, "vh")};
         }
       }
     }

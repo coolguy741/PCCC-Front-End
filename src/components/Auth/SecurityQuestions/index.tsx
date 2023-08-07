@@ -11,6 +11,7 @@ import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { DropdownSelect, SelectOption } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
+import { Typography } from "../../Global/Typography";
 import { Info } from "../../Icons";
 import { ErrorMessage } from "../ErrorMessage";
 
@@ -23,6 +24,7 @@ export const SecurityQuestions = () => {
   const { api } = useAPI();
   const navigate = useNavigate();
   const [error, setError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isPassword6Chars, setIsPassword6Chars] = useState<boolean>(false);
   const [isPasswordLowercase, setIsPasswordLowercase] =
     useState<boolean>(false);
@@ -208,7 +210,9 @@ export const SecurityQuestions = () => {
       isPasswordUppercase={isPasswordUppercase}
     >
       <section className="sign-up-password">
-        <h1>Sign Up</h1>
+        <Typography as="h1" variant="h1">
+          Sign Up
+        </Typography>
         <p>
           <Info />
           Please take note of your password and security answers
@@ -224,14 +228,22 @@ export const SecurityQuestions = () => {
                 required: true,
               }}
               render={({ field }) => (
-                <Input
-                  width="65%"
-                  type="password"
-                  data-testid="password"
-                  id="password"
-                  className={errors.password ? "has-error" : ""}
-                  {...field}
-                />
+                <>
+                  <Input
+                    width="65%"
+                    type={showPassword ? "text" : "password"}
+                    data-testid="password"
+                    id="password"
+                    className={errors.password ? "has-error" : ""}
+                    {...field}
+                  />
+                  <div
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="eye-icon"
+                  >
+                    <img src="/icons/eye.svg" />
+                  </div>
+                </>
               )}
             />
           </fieldset>
@@ -278,7 +290,9 @@ export const SecurityQuestions = () => {
       </section>
 
       <section className="questions">
-        <h2>Security Questions</h2>
+        <Typography as="h2" variant="h2">
+          Security Questions
+        </Typography>
         <fieldset>
           <label>Question 1:</label>
           <Controller
@@ -486,10 +500,33 @@ const Style = {
         ${glassBackground};
         margin-top: ${convertToRelativeUnit(35, "vh")};
 
+        fieldset {
+          position: relative;
+
+          label {
+            font-size: ${convertToRelativeUnit(17, "vh")};
+            font-weight: 500;
+          }
+        }
+
+        h2 {
+          font-size: ${convertToRelativeUnit(27, "vh")};
+        }
+
+        .eye-icon {
+          position: absolute;
+          right: 10px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
         .requirements {
           display: flex;
           flex-direction: column;
           gap: 0.75rem;
+          margin-top: ${convertToRelativeUnit(50, "vh")};
 
           div {
             color: var(--neutral-600);
@@ -566,6 +603,11 @@ const Style = {
         margin-bottom: ${convertToRelativeUnit(24, "vh")};
         align-items: center;
         justify-content: space-between;
+
+        label {
+          font-size: ${convertToRelativeUnit(18, "vh")};
+          font-weight: 500;
+        }
       }
 
       button {

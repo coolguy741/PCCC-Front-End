@@ -157,7 +157,7 @@ const ghostVStyles = css`
 
 const smallSStyles = css`
   font-size: ${convertToRelativeUnit(16, "vh")};
-  padding: ${convertToRelativeUnit(10, "vh")} ${convertToRelativeUnit(16, "vw")};
+  padding: ${convertToRelativeUnit(13, "vh")} ${convertToRelativeUnit(16, "vw")};
 
   .btn-content {
     padding: 0px ${convertToRelativeUnit(8, "vw")};

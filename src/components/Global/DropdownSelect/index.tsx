@@ -162,7 +162,7 @@ const Style = {
         flex-grow: 1;
 
         .placeholder {
-          color: var(--neutral-600);
+          color: var(--neutral-400);
         }
       }
     }
@@ -175,19 +175,19 @@ const Style = {
       width: 100%;
       background: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(59.2764px);
+      backdrop-filter: blur(30px);
       border-radius: 8px;
-      padding: 8px;
+      padding: 8px 0;
       cursor: pointer;
     }
 
     .option {
-      padding: 4px 8px;
+      padding: 6px 10px;
       color: var(--neutral-600);
     }
 
     .option:hover {
-      background-color: #f0f0f0;
+      background-color: var(--green-100);
       border-radius: 4px;
     }
 
