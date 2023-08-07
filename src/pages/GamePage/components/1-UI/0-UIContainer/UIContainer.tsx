@@ -78,9 +78,10 @@ const UIContainer: FC = () => {
       <Cursor />
       <AnimatePresence>{LandingRenderCondition && <Landing />}</AnimatePresence>
       <AnimatePresence>{LoaderRenderCondition && <Loader />}</AnimatePresence>
-      {/* 
-      <RecipePanel />
-      <Cursor /> */}
+
+      {/* <RecipePanel />
+      <Cursor />
+      <DebugRecipe /> */}
     </Fragment>
   );
 };

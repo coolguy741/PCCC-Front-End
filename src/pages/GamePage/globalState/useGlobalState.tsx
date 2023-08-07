@@ -1,6 +1,4 @@
-// import { mergeDeepLeft } from "ramda";
 import { create } from "zustand";
-// import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { GetState, GlobalStateTypes, SetState } from "./GlobalStateTypes";
 import { AchievementModule } from "./modules/AchievementModule/AchievementModule";
@@ -31,22 +29,9 @@ const storeModules = (
 });
 
 const immerWrapper = immer<GlobalStateTypes>(
-  // @ts-ignore
   (set: SetState<GlobalStateTypes>, get: GetState<GlobalStateTypes>) =>
     storeModules(set, get),
 );
-
-// const persistWrapper = persist(immerWrapper, {
-//   name: "pccc-game-state",
-//   getStorage: () => {
-//     return localStorage;
-//   },
-//   merge: (persistedState, currentState) => {
-//     return mergeDeepLeft(persistedState as object, currentState);
-//   },
-// });
-
-// const devtoolsWrapper = devtools(persistWrapper);
 
 const useGlobalState = create(immerWrapper);
 

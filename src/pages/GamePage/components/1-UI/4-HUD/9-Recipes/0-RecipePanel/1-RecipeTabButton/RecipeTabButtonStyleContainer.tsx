@@ -11,7 +11,7 @@ const RecipeTabButtonStyleContainer = styled.button`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 6.5vw;
+  width: 6vw;
   cursor: none !important;
   border: none;
   background: none;
@@ -33,8 +33,8 @@ const RecipeTabButtonStyleContainer = styled.button`
 
   .recipe-tab-title {
     position: absolute;
-    transform: rotate(-90deg) translate(0.25vw, -0.25vw);
-    font-size: 1.75vw;
+    transform: rotate(-90deg) translate(0.15vw, -0.35vw);
+    font-size: 1.65vw;
     font-weight: bold;
     color: black;
     z-index: 2;

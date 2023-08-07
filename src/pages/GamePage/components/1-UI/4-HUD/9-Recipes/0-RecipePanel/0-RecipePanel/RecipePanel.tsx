@@ -2,6 +2,7 @@ import { FC, memo } from "react";
 import RecipeTabButton from "../1-RecipeTabButton/RecipeTabButton";
 import RecipePanelPages from "./assets/recipe_pages.webp";
 import RecipePanelBG from "./assets/recipe_panel_bg.webp";
+import RecipeContent from "./RecipeContent";
 import RecipePanelStyleContainer from "./RecipePanelStyleContainer";
 
 const RecipePanel: FC = () => {
@@ -25,8 +26,11 @@ const RecipePanel: FC = () => {
           draggable={false}
           src={RecipePanelPages}
         />
+
+        <div className="recipe-content-header">
+          <RecipeContent />
+        </div>
       </div>
-      <div className="recipe-content"></div>
     </RecipePanelStyleContainer>
   );
 };

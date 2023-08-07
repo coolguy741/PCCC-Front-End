@@ -14,6 +14,7 @@ const RecipePanelStyleContainer = styled(PageStyleContainer)`
     align-items: center;
     justify-content: center;
     position: relative;
+    width: 32vw;
     .recipe-panel-bg-wood {
       position: relative;
       width: 100%;
@@ -21,7 +22,7 @@ const RecipePanelStyleContainer = styled(PageStyleContainer)`
 
     .recipe-tab-buttons {
       position: absolute;
-      top: 3;
+      top: 9vw;
       left: -2vw;
       display: flex;
       align-items: center;
@@ -34,6 +35,36 @@ const RecipePanelStyleContainer = styled(PageStyleContainer)`
       width: 87%;
       margin-left: 0.5vw;
       z-index: 0;
+    }
+  }
+
+  /* .recipe-content {
+    position: absolute;
+    width: 75%;
+    height: 80%;
+    overflow-y: scroll;
+    margin-left: 3vw;
+  } */
+
+  .recipe-content-header {
+    ${MarginPaddingNone};
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 85%;
+    height: 90%;
+    margin-left: 0.5vw;
+    margin-bottom: 0.5vw;
+    flex-direction: column;
+    .recipe-header {
+      ${MarginPaddingNone};
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 17%;
     }
   }
 `;
