@@ -1,15 +1,9 @@
+import ReactAudioPlayer from "react-audio-player";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { capitalize } from "../../lib/util/capitalize";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
 import { Typography } from "../Typography";
-
-const BG_ARR = [
-  "/patterns/apples.png",
-  "/patterns/grapes.png",
-  "/patterns/lemons.png",
-  "/patterns/oranges.png",
-  "/patterns/yellows.png",
-];
 
 export const PreviewModal = ({
   url,
@@ -27,7 +21,7 @@ export const PreviewModal = ({
           <div className="title">{fileName}</div>
           <img src={url} alt="" />
         </div>
-      ) : (
+      ) : type === "video" ? (
         <div className="player-mask">
           <div className="video-elements">
             <div className="heading-container">
@@ -38,24 +32,29 @@ export const PreviewModal = ({
           </div>
 
           <ReactPlayer
-            className="react-player"
+            className={"react-player"}
             url={url}
-            config={
-              type === "audio"
-                ? {
-                    file: {
-                      attributes: {
-                        poster:
-                          BG_ARR[Math.floor(Math.random() * BG_ARR.length)],
-                      },
-                    },
-                  }
-                : {}
-            }
             controls
             width="80vw"
             height="auto"
           />
+        </div>
+      ) : (
+        <div className="player-mask">
+          <div className="video-elements">
+            <div className="heading-container">
+              <Typography
+                color="neutral-800"
+                tag="h1"
+                weight={600}
+                size="2.5vh"
+              >
+                {capitalize(fileName)}
+              </Typography>
+            </div>
+          </div>
+
+          <ReactAudioPlayer className={"audio-player"} src={url} controls />
         </div>
       )}
     </Style.Container>
@@ -98,6 +97,18 @@ const Style = {
           border-radius: 20px;
         }
       }
+
+      .audio-player {
+        ${() => animatedbackgroundGradient("#C4E8FF", "#D2F7E5")};
+        height: 25vh;
+        width: 80vw;
+        padding: 48px;
+        border-radius: 16px;
+        background: var(
+          --background-blue-green,
+          linear-gradient(136deg, #c4e8ff 0%, #d2f7e5 100%)
+        );
+      }
     }
 
     .video-elements {
@@ -107,12 +118,12 @@ const Style = {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      z-index: 10000;
 
       .heading-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-top: 24px;
 
         button {
           aspect-ratio: 1 / 1;
