@@ -23,38 +23,27 @@ export const PreviewModal = ({
         </div>
       ) : type === "video" ? (
         <div className="player-mask">
-          <div className="video-elements">
-            <div className="heading-container">
-              <Typography color="white" tag="h1" weight={600} size="2.5vh">
-                {capitalize(fileName)}
-              </Typography>
-            </div>
+          <div className="video-container">
+            <Typography color="white" tag="h1" weight={600} size="2.5vh">
+              {capitalize(fileName)}
+            </Typography>
+            <ReactPlayer
+              className={"react-player"}
+              url={url}
+              controls
+              width="80vw"
+              height="auto"
+            />
           </div>
-
-          <ReactPlayer
-            className={"react-player"}
-            url={url}
-            controls
-            width="80vw"
-            height="auto"
-          />
         </div>
       ) : (
         <div className="player-mask">
-          <div className="video-elements">
-            <div className="heading-container">
-              <Typography
-                color="neutral-800"
-                tag="h1"
-                weight={600}
-                size="2.5vh"
-              >
-                {capitalize(fileName)}
-              </Typography>
-            </div>
+          <div className="audio-container">
+            <Typography color="neutral-800" tag="h1" weight={600} size="2.5vh">
+              {capitalize(fileName)}
+            </Typography>
+            <ReactAudioPlayer className={"audio-player"} src={url} controls />
           </div>
-
-          <ReactAudioPlayer className={"audio-player"} src={url} controls />
         </div>
       )}
     </Style.Container>
@@ -88,6 +77,14 @@ const Style = {
       align-items: center;
       position: relative;
 
+      h1 {
+        position: absolute;
+        width: 100%;
+        max-width: 80vw;
+        top: 24px;
+        left: 3.25vw;
+      }
+
       .react-player {
         border-radius: 20px;
         width: 80vw;
@@ -108,120 +105,6 @@ const Style = {
           --background-blue-green,
           linear-gradient(136deg, #c4e8ff 0%, #d2f7e5 100%)
         );
-      }
-    }
-
-    .video-elements {
-      width: 92.5%;
-      height: 92.5%;
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .heading-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 24px;
-
-        button {
-          aspect-ratio: 1 / 1;
-          height: 30px;
-          display: grid;
-          place-items: center;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.5);
-          box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
-          z-index: 10000;
-
-          svg {
-            height: 50%;
-          }
-        }
-      }
-
-      .controls-container {
-        input.timeline {
-          width: 100%;
-          height: 8px;
-          appearance: none;
-          background-color: rgba(255, 255, 255, 0.5);
-          border-radius: 5px;
-          background-size: 0% 100%;
-          background-image: linear-gradient(#fff, #fff);
-          background-repeat: no-repeat;
-          cursor: pointer;
-
-          &::-webkit-slider-thumb {
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s;
-            background-color: rgba(255, 255, 255, 0.8);
-          }
-
-          &:hover {
-            &::-webkit-slider-thumb {
-              opacity: 1;
-              background-color: #fff;
-            }
-          }
-        }
-
-        .controls-options {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          div {
-            display: flex;
-            align-items: center;
-          }
-
-          input {
-            width: 75px;
-            height: 4px;
-            appearance: none;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 5px;
-            background-size: 0% 100%;
-            background-image: linear-gradient(#fff, #fff);
-            background-repeat: no-repeat;
-            cursor: pointer;
-
-            &::-webkit-slider-thumb {
-              appearance: none;
-              width: 10px;
-              height: 10px;
-              border-radius: 50%;
-              cursor: pointer;
-              transition: all 0.3s;
-              background-color: rgba(255, 255, 255, 0.8);
-            }
-
-            &:hover {
-              &::-webkit-slider-thumb {
-                opacity: 1;
-                background-color: #fff;
-              }
-            }
-          }
-
-          button {
-            height: 32px;
-            width: 32px;
-            display: grid;
-            place-items: center;
-
-            svg {
-              height: 75%;
-            }
-          }
-        }
       }
     }
   `,
