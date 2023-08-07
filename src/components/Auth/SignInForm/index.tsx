@@ -12,6 +12,7 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { Typography } from "../../Global/Typography";
 import { ErrorMessage } from "../ErrorMessage";
 
 export const SignInForm = () => {
@@ -75,7 +76,9 @@ export const SignInForm = () => {
       exit={{ opacity: 0 }}
     >
       <form onSubmit={handleSubmit(submitHandler)}>
-        <h1>Log in</h1>
+        <Typography as="h1" variant="h1">
+          Log in
+        </Typography>
         <fieldset>
           <label htmlFor="username">Username</label>
           <Controller
@@ -167,7 +170,7 @@ const Container = styled(motion.main)`
 
     label {
       font-weight: 500;
-      font-size: ${convertToRelativeUnit(16, "vh")};
+      font-size: ${convertToRelativeUnit(18, "vh")};
       line-height: 125%;
       color: var(--neutral-700);
     }

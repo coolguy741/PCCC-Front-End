@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
 import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
@@ -22,6 +23,7 @@ export const SignInSecurity = () => {
       thirdQuestionAnswer: "",
     },
   });
+  const navigate = useNavigate();
   const {
     securityQuestions,
     firstQuestionId,
@@ -46,7 +48,7 @@ export const SignInSecurity = () => {
     setSecondQuestionAnswer(secondQuestionAnswer);
     setThirdQuestionAnswer(thirdQuestionAnswer);
 
-    changeStep(2);
+    navigate("/signin/reset-password");
   };
 
   return (

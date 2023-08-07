@@ -9,7 +9,10 @@ export const SecurityQuestionsPage = () => {
 
   return (
     <>
-      <span className="auth-breadcrumb" onClick={() => navigate("/signin")}>
+      <span
+        className="auth-breadcrumb"
+        onClick={() => navigate("/signin/forgot-password")}
+      >
         <BackButton onClick={() => navigate("/signin")} />
       </span>
 

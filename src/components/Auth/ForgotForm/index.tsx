@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
 import { useSignInStore } from "../../../stores/signInStore";
 import { useUserStore } from "../../../stores/userStore";
@@ -24,6 +25,7 @@ export const ForgotForm = () => {
     setThirdQuestionId,
   } = useUserStore();
   const { api } = useAPI();
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -58,7 +60,8 @@ export const ForgotForm = () => {
           setFirstQuestionId(firstQuestionId ?? "");
           setSecondQuestionId(secondQuestionId ?? "");
           setThirdQuestionId(thirdQuestionId ?? "");
-          changeStep(1);
+
+          navigate("/signin/security-questions");
         })
         .catch((error) => {
           setError(error.response.data.error.details);
