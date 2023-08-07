@@ -20,6 +20,7 @@ export const SignInForm = () => {
   const navigate = useNavigate();
   const { setForgetType } = useUserStore();
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const {
     control,
     handleSubmit,
@@ -107,13 +108,21 @@ export const SignInForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Input
-                type="password"
-                id="password"
-                {...field}
-                height="52px"
-                className={errors.password ? "has-error" : ""}
-              />
+              <div className="input-container">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  {...field}
+                  height="52px"
+                  className={errors.password ? "has-error" : ""}
+                />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="eye-icon"
+                >
+                  <img src="/icons/eye.svg" />
+                </div>
+              </div>
             )}
           />
           {error && <ErrorMessage error={error} />}
@@ -163,9 +172,28 @@ const Container = styled(motion.main)`
   }
 
   fieldset {
+    position: relative;
     margin-bottom: ${convertToRelativeUnit(32, "vh")};
+
     &:last-of-type {
       margin-bottom: 0px;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      .eye-icon {
+        position: absolute;
+        right: 10px;
+        margin-top: ${convertToRelativeUnit(15, "vh")};
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     label {
