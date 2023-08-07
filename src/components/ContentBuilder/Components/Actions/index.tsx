@@ -61,7 +61,7 @@ export const ContentEditorActions: React.FC<Props> = ({
   const handleSaveAndExit = async () => {
     await saveContent(type);
 
-    navigate(`/dashboard/${type}`);
+    navigate(`/${type}`);
   };
 
   return (

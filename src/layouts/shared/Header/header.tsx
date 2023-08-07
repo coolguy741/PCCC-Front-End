@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     addResults();
-    navigate("/dashboard/search");
+    navigate("/search");
   };
 
   const handleSetField = (field: string) => {

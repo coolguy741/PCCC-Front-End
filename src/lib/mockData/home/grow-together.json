@@ -8,7 +8,7 @@
       "alt": "disover-item",
       "title": "Garden Guardian ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 1,
@@ -16,7 +16,7 @@
       "alt": "disover-item",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 2,
@@ -25,7 +25,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 3,
@@ -34,7 +34,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 4,
@@ -43,7 +43,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 5,
@@ -52,7 +52,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 6,
@@ -61,7 +61,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 7,
@@ -70,7 +70,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     },
     {
       "id": 8,
@@ -79,7 +79,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Garden Guardian",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/activities"
+      "path": "/activities"
     }
   ]
 }

@@ -99,7 +99,7 @@ export const CreateMealtimeMomentPage = () => {
 
   useEffect(() => {
     if (updatedMealtimeMoment || newMealtimeMoment) {
-      navigate("/dashboard/mealtime-moments");
+      navigate("/mealtime-moments");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMealtimeMoment, updatedMealtimeMoment]);
@@ -107,7 +107,7 @@ export const CreateMealtimeMomentPage = () => {
   return (
     <Style.Container>
       <div className="buttons-container">
-        <BackButton onClick={() => navigate("/dashboard/mealtime-moments")} />
+        <BackButton onClick={() => navigate("/mealtime-moments")} />
         <Button onClick={() => navigate("../preview")}>Preview</Button>
       </div>
 

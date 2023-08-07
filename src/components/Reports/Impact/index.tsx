@@ -43,9 +43,7 @@ export const ReportImpact = () => {
           <option>Have you tried a new food lately?</option>
         </select>
         <div>
-          <LinkButton to="/dashboard/reports/impact-qa/preview">
-            Export
-          </LinkButton>
+          <LinkButton to="/reports/impact-qa/preview">Export</LinkButton>
         </div>
       </div>
     </Style.Container>

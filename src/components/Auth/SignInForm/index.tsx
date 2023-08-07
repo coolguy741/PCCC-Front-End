@@ -51,7 +51,7 @@ export const SignInForm = () => {
 
         if (data.access_token) {
           Cookies.set(STORAGE_KEY_JWT, data.access_token, {});
-          navigate("/dashboard");
+          navigate("/");
         }
       })
       .catch((error) => {

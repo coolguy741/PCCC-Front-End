@@ -29,7 +29,7 @@ export const AccountsUserLessonAssessmentPage = () => {
   };
 
   const handlePrint = () => {
-    navigate("/dashboard/accounts/profiles/:user/:lessonAssessment/print");
+    navigate("/accounts/profiles/:user/:lessonAssessment/print");
   };
 
   return (

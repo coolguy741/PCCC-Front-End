@@ -36,7 +36,7 @@ export const DashboardHeader: React.FC<Props> = ({ isHovering, scrollTop }) => {
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     addResults();
-    navigate("/dashboard/search");
+    navigate("/search");
   };
 
   const handleSetField = (field: string) => {

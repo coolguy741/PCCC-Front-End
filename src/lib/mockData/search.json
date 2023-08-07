@@ -7,14 +7,14 @@
       "alt": "disover-item",
       "title": "Foodways: Chocolate",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/foodways/Chocolate"
     },
     {
       "image": "/images/homepage/discover-item.jpg",
       "alt": "disover-item",
       "title": "Foodways: Chocolate",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/foodways/Chocolate"
     },
     {
       "image": "/images/homepage/discover-item.jpg",
@@ -22,7 +22,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Foodways: Chocolate",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/foodways/Chocolate"
+      "path": "/foodways/Chocolate"
     }
   ]
 }

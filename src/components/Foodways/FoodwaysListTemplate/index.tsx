@@ -55,7 +55,7 @@ export const FoodwaysListTemplate: React.FC<ContentListAdminPageTemplateProps> =
       setIsDeleting(false);
       setSelectedIds([]);
 
-      navigate("/dashboard/foodways");
+      navigate("/foodways");
     };
 
     return (

@@ -26,7 +26,7 @@ export const AccountsGroupPage = () => {
   const params = useParams();
 
   const handleBack = () => {
-    navigate("/dashboard/accounts/groups");
+    navigate("/accounts/groups");
   };
 
   const handleViewGroupCalender = () => {

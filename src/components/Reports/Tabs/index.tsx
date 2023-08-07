@@ -18,7 +18,7 @@ export const ReportsTabs: React.FC<Props> = ({
     const {
       target: { id },
     } = event;
-    navigate(`/dashboard/reports/${id}${isPreview ? "/preview" : ""}`);
+    navigate(`/reports/${id}${isPreview ? "/preview" : ""}`);
   };
 
   return (

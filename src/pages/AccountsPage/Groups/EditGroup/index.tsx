@@ -44,7 +44,7 @@ export const AccountsEditGroupPage = () => {
   }, [api, params.group]);
 
   const handleBack = () => {
-    navigate("/dashboard/accounts/groups");
+    navigate("/accounts/groups");
   };
 
   const handleEdit = async () => {
@@ -64,7 +64,7 @@ export const AccountsEditGroupPage = () => {
         },
       );
 
-      if (response.status === 200) navigate("/dashboard/accounts/groups");
+      if (response.status === 200) navigate("/accounts/groups");
     }
   };
 

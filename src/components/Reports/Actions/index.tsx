@@ -8,12 +8,8 @@ interface Props {
 export const ReportActions: React.FC<Props> = ({ tabs, tabIndex }) => {
   return (
     <div className="flex justify-between mt-4">
-      <LinkButton to={`/dashboard/reports/${tabs[tabIndex]}`}>
-        &lt;Back
-      </LinkButton>
-      <LinkButton to={`/dashboard/reports/${tabs[tabIndex]}/print`}>
-        Print
-      </LinkButton>
+      <LinkButton to={`/reports/${tabs[tabIndex]}`}>&lt;Back</LinkButton>
+      <LinkButton to={`/reports/${tabs[tabIndex]}/print`}>Print</LinkButton>
     </div>
   );
 };

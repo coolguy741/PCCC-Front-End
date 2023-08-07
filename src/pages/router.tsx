@@ -96,7 +96,7 @@ import { ThemePrintPage } from "./ThemeBuilderPage/Print";
 import { ThemePage } from "./ThemeBuilderPage/ThemePage";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
+  { path: "/temp", element: <TempHomePage />, errorElement: <ErrorBoundary /> },
   {
     path: "/test-content",
     element: <TestContentPage />,
@@ -158,7 +158,7 @@ export const router = createBrowserRouter([
     children: [{ path: "", element: <SignUpPage /> }],
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: (
       <DashboardLayout>
         <Outlet />
@@ -550,7 +550,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "dashboard/plate-full-planner",
+        path: "plate-full-planner",
         children: [
           { path: "print", element: <MealPlannerPrintPage /> },
 
@@ -562,7 +562,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "dashboard/foodways",
+        path: "foodways",
         children: [
           {
             path: ":foodway/:slide/print",
@@ -571,31 +571,31 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "dashboard/accounts/groups/:group/calendar/print",
+        path: "accounts/groups/:group/calendar/print",
         element: <AccountsGroupCalendarPrintPage />,
       },
       {
-        path: "dashboard/accounts/profiles/:user/:lessonAssessment/print",
+        path: "accounts/profiles/:user/:lessonAssessment/print",
         element: <AccountsUserLessonAssessmentPrintPage />,
       },
       {
-        path: "dashboard/recipes/:item/:slide/print",
+        path: "recipes/:item/:slide/print",
         element: <RecipePrintPage />,
       },
       {
-        path: "dashboard/activities/:item/:slide/print",
+        path: "activities/:item/:slide/print",
         element: <ActivityPrintPage />,
       },
       {
-        path: "dashboard/themes/:slug/print",
+        path: "themes/:slug/print",
         element: <ThemePrintPage />,
       },
       {
-        path: "dashboard/mealtime-moments/:id/print",
+        path: "mealtime-moments/:id/print",
         element: <MealtimeMomentPrintPage />,
       },
-      { path: "dashboard/calendar/print", element: <CalendarPrintPage /> },
-      { path: "dashboard/reports/:slug/print", element: <ReportsPrintPage /> },
+      { path: "calendar/print", element: <CalendarPrintPage /> },
+      { path: "reports/:slug/print", element: <ReportsPrintPage /> },
     ],
   },
   {

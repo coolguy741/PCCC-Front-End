@@ -1,6 +1,6 @@
 import { Vector2 } from "three";
 import { globalStateApiType } from "../../GlobalStateTypes";
-import { UIPhase } from "./UIModuleConstants";
+import { UIPhase } from "./UiModuleConstants";
 import {
   activeHoveredHudMenuOptionType,
   SkintToneType,

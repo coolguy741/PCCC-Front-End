@@ -27,10 +27,10 @@ export const PROVINCES = [
   "Yukon",
 ];
 export const MENUS: Menu[] = [
-  { label: "Home", to: "/dashboard", icon: "home" },
+  { label: "Home", to: "/", icon: "home" },
   {
     label: "Manage Users",
-    to: "/dashboard/accounts",
+    to: "/accounts",
     icon: "user",
     auth: true,
   },
@@ -40,10 +40,10 @@ export const MENUS: Menu[] = [
     to: "content-builder",
 
     subMenus: [
-      { label: "Themes", to: "/dashboard/themes", icon: "topic", auth: true },
-      { label: "Activities", to: "/dashboard/activities", icon: "activities" },
-      { label: "Recipes", to: "/dashboard/recipes", icon: "recipe" },
-      { label: "Foodways", to: "/dashboard/foodways", icon: "foodways" },
+      { label: "Themes", to: "/themes", icon: "topic", auth: true },
+      { label: "Activities", to: "/activities", icon: "activities" },
+      { label: "Recipes", to: "/recipes", icon: "recipe" },
+      { label: "Foodways", to: "/foodways", icon: "foodways" },
       {
         label: "Mealtime Moments",
         to: "mealtime-moments",
@@ -51,29 +51,29 @@ export const MENUS: Menu[] = [
       },
     ],
   },
-  { label: "Games", to: "/dashboard/games", icon: "game" },
+  { label: "Games", to: "/games", icon: "game" },
   {
     label: "Planning Tools",
-    to: "/dashboard",
+    to: "/",
     icon: "tool",
     auth: true,
     subMenus: [
       {
         label: "Calendar",
-        to: "/dashboard/calendar",
+        to: "/calendar",
         icon: "calendar",
       },
       {
         label: "Plate Full Planner",
-        to: "/dashboard/plate-full-planner",
+        to: "/plate-full-planner",
         icon: "meal-planner",
       },
     ],
   },
-  { label: "Reports", to: "/dashboard/reports", icon: "reports" },
+  { label: "Reports", to: "/reports", icon: "reports" },
   {
     label: "Cloud drive",
-    to: "/dashboard/cloud-drive",
+    to: "/cloud-drive",
     icon: "cloud",
     auth: true,
   },
