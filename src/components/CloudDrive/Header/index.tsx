@@ -59,6 +59,7 @@ export function CDHeader({
         return <Skeleton />;
     }
   }
+
   return (
     <Style.Container>
       {buttons.map(({ title, icon, id }) => (

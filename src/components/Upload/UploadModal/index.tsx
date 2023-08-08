@@ -165,6 +165,8 @@ export function UploadModal({
     type && getCloudDriveFiles();
   }, [type]);
 
+  const stats = data?.payload?.stats;
+
   return (
     <Modal modal={modal} toggle={toggle}>
       <Style.Container
@@ -186,7 +188,7 @@ export function UploadModal({
         >
           Folders
         </Typography>
-        <ModalMenu setType={setType} type={type} />
+        <ModalMenu setType={setType} type={type} stats={stats} />
         <ModalHeader
           addMedia={addMedia}
           reload={getCloudDriveFiles}
