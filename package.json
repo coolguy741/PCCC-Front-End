@@ -53,6 +53,7 @@
     "react-fps-stats": "^0.3.1",
     "react-hook-form": "^7.43.9",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-loading-skeleton": "^3.3.1",
     "react-lottie": "^1.2.3",
     "react-merge-refs": "^2.0.2",
     "react-player": "2.11.0",
