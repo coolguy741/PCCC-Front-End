@@ -39,10 +39,10 @@ export const ActivitiesPage = () => {
     for (const id of selectedIds) {
       await deleteActivity?.(id);
     }
-    setIsNeededToReload(true);
+    setSkipCount(() => 0);
     setSelectedIds([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIds]);
+  }, [selectedIds, setSkipCount]);
 
   useEffect(() => {
     isNeededToReload &&
@@ -60,6 +60,7 @@ export const ActivitiesPage = () => {
       ...query,
       SkipCount: skipCount,
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skipCount]);
 

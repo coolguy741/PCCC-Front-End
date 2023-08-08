@@ -36,10 +36,10 @@ export const Themes = () => {
     for (const id of selectedIds) {
       await deleteTheme?.(id);
     }
-    setIsNeededToReload(true);
+    setSkipCount(0);
     setSelectedIds([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIds]);
+  }, [selectedIds, setSkipCount]);
 
   useEffect(() => {
     isNeededToReload &&
