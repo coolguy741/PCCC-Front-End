@@ -20,7 +20,7 @@ interface ThemeProp {
   tags?: string[];
 }
 export interface ThemeStoreState extends ThemeProp {
-  changeStep: (step: number) => void;
+  setCurrentStep: (step: number) => void;
   setLang: (lang: Language) => void;
   init: () => void;
   continueWithFrench: () => void;
@@ -42,7 +42,7 @@ const initialState: ThemeProp = {
 export const useThemeBuilderStore = create<ThemeStoreState>()((set, get) => ({
   ...initialState,
   updateId: (id) => set(() => ({ id })),
-  changeStep: (currentStep) => set(() => ({ currentStep })),
+  setCurrentStep: (currentStep) => set(() => ({ currentStep })),
   setCurriculums: (curriculums) =>
     set(() => ({ curriculums, selectedCurriculum: curriculums?.[0].id })),
   setCurriculum: (selectedCurriculum) => set(() => ({ selectedCurriculum })),
@@ -51,19 +51,19 @@ export const useThemeBuilderStore = create<ThemeStoreState>()((set, get) => ({
   init: () => set(() => ({ ...initialState })),
   setItemIds: (itemId) =>
     set(({ activityIds, recipeIds, currentStep }) => ({
-      activityIds: currentStep === 4 ? [...activityIds, itemId] : activityIds,
-      recipeIds: currentStep === 5 ? [...recipeIds, itemId] : recipeIds,
+      activityIds: currentStep === 3 ? [...activityIds, itemId] : activityIds,
+      recipeIds: currentStep === 4 ? [...recipeIds, itemId] : recipeIds,
     })),
   removeItemId: (itemId) =>
     set(({ activityIds, recipeIds, currentStep }) => ({
       activityIds: [
-        ...(currentStep === 4
-          ? activityIds.filter((id) => id === itemId)
+        ...(currentStep === 3
+          ? activityIds.filter((id) => id !== itemId)
           : activityIds),
       ],
       recipeIds: [
-        ...(currentStep === 5
-          ? recipeIds.filter((id) => id === itemId)
+        ...(currentStep === 4
+          ? recipeIds.filter((id) => id !== itemId)
           : recipeIds),
       ],
     })),

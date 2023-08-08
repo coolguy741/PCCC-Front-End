@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import {
@@ -29,8 +28,8 @@ export const ContentList: React.FC<ContentListProps> = ({
 }) => {
   return (
     <Style.Container>
-      {listData.map((list, index) => (
-        <StyledLink to={`./${list.id}`} key={list.id}>
+      {listData.map((list) => (
+        <StyledLink key={list.id}>
           <ContentListItem
             key={list.id}
             data={list}
@@ -46,15 +45,14 @@ export const ContentList: React.FC<ContentListProps> = ({
 const Style = {
   Container: styled.div`
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    overflow: hidden;
     align-items: flex-start;
     padding: 0px;
     gap: ${convertToRelativeUnit(40, "vw")};
   `,
 };
 
-const StyledLink = styled(Link)`
-  overflow: hidden;
-  flex-basis: calc(50% - ${convertToRelativeUnit(20, "vw")});
+const StyledLink = styled.div`
+  width: calc(50% - ${convertToRelativeUnit(20, "vw")});
 `;

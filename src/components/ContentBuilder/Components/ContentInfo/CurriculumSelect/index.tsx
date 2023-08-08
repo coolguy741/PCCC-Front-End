@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { DropdownPosition } from "../../../../../pages/types";
 
 import { convertToRelativeUnit } from "../../../../../styles/helpers/convertToRelativeUnits";
 import { SelectOption } from "../../../../Global/DropdownSelect";
@@ -12,6 +13,7 @@ interface Props {
   onChange: (value: string) => void;
   height?: string;
   width?: string;
+  position?: DropdownPosition;
   className?: string;
 }
 
@@ -20,6 +22,7 @@ export const CurriculumSelect: React.FC<Props> = ({
   options,
   selectedValue = "",
   onChange,
+  position = DropdownPosition.BOTTOM,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -61,7 +64,7 @@ export const CurriculumSelect: React.FC<Props> = ({
           <Icon name="downSelect" height={"34%"} />
         </div>
         {isOpen && (
-          <Style.Options>
+          <Style.Options position={position}>
             {options.map((option, index) => (
               <div
                 key={index}
@@ -138,13 +141,13 @@ const Style = {
     right: 0;
     bottom: 0;
   `,
-  Options: styled.div`
+  Options: styled.div<{ position: DropdownPosition }>`
     position: absolute;
     background: #ffffff50;
     backdrop-filter: blur(118px);
     width: 100%;
     z-index: 101;
-    top: 110%;
+    ${({ position }) => position}: 110%;
     border-radius: 0.5rem;
     cursor: pointer;
     max-height: 15vh;

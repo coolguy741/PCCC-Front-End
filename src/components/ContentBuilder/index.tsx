@@ -42,7 +42,7 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
   const [showingMessage, setShowingMessage] = useState(false);
   const [prevContentComponents, setPrevContentComponents] =
     useState<ThemeComponent[]>();
-  const { currentStep } = useThemeBuilderStore();
+  const { currentStep, setCurrentStep } = useThemeBuilderStore();
   const educatorNotesStore = useEducatorNotesStore();
   const assessmentsStore = useAssessmentsStore();
 
@@ -62,6 +62,10 @@ export const ContentBuilder: React.FC<ContentBuilderProps> = ({
       : currentStep === 2
       ? assessmentsStore
       : store;
+
+  useEffect(() => {
+    type !== ContentBuilderType.THEMES && setCurrentStep(0);
+  }, [type]);
 
   useEffect(() => {
     setShowingMessage(false);

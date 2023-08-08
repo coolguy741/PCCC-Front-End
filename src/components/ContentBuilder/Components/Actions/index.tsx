@@ -9,7 +9,6 @@ import {
   Language,
   ThemeProperties,
 } from "../../../../pages/types";
-import { useEducatorNotesStore } from "../../../../stores/educatorNotesStore";
 import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import { useUIStore } from "../../../../stores/uiStore";
 import Button from "../../../Button";
@@ -29,9 +28,7 @@ export const ContentEditorActions: React.FC<Props> = ({
 }) => {
   const [showingConfirmModal, setShowingConfirmModal] = useState(false);
   const { saveContent, updateIdInStore } = useContentActions();
-  const { currentStep, maxPageCount, changeStep, selectedCurriculum } =
-    useThemeBuilderStore();
-  const { changeCurriculum } = useEducatorNotesStore();
+  const { currentStep, maxPageCount, setCurrentStep } = useThemeBuilderStore();
 
   const navigate = useNavigate();
   const { lang } = useUIStore();
@@ -47,10 +44,12 @@ export const ContentEditorActions: React.FC<Props> = ({
         );
     } else if (currentStep === 1 && type === ContentBuilderType.THEMES) {
       await saveContent(type, ThemeProperties.EDUCATOR_NOTES);
+    } else if (currentStep === 2 && type === ContentBuilderType.THEMES) {
+      await saveContent(type, ThemeProperties.ASSESSMENT);
     }
 
     currentStep < maxPageCount - 1
-      ? changeStep(currentStep + 1)
+      ? setCurrentStep(currentStep + 1)
       : setShowingConfirmModal(true);
   };
 

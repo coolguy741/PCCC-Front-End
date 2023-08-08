@@ -31,7 +31,7 @@ const SIGN_UP_BG_ARR = [
 
 export const SignUpPage = () => {
   const currentStep = useSignUpStore((state) => state.currentStep);
-  const changeStep = useSignUpStore((state) => state.changeStep);
+  const setCurrentStep = useSignUpStore((state) => state.setCurrentStep);
   const over18 = useSignUpStore((state) => state.over18);
 
   const navigate = useNavigate();
@@ -40,11 +40,11 @@ export const SignUpPage = () => {
     if (currentStep === 0) {
       navigate("/");
     } else if (currentStep === 2 && !over18) {
-      changeStep(0);
+      setCurrentStep(0);
     } else if (currentStep === 4) {
-      changeStep(1);
+      setCurrentStep(1);
     } else {
-      changeStep(currentStep - 1);
+      setCurrentStep(currentStep - 1);
     }
   };
 

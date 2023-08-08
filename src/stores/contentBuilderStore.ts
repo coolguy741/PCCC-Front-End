@@ -96,38 +96,72 @@ const createStore = () =>
         currentLang: Language.FR,
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
-      set(({ slides, currentLang, ...state }) => ({
-        image:
-          !sIndex && sIndex === componentIndex
-            ? (componentState as Record<string, CCFormat>).media.src
-            : state.image,
-        slides: slides.map((slide, slideIndex) => {
-          if (!sIndex && sIndex === componentIndex) {
-            state[currentLang].title = (
-              componentState as Record<string, CCFormat>
-            ).heading.text;
-            state[currentLang].description = (
-              componentState as Record<string, CCFormat>
-            ).desc.text;
-            state[currentLang].topic = (
-              componentState as Record<string, CCFormat>
-            ).tag.text;
-            state[Language.EN].image = (
-              componentState as Record<string, CCFormat>
-            ).media.src;
-            state[Language.FR].image = (
-              componentState as Record<string, CCFormat>
-            ).media.src;
-          }
+      set(({ slides, currentLang, ...state }) => {
+        // ({
+        //   image:
+        //     !sIndex && sIndex === componentIndex
+        //       ? (componentState as Record<string, CCFormat>).media.src
+        //       : state.image,
+        //   slides: slides.map((slide, slideIndex) => {
+        //     if (!sIndex && sIndex === componentIndex) {
+        //       state[currentLang].title = (
+        //         componentState as Record<string, CCFormat>
+        //       ).heading.text;
+        //       state[currentLang].description = (
+        //         componentState as Record<string, CCFormat>
+        //       ).desc.text;
+        //       state[currentLang].topic = (
+        //         componentState as Record<string, CCFormat>
+        //       ).tag.text;
+        //       state[Language.EN].image = (
+        //         componentState as Record<string, CCFormat>
+        //       ).media.src;
+        //       state[Language.FR].image = (
+        //         componentState as Record<string, CCFormat>
+        //       ).media.src;
+        //     }
 
-          return slide.map((component, index) => ({
-            ...component,
-            ...(index === componentIndex && sIndex === slideIndex
-              ? { componentState }
-              : {}),
-          }));
-        }),
-      })),
+        //     return slide.map((component, index) => ({
+        //       ...component,
+        //       ...(index === componentIndex && sIndex === slideIndex
+        //         ? { componentState }
+        //         : {}),
+        //     }));
+        //   }),
+        // })
+        return {
+          image:
+            !sIndex && sIndex === componentIndex
+              ? (componentState as Record<string, CCFormat>).media.src
+              : state.image,
+          slides: slides.map((slide, slideIndex) => {
+            if (!sIndex && sIndex === componentIndex) {
+              state[currentLang].title = (
+                componentState as Record<string, CCFormat>
+              ).heading.text;
+              state[currentLang].description = (
+                componentState as Record<string, CCFormat>
+              ).desc.text;
+              state[currentLang].topic = (
+                componentState as Record<string, CCFormat>
+              ).tag.text;
+              state[Language.EN].image = (
+                componentState as Record<string, CCFormat>
+              ).media.src;
+              state[Language.FR].image = (
+                componentState as Record<string, CCFormat>
+              ).media.src;
+            }
+
+            return slide.map((component, index) => ({
+              ...component,
+              ...(index === componentIndex && sIndex === slideIndex
+                ? { componentState }
+                : {}),
+            }));
+          }),
+        };
+      }),
     getDetailId: (index: number) => get().items?.[index - 1].id,
     init: () => set(() => ({ ...initialState })),
   }));

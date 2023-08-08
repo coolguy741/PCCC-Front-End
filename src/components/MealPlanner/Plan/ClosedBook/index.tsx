@@ -10,7 +10,7 @@ export const ClosedPlateFullPlannerBook = () => {
   const [rect, setRect] = useState<DOMRect | undefined>();
   const dragControls = useDragControls();
   const animation = useAnimation();
-  const { changeStep } = useMealPlannerStore();
+  const { setCurrentStep } = useMealPlannerStore();
 
   useEffect(() => {
     if (ref.current) {
@@ -27,11 +27,11 @@ export const ClosedPlateFullPlannerBook = () => {
           await animation.start("toRight");
         } else if (power > 50) {
           await animation.start("toLeft");
-          changeStep(1);
+          setCurrentStep(1);
         }
       }
     },
-    [rect, animation, changeStep],
+    [rect, animation, setCurrentStep],
   );
 
   return (

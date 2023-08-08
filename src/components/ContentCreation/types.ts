@@ -24,7 +24,13 @@ export interface CCFormat {
   iMode?: string;
   name?: string;
   question?: string;
+  option1?: string;
+  option2?: string;
+  option3?: string;
+  option4?: string;
   thumbnail?: string;
+  valid?: boolean;
+  value?: boolean;
 }
 
 export type TitleType =
@@ -34,6 +40,10 @@ export type TitleType =
   | "subHeading"
   | "subDesc"
   | "title"
+  | "option1"
+  | "option2"
+  | "option3"
+  | "option4"
   | "timePeriod";
 export type PWithPType = "number" | "heading" | "desc";
 

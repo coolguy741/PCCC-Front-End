@@ -6,6 +6,7 @@ const initialState: any = {
   media: {
     src: "",
     name: "",
+    type: "pattern",
     thumbnail: "",
     patternChoice: 0,
   },
@@ -13,6 +14,7 @@ const initialState: any = {
 
 export function SingleImageComponent({
   state,
+  isEditable,
   changeMediaState,
   changeMediaPattern,
   addThumbnail,
@@ -24,6 +26,7 @@ export function SingleImageComponent({
       <Media
         changePattern={changeMediaPattern}
         changeMediaState={changeMediaState}
+        isEditable={isEditable}
         media={componentState.media}
         addThumbnail={addThumbnail}
       />

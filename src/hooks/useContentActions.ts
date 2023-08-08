@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { useAssessmentsStore } from "./../stores/assessmentsStore";
 import { useUIStore } from "./../stores/uiStore";
 
 import {
@@ -63,14 +64,15 @@ const makeRequestData = (store: StoreState, hasTags?: boolean) => {
       jsonData: JSON.stringify(
         store.currentLang === Language.EN ? store.slides : store.en.jsonData,
       ),
+      image: store.image,
     },
     french: {
       ...store.fr,
       jsonData: JSON.stringify(
         store.currentLang === Language.FR ? store.slides : store.fr.jsonData,
       ),
+      image: store.image,
     },
-    image: store.image,
     tags: store.tags?.join(","),
   };
   return hasTags ? { ...data, tags: store.tags?.join(",") } : data;
@@ -80,6 +82,7 @@ export const useContentActions = () => {
   const { api } = useAPI();
   const { item } = useParams();
   const educatorNotesStore = useEducatorNotesStore();
+  const assessmentsStore = useAssessmentsStore();
   const themeStore = useThemeStore();
   const activityStore = useActivitiesStore();
   const recipeStore = useRecipesStore();
@@ -201,6 +204,71 @@ export const useContentActions = () => {
                 await api.appThemesEducatorNoteUpdate(element.id, data, header);
               } else {
                 await api.appThemesEducatorNoteCreate(data, header);
+              }
+            }
+          }
+
+          if (prop === ThemeProperties.ASSESSMENT) {
+            const {
+              assessments: prevAssessments,
+              slides,
+              en,
+              questions,
+              fr,
+            } = assessmentsStore;
+            const curriculumId = themeBuilderStore.selectedCurriculum;
+            const assessments = [
+              ...prevAssessments.map((item) =>
+                item.curriculumId === curriculumId
+                  ? {
+                      ...item,
+                      slides: [...slides],
+                      en: { ...en },
+                      fr: { ...fr },
+                      questions,
+                    }
+                  : item,
+              ),
+            ];
+            for (const assessment of assessments) {
+              if (assessment) {
+                assessment.questions = assessment.questions?.map(
+                  (question, index) => ({
+                    ...question,
+                    en: {
+                      ...question.en,
+                      jsonData: assessment.en?.jsonData?.[index],
+                    },
+                    fr: {
+                      ...question.en,
+                      jsonData: assessment.fr?.jsonData?.[index],
+                    },
+                  }),
+                );
+                for (const question of assessment?.questions ?? []) {
+                  const data = {
+                    themeId: themeStore.id ?? "",
+                    curriculumId: assessment.curriculumId,
+                    englishDescription: question?.en?.description ?? "",
+                    frenchDescription: question?.fr?.description ?? "",
+                    englishJson: JSON.stringify(question?.en?.jsonData) ?? "",
+                    frenchJson: JSON.stringify(question?.fr?.jsonData) ?? "",
+                    answer: question.answers.map((answer) => ({
+                      englishDescription: answer.en?.description,
+                      frenchDescription: answer.fr?.description,
+                      valid: answer.valid,
+                    })),
+                  };
+                  if (question.id) {
+                    await api.appAssessmentQuestionsUpdate(
+                      question.id,
+                      data,
+                      header,
+                    );
+                  } else {
+                    await api.appAssessmentQuestionsCreate(data, header);
+                  }
+                }
               }
             }
           }
