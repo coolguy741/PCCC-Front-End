@@ -9,7 +9,6 @@ import CDDelete from "../Icons/cd-delete";
 import CDDownload from "../Icons/cd-download";
 import CDOptions from "../Icons/cd-options";
 import CDShare from "../Icons/cd-share";
-import CDThumbnail from "../Icons/cd-thumbnail";
 import { ICONS } from "../ListView";
 
 export function GalleryItem({
@@ -58,12 +57,12 @@ export function GalleryItem({
             size="1.75vh"
             weight={500}
             data-tooltip-id="my-tooltip"
-            data-tooltip-content={el.fileName.length >= 20 ? el.fileName : ""}
+            data-tooltip-content={el.fileName.length >= 15 ? el.fileName : ""}
             data-tooltip-place="top"
             onClick={() => playHandler(el.url, el.folder, el.fileName)}
           >
             <div className="cdg-thumbnail">{ICONS[type]}</div>
-            {trimStringByLength(el.fileName, 20)}
+            {trimStringByLength(el.fileName, 15)}
           </Typography>
           <button onClick={() => setShowOptions((prevState) => !prevState)}>
             <CDOptions />
@@ -84,10 +83,6 @@ export function GalleryItem({
       </div>
       {showOptions && (
         <div className="cdg-options">
-          <button>
-            <CDThumbnail />
-            Add Thumbnail
-          </button>
           <button>
             <CDShare />
             Share
@@ -170,6 +165,7 @@ const Style = {
 
         h4 {
           display: flex;
+          width: 100%;
         }
       }
 

@@ -1,3 +1,4 @@
+import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 import { Typography } from "../../Typography";
 import CDAudio from "../Icons/cd-audio";
@@ -8,33 +9,28 @@ import CDVideo from "../Icons/cd-video";
 export interface CloudDriveFileType {
   id: "images" | "documents" | "video" | "audio";
   title: string;
-  description: string;
   icon: JSX.Element;
 }
 
-const Buttons: CloudDriveFileType[] = [
+const buttons: CloudDriveFileType[] = [
   {
     id: "images",
     title: "Images",
-    description: "1012 Files / 3.2 GB",
     icon: <CDImage />,
   },
   {
     id: "documents",
     title: "Documents",
-    description: "100 Files / 5 GB",
     icon: <CDDocument />,
   },
   {
     id: "video",
     title: "Videos",
-    description: "0 Files / 0 MB",
     icon: <CDVideo />,
   },
   {
     id: "audio",
     title: "Audio",
-    description: "12 Files / 140 MB",
     icon: <CDAudio />,
   },
 ];
@@ -42,13 +38,45 @@ const Buttons: CloudDriveFileType[] = [
 export function CDHeader({
   type,
   setType,
+  stats,
 }: {
   type: "images" | "documents" | "video" | "audio";
   setType: (type: "images" | "documents" | "video" | "audio") => void;
+  stats?: any;
 }) {
+  function getStats(stats: any, name: string) {
+    if (!stats) return <Skeleton />;
+
+    function countNo(count: number) {
+      if (count !== 1) return `${count} Files`;
+      else return "1 File";
+    }
+
+    switch (name) {
+      case "images":
+        return `${countNo(stats.images.fileCount)} / ${Math.round(
+          stats.images.size / 1000000,
+        )} mb`;
+      case "documents":
+        return `${countNo(stats.documents.fileCount)} / ${Math.round(
+          stats.documents.size / 1000000,
+        )} mb`;
+      case "video":
+        return `${countNo(stats.videos.fileCount)} / ${Math.round(
+          stats.videos.size / 1000000,
+        )} mb`;
+      case "audio":
+        return `${countNo(stats.audio.fileCount)} / ${Math.round(
+          stats.audio.size / 1000000,
+        )} mb`;
+      default:
+        return <Skeleton />;
+    }
+  }
+
   return (
     <Style.Container>
-      {Buttons.map(({ title, description, icon, id }) => (
+      {buttons.map(({ title, icon, id }) => (
         <button
           key={title}
           className={id === type ? "active" : ""}
@@ -65,8 +93,13 @@ export function CDHeader({
             >
               {title}
             </Typography>
-            <Typography color="neutral-600" tag="span" size="1.3vh">
-              {description}
+            <Typography
+              color="neutral-600"
+              weight={500}
+              tag="span"
+              size="1.3vh"
+            >
+              {getStats(stats, id)}
             </Typography>
           </figure>
         </button>

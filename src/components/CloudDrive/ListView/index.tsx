@@ -13,7 +13,6 @@ import CDDocument from "../Icons/cd-document";
 import CDDownload from "../Icons/cd-download";
 import CDImage from "../Icons/cd-image";
 import CDShare from "../Icons/cd-share";
-import CDThumbnail from "../Icons/cd-thumbnail";
 import CDVideo from "../Icons/cd-video";
 
 const text_props = {
@@ -219,7 +218,6 @@ export function CDListView({
                     {formatDate(el.uploadedAt)}
                   </Typography>
                   <div className="cd-list-options">
-                    <CDThumbnail />
                     <CDShare />
                     <CDDownload />
                     <CDDelete onClick={() => handleDelete(el.relativePath)} />

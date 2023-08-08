@@ -37,7 +37,7 @@ const DynamicStyle = styled(({ tag, children, ...props }) =>
   height: ${(props) => props.height ?? "auto"};
   margin-right: ${(props) => (props.thumbwidth === "thin" ? "-8px" : "-12px")};
   padding-right: ${(props) => (props.thumbwidth === "thin" ? "8px" : "12px")};
-  overflow: scroll;
+  overflow: auto;
   &::-webkit-scrollbar {
     width: ${(props) => (props.thumbwidth === "thin" ? "4px" : "8px")};
   }

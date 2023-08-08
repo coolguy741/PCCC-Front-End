@@ -1,13 +1,9 @@
+import ReactAudioPlayer from "react-audio-player";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
-
-const BG_ARR = [
-  "/patterns/apples.png",
-  "/patterns/grapes.png",
-  "/patterns/lemons.png",
-  "/patterns/oranges.png",
-  "/patterns/yellows.png",
-];
+import { capitalize } from "../../lib/util/capitalize";
+import { animatedbackgroundGradient } from "../../styles/helpers/animatedBackgroundGradient";
+import { Typography } from "../Typography";
 
 export const PreviewModal = ({
   url,
@@ -25,28 +21,29 @@ export const PreviewModal = ({
           <div className="title">{fileName}</div>
           <img src={url} alt="" />
         </div>
+      ) : type === "video" ? (
+        <div className="player-mask">
+          <div className="video-container">
+            <Typography color="white" tag="h1" weight={600} size="2.5vh">
+              {capitalize(fileName)}
+            </Typography>
+            <ReactPlayer
+              className={"react-player"}
+              url={url}
+              controls
+              width="80vw"
+              height="auto"
+            />
+          </div>
+        </div>
       ) : (
         <div className="player-mask">
-          <div className="title">{fileName}</div>
-          <ReactPlayer
-            className="react-player"
-            url={url}
-            config={
-              type === "audio"
-                ? {
-                    file: {
-                      attributes: {
-                        poster:
-                          BG_ARR[Math.floor(Math.random() * BG_ARR.length)],
-                      },
-                    },
-                  }
-                : {}
-            }
-            controls
-            width="80vw"
-            height="auto"
-          />
+          <div className="audio-container">
+            <Typography color="neutral-800" tag="h1" weight={600} size="2.5vh">
+              {capitalize(fileName)}
+            </Typography>
+            <ReactAudioPlayer className={"audio-player"} src={url} controls />
+          </div>
         </div>
       )}
     </Style.Container>
@@ -80,27 +77,35 @@ const Style = {
       align-items: center;
       position: relative;
 
+      h1 {
+        position: absolute;
+        width: 100%;
+        max-width: 80vw;
+        top: 24px;
+        left: 3.25vw;
+      }
+
       .react-player {
         border-radius: 20px;
         width: 80vw;
-        /* max-height: 80vh; */
         overflow: hidden;
 
         img {
           border-radius: 20px;
         }
       }
-    }
 
-    .title {
-      position: absolute;
-      top: 0;
-      text-align: center;
-      color: white;
-      font-weight: 600;
-      font-size: 1.5rem;
-      margin: 2rem;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      .audio-player {
+        ${() => animatedbackgroundGradient("#C4E8FF", "#D2F7E5")};
+        height: 25vh;
+        width: 80vw;
+        padding: 48px;
+        border-radius: 16px;
+        background: var(
+          --background-blue-green,
+          linear-gradient(136deg, #c4e8ff 0%, #d2f7e5 100%)
+        );
+      }
     }
   `,
 };

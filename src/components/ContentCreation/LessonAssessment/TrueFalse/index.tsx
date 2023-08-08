@@ -51,6 +51,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
   changeText,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) => {
   const [tfState, setState] = useState<boolean>(true);
 
@@ -85,6 +86,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
             changePattern={changeMediaPattern}
             changeMediaState={changeMediaState}
             media={state.media}
+            addThumbnail={addThumbnail}
           />
         </article>
         <article className="latf-content">
@@ -169,18 +171,21 @@ const Style = {
 
     .la-top {
       width: 100%;
-      height: 15%;
+      height: 17.5%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
 
       h2 {
         font-weight: 600;
-        font-size: ${conv(14, "vh")};
+        font-size: ${conv(12, "vh")};
         text-transform: uppercase;
         color: var(--orange-600);
         border: 2px solid var(--orange-600);
-        padding: ${conv(10, "vh")} ${conv(30, "vw")};
+        padding: 5px 15px;
         border-radius: 24px;
         width: max-content;
-        margin-bottom: 10px;
       }
     }
 

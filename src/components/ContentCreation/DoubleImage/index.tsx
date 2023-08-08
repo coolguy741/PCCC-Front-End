@@ -15,6 +15,7 @@ export function DoubleImageComponent({
   state,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) {
   const componentState = state as any;
 
@@ -24,6 +25,7 @@ export function DoubleImageComponent({
         changePattern={changeMediaPattern}
         changeMediaState={changeMediaState}
         media={componentState.media}
+        addThumbnail={addThumbnail}
       />
     </Style.Container>
   );
