@@ -9,7 +9,6 @@ import CDDelete from "../Icons/cd-delete";
 import CDDownload from "../Icons/cd-download";
 import CDOptions from "../Icons/cd-options";
 import CDShare from "../Icons/cd-share";
-import CDThumbnail from "../Icons/cd-thumbnail";
 import { ICONS } from "../ListView";
 
 export function GalleryItem({
@@ -84,10 +83,6 @@ export function GalleryItem({
       </div>
       {showOptions && (
         <div className="cdg-options">
-          <button>
-            <CDThumbnail />
-            Add Thumbnail
-          </button>
           <button>
             <CDShare />
             Share
