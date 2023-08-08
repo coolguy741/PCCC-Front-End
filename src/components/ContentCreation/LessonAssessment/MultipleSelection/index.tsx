@@ -69,6 +69,7 @@ export const LessonAssessmentMultipleComponent = ({
   changeValid,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) => {
   return (
     <Style.Container>
@@ -99,6 +100,7 @@ export const LessonAssessmentMultipleComponent = ({
             changeMediaState={changeMediaState}
             isEditable={isEditable}
             media={state.media}
+            addThumbnail={addThumbnail}
           />
         </article>
         <article className="lam-content">

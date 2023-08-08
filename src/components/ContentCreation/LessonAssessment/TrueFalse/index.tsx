@@ -49,6 +49,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
   changeOption,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) => {
   return (
     <Style.Container>
@@ -79,6 +80,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
             changeMediaState={changeMediaState}
             isEditable={isEditable}
             media={state.media}
+            addThumbnail={addThumbnail}
           />
         </article>
         <article className="latf-content">

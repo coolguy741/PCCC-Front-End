@@ -17,6 +17,7 @@ export function SingleImageComponent({
   isEditable,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) {
   const componentState = state as any;
 
@@ -27,6 +28,7 @@ export function SingleImageComponent({
         changeMediaState={changeMediaState}
         isEditable={isEditable}
         media={componentState.media}
+        addThumbnail={addThumbnail}
       />
     </Style.Container>
   );
