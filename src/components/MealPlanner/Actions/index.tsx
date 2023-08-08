@@ -9,10 +9,10 @@ interface Props {
 export const MealPlannerActions: React.FC<Props> = ({ match = false }) => {
   return (
     <Style.ActionsContainer match={match}>
-      <LinkButton to="/dashboard/meal-planner/grocery-list" disabled={!match}>
+      <LinkButton to="/meal-planner/grocery-list" disabled={!match}>
         Create grocery list
       </LinkButton>
-      <LinkButton to="/dashboard/meal-planner/print" disabled={!match}>
+      <LinkButton to="/meal-planner/print" disabled={!match}>
         Print
       </LinkButton>
     </Style.ActionsContainer>

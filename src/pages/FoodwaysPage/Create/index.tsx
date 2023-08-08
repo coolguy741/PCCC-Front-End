@@ -123,7 +123,7 @@ export const CreateFoodwaysPage = () => {
       const { en, fr } = state;
       let _response;
       if (!en.stops?.length && !fr.stops?.length) {
-        navigate("/dashboard/foodways");
+        navigate("/foodways");
       }
       en.stops?.forEach(async (stop, index) => {
         const data = {
@@ -159,7 +159,7 @@ export const CreateFoodwaysPage = () => {
             });
 
         if (_response.status === 200) {
-          navigate("/dashboard/foodways");
+          navigate("/foodways");
         }
       });
     }
@@ -196,7 +196,7 @@ export const CreateFoodwaysPage = () => {
   return (
     <Style.Container>
       <div className="buttons-container">
-        <BackButton onClick={() => navigate("/dashboard/foodways")} />
+        <BackButton onClick={() => navigate("/foodways")} />
         <Button onClick={() => navigate("../preview")}>Preview</Button>
       </div>
 

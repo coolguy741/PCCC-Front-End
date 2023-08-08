@@ -11,8 +11,8 @@ import { PrintModal } from "../../../components/MealPlanner/PrintModal";
 import { Recipe } from "../../../components/MealPlanner/Recipe";
 
 export const MealPlannerRecipePage = () => {
-  const isRecipe = useMatch("/dashboard/meal-planner/:id");
-  const isAssessment = useMatch("/dashboard/meal-planner/:id/:id");
+  const isRecipe = useMatch("/meal-planner/:id");
+  const isAssessment = useMatch("/meal-planner/:id/:id");
   const [isOpen, setIsOpen] = useState(false);
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -44,7 +44,7 @@ export const MealPlannerRecipePage = () => {
         }
       />
       <div className="btn-group">
-        <LinkButton to="/dashboard/meal-planner/edit">Back</LinkButton>
+        <LinkButton to="/meal-planner/edit">Back</LinkButton>
         <div>
           <button className="btn-primary" onClick={openConfirmModal}>
             Edit

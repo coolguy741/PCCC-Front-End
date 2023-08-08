@@ -33,7 +33,7 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
         },
       });
 
-      if (response.status === 204) navigate("/dashboard/accounts/groups");
+      if (response.status === 204) navigate("/accounts/groups");
     }
   };
 
@@ -52,7 +52,7 @@ export const GroupCard = ({ data, invitations }: GroupCardProps) => {
       );
 
       if (response.status === 204) {
-        navigate("/dashboard/accounts/groups");
+        navigate("/accounts/groups");
       }
     }
   };

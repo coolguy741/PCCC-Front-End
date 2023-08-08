@@ -61,7 +61,7 @@ export const FoodwaysPage = () => {
   };
 
   useEffect(() => {
-    query && navigate("./dashboard/foodways", query);
+    query && navigate("./foodways", query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 

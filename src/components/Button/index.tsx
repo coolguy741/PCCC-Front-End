@@ -144,6 +144,12 @@ const ghostVStyles = css`
     }
   }
 
+  &:hover {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    transition: 0.2s all ease-in-out;
+  }
+
   &:disabled {
     color: var(--neutral-400);
   }
@@ -151,7 +157,7 @@ const ghostVStyles = css`
 
 const smallSStyles = css`
   font-size: ${convertToRelativeUnit(16, "vh")};
-  padding: ${convertToRelativeUnit(10, "vh")} ${convertToRelativeUnit(16, "vw")};
+  padding: ${convertToRelativeUnit(13, "vh")} ${convertToRelativeUnit(16, "vw")};
 
   .btn-content {
     padding: 0px ${convertToRelativeUnit(8, "vw")};

@@ -12,14 +12,14 @@ export const AccountsHeader = () => {
       <nav className="tags-container">
         <Link
           className={`${pathname.includes("profiles") ? "active" : ""} tag`}
-          to="/dashboard/accounts/profiles"
+          to="/accounts/profiles"
           relative="path"
         >
           Users
         </Link>
         <Link
           className={`${pathname.includes("groups") ? "active" : ""} tag`}
-          to="/dashboard/accounts/groups"
+          to="/accounts/groups"
           relative="path"
         >
           Groups

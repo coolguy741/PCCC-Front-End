@@ -58,7 +58,7 @@ export const PrintModal: React.FC<Props> = ({ isOpen = false, close }) => {
               </div>
             </div>
           </div>
-          <LinkButton to="/dashboard/meal-planner/1/print">Print</LinkButton>
+          <LinkButton to="/meal-planner/1/print">Print</LinkButton>
         </Style.ModalBody>
       </Style.Modal>
     </Style.ModalContainer>

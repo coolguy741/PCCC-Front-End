@@ -17,7 +17,7 @@ export const ContentNavigator: React.FC<Props> = ({ type, slideIndex }) => {
   return (
     <Style.Container>
       <Button
-        to={`/dashboard/${type}`}
+        to={`/${type}`}
         icon="dark-prev"
         iconPosition="left"
         variant="ghost"
@@ -26,31 +26,24 @@ export const ContentNavigator: React.FC<Props> = ({ type, slideIndex }) => {
       </Button>
       {type === ContentBuilderType.THEMES && <ContentSlider />}
       {pathname.endsWith("preview") ? (
-        <Button
-          variant="yellow"
-          to={`/dashboard/${type}/create`}
-          className="mr-4"
-        >
+        <Button variant="yellow" to={`/${type}/create`} className="mr-4">
           Edit
         </Button>
       ) : item && !pathname.endsWith("edit") ? (
         <div className="flex">
           <Button
             variant="yellow"
-            to={`/dashboard/${type}/${item}/edit`}
+            to={`/${type}/${item}/edit`}
             className="mr-4"
           >
             Edit
           </Button>
-          <Link
-            target="_blank"
-            to={`/dashboard/${type}/${item}/${slideIndex}/print`}
-          >
+          <Link target="_blank" to={`/${type}/${item}/${slideIndex}/print`}>
             <Button variant="yellow">Print</Button>
           </Link>
         </div>
       ) : (
-        <Button to={`/dashboard/${type}/preview`}>Preview</Button>
+        <Button to={`/${type}/preview`}>Preview</Button>
       )}
     </Style.Container>
   );

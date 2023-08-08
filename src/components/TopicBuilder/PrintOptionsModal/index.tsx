@@ -154,7 +154,7 @@ export const PrintOptionsModal: React.FC<Props> = ({
               </div>
             </div>
           </div>
-          <LinkButton to={`/dashboard/topics/${id}/${printOption}/print`}>
+          <LinkButton to={`/topics/${id}/${printOption}/print`}>
             Print
           </LinkButton>
         </Style.ModalBody>

@@ -27,7 +27,7 @@ export const GroupInvitationCard = (
       },
     );
 
-    if (response.status === 204) navigate("/dashboard/accounts/groups");
+    if (response.status === 204) navigate("/accounts/groups");
 
     return;
   };
@@ -44,7 +44,7 @@ export const GroupInvitationCard = (
       },
     );
 
-    if (response.status === 204) navigate("/dashboard/accounts/groups");
+    if (response.status === 204) navigate("/accounts/groups");
 
     return;
   };

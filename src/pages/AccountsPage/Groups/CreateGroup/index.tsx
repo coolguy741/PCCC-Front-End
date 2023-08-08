@@ -36,7 +36,7 @@ export const AccountsCreateGroupPage = () => {
       },
     );
 
-    if (response.status === 200) navigate("/dashboard/accounts/groups");
+    if (response.status === 200) navigate("/accounts/groups");
   };
 
   return (

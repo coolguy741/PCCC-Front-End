@@ -8,7 +8,7 @@
       "alt": "disover-item",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
       "alt": "disover-item",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 3,
@@ -25,7 +25,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 4,
@@ -34,7 +34,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 5,
@@ -43,7 +43,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 6,
@@ -52,7 +52,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 7,
@@ -61,7 +61,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 8,
@@ -70,7 +70,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     },
     {
       "id": 9,
@@ -79,7 +79,7 @@
       "topic": "Topic: Pot it like it’s hot!",
       "title": "Kitchen Champ",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud...",
-      "path": "/dashboard/recipes/recipe"
+      "path": "/recipes/recipe"
     }
   ]
 }

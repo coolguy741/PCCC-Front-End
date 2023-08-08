@@ -12,6 +12,7 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { Typography } from "../../Global/Typography";
 import { ErrorMessage } from "../ErrorMessage";
 
 export const SignInForm = () => {
@@ -19,6 +20,7 @@ export const SignInForm = () => {
   const navigate = useNavigate();
   const { setForgetType } = useUserStore();
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const {
     control,
     handleSubmit,
@@ -51,7 +53,7 @@ export const SignInForm = () => {
 
         if (data.access_token) {
           Cookies.set(STORAGE_KEY_JWT, data.access_token, {});
-          navigate("/dashboard");
+          navigate("/");
         }
       })
       .catch((error) => {
@@ -75,7 +77,9 @@ export const SignInForm = () => {
       exit={{ opacity: 0 }}
     >
       <form onSubmit={handleSubmit(submitHandler)}>
-        <h1>Log in</h1>
+        <Typography as="h1" variant="h1">
+          Log in
+        </Typography>
         <fieldset>
           <label htmlFor="username">Username</label>
           <Controller
@@ -104,13 +108,21 @@ export const SignInForm = () => {
               required: true,
             }}
             render={({ field }) => (
-              <Input
-                type="password"
-                id="password"
-                {...field}
-                height="52px"
-                className={errors.password ? "has-error" : ""}
-              />
+              <div className="input-container">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  {...field}
+                  height="52px"
+                  className={errors.password ? "has-error" : ""}
+                />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="eye-icon"
+                >
+                  <img src="/icons/eye.svg" />
+                </div>
+              </div>
             )}
           />
           {error && <ErrorMessage error={error} />}
@@ -160,14 +172,33 @@ const Container = styled(motion.main)`
   }
 
   fieldset {
+    position: relative;
     margin-bottom: ${convertToRelativeUnit(32, "vh")};
+
     &:last-of-type {
       margin-bottom: 0px;
     }
 
+    .input-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      .eye-icon {
+        position: absolute;
+        right: 10px;
+        margin-top: ${convertToRelativeUnit(15, "vh")};
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
     label {
       font-weight: 500;
-      font-size: ${convertToRelativeUnit(16, "vh")};
+      font-size: ${convertToRelativeUnit(18, "vh")};
       line-height: 125%;
       color: var(--neutral-700);
     }

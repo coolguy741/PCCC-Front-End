@@ -11,6 +11,7 @@ import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { DropdownSelect, SelectOption } from "../../Global/DropdownSelect";
 import { Input } from "../../Global/Input";
+import { Typography } from "../../Global/Typography";
 import { Info } from "../../Icons";
 import { ErrorMessage } from "../ErrorMessage";
 
@@ -23,6 +24,7 @@ export const SecurityQuestions = () => {
   const { api } = useAPI();
   const navigate = useNavigate();
   const [error, setError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isPassword6Chars, setIsPassword6Chars] = useState<boolean>(false);
   const [isPasswordLowercase, setIsPasswordLowercase] =
     useState<boolean>(false);
@@ -207,226 +209,254 @@ export const SecurityQuestions = () => {
       isPasswordSpecialChar={isPasswordSpecialChar}
       isPasswordUppercase={isPasswordUppercase}
     >
-      <section className="sign-up-password">
-        <h1>Sign Up</h1>
+      <div className="header">
+        <Typography as="h1" variant="h1">
+          Sign Up
+        </Typography>
         <p>
           <Info />
           Please take note of your password and security answers
         </p>
-        <article className="password">
-          <h2>Password</h2>
+      </div>
+      <div className="content">
+        <section className="sign-up-password">
+          <article className="password">
+            <h2>Password</h2>
+            <fieldset>
+              <label>Create Password</label>
+              <Controller
+                name="password"
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field }) => (
+                  <>
+                    <Input
+                      width="65%"
+                      type={showPassword ? "text" : "password"}
+                      data-testid="password"
+                      id="password"
+                      className={errors.password ? "has-error" : ""}
+                      {...field}
+                    />
+                    <div
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="eye-icon"
+                    >
+                      <img src="/icons/eye.svg" />
+                    </div>
+                  </>
+                )}
+              />
+            </fieldset>
+            <fieldset>
+              <label>Retype Password</label>
+              <Controller
+                name="confirmPassword"
+                control={control}
+                rules={{
+                  required: true,
+                  validate: (value: string) => watch("password") === value,
+                }}
+                render={({ field }) => (
+                  <Input
+                    width="65%"
+                    type="password"
+                    data-testid="confirm-password"
+                    className={errors.confirmPassword ? "has-error" : ""}
+                    {...field}
+                  />
+                )}
+              />
+            </fieldset>
+            {error && <ErrorMessage error={error} />}
+            <div className="requirements">
+              <div className="six-chars">
+                <span />
+                At least 6 characters
+              </div>
+              <div className="lowercase">
+                <span />
+                One lowercase character
+              </div>
+              <div className="uppercase">
+                <span />
+                One uppercase character
+              </div>
+              <div className="number-special">
+                <span />
+                One number and special character
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section className="questions">
+          <Typography as="h2" variant="h2">
+            Security Questions
+          </Typography>
           <fieldset>
-            <label>Create Password</label>
+            <label>Question 1:</label>
             <Controller
-              name="password"
+              name="firstSecurityQuestionId"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => {
+                const options: SelectOption[] = firstSecurityQuestions
+                  ? firstSecurityQuestions.map((question) => ({
+                      label: question.question || "",
+                      value: question.id || "",
+                    }))
+                  : [{ label: "", value: "" }];
+
+                return (
+                  <DropdownSelect
+                    data-testid="first-security-question"
+                    options={options}
+                    className={
+                      errors.firstSecurityQuestionId ? "has-error" : ""
+                    }
+                    onChange={(selectedOption) =>
+                      field.onChange(selectedOption)
+                    }
+                    width="75%"
+                    height={convertToRelativeUnit(48, "vh")}
+                  />
+                );
+              }}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Answer</label>
+            <Controller
+              name="firstSecurityAnswer"
               control={control}
               rules={{
                 required: true,
               }}
               render={({ field }) => (
                 <Input
-                  width="65%"
-                  type="password"
-                  data-testid="password"
-                  id="password"
-                  className={errors.password ? "has-error" : ""}
+                  width="75%"
+                  className={errors.firstSecurityAnswer ? "has-error" : ""}
+                  type="text"
+                  data-testid="first-security-answer"
                   {...field}
                 />
               )}
             />
           </fieldset>
           <fieldset>
-            <label>Retype Password</label>
+            <label>Question 2:</label>
             <Controller
-              name="confirmPassword"
+              name="secondSecurityQuestionId"
               control={control}
               rules={{
                 required: true,
-                validate: (value: string) => watch("password") === value,
+              }}
+              render={({ field }) => {
+                const options: SelectOption[] = secondSecurityQuestions
+                  ? secondSecurityQuestions.map((question) => ({
+                      label: question.question || "",
+                      value: question.id || "",
+                    }))
+                  : [{ label: "", value: "" }];
+
+                return (
+                  <DropdownSelect
+                    data-testid="second-security-question"
+                    options={options}
+                    className={
+                      errors.secondSecurityQuestionId ? "has-error" : ""
+                    }
+                    onChange={(selectedOption) =>
+                      field.onChange(selectedOption)
+                    }
+                    width="75%"
+                    height={convertToRelativeUnit(48, "vh")}
+                  />
+                );
+              }}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Answer</label>
+            <Controller
+              name="secondSecurityAnswer"
+              control={control}
+              rules={{
+                required: true,
               }}
               render={({ field }) => (
                 <Input
-                  width="65%"
-                  type="password"
-                  data-testid="confirm-password"
-                  className={errors.confirmPassword ? "has-error" : ""}
+                  width="75%"
+                  className={errors.secondSecurityAnswer ? "has-error" : ""}
+                  type="text"
+                  data-testid="second-security-answer"
                   {...field}
                 />
               )}
             />
           </fieldset>
-          {error && <ErrorMessage error={error} />}
-          <div className="requirements">
-            <div className="six-chars">
-              <span />
-              At least 6 characters
-            </div>
-            <div className="lowercase">
-              <span />
-              One lowercase character
-            </div>
-            <div className="uppercase">
-              <span />
-              One uppercase character
-            </div>
-            <div className="number-special">
-              <span />
-              One number and special character
-            </div>
-          </div>
-        </article>
-      </section>
+          <fieldset>
+            <label>Question 3:</label>
+            <Controller
+              name="thirdSecurityQuestionId"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => {
+                const options: SelectOption[] = thirdSecurityQuestions
+                  ? thirdSecurityQuestions.map((question) => ({
+                      label: question.question || "",
+                      value: question.id || "",
+                    }))
+                  : [{ label: "", value: "" }];
 
-      <section className="questions">
-        <h2>Security Questions</h2>
-        <fieldset>
-          <label>Question 1:</label>
-          <Controller
-            name="firstSecurityQuestionId"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => {
-              const options: SelectOption[] = firstSecurityQuestions
-                ? firstSecurityQuestions.map((question) => ({
-                    label: question.question || "",
-                    value: question.id || "",
-                  }))
-                : [{ label: "", value: "" }];
-
-              return (
-                <DropdownSelect
-                  data-testid="first-security-question"
-                  options={options}
-                  className={errors.firstSecurityQuestionId ? "has-error" : ""}
-                  onChange={(selectedOption) => field.onChange(selectedOption)}
+                return (
+                  <DropdownSelect
+                    data-testid="third-security-question"
+                    options={options}
+                    className={
+                      errors.thirdSecurityQuestionId ? "has-error" : ""
+                    }
+                    onChange={(selectedOption) =>
+                      field.onChange(selectedOption)
+                    }
+                    width="75%"
+                    height={convertToRelativeUnit(48, "vh")}
+                  />
+                );
+              }}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Answer</label>
+            <Controller
+              name="thirdSecurityAnswer"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => (
+                <Input
                   width="75%"
-                  height={convertToRelativeUnit(48, "vh")}
+                  className={errors.thirdSecurityAnswer ? "has-error" : ""}
+                  type="text"
+                  data-testid="third-security-answer"
+                  {...field}
                 />
-              );
-            }}
-          />
-        </fieldset>
-        <fieldset>
-          <label>Answer</label>
-          <Controller
-            name="firstSecurityAnswer"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => (
-              <Input
-                width="75%"
-                className={errors.firstSecurityAnswer ? "has-error" : ""}
-                type="text"
-                data-testid="first-security-answer"
-                {...field}
-              />
-            )}
-          />
-        </fieldset>
-        <fieldset>
-          <label>Question 2:</label>
-          <Controller
-            name="secondSecurityQuestionId"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => {
-              const options: SelectOption[] = secondSecurityQuestions
-                ? secondSecurityQuestions.map((question) => ({
-                    label: question.question || "",
-                    value: question.id || "",
-                  }))
-                : [{ label: "", value: "" }];
-
-              return (
-                <DropdownSelect
-                  data-testid="second-security-question"
-                  options={options}
-                  className={errors.secondSecurityQuestionId ? "has-error" : ""}
-                  onChange={(selectedOption) => field.onChange(selectedOption)}
-                  width="75%"
-                  height={convertToRelativeUnit(48, "vh")}
-                />
-              );
-            }}
-          />
-        </fieldset>
-        <fieldset>
-          <label>Answer</label>
-          <Controller
-            name="secondSecurityAnswer"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => (
-              <Input
-                width="75%"
-                className={errors.secondSecurityAnswer ? "has-error" : ""}
-                type="text"
-                data-testid="second-security-answer"
-                {...field}
-              />
-            )}
-          />
-        </fieldset>
-        <fieldset>
-          <label>Question 3:</label>
-          <Controller
-            name="thirdSecurityQuestionId"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => {
-              const options: SelectOption[] = thirdSecurityQuestions
-                ? thirdSecurityQuestions.map((question) => ({
-                    label: question.question || "",
-                    value: question.id || "",
-                  }))
-                : [{ label: "", value: "" }];
-
-              return (
-                <DropdownSelect
-                  data-testid="third-security-question"
-                  options={options}
-                  className={errors.thirdSecurityQuestionId ? "has-error" : ""}
-                  onChange={(selectedOption) => field.onChange(selectedOption)}
-                  width="75%"
-                  height={convertToRelativeUnit(48, "vh")}
-                />
-              );
-            }}
-          />
-        </fieldset>
-        <fieldset>
-          <label>Answer</label>
-          <Controller
-            name="thirdSecurityAnswer"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => (
-              <Input
-                width="75%"
-                className={errors.thirdSecurityAnswer ? "has-error" : ""}
-                type="text"
-                data-testid="third-security-answer"
-                {...field}
-              />
-            )}
-          />
-        </fieldset>
-        <Button type="submit" size="large" data-testid="submit">
-          Submit
-        </Button>
-      </section>
+              )}
+            />
+          </fieldset>
+          <Button type="submit" size="large" data-testid="submit">
+            Submit
+          </Button>
+        </section>
+      </div>
     </Style.Container>
   );
 };
@@ -444,6 +474,8 @@ const Style = {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    flex-direction: column;
+    gap: 2rem;
 
     h1 {
       font-weight: 600;
@@ -464,113 +496,146 @@ const Style = {
       font-size: ${convertToRelativeUnit(16, "vh")};
     }
 
-    .sign-up-password {
-      width: 45%;
-      height: 100%;
+    p {
+      display: flex;
+      font-size: ${convertToRelativeUnit(16, "vh")};
+      color: var(--neutral-700);
+      position: relative;
+      align-items: center;
 
-      p {
-        display: flex;
-        font-size: ${convertToRelativeUnit(16, "vh")};
-        color: var(--neutral-700);
-        position: relative;
-        align-items: center;
-
-        svg {
-          margin-right: ${convertToRelativeUnit(15, "vw")};
-          width: ${convertToRelativeUnit(24, "vh")};
-          aspect-ratio: 1 / 1;
-        }
-      }
-
-      .password {
-        ${glassBackground};
-        margin-top: ${convertToRelativeUnit(35, "vh")};
-
-        .requirements {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-
-          div {
-            color: var(--neutral-600);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: ${convertToRelativeUnit(16, "vh")};
-
-            span {
-              display: block;
-              box-shadow: 0 0 0 1px var(--neutral-500);
-              width: 17px;
-              height: 17px;
-              border-radius: 50%;
-            }
-          }
-
-          .six-chars {
-            span {
-              background-color: ${(props) =>
-                props.isPassword6Chars ? "var(--green-500)" : ""};
-            }
-          }
-
-          .lowercase {
-            span {
-              background-color: ${(props) =>
-                props.isPasswordLowercase ? "var(--green-500)" : ""};
-            }
-          }
-
-          .uppercase {
-            span {
-              background-color: ${(props) =>
-                props.isPasswordUppercase ? "var(--green-500)" : ""};
-            }
-          }
-
-          .number-special {
-            span {
-              background-color: ${(props) =>
-                props.isPasswordNumber && props.isPasswordSpecialChar
-                  ? "var(--green-500)"
-                  : ""};
-            }
-          }
-        }
-      }
-
-      // TODO: Make unique component, avoid repetition.
-      fieldset {
-        width: 100%;
-        height: ${convertToRelativeUnit(52, "vh")};
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: ${convertToRelativeUnit(15, "vh")};
+      svg {
+        margin-right: ${convertToRelativeUnit(15, "vw")};
+        width: ${convertToRelativeUnit(24, "vh")};
+        aspect-ratio: 1 / 1;
       }
     }
 
-    .questions {
-      width: 50%;
-      align-self: flex-end;
-      height: 95%;
+    .content {
+      display: flex;
+      width: 100%;
+      gap: 4rem;
 
-      h2 {
-        font-weight: 600;
-        font-size: ${convertToRelativeUnit(33, "vh")};
+      .sign-up-password {
+        width: 45%;
+        height: 100%;
+
+        .password {
+          ${glassBackground};
+
+          fieldset {
+            position: relative;
+
+            label {
+              font-size: ${convertToRelativeUnit(17, "vh")};
+              font-weight: 500;
+            }
+          }
+
+          h2 {
+            font-size: ${convertToRelativeUnit(27, "vh")};
+          }
+
+          .eye-icon {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .requirements {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: ${convertToRelativeUnit(50, "vh")};
+
+            div {
+              color: var(--neutral-600);
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+              font-size: ${convertToRelativeUnit(16, "vh")};
+
+              span {
+                display: block;
+                box-shadow: 0 0 0 1px var(--neutral-500);
+                width: 17px;
+                height: 17px;
+                border-radius: 50%;
+              }
+            }
+
+            .six-chars {
+              span {
+                background-color: ${(props) =>
+                  props.isPassword6Chars ? "var(--green-500)" : ""};
+              }
+            }
+
+            .lowercase {
+              span {
+                background-color: ${(props) =>
+                  props.isPasswordLowercase ? "var(--green-500)" : ""};
+              }
+            }
+
+            .uppercase {
+              span {
+                background-color: ${(props) =>
+                  props.isPasswordUppercase ? "var(--green-500)" : ""};
+              }
+            }
+
+            .number-special {
+              span {
+                background-color: ${(props) =>
+                  props.isPasswordNumber && props.isPasswordSpecialChar
+                    ? "var(--green-500)"
+                    : ""};
+              }
+            }
+          }
+        }
+
+        // TODO: Make unique component, avoid repetition.
+        fieldset {
+          width: 100%;
+          height: ${convertToRelativeUnit(52, "vh")};
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: ${convertToRelativeUnit(15, "vh")};
+        }
       }
 
-      & > fieldset {
-        display: flex;
-        height: ${convertToRelativeUnit(52, "vh")};
-        margin-bottom: ${convertToRelativeUnit(24, "vh")};
-        align-items: center;
-        justify-content: space-between;
-      }
+      .questions {
+        width: 50%;
+        align-self: flex-end;
+        height: 95%;
 
-      button {
-        margin-left: auto;
-        height: ${convertToRelativeUnit(52, "vh")};
+        h2 {
+          font-weight: 600;
+          font-size: ${convertToRelativeUnit(33, "vh")};
+        }
+
+        & > fieldset {
+          display: flex;
+          height: ${convertToRelativeUnit(52, "vh")};
+          margin-bottom: ${convertToRelativeUnit(14, "vh")};
+          align-items: center;
+          justify-content: space-between;
+
+          label {
+            font-size: ${convertToRelativeUnit(18, "vh")};
+            font-weight: 500;
+          }
+        }
+
+        button {
+          margin-left: auto;
+          height: ${convertToRelativeUnit(52, "vh")};
+        }
       }
     }
   `,

@@ -8,6 +8,7 @@ import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelative
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { Typography } from "../../Global/Typography";
 import { ArrowRight } from "../../Icons";
 
 export const RoleGate = () => {
@@ -33,7 +34,7 @@ export const RoleGate = () => {
     },
   });
 
-  const [height, setHeight] = useState(convertToRelativeUnit(368, "vh"));
+  const [height, setHeight] = useState(convertToRelativeUnit(338, "vh"));
 
   const submitHandler = ({
     schoolIdCode,
@@ -59,7 +60,7 @@ export const RoleGate = () => {
 
   useEffect(() => {
     if (isCoordinator === true) {
-      setHeight(convertToRelativeUnit(540, "vh"));
+      setHeight(convertToRelativeUnit(560, "vh"));
     } else if (isCoordinator === false) {
       setHeight(convertToRelativeUnit(410, "vh"));
     }
@@ -72,7 +73,9 @@ export const RoleGate = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h1>Sign Up</h1>
+      <Typography as="h1" variant="h1">
+        Sign Up
+      </Typography>
       <p className="sign-up-p">
         Are you a teacher or food coordinator who is part of of a school
         currently running a power full kids program

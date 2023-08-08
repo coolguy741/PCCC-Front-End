@@ -2,14 +2,17 @@ import { motion } from "framer-motion";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
+import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { useUserStore } from "../../../stores/userStore";
 import { convertToRelativeUnit } from "../../../styles/helpers/convertToRelativeUnits";
 import { glassBackground } from "../../../styles/helpers/glassBackground";
 import Button from "../../Button";
 import { Input } from "../../Global/Input";
+import { ErrorMessage } from "../ErrorMessage";
 
 export const ResetPasswordForm = () => {
+  const [error, setError] = useState("");
   const {
     usernameForSecurityQuestions,
     firstQuestionAnswer,
@@ -43,13 +46,17 @@ export const ResetPasswordForm = () => {
       return;
     }
 
-    const response = await api.appUserResetPasswordCreate({
-      username: usernameForSecurityQuestions,
-      newPassword: password,
-      firstQuestionAnswer: firstQuestionAnswer,
-      secondQuestionAnswer: secondQuestionAnswer,
-      thirdQuestionAnswer: thirdQuestionAnswer,
-    });
+    api
+      .appUserResetPasswordCreate({
+        username: usernameForSecurityQuestions,
+        newPassword: password,
+        firstQuestionAnswer: firstQuestionAnswer,
+        secondQuestionAnswer: secondQuestionAnswer,
+        thirdQuestionAnswer: thirdQuestionAnswer,
+      })
+      .catch((error) => {
+        setError(error.response.data.error.details);
+      });
   };
 
   return (
@@ -101,6 +108,7 @@ export const ResetPasswordForm = () => {
           )}
         />
       </fieldset>
+      {error && <ErrorMessage error={error} />}
       <Button type="submit" fullWidth data-testid="submit">
         Reset
       </Button>
@@ -131,7 +139,7 @@ const Style = {
 
       label {
         font-weight: 500;
-        font-size: ${convertToRelativeUnit(16, "vh")};
+        font-size: ${convertToRelativeUnit(18, "vh")};
         line-height: 125%;
         color: var(--neutral-700);
       }

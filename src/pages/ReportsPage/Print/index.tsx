@@ -10,7 +10,7 @@ const tabs = ["assessment", "impact-qa"];
 const components = [<ReportAssessmentPreview />, <ReportImpactPreview />];
 
 export const ReportsPrintPage = () => {
-  const match = useMatch("/dashboard/reports/:slug/print");
+  const match = useMatch("/reports/:slug/print");
 
   if (!match) {
     throw Error;

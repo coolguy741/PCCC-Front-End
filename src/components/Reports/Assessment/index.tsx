@@ -67,9 +67,7 @@ export const ReportAssessment = () => {
         </div>
       </div>
       <div className="flex justify-end">
-        <LinkButton to="/dashboard/reports/assessment/preview">
-          Export
-        </LinkButton>
+        <LinkButton to="/reports/assessment/preview">Export</LinkButton>
       </div>
     </Style.Container>
   );

@@ -36,7 +36,7 @@ export const DashboardHeader: React.FC<Props> = ({ isHovering, scrollTop }) => {
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     addResults();
-    navigate("/dashboard/search");
+    navigate("/search");
   };
 
   const handleSetField = (field: string) => {
@@ -131,9 +131,11 @@ export const DashboardHeader: React.FC<Props> = ({ isHovering, scrollTop }) => {
               </div>
               {!user && (
                 <>
-                  <Button variant="ghost" to="/signin" size="small">
-                    Log in
-                  </Button>
+                  <div className="lr-margin">
+                    <Button variant="ghost" to="/signin" size="small">
+                      Log in
+                    </Button>
+                  </div>
                   <Button variant="orange" to="/signup" size="small">
                     Sign up
                   </Button>
@@ -200,6 +202,10 @@ const Style = {
       span {
         padding: 0 8px;
       }
+    }
+
+    .lr-margin {
+      margin: 0px 2rem;
     }
 
     .form-container {

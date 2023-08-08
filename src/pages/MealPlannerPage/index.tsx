@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MealPlan } from "../../components/MealPlanner/Plan";
 
 export const MealPlannerPage = () => {
-  const match = useMatch("/dashboard/meal-planner/edit");
+  const match = useMatch("/meal-planner/edit");
 
   return (
     <Style.PageContainer>

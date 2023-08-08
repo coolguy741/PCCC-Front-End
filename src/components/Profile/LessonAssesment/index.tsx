@@ -25,7 +25,7 @@ export function UserLessonAssesment({ userData }: { userData: MockUserType }) {
             <tr key={index}>
               <td className="lesson-name">
                 <span>GARDEN GUARDIAN</span>
-                <Link to="/dashboard/accounts/profiles/Standard/lessonAccessment">
+                <Link to="/accounts/profiles/Standard/lessonAccessment">
                   {trimStringByLength(lesson.lessons, 29)}
                 </Link>
               </td>

@@ -26,7 +26,7 @@ export const AccountsGroupsPage = () => {
   const { groups, invitations } = useLoaderData() as IGroup;
 
   const handleCreate = () => {
-    navigate("/dashboard/accounts/groups/create");
+    navigate("/accounts/groups/create");
   };
 
   const handleJoinGroup = () => {

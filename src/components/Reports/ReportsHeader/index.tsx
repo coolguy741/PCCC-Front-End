@@ -11,7 +11,7 @@ export const ReportsHeader = () => {
           className={`${
             pathname.includes("lesson-assessment") ? "active" : ""
           } tag`}
-          to="/dashboard/reports/lesson-assessment"
+          to="/reports/lesson-assessment"
           relative="path"
         >
           Lesson Assessment
@@ -20,7 +20,7 @@ export const ReportsHeader = () => {
           className={`${
             pathname.includes("impact-reporting") ? "active" : ""
           } tag`}
-          to="/dashboard/reports/impact-reporting"
+          to="/reports/impact-reporting"
           relative="path"
         >
           Impact reporting

@@ -36,7 +36,7 @@ const components = [
   <RecipesForm />,
 ];
 
-const basePath = "/dashboard/topics";
+const basePath = "/topics";
 
 export const TopicCreateForm: React.FC<Props> = ({
   tab,
@@ -50,8 +50,8 @@ export const TopicCreateForm: React.FC<Props> = ({
     (index: number) =>
       index >= 0
         ? isEdit
-          ? `/dashboard/topics/${topicId}/${tabs[index]}/edit`
-          : `/dashboard/topics/create/${tabs[index]}`
+          ? `/topics/${topicId}/${tabs[index]}/edit`
+          : `/topics/create/${tabs[index]}`
         : basePath,
     [isEdit, topicId],
   );
@@ -59,8 +59,8 @@ export const TopicCreateForm: React.FC<Props> = ({
     if (tabIndex < tabs.length - 1) {
       navigate(
         isEdit
-          ? `/dashboard/topics/${topicId}/${tabs[tabIndex + 1]}/edit`
-          : `/dashboard/topics/create/${tabs[tabIndex + 1]}`,
+          ? `/topics/${topicId}/${tabs[tabIndex + 1]}/edit`
+          : `/topics/create/${tabs[tabIndex + 1]}`,
       );
     } else {
       // setIsOpen(true);
@@ -82,7 +82,7 @@ export const TopicCreateForm: React.FC<Props> = ({
           <LinkButton to="#">French</LinkButton>
         </div>
         <Style.Link
-          href={`/dashboard/topics/preview/create/${tabs[tabIndex]}`}
+          href={`/topics/preview/create/${tabs[tabIndex]}`}
           target="_blank"
         >
           Preview

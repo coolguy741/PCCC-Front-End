@@ -42,7 +42,7 @@ export const FoodwaysOverviewPage = () => {
   return (
     <Style.Container>
       <div className="buttons-container">
-        <BackButton onClick={() => navigate("/dashboard/foodways")} />
+        <BackButton onClick={() => navigate("/foodways")} />
         <div className="row">
           <Link to="edit">
             <Button variant="yellow">Edit</Button>
@@ -51,7 +51,7 @@ export const FoodwaysOverviewPage = () => {
             Publish
           </Button>
           <Link
-            to={`/dashboard/foodways/${foodway?.id}/${activeSlide}/print`}
+            to={`/foodways/${foodway?.id}/${activeSlide}/print`}
             target="_blank"
           >
             <Button variant="yellow">Print</Button>
