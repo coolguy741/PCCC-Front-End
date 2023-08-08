@@ -175,6 +175,8 @@ export function CloudDrivePage() {
     }
   }, [data, search]);
 
+  const stats = data?.stats;
+
   return (
     <>
       <Style.Container>
@@ -189,7 +191,7 @@ export function CloudDrivePage() {
             >
               Folders
             </Typography>
-            <CDHeader type={type} setType={setType} />
+            <CDHeader type={type} setType={setType} stats={stats} />
           </div>
           <div className="cd-files-menu">
             <div className="cdf-menu-options">
