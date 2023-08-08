@@ -36,6 +36,10 @@ export const RecipeModal: React.FC<
     console.log("pattern");
   };
 
+  const addThumbnail = () => {
+    console.log("addThumbnail");
+  };
+
   const changeMediaState = () => {
     console.log("pattern");
   };
@@ -91,6 +95,7 @@ export const RecipeModal: React.FC<
                 isEditable={isEditable}
                 changeMediaState={changeMediaState}
                 media={{ src: recipe.image || "/patterns/grapes.png" }}
+                addThumbnail={addThumbnail}
               />
             </article>
           </Style.Recipe>
