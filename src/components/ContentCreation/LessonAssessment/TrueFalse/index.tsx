@@ -51,6 +51,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
   changeText,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) => {
   const [tfState, setState] = useState<boolean>(true);
 
@@ -85,6 +86,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
             changePattern={changeMediaPattern}
             changeMediaState={changeMediaState}
             media={state.media}
+            addThumbnail={addThumbnail}
           />
         </article>
         <article className="latf-content">

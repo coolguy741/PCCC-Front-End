@@ -33,6 +33,7 @@ export function ImageWithCaptionComponent({
   viewMode,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) {
   const componentState = state as any;
 
@@ -44,6 +45,7 @@ export function ImageWithCaptionComponent({
           changeMediaState={changeMediaState}
           media={componentState.media}
           variant="img-only"
+          addThumbnail={addThumbnail}
         />
       </div>
       <Typography

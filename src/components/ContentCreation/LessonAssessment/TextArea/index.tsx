@@ -41,6 +41,7 @@ export const LessonAssessmentTextAreaComponent = ({
   changeText,
   changeMediaState,
   changeMediaPattern,
+  addThumbnail,
 }: ComponentProps) => {
   return (
     <Style.Container>
@@ -70,6 +71,7 @@ export const LessonAssessmentTextAreaComponent = ({
             changePattern={changeMediaPattern}
             changeMediaState={changeMediaState}
             media={state.media}
+            addThumbnail={addThumbnail}
           />
         </article>
         <article className="lata-content">
