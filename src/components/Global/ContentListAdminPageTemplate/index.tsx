@@ -1,6 +1,8 @@
+import InfiniteScroll from "react-infinite-scroll-component";
 import styled from "styled-components";
 
 import React from "react";
+
 import {
   PccServer23ActivitiesActivityDto,
   PccServer23CurriculumRecipesCurriculumRecipeDto,
@@ -28,7 +30,9 @@ interface ContentListAdminPageTemplateProps {
   onSelectionChange: (id: string, isSelected: boolean) => void;
   handleSortChange: (value: string) => void;
   handleDelete: () => void;
+  getMoreItems: () => void;
   isLoading?: boolean;
+  total: number;
 }
 
 const OPTIONS = [
@@ -45,6 +49,8 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
     handleSortChange,
     handleDelete,
     isLoading,
+    getMoreItems,
+    total,
   }) => {
     return (
       <>
@@ -86,15 +92,25 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
             </Button>
           </Style.ButtonGroup>
         </Style.InputGroup>
-        <Scrollbar thumbWidth="thick">
+        <Scrollbar thumbWidth="thick" id="scroll-target">
           {isLoading ? (
             <Spinner />
           ) : (
-            <ContentList
-              listData={listData}
-              selectable={true}
-              onSelectionChange={onSelectionChange}
-            />
+            <Style.InfiniteScrollContainer>
+              <InfiniteScroll
+                dataLength={listData.length}
+                next={getMoreItems}
+                hasMore={listData.length < total}
+                loader={<h4>Loading...</h4>}
+                scrollableTarget="scroll-target"
+              >
+                <ContentList
+                  listData={listData}
+                  selectable={true}
+                  onSelectionChange={onSelectionChange}
+                />
+              </InfiniteScroll>
+            </Style.InfiniteScrollContainer>
           )}
         </Scrollbar>
       </>
@@ -102,6 +118,16 @@ export const ContentListAdminPageTemplate: React.FC<ContentListAdminPageTemplate
   };
 
 const Style = {
+  InfiniteScrollContainer: styled.section`
+    .infinite-scroll-component__outerdiv {
+      overflow: hidden;
+      width: 100%;
+      .infinite-scroll-component {
+        gap: 1.5vh;
+        padding-bottom: 25px;
+      }
+    }
+  `,
   InputGroup: styled.div`
     display: flex;
     flex-direction: row;

@@ -129,7 +129,6 @@ const createStore = () =>
         //     }));
         //   }),
         // })
-        console.log(componentState);
         return {
           image:
             !sIndex && sIndex === componentIndex

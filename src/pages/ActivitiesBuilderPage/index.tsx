@@ -11,13 +11,17 @@ import { useActivitiesStore } from "../../stores/contentBuilderStore";
 export const ActivitiesPage = () => {
   const { items, setItems } = useActivitiesStore();
   const [isNeededToReload, setIsNeededToReload] = useState(false);
+  const [skipCount, setSkipCount] = useState(0);
+  const [isReloadingByInfiniteScroll, setIsReloadingByInfiniteScroll] =
+    useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [query, setQuery] = useState<QueryParamsType>();
+  const [total, setTotal] = useState(0);
 
   const { fetchData: deleteActivity } = useFetch("appActivitiesDelete", {});
   const { isLoading, data, fetchData } = useFetch<{
-    total: number;
+    totalCount: number;
     items: PccServer23ActivitiesActivityDto[];
   }>("appActivitiesList", {}, { query: { ...(query ?? {}) } }, true);
 
@@ -52,9 +56,24 @@ export const ActivitiesPage = () => {
   }, [query]);
 
   useEffect(() => {
+    setQuery({
+      ...query,
+      SkipCount: skipCount,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [skipCount]);
+
+  useEffect(() => {
     if (data) {
-      setItems(data.items);
+      setItems([
+        ...(isReloadingByInfiniteScroll
+          ? (items as PccServer23ActivitiesActivityDto[]) || []
+          : []),
+        ...data.items,
+      ]);
+      isReloadingByInfiniteScroll && setIsReloadingByInfiniteScroll(false);
       setIsNeededToReload(false);
+      setTotal(data.totalCount);
       setIsDeleting(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,6 +86,11 @@ export const ActivitiesPage = () => {
     });
   };
 
+  const getMoreItems = () => {
+    setSkipCount((prev) => prev + 10);
+    setIsReloadingByInfiniteScroll(true);
+  };
+
   return (
     <ContentListAdminPageTemplate
       title={"Activity"}
@@ -74,8 +98,10 @@ export const ActivitiesPage = () => {
       listData={items ?? []}
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
-      isLoading={isLoading || isDeleting}
+      isLoading={!isReloadingByInfiniteScroll && (isLoading || isDeleting)}
       handleSortChange={handleSortChange}
+      total={total}
+      getMoreItems={getMoreItems}
     />
   );
 };

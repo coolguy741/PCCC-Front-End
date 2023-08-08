@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   PccServer23ActivitiesActivityDto,
@@ -36,16 +37,18 @@ export const ContentListItem: React.FC<ContentListItemProps> = ({
   selectable = false,
   onSelectedChange,
 }) => {
+  const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState(false);
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsSelected(!isSelected);
-    onSelectedChange &&
+    data.id &&
+      onSelectedChange &&
       onSelectedChange(data.id as string, event.target.checked);
   };
 
   return (
-    <Style.Container>
+    <Style.Container onClick={() => navigate(`${data.id}`)}>
       <img
         src={data?.image ?? "/images/deleteLater/ContentSampleImage.png"}
         alt={data?.image ?? "/images/deleteLater/ContentSampleImage.png"}

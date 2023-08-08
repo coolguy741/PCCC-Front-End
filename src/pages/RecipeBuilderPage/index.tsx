@@ -14,13 +14,17 @@ export const RecipesPage = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
   const [query, setQuery] = useState<QueryParamsType>();
+  const [total, setTotal] = useState(0);
+  const [skipCount, setSkipCount] = useState(0);
+  const [isReloadingByInfiniteScroll, setIsReloadingByInfiniteScroll] =
+    useState(false);
 
   const { fetchData: deleteRecipe } = useFetch(
     "appCurriculumRecipesDelete",
     {},
   );
   const { isLoading, data, fetchData } = useFetch<{
-    total: number;
+    totalCount: number;
     items: PccServer23RecipesRecipeDto[];
   }>("appCurriculumRecipesList", {}, { query: { ...(query ?? {}) } }, true);
 
@@ -51,8 +55,15 @@ export const RecipesPage = () => {
 
   useEffect(() => {
     if (data) {
-      setItems(data.items);
+      setItems([
+        ...(isReloadingByInfiniteScroll
+          ? (items as PccServer23RecipesRecipeDto[]) || []
+          : []),
+        ...data.items,
+      ]);
+      isReloadingByInfiniteScroll && setIsReloadingByInfiniteScroll(false);
       setIsNeededToReload(false);
+      setTotal(data.totalCount);
       setIsDeleting(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,11 +74,24 @@ export const RecipesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
+  useEffect(() => {
+    setQuery({
+      ...query,
+      SkipCount: skipCount,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [skipCount]);
+
   const handleSortChange = (value: string) => {
     setQuery({
       ...query,
       Sorting: value,
     });
+  };
+
+  const getMoreItems = () => {
+    setSkipCount((prev) => prev + 10);
+    setIsReloadingByInfiniteScroll(true);
   };
 
   return (
@@ -78,6 +102,8 @@ export const RecipesPage = () => {
       onSelectionChange={handleSelectionChange}
       handleDelete={handleDelete}
       handleSortChange={handleSortChange}
+      total={total}
+      getMoreItems={getMoreItems}
       isLoading={isDeleting || isLoading}
     />
   );
