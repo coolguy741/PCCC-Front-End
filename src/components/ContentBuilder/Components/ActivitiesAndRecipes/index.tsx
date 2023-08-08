@@ -1,14 +1,15 @@
-import Cookies from "js-cookie";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 
 import { useAPI } from "../../../../hooks/useAPI";
 import { useFetch } from "../../../../hooks/useFetch";
 import {
-  PccServer23ActivitiesActivityDto,
-  PccServer23RecipesPublicRecipeDto,
+  VoloAbpApplicationDtosListResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+  VoloAbpApplicationDtosListResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+  VoloAbpApplicationDtosPagedResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
+  VoloAbpApplicationDtosPagedResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull,
 } from "../../../../lib/api/api";
-import { STORAGE_KEY_JWT } from "../../../../pages/consts";
+import { useThemeStore } from "../../../../stores/contentBuilderStore";
 import { useThemeBuilderStore } from "../../../../stores/themeBuilderStore";
 import Button from "../../../Button";
 import Scrollable from "../../../Global/Scrollable";
@@ -18,92 +19,104 @@ export const ActivitiesAndRecipes = () => {
   const { api } = useAPI();
   const { activityIds, recipeIds, setItemIds, removeItemId, currentStep } =
     useThemeBuilderStore();
-  const [items, setItems] = useState<
-    PccServer23ActivitiesActivityDto[] | PccServer23RecipesPublicRecipeDto[]
-  >([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const { fetchData: attachActivity } = useFetch(
+  const { id: themeId } = useThemeStore();
+  const { isLoading: attaching, fetchData: attachActivity } = useFetch(
     "appThemesAttachActivityCreate",
     {},
   );
-  const { fetchData: detachActivity } = useFetch(
+  const { isLoading: detaching, fetchData: detachActivity } = useFetch(
     "appThemesDetachActivityCreate",
     {},
   );
-  const { fetchData: attachRecipe } = useFetch(
+  const { isLoading: attachingRecipe, fetchData: attachRecipe } = useFetch(
     "appThemesAttachRecipeCreate",
     {},
   );
-  const { fetchData: detachRecipe } = useFetch(
+  const { isLoading: detachingRecipe, fetchData: detachRecipe } = useFetch(
     "appThemesDetachRecipeCreate",
     {},
   );
 
-  const { data: activities, fetchData: getActivitesList } = useFetch(
-    "appActivitiesList",
+  const { isLoading: isActivitiesLoading, data: activities } =
+    useFetch<VoloAbpApplicationDtosPagedResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appActivitiesList",
+      {},
+      undefined,
+      true,
+    );
+
+  const {
+    isLoading: isAttachedActivitiesLoading,
+    data: attachedActivities,
+    fetchData: getAttachedActivitiesList,
+  } = useFetch<VoloAbpApplicationDtosListResultDto1PccServer23ActivitiesActivityDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+    "appThemesAttachedActivitiesDetail",
     {},
     undefined,
     true,
+    themeId,
   );
-  const { data: recipes, fetchData: getRecipesList } = useFetch(
-    "appRecipesList",
+
+  const {
+    isLoading: isAttachedRecipesLoading,
+    data: attachedRecipes,
+    fetchData: getAttachedRecipesList,
+  } = useFetch<VoloAbpApplicationDtosListResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+    "appThemesAttachedRecipesDetail",
     {},
     undefined,
     true,
+    themeId,
   );
 
-  const getItems = useCallback(() => {
-    (async () => {
-      const params = {
-        headers: {
-          Authorization: `Bearer ${Cookies.get(STORAGE_KEY_JWT)}`,
-        },
-      };
+  const { isLoading: isRecipesLoading, data: recipes } =
+    useFetch<VoloAbpApplicationDtosPagedResultDto1PccServer23CurriculumRecipesCurriculumRecipeDtoPccServer23ApplicationContractsVersion1000CultureNeutralPublicKeyTokenNull>(
+      "appCurriculumRecipesList",
+      {},
+      undefined,
+      true,
+    );
 
-      setIsLoading(true);
-      try {
-        const response =
-          currentStep === 4
-            ? await api.appActivitiesList({}, params)
-            : await api.appRecipesList({}, params);
-
-        if (response.status === 200) {
-          setItems(response.data.items ?? []);
-        }
-      } catch (error) {
-        setItems([
-          { id: "1", title: "Chocolate granola bites" },
-          { id: "2", title: "Roasted red pepper hummus with raw vegetable" },
-          { id: "3", title: "Corn & black bean salsa" },
-          { id: "4", title: "Vegetable spring rolls" },
-          { id: "5", title: "Lorem ipsum" },
-          { id: "6", title: "Chocolate granola bites" },
-          { id: "7", title: "Roasted red pepper hummus with raw vegetable" },
-          { id: "8", title: "Corn & black bean salsa" },
-          { id: "9", title: "Lorem ipsum" },
-          { id: "10", title: "Chocolate granola bites" },
-          { id: "11", title: "Roasted red pepper hummus with raw vegetable" },
-          { id: "12", title: "Corn & black bean salsa" },
-          { id: "13", title: "Lorem ipsum" },
-          { id: "14", title: "Vegetable spring rolls" },
-          { id: "15", title: "Chocolate granola bites" },
-          { id: "16", title: "Roasted red pepper hummus with raw vegetable" },
-          { id: "17", title: "Corn & black bean salsa" },
-          { id: "18", title: "Lorem ipsum" },
-          { id: "19", title: "Chocolate granola bites" },
-          { id: "20", title: "Roasted red pepper hummus with raw vegetable" },
-          { id: "21", title: "hello20" },
-        ]);
-      }
-      setIsLoading(false);
-    })();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentStep]);
+  const isLoading = useMemo(
+    () =>
+      isActivitiesLoading ||
+      isAttachedActivitiesLoading ||
+      isAttachedRecipesLoading ||
+      isRecipesLoading,
+    [
+      isActivitiesLoading,
+      isAttachedActivitiesLoading,
+      isAttachedRecipesLoading,
+      isRecipesLoading,
+    ],
+  );
 
   useEffect(() => {
-    getItems();
-  }, [getItems]);
+    !attaching &&
+      !detaching &&
+      currentStep === 3 &&
+      getAttachedActivitiesList?.(undefined, undefined, true, themeId);
+    !attachingRecipe &&
+      !detachingRecipe &&
+      currentStep === 4 &&
+      getAttachedRecipesList?.(undefined, undefined, true, themeId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [detaching, attaching, currentStep, attachingRecipe, detachingRecipe]);
+
+  const handleAdd = (id: string) => {
+    currentStep === 3
+      ? attachActivity?.({ themeId, activityId: id })
+      : attachRecipe?.({ themeId, curriculumRecipeId: id });
+    setItemIds(id);
+  };
+
+  const handleRemove = (id: string) => {
+    currentStep === 3
+      ? detachActivity?.({ themeId, activityId: id })
+      : detachRecipe?.({ themeId, curriculumRecipeId: id });
+    setItemIds(id);
+    removeItemId(id);
+  };
 
   return (
     <Style.Container>
@@ -113,34 +126,34 @@ export const ActivitiesAndRecipes = () => {
           <Spinner />
         ) : (
           <Style.ItemsContainer>
-            {items.map((item) => (
-              <Style.Item key={`item-${item.id}`}>
-                {currentStep === 4
-                  ? (item as PccServer23ActivitiesActivityDto).title
-                  : (item as PccServer23RecipesPublicRecipeDto).name}
-                {(currentStep === 3 ? activityIds : recipeIds).includes(
-                  item.id as string,
-                ) ? (
-                  <Button
-                    variant="yellow"
-                    onClick={() => {
-                      removeItemId(item.id as string);
-                    }}
-                  >
-                    Remove
-                  </Button>
-                ) : (
-                  <Button
-                    variant="orange"
-                    onClick={() => {
-                      setItemIds(item.id as string);
-                    }}
-                  >
-                    Add
-                  </Button>
-                )}
-              </Style.Item>
-            ))}
+            {(currentStep === 3 ? activities?.items : recipes?.items)?.map(
+              (item) => (
+                <Style.Item key={`item-${item.id}`}>
+                  {item.title}
+                  {(currentStep === 3
+                    ? attachedActivities?.items
+                    : attachedRecipes?.items
+                  )?.find((attachedItem) => attachedItem.id === item.id) ? (
+                    <Button
+                      variant="yellow"
+                      id={item.id}
+                      onClick={() => {
+                        handleRemove(item.id as string);
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="orange"
+                      onClick={() => handleAdd(item.id as string)}
+                    >
+                      Add
+                    </Button>
+                  )}
+                </Style.Item>
+              ),
+            )}
           </Style.ItemsContainer>
         )}
       </Scrollable>

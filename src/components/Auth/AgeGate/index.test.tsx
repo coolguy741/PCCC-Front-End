@@ -12,7 +12,7 @@ describe("Age gate", async () => {
   const initialState = useSignUpStore.getState();
 
   beforeEach(() => {
-    initialState.changeStep = vi.fn();
+    initialState.setCurrentStep = vi.fn();
     useSignUpStore.setState(initialState, true);
     render(
       <MemoryRouter>
@@ -51,7 +51,7 @@ describe("Age gate", async () => {
       userEvent.click(next);
     });
 
-    expect(useSignUpStore.getState().changeStep).toHaveBeenCalledWith(1);
+    expect(useSignUpStore.getState().setCurrentStep).toHaveBeenCalledWith(1);
   });
 
   it("Should set step 2 if the age is less than 18", async () => {
@@ -76,6 +76,8 @@ describe("Age gate", async () => {
       userEvent.click(next);
     });
 
-    expect(useSignUpStore.getState().changeStep).toHaveBeenLastCalledWith(2);
+    expect(useSignUpStore.getState().setCurrentStep).toHaveBeenLastCalledWith(
+      2,
+    );
   });
 });

@@ -12,7 +12,7 @@ export function SearchItem() {
         <hgroup>
           <Typography
             tag="h2"
-            textTransform="uppercase"
+            texttransform="uppercase"
             size="1.5vh"
             mb="1vh"
             weight={600}

@@ -41,7 +41,7 @@ export const SignUpForm = () => {
   const {
     setName,
     setTitle,
-    changeStep,
+    setCurrentStep,
     isCoordinator,
     birthYear,
     province,
@@ -150,7 +150,7 @@ export const SignUpForm = () => {
     setFirstUsername(firstUsername);
     setSecondUsername(secondUsername);
     setThirdUsername(thirdUsername);
-    changeStep(3);
+    setCurrentStep(3);
   };
 
   return (

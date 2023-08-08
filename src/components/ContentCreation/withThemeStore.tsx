@@ -6,7 +6,10 @@ import { ComponentViewMode, ThemeComponentProps, TitleType } from "./types";
 export type ComponentProps = {
   viewMode: (mode: ComponentViewMode) => ComponentViewMode;
   state: any;
+  isEditable?: boolean;
   changeText: (name: TitleType, newText: string) => void;
+  changeValid: (name: TitleType, value: boolean) => void;
+  changeOption: (value: boolean) => void;
   changeEditState: (tag: TitleType) => void;
   changeListEditState: (index: number, amtOrIngdt?: "amt" | "ingdt") => void;
   changeListText: (
@@ -40,6 +43,8 @@ export function withThemeStore<P extends ThemeComponentProps>(
       changeText,
       changeListEditState,
       changeListText,
+      changeValid,
+      changeOption,
       deleteListItem,
       addListItem,
       changeMediaState,
@@ -84,6 +89,22 @@ export function withThemeStore<P extends ThemeComponentProps>(
       [handleChangeEditState],
     );
 
+    const handleChangeValid = useCallback(
+      (name: TitleType, value: boolean) => {
+        changeValid(name, value, undefined, slideIndex, componentIndex);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [slideIndex, componentIndex, changeValid],
+    );
+
+    const handleChangeOption = useCallback(
+      (value: boolean) => {
+        changeOption(value, undefined, slideIndex, componentIndex);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [slideIndex, componentIndex, changeOption],
+    );
+
     const handleChangeListText = useCallback(
       (index: number, newText: string, amtOrIngdt?: "amt" | "ingdt") => {
         changeListText(index, newText, amtOrIngdt, slideIndex, componentIndex);
@@ -122,6 +143,8 @@ export function withThemeStore<P extends ThemeComponentProps>(
         state={state}
         changeEditState={handleChangeEditState}
         changeText={handleChangeText}
+        changeValid={handleChangeValid}
+        changeOption={handleChangeOption}
         viewMode={viewMode}
         changeListEditState={handleChangeListEditState}
         changeListText={handleChangeListText}

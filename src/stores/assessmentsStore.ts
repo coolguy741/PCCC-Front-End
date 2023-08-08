@@ -1,6 +1,8 @@
 import { create } from "zustand";
+import { CCFormat } from "../components/ContentCreation/types";
 
 import { ContentBuilderProps, Language, ThemeComponent } from "../pages/types";
+import { PccServer23AssessmentQuestionsPublicAssessmentQuestionDto } from "./../lib/api/api";
 import { ContentBuilderStoreState } from "./contentBuilderStore";
 
 export interface IContent {
@@ -9,22 +11,24 @@ export interface IContent {
 }
 
 export type Answer = {
+  valid?: boolean;
   en?: {
     description?: string;
-    valid?: boolean;
   };
   fr?: {
-    title?: string;
-    valid?: boolean;
+    description?: string;
   };
 };
 
 export type Question = {
+  id?: string;
   en?: {
     description?: string;
+    jsonData?: ThemeComponent[];
   };
   fr?: {
     description?: string;
+    jsonData?: ThemeComponent[];
   };
   answers: Answer[];
 };
@@ -50,7 +54,10 @@ export interface AssessmentsForStore extends ContentBuilderProps {
 }
 
 export interface AssessmentsStoreProps {
-  setAssessments: (assessments: Assessment[]) => void;
+  setAssessmentQuestions: (
+    assessments: PccServer23AssessmentQuestionsPublicAssessmentQuestionDto[],
+    lang: Language,
+  ) => void;
   changeCurriculum: (curriculumId: string, prev?: string) => void;
 }
 
@@ -77,12 +84,74 @@ const initialState: AssessmentsForStore = {
 const createStore = () =>
   create<AssessmentsStoreState>((set, get) => ({
     ...JSON.parse(JSON.stringify(initialState)),
+    setAssessmentQuestions: (assessmentQuestions, lang) =>
+      set((state) => {
+        const temp = assessmentQuestions?.reduce((group: any, question) => {
+          const { curriculumId } = question;
+          group[curriculumId as string] = group[curriculumId as string] ?? [];
+          group[curriculumId as string].push(question);
+          return group;
+        }, {});
+        const assessments: PccServer23AssessmentQuestionsPublicAssessmentQuestionDto[][] =
+          Object.values(temp);
+
+        console.log(assessments);
+        return {
+          ...state,
+          assessments: assessments.map((questions) => {
+            return {
+              curriculumId: questions?.[0].curriculumId ?? "",
+              en: {
+                jsonData: questions.map<ThemeComponent[]>((question) =>
+                  JSON.parse(question.englishJson || "[]"),
+                ),
+              },
+              fr: {
+                jsonData: questions.map<ThemeComponent[]>((question) =>
+                  JSON.parse(question.frenchJson || "[]"),
+                ),
+              },
+              slides:
+                lang === Language.EN
+                  ? questions.map<ThemeComponent[]>((question) =>
+                      JSON.parse(question.englishJson || "[]"),
+                    )
+                  : questions.map<ThemeComponent[]>((question) =>
+                      JSON.parse(question.frenchJson || "[]"),
+                    ),
+              questions: questions.map((question) => {
+                return {
+                  id: question.id,
+                  en: {
+                    description: question.englishDescription || "",
+                    jsonData: JSON.parse(question.englishJson || "[]"),
+                  },
+                  fr: {
+                    description: question.frenchDescription || "",
+                    jsonData: JSON.parse(question.frenchJson || "[]"),
+                  },
+                  answers:
+                    question.answer?.map((answer) => ({
+                      valid: answer.valid,
+                      en: {
+                        description: answer.englishDescription || "",
+                      },
+                      fr: {
+                        description: answer.frenchDescription || "",
+                      },
+                    })) ?? [],
+                };
+              }),
+            };
+          }),
+        };
+      }),
     updateAssessments: (assessments: Assessment[]) =>
       set(() => ({
         assessments,
       })),
     changeCurriculum: async (curriculumId: string, prev?: string) =>
-      set(({ assessments, slides, en, fr }) => {
+      set(({ assessments, slides, en, fr, questions }) => {
         const assessment = assessments?.find(
           (item) => item.curriculumId === curriculumId,
         );
@@ -92,12 +161,14 @@ const createStore = () =>
               ? {
                   ...item,
                   slides: [...slides],
+                  questions: [...questions],
                   en: { ...en },
                   fr: { ...fr },
                 }
               : item,
           ),
         ];
+
         return {
           assessments: assessment
             ? [...prevAssessments]
@@ -105,6 +176,7 @@ const createStore = () =>
                 ...prevAssessments,
                 {
                   slides: [[]],
+                  questions: [],
                   curriculumId,
                   en: {
                     jsonData: [],
@@ -128,6 +200,7 @@ const createStore = () =>
             : {
                 jsonData: [],
               },
+          questions: [],
         };
       }),
     updateDetail: ({ slides, id, concurrencyStamp, en, fr }) =>
@@ -193,15 +266,67 @@ const createStore = () =>
       })),
     updatePageState: (sIndex, componentIndex, componentState) =>
       set(({ slides, currentLang, questions, ...state }) => {
+        let question: any = {};
+        if ((componentState as any).variant === "multiple") {
+          if (sIndex < questions.length) {
+            question = questions[sIndex];
+          }
+          const answers =
+            question.answers ??
+            Array.from({ length: 4 }).map((item) => ({
+              en: { description: "" },
+              fr: { description: "" },
+              valid: false,
+            }));
+          question.answers = answers.map(
+            (answer: Partial<Answer>, item: number) =>
+              (componentState as Record<string, CCFormat>)[`option${item + 1}`]
+                ? {
+                    ...answer,
+                    [currentLang]: {
+                      description: (componentState as Record<string, CCFormat>)[
+                        `option${item + 1}`
+                      ].text,
+                    },
+                    valid:
+                      (componentState as Record<string, CCFormat>)[
+                        `option${item + 1}`
+                      ].valid ?? false,
+                  }
+                : answer,
+          );
+        } else if ((componentState as any).variant === "optional") {
+          if (sIndex < questions.length) {
+            question = questions[sIndex];
+          }
+          question.answers = question.answers ?? [
+            {
+              [currentLang]: {
+                description:
+                  (componentState as Record<string, CCFormat>).question.text ??
+                  "True",
+                valid:
+                  (componentState as Record<string, CCFormat>).option.value ??
+                  true,
+              },
+            },
+          ];
+        }
+        const newQuestion = {
+          ...question,
+          [currentLang]: {
+            description: (componentState as Record<string, CCFormat>).question
+              .text,
+          },
+        };
         return {
           ...state,
           questions:
             sIndex < questions.length
               ? questions.map((question, index) => {
-                  console.log(componentState);
-                  return index === sIndex ? { ...question } : question;
+                  return index === sIndex ? { ...newQuestion } : question;
                 })
-              : [...questions],
+              : [...questions, newQuestion],
           slides: slides.map((slide, slideIndex) =>
             slide.map((component, index) => ({
               ...component,

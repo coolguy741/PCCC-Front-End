@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent } from "react";
 import styled from "styled-components";
 import { convertToRelativeUnit as conv } from "../../../../styles/helpers/convertToRelativeUnits";
 import { Checkbox } from "../../../Global/Checkbox";
@@ -8,7 +8,7 @@ import { Media } from "../../Media/media";
 import { ComponentProps, withThemeStore } from "../../withThemeStore";
 
 const tfInitialState = {
-  variant: "multiple",
+  variant: "optional",
   img: {
     src: "",
     patternChoice: "",
@@ -29,17 +29,13 @@ const tfInitialState = {
     mode: "view",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?",
   },
-  bluePill: {
-    mode: "view",
-    text: "False",
-  },
-  redPill: {
-    mode: "view",
-    text: "True",
+  option: {
+    value: true,
   },
   media: {
     src: "",
     name: "",
+    type: "pattern",
     thumbnail: "",
     patternChoice: 0,
   },
@@ -47,17 +43,14 @@ const tfInitialState = {
 
 export const LessonAssessmentTrueOrFalseComponent = ({
   state,
+  isEditable,
   changeEditState,
   changeText,
+  changeOption,
   changeMediaState,
   changeMediaPattern,
   addThumbnail,
 }: ComponentProps) => {
-  const [tfState, setState] = useState<boolean>(true);
-
-  function changeOption() {
-    setState((prevState) => !prevState);
-  }
   return (
     <Style.Container>
       <hgroup className="la-top">
@@ -85,6 +78,7 @@ export const LessonAssessmentTrueOrFalseComponent = ({
           <Media
             changePattern={changeMediaPattern}
             changeMediaState={changeMediaState}
+            isEditable={isEditable}
             media={state.media}
             addThumbnail={addThumbnail}
           />
@@ -125,7 +119,12 @@ export const LessonAssessmentTrueOrFalseComponent = ({
           <div className="latf-content-input">
             <form className="latf-form">
               <div className="latf-field">
-                <Checkbox onClick={changeOption} checked={tfState} />
+                <Checkbox
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    changeOption(event.target.checked);
+                  }}
+                  checked={state.option.value}
+                />
                 <Typography
                   tag="p"
                   weight={600}
@@ -137,7 +136,12 @@ export const LessonAssessmentTrueOrFalseComponent = ({
                 </Typography>
               </div>
               <div className="latf-field">
-                <Checkbox onClick={changeOption} checked={!tfState} />
+                <Checkbox
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    changeOption(!event.target.checked);
+                  }}
+                  checked={!state.option.value}
+                />
                 <Typography
                   tag="p"
                   weight={600}

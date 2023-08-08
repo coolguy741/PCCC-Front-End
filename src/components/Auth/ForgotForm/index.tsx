@@ -15,7 +15,7 @@ import { ErrorMessage } from "../ErrorMessage";
 
 export const ForgotForm = () => {
   const [error, setError] = useState("");
-  const { changeStep } = useSignInStore();
+  const { setCurrentStep } = useSignInStore();
   const {
     forgetType,
     setUsernameForSecurityQuestions,

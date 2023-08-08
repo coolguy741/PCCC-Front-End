@@ -21,7 +21,7 @@ export const AgeGate = () => {
     setProvince,
     birthYear,
     province,
-    changeStep,
+    setCurrentStep,
     setOver18,
   } = useSignUpStore();
 
@@ -41,10 +41,10 @@ export const AgeGate = () => {
 
     if (currentYear - parseInt(year.toString()) >= 18) {
       setOver18(true);
-      changeStep(1);
+      setCurrentStep(1);
     } else {
       setOver18(false);
-      changeStep(2);
+      setCurrentStep(2);
     }
 
     setBirthYear(parseInt(year.toString()));

@@ -50,10 +50,10 @@ export const FoodwaysPage = () => {
 
   const handleSelectionChange = (id: string, isSelected: boolean) => {
     if (isSelected) {
-      setSelectedIds((selelectedIds) => [...selelectedIds, id]);
+      setSelectedIds((selectedIds) => [...selectedIds, id]);
     } else {
-      setSelectedIds((selelectedIds) =>
-        selelectedIds.filter((selectedId) => selectedId !== id),
+      setSelectedIds((selectedIds) =>
+        selectedIds.filter((selectedId) => selectedId !== id),
       );
     }
 

@@ -83,7 +83,6 @@ export function useContentCreation(
     sIndex?: number,
     cIndex?: number,
   ) {
-    console.log(mediaSrc, sIndex, cIndex);
     const media = { ...state.media, src: mediaSrc, name: mediaName };
     const newState = {
       ...state,
@@ -111,7 +110,7 @@ export function useContentCreation(
       ...state,
       media: media,
     };
-    console.log("NEW STATE", newState);
+
     componentPosition &&
       updatePageState &&
       updatePageState(
@@ -210,6 +209,53 @@ export function useContentCreation(
     setState(newState);
   }
 
+  function changeValid(
+    name: TitleType,
+    value: boolean,
+    amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
+  ) {
+    const newState = {
+      ...state,
+      [name]: {
+        ...state[name],
+        valid: value,
+      },
+    };
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
+        newState,
+      );
+    setState(newState);
+  }
+
+  function changeOption(
+    value: boolean,
+    amtOrIngdt?: "amt" | "ingdt",
+    sIndex?: number,
+    cIndex?: number,
+  ) {
+    const newState = {
+      ...state,
+      option: {
+        ...state.option,
+        value,
+      },
+    };
+    componentPosition &&
+      updatePageState &&
+      updatePageState(
+        sIndex ?? componentPosition.slideIndex,
+        cIndex ?? componentPosition.componentIndex,
+        newState,
+      );
+    setState(newState);
+  }
+
   function timelineChangeText(name: TitleType, newText: string) {
     const newState = {
       ...timelineState,
@@ -296,6 +342,8 @@ export function useContentCreation(
     state,
     changeEditState,
     changeText,
+    changeValid,
+    changeOption,
     deleteListItem,
     addListItem,
     setComponentPosition,

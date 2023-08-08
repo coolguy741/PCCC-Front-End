@@ -21,7 +21,7 @@ export const MealPlanGenerator = () => {
   const [isRecipesModalOpen, setIsRecipesModalOpen] = useState(false);
   const [show, setShow] = useState(true);
   const {
-    changeStep,
+    setCurrentStep,
     dates,
     selectedFilters,
     filters,
@@ -82,7 +82,7 @@ export const MealPlanGenerator = () => {
     if (data && data.meals) {
       setMeals(data.meals);
 
-      changeStep(2);
+      setCurrentStep(2);
     }
   }, [data]);
 

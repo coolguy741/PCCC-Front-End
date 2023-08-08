@@ -8,13 +8,13 @@ import { animationProps } from "../../../styles/animations/auth";
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const currentStep = useSignInStore((state) => state.currentStep);
-  const changeStep = useSignInStore((state) => state.changeStep);
+  const setCurrentStep = useSignInStore((state) => state.setCurrentStep);
 
   const clickHandler = () => {
     if (currentStep === 0) {
       navigate("/signin");
     } else {
-      changeStep(currentStep - 1);
+      setCurrentStep(currentStep - 1);
     }
   };
 
