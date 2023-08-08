@@ -6,7 +6,18 @@ export type activeHoveredHudMenuOptionType =
   | "settings"
   | "achievements";
 
-export type UIPhaseType = "Loader" | "Landing" | "SkinTonePicker" | "Game";
+export type UIPhaseType =
+  | "Loader"
+  | "Landing"
+  | "SkinTonePicker"
+  | "Tutorial"
+  | "GardenKitchenSelection"
+  | "Game";
+
+export type SkintToneType =
+  | "skin-tone-one"
+  | "skin-tone-two"
+  | "skin-tone-three";
 
 export interface UIModuleTypes {
   UIPhase: UIPhaseType;
@@ -22,4 +33,6 @@ export interface UIModuleTypes {
   setActiveHoveredHudMenuOption: (
     newHoveredHudMenuOption: activeHoveredHudMenuOptionType | null,
   ) => void;
+  activeSkinTone: SkintToneType;
+  setActiveSkinTone: (newActiveSkinTone: SkintToneType) => void;
 }

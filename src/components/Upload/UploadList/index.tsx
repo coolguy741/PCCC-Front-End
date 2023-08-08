@@ -193,6 +193,11 @@ export function UploadList({ files, setMedia, selectedMedia }: any) {
                           ? "orange-500"
                           : "neutral-800"
                       }
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content={
+                        el.fileName.length >= 25 ? el.fileName : ""
+                      }
+                      data-tooltip-place="top"
                     >
                       <TitleStyle
                         selected={selectedMedia.src === el.url}

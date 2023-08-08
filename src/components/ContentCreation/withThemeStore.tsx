@@ -21,6 +21,7 @@ export type ComponentProps = {
   addListItem: (amtOrIngdt?: boolean) => void;
   changeMediaState: (mediaSrc: string, mediaName: string) => void;
   changeMediaPattern: (pattern: number) => void;
+  addThumbnail: (mediaSrc: string) => void;
 };
 
 export function withThemeStore<P extends ThemeComponentProps>(
@@ -48,6 +49,7 @@ export function withThemeStore<P extends ThemeComponentProps>(
       addListItem,
       changeMediaState,
       changeMediaPattern,
+      addThumbnail,
     } = useContentCreation(componentState ?? initialState, updatePageState);
 
     useEffect(() => {
@@ -119,6 +121,14 @@ export function withThemeStore<P extends ThemeComponentProps>(
       [slideIndex, componentIndex, changeMediaState],
     );
 
+    const handleAddThumbnail = useCallback(
+      (mediaSrc: string) => {
+        addThumbnail(mediaSrc);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [slideIndex, componentIndex, changeMediaState],
+    );
+
     const handleChangeMediaPattern = useCallback(
       (pattern: number) => {
         changeMediaPattern(pattern, slideIndex, componentIndex);
@@ -142,6 +152,7 @@ export function withThemeStore<P extends ThemeComponentProps>(
         addListItem={addListItem}
         changeMediaState={handleChangeMediaState}
         changeMediaPattern={handleChangeMediaPattern}
+        addThumbnail={handleAddThumbnail}
       />
     );
   };

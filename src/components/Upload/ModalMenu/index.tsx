@@ -1,3 +1,4 @@
+import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 import CDAudio from "../../CloudDrive/Icons/cd-audio";
 import CDImage from "../../CloudDrive/Icons/cd-image";
@@ -7,7 +8,6 @@ import { Typography } from "../../Typography";
 interface FolderOptionsType {
   id: "images" | "video" | "audio" | "documents";
   title: string;
-  description: string;
   icon: JSX.Element;
 }
 
@@ -15,19 +15,16 @@ const FOLDER_OPTIONS: FolderOptionsType[] = [
   {
     id: "images",
     title: "Images",
-    description: "1012 Files / 3.2 GB",
     icon: <CDImage />,
   },
   {
     id: "video",
     title: "Videos",
-    description: "0 Files / 0 MB",
     icon: <CDVideo />,
   },
   {
     id: "audio",
     title: "Audio",
-    description: "0 Files / 0 MB",
     icon: <CDAudio />,
   },
 ];
@@ -35,13 +32,31 @@ const FOLDER_OPTIONS: FolderOptionsType[] = [
 export function ModalMenu({
   type,
   setType,
+  stats,
 }: {
   type: "images" | "video" | "audio" | "documents";
   setType: (type: "documents" | "video" | "images" | "audio") => void;
+  stats: any;
 }) {
+  function getStats(stats: any, name: string) {
+    if (!stats) return <Skeleton />;
+    switch (name) {
+      case "images":
+        return `${Math.round(stats.imagesFolderSize / 1000000)} mb`;
+      case "documents":
+        return `${Math.round(stats.documentFolderSize / 1000000)} mb`;
+      case "video":
+        return `${Math.round(stats.videoFolderSize / 1000000)} mb`;
+      case "audio":
+        return `${Math.round(stats.audioFolderSize / 1000000)} mb`;
+      default:
+        return <Skeleton />;
+    }
+  }
+
   return (
     <Style.Container>
-      {FOLDER_OPTIONS.map(({ title, description, icon, id }) => (
+      {FOLDER_OPTIONS.map(({ title, icon, id }) => (
         <button
           key={title}
           onClick={() => setType(id)}
@@ -59,7 +74,7 @@ export function ModalMenu({
               {title}
             </Typography>
             <Typography color="neutral-600" tag="span" size="1.1vh">
-              {description}
+              {getStats(stats, id)}
             </Typography>
           </figure>
         </button>

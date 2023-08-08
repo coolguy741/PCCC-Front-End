@@ -14,12 +14,14 @@ export function Media({
   isEditable = true,
   changeMediaState,
   changePattern,
+  addThumbnail,
 }: {
   media: any;
   variant?: "img-only" | "all";
   changeMediaState: (mediaName: string, mediaSrc: string) => void;
   changePattern: (pattern: number) => void;
   isEditable?: boolean;
+  addThumbnail: (mediaSrc: string) => void;
 }) {
   const { toggle, modal } = useModal();
   const { shufflePattern, currentPattern } = usePatterns(
@@ -79,8 +81,10 @@ export function Media({
           changeMediaState={changeMediaState}
           shufflePattern={shufflePattern}
           currentPattern={currentPattern}
+          addThumbnail={addThumbnail}
           src={media?.src}
           name={media?.name}
+          thumbnail={media?.thumbnail}
           type={type}
         />
       );

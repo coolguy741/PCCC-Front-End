@@ -58,12 +58,12 @@ export function GalleryItem({
             size="1.75vh"
             weight={500}
             data-tooltip-id="my-tooltip"
-            data-tooltip-content={el.fileName.length >= 20 ? el.fileName : ""}
+            data-tooltip-content={el.fileName.length >= 15 ? el.fileName : ""}
             data-tooltip-place="top"
             onClick={() => playHandler(el.url, el.folder, el.fileName)}
           >
             <div className="cdg-thumbnail">{ICONS[type]}</div>
-            {trimStringByLength(el.fileName, 20)}
+            {trimStringByLength(el.fileName, 15)}
           </Typography>
           <button onClick={() => setShowOptions((prevState) => !prevState)}>
             <CDOptions />
@@ -170,6 +170,7 @@ const Style = {
 
         h4 {
           display: flex;
+          width: 100%;
         }
       }
 

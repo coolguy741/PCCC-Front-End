@@ -22,20 +22,15 @@ const ScreenSpace: FC = () => {
   const radialSwitchRef: RefBooleanType = useRef(false);
 
   // Global State
-  const {
-    activeLanguage,
-    activeAchievementBadge,
-    setActiveAchievementBadge,
-    achievementVideoTexture,
-  } = useGlobalState(
-    (state) => ({
-      activeLanguage: state.activeLanguage,
-      activeAchievementBadge: state.activeAchievementBadge,
-      achievementVideoTexture: state.achievementVideoTexture,
-      setActiveAchievementBadge: state.setActiveAchievementBadge,
-    }),
-    shallow,
-  );
+  const { activeLanguage, activeAchievementBadge, setActiveAchievementBadge } =
+    useGlobalState(
+      (state) => ({
+        activeLanguage: state.activeLanguage,
+        activeAchievementBadge: state.activeAchievementBadge,
+        setActiveAchievementBadge: state.setActiveAchievementBadge,
+      }),
+      shallow,
+    );
 
   // Textures
   const engTitlesTexture = useTexture(
@@ -44,6 +39,12 @@ const ScreenSpace: FC = () => {
   const badgeIconsTexture = useTexture(
     "/game_assets/textures/badge_icons.webp",
   );
+
+  const achievementVideoTexture = useMemo((): HTMLVideoElement => {
+    return document.getElementById(
+      "achievement-badge-video",
+    ) as HTMLVideoElement;
+  }, []);
 
   // Dynamic Defines
   const badgeVideo = useMemo(() => {

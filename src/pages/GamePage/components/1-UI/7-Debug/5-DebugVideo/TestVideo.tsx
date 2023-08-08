@@ -1,11 +1,11 @@
-import { useCallback, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { AllAchievementObject } from "../../../../globalState/modules/AchievementModule/AcheivementModuleDefines";
 import { AchievementAllKeyType } from "../../../../globalState/modules/AchievementModule/AchievementModuleTypes";
 import { useGlobalState } from "../../../../globalState/useGlobalState";
 import TestVideoStyleContainer from "./TestVideoStyleContainer";
 
-const TestVideo = () => {
+const TestVideo: FC = () => {
   // Local State
   const [achievementStage, setAchievementStage] =
     useState<AchievementAllKeyType | string>("");
@@ -35,4 +35,4 @@ const TestVideo = () => {
   );
 };
 
-export default TestVideo;
+export default memo(TestVideo);

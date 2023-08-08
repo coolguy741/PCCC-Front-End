@@ -30,13 +30,6 @@ import {
 
 const AchievementModule = ({ set, get }: globalStateApiType) => {
   return {
-    achievementVideoTexture: null,
-    setAchievementVideoTexture: (
-      newAchievementVideoTexture: HTMLVideoElement,
-    ) => {
-      set({ achievementVideoTexture: newAchievementVideoTexture });
-    },
-
     achievementVideoTextureLoaded: false,
     setAchievementVideoTextureLoaded: (
       achievementVideoTextureLoaded: boolean,

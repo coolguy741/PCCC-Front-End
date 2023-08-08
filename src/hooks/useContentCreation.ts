@@ -121,6 +121,15 @@ export function useContentCreation(
     return setState(newState);
   }
 
+  function addThumbnail(mediaSrc: string) {
+    const media = { ...state.media, thumbnail: mediaSrc };
+    const newState = {
+      ...state,
+      media: media,
+    };
+    return setState(newState);
+  }
+
   function changeTimelineEditState(tag: TitleType) {
     const newState = {
       ...timelineState,
@@ -346,5 +355,6 @@ export function useContentCreation(
     changeListText,
     changeMediaState,
     changeMediaPattern,
+    addThumbnail,
   };
 }
