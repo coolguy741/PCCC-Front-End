@@ -46,15 +46,29 @@ export function CDHeader({
 }) {
   function getStats(stats: any, name: string) {
     if (!stats) return <Skeleton />;
+
+    function countNo(count: number) {
+      if (count !== 1) return `${count} Files`;
+      else return "1 File";
+    }
+
     switch (name) {
       case "images":
-        return `${Math.round(stats.imagesFolderSize / 1000000)} mb`;
+        return `${countNo(stats.images.fileCount)} / ${Math.round(
+          stats.images.size / 1000000,
+        )} mb`;
       case "documents":
-        return `${Math.round(stats.documentFolderSize / 1000000)} mb`;
+        return `${countNo(stats.documents.fileCount)} / ${Math.round(
+          stats.documents.size / 1000000,
+        )} mb`;
       case "video":
-        return `${Math.round(stats.videoFolderSize / 1000000)} mb`;
+        return `${countNo(stats.videos.fileCount)} / ${Math.round(
+          stats.videos.size / 1000000,
+        )} mb`;
       case "audio":
-        return `${Math.round(stats.audioFolderSize / 1000000)} mb`;
+        return `${countNo(stats.audio.fileCount)} / ${Math.round(
+          stats.audio.size / 1000000,
+        )} mb`;
       default:
         return <Skeleton />;
     }
